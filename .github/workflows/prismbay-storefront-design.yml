@@ -1,0 +1,37 @@
+name: PrismBay Storefront Design
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'apps/prismbay-clean-redesign/**'
+      - '.github/workflows/prismbay-storefront-design.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'apps/prismbay-clean-redesign/**'
+      - '.github/workflows/prismbay-storefront-design.yml'
+permissions:
+  contents: read
+jobs:
+  build-storefront:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    defaults:
+      run:
+        working-directory: apps/prismbay-clean-redesign
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install dependencies
+        run: npm install --no-audit --no-fund
+      - name: Build premium storefront
+        env:
+          NEXT_TELEMETRY_DISABLED: '1'
+        run: npm run build
+      - name: Guard customer-surface integrity
+        run: |
+          ! grep -R -Ei 'attention signal #[0-9]|verified sales:|paperclip worker|supplier[_ -]?id[=:]' pages src || exit 1
+          grep -q 'No fake hype' src/Storefront.tsx
+          grep -q 'destination shipping confirmed before payment' src/Storefront.tsx
