@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "supplierPortfolio": {
+    "targetVerifiedRoutesPerSku": 3,
+    "minimumIndependentSupplierRoutes": 2,
+    "maximumConcentrationScoreForPreferred": 45
+  },
+  "economics": {
+    "minimumContributionUsd": 3,
+    "minimumContributionPct": 25,
+    "maximumLandedPctOfRetail": 55,
+    "defaultFeeRatePct": 3.2,
+    "defaultReturnReservePct": 5
+  },
+  "offerTournament": {
+    "quantities": [1, 3, 5],
+    "singleUnitPriceTestsPct": [-5, 0, 5],
+    "bundleDiscountTestsPct": [0, 5, 10],
+    "automaticLivePriceChanges": false,
+    "requiresMeasuredConversionEvidence": true
+  },
+  "checkoutRecovery": {
+    "replacementSupplierErrors": ["verified_origin_stock_unavailable", "stock_changed_since_quote", "priced_freight_unavailable", "shipping_changed_since_quote"],
+    "offerErrors": ["economics_failed", "economics_changed_since_quote"],
+    "checkoutErrors": ["quote_expired", "quote_catalog_changed", "quote_destination_mismatch", "quote_already_used"]
+  },
+  "hardBoundaries": {
+    "automaticSupplierOrdering": false,
+    "automaticPaidSpend": false,
+    "automaticLivePriceChanges": false,
+    "fabricatedEvidence": false,
+    "checkoutRequiresFinalDestinationEvidence": true
+  }
+}
