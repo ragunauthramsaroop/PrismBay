@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { mergeChallengerEvidence } from './commercial-resilience-orchestrator.mjs';
+import { mergeChallengerEvidence, mergeLiveRetailEvidence } from './commercial-resilience-orchestrator.mjs';
 
 const policy={supplierPortfolio:{targetVerifiedRoutesPerSku:3}};
 const base={
@@ -30,4 +30,16 @@ test('does not count challenger routes without stock and freight evidence',()=>{
  assert.equal(p.verifiedRouteCount,1);
  assert.equal(p.supplierRouteDeficit,2);
  assert.equal(p.supplierConcentrationRisk,'critical');
+});
+
+test('bridges live storefront retail price when economics evidence does not already provide one',()=>{
+ const merged=mergeLiveRetailEvidence({}, {candidates:[{slug:'crevice',retailPriceUsd:12.95}]});
+ assert.equal(merged.crevice.retailUsd,12.95);
+ assert.equal(merged.crevice.retailEvidenceSource,'live_storefront_catalog');
+});
+
+test('does not overwrite an existing evidence-backed retail price',()=>{
+ const merged=mergeLiveRetailEvidence({crevice:{retailUsd:15.25,retailEvidenceSource:'verified_market_evidence'}},{candidates:[{slug:'crevice',retailPriceUsd:12.95}]});
+ assert.equal(merged.crevice.retailUsd,15.25);
+ assert.equal(merged.crevice.retailEvidenceSource,'verified_market_evidence');
 });

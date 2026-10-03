@@ -55,6 +55,16 @@ export function mergeChallengerEvidence(board={},challenger={},policy={}){
   return {...board,products,routePromotionProposals:products.filter(p=>p.promotionProposal).map(p=>({slug:p.slug,...p.promotionProposal})),highRiskProducts:products.filter(p=>['critical','high'].includes(p.supplierConcentrationRisk)).map(p=>({slug:p.slug,risk:p.supplierConcentrationRisk,deficit:p.supplierRouteDeficit})),challengerBoardCheckedAt:challenger.checkedAt||null};
 }
 
+export function mergeLiveRetailEvidence(economicsEvidence={},liveCatalog={}){
+  const merged=structuredClone(economicsEvidence&&typeof economicsEvidence==='object'?economicsEvidence:{});
+  for(const row of Array.isArray(liveCatalog?.candidates)?liveCatalog.candidates:[]){
+    const slug=String(row?.slug||'').trim(),retail=positive(row?.retailPriceUsd);
+    if(!slug||!retail)continue;
+    merged[slug]={...(merged[slug]||{}),retailUsd:positive(merged[slug]?.retailUsd)||retail,retailEvidenceSource:positive(merged[slug]?.retailUsd)?(merged[slug]?.retailEvidenceSource||'existing_economics_evidence'):'live_storefront_catalog'};
+  }
+  return merged;
+}
+
 export async function main(){
   const policy=await readJson('config/commercial-resilience-policy.json');
   const sourcing=await readJson('growth-reports/paperclip-cj-sourcing.json');
@@ -62,16 +72,18 @@ export async function main(){
   const challenger=await readJson('growth-reports/supplier-challenger-board.json');
   const quoteRuntime=await readJson('growth-reports/quote-runtime-config.json');
   const economicsEvidence=await readJson('growth-reports/global-commerce-unit-economics.json');
+  const liveCatalog=await readJson('services/physical-orders/live-catalog-candidates.json');
+  const mergedEconomicsEvidence=mergeLiveRetailEvidence(economicsEvidence,liveCatalog);
   const failureEvidence=await readJson('growth-reports/checkout-failure-evidence.json',{events:[]});
   const base=buildSupplierPortfolioBoard({sourcing,opportunities,policy});
   const supplierBoard=mergeChallengerEvidence(base,challenger,policy);
-  const offerTournament=buildOfferTournament({supplierBoard,quoteRuntime,economicsEvidence,policy});
+  const offerTournament=buildOfferTournament({supplierBoard,quoteRuntime,economicsEvidence:mergedEconomicsEvidence,policy});
   const checkoutRecovery=buildCheckoutRecoveryBoard({failureEvidence,supplierBoard,policy});
   await fs.mkdir('growth-reports',{recursive:true});
   await fs.writeFile('growth-reports/supplier-route-promotion-board.json',JSON.stringify(supplierBoard,null,2)+'\n');
   await fs.writeFile('growth-reports/offer-price-tournament.json',JSON.stringify(offerTournament,null,2)+'\n');
   await fs.writeFile('growth-reports/checkout-recovery-board.json',JSON.stringify(checkoutRecovery,null,2)+'\n');
-  console.log(JSON.stringify({routePromotionProposals:supplierBoard.routePromotionProposals.length,highRiskProducts:supplierBoard.highRiskProducts.length,challengerEvidenceMerged:Boolean(challenger.checkedAt),offerHypotheses:offerTournament.hypothesisCount,checkoutRecoveryTasks:checkoutRecovery.tasks.length},null,2));
+  console.log(JSON.stringify({routePromotionProposals:supplierBoard.routePromotionProposals.length,highRiskProducts:supplierBoard.highRiskProducts.length,challengerEvidenceMerged:Boolean(challenger.checkedAt),liveRetailPricesBridged:Object.values(mergedEconomicsEvidence).filter(x=>x?.retailEvidenceSource==='live_storefront_catalog').length,offerHypotheses:offerTournament.hypothesisCount,checkoutRecoveryTasks:checkoutRecovery.tasks.length},null,2));
   return {supplierBoard,offerTournament,checkoutRecovery};
 }
 
