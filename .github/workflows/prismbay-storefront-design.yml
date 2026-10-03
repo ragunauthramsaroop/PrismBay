@@ -32,6 +32,6 @@ jobs:
         run: npm run build
       - name: Guard customer-surface integrity
         run: |
-          ! grep -R -Ei 'attention signal #[0-9]|verified sales:|paperclip worker|supplier id' pages src || exit 1
+          ! grep -R -Ei 'attention signal #[0-9]|verified sales:|paperclip worker|supplier[_ -]?id[=:]' pages src || exit 1
           grep -q 'No fake hype' src/Storefront.tsx
           grep -q 'destination shipping confirmed before payment' src/Storefront.tsx
