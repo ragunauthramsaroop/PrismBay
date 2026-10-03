@@ -50,8 +50,9 @@ export function buildFirstSaleRescueBoard({growth={},supplierBoard={},challenger
   const backups=backupCandidates(growth,primary);
   const bestBackup=backups[0]||null;
   if(bestBackup){
-    const friction=clamp(65-bestBackup.readinessPct*0.35-bestBackup.researchScore*0.08,20,80);
-    actions.push({id:'product_switch_rescue',owner:'commerce-control',frictionScore:+friction.toFixed(1),evidenceStrength:'portfolio_backup_candidate',action:'accelerate_best_backup_product_without_abandoning_valid_primary_evidence',available:true,automaticActivation:false,context:{backup:bestBackup,primaryReadinessPct:Number(race.readinessPct||0)}});
+    const readinessPenalty=bestBackup.readinessPct<60?12:bestBackup.readinessPct<75?5:0;
+    const friction=clamp(70-bestBackup.readinessPct*0.40-bestBackup.researchScore*0.03+readinessPenalty,20,85);
+    actions.push({id:'product_switch_rescue',owner:'commerce-control',frictionScore:+friction.toFixed(1),evidenceStrength:'portfolio_backup_candidate',action:'accelerate_best_backup_product_without_abandoning_valid_primary_evidence',available:true,automaticActivation:false,context:{backup:bestBackup,primaryReadinessPct:Number(race.readinessPct||0),backupReadinessPenalty:readinessPenalty,rule:'Demand/research evidence cannot substitute for supplier, stock, freight, economics or checkout readiness.'}});
   }
 
   actions.sort((a,b)=>a.frictionScore-b.frictionScore||a.id.localeCompare(b.id));
@@ -66,7 +67,7 @@ export function buildFirstSaleRescueBoard({growth={},supplierBoard={},challenger
     parallelActions:parallel,
     actions,
     diagnosis:{supplierRisk:supplier.supplierConcentrationRisk||'unknown',verifiedRouteCount:Number(supplier.verifiedRouteCount||0),routeDeficit:Number(supplier.supplierRouteDeficit||0),inventoryRisk:inventory.inventoryRisk||'unknown',fragileInventory:inventory.fragilePrimary===true,currentRetailUsd:currentRetail,thresholdPriceAvailable:Boolean(floor),backupCount:backups.length},
-    rule:'Choose the lowest-friction evidence-backed rescue path while keeping other viable paths active. Never auto-change live price, auto-remap suppliers, auto-order inventory, fabricate demand, or bypass final-ZIP/payment gates.'
+    rule:'Choose the lowest-friction evidence-backed rescue path while keeping other viable paths active. Commercial readiness outranks trend attractiveness when considering a product switch. Never auto-change live price, auto-remap suppliers, auto-order inventory, fabricate demand, or bypass final-ZIP/payment gates.'
   };
 }
 
