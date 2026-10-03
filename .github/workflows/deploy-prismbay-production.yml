@@ -1,0 +1,43 @@
+name: Deploy PrismBay Production
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'src/routes/clean.tsx'
+      - 'public/images/prismbay-clean-hero.jpg'
+      - 'go-live.sh'
+      - 'build-vercel.sh'
+      - '.github/workflows/deploy-prismbay-production.yml'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: prismbay-production
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+      - name: Verify Vercel deployment credential
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+        run: |
+          if [ -z "$VERCEL_TOKEN" ]; then
+            echo 'VERCEL_TOKEN is not configured in GitHub Actions secrets.' >&2
+            exit 2
+          fi
+      - name: Build and deploy PrismBay production
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          VERCEL_PROJECT_NAME: prismbay
+        run: bash ./go-live.sh
