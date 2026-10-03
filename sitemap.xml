@@ -1,14 +1,10 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://ragunauthramsaroop.github.io/PrismBay/</loc><lastmod>2026-09-24</lastmod><changefreq>weekly</changefreq></url>
-  <url><loc>https://ragunauthramsaroop.github.io/PrismBay/guide.html</loc><lastmod>2026-09-24</lastmod><changefreq>monthly</changefreq></url>
-  <url><loc>https://ragunauthramsaroop.github.io/PrismBay/scorecard.html</loc><lastmod>2026-09-24</lastmod><changefreq>monthly</changefreq></url>
-  <url><loc>https://ragunauthramsaroop.github.io/PrismBay/toolkits.html</loc><lastmod>2026-09-24</lastmod><changefreq>weekly</changefreq></url>
-  <url><loc>https://ragunauthramsaroop.github.io/PrismBay/stakeholder-engagement-plan-template.html</loc><lastmod>2026-09-27</lastmod><changefreq>monthly</changefreq></url>
-  <url><loc>https://ragunauthramsaroop.github.io/PrismBay/esg-monthly-reporting-template.html</loc><lastmod>2026-09-27</lastmod><changefreq>monthly</changefreq></url>
-  <url><loc>https://ragunauthramsaroop.github.io/PrismBay/board-briefing-white-paper-template.html</loc><lastmod>2026-09-27</lastmod><changefreq>monthly</changefreq></url>
-  <url><loc>https://ragunauthramsaroop.github.io/PrismBay/learn/</loc><lastmod>2026-10-01</lastmod><changefreq>weekly</changefreq></url>
-  <url><loc>https://ragunauthramsaroop.github.io/PrismBay/learn/stakeholder-mapping-toolkit.html</loc><lastmod>2026-10-01</lastmod><changefreq>weekly</changefreq></url>
-  <url><loc>https://ragunauthramsaroop.github.io/PrismBay/learn/esg-reporting-toolkit.html</loc><lastmod>2026-10-01</lastmod><changefreq>weekly</changefreq></url>
-  <url><loc>https://ragunauthramsaroop.github.io/PrismBay/learn/board-briefing-white-paper-system.html</loc><lastmod>2026-10-01</lastmod><changefreq>weekly</changefreq></url>
+  <url><loc>https://clean.prismbayai.com/</loc><lastmod>2026-10-03</lastmod><changefreq>weekly</changefreq><priority>1.0</priority></url>
+  <url><loc>https://clean.prismbayai.com/about.html</loc><lastmod>2026-10-03</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://clean.prismbayai.com/shipping.html</loc><lastmod>2026-10-03</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://clean.prismbayai.com/returns.html</loc><lastmod>2026-10-03</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://clean.prismbayai.com/privacy.html</loc><lastmod>2026-10-03</lastmod><changefreq>yearly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://clean.prismbayai.com/terms.html</loc><lastmod>2026-10-03</lastmod><changefreq>yearly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://clean.prismbayai.com/contact.html</loc><lastmod>2026-10-03</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
 </urlset>
