@@ -20,8 +20,12 @@ on:
       - 'scripts/decision-evidence-priority.mjs'
       - 'scripts/commercial-resilience-engine.mjs'
       - 'scripts/commercial-resilience-engine.test.mjs'
+      - 'scripts/commercial-resilience-orchestrator.mjs'
+      - 'scripts/commercial-resilience-orchestrator.test.mjs'
       - 'scripts/commercial-resilience-task-bridge.mjs'
       - 'scripts/commercial-resilience-task-bridge.test.mjs'
+      - 'scripts/supplier-challenger-worker.mjs'
+      - 'growth-reports/supplier-challenger-board.json'
       - '.github/workflows/ceo-autonomous-recovery.yml'
   pull_request:
     branches: [main]
@@ -39,8 +43,11 @@ on:
       - 'scripts/decision-evidence-priority.mjs'
       - 'scripts/commercial-resilience-engine.mjs'
       - 'scripts/commercial-resilience-engine.test.mjs'
+      - 'scripts/commercial-resilience-orchestrator.mjs'
+      - 'scripts/commercial-resilience-orchestrator.test.mjs'
       - 'scripts/commercial-resilience-task-bridge.mjs'
       - 'scripts/commercial-resilience-task-bridge.test.mjs'
+      - 'scripts/supplier-challenger-worker.mjs'
       - '.github/workflows/ceo-autonomous-recovery.yml'
 
 permissions:
@@ -74,7 +81,9 @@ jobs:
             scripts/ceo-commercial-tournament.test.mjs \
             scripts/decision-evidence-priority.test.mjs \
             scripts/commercial-resilience-engine.test.mjs \
-            scripts/commercial-resilience-task-bridge.test.mjs
+            scripts/commercial-resilience-orchestrator.test.mjs \
+            scripts/commercial-resilience-task-bridge.test.mjs \
+            scripts/supplier-challenger-worker.test.mjs
 
       - name: Rebuild commercial evidence needed for autonomous decisions
         run: |
@@ -107,7 +116,7 @@ jobs:
         run: node scripts/autonomous-company-task-allocator.mjs
 
       - name: Build supplier resilience, price tournament and checkout recovery
-        run: node scripts/commercial-resilience-engine.mjs
+        run: node scripts/commercial-resilience-orchestrator.mjs
 
       - name: Inject resilience work into the ten-company taskboard
         run: node scripts/commercial-resilience-task-bridge.mjs
@@ -167,6 +176,7 @@ jobs:
           console.log('## Commercial Resilience');
           console.log(`- Supplier route-promotion proposals: ${s.routePromotionProposals.length}`);
           console.log(`- High/critical supplier-concentration products: ${s.highRiskProducts.length}`);
+          console.log(`- Challenger evidence merged: ${Boolean(s.challengerBoardCheckedAt)}`);
           console.log(`- Price/bundle hypotheses: ${o.hypothesisCount}`);
           console.log(`- Checkout failure recovery tasks: ${x.tasks.length}`);
           console.log('- Route proposals never auto-order inventory or bypass final-ZIP checkout gates.');
