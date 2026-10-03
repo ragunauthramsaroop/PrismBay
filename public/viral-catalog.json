@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-03T16:45:26.980Z",
+  "updatedAt": "2026-10-03T21:48:19.986Z",
   "market": "US",
   "methodology": "Public-news attention, freshness, and short-form demonstration fit. This is not PrismBay sales data and is not a TikTok, Amazon, Google, or Bing product ranking.",
   "refreshTargetHours": 6,
@@ -27,7 +27,7 @@
           "url": "https://news.google.com/rss/articles/CBMiZkFVX3lxTE1ZRDlxanVrQ3JSeXhtdXBjS3JmVTdkQnV2LURHdldCN1BidHU0ZjhselZXRVZWLVhJUEpwaUMwTEgweU5mLVRmZnozS3dJUTk5TGZTZHctbHpmZHkySDktbE1hZ0Zsdw?oc=5"
         },
         {
-          "title": "Say Goodbye to Wrinkled Clothing with an Easy-to-Use Clothes Steamer — Prices Start at $31 - people.com",
+          "title": "Say Goodbye to Wrinkled Clothing with an Easy-to-Use Clothes Steamer — Prices Start at $31 - People.com",
           "source": "Google News",
           "publishedAt": "2026-05-06T07:00:00.000Z",
           "url": "https://news.google.com/rss/articles/CBMiXEFVX3lxTE9HWkFheEdZLU5KN28wQmVlLVZWVFJZSUZpcFlSTmJLSFJJc3lacVNuUTNycF9SN0tnRmM4QnZ1SXNwcDFid3kya1RUU2J0cjEyQUxOY1N6YXI0UHI3?oc=5"
@@ -39,7 +39,7 @@
           "url": "https://news.google.com/rss/articles/CBMirwFBVV95cUxQdkdwdjFkSnptM0JmTmpLYWRPTjUwZEhjOEI3YTlCT2VmOG1GUVJ1dklzUnV5LTROeXJKQ3QzRnEyakRLQWRrUUhPNUJvZWZ2dlhWaXFoajlpTFkwdXhDaTZjT3M4LThxM3d4bXI0X1ZMUmtSdmZXN1A0ZkM4eWF0amE3ZkxJUEVsUXVuQlM4Zk91andHSk15YVRaUHJLN1JUVGlEc2hVajBRMlRYU0h3?oc=5"
         },
         {
-          "title": "The Best Travel Steamers To Keep Clothing Wrinkle-Free On The Go - forbes.com",
+          "title": "The Best Travel Steamers To Keep Clothing Wrinkle-Free On The Go - Forbes",
           "source": "Google News",
           "publishedAt": "2024-09-13T07:00:00.000Z",
           "url": "https://news.google.com/rss/articles/CBMiigFBVV95cUxPOEltbERZMDMtemlzdFRPSUdTZGFXLVJDTUJpWWZrMGtSLVVFMDlSWWxHS3YzSXpydFhpWUlyTmd5dTYyMTBaMEtuT1VMazI2SUxzQkhSSVZEV0tqTTdzRGhlYlZxWEw5RVhxSkpsS0xsQjA4cFNkX2Jjb1NYem04OTR0TzNnQlZ1WlE?oc=5"
@@ -59,7 +59,7 @@
       "signalScore": 80.5,
       "signalLabel": "high-attention",
       "evidence": {
-        "publicMentions": 95,
+        "publicMentions": 96,
         "mentionsLast7Days": 0,
         "mentionsLast30Days": 7,
         "sourcesAvailable": [
@@ -117,7 +117,7 @@
       },
       "sampleSignals": [
         {
-          "title": "I Finally Got a Bed Vacuum, and Now I’m Never Going to Be Without One Again - Apartment Therapy",
+          "title": "I Finally Got a Bed Vacuum, and Now I’m Never Going to Be Without One Again - apartmenttherapy.com",
           "source": "Google News",
           "publishedAt": "2026-05-19T07:00:00.000Z",
           "url": "https://news.google.com/rss/articles/CBMikAFBVV95cUxNbkpkQUFEYVRYc3gzc0Q0MUdkdE1pb2VORTFxbi1XbXk5OXBDYWg0Rmk3R01ZSUt6ZzNlRzRRWGR2RzRGQ09FQVNJNlZOMHk2eU9zZ0p1c1Q1dHpLbXZLZ29RcDQyX1JDZWpPME1pSlRyOG1XUTV2TlRYcDhLUWpXbFFJQkFvS09tb2YyQi1HYnE?oc=5"
@@ -213,7 +213,7 @@
       },
       "sampleSignals": [
         {
-          "title": "The 10 Best Pet Hair Removers We Tested, Including Laundry Sheets and Lint Rollers - people.com",
+          "title": "The 10 Best Pet Hair Removers We Tested, Including Laundry Sheets and Lint Rollers - People.com",
           "source": "Google News",
           "publishedAt": "2026-04-29T07:00:00.000Z",
           "url": "https://news.google.com/rss/articles/CBMiW0FVX3lxTE56STN5dFAtRmlSdG04UW8zZWlkemZwOW4wQTJFeUt5ZU9hYmhrYmJGb1Y1a3p3WDFsaVpkWFBLTkNyR2dMZnNzT2N5UjFoQ0pCZnNTc1hUOUQ3ZE0?oc=5"
@@ -296,10 +296,10 @@
     {
       "slug": "home-caddy",
       "name": "Portable Home Caddy",
-      "signalScore": 23,
+      "signalScore": 21.5,
       "signalLabel": "baseline",
       "evidence": {
-        "publicMentions": 3,
+        "publicMentions": 2,
         "mentionsLast7Days": 0,
         "mentionsLast30Days": 0,
         "sourcesAvailable": [
@@ -319,12 +319,6 @@
           "source": "Google News",
           "publishedAt": "2026-04-30T07:00:00.000Z",
           "url": "https://news.google.com/rss/articles/CBMivwFBVV95cUxQOXNiQWdmazZNR0M4ZTdUMzNJaHhZN2NSMmZHa0tWTmNnYzE3MGltaUcyNjlrMEdfMnlSbk9RY29ycm4tdmd5Y0wtNk9IMktyTzhmN0ZKTzBLTkloRHhvNlgtM0pIcFE4N2NCSUU2WXE0d0NOUy1WS00zWDdzczlBeFk4b3lvQVhCVXNudU5mbG5nNVlNSVJ2MGctMmhPMFNWMFRDUklIZG9tVFZubTVhX3lZeDhXVjBUSTFmMXFtNNIBxAFBVV95cUxPSGJnSkU3ZHNOYURTUThBaXFWbXREOXJlaXR1NVBUMU1vSDBsZlBGRHBPc2xuU3pURkZ5ekhFcy1VaWN0NUhmdU1OdGZsdy1LZTh4X243Vm9SMERCLUJZeUU2LTlKUF81RFY1Q0wxRm03N1EtYndHZmZrczc1am9xTWttWHk5U1diWGhWd3k3VlRfV0ZHRXNHNHB3bkY5MEg5c1U2aDRmN3R3MHZHSUZNYWpLWDNqTzRqZF9qQTlpazlSRWNz?oc=5"
-        },
-        {
-          "title": "Target’s Sleek New $10 Organizer Is a Dorm Room Must-Have - parade.com",
-          "source": "Google News",
-          "publishedAt": "2026-07-29T07:00:00.000Z",
-          "url": "https://news.google.com/rss/articles/CBMif0FVX3lxTFBaTUdJcXZxNVJhZUl4ZXJSa25PdV9Mb3NnMGc3SWFWU3B6ejY4UUJQZFBZM3N0Uk91ZVpjUUZzMzJ2cnRiWUNHNlJRTmlmbGRmeEVEMkZyN0lpc05MbUo4V1hsV0IzdnNBWEdMb0NoNE9OeTlJRTl4aVBOZ3k5ODA?oc=5"
         }
       ],
       "rank": 7
