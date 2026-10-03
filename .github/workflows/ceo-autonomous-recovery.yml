@@ -28,6 +28,8 @@ on:
       - 'scripts/inventory-depth-guard.test.mjs'
       - 'scripts/offer-floor-enrichment.mjs'
       - 'scripts/offer-floor-enrichment.test.mjs'
+      - 'scripts/runtime-commercial-signal-collector.mjs'
+      - 'scripts/runtime-commercial-signal-collector.test.mjs'
       - 'scripts/supplier-challenger-worker.mjs'
       - 'growth-reports/supplier-challenger-board.json'
       - '.github/workflows/ceo-autonomous-recovery.yml'
@@ -55,6 +57,8 @@ on:
       - 'scripts/inventory-depth-guard.test.mjs'
       - 'scripts/offer-floor-enrichment.mjs'
       - 'scripts/offer-floor-enrichment.test.mjs'
+      - 'scripts/runtime-commercial-signal-collector.mjs'
+      - 'scripts/runtime-commercial-signal-collector.test.mjs'
       - 'scripts/supplier-challenger-worker.mjs'
       - '.github/workflows/ceo-autonomous-recovery.yml'
 
@@ -93,6 +97,7 @@ jobs:
             scripts/commercial-resilience-task-bridge.test.mjs \
             scripts/inventory-depth-guard.test.mjs \
             scripts/offer-floor-enrichment.test.mjs \
+            scripts/runtime-commercial-signal-collector.test.mjs \
             scripts/supplier-challenger-worker.test.mjs
 
       - name: Rebuild commercial evidence needed for autonomous decisions
@@ -118,6 +123,14 @@ jobs:
           else
             echo 'CJ_API_KEY unavailable; resilience engine will fail closed on supplier-route evidence.'
           fi
+
+      - name: Collect privacy-safe runtime checkout failures when configured
+        if: github.event_name != 'pull_request'
+        env:
+          COMMERCIAL_SIGNAL_URL: ${{ secrets.COMMERCIAL_SIGNAL_URL }}
+          COMMERCIAL_SIGNAL_READ_TOKEN: ${{ secrets.COMMERCIAL_SIGNAL_READ_TOKEN }}
+        run: |
+          node scripts/runtime-commercial-signal-collector.mjs
 
       - name: Detect deadlocks, evidence debt and recovery routes
         run: node scripts/ceo-autonomous-growth-engine.mjs
@@ -164,6 +177,7 @@ jobs:
             growth-reports/supplier-route-promotion-board.json
             growth-reports/offer-price-tournament.json
             growth-reports/checkout-recovery-board.json
+            growth-reports/checkout-failure-evidence.json
             growth-reports/inventory-depth-board.json
           if-no-files-found: error
           retention-days: 14
@@ -172,7 +186,7 @@ jobs:
         run: |
           node - <<'NODE' >> "$GITHUB_STEP_SUMMARY"
           const fs=require('fs');
-          const r=p=>JSON.parse(fs.readFileSync(p,'utf8'));
+          const r=(p,fallback={})=>{try{return JSON.parse(fs.readFileSync(p,'utf8'))}catch{return fallback}};
           const g=r('growth-reports/ceo-autonomous-growth-board.json');
           const t=r('growth-reports/autonomous-company-taskboard.json');
           const p=r('growth-reports/prelaunch-commercialization.json');
@@ -181,6 +195,7 @@ jobs:
           const s=r('growth-reports/supplier-route-promotion-board.json');
           const o=r('growth-reports/offer-price-tournament.json');
           const x=r('growth-reports/checkout-recovery-board.json');
+          const f=r('growth-reports/checkout-failure-evidence.json',{eventCount:0});
           const i=r('growth-reports/inventory-depth-board.json');
           console.log('## PrismBay CEO Autonomous Recovery');
           console.log(`- Verified sales: ${g.verifiedSales}`);
@@ -198,6 +213,7 @@ jobs:
           console.log(`- Fragile inventory products: ${i.fragileProductCount}`);
           console.log(`- Price/bundle hypotheses: ${o.hypothesisCount}`);
           console.log(`- Threshold-crossing price hypotheses added: ${o.thresholdCrossingHypothesesAdded || 0}`);
+          console.log(`- Sanitized runtime failure events ingested: ${f.eventCount || 0}`);
           console.log(`- Checkout failure recovery tasks: ${x.tasks.length}`);
           console.log('- Route proposals never auto-order inventory or bypass final-ZIP checkout gates.');
           console.log('- Low stock triggers backup work but does not falsely mark a valid one-unit route unavailable.');
