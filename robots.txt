@@ -1,3 +1,13 @@
 User-agent: *
 Allow: /
-Sitemap: https://ragunauthramsaroop.github.io/PrismBay/sitemap.xml
+Disallow: /ai/
+Disallow: /free/
+Disallow: /learn/
+Disallow: /clean/
+Disallow: /guide.html
+Disallow: /scorecard.html
+Disallow: /toolkits.html
+Disallow: /board-briefing-white-paper-template.html
+Disallow: /esg-monthly-reporting-template.html
+Disallow: /stakeholder-engagement-plan-template.html
+Sitemap: https://clean.prismbayai.com/sitemap.xml
