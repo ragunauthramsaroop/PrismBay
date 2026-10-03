@@ -13,7 +13,12 @@
     "readinessPctWeight": 45,
     "researchScoreWeight": 25,
     "evidenceCompletionWeight": 20,
-    "primaryCheckoutInfrastructureBonus": 10
+    "primaryCheckoutInfrastructureBonus": 10,
+    "criticalSupplierConcentrationPenalty": 18,
+    "highSupplierConcentrationPenalty": 10,
+    "fragileInventoryPenalty": 12,
+    "zeroVerifiedCommercialRoutePenalty": 15,
+    "multiRouteResilienceBonus": 5
   },
   "strategyScoring": {
     "activeInternal": 80,
@@ -32,7 +37,8 @@
     "zeroPaidSpendUntilAuthorized": true,
     "noAutomaticSupplierOrdering": true,
     "noUnauthorizedPublishing": true,
-    "noFakeTrafficReviewsScarcityOrSales": true
+    "noFakeTrafficReviewsScarcityOrSales": true,
+    "fragilityChangesAttentionNotTruth": true
   },
   "hypothesisRules": {
     "everyHypothesisNeedsMetric": true,
