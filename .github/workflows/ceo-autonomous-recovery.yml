@@ -26,6 +26,8 @@ on:
       - 'scripts/commercial-resilience-task-bridge.test.mjs'
       - 'scripts/inventory-depth-guard.mjs'
       - 'scripts/inventory-depth-guard.test.mjs'
+      - 'scripts/offer-floor-enrichment.mjs'
+      - 'scripts/offer-floor-enrichment.test.mjs'
       - 'scripts/supplier-challenger-worker.mjs'
       - 'growth-reports/supplier-challenger-board.json'
       - '.github/workflows/ceo-autonomous-recovery.yml'
@@ -51,6 +53,8 @@ on:
       - 'scripts/commercial-resilience-task-bridge.test.mjs'
       - 'scripts/inventory-depth-guard.mjs'
       - 'scripts/inventory-depth-guard.test.mjs'
+      - 'scripts/offer-floor-enrichment.mjs'
+      - 'scripts/offer-floor-enrichment.test.mjs'
       - 'scripts/supplier-challenger-worker.mjs'
       - '.github/workflows/ceo-autonomous-recovery.yml'
 
@@ -88,6 +92,7 @@ jobs:
             scripts/commercial-resilience-orchestrator.test.mjs \
             scripts/commercial-resilience-task-bridge.test.mjs \
             scripts/inventory-depth-guard.test.mjs \
+            scripts/offer-floor-enrichment.test.mjs \
             scripts/supplier-challenger-worker.test.mjs
 
       - name: Rebuild commercial evidence needed for autonomous decisions
@@ -122,6 +127,9 @@ jobs:
 
       - name: Build supplier resilience, price tournament and checkout recovery
         run: node scripts/commercial-resilience-orchestrator.mjs
+
+      - name: Add threshold-crossing offer hypotheses
+        run: node scripts/offer-floor-enrichment.mjs
 
       - name: Enforce inventory depth and fragile-route recovery
         run: node scripts/inventory-depth-guard.mjs
@@ -189,6 +197,7 @@ jobs:
           console.log(`- Challenger evidence merged: ${Boolean(s.challengerBoardCheckedAt)}`);
           console.log(`- Fragile inventory products: ${i.fragileProductCount}`);
           console.log(`- Price/bundle hypotheses: ${o.hypothesisCount}`);
+          console.log(`- Threshold-crossing price hypotheses added: ${o.thresholdCrossingHypothesesAdded || 0}`);
           console.log(`- Checkout failure recovery tasks: ${x.tasks.length}`);
           console.log('- Route proposals never auto-order inventory or bypass final-ZIP checkout gates.');
           console.log('- Low stock triggers backup work but does not falsely mark a valid one-unit route unavailable.');

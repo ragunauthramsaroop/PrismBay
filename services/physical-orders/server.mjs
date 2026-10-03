@@ -8,6 +8,7 @@ import { openLedger } from './ledger.mjs';
 import { ingest } from './orders.mjs';
 import { createQuoteService } from './shipping-quote.mjs';
 import { createLedgerQuoteConsumer } from './quote-replay.mjs';
+import { createCommercialSignalRecorder, signalTokenAuthorized } from './commercial-signals.mjs';
 
 // Logging is an allowlist: never serialize event bodies, errors, URLs, ZIPs, tokens, or customer data.
 export function safeLog(sink, code) {
@@ -56,23 +57,34 @@ function clientKey(req) {
   return String(req.headers['cf-connecting-ip'] || req.headers['x-forwarded-for'] || req.socket.remoteAddress || 'unknown').split(',')[0].trim().slice(0, 80);
 }
 
-export function createServer({ secret, ledger, catalog, quoteService = null, live = true, logger = console.log, now = () => Date.now() }) {
+async function recordFailure(signalRecorder, stage, sku, code) {
+  try { await signalRecorder?.record({ stage, sku, code }); } catch {}
+}
+
+export function createServer({ secret, ledger, catalog, quoteService = null, signalRecorder = null, signalReadToken = '', live = true, logger = console.log, now = () => Date.now() }) {
   if (!secret?.startsWith('whsec_')) throw Error('Signing secret required');
   const allowQuote = createMinuteLimiter({ max: 8, now });
   const allowCheckout = createMinuteLimiter({ max: 12, now });
   const server = http.createServer(async (req, res) => {
     const send = (status, body) => { res.writeHead(status, { 'content-type': 'application/json', 'cache-control': 'no-store' }); res.end(JSON.stringify(body)); };
-    if (req.method === 'GET' && req.url === '/health') return send(200, { service: 'physical-orders', status: 'ok', quoteEnabled: Boolean(quoteService?.configuredSkus?.length) });
+    if (req.method === 'GET' && req.url === '/health') return send(200, { service: 'physical-orders', status: 'ok', quoteEnabled: Boolean(quoteService?.configuredSkus?.length), commercialSignalsEnabled: Boolean(signalRecorder && String(signalReadToken).length >= 32) });
+    if (req.method === 'GET' && req.url === '/commercial-signals') {
+      if (!signalRecorder || !signalTokenAuthorized(signalReadToken, req.headers['x-commercial-signal-token'])) return send(404, { error: 'not_found' });
+      return send(200, signalRecorder.summary());
+    }
 
     if (req.method === 'POST' && req.url === '/shipping/quote') {
       if (!quoteService?.configuredSkus?.length) return send(503, { error: 'shipping_quotes_not_configured' });
       if (!allowQuote(clientKey(req))) { safeLog(logger, 'rate_limited'); return send(429, { error: 'rate_limited' }); }
+      let body = {};
       try {
-        const body = await readJson(req, 8 * 1024);
+        body = await readJson(req, 8 * 1024);
         const result = await quoteService.quote(body);
+        if (!result.ok) await recordFailure(signalRecorder, 'quote', body.sku, result.error);
         safeLog(logger, result.ok ? 'quote_ok' : 'quote_rejected');
         return send(result.status || (result.ok ? 200 : 400), result);
       } catch (error) {
+        await recordFailure(signalRecorder, 'quote', body.sku, error?.status ? error.message : 'quote_upstream_unavailable');
         safeLog(logger, 'quote_rejected');
         return send(error?.status || 502, { error: error?.status ? error.message : 'quote_upstream_unavailable' });
       }
@@ -84,9 +96,11 @@ export function createServer({ secret, ledger, catalog, quoteService = null, liv
       try {
         const body = await readJson(req, 8 * 1024);
         const result = await quoteService.authorizeCheckout(body);
+        if (!result.ok) await recordFailure(signalRecorder, 'checkout', result.sku, result.error);
         safeLog(logger, result.ok ? 'checkout_authorized' : 'checkout_rejected');
         return send(result.status || (result.ok ? 200 : 403), result);
       } catch {
+        await recordFailure(signalRecorder, 'checkout', null, 'invalid_checkout_authorization_request');
         safeLog(logger, 'checkout_rejected');
         return send(400, { error: 'invalid_checkout_authorization_request' });
       }
@@ -128,7 +142,8 @@ export async function start(env = process.env) {
   const ledger = await openLedger(resolve(env.DATA_DIR || 'data'));
   const consumeQuoteOnce = createLedgerQuoteConsumer(ledger);
   const quoteService = createQuoteService({ env, consumeQuoteOnce });
-  const server = createServer({ secret: env.STRIPE_WEBHOOK_SECRET, ledger, catalog, quoteService, live: env.STRIPE_LIVE_MODE === 'true' });
+  const signalRecorder = createCommercialSignalRecorder({ ledger });
+  const server = createServer({ secret: env.STRIPE_WEBHOOK_SECRET, ledger, catalog, quoteService, signalRecorder, signalReadToken: env.COMMERCIAL_SIGNAL_READ_TOKEN || '', live: env.STRIPE_LIVE_MODE === 'true' });
   server.listen(Number(env.PORT || 3001), '0.0.0.0', () => safeLog(console.log, 'started'));
   const shutdown = () => server.close(async () => { await ledger.close(); process.exit(0); });
   process.once('SIGTERM', shutdown); process.once('SIGINT', shutdown);

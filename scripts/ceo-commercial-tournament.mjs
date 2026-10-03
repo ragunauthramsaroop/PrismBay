@@ -13,29 +13,49 @@ export function validateTournamentPolicy(policy) {
   if (Number(policy.resourceBudget?.minimumExplorationReservePct) < 15) throw new Error('exploration_reserve_too_low');
   if (policy.tournamentRules?.zeroPaidSpendUntilAuthorized !== true) throw new Error('paid_spend_guard_required');
   if (policy.tournamentRules?.promotionRequiresPromotionReadyProduct !== true) throw new Error('promotion_gate_required');
+  if (policy.tournamentRules?.fragilityChangesAttentionNotTruth !== true) throw new Error('fragility_truth_boundary_required');
   if (policy.hypothesisRules?.everyHypothesisNeedsMetric !== true || policy.hypothesisRules?.everyHypothesisNeedsStopRule !== true) throw new Error('hypothesis_discipline_required');
   return true;
 }
 
-function productScore(row, policy, primaryProduct) {
+function resilienceAdjustment(slug, policy, supplierMap, inventoryMap) {
+  const w = policy.productScoring || {};
+  const supplier = supplierMap.get(slug);
+  const inventory = inventoryMap.get(slug);
+  let adjustment = 0;
+  const reasons = [];
+  if (supplier?.supplierConcentrationRisk === 'critical') { adjustment -= Number(w.criticalSupplierConcentrationPenalty || 0); reasons.push('critical_supplier_concentration'); }
+  else if (supplier?.supplierConcentrationRisk === 'high') { adjustment -= Number(w.highSupplierConcentrationPenalty || 0); reasons.push('high_supplier_concentration'); }
+  if (supplier && Number(supplier.verifiedRouteCount || 0) === 0) { adjustment -= Number(w.zeroVerifiedCommercialRoutePenalty || 0); reasons.push('zero_verified_commercial_routes'); }
+  else if (supplier && Number(supplier.verifiedRouteCount || 0) >= 3) { adjustment += Number(w.multiRouteResilienceBonus || 0); reasons.push('multi_route_resilience'); }
+  if (inventory?.fragilePrimary === true) { adjustment -= Number(w.fragileInventoryPenalty || 0); reasons.push('fragile_inventory_depth'); }
+  return { adjustment, reasons, supplierRisk: supplier?.supplierConcentrationRisk || 'unknown', verifiedRouteCount: supplier ? Number(supplier.verifiedRouteCount || 0) : null, inventoryRisk: inventory?.inventoryRisk || 'unknown' };
+}
+
+function productScore(row, policy, primaryProduct, supplierMap, inventoryMap) {
   const w = policy.productScoring;
   const readiness = clamp(Number(row.readinessPct || 0), 0, 100);
   const research = clamp(Number(row.researchScore || 0), 0, 100);
   const totalMissing = Array.isArray(row.missing) ? row.missing.length : 0;
   const completion = clamp(100 - totalMissing * 15, 0, 100);
   const checkoutBonus = row.slug === primaryProduct ? Number(w.primaryCheckoutInfrastructureBonus || 0) : 0;
-  return Math.round(
+  const resilience = resilienceAdjustment(row.slug, policy, supplierMap, inventoryMap);
+  const baseScore =
     readiness * Number(w.readinessPctWeight || 0) / 100 +
     research * Number(w.researchScoreWeight || 0) / 100 +
     completion * Number(w.evidenceCompletionWeight || 0) / 100 +
-    checkoutBonus
-  );
+    checkoutBonus;
+  return { score: Math.round(clamp(baseScore + resilience.adjustment, 0, 100)), baseScore: Math.round(baseScore), resilience };
 }
 
-function allocateProducts(productRace, policy, primaryProduct) {
+function allocateProducts(productRace, policy, primaryProduct, supplierBoard = {}, inventoryBoard = {}) {
   const minimum = Number(policy.tournamentRules.minimumProductsCompetingBeforeFirstSale || 5);
-  const rows = productRace.slice(0, Math.max(minimum, productRace.length)).map(row => ({ ...row, tournamentScore: productScore(row, policy, primaryProduct) }))
-    .sort((a, b) => b.tournamentScore - a.tournamentScore);
+  const supplierMap = new Map((supplierBoard.products || []).map(row => [row.slug, row]));
+  const inventoryMap = new Map((inventoryBoard.products || []).map(row => [row.slug, row]));
+  const rows = productRace.slice(0, Math.max(minimum, productRace.length)).map(row => {
+    const scored = productScore(row, policy, primaryProduct, supplierMap, inventoryMap);
+    return { ...row, tournamentScore: scored.score, preResilienceScore: scored.baseScore, resilienceAdjustment: scored.resilience.adjustment, resilienceReasons: scored.resilience.reasons, supplierConcentrationRisk: scored.resilience.supplierRisk, verifiedCommercialRouteCount: scored.resilience.verifiedRouteCount, inventoryRisk: scored.resilience.inventoryRisk };
+  }).sort((a, b) => b.tournamentScore - a.tournamentScore);
   if (!rows.length) return [];
   const minShare = Number(policy.resourceBudget.minimumActiveProductPct || 5);
   const maxShare = Number(policy.resourceBudget.maximumSingleProductPct || 35);
@@ -63,7 +83,7 @@ function allocateProducts(productRace, policy, primaryProduct) {
     ...row,
     allocationPct: Number(row.allocationPct.toFixed(1)),
     lane: i < Number(policy.tournamentRules.topProductsFastLaneCount || 2) ? 'fast-lane' : 'exploration-lane',
-    allocationReason: 'Internal worker attention only; not a prediction of customer demand or sales probability.'
+    allocationReason: 'Internal worker attention only; resilience penalties change attention, not factual product availability or sales probability.'
   }));
 }
 
@@ -96,7 +116,6 @@ function allocateStrategies(strategyBoard, policy) {
 function buildHypotheses(growthBoard, strategyBoard, policy) {
   const items = [];
   const primary = growthBoard.primaryProduct || 'primary-product';
-  const factories = growthBoard.factories || {};
   const add = (id, owner, hypothesis, metric, stopRule, evidenceGate) => items.push({ id, owner, hypothesis, metric, stopRule, evidenceGate, status: 'open' });
   add(`offer-${primary}`, 'offer-engineering', `At least one truthful offer framing can improve buyer clarity for ${primary} without lowering verified margin below floor.`, 'offer_variant_measurement', 'kill or rewrite after measurement shows no improvement or economics fail', 'verified economics and product facts');
   add(`cro-${primary}`, 'storefront-conversion', `Removing a measurable buyer-path friction point can improve checkout progression for ${primary}.`, 'buyer_path_progression', 'stop after instrumented test shows no material improvement', 'working checkout path and event instrumentation');
@@ -108,25 +127,26 @@ function buildHypotheses(growthBoard, strategyBoard, policy) {
   return items.slice(0, Number(policy.hypothesisRules.maximumOpenHypotheses || 30));
 }
 
-export function buildTournament({ policy, growthBoard, strategyBoard, scorecard, firstSale }) {
+export function buildTournament({ policy, growthBoard, strategyBoard, scorecard, firstSale, supplierBoard = {}, inventoryBoard = {} }) {
   validateTournamentPolicy(policy);
   const verifiedSales = firstSale?.verifiedFirstSale === true ? 1 : Number(growthBoard.verifiedSales || 0);
-  const products = allocateProducts(growthBoard.productRace || [], policy, growthBoard.primaryProduct);
+  const products = allocateProducts(growthBoard.productRace || [], policy, growthBoard.primaryProduct, supplierBoard, inventoryBoard);
   const strategies = allocateStrategies(strategyBoard, policy);
   const hypotheses = buildHypotheses(growthBoard, strategyBoard, policy);
   const weakestCompanies = Object.entries(scorecard.companies || {}).sort((a, b) => Number(a[1].score || 0) - Number(b[1].score || 0)).slice(0, 5).map(([id, row]) => ({ id, score: row.score, band: row.band }));
   return {
-    schemaVersion: 1,
+    schemaVersion: 2,
     generatedAt: new Date().toISOString(),
     mode: verifiedSales > 0 ? 'post-sale-evidence-allocation' : 'pre-sale-commercial-tournament',
     verifiedSales,
-    rule: 'Allocation represents internal attention and experiment capacity, never a forecast or claim of sales probability.',
+    rule: 'Allocation represents internal attention and experiment capacity, never a forecast or claim of sales probability. Supplier and inventory fragility change attention only, not factual availability.',
     productTournament: products,
     strategyTournament: strategies,
     hypothesisLedger: hypotheses,
     weakestCompanies,
     ceoActions: [
       products[0] ? `Give first commercial-attention priority to ${products[0].slug} while preserving exploration reserve.` : 'Rebuild product race.',
+      products.some(row => row.resilienceReasons?.length) ? 'Shift some internal attention away from fragile supplier/inventory routes toward independently sellable backups while remediation continues.' : 'Maintain supplier and inventory resilience checks.',
       weakestCompanies[0] ? `Direct cross-company recovery support to ${weakestCompanies[0].id}.` : 'Maintain KPI discipline.',
       'Kill or rewrite unmeasurable hypotheses instead of allowing indefinite activity.',
       'Do not activate blocked external channels until product, account, rights and measurement gates are satisfied.'
@@ -141,12 +161,14 @@ export async function main() {
     growthBoard: await readJson('growth-reports/ceo-autonomous-growth-board.json'),
     strategyBoard: await readJson('growth-reports/sales-strategy-board.json'),
     scorecard: await readJson('growth-reports/strict-kpi-scorecard.json'),
-    firstSale: await readJson('growth-reports/first-sale-verification.json')
+    firstSale: await readJson('growth-reports/first-sale-verification.json'),
+    supplierBoard: await readJson('growth-reports/supplier-route-promotion-board.json'),
+    inventoryBoard: await readJson('growth-reports/inventory-depth-board.json')
   });
   await fs.mkdir('growth-reports', { recursive: true });
   await fs.writeFile('growth-reports/ceo-commercial-tournament.json', JSON.stringify(board, null, 2) + '\n');
   await fs.writeFile('growth-reports/commercial-hypothesis-ledger.json', JSON.stringify({ generatedAt: board.generatedAt, items: board.hypothesisLedger }, null, 2) + '\n');
-  console.log(JSON.stringify({ mode: board.mode, verifiedSales: board.verifiedSales, topProduct: board.productTournament[0]?.slug || null, productCount: board.productTournament.length, strategyCount: board.strategyTournament.length, hypothesisCount: board.hypothesisLedger.length, weakestCompany: board.weakestCompanies[0]?.id || null }, null, 2));
+  console.log(JSON.stringify({ mode: board.mode, verifiedSales: board.verifiedSales, topProduct: board.productTournament[0]?.slug || null, productCount: board.productTournament.length, strategyCount: board.strategyTournament.length, hypothesisCount: board.hypothesisLedger.length, weakestCompany: board.weakestCompanies[0]?.id || null, resilienceAdjustedProducts: board.productTournament.filter(row => row.resilienceReasons?.length).map(row => row.slug) }, null, 2));
   return board;
 }
 
