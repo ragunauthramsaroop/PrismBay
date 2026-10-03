@@ -24,6 +24,10 @@ on:
       - 'scripts/commercial-resilience-orchestrator.test.mjs'
       - 'scripts/commercial-resilience-task-bridge.mjs'
       - 'scripts/commercial-resilience-task-bridge.test.mjs'
+      - 'scripts/first-sale-rescue-engine.mjs'
+      - 'scripts/first-sale-rescue-engine.test.mjs'
+      - 'scripts/first-sale-rescue-task-bridge.mjs'
+      - 'scripts/first-sale-rescue-task-bridge.test.mjs'
       - 'scripts/inventory-depth-guard.mjs'
       - 'scripts/inventory-depth-guard.test.mjs'
       - 'scripts/offer-floor-enrichment.mjs'
@@ -56,6 +60,10 @@ on:
       - 'scripts/commercial-resilience-orchestrator.test.mjs'
       - 'scripts/commercial-resilience-task-bridge.mjs'
       - 'scripts/commercial-resilience-task-bridge.test.mjs'
+      - 'scripts/first-sale-rescue-engine.mjs'
+      - 'scripts/first-sale-rescue-engine.test.mjs'
+      - 'scripts/first-sale-rescue-task-bridge.mjs'
+      - 'scripts/first-sale-rescue-task-bridge.test.mjs'
       - 'scripts/inventory-depth-guard.mjs'
       - 'scripts/inventory-depth-guard.test.mjs'
       - 'scripts/offer-floor-enrichment.mjs'
@@ -101,6 +109,8 @@ jobs:
             scripts/commercial-resilience-engine.test.mjs \
             scripts/commercial-resilience-orchestrator.test.mjs \
             scripts/commercial-resilience-task-bridge.test.mjs \
+            scripts/first-sale-rescue-engine.test.mjs \
+            scripts/first-sale-rescue-task-bridge.test.mjs \
             scripts/inventory-depth-guard.test.mjs \
             scripts/offer-floor-enrichment.test.mjs \
             scripts/runtime-commercial-signal-collector.test.mjs \
@@ -153,7 +163,7 @@ jobs:
       - name: Enforce inventory depth and fragile-route recovery
         run: node scripts/inventory-depth-guard.mjs
 
-      - name: Inject resilience work into the ten-company taskboard
+      - name: Inject resilience and first-sale rescue work into the ten-company taskboard
         run: node scripts/commercial-resilience-task-bridge.mjs
 
       - name: Build synchronized prelaunch commercialization kits
@@ -208,6 +218,7 @@ jobs:
             growth-reports/checkout-recovery-board.json
             growth-reports/checkout-failure-evidence.json
             growth-reports/inventory-depth-board.json
+            growth-reports/first-sale-rescue-board.json
             growth-reports/attention-guided-supplier-candidates.json
           if-no-files-found: error
           retention-days: 14
@@ -227,6 +238,7 @@ jobs:
           const x=r('growth-reports/checkout-recovery-board.json');
           const f=r('growth-reports/checkout-failure-evidence.json',{eventCount:0});
           const i=r('growth-reports/inventory-depth-board.json');
+          const q=r('growth-reports/first-sale-rescue-board.json');
           const a=r('growth-reports/attention-guided-supplier-candidates.json',{leaders:[]});
           console.log('## PrismBay CEO Autonomous Recovery');
           console.log(`- Verified sales: ${g.verifiedSales}`);
@@ -246,6 +258,8 @@ jobs:
           console.log(`- Threshold-crossing price hypotheses added: ${o.thresholdCrossingHypothesesAdded || 0}`);
           console.log(`- Sanitized runtime failure events ingested: ${f.eventCount || 0}`);
           console.log(`- Checkout failure recovery tasks: ${x.tasks.length}`);
+          console.log(`- First-sale rescue: ${q.recommendedAction?.id || 'none'} -> ${q.recommendedAction?.owner || 'none'}`);
+          console.log(`- Parallel rescue paths: ${(q.parallelActions || []).map(x=>x.id).join(', ') || 'none'}`);
           console.log(`- Attention-guided supplier leaders: ${(a.leaders || []).join(', ') || 'none'}`);
           console.log('- Route proposals never auto-order inventory or bypass final-ZIP checkout gates.');
           console.log('- Low stock triggers backup work but does not falsely mark a valid one-unit route unavailable.');

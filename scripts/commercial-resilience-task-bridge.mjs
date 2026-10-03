@@ -1,5 +1,7 @@
 import fs from 'node:fs/promises';
 import { pathToFileURL } from 'node:url';
+import { buildFirstSaleRescueBoard } from './first-sale-rescue-engine.mjs';
+import { bridgeFirstSaleRescue } from './first-sale-rescue-task-bridge.mjs';
 
 const readJson = async (path, fallback = {}) => { try { return JSON.parse(await fs.readFile(path,'utf8')); } catch { return fallback; } };
 
@@ -98,16 +100,28 @@ export function bridgeResilience({ taskboard = {}, supplierBoard = {}, offerBoar
 }
 
 export async function main() {
-  const output = bridgeResilience({
+  const supplierBoard = await readJson('growth-reports/supplier-route-promotion-board.json');
+  const offerBoard = await readJson('growth-reports/offer-price-tournament.json');
+  const inventoryBoard = await readJson('growth-reports/inventory-depth-board.json');
+  let output = bridgeResilience({
     taskboard: await readJson('growth-reports/autonomous-company-taskboard.json'),
-    supplierBoard: await readJson('growth-reports/supplier-route-promotion-board.json'),
-    offerBoard: await readJson('growth-reports/offer-price-tournament.json'),
+    supplierBoard,
+    offerBoard,
     recoveryBoard: await readJson('growth-reports/checkout-recovery-board.json'),
-    inventoryBoard: await readJson('growth-reports/inventory-depth-board.json'),
+    inventoryBoard,
   });
+  const rescueBoard = buildFirstSaleRescueBoard({
+    growth: await readJson('growth-reports/ceo-autonomous-growth-board.json'),
+    supplierBoard,
+    challenger: await readJson('growth-reports/supplier-challenger-board.json'),
+    offerBoard,
+    inventoryBoard,
+  });
+  output = bridgeFirstSaleRescue({ taskboard: output, rescueBoard });
   await fs.mkdir('growth-reports',{recursive:true});
+  await fs.writeFile('growth-reports/first-sale-rescue-board.json',JSON.stringify(rescueBoard,null,2)+'\n');
   await fs.writeFile('growth-reports/autonomous-company-taskboard.json',JSON.stringify(output,null,2)+'\n');
-  console.log(JSON.stringify({totalTasks:output.totalTasks,...output.commercialResilience},null,2));
+  console.log(JSON.stringify({totalTasks:output.totalTasks,...output.commercialResilience,recommendedRescue:rescueBoard.recommendedAction?.id||null,parallelRescues:rescueBoard.parallelActions.map(x=>x.id)},null,2));
   return output;
 }
 
