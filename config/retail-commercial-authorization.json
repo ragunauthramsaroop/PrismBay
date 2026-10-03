@@ -25,7 +25,7 @@
     "appId": "prismbay-physical-order-reconciler-srm7mm",
     "deployed": true,
     "stripeWebhookSecretConfigured": true,
-    "verifiedCheckoutSkus": ["crevice"],
+    "verifiedCheckoutSkus": ["crevice", "garment-steamer"],
     "verifiedCheckoutUrls": {
       "crevice": "https://buy.stripe.com/cNi5kE8XAeSndGib8QgnK02"
     },
@@ -36,6 +36,8 @@
     "AppDeploy reports the dedicated physical-order reconciler deployed and ready",
     "AppDeploy secret inventory reports STRIPE_WEBHOOK_SECRET configured",
     "PrismBay Clean live storefront contains the Crevice Brush Stripe checkout URL",
-    "services/physical-orders/catalog.prismbay-live.json maps the Crevice Brush to its verified live Stripe objects"
+    "services/physical-orders/catalog.prismbay-live.json maps the Crevice Brush to its verified live Stripe objects",
+    "Live Stripe account verification on 2026-10-03 confirmed Portable Garment Steamer product prod_UyYquVYNft8ncj with active one-time USD 29.95 price price_1UHk2iKDLFBMHojQws9eXthB and active payment-link checkout infrastructure",
+    "Garment Steamer checkout infrastructure evidence does not authorize checkout release before exact buyer-destination freight, current stock and commercial economics pass"
   ]
 }
