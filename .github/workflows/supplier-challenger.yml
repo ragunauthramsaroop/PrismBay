@@ -2,7 +2,7 @@ name: PrismBay Supplier Challenger
 
 on:
   schedule:
-    - cron: '37 */3 * * *'
+    - cron: '37 * * * *'
   workflow_dispatch:
   pull_request:
     branches: [main]
@@ -47,7 +47,7 @@ jobs:
   challenge:
     if: github.event_name != 'pull_request'
     runs-on: ubuntu-latest
-    timeout-minutes: 12
+    timeout-minutes: 15
     env:
       CJ_API_KEY: ${{ secrets.CJ_API_KEY }}
     steps:
@@ -57,7 +57,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - name: Run read-only supplier challenger research
+      - name: Run read-only supplier diversification research
         run: |
           node --test scripts/cj-api-limiter.test.mjs scripts/cj-match-policy.test.mjs scripts/cj-freight-policy.test.mjs scripts/freight-ceiling-engine.test.mjs scripts/paperclip-cj-sourcing.test.mjs scripts/supplier-challenger-worker.test.mjs
           node scripts/supplier-challenger-worker.mjs
