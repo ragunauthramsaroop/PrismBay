@@ -5,9 +5,9 @@ import { buildTournament, validateTournamentPolicy } from './ceo-commercial-tour
 const policy = {
   schemaVersion:1,
   resourceBudget:{internalUnits:100,minimumExplorationReservePct:20,maximumSingleProductPct:35,minimumActiveProductPct:5,maximumSingleStrategyPct:20},
-  productScoring:{readinessPctWeight:45,researchScoreWeight:25,evidenceCompletionWeight:20,primaryCheckoutInfrastructureBonus:10},
+  productScoring:{readinessPctWeight:45,researchScoreWeight:25,evidenceCompletionWeight:20,primaryCheckoutInfrastructureBonus:10,criticalSupplierConcentrationPenalty:18,highSupplierConcentrationPenalty:10,fragileInventoryPenalty:12,zeroVerifiedCommercialRoutePenalty:15,multiRouteResilienceBonus:5},
   strategyScoring:{activeInternal:80,activeInternalPrepare:65,accountOrOwnerActivationCheck:55,postSaleMeasureAndScale:90,blockedPenalty:25,measurementPlanBonus:10},
-  tournamentRules:{minimumProductsCompetingBeforeFirstSale:5,minimumStrategiesCompetingBeforeFirstSale:8,topProductsFastLaneCount:2,promotionRequiresPromotionReadyProduct:true,noProbabilityClaimsWithoutObservedSales:true,zeroPaidSpendUntilAuthorized:true,noAutomaticSupplierOrdering:true,noUnauthorizedPublishing:true,noFakeTrafficReviewsScarcityOrSales:true},
+  tournamentRules:{minimumProductsCompetingBeforeFirstSale:5,minimumStrategiesCompetingBeforeFirstSale:8,topProductsFastLaneCount:2,promotionRequiresPromotionReadyProduct:true,noProbabilityClaimsWithoutObservedSales:true,zeroPaidSpendUntilAuthorized:true,noAutomaticSupplierOrdering:true,noUnauthorizedPublishing:true,noFakeTrafficReviewsScarcityOrSales:true,fragilityChangesAttentionNotTruth:true},
   hypothesisRules:{everyHypothesisNeedsMetric:true,everyHypothesisNeedsStopRule:true,everyHypothesisNeedsEvidenceGate:true,maximumOpenHypotheses:30,staleHypothesisHours:24,unmeasurableHypothesisAction:'rewrite_or_kill'},
   reallocation:{criticalCompanyBoostUnits:5,redCompanyBoostUnits:3,yellowCompanyBoostUnits:1,greenCompanyBoostUnits:0,staleBlockerShiftUnits:10,routeKillRequiresEvidence:true}
 };
@@ -29,7 +29,6 @@ const strategyBoard = {
   acquisitionPaths:[{id:'owned-search-seo'},{id:'google-free-listings'},{id:'pinterest-product-pins'}]
 };
 const scorecard = {companies:{a:{score:20,band:'critical'},b:{score:55,band:'red'},c:{score:92,band:'green'}}};
-
 
 test('policy enforces safety and exploration reserve',()=>{
   assert.equal(validateTournamentPolicy(policy),true);
@@ -63,4 +62,19 @@ test('directs recovery support toward weakest company',()=>{
   const board=buildTournament({policy,growthBoard,strategyBoard,scorecard,firstSale:{verifiedFirstSale:false}});
   assert.equal(board.weakestCompanies[0].id,'a');
   assert.match(board.ceoActions.join(' '),/a/);
+});
+
+test('fragile zero-route primary loses attention without being labeled unavailable',()=>{
+  const supplierBoard={products:[
+    {slug:'crevice',supplierConcentrationRisk:'critical',verifiedRouteCount:0},
+    {slug:'garment-steamer',supplierConcentrationRisk:'low',verifiedRouteCount:3}
+  ]};
+  const inventoryBoard={products:[{slug:'crevice',fragilePrimary:true,inventoryRisk:'critical'},{slug:'garment-steamer',fragilePrimary:false,inventoryRisk:'normal'}]};
+  const board=buildTournament({policy,growthBoard,strategyBoard,scorecard,firstSale:{verifiedFirstSale:false},supplierBoard,inventoryBoard});
+  const crevice=board.productTournament.find(x=>x.slug==='crevice');
+  const steamer=board.productTournament.find(x=>x.slug==='garment-steamer');
+  assert.ok(crevice.resilienceAdjustment<0);
+  assert.ok(crevice.tournamentScore<crevice.preResilienceScore);
+  assert.ok(steamer.tournamentScore>crevice.tournamentScore);
+  assert.match(crevice.allocationReason,/attention.*not.*availability|not factual product availability/i);
 });
