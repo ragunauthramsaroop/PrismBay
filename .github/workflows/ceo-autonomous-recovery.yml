@@ -12,16 +12,16 @@ on:
       - 'config/conversion-event-contract.json'
       - 'config/prelaunch-commercialization-policy.json'
       - 'config/commercial-tournament-policy.json'
+      - 'config/commercial-resilience-policy.json'
       - 'scripts/ceo-autonomous-growth-engine.mjs'
-      - 'scripts/ceo-autonomous-growth-engine.test.mjs'
       - 'scripts/autonomous-company-task-allocator.mjs'
-      - 'scripts/autonomous-company-task-allocator.test.mjs'
       - 'scripts/prelaunch-commercialization-factory.mjs'
-      - 'scripts/prelaunch-commercialization-factory.test.mjs'
       - 'scripts/ceo-commercial-tournament.mjs'
-      - 'scripts/ceo-commercial-tournament.test.mjs'
       - 'scripts/decision-evidence-priority.mjs'
-      - 'scripts/decision-evidence-priority.test.mjs'
+      - 'scripts/commercial-resilience-engine.mjs'
+      - 'scripts/commercial-resilience-engine.test.mjs'
+      - 'scripts/commercial-resilience-task-bridge.mjs'
+      - 'scripts/commercial-resilience-task-bridge.test.mjs'
       - '.github/workflows/ceo-autonomous-recovery.yml'
   pull_request:
     branches: [main]
@@ -31,16 +31,16 @@ on:
       - 'config/conversion-event-contract.json'
       - 'config/prelaunch-commercialization-policy.json'
       - 'config/commercial-tournament-policy.json'
+      - 'config/commercial-resilience-policy.json'
       - 'scripts/ceo-autonomous-growth-engine.mjs'
-      - 'scripts/ceo-autonomous-growth-engine.test.mjs'
       - 'scripts/autonomous-company-task-allocator.mjs'
-      - 'scripts/autonomous-company-task-allocator.test.mjs'
       - 'scripts/prelaunch-commercialization-factory.mjs'
-      - 'scripts/prelaunch-commercialization-factory.test.mjs'
       - 'scripts/ceo-commercial-tournament.mjs'
-      - 'scripts/ceo-commercial-tournament.test.mjs'
       - 'scripts/decision-evidence-priority.mjs'
-      - 'scripts/decision-evidence-priority.test.mjs'
+      - 'scripts/commercial-resilience-engine.mjs'
+      - 'scripts/commercial-resilience-engine.test.mjs'
+      - 'scripts/commercial-resilience-task-bridge.mjs'
+      - 'scripts/commercial-resilience-task-bridge.test.mjs'
       - '.github/workflows/ceo-autonomous-recovery.yml'
 
 permissions:
@@ -53,20 +53,28 @@ concurrency:
 jobs:
   recover-and-reallocate:
     runs-on: ubuntu-latest
-    timeout-minutes: 12
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
 
-      - name: Validate recovery, allocator, prelaunch, tournament and evidence-priority engines
+      - name: Validate recovery and commercial resilience engines
         run: |
           test -s config/autonomous-growth-system.json
           test -s config/conversion-event-contract.json
           test -s config/prelaunch-commercialization-policy.json
           test -s config/commercial-tournament-policy.json
-          node --test scripts/ceo-autonomous-growth-engine.test.mjs scripts/autonomous-company-task-allocator.test.mjs scripts/prelaunch-commercialization-factory.test.mjs scripts/ceo-commercial-tournament.test.mjs scripts/decision-evidence-priority.test.mjs
+          test -s config/commercial-resilience-policy.json
+          node --test \
+            scripts/ceo-autonomous-growth-engine.test.mjs \
+            scripts/autonomous-company-task-allocator.test.mjs \
+            scripts/prelaunch-commercialization-factory.test.mjs \
+            scripts/ceo-commercial-tournament.test.mjs \
+            scripts/decision-evidence-priority.test.mjs \
+            scripts/commercial-resilience-engine.test.mjs \
+            scripts/commercial-resilience-task-bridge.test.mjs
 
       - name: Rebuild commercial evidence needed for autonomous decisions
         run: |
@@ -81,11 +89,28 @@ jobs:
           node scripts/paperclip-no-idle-guard.mjs
           node scripts/strict-kpi-scorecard.mjs
 
+      - name: Refresh read-only supplier portfolio on production cycles
+        if: github.event_name != 'pull_request'
+        env:
+          CJ_API_KEY: ${{ secrets.CJ_API_KEY }}
+        run: |
+          if [ -n "$CJ_API_KEY" ]; then
+            node scripts/paperclip-cj-sourcing.mjs
+          else
+            echo 'CJ_API_KEY unavailable; resilience engine will fail closed on supplier-route evidence.'
+          fi
+
       - name: Detect deadlocks, evidence debt and recovery routes
         run: node scripts/ceo-autonomous-growth-engine.mjs
 
       - name: Allocate quantified work to all ten companies
         run: node scripts/autonomous-company-task-allocator.mjs
+
+      - name: Build supplier resilience, price tournament and checkout recovery
+        run: node scripts/commercial-resilience-engine.mjs
+
+      - name: Inject resilience work into the ten-company taskboard
+        run: node scripts/commercial-resilience-task-bridge.mjs
 
       - name: Build synchronized prelaunch commercialization kits
         run: node scripts/prelaunch-commercialization-factory.mjs
@@ -96,7 +121,7 @@ jobs:
       - name: Rank evidence by commercial decision leverage
         run: node scripts/decision-evidence-priority.mjs
 
-      - name: Retain autonomous recovery, tournament, evidence-priority and prelaunch evidence
+      - name: Retain autonomous recovery and commercial resilience evidence
         uses: actions/upload-artifact@v4
         with:
           name: prismbay-ceo-recovery-${{ github.run_id }}
@@ -111,36 +136,46 @@ jobs:
             growth-reports/ceo-commercial-tournament.json
             growth-reports/commercial-hypothesis-ledger.json
             growth-reports/decision-evidence-priority.json
+            growth-reports/supplier-route-promotion-board.json
+            growth-reports/offer-price-tournament.json
+            growth-reports/checkout-recovery-board.json
           if-no-files-found: error
           retention-days: 14
 
-      - name: CEO recovery and tournament summary
+      - name: CEO recovery, resilience and tournament summary
         run: |
           node - <<'NODE' >> "$GITHUB_STEP_SUMMARY"
           const fs=require('fs');
-          const g=JSON.parse(fs.readFileSync('growth-reports/ceo-autonomous-growth-board.json','utf8'));
-          const t=JSON.parse(fs.readFileSync('growth-reports/autonomous-company-taskboard.json','utf8'));
-          const p=JSON.parse(fs.readFileSync('growth-reports/prelaunch-commercialization.json','utf8'));
-          const c=JSON.parse(fs.readFileSync('growth-reports/ceo-commercial-tournament.json','utf8'));
-          const e=JSON.parse(fs.readFileSync('growth-reports/decision-evidence-priority.json','utf8'));
+          const r=p=>JSON.parse(fs.readFileSync(p,'utf8'));
+          const g=r('growth-reports/ceo-autonomous-growth-board.json');
+          const t=r('growth-reports/autonomous-company-taskboard.json');
+          const p=r('growth-reports/prelaunch-commercialization.json');
+          const c=r('growth-reports/ceo-commercial-tournament.json');
+          const e=r('growth-reports/decision-evidence-priority.json');
+          const s=r('growth-reports/supplier-route-promotion-board.json');
+          const o=r('growth-reports/offer-price-tournament.json');
+          const x=r('growth-reports/checkout-recovery-board.json');
           console.log('## PrismBay CEO Autonomous Recovery');
           console.log(`- Verified sales: ${g.verifiedSales}`);
           console.log(`- CEO priority: ${g.ceoPriority}`);
-          console.log(`- Critical companies: ${g.portfolioControls.criticalCompanies.join(', ') || 'none'}`);
-          console.log(`- Red companies: ${g.portfolioControls.redCompanies.join(', ') || 'none'}`);
           console.log(`- Recovery sprints: ${g.recoverySprints.length}`);
           console.log(`- Evidence debt: ${g.evidenceDebtCount}`);
           console.log(`- Product race: ${g.productRaceCount}`);
-          console.log(`- Blocker escalation: ${g.blockerEscalation.stage}`);
           console.log(`- Quantified tasks: ${t.totalTasks} across ${t.activeCompanies} companies`);
           console.log(`- Prelaunch kits synchronized: ${p.kitCount}`);
+          console.log('');
+          console.log('## Commercial Resilience');
+          console.log(`- Supplier route-promotion proposals: ${s.routePromotionProposals.length}`);
+          console.log(`- High/critical supplier-concentration products: ${s.highRiskProducts.length}`);
+          console.log(`- Price/bundle hypotheses: ${o.hypothesisCount}`);
+          console.log(`- Checkout failure recovery tasks: ${x.tasks.length}`);
+          console.log('- Route proposals never auto-order inventory or bypass final-ZIP checkout gates.');
+          console.log('- Price hypotheses never change live pricing automatically; elasticity requires measured conversion evidence.');
           console.log('');
           console.log('## Commercial Tournament');
           console.log(`- Top product for internal attention: ${c.productTournament[0]?.slug || 'none'}`);
           console.log(`- Products competing: ${c.productTournament.length}`);
           console.log(`- Strategies competing: ${c.strategyTournament.length}`);
           console.log(`- Open measurable hypotheses: ${c.hypothesisLedger.length}`);
-          console.log(`- Weakest company: ${c.weakestCompanies[0]?.id || 'none'}`);
           console.log(`- Highest-leverage evidence: ${e.immediateTopFive[0]?.evidence || 'none'} for ${e.immediateTopFive[0]?.subject || 'none'}`);
-          console.log('- Allocation is internal attention, not a forecast of sales probability.');
           NODE
