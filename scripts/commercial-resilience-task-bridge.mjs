@@ -17,7 +17,7 @@ function resilienceTask(companyId, priority, title, evidenceRequired, doneWhen, 
   };
 }
 
-export function bridgeResilience({ taskboard = {}, supplierBoard = {}, offerBoard = {}, recoveryBoard = {} } = {}) {
+export function bridgeResilience({ taskboard = {}, supplierBoard = {}, offerBoard = {}, recoveryBoard = {}, inventoryBoard = {} } = {}) {
   const tasks = Array.isArray(taskboard.tasks) ? [...taskboard.tasks] : [];
   for (const product of supplierBoard.products || []) {
     if (Number(product.supplierRouteDeficit || 0) > 0) {
@@ -34,6 +34,20 @@ export function bridgeResilience({ taskboard = {}, supplierBoard = {}, offerBoar
         'Approved route portfolio is ready for quote-runtime configuration while final buyer ZIP and checkout economics remain session-gated.',
         { slug:product.slug, proposal:product.promotionProposal }));
     }
+  }
+
+  for (const product of inventoryBoard.products || []) {
+    if (!product.fragilePrimary) continue;
+    tasks.push(resilienceTask('supplier-fulfillment', 1,
+      `Recover inventory depth for ${product.slug}`,
+      ['current verified route inventory','alternative supplier stock','backup product readiness'],
+      `At least one route reaches ${inventoryBoard.minimumPrimaryInventory || 5} verified units OR a stronger verified backup supplier/product is advanced without falsely declaring the current route unavailable.`,
+      { slug:product.slug, inventoryRisk:product.inventoryRisk, maxVerifiedRouteInventory:product.maxVerifiedRouteInventory, totalVerifiedInventoryAcrossRoutes:product.totalVerifiedInventoryAcrossRoutes }));
+    tasks.push(resilienceTask('commerce-control', 1,
+      `Protect first-sale plan from low inventory on ${product.slug}`,
+      ['supplier concentration board','inventory depth board','next-best product evidence'],
+      'Primary route may remain available for a valid buyer, but CEO attention is also allocated to an independently sellable backup route/product until inventory depth recovers.',
+      { slug:product.slug, requiredAction:product.requiredAction }));
   }
 
   for (const product of offerBoard.products || []) {
@@ -68,7 +82,7 @@ export function bridgeResilience({ taskboard = {}, supplierBoard = {}, offerBoar
 
   return {
     ...taskboard,
-    schemaVersion: Math.max(2, Number(taskboard.schemaVersion || 1)),
+    schemaVersion: Math.max(3, Number(taskboard.schemaVersion || 1)),
     generatedAt: new Date().toISOString(),
     totalTasks: deduped.length,
     tasks: deduped,
@@ -76,6 +90,7 @@ export function bridgeResilience({ taskboard = {}, supplierBoard = {}, offerBoar
     commercialResilience: {
       supplierRiskProducts: (supplierBoard.highRiskProducts || []).length,
       routePromotionProposals: (supplierBoard.routePromotionProposals || []).length,
+      fragileInventoryProducts: Number(inventoryBoard.fragileProductCount || 0),
       offerHypotheses: Number(offerBoard.hypothesisCount || 0),
       checkoutRecoveryTasks: (recoveryBoard.tasks || []).length,
     }
@@ -88,6 +103,7 @@ export async function main() {
     supplierBoard: await readJson('growth-reports/supplier-route-promotion-board.json'),
     offerBoard: await readJson('growth-reports/offer-price-tournament.json'),
     recoveryBoard: await readJson('growth-reports/checkout-recovery-board.json'),
+    inventoryBoard: await readJson('growth-reports/inventory-depth-board.json'),
   });
   await fs.mkdir('growth-reports',{recursive:true});
   await fs.writeFile('growth-reports/autonomous-company-taskboard.json',JSON.stringify(output,null,2)+'\n');
