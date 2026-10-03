@@ -7,6 +7,8 @@ on:
     paths:
       - 'scripts/cj-*.mjs'
       - 'scripts/dropshipping-*.mjs'
+      - 'scripts/garment-checkout-evidence.test.mjs'
+      - 'config/retail-commercial-authorization.json'
       - '.github/workflows/cj-supplier-verification.yml'
       - '.github/workflows/free-cloud-ops.yml'
       - '.github/workflows/dropshipping-worker-quality.yml'
@@ -15,6 +17,8 @@ on:
     paths:
       - 'scripts/cj-*.mjs'
       - 'scripts/dropshipping-*.mjs'
+      - 'scripts/garment-checkout-evidence.test.mjs'
+      - 'config/retail-commercial-authorization.json'
       - '.github/workflows/cj-supplier-verification.yml'
       - '.github/workflows/free-cloud-ops.yml'
       - '.github/workflows/dropshipping-worker-quality.yml'
@@ -37,7 +41,7 @@ jobs:
           node-version: '22'
       - name: Verify identity policy, review board and dispatch rules
         run: |
-          node --test scripts/cj-search-strategy.test.mjs scripts/cj-api-limiter.test.mjs scripts/cj-match-policy.test.mjs scripts/cj-freight-policy.test.mjs scripts/cj-review-board.test.mjs scripts/dropshipping-dispatch.test.mjs scripts/organic-growth-agent.test.mjs scripts/board-freshness.test.mjs
+          node --test scripts/cj-search-strategy.test.mjs scripts/cj-api-limiter.test.mjs scripts/cj-match-policy.test.mjs scripts/cj-freight-policy.test.mjs scripts/cj-review-board.test.mjs scripts/garment-checkout-evidence.test.mjs scripts/dropshipping-dispatch.test.mjs scripts/organic-growth-agent.test.mjs scripts/board-freshness.test.mjs
       - name: Check previously approved catalog discovery and CJ MCP regression
         run: |
           node --test scripts/candidate-discovery.test.mjs scripts/cj-mcp-scout.test.mjs
