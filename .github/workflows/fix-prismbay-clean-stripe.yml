@@ -1,0 +1,48 @@
+name: Switch PrismBay Clean product cards to Stripe
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/fix-prismbay-clean-stripe.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  update-storefront:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout production storefront
+        uses: actions/checkout@v4
+        with:
+          ref: gh-pages
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Replace product detours with direct Stripe checkout
+        shell: python
+        run: |
+          from pathlib import Path
+          files=[Path('index.html'),Path('clean/index.html')]
+          links={
+            'https://prismbay-clean-49izhg.v2.appdeploy.ai/crevice/':'https://buy.stripe.com/cNi5kE8XAeSndGib8QgnK02',
+            'https://prismbay-clean-49izhg.v2.appdeploy.ai/garment-steamer/':'https://buy.stripe.com/bJe4gA8XAdOjeKmb8QgnK05',
+            'https://prismbay-clean-49izhg.v2.appdeploy.ai/scrubber/':'https://buy.stripe.com/7sY5kEehUcKf9q2a4MgnK00',
+            'https://prismbay-clean-49izhg.v2.appdeploy.ai/pethair/':'https://buy.stripe.com/bJe00k2zc8tZ7hUgtagnK01'}
+          repl={'Check route & availability →':'Buy securely →'}
+          for path in files:
+            text=path.read_text(encoding='utf-8')
+            for old,new in links.items():
+              if text.count(old)!=1: raise SystemExit(f'{path}: unexpected count for {old}: {text.count(old)}')
+              text=text.replace(old,new)
+            for old,new in repl.items(): text=text.replace(old,new)
+            if 'prismbay-clean-49izhg.v2.appdeploy.ai' in text: raise SystemExit(f'{path}: AppDeploy detour remains')
+            path.write_text(text,encoding='utf-8')
+      - name: Commit production change
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html clean/index.html
+          git diff --cached --quiet && exit 0
+          git commit -m "Route PrismBay Clean purchases directly to Stripe"
+          git push origin gh-pages
