@@ -7,7 +7,7 @@ const policy = Object.freeze({
   'crevice': { required: [/\b(crevice|gap|groove)\b/i, /\b(clean\w*|brush|scrub\w*)\b/i], excluded: [/\b(vacuum|nozzle|attachment)\b/i] },
   'pressure-washer': { required: [/\b(pressure|power)\s+washer\b/i, /\b(cordless|battery|portable|recharge\w*)\b/i], excluded: [/\b(nozzle|hose|adapter|pump|replacement|gun only)\b/i] },
   'mattress-vacuum': { required: [/\b(mattress|bed)\b/i, /\b(vacuum|vac)\b/i], excluded: [/\b(cover|storage bag|air pump|shop[\s-]*vac|wet[\s/-]*dry)\b/i] },
-  'garment-steamer': { required: [/\b(garment|clothes|clothing)\b/i, /\b(steamer|steam iron)\b/i], excluded: [/\b(facial|food|wallpaper)\b/i] },
+  'garment-steamer': { required: [/\b(garment|clothes|clothing)\b/i, /\b(steamer|steam iron)\b/i], excluded: [/\b(facial|food|wallpaper|replacement|accessor(?:y|ies)|nozzle only|hose only)\b/i] },
   'mini-mop': { required: [/\bmop\b/i, /\b(mini|compact|small|self[\s-]*squeez\w*)\b/i], excluded: [/\b(robot|replacement|refill|pad only)\b/i] },
   'drain-catcher': { required: [/\b(sink|drain)\b/i, /\b(catcher|strainer|filter|basket)\b/i], excluded: [/\b(sewer machine|drain snake|auger)\b/i] },
   'home-caddy': { required: [/\bcaddy\b/i, /\b(clean\w*|supply|storage|organizer|home)\b/i], excluded: [/\b(shower|golf|baby|stroller)\b/i] },
