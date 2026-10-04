@@ -35,6 +35,42 @@ interface StrictHandlerOutcome {
   httpStatus?: number | null;
 }
 
+interface WorkerBatchItem {
+  jobId: string;
+  status: string;
+  phase: string;
+  acknowledged: boolean;
+}
+
+interface WorkerBatchResult {
+  leased: number;
+  recoveredExpiredLeases: number;
+  results: WorkerBatchItem[];
+}
+
+interface WorkerProtocolClient {
+  lease: () => Promise<unknown>;
+  recipientState: (job: WorkerJob) => Promise<AutomationRecipientState>;
+  acknowledge: (job: WorkerJob, outcome: StrictHandlerOutcome) => Promise<unknown>;
+}
+
+type WorkerClientFactory = (options: {
+  baseUrl: string;
+  workerToken: string;
+  envelopeKey: string;
+  fetchImpl: typeof fetch;
+  limit: number;
+  leaseMs: number;
+}) => WorkerProtocolClient;
+
+type WorkerBatchRunner = (options: {
+  client: WorkerProtocolClient;
+  execute: (job: WorkerJob, state: AutomationRecipientState) => Promise<StrictHandlerOutcome>;
+}) => Promise<WorkerBatchResult>;
+
+const buildWorkerClient = createAutomationEmailWorkerClient as unknown as WorkerClientFactory;
+const executeWorkerBatch = runAutomationEmailWorkerBatch as unknown as WorkerBatchRunner;
+
 export interface ProductionAutomationWorkerOptions {
   env?: NodeJS.ProcessEnv;
   fetchImpl?: typeof fetch;
@@ -75,7 +111,7 @@ export async function runProductionAutomationEmailWorkerBatch({
   leaseMs = 60_000,
 }: ProductionAutomationWorkerOptions = {}) {
   if (env.AUTOMATION_EMAIL_WORKER_ENABLED !== "true") {
-    return { enabled: false, leased: 0, recoveredExpiredLeases: 0, results: [] };
+    return { enabled: false, leased: 0, recoveredExpiredLeases: 0, results: [] as WorkerBatchItem[] };
   }
   if (env.AUTOMATION_EMAIL_DELIVERY_ENABLED !== "true") {
     throw new Error("AUTOMATION_EMAIL_DELIVERY_ENABLED must be true before the email worker can execute.");
@@ -90,7 +126,7 @@ export async function runProductionAutomationEmailWorkerBatch({
     throw new Error("AUTOMATION_WORKER_ENVELOPE_KEY is required when the email worker is enabled.");
   }
 
-  const client = createAutomationEmailWorkerClient({
+  const client = buildWorkerClient({
     baseUrl: env.AUTOMATION_PHYSICAL_SERVICE_URL,
     workerToken: env.AUTOMATION_WORKER_TOKEN,
     envelopeKey: env.AUTOMATION_WORKER_ENVELOPE_KEY,
@@ -99,11 +135,9 @@ export async function runProductionAutomationEmailWorkerBatch({
     leaseMs,
   });
 
-  const batch = await runAutomationEmailWorkerBatch({
+  const batch = await executeWorkerBatch({
     client,
-    execute: async (rawJob: WorkerJob, rawRecipientState: AutomationRecipientState) => {
-      const job = rawJob;
-      const recipientState = rawRecipientState;
+    execute: async (job, recipientState) => {
       if (recipientState.recipientRef !== job.payload.recipientRef) {
         return {
           ok: false,
