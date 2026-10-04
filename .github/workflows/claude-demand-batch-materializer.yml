@@ -1,0 +1,134 @@
+name: Claude Demand Batch Materializer
+
+on:
+  issue_comment:
+    types: [created]
+
+permissions:
+  contents: write
+  pull-requests: write
+  issues: read
+
+concurrency:
+  group: claude-demand-batch-${{ github.event.issue.number }}
+  cancel-in-progress: true
+
+jobs:
+  materialize:
+    if: >-
+      github.event.issue.pull_request == null &&
+      github.event.comment.user.login == 'github-actions[bot]' &&
+      startsWith(github.event.comment.body, 'Claude cloud response:') &&
+      (github.event.issue.number == 239 || github.event.issue.number == 240 || github.event.issue.number == 241 || github.event.issue.number == 242 || github.event.issue.number == 243 || github.event.issue.number == 244)
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Validate and materialize compact research batch
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const issue = context.issue.number;
+            const mapping = {
+              239: ['a','cleaning-bathroom'],
+              240: ['b','kitchen-laundry'],
+              241: ['c','storage-closet'],
+              242: ['d','pet-auto'],
+              243: ['e','travel-desk'],
+              244: ['f','household-convenience']
+            };
+            const [letter,label] = mapping[issue];
+            const body = context.payload.comment.body || '';
+            const blocks = [...body.matchAll(/```json\s*([\s\S]*?)```/gi)].map(m => m[1].trim());
+            if (!blocks.length) core.setFailed('No fenced JSON block found in Claude response.');
+            let parsed = null;
+            for (const block of blocks) {
+              try {
+                const j = JSON.parse(block);
+                if (Array.isArray(j?.candidates)) { parsed = j; break; }
+              } catch {}
+            }
+            if (!parsed) core.setFailed('No valid JSON candidate batch found. Ask worker to repost compact JSON under the comment-size limit.');
+            const candidates = parsed.candidates;
+            if (candidates.length !== 100) core.setFailed(`Expected exactly 100 candidates, got ${candidates.length}`);
+            const prohibited = /(supplement|vitamin|alcohol|nicotine|weapon|pesticide|prescription|recreational drug|cbd|thc|vape|firearm|pepper spray|chemical cleaner|drain opener|spyware|surveillance camera)/i;
+            const slugs = new Set();
+            const names = new Set();
+            const normalized = candidates.map((c,i) => {
+              const slug = String(c.slug || '').trim().toLowerCase();
+              const name = String(c.name || '').trim();
+              const category = String(c.category || '').trim();
+              const query = String(c.query || '').trim();
+              if (!slug || !name || !category || !query) throw new Error(`Candidate ${i+1} missing slug/name/category/query`);
+              if (slugs.has(slug)) throw new Error(`Duplicate slug: ${slug}`);
+              if (names.has(name.toLowerCase())) throw new Error(`Duplicate name: ${name}`);
+              if (prohibited.test(`${slug} ${name} ${category} ${query}`)) throw new Error(`Prohibited candidate: ${name}`);
+              slugs.add(slug); names.add(name.toLowerCase());
+              const evidence = c.evidence || {};
+              const sourceIds = Array.isArray(evidence.sourceIds) ? evidence.sourceIds.map(String).slice(0,8) : [];
+              return {
+                rank: Number(c.rank || i+1), slug, name, category, query,
+                queries: Array.isArray(c.queries) ? c.queries.map(String).slice(0,5) : [query],
+                researchScore: Number(c.researchScore || 0),
+                evidence: {
+                  sourceIds,
+                  confidence: String(evidence.confidence || 'unverified'),
+                  note: String(evidence.note || '').slice(0,500)
+                },
+                status: 'RESEARCH_CANDIDATE',
+                supplierReady: false,
+                freightReady: false,
+                mediaRightsReady: false,
+                checkoutReady: false,
+                fulfillmentReady: false,
+                promotionReady: false,
+                listed: false,
+                nextAction: 'supplier-verification-pipeline'
+              };
+            });
+            const payload = {
+              schemaVersion: 1,
+              generatedAt: new Date().toISOString(),
+              market: 'US',
+              mode: 'research_only',
+              batch: letter.toUpperCase(),
+              label,
+              sourceIssue: issue,
+              sourceCommentId: context.payload.comment.id,
+              candidateCount: normalized.length,
+              gates: {
+                supplierReady: false, freightReady: false, mediaRightsReady: false,
+                checkoutReady: false, fulfillmentReady: false, promotionReady: false,
+                listed: false, ordersEnabled: false
+              },
+              candidates: normalized
+            };
+            const path = `paperclip/prismbay-global-commerce/research/demand-batch-${letter}-100.json`;
+            const branch = `agent/demand-batch-${letter}-100`;
+            const {data: mainRef} = await github.rest.git.getRef({owner:context.repo.owner,repo:context.repo.repo,ref:'heads/main'});
+            try {
+              await github.rest.git.createRef({owner:context.repo.owner,repo:context.repo.repo,ref:`refs/heads/${branch}`,sha:mainRef.object.sha});
+            } catch (e) {
+              if (e.status !== 422) throw e;
+              await github.rest.git.updateRef({owner:context.repo.owner,repo:context.repo.repo,ref:`heads/${branch}`,sha:mainRef.object.sha,force:true});
+            }
+            let sha;
+            try {
+              const {data: existing}=await github.rest.repos.getContent({owner:context.repo.owner,repo:context.repo.repo,path,ref:branch});
+              sha=existing.sha;
+            } catch (e) { if(e.status!==404) throw e; }
+            await github.rest.repos.createOrUpdateFileContents({
+              owner:context.repo.owner,repo:context.repo.repo,path,branch,sha,
+              message:`Add validated demand batch ${letter.toUpperCase()} (100 research candidates)`,
+              content:Buffer.from(JSON.stringify(payload,null,2)+'\n').toString('base64')
+            });
+            const {data: prs}=await github.rest.pulls.list({owner:context.repo.owner,repo:context.repo.repo,state:'open',head:`${context.repo.owner}:${branch}`,base:'main'});
+            if (!prs.length) {
+              const {data: pr}=await github.rest.pulls.create({
+                owner:context.repo.owner,repo:context.repo.repo,head:branch,base:'main',
+                title:`Add demand batch ${letter.toUpperCase()}: 100 research candidates`,
+                body:`Automated materialization from Claude worker issue #${issue}.\n\nValidation enforced: exactly 100 unique candidates, prohibited classes blocked, all commercial/promotion/listing/order gates forced closed. This PR contains research candidates only; it does not publish products or create checkout.`
+              });
+              core.summary.addRaw(`Opened PR #${pr.number} for batch ${letter.toUpperCase()}`).write();
+            } else {
+              core.summary.addRaw(`Updated existing PR #${prs[0].number} for batch ${letter.toUpperCase()}`).write();
+            }
