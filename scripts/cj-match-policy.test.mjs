@@ -20,3 +20,5 @@ test('rejects known CJ and category false positives',()=>{
  assert.equal(matchesIntendedProduct({slug:'not-approved'},'Brand new stock'),false);
  assert.equal(matchesIntendedProduct({slug:'bottle-brush-set'},null),false);
 });
+
+// 2026-10-04 sale-readiness verification trigger: no gate logic changed.
