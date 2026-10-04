@@ -30,7 +30,8 @@
   const normalizeName = (value) => String(value || '').trim().toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
   const categoryLabel = (value) => CATEGORY_LABELS[value] || String(value || 'Catalog').replaceAll('-', ' ').replace(/\b\w/g, (x) => x.toUpperCase());
   const safeHttps = (value) => {
-    try { const url = new URL(String(value || '')); return url.protocol === 'https:' ? url.toString() : null; }
+    if (!value) return null;
+    try { const url = new URL(String(value)); return url.protocol === 'https:' ? url.toString() : null; }
     catch { return null; }
   };
   const safeCheckout = (value) => {
@@ -45,7 +46,7 @@
     const price = Number(product?.priceUsd);
     const checkout = safeCheckout(product?.checkoutUrl);
     const image = safeHttps(product?.imageUrl);
-    if (!name || !sku || !description || !(price > 0) || !checkout || !image) return null;
+    if (!name || !sku || !description || !(price > 0) || !checkout) return null;
     return Object.freeze({
       sku,
       name,
@@ -56,9 +57,7 @@
       image,
       checkout,
       summary: description,
-      tags: product.source === 'sale-ready-gate'
-        ? ['Ready to order', 'Verified checkout']
-        : ['Ready to order', 'Stripe checkout'],
+      tags: ['Ready to order', 'Stripe checkout'],
       source: String(product.source || 'published-catalog')
     });
   }
@@ -68,7 +67,7 @@
     const price = Number(product?.price);
     const checkout = safeCheckout(product?.checkout);
     const image = safeHttps(product?.image);
-    if (!product?.name || !product?.sku || !(price > 0) || !checkout || !image) return null;
+    if (!product?.name || !product?.sku || !(price > 0) || !checkout) return null;
     return Object.freeze({
       ...product,
       status: 'checkout-live',
@@ -107,16 +106,19 @@
 
   function card(product) {
     const tags = (product.tags || []).map((tag) => `<span>${escapeHtml(tag)}</span>`).join('');
+    const media = product.image
+      ? `<div class="pb-product-media"><img src="${escapeHtml(product.image)}" alt="${escapeHtml(product.name)}" loading="lazy" width="700" height="700"${normalizeName(product.name) === 'reusable-pet-hair-remover' ? ' referrerpolicy="no-referrer"' : ''}></div>`
+      : '';
     return `<article class="pb-product-card" data-sku="${escapeHtml(product.sku)}" data-status="checkout-live" data-category="${escapeHtml(product.category)}" data-search="${escapeHtml([product.name, product.category, product.summary, ...(product.tags || [])].join(' ').toLowerCase())}">
       <div class="pb-card-top"><span class="pb-status is-live">Ready to order</span><span class="pb-category">${escapeHtml(product.category)}</span></div>
-      <div class="pb-product-media"><img src="${escapeHtml(product.image)}" alt="${escapeHtml(product.name)}" loading="lazy" width="700" height="700"${normalizeName(product.name) === 'reusable-pet-hair-remover' ? ' referrerpolicy="no-referrer"' : ''}></div>
+      ${media}
       <div class="pb-product-body">
         <h3>${escapeHtml(product.name)}</h3>
         <p>${escapeHtml(product.summary)}</p>
         <div class="pb-tags">${tags}</div>
         <div class="pb-price-row"><div><strong>${escapeHtml(money(product))}</strong><span>USD · one-time purchase</span></div><span class="pb-live-dot">Checkout ready</span></div>
         <a class="pb-buy" href="${escapeHtml(product.checkout)}" rel="noopener">Checkout with Stripe <span aria-hidden="true">→</span></a>
-        <small class="pb-checkout-note">Secure payment opens on Stripe. Order processing follows the published shipping and returns policies.</small>
+        <small class="pb-checkout-note">Secure payment opens on Stripe. Supplier stock and delivery timing are confirmed during order processing; if fulfillment is unavailable, the order is refunded under the published policy.</small>
       </div>
     </article>`;
   }
