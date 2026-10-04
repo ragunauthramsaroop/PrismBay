@@ -1,0 +1,94 @@
+name: PrismBay Daily Retail Content LLM Worker
+
+on:
+  schedule:
+    - cron: '30 12 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: prismbay-daily-retail-content
+  cancel-in-progress: false
+
+jobs:
+  daily-retail-content:
+    runs-on: ubuntu-latest
+    timeout-minutes: 18
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Prepare guarded daily retail brief
+        run: |
+          mkdir -p growth-reports/daily-retail-content
+          cat > /tmp/prismbay-daily-retail-prompt.txt <<'PROMPT'
+          You are the PrismBay Clean Daily Retail Content Worker operating inside the PrismBay repository.
+
+          Goal: prepare exactly one publish-ready short-form retail video package for today, but only when at least one SKU is fully promotion-ready under the repository's existing commercial gates.
+
+          Inspect before deciding:
+          - AGENTS.md and CLAUDE.md
+          - config/retail-commercial-authorization.json
+          - docs/DROPSHIPPING_WORKERS.md
+          - growth-reports and supplier verification evidence
+          - current PrismBay Clean storefront product/pricing data
+          - Paperclip commerce reports and promotion-readiness artifacts
+
+          Hard rules:
+          - Stripe paid transactions are the only sales source of truth.
+          - Never invent reviews, ratings, sales counts, scarcity, stock, discounts, delivery claims or performance claims.
+          - Never use supplier or third-party media unless documented commercial rights exist. Prefer an original shot plan or original graphics.
+          - Do not promote a SKU unless supplier identity, exact variant, current stock where required, destination freight, landed economics, media rights, checkout and fulfillment readiness all pass.
+          - Keep the PrismBay Clean retail TikTok distinct from the educational YouTube channel.
+          - Match the storefront brand system: forest/mint premium-clean palette, clear pricing, calm trust-first copy, and the line 'Everyday mess. Better tools.' where appropriate.
+
+          If a SKU passes every gate, return a concise Markdown package with:
+          1. VERIFIED SKU and evidence files relied on
+          2. 1-2 second hook
+          3. 15-25 second vertical 9:16 shot list
+          4. exact on-screen text sequence
+          5. voiceover/script
+          6. caption
+          7. factual CTA and destination URL
+          8. verified listed price if evidence supports it
+          9. media-rights status
+          10. TikTok disclosure/compliance note
+          11. reusable derivative ideas for 1:1 and 4:5
+
+          If no SKU passes all gates, return BLOCKED FOR PUBLICATION and produce the strongest non-publishing draft concept plus the exact missing evidence needed to release it. Do not weaken a gate to fill the calendar.
+          PROMPT
+
+      - name: Run Claude Code through 9Router and OpenCode Free
+        run: |
+          node scripts/claude-9router-auto.mjs \
+            --prompt-file=/tmp/prismbay-daily-retail-prompt.txt \
+            --output-file=growth-reports/daily-retail-content/latest.md
+
+      - name: Add run metadata
+        run: |
+          node - <<'NODE'
+          const fs = require('fs');
+          const p = 'growth-reports/daily-retail-content/latest.md';
+          const body = fs.readFileSync(p, 'utf8');
+          const stamp = new Date().toISOString();
+          fs.writeFileSync(p, `<!-- generated-by: prismbay-daily-retail-content -->\n<!-- generated-at: ${stamp} -->\n\n${body}`);
+          NODE
+
+      - name: Commit latest daily content pack
+        run: |
+          git config user.name 'PrismBay LLM Worker'
+          git config user.email 'actions@users.noreply.github.com'
+          git add growth-reports/daily-retail-content/latest.md
+          if git diff --cached --quiet; then
+            echo 'No content changes to commit.'
+          else
+            git commit -m 'chore: refresh daily PrismBay Clean retail content pack'
+            git push
+          fi
