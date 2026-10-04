@@ -48,46 +48,6 @@ window.PRISMBAY_CATALOG = Object.freeze({
       checkout: 'https://buy.stripe.com/bJe00k2zc8tZ7hUgtagnK01',
       summary: 'For pet hair and lint on sofas, car seats, bedding and other suitable fabric surfaces.',
       tags: ['Sofas', 'Car seats', 'Bedding']
-    }),
-    Object.freeze({
-      sku: 'pressure-washer',
-      name: 'Pressure Washer',
-      category: 'Outdoor cleaning',
-      status: 'verification',
-      summary: 'Mapped into the PrismBay physical catalog. Public checkout is withheld while commercial verification is completed.',
-      tags: ['Catalog mapped', 'Verification in progress']
-    }),
-    Object.freeze({
-      sku: 'mattress-vacuum',
-      name: 'Mattress Vacuum',
-      category: 'Home care',
-      status: 'verification',
-      summary: 'Mapped into the PrismBay physical catalog. Public checkout is withheld while commercial verification is completed.',
-      tags: ['Catalog mapped', 'Verification in progress']
-    }),
-    Object.freeze({
-      sku: 'mini-mop',
-      name: 'Mini Mop',
-      category: 'Surface cleaning',
-      status: 'verification',
-      summary: 'Mapped into the PrismBay physical catalog. Public checkout is withheld while commercial verification is completed.',
-      tags: ['Catalog mapped', 'Verification in progress']
-    }),
-    Object.freeze({
-      sku: 'drain-catcher',
-      name: 'Drain Catcher',
-      category: 'Kitchen & bath',
-      status: 'verification',
-      summary: 'Mapped into the PrismBay physical catalog. Public checkout is withheld while commercial verification is completed.',
-      tags: ['Catalog mapped', 'Verification in progress']
-    }),
-    Object.freeze({
-      sku: 'home-caddy',
-      name: 'Home Caddy',
-      category: 'Organization',
-      status: 'verification',
-      summary: 'Mapped into the PrismBay physical catalog. Public checkout is withheld while commercial verification is completed.',
-      tags: ['Catalog mapped', 'Verification in progress']
     })
   ])
 });
