@@ -3,6 +3,13 @@ name: PrismBay Paperclip Real-Time Dispatcher
 on:
   issue_comment:
     types: [created]
+  workflow_run:
+    workflows:
+      - 'Claude Free GitHub Cloud Agent'
+      - 'Copilot Anthropic Claude Council'
+    types: [completed]
+  pull_request_target:
+    types: [opened, synchronize, reopened, closed]
   workflow_dispatch:
 
 permissions:
@@ -17,7 +24,13 @@ jobs:
   dispatch:
     if: >-
       github.event_name == 'workflow_dispatch' ||
+      github.event_name == 'workflow_run' ||
       (
+        github.event_name == 'pull_request_target' &&
+        github.event.pull_request.head.repo.full_name == github.repository
+      ) ||
+      (
+        github.event_name == 'issue_comment' &&
         (github.event.comment.user.login == github.repository_owner || github.event.comment.user.login == 'github-actions[bot]') &&
         (
           github.event.issue.number == 210 ||
