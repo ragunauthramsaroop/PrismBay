@@ -3,12 +3,15 @@ import { readFileSync } from 'node:fs';
 import { resolve, posix } from 'node:path';
 import { pathToFileURL } from 'node:url';
 import Stripe from 'stripe';
+import { FileJobStore } from '../../scripts/commerce-job-file-store.mjs';
 import { loadCatalog } from './catalog.mjs';
 import { openLedger } from './ledger.mjs';
 import { ingest } from './orders.mjs';
 import { createQuoteService } from './shipping-quote.mjs';
 import { createLedgerQuoteConsumer } from './quote-replay.mjs';
 import { createCommercialSignalRecorder, signalTokenAuthorized } from './commercial-signals.mjs';
+import { openContactVault } from './contact-vault.mjs';
+import { createPhysicalAutomationBridge } from './automation-bridge.mjs';
 
 // Logging is an allowlist: never serialize event bodies, errors, URLs, ZIPs, tokens, or customer data.
 export function safeLog(sink, code) {
@@ -61,13 +64,13 @@ async function recordFailure(signalRecorder, stage, sku, code) {
   try { await signalRecorder?.record({ stage, sku, code }); } catch {}
 }
 
-export function createServer({ secret, ledger, catalog, quoteService = null, signalRecorder = null, signalReadToken = '', live = true, logger = console.log, now = () => Date.now() }) {
+export function createServer({ secret, ledger, catalog, quoteService = null, signalRecorder = null, signalReadToken = '', automationBridge = null, live = true, logger = console.log, now = () => Date.now() }) {
   if (!secret?.startsWith('whsec_')) throw Error('Signing secret required');
   const allowQuote = createMinuteLimiter({ max: 8, now });
   const allowCheckout = createMinuteLimiter({ max: 12, now });
   const server = http.createServer(async (req, res) => {
     const send = (status, body) => { res.writeHead(status, { 'content-type': 'application/json', 'cache-control': 'no-store' }); res.end(JSON.stringify(body)); };
-    if (req.method === 'GET' && req.url === '/health') return send(200, { service: 'physical-orders', status: 'ok', quoteEnabled: Boolean(quoteService?.configuredSkus?.length), commercialSignalsEnabled: Boolean(signalRecorder && String(signalReadToken).length >= 32) });
+    if (req.method === 'GET' && req.url === '/health') return send(200, { service: 'physical-orders', status: 'ok', quoteEnabled: Boolean(quoteService?.configuredSkus?.length), commercialSignalsEnabled: Boolean(signalRecorder && String(signalReadToken).length >= 32), automationProjectionEnabled: Boolean(automationBridge) });
     if (req.method === 'GET' && req.url === '/commercial-signals') {
       if (!signalRecorder || !signalTokenAuthorized(signalReadToken, req.headers['x-commercial-signal-token'])) return send(404, { error: 'not_found' });
       return send(200, signalRecorder.summary());
@@ -122,7 +125,21 @@ export function createServer({ secret, ledger, catalog, quoteService = null, sig
     }
     try {
       const result = await ingest(event, ledger, catalog, live);
-      safeLog(logger, 'accepted'); send(200, { received: true, result });
+      let automation = null;
+      if (automationBridge && ['recorded', 'replay'].includes(result)) {
+        automation = await automationBridge.projectStripeEvent(event, ledger.snapshot());
+      }
+      safeLog(logger, 'accepted');
+      send(200, {
+        received: true,
+        result,
+        automation: automation ? {
+          projected: automation.projected === true,
+          reason: automation.reason || null,
+          insertedJobs: Number(automation.insertedJobs || 0),
+          duplicateJobs: Number(automation.duplicateJobs || 0)
+        } : null
+      });
     } catch {
       safeLog(logger, 'storage_error'); send(500, { error: 'processing_failed' });
     }
@@ -137,13 +154,28 @@ export async function start(env = process.env) {
   if (env.PROD === 'true' && env.STRIPE_LIVE_MODE !== 'true') throw Error('Production requires live mode');
   if (!['true', 'false'].includes(env.STRIPE_LIVE_MODE)) throw Error('Explicit Stripe mode required');
   if (!env.STRIPE_WEBHOOK_SECRET?.startsWith('whsec_')) throw Error('Signing secret required');
+  if (env.PHYSICAL_ORDER_AUTOMATION_ENABLED && !['true', 'false'].includes(env.PHYSICAL_ORDER_AUTOMATION_ENABLED)) throw Error('PHYSICAL_ORDER_AUTOMATION_ENABLED must be true or false');
   const catalog = loadCatalog(env.PHYSICAL_CATALOG_PATH);
   if (env.PROD === 'true' && !catalog.mappings.length) throw Error('Physical catalog import required');
-  const ledger = await openLedger(resolve(env.DATA_DIR || 'data'));
+  const dataDirectory = resolve(env.DATA_DIR || 'data');
+  const ledger = await openLedger(dataDirectory);
   const consumeQuoteOnce = createLedgerQuoteConsumer(ledger);
   const quoteService = createQuoteService({ env, consumeQuoteOnce });
   const signalRecorder = createCommercialSignalRecorder({ ledger });
-  const server = createServer({ secret: env.STRIPE_WEBHOOK_SECRET, ledger, catalog, quoteService, signalRecorder, signalReadToken: env.COMMERCIAL_SIGNAL_READ_TOKEN || '', live: env.STRIPE_LIVE_MODE === 'true' });
+
+  let automationBridge = null;
+  if (env.PHYSICAL_ORDER_AUTOMATION_ENABLED === 'true') {
+    if (!env.AUTOMATION_CONTACT_VAULT_KEY || !env.AUTOMATION_RECIPIENT_REF_KEY) throw Error('Physical-order automation requires encrypted contact-vault and recipient-reference keys');
+    const contactVault = await openContactVault({
+      directory: resolve(dataDirectory, 'automation-contacts'),
+      encryptionSecret: env.AUTOMATION_CONTACT_VAULT_KEY,
+      recipientRefSecret: env.AUTOMATION_RECIPIENT_REF_KEY
+    });
+    const jobStore = await new FileJobStore(resolve(dataDirectory, 'automation-jobs.json')).load();
+    automationBridge = createPhysicalAutomationBridge({ contactVault, jobStore });
+  }
+
+  const server = createServer({ secret: env.STRIPE_WEBHOOK_SECRET, ledger, catalog, quoteService, signalRecorder, signalReadToken: env.COMMERCIAL_SIGNAL_READ_TOKEN || '', automationBridge, live: env.STRIPE_LIVE_MODE === 'true' });
   server.listen(Number(env.PORT || 3001), '0.0.0.0', () => safeLog(console.log, 'started'));
   const shutdown = () => server.close(async () => { await ledger.close(); process.exit(0); });
   process.once('SIGTERM', shutdown); process.once('SIGINT', shutdown);
