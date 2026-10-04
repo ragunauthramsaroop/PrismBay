@@ -1,0 +1,63 @@
+{
+  "program": "PrismBay Clean 500+ Live SKU Scale-Out",
+  "version": "2026-10-04",
+  "researchPoolTarget": 600,
+  "liveSaleReadyTarget": 500,
+  "minimumCandidatesPerCategory": 40,
+  "maximumCategoryShare": 0.15,
+  "categories": [
+    {"id":"cleaning-tools","label":"Cleaning Tools","targetCandidates":50},
+    {"id":"bathroom-accessories","label":"Bathroom Accessories","targetCandidates":50},
+    {"id":"kitchen-cleaning-organization","label":"Kitchen Cleaning & Organization","targetCandidates":50},
+    {"id":"laundry-garment-care","label":"Laundry & Garment Care","targetCandidates":50},
+    {"id":"home-storage-organization","label":"Home Storage & Organization","targetCandidates":50},
+    {"id":"closet-shoe-organization","label":"Closet & Shoe Organization","targetCandidates":50},
+    {"id":"pet-home-cleanup","label":"Pet Hair & Home Cleanup","targetCandidates":50},
+    {"id":"auto-cleaning-organization","label":"Auto Cleaning & Organization","targetCandidates":50},
+    {"id":"travel-organization","label":"Travel Organization","targetCandidates":50},
+    {"id":"desk-cable-organization","label":"Desk & Cable Organization","targetCandidates":50},
+    {"id":"reusable-household-utility","label":"Reusable Household Utility","targetCandidates":50},
+    {"id":"small-home-convenience","label":"Small Home Convenience Tools","targetCandidates":50}
+  ],
+  "statuses": [
+    "RESEARCH_CANDIDATE",
+    "SUPPLIER_MATCHED",
+    "COMMERCIAL_EVIDENCE_PENDING",
+    "READY_FOR_FINAL_COMMERCIAL_GATE",
+    "SALE_READY",
+    "REJECTED"
+  ],
+  "requiredDemandEvidence": [
+    "source",
+    "observedAt",
+    "evidenceType",
+    "confidence"
+  ],
+  "requiredSaleReadyGates": [
+    "demandEvidenceVerified",
+    "supplierIdentityVerified",
+    "exactVariantVerified",
+    "variantStockVerified",
+    "finalDestinationFreightVerified",
+    "landedCostVerified",
+    "marginFloorPassed",
+    "mediaRightsVerified",
+    "checkoutInfrastructureVerified",
+    "fulfillmentReady"
+  ],
+  "prohibitedOrExcluded": [
+    "hazardous-chemicals",
+    "prescription-or-restricted-medication",
+    "recreational-drugs",
+    "alcohol",
+    "nicotine",
+    "weapons",
+    "surveillance-spyware",
+    "medical-claims-without-authorization",
+    "pet-ingestibles-or-medications",
+    "regulated-automotive-safety-equipment",
+    "counterfeit-goods"
+  ],
+  "publishingRule": "Only SALE_READY products may render a purchasable CTA. Research candidates and blocked products must never be represented as live inventory.",
+  "salesSourceOfTruth": "Stripe paid transaction"
+}
