@@ -45,7 +45,7 @@ jobs:
         run: node --test scripts/automation-email-delivery-contract.test.mjs scripts/clean-email-templates.test.mjs
       - name: Typecheck strict delivery integration
         run: >-
-          npx tsc --noEmit --target ES2022 --module NodeNext --moduleResolution NodeNext
+          npx tsc --noEmit --target ES2022 --module ESNext --moduleResolution Bundler
           --skipLibCheck --esModuleInterop --allowSyntheticDefaultImports --allowJs --checkJs false
           scripts/automation-email-delivery-contract.mjs
           src/lib/email.ts src/lib/clean-email-templates.ts
