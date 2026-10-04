@@ -124,6 +124,6 @@ export function renderCleanEmail(kind: CleanEmailKind, data: CleanEmailData = {}
       return { subject, text: `${lines.join("\n\n")}\n\nReview: ${reviewUrl}`, html: shell("Share your experience", lines[0], lines.slice(1), { label: "Write a review", url: reviewUrl }) };
     }
     default:
-      throw new Error(`unsupported_clean_email_kind:${kind satisfies never}`);
+      throw new Error("unsupported_clean_email_kind");
   }
 }
