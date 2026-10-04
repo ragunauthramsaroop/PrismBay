@@ -1,0 +1,35 @@
+name: PrismBay Commerce Analytics CI
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'scripts/commerce-event-taxonomy.mjs'
+      - 'scripts/commerce-event-adapters.mjs'
+      - 'scripts/commerce-event-taxonomy.test.mjs'
+      - 'docs/COMMERCE_EVENT_TAXONOMY.md'
+      - '.github/workflows/commerce-analytics-ci.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/commerce-event-taxonomy.mjs'
+      - 'scripts/commerce-event-adapters.mjs'
+      - 'scripts/commerce-event-taxonomy.test.mjs'
+      - 'docs/COMMERCE_EVENT_TAXONOMY.md'
+      - '.github/workflows/commerce-analytics-ci.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  privacy-contract:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Run commerce analytics tests
+        run: node --test scripts/commerce-event-taxonomy.test.mjs scripts/runtime-commercial-signal-collector.test.mjs services/physical-orders/commercial-signals.test.mjs
