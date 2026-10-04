@@ -5,7 +5,8 @@ function slug(value) {
   return String(value || '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').slice(0, 72);
 }
 
-function verificationTask(report = {}) {
+function verificationTask(input = {}) {
+  const report = input && typeof input === 'object' ? input : {};
   const reasons = Array.isArray(report.reasons) && report.reasons.length ? report.reasons : ['verification_missing'];
   return {
     id: `commerce-control:${slug('Restore verifiable backend swarm execution')}`,
