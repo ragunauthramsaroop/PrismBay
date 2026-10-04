@@ -1,0 +1,47 @@
+name: PrismBay Commerce Automation Runtime CI
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'scripts/commerce-automation-runtime.mjs'
+      - 'scripts/commerce-automation-runtime.test.mjs'
+      - 'scripts/commerce-job-file-store.mjs'
+      - 'scripts/commerce-job-reliability.mjs'
+      - 'docs/COMMERCE_AUTOMATION_RUNTIME.md'
+      - '.github/workflows/commerce-automation-runtime-ci.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/commerce-automation-runtime.mjs'
+      - 'scripts/commerce-automation-runtime.test.mjs'
+      - 'scripts/commerce-job-file-store.mjs'
+      - 'scripts/commerce-job-reliability.mjs'
+      - 'docs/COMMERCE_AUTOMATION_RUNTIME.md'
+      - '.github/workflows/commerce-automation-runtime-ci.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  automation-contract:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Run automation and queue regressions
+        run: node --test scripts/commerce-job-reliability.test.mjs scripts/commerce-automation-runtime.test.mjs
+      - name: Verify no outbound action is embedded in runtime
+        run: |
+          node - <<'NODE'
+          const fs=require('fs');
+          const src=fs.readFileSync('scripts/commerce-automation-runtime.mjs','utf8');
+          for (const forbidden of ['resend.emails.send(', 'stripe.checkout.sessions.create(', 'order/createOrder']) {
+            if (src.includes(forbidden)) throw new Error(`forbidden external action embedded: ${forbidden}`);
+          }
+          console.log('Automation runtime remains dependency-injected and fail-closed.');
+          NODE
