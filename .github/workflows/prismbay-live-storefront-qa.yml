@@ -1,0 +1,45 @@
+name: PrismBay Live Storefront QA
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '17 */6 * * *'
+  workflow_run:
+    workflows: ['pages build and deployment']
+    types: [completed]
+  pull_request:
+    branches: [main]
+    paths:
+      - 'scripts/prismbay_live_storefront_audit.py'
+      - '.github/workflows/prismbay-live-storefront-qa.yml'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: prismbay-live-storefront-qa
+  cancel-in-progress: true
+
+jobs:
+  forensic-live-audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install Playwright Chromium
+        run: |
+          python -m pip install --disable-pip-version-check playwright==1.56.0
+          python -m playwright install --with-deps chromium
+      - name: Audit live HTTPS storefront and customer-policy routes
+        run: python scripts/prismbay_live_storefront_audit.py
+      - name: Upload machine-readable QA report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: prismbay-live-storefront-qa-${{ github.run_id }}
+          path: audit/prismbay-live-storefront-audit.json
+          if-no-files-found: warn
+          retention-days: 30
