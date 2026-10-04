@@ -12,10 +12,30 @@ import { createLedgerQuoteConsumer } from './quote-replay.mjs';
 import { createCommercialSignalRecorder, signalTokenAuthorized } from './commercial-signals.mjs';
 import { openContactVault } from './contact-vault.mjs';
 import { createPhysicalAutomationBridge } from './automation-bridge.mjs';
+import { createFulfillmentStatusAutomation, statusTokenAuthorized } from './fulfillment-status.mjs';
+
+const SAFE_LOG_CODES = new Set([
+  'accepted',
+  'rejected',
+  'storage_error',
+  'started',
+  'quote_ok',
+  'quote_rejected',
+  'checkout_authorized',
+  'checkout_rejected',
+  'rate_limited',
+  'fulfillment_status_ok',
+  'fulfillment_status_rejected'
+]);
+const SAFE_FULFILLMENT_ERRORS = new Set([
+  'physical_order_not_fulfillment_ready',
+  'fulfillment_event_replay_mismatch',
+  'stale_fulfillment_evidence'
+]);
 
 // Logging is an allowlist: never serialize event bodies, errors, URLs, ZIPs, tokens, or customer data.
 export function safeLog(sink, code) {
-  sink(JSON.stringify({ service: 'physical-orders', code: ['accepted', 'rejected', 'storage_error', 'started', 'quote_ok', 'quote_rejected', 'checkout_authorized', 'checkout_rejected', 'rate_limited'].includes(code) ? code : 'redacted' }));
+  sink(JSON.stringify({ service: 'physical-orders', code: SAFE_LOG_CODES.has(code) ? code : 'redacted' }));
 }
 
 export function validateStorage(env, mountinfo) {
@@ -64,16 +84,72 @@ async function recordFailure(signalRecorder, stage, sku, code) {
   try { await signalRecorder?.record({ stage, sku, code }); } catch {}
 }
 
-export function createServer({ secret, ledger, catalog, quoteService = null, signalRecorder = null, signalReadToken = '', automationBridge = null, live = true, logger = console.log, now = () => Date.now() }) {
+function fulfillmentErrorResponse(error) {
+  const message = String(error?.message || '');
+  if (SAFE_FULFILLMENT_ERRORS.has(message)) return { status: 409, error: message };
+  if (message.startsWith('illegal_fulfillment_transition:')) return { status: 409, error: 'illegal_fulfillment_transition' };
+  if (error?.status === 400 || error?.status === 413) return { status: error.status, error: message || 'invalid_request' };
+  return { status: 500, error: 'fulfillment_status_processing_failed' };
+}
+
+export function createServer({
+  secret,
+  ledger,
+  catalog,
+  quoteService = null,
+  signalRecorder = null,
+  signalReadToken = '',
+  automationBridge = null,
+  fulfillmentAutomation = null,
+  fulfillmentStatusWriteToken = '',
+  live = true,
+  logger = console.log,
+  now = () => Date.now()
+}) {
   if (!secret?.startsWith('whsec_')) throw Error('Signing secret required');
   const allowQuote = createMinuteLimiter({ max: 8, now });
   const allowCheckout = createMinuteLimiter({ max: 12, now });
+  const allowFulfillment = createMinuteLimiter({ max: 30, now });
   const server = http.createServer(async (req, res) => {
     const send = (status, body) => { res.writeHead(status, { 'content-type': 'application/json', 'cache-control': 'no-store' }); res.end(JSON.stringify(body)); };
-    if (req.method === 'GET' && req.url === '/health') return send(200, { service: 'physical-orders', status: 'ok', quoteEnabled: Boolean(quoteService?.configuredSkus?.length), commercialSignalsEnabled: Boolean(signalRecorder && String(signalReadToken).length >= 32), automationProjectionEnabled: Boolean(automationBridge) });
+    if (req.method === 'GET' && req.url === '/health') return send(200, {
+      service: 'physical-orders',
+      status: 'ok',
+      quoteEnabled: Boolean(quoteService?.configuredSkus?.length),
+      commercialSignalsEnabled: Boolean(signalRecorder && String(signalReadToken).length >= 32),
+      automationProjectionEnabled: Boolean(automationBridge),
+      fulfillmentStatusAutomationEnabled: Boolean(fulfillmentAutomation && String(fulfillmentStatusWriteToken).length >= 32)
+    });
     if (req.method === 'GET' && req.url === '/commercial-signals') {
       if (!signalRecorder || !signalTokenAuthorized(signalReadToken, req.headers['x-commercial-signal-token'])) return send(404, { error: 'not_found' });
       return send(200, signalRecorder.summary());
+    }
+
+    if (req.method === 'POST' && req.url === '/internal/fulfillment/status') {
+      if (!fulfillmentAutomation || !statusTokenAuthorized(fulfillmentStatusWriteToken, req.headers['x-fulfillment-status-token'])) {
+        return send(404, { error: 'not_found' });
+      }
+      if (!allowFulfillment(clientKey(req))) {
+        safeLog(logger, 'rate_limited');
+        return send(429, { error: 'rate_limited' });
+      }
+      try {
+        const body = await readJson(req, 12 * 1024);
+        const result = await fulfillmentAutomation.record(body);
+        safeLog(logger, result.ok ? 'fulfillment_status_ok' : 'fulfillment_status_rejected');
+        return send(result.status || (result.ok ? 200 : 409), {
+          ok: result.ok === true,
+          replay: result.replay === true,
+          state: result.state || null,
+          insertedJobs: Number(result.insertedJobs || 0),
+          duplicateJobs: Number(result.duplicateJobs || 0),
+          error: result.error || null
+        });
+      } catch (error) {
+        const safe = fulfillmentErrorResponse(error);
+        safeLog(logger, 'fulfillment_status_rejected');
+        return send(safe.status, { error: safe.error });
+      }
     }
 
     if (req.method === 'POST' && req.url === '/shipping/quote') {
@@ -155,6 +231,8 @@ export async function start(env = process.env) {
   if (!['true', 'false'].includes(env.STRIPE_LIVE_MODE)) throw Error('Explicit Stripe mode required');
   if (!env.STRIPE_WEBHOOK_SECRET?.startsWith('whsec_')) throw Error('Signing secret required');
   if (env.PHYSICAL_ORDER_AUTOMATION_ENABLED && !['true', 'false'].includes(env.PHYSICAL_ORDER_AUTOMATION_ENABLED)) throw Error('PHYSICAL_ORDER_AUTOMATION_ENABLED must be true or false');
+  if (env.FULFILLMENT_STATUS_AUTOMATION_ENABLED && !['true', 'false'].includes(env.FULFILLMENT_STATUS_AUTOMATION_ENABLED)) throw Error('FULFILLMENT_STATUS_AUTOMATION_ENABLED must be true or false');
+  if (env.FULFILLMENT_STATUS_AUTOMATION_ENABLED === 'true' && env.PHYSICAL_ORDER_AUTOMATION_ENABLED !== 'true') throw Error('Fulfillment status automation requires physical-order automation');
   const catalog = loadCatalog(env.PHYSICAL_CATALOG_PATH);
   if (env.PROD === 'true' && !catalog.mappings.length) throw Error('Physical catalog import required');
   const dataDirectory = resolve(env.DATA_DIR || 'data');
@@ -164,6 +242,7 @@ export async function start(env = process.env) {
   const signalRecorder = createCommercialSignalRecorder({ ledger });
 
   let automationBridge = null;
+  let fulfillmentAutomation = null;
   if (env.PHYSICAL_ORDER_AUTOMATION_ENABLED === 'true') {
     if (!env.AUTOMATION_CONTACT_VAULT_KEY || !env.AUTOMATION_RECIPIENT_REF_KEY) throw Error('Physical-order automation requires encrypted contact-vault and recipient-reference keys');
     const contactVault = await openContactVault({
@@ -173,9 +252,24 @@ export async function start(env = process.env) {
     });
     const jobStore = await new FileJobStore(resolve(dataDirectory, 'automation-jobs.json')).load();
     automationBridge = createPhysicalAutomationBridge({ contactVault, jobStore });
+    if (env.FULFILLMENT_STATUS_AUTOMATION_ENABLED === 'true') {
+      if (String(env.FULFILLMENT_STATUS_WRITE_TOKEN || '').length < 32) throw Error('Fulfillment status automation requires a dedicated write token of at least 32 characters');
+      fulfillmentAutomation = createFulfillmentStatusAutomation({ ledger, contactVault, jobStore });
+    }
   }
 
-  const server = createServer({ secret: env.STRIPE_WEBHOOK_SECRET, ledger, catalog, quoteService, signalRecorder, signalReadToken: env.COMMERCIAL_SIGNAL_READ_TOKEN || '', automationBridge, live: env.STRIPE_LIVE_MODE === 'true' });
+  const server = createServer({
+    secret: env.STRIPE_WEBHOOK_SECRET,
+    ledger,
+    catalog,
+    quoteService,
+    signalRecorder,
+    signalReadToken: env.COMMERCIAL_SIGNAL_READ_TOKEN || '',
+    automationBridge,
+    fulfillmentAutomation,
+    fulfillmentStatusWriteToken: env.FULFILLMENT_STATUS_WRITE_TOKEN || '',
+    live: env.STRIPE_LIVE_MODE === 'true'
+  });
   server.listen(Number(env.PORT || 3001), '0.0.0.0', () => safeLog(console.log, 'started'));
   const shutdown = () => server.close(async () => { await ledger.close(); process.exit(0); });
   process.once('SIGTERM', shutdown); process.once('SIGINT', shutdown);
