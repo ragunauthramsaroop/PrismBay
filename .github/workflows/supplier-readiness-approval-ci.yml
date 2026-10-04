@@ -1,0 +1,57 @@
+name: PrismBay Supplier Readiness Approval CI
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'services/physical-orders/supplier-readiness.mjs'
+      - 'services/physical-orders/supplier-readiness.test.mjs'
+      - 'services/physical-orders/checkout-quote-gate.mjs'
+      - 'docs/SUPPLIER_READINESS_APPROVAL.md'
+      - '.github/workflows/supplier-readiness-approval-ci.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'services/physical-orders/supplier-readiness.mjs'
+      - 'services/physical-orders/supplier-readiness.test.mjs'
+      - 'services/physical-orders/checkout-quote-gate.mjs'
+      - 'docs/SUPPLIER_READINESS_APPROVAL.md'
+      - '.github/workflows/supplier-readiness-approval-ci.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  supplier-readiness-contract:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Run supplier readiness regressions
+        run: node --test services/physical-orders/supplier-readiness.test.mjs
+      - name: Check module syntax
+        run: node --check services/physical-orders/supplier-readiness.mjs
+      - name: Verify non-spending boundary
+        run: |
+          node - <<'NODE'
+          const fs = require('fs');
+          const source = fs.readFileSync('services/physical-orders/supplier-readiness.mjs', 'utf8');
+          for (const forbidden of [
+            'createOrder(',
+            '/shopping/order/createOrder',
+            'stripe.checkout.sessions.create(',
+            'resend.emails.send(',
+            'publishProduct('
+          ]) {
+            if (source.includes(forbidden)) throw new Error(`forbidden irreversible action embedded: ${forbidden}`);
+          }
+          if (!source.includes('supplierSubmissionEnabled: false')) throw new Error('non-spending gate missing');
+          if (!source.includes('listingRightsVerified')) throw new Error('listing-rights gate missing');
+          if (!source.includes('fresh_freight_quote_required')) throw new Error('freight freshness gate missing');
+          if (!source.includes('fresh_stock_verification_required')) throw new Error('stock freshness gate missing');
+          console.log('Supplier readiness remains evidence-gated and non-spending.');
+          NODE
