@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-04T12:15:00.000Z",
+  "generatedAt": "2026-10-04T12:22:34.833Z",
   "sourceOfTruth": "Stripe paid transaction for sales; fail-closed catalog gate for publishability",
   "productCount": 4,
   "categoryCounts": {
