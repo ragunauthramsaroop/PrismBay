@@ -1,0 +1,44 @@
+name: PrismBay Paperclip Real-Time Dispatcher
+
+on:
+  issue_comment:
+    types: [created]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: write
+
+concurrency:
+  group: prismbay-paperclip-realtime-dispatch
+  cancel-in-progress: false
+
+jobs:
+  dispatch:
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      (
+        (github.event.comment.user.login == github.repository_owner || github.event.comment.user.login == 'github-actions[bot]') &&
+        (
+          github.event.issue.number == 210 ||
+          github.event.issue.number == 211 ||
+          github.event.issue.number == 212 ||
+          github.event.issue.number == 220 ||
+          github.event.issue.number == 221 ||
+          github.event.issue.number == 222
+        )
+      )
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - name: Dispatch Paperclip Commerce Group immediately
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.actions.createWorkflowDispatch({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              workflow_id: 'paperclip-commerce-group.yml',
+              ref: 'main'
+            });
+            core.notice('Dispatched PrismBay Paperclip Commerce Group from a revenue-worker event.');
