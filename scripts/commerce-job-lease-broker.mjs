@@ -36,6 +36,19 @@ function safeFailure(outcome = {}) {
   };
 }
 
+function activeLease(store, jobId, leaseId, currentMs) {
+  const safeJobId = token(jobId, 220);
+  const safeLeaseId = token(leaseId, 160);
+  if (!safeJobId || !safeLeaseId) return { ok: false, reason: 'valid_job_and_lease_required' };
+  const current = store.get(safeJobId);
+  if (!current) return { ok: false, reason: 'job_not_found' };
+  if (current.jobClass !== 'email') return { ok: false, reason: 'email_job_required' };
+  if (current.state !== 'running' || current.lease?.id !== safeLeaseId) return { ok: false, reason: 'stale_or_mismatched_lease' };
+  const expiresMs = parseTime(current.lease?.expiresAt);
+  if (expiresMs === null || expiresMs <= currentMs) return { ok: false, reason: 'lease_expired' };
+  return { ok: true, job: current };
+}
+
 export function automationWorkerTokenAuthorized(expected, supplied) {
   const left = Buffer.from(String(expected || ''));
   const right = Buffer.from(String(supplied || ''));
@@ -119,19 +132,25 @@ export function createJobLeaseBroker({ store, nowMs = () => Date.now(), randomId
       });
     },
 
-    async acknowledge({ jobId, leaseId, outcome = {} } = {}) {
+    async withActiveLease({ jobId, leaseId } = {}, fn) {
+      if (typeof fn !== 'function') throw new Error('active_lease_callback_required');
       return serialize(async () => {
-        const safeJobId = token(jobId, 220);
-        const safeLeaseId = token(leaseId, 160);
-        if (!safeJobId || !safeLeaseId) return { ok: false, reason: 'valid_job_and_lease_required' };
         const currentMs = Number(nowMs());
         if (!Number.isFinite(currentMs)) throw new Error('valid_broker_time_required');
-        const current = store.get(safeJobId);
-        if (!current) return { ok: false, reason: 'job_not_found' };
-        if (current.jobClass !== 'email') return { ok: false, reason: 'email_job_required' };
-        if (current.state !== 'running' || current.lease?.id !== safeLeaseId) return { ok: false, reason: 'stale_or_mismatched_lease' };
-        const expiresMs = parseTime(current.lease?.expiresAt);
-        if (expiresMs === null || expiresMs <= currentMs) return { ok: false, reason: 'lease_expired' };
+        const active = activeLease(store, jobId, leaseId, currentMs);
+        if (!active.ok) return active;
+        return { ok: true, value: await fn(structuredClone(active.job)) };
+      });
+    },
+
+    async acknowledge({ jobId, leaseId, outcome = {} } = {}) {
+      return serialize(async () => {
+        const currentMs = Number(nowMs());
+        if (!Number.isFinite(currentMs)) throw new Error('valid_broker_time_required');
+        const active = activeLease(store, jobId, leaseId, currentMs);
+        if (!active.ok) return active;
+        const safeJobId = active.job.id;
+        const safeLeaseId = active.job.lease.id;
 
         const updated = await store.update(safeJobId, (latest) => {
           if (latest.state !== 'running' || latest.lease?.id !== safeLeaseId) throw new Error('lease_changed_during_ack');
