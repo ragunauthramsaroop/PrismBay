@@ -1,0 +1,81 @@
+name: PrismBay Automation Job Handoff CI
+
+on:
+  workflow_dispatch:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'scripts/commerce-job-file-store.mjs'
+      - 'scripts/commerce-job-lease-broker.mjs'
+      - 'scripts/commerce-job-lease-broker.test.mjs'
+      - 'services/physical-orders/server.mjs'
+      - 'services/physical-orders/automation-job-handoff-server.test.mjs'
+      - 'docs/AUTOMATION_JOB_HANDOFF.md'
+      - '.github/workflows/automation-job-handoff-ci.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/commerce-job-file-store.mjs'
+      - 'scripts/commerce-job-lease-broker.mjs'
+      - 'scripts/commerce-job-lease-broker.test.mjs'
+      - 'services/physical-orders/server.mjs'
+      - 'services/physical-orders/automation-job-handoff-server.test.mjs'
+      - 'docs/AUTOMATION_JOB_HANDOFF.md'
+      - '.github/workflows/automation-job-handoff-ci.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  durable-email-handoff:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    defaults:
+      run:
+        working-directory: services/physical-orders
+    steps:
+      - name: Check out PrismBay
+        uses: actions/checkout@v4
+      - name: Set up Node.js 24
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+          cache-dependency-path: services/physical-orders/package-lock.json
+      - name: Install locked physical-order dependencies
+        run: npm ci
+      - name: Run durable store, lease broker and endpoint tests
+        run: >-
+          node --test
+          ../../scripts/commerce-job-lease-broker.test.mjs
+          automation-job-handoff-server.test.mjs
+          fulfillment-status-server.test.mjs
+      - name: Check changed runtime syntax
+        run: |
+          node --check ../../scripts/commerce-job-file-store.mjs
+          node --check ../../scripts/commerce-job-lease-broker.mjs
+          node --check server.mjs
+      - name: Verify handoff remains de-identified and default-off
+        run: |
+          node - <<'NODE'
+          const fs = require('fs');
+          const server = fs.readFileSync('server.mjs', 'utf8');
+          const broker = fs.readFileSync('../../scripts/commerce-job-lease-broker.mjs', 'utf8');
+          const store = fs.readFileSync('../../scripts/commerce-job-file-store.mjs', 'utf8');
+          if (!server.includes('AUTOMATION_JOB_HANDOFF_ENABLED')) throw new Error('handoff enable flag missing');
+          if (!server.includes('AUTOMATION_WORKER_TOKEN')) throw new Error('worker token requirement missing');
+          if (!broker.includes("job?.jobClass === 'email'")) throw new Error('email-only lease boundary missing');
+          if (!store.includes('raw_email_not_allowed_in_job_store')) throw new Error('raw email store guard missing');
+          for (const source of [server, broker, store]) {
+            for (const forbidden of [
+              '/order/createOrder',
+              'shopping/order/createOrder',
+              'stripe.checkout.sessions.create(',
+              'publishProduct(',
+              'resend.emails.send('
+            ]) {
+              if (source.includes(forbidden)) throw new Error(`forbidden irreversible action embedded: ${forbidden}`);
+            }
+          }
+          console.log('Automation job handoff remains default-off, de-identified and non-sending.');
+          NODE
