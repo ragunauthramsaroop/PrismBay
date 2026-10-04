@@ -49,6 +49,7 @@ test('delivery and refund evidence sources fail closed', () => {
   assert.equal(validateFulfillmentEvidence(evidence('delivery_confirmed', { source: 'supplier_api' })).ok, false);
   assert.equal(validateFulfillmentEvidence(evidence('refund_processed', { source: 'carrier_api' })).ok, false);
   assert.equal(validateFulfillmentEvidence(evidence('shipment_update', { trackingUrl: 'http://carrier.example/x' })).ok, false);
+  assert.equal(validateFulfillmentEvidence(evidence('refund_processed', { refundAmountUsd: -1 })).ok, false);
 });
 
 test('processing, shipped and delivered states project notification jobs', async (t) => {
@@ -72,6 +73,16 @@ test('illegal fulfillment transition is rejected without a notification job', as
   assert.equal(jobStore.list().length, 0);
 });
 
+test('stale fulfillment evidence cannot move chronology backwards', async (t) => {
+  const { automation, jobStore } = await fixture(t);
+  await automation.record(evidence('order_processing', { occurredAt: '2026-10-04T08:00:00.000Z' }));
+  await assert.rejects(
+    () => automation.record(evidence('shipment_update', { occurredAt: '2026-10-04T07:00:00.000Z' })),
+    /stale_fulfillment_evidence/,
+  );
+  assert.equal(jobStore.list().length, 1);
+});
+
 test('replayed evidence keeps notification queue idempotent', async (t) => {
   const { automation, jobStore } = await fixture(t);
   const first = await automation.record(evidence('order_processing'));
@@ -83,6 +94,27 @@ test('replayed evidence keeps notification queue idempotent', async (t) => {
   assert.equal(jobStore.list().length, 1);
 });
 
+test('same fulfillment event id with changed evidence is rejected', async (t) => {
+  const { automation, jobStore } = await fixture(t);
+  await automation.record(evidence('order_processing'));
+  await assert.rejects(
+    () => automation.record(evidence('order_processing', { evidenceRef: 'different-evidence-ref' })),
+    /fulfillment_event_replay_mismatch/,
+  );
+  assert.equal(jobStore.list().length, 1);
+});
+
+test('refund evidence projects the verified amount without requiring supplier mutation', async (t) => {
+  const { automation, ledger, jobStore } = await fixture(t);
+  const result = await automation.record(evidence('refund_processed'));
+  assert.equal(result.ok, true);
+  assert.equal(ledger.snapshot().orders.pi_test_order.fulfillment.state, 'refunded');
+  assert.equal(ledger.snapshot().orders.pi_test_order.fulfillment.refundAmountUsd, 12.95);
+  const [job] = jobStore.list();
+  assert.equal(job.operation, 'refund');
+  assert.equal(job.payload.refundAmountUsd, 12.95);
+});
+
 test('physical recipient resolver joins encrypted contact with tracking context', async (t) => {
   const { automation, ledger, contactVault, captured } = await fixture(t);
   await automation.record(evidence('shipment_update'));
@@ -91,6 +123,18 @@ test('physical recipient resolver joins encrypted contact with tracking context'
   assert.equal(resolved.email, 'buyer@example.com');
   assert.equal(resolved.trackingUrl, 'https://carrier.example/track/PB1001');
   assert.equal(resolved.productName, 'crevice');
+});
+
+test('repeat customer checkout history retains older order-to-recipient linkage', async (t) => {
+  const { contactVault, captured } = await fixture(t);
+  const second = await contactVault.capturePaidCheckout({
+    email: 'buyer@example.com',
+    checkoutRef: 'cs_test_order456',
+    now: '2026-10-05T04:00:00.000Z'
+  });
+  assert.equal(second.recipientRef, captured.recipientRef);
+  assert.equal(await contactVault.recipientRefForCheckout('cs_test_order123'), captured.recipientRef);
+  assert.equal(await contactVault.recipientRefForCheckout('cs_test_order456'), captured.recipientRef);
 });
 
 test('status write token comparison requires a long exact token', () => {
