@@ -39,7 +39,8 @@ jobs:
             const [letter,label] = mapping[issue];
             const body = context.payload.comment.body || '';
             const blocks = [...body.matchAll(/```json\s*([\s\S]*?)```/gi)].map(m => m[1].trim());
-            if (!blocks.length) core.setFailed('No fenced JSON block found in Claude response.');
+            if (!blocks.length) return core.setFailed('No fenced JSON block found in Claude response.');
+
             let parsed = null;
             for (const block of blocks) {
               try {
@@ -47,32 +48,48 @@ jobs:
                 if (Array.isArray(j?.candidates)) { parsed = j; break; }
               } catch {}
             }
-            if (!parsed) core.setFailed('No valid JSON candidate batch found. Ask worker to repost compact JSON under the comment-size limit.');
+            if (!parsed) return core.setFailed('No valid JSON candidate batch found. Ask worker to repost compact JSON under the comment-size limit.');
             const candidates = parsed.candidates;
-            if (candidates.length !== 100) core.setFailed(`Expected exactly 100 candidates, got ${candidates.length}`);
+            if (candidates.length !== 100) return core.setFailed(`Expected exactly 100 candidates, got ${candidates.length}`);
+
             const prohibited = /(supplement|vitamin|alcohol|nicotine|weapon|pesticide|prescription|recreational drug|cbd|thc|vape|firearm|pepper spray|chemical cleaner|drain opener|spyware|surveillance camera)/i;
             const slugs = new Set();
             const names = new Set();
+            const asStringArray = (value) => Array.isArray(value)
+              ? value.map(v => typeof v === 'object' && v !== null ? String(v.id || v.sourceId || v.name || v.url || JSON.stringify(v)) : String(v)).filter(Boolean)
+              : [];
+            const compactSlug = (value) => String(value || '').trim().toLowerCase()
+              .replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'').slice(0,120);
+
             const normalized = candidates.map((c,i) => {
-              const slug = String(c.slug || '').trim().toLowerCase();
-              const name = String(c.name || '').trim();
-              const category = String(c.category || '').trim();
-              const query = String(c.query || '').trim();
-              if (!slug || !name || !category || !query) throw new Error(`Candidate ${i+1} missing slug/name/category/query`);
+              const rawName = c.name ?? c.product ?? c.title ?? '';
+              const name = String(rawName).trim();
+              const slug = compactSlug(c.slug ?? c.id ?? name);
+              const category = String(c.category ?? c.cat ?? '').trim();
+              const query = String(c.query ?? c.q ?? c.searchQuery ?? c.search_query ?? name).trim();
+              if (!slug || !name || !category || !query) throw new Error(`Candidate ${i+1} missing slug/name/category/query after normalization`);
               if (slugs.has(slug)) throw new Error(`Duplicate slug: ${slug}`);
               if (names.has(name.toLowerCase())) throw new Error(`Duplicate name: ${name}`);
               if (prohibited.test(`${slug} ${name} ${category} ${query}`)) throw new Error(`Prohibited candidate: ${name}`);
               slugs.add(slug); names.add(name.toLowerCase());
+
               const evidence = c.evidence || {};
-              const sourceIds = Array.isArray(evidence.sourceIds) ? evidence.sourceIds.map(String).slice(0,8) : [];
+              const sourceIds = asStringArray(evidence.sourceIds ?? evidence.source_ids ?? evidence.sources).slice(0,8);
+              const evidenceNote = evidence.note ?? evidence.why ?? evidence.signal ?? evidence.summary ?? '';
+              const evidenceConfidence = evidence.confidence ?? c.confidence ?? 'unverified';
+              const suppliedQueries = asStringArray(c.queries ?? c.searchQueries ?? c.search_queries).slice(0,5);
               return {
-                rank: Number(c.rank || i+1), slug, name, category, query,
-                queries: Array.isArray(c.queries) ? c.queries.map(String).slice(0,5) : [query],
-                researchScore: Number(c.researchScore || 0),
+                rank: Number(c.rank ?? i+1),
+                slug,
+                name,
+                category,
+                query,
+                queries: suppliedQueries.length ? suppliedQueries : [query],
+                researchScore: Number(c.researchScore ?? c.research_score ?? c.score ?? 0),
                 evidence: {
                   sourceIds,
-                  confidence: String(evidence.confidence || 'unverified'),
-                  note: String(evidence.note || '').slice(0,500)
+                  confidence: String(evidenceConfidence),
+                  note: String(evidenceNote).slice(0,500)
                 },
                 status: 'RESEARCH_CANDIDATE',
                 supplierReady: false,
@@ -85,15 +102,17 @@ jobs:
                 nextAction: 'supplier-verification-pipeline'
               };
             });
+
             const payload = {
-              schemaVersion: 1,
+              schemaVersion: 2,
               generatedAt: new Date().toISOString(),
-              market: 'US',
+              market: String(parsed.market || 'US'),
               mode: 'research_only',
               batch: letter.toUpperCase(),
               label,
               sourceIssue: issue,
               sourceCommentId: context.payload.comment.id,
+              sourceBatchId: parsed.batch_id || parsed.batchId || null,
               candidateCount: normalized.length,
               gates: {
                 supplierReady: false, freightReady: false, mediaRightsReady: false,
@@ -102,6 +121,7 @@ jobs:
               },
               candidates: normalized
             };
+
             const path = `paperclip/prismbay-global-commerce/research/demand-batch-${letter}-100.json`;
             const branch = `agent/demand-batch-${letter}-100`;
             const {data: mainRef} = await github.rest.git.getRef({owner:context.repo.owner,repo:context.repo.repo,ref:'heads/main'});
@@ -126,7 +146,7 @@ jobs:
               const {data: pr}=await github.rest.pulls.create({
                 owner:context.repo.owner,repo:context.repo.repo,head:branch,base:'main',
                 title:`Add demand batch ${letter.toUpperCase()}: 100 research candidates`,
-                body:`Automated materialization from Claude worker issue #${issue}.\n\nValidation enforced: exactly 100 unique candidates, prohibited classes blocked, all commercial/promotion/listing/order gates forced closed. This PR contains research candidates only; it does not publish products or create checkout.`
+                body:`Automated materialization from Claude worker issue #${issue}.\n\nValidation enforced: exactly 100 unique candidates, alternate compact Claude schemas normalized, prohibited classes blocked, all commercial/promotion/listing/order gates forced closed. This PR contains research candidates only; it does not publish products or create checkout.`
               });
               core.summary.addRaw(`Opened PR #${pr.number} for batch ${letter.toUpperCase()}`).write();
             } else {
