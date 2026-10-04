@@ -30,6 +30,8 @@ export interface SendEmailParams {
   to: string;
   subject: string;
   body: string;
+  /** Optional pre-rendered HTML. Plain text remains required as the fallback. */
+  html?: string;
 }
 
 /**
@@ -53,6 +55,7 @@ export async function sendEmail(params: SendEmailParams): Promise<{ success: boo
       to: [params.to],
       subject: params.subject,
       text: params.body,
+      ...(params.html ? { html: params.html } : {}),
     });
 
     if (error) {
