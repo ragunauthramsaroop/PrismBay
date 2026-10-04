@@ -1,0 +1,83 @@
+name: PrismBay Retail Short Render
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'config/legacy-live-catalog.json'
+      - 'config/retail-promotions.json'
+      - 'scripts/render-retail-shorts.py'
+      - '.github/workflows/render-retail-shorts.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'config/legacy-live-catalog.json'
+      - 'config/retail-promotions.json'
+      - 'scripts/render-retail-shorts.py'
+      - '.github/workflows/render-retail-shorts.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Check out PrismBay
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install render dependencies
+        run: |
+          python -m pip install --disable-pip-version-check pillow
+          if ! command -v ffmpeg >/dev/null 2>&1; then
+            sudo apt-get update
+            sudo apt-get install -y ffmpeg
+          fi
+          ffmpeg -version | head -1
+
+      - name: Compile-check renderer
+        run: python -m py_compile scripts/render-retail-shorts.py
+
+      - name: Render four 9x16 retail shorts
+        run: python scripts/render-retail-shorts.py
+
+      - name: Verify output dimensions, duration and promotion integrity
+        shell: bash
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          m=json.loads(Path('build/retail-shorts/manifest.json').read_text())
+          assert len(m['products']) == 4, m
+          promotions=json.loads(Path('config/retail-promotions.json').read_text()).get('promotions', [])
+          if not promotions:
+              assert all(p['saleActive'] is False for p in m['products'])
+          expected={'legacy-crevice-brush-001':12.95,'legacy-garment-steamer-001':29.95,'legacy-spin-scrubber-001':29.95,'legacy-pet-hair-remover-001':14.95}
+          assert {p['sku']:p['priceUsd'] for p in m['products']} == expected
+          print('Manifest price and sale gates verified')
+          PY
+          for f in build/retail-shorts/videos/*.mp4; do
+            dims=$(ffprobe -v error -select_streams v:0 -show_entries stream=width,height -of csv=s=x:p=0 "$f")
+            duration=$(ffprobe -v error -show_entries format=duration -of default=nw=1:nk=1 "$f")
+            test "$dims" = "1080x1920"
+            python - "$duration" <<'PY'
+          import sys
+          d=float(sys.argv[1])
+          assert 11.5 <= d <= 12.5, d
+          PY
+          done
+
+      - name: Upload retail short package
+        uses: actions/upload-artifact@v4
+        with:
+          name: prismbay-retail-shorts-${{ github.run_id }}
+          path: build/retail-shorts/
+          if-no-files-found: error
+          retention-days: 14
