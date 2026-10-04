@@ -1,0 +1,33 @@
+name: PrismBay Commerce Job Reliability CI
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'scripts/commerce-job-reliability.mjs'
+      - 'scripts/commerce-job-reliability.test.mjs'
+      - 'docs/COMMERCE_JOB_RELIABILITY.md'
+      - '.github/workflows/commerce-job-reliability-ci.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/commerce-job-reliability.mjs'
+      - 'scripts/commerce-job-reliability.test.mjs'
+      - 'docs/COMMERCE_JOB_RELIABILITY.md'
+      - '.github/workflows/commerce-job-reliability-ci.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  reliability-contract:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Run retry and dead-letter regression tests
+        run: node --test scripts/commerce-job-reliability.test.mjs
