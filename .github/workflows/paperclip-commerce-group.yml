@@ -25,6 +25,10 @@ on:
       - 'scripts/ceo-autonomous-growth-engine.test.mjs'
       - 'scripts/clean-storefront-observer.mjs'
       - 'scripts/clean-storefront-observer.test.mjs'
+      - 'scripts/appdeploy-swarm-verifier.mjs'
+      - 'scripts/appdeploy-swarm-verifier.test.mjs'
+      - 'scripts/appdeploy-swarm-task-overlay.mjs'
+      - 'scripts/appdeploy-swarm-task-overlay.test.mjs'
       - 'scripts/autonomous-company-task-allocator.mjs'
       - 'scripts/autonomous-company-task-allocator.test.mjs'
       - 'scripts/apply-supplier-rank-to-war-room.mjs'
@@ -60,6 +64,10 @@ on:
       - 'scripts/ceo-autonomous-growth-engine.test.mjs'
       - 'scripts/clean-storefront-observer.mjs'
       - 'scripts/clean-storefront-observer.test.mjs'
+      - 'scripts/appdeploy-swarm-verifier.mjs'
+      - 'scripts/appdeploy-swarm-verifier.test.mjs'
+      - 'scripts/appdeploy-swarm-task-overlay.mjs'
+      - 'scripts/appdeploy-swarm-task-overlay.test.mjs'
       - 'scripts/autonomous-company-task-allocator.mjs'
       - 'scripts/autonomous-company-task-allocator.test.mjs'
       - 'scripts/apply-supplier-rank-to-war-room.mjs'
@@ -96,7 +104,7 @@ jobs:
           test -s config/sales-strategy-portfolio.json
           test -s config/strict-kpis.json
           test -s config/autonomous-growth-system.json
-          node --test scripts/clean-storefront-observer.test.mjs scripts/paperclip-commerce-group.test.mjs scripts/paperclip-no-idle-guard.test.mjs scripts/paperclip-sales-strategy-engine.test.mjs scripts/prioritize-commercial-candidates.test.mjs scripts/strict-kpi-scorecard.test.mjs scripts/ceo-autonomous-growth-engine.test.mjs scripts/autonomous-company-task-allocator.test.mjs scripts/apply-supplier-rank-to-war-room.test.mjs
+          node --test scripts/clean-storefront-observer.test.mjs scripts/appdeploy-swarm-verifier.test.mjs scripts/appdeploy-swarm-task-overlay.test.mjs scripts/paperclip-commerce-group.test.mjs scripts/paperclip-no-idle-guard.test.mjs scripts/paperclip-sales-strategy-engine.test.mjs scripts/prioritize-commercial-candidates.test.mjs scripts/strict-kpi-scorecard.test.mjs scripts/ceo-autonomous-growth-engine.test.mjs scripts/autonomous-company-task-allocator.test.mjs scripts/apply-supplier-rank-to-war-room.test.mjs
 
       - name: Hydrate latest successful CJ supplier evidence
         shell: bash
@@ -143,8 +151,14 @@ jobs:
       - name: Observe customer-facing Clean storefront and catalog delivery
         run: node scripts/clean-storefront-observer.mjs
 
+      - name: Verify persisted AppDeploy worker execution rather than cron invocation alone
+        run: node scripts/appdeploy-swarm-verifier.mjs
+
       - name: Allocate quantified recovery and growth tasks to all ten companies
         run: node scripts/autonomous-company-task-allocator.mjs
+
+      - name: Overlay backend worker verification failures onto commerce-control work
+        run: node scripts/appdeploy-swarm-task-overlay.mjs
 
       - name: Retain executive dashboard, KPI scorecard and autonomous operating boards
         uses: actions/upload-artifact@v4
@@ -157,6 +171,7 @@ jobs:
             growth-reports/evidence-debt-ledger.json
             growth-reports/autonomous-company-taskboard.json
             growth-reports/clean-storefront-observation.json
+            growth-reports/appdeploy-swarm-verification.json
             growth-reports/sales-strategy-board.json
             growth-reports/global-commerce-opportunities.json
             growth-reports/paperclip-revenue-board.json
@@ -180,6 +195,7 @@ jobs:
           const g=JSON.parse(fs.readFileSync('growth-reports/ceo-autonomous-growth-board.json','utf8'));
           const t=JSON.parse(fs.readFileSync('growth-reports/autonomous-company-taskboard.json','utf8'));
           const h=JSON.parse(fs.readFileSync('growth-reports/cj-evidence-hydration.json','utf8'));
+          const backend=JSON.parse(fs.readFileSync('growth-reports/appdeploy-swarm-verification.json','utf8'));
           const w=d.firstSaleWarRoom || {};
           const n=d.noIdleUntilFirstSale || {};
           const b=w.supplierEvidenceBackup || {};
@@ -209,6 +225,10 @@ jobs:
           const storefront=JSON.parse(fs.readFileSync('growth-reports/clean-storefront-observation.json','utf8'));
           console.log(`- Customer-facing Clean storefront delivery healthy: ${storefront.healthy}`);
           console.log(`- Storefront observation: ${storefront.checkedAt}; ${storefront.scope}`);
+          console.log(`- Backend worker execution independently verified: ${backend.executionVerified === true}`);
+          console.log(`- Backend swarm healthy: ${backend.healthy === true}`);
+          console.log(`- Backend workers observed: ${backend.observedWorkers ?? 0}/${backend.expectedWorkers ?? 6}`);
+          console.log(`- Backend verification reasons: ${(backend.reasons || []).join(', ') || 'none'}`);
           console.log('## Strict KPI Scorecard');
           console.log(`- Parent controller: ${k.parentController.score}/100 (${k.parentController.band})`);
           for (const [id,row] of Object.entries(k.companies)) {
