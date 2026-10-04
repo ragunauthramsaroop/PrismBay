@@ -6,6 +6,7 @@ on:
     paths:
       - 'config/catalog-scale-500.json'
       - 'config/legacy-live-catalog.json'
+      - 'config/retail-promotions.json'
       - 'scripts/catalog-scale-gate.mjs'
       - 'scripts/catalog-scale-gate.test.mjs'
       - 'scripts/build-public-catalog.mjs'
@@ -22,6 +23,7 @@ on:
     paths:
       - 'config/catalog-scale-500.json'
       - 'config/legacy-live-catalog.json'
+      - 'config/retail-promotions.json'
       - 'scripts/catalog-scale-gate.mjs'
       - 'scripts/catalog-scale-gate.test.mjs'
       - 'scripts/build-public-catalog.mjs'
@@ -59,10 +61,17 @@ jobs:
           for(const p of d.products){
             if(!['legacy-live-migration','sale-ready-gate'].includes(p.source)) throw new Error(`unsafe source ${p.source}`);
             if(!/^https:\/\/buy\.stripe\.com\//.test(p.checkoutUrl)) throw new Error(`unsafe checkout ${p.sku}`);
+            if(p.promotion){
+              if(p.promotion.authorized !== true) throw new Error(`unauthorized promotion ${p.sku}`);
+              if(p.promotion.regularPriceVerified !== true) throw new Error(`unverified regular price ${p.sku}`);
+              if(p.promotion.marginVerified !== true) throw new Error(`unverified promotion margin ${p.sku}`);
+              if(p.promotion.checkoutPriceVerified !== true) throw new Error(`unverified checkout sale price ${p.sku}`);
+              if(Number(p.promotion.salePriceUsd) !== Number(p.priceUsd)) throw new Error(`sale price mismatch ${p.sku}`);
+            }
           }
           const search=JSON.parse(fs.readFileSync('build/catalog/meilisearch-documents.json','utf8'));
           if(search.documents.some((p)=>Object.prototype.hasOwnProperty.call(p,'checkoutUrl'))) throw new Error('checkout_url_leaked_to_search');
-          console.log(`Validated ${d.productCount} public product records and ${search.documents.length} search documents`);
+          console.log(`Validated ${d.productCount} public product records, ${d.promotionCount || 0} verified promotions and ${search.documents.length} search documents`);
           NODE
       - name: Upload catalog artifacts
         uses: actions/upload-artifact@v4
