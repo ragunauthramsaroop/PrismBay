@@ -4,6 +4,7 @@ import { resolve, posix } from 'node:path';
 import { pathToFileURL } from 'node:url';
 import Stripe from 'stripe';
 import { FileJobStore } from '../../scripts/commerce-job-file-store.mjs';
+import { createJobLeaseBroker, automationWorkerTokenAuthorized } from '../../scripts/commerce-job-lease-broker.mjs';
 import { loadCatalog } from './catalog.mjs';
 import { openLedger } from './ledger.mjs';
 import { ingest } from './orders.mjs';
@@ -25,12 +26,24 @@ const SAFE_LOG_CODES = new Set([
   'checkout_rejected',
   'rate_limited',
   'fulfillment_status_ok',
-  'fulfillment_status_rejected'
+  'fulfillment_status_rejected',
+  'automation_job_lease_ok',
+  'automation_job_lease_rejected',
+  'automation_job_ack_ok',
+  'automation_job_ack_rejected'
 ]);
 const SAFE_FULFILLMENT_ERRORS = new Set([
   'physical_order_not_fulfillment_ready',
   'fulfillment_event_replay_mismatch',
   'stale_fulfillment_evidence'
+]);
+const SAFE_HANDOFF_ERRORS = new Set([
+  'invalid_lease_duration',
+  'valid_job_and_lease_required',
+  'job_not_found',
+  'email_job_required',
+  'stale_or_mismatched_lease',
+  'lease_expired'
 ]);
 
 // Logging is an allowlist: never serialize event bodies, errors, URLs, ZIPs, tokens, or customer data.
@@ -92,6 +105,30 @@ function fulfillmentErrorResponse(error) {
   return { status: 500, error: 'fulfillment_status_processing_failed' };
 }
 
+function publicLeasedJob(job) {
+  return {
+    id: job.id,
+    jobClass: job.jobClass,
+    operation: job.operation,
+    idempotencyKey: job.idempotencyKey,
+    state: job.state,
+    attempt: Number(job.attempt || 0),
+    maxAttempts: Number(job.maxAttempts || 0),
+    payload: job.payload,
+    lease: {
+      id: job.lease?.id || null,
+      expiresAt: job.lease?.expiresAt || null
+    }
+  };
+}
+
+function handoffErrorResponse(error) {
+  const message = String(error?.message || '');
+  if (SAFE_HANDOFF_ERRORS.has(message)) return { status: 409, error: message };
+  if (error?.status === 400 || error?.status === 413) return { status: error.status, error: message || 'invalid_request' };
+  return { status: 500, error: 'automation_job_handoff_failed' };
+}
+
 export function createServer({
   secret,
   ledger,
@@ -102,6 +139,8 @@ export function createServer({
   automationBridge = null,
   fulfillmentAutomation = null,
   fulfillmentStatusWriteToken = '',
+  jobLeaseBroker = null,
+  automationWorkerToken = '',
   live = true,
   logger = console.log,
   now = () => Date.now()
@@ -110,6 +149,7 @@ export function createServer({
   const allowQuote = createMinuteLimiter({ max: 8, now });
   const allowCheckout = createMinuteLimiter({ max: 12, now });
   const allowFulfillment = createMinuteLimiter({ max: 30, now });
+  const allowWorker = createMinuteLimiter({ max: 60, now });
   const server = http.createServer(async (req, res) => {
     const send = (status, body) => { res.writeHead(status, { 'content-type': 'application/json', 'cache-control': 'no-store' }); res.end(JSON.stringify(body)); };
     if (req.method === 'GET' && req.url === '/health') return send(200, {
@@ -118,11 +158,49 @@ export function createServer({
       quoteEnabled: Boolean(quoteService?.configuredSkus?.length),
       commercialSignalsEnabled: Boolean(signalRecorder && String(signalReadToken).length >= 32),
       automationProjectionEnabled: Boolean(automationBridge),
-      fulfillmentStatusAutomationEnabled: Boolean(fulfillmentAutomation && String(fulfillmentStatusWriteToken).length >= 32)
+      fulfillmentStatusAutomationEnabled: Boolean(fulfillmentAutomation && String(fulfillmentStatusWriteToken).length >= 32),
+      automationJobHandoffEnabled: Boolean(jobLeaseBroker && String(automationWorkerToken).length >= 32)
     });
     if (req.method === 'GET' && req.url === '/commercial-signals') {
       if (!signalRecorder || !signalTokenAuthorized(signalReadToken, req.headers['x-commercial-signal-token'])) return send(404, { error: 'not_found' });
       return send(200, signalRecorder.summary());
+    }
+
+    if (req.method === 'POST' && req.url === '/internal/automation/jobs/lease') {
+      if (!jobLeaseBroker || !automationWorkerTokenAuthorized(automationWorkerToken, req.headers['x-automation-worker-token'])) {
+        return send(404, { error: 'not_found' });
+      }
+      if (!allowWorker(clientKey(req))) { safeLog(logger, 'rate_limited'); return send(429, { error: 'rate_limited' }); }
+      try {
+        const body = await readJson(req, 4 * 1024);
+        const result = await jobLeaseBroker.leaseDue({ limit: body.limit, leaseMs: body.leaseMs });
+        safeLog(logger, 'automation_job_lease_ok');
+        return send(200, {
+          recoveredExpiredLeases: Number(result.recoveredExpiredLeases || 0),
+          jobs: result.jobs.map(publicLeasedJob)
+        });
+      } catch (error) {
+        const safe = handoffErrorResponse(error);
+        safeLog(logger, 'automation_job_lease_rejected');
+        return send(safe.status, { error: safe.error });
+      }
+    }
+
+    if (req.method === 'POST' && req.url === '/internal/automation/jobs/ack') {
+      if (!jobLeaseBroker || !automationWorkerTokenAuthorized(automationWorkerToken, req.headers['x-automation-worker-token'])) {
+        return send(404, { error: 'not_found' });
+      }
+      if (!allowWorker(clientKey(req))) { safeLog(logger, 'rate_limited'); return send(429, { error: 'rate_limited' }); }
+      try {
+        const body = await readJson(req, 4 * 1024);
+        const result = await jobLeaseBroker.acknowledge({ jobId: body.jobId, leaseId: body.leaseId, outcome: body.outcome || {} });
+        safeLog(logger, result.ok ? 'automation_job_ack_ok' : 'automation_job_ack_rejected');
+        return send(result.ok ? 200 : 409, result);
+      } catch (error) {
+        const safe = handoffErrorResponse(error);
+        safeLog(logger, 'automation_job_ack_rejected');
+        return send(safe.status, { error: safe.error });
+      }
     }
 
     if (req.method === 'POST' && req.url === '/internal/fulfillment/status') {
@@ -232,7 +310,9 @@ export async function start(env = process.env) {
   if (!env.STRIPE_WEBHOOK_SECRET?.startsWith('whsec_')) throw Error('Signing secret required');
   if (env.PHYSICAL_ORDER_AUTOMATION_ENABLED && !['true', 'false'].includes(env.PHYSICAL_ORDER_AUTOMATION_ENABLED)) throw Error('PHYSICAL_ORDER_AUTOMATION_ENABLED must be true or false');
   if (env.FULFILLMENT_STATUS_AUTOMATION_ENABLED && !['true', 'false'].includes(env.FULFILLMENT_STATUS_AUTOMATION_ENABLED)) throw Error('FULFILLMENT_STATUS_AUTOMATION_ENABLED must be true or false');
+  if (env.AUTOMATION_JOB_HANDOFF_ENABLED && !['true', 'false'].includes(env.AUTOMATION_JOB_HANDOFF_ENABLED)) throw Error('AUTOMATION_JOB_HANDOFF_ENABLED must be true or false');
   if (env.FULFILLMENT_STATUS_AUTOMATION_ENABLED === 'true' && env.PHYSICAL_ORDER_AUTOMATION_ENABLED !== 'true') throw Error('Fulfillment status automation requires physical-order automation');
+  if (env.AUTOMATION_JOB_HANDOFF_ENABLED === 'true' && env.PHYSICAL_ORDER_AUTOMATION_ENABLED !== 'true') throw Error('Automation job handoff requires physical-order automation');
   const catalog = loadCatalog(env.PHYSICAL_CATALOG_PATH);
   if (env.PROD === 'true' && !catalog.mappings.length) throw Error('Physical catalog import required');
   const dataDirectory = resolve(env.DATA_DIR || 'data');
@@ -243,6 +323,8 @@ export async function start(env = process.env) {
 
   let automationBridge = null;
   let fulfillmentAutomation = null;
+  let jobLeaseBroker = null;
+  let jobStore = null;
   if (env.PHYSICAL_ORDER_AUTOMATION_ENABLED === 'true') {
     if (!env.AUTOMATION_CONTACT_VAULT_KEY || !env.AUTOMATION_RECIPIENT_REF_KEY) throw Error('Physical-order automation requires encrypted contact-vault and recipient-reference keys');
     const contactVault = await openContactVault({
@@ -250,11 +332,15 @@ export async function start(env = process.env) {
       encryptionSecret: env.AUTOMATION_CONTACT_VAULT_KEY,
       recipientRefSecret: env.AUTOMATION_RECIPIENT_REF_KEY
     });
-    const jobStore = await new FileJobStore(resolve(dataDirectory, 'automation-jobs.json')).load();
+    jobStore = await new FileJobStore(resolve(dataDirectory, 'automation-jobs.json')).load();
     automationBridge = createPhysicalAutomationBridge({ contactVault, jobStore });
     if (env.FULFILLMENT_STATUS_AUTOMATION_ENABLED === 'true') {
       if (String(env.FULFILLMENT_STATUS_WRITE_TOKEN || '').length < 32) throw Error('Fulfillment status automation requires a dedicated write token of at least 32 characters');
       fulfillmentAutomation = createFulfillmentStatusAutomation({ ledger, contactVault, jobStore });
+    }
+    if (env.AUTOMATION_JOB_HANDOFF_ENABLED === 'true') {
+      if (String(env.AUTOMATION_WORKER_TOKEN || '').length < 32) throw Error('Automation job handoff requires a dedicated worker token of at least 32 characters');
+      jobLeaseBroker = createJobLeaseBroker({ store: jobStore });
     }
   }
 
@@ -268,10 +354,16 @@ export async function start(env = process.env) {
     automationBridge,
     fulfillmentAutomation,
     fulfillmentStatusWriteToken: env.FULFILLMENT_STATUS_WRITE_TOKEN || '',
+    jobLeaseBroker,
+    automationWorkerToken: env.AUTOMATION_WORKER_TOKEN || '',
     live: env.STRIPE_LIVE_MODE === 'true'
   });
   server.listen(Number(env.PORT || 3001), '0.0.0.0', () => safeLog(console.log, 'started'));
-  const shutdown = () => server.close(async () => { await ledger.close(); process.exit(0); });
+  const shutdown = () => server.close(async () => {
+    await jobStore?.waitForWrites?.();
+    await ledger.close();
+    process.exit(0);
+  });
   process.once('SIGTERM', shutdown); process.once('SIGINT', shutdown);
   return server;
 }
