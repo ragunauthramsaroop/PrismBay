@@ -1,0 +1,83 @@
+name: PrismBay Fulfillment Status Automation CI
+
+on:
+  workflow_dispatch:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'services/physical-orders/contact-vault.mjs'
+      - 'services/physical-orders/fulfillment-status.mjs'
+      - 'services/physical-orders/fulfillment-status.test.mjs'
+      - 'services/physical-orders/fulfillment-status-server.test.mjs'
+      - 'services/physical-orders/server.mjs'
+      - 'scripts/commerce-automation-runtime.mjs'
+      - 'docs/FULFILLMENT_STATUS_AUTOMATION.md'
+      - '.github/workflows/fulfillment-status-automation-ci.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'services/physical-orders/contact-vault.mjs'
+      - 'services/physical-orders/fulfillment-status.mjs'
+      - 'services/physical-orders/fulfillment-status.test.mjs'
+      - 'services/physical-orders/fulfillment-status-server.test.mjs'
+      - 'services/physical-orders/server.mjs'
+      - 'scripts/commerce-automation-runtime.mjs'
+      - 'docs/FULFILLMENT_STATUS_AUTOMATION.md'
+      - '.github/workflows/fulfillment-status-automation-ci.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  verified-fulfillment-evidence:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    defaults:
+      run:
+        working-directory: services/physical-orders
+    steps:
+      - name: Check out PrismBay
+        uses: actions/checkout@v4
+      - name: Set up Node.js 24
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+          cache-dependency-path: services/physical-orders/package-lock.json
+      - name: Install locked service dependencies
+        run: npm ci
+      - name: Run fulfillment and encrypted-contact regressions
+        run: >-
+          node --test
+          contact-vault.test.mjs
+          automation-bridge.test.mjs
+          fulfillment-status.test.mjs
+          fulfillment-status-server.test.mjs
+      - name: Check changed runtime syntax
+        run: |
+          node --check contact-vault.mjs
+          node --check fulfillment-status.mjs
+          node --check server.mjs
+          node --check ../../scripts/commerce-automation-runtime.mjs
+      - name: Verify fail-closed automation boundary
+        run: |
+          node - <<'NODE'
+          const fs = require('fs');
+          const server = fs.readFileSync('server.mjs', 'utf8');
+          const status = fs.readFileSync('fulfillment-status.mjs', 'utf8');
+          if (!server.includes('FULFILLMENT_STATUS_AUTOMATION_ENABLED')) throw new Error('fulfillment enable flag missing');
+          if (!server.includes('FULFILLMENT_STATUS_WRITE_TOKEN')) throw new Error('dedicated status write token missing');
+          if (!status.includes('deliveryVerified: true')) throw new Error('verified delivery projection missing');
+          if (!status.includes('fulfillment_event_replay_mismatch')) throw new Error('replay mismatch protection missing');
+          for (const source of [server, status]) {
+            for (const forbidden of [
+              '/order/createOrder',
+              'shopping/order/createOrder',
+              'stripe.checkout.sessions.create(',
+              'publishProduct('
+            ]) {
+              if (source.includes(forbidden)) throw new Error(`forbidden irreversible action embedded: ${forbidden}`);
+            }
+          }
+          console.log('Fulfillment status automation remains evidence-driven and fail-closed.');
+          NODE
