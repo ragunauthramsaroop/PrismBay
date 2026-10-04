@@ -1,0 +1,40 @@
+name: PrismBay Clean Email CI
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'src/lib/email.ts'
+      - 'src/lib/clean-email-templates.ts'
+      - 'scripts/clean-email-templates.test.mjs'
+      - 'docs/CLEAN_TRANSACTIONAL_EMAILS.md'
+      - '.github/workflows/clean-email-ci.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'src/lib/email.ts'
+      - 'src/lib/clean-email-templates.ts'
+      - 'scripts/clean-email-templates.test.mjs'
+      - 'docs/CLEAN_TRANSACTIONAL_EMAILS.md'
+      - '.github/workflows/clean-email-ci.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  branded-email-contract:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - name: Install dependencies
+        run: npm ci
+      - name: Run template safety tests
+        run: node --test scripts/clean-email-templates.test.mjs scripts/checkout-payment-guard.test.mjs
+      - name: Compile production app
+        run: npm run build
