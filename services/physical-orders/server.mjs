@@ -5,6 +5,7 @@ import { pathToFileURL } from 'node:url';
 import Stripe from 'stripe';
 import { FileJobStore } from '../../scripts/commerce-job-file-store.mjs';
 import { createJobLeaseBroker, automationWorkerTokenAuthorized } from '../../scripts/commerce-job-lease-broker.mjs';
+import { sealRecipientEnvelope, validateRecipientEnvelopeSecret } from '../../scripts/automation-recipient-envelope.mjs';
 import { loadCatalog } from './catalog.mjs';
 import { openLedger } from './ledger.mjs';
 import { ingest } from './orders.mjs';
@@ -13,7 +14,7 @@ import { createLedgerQuoteConsumer } from './quote-replay.mjs';
 import { createCommercialSignalRecorder, signalTokenAuthorized } from './commercial-signals.mjs';
 import { openContactVault } from './contact-vault.mjs';
 import { createPhysicalAutomationBridge } from './automation-bridge.mjs';
-import { createFulfillmentStatusAutomation, statusTokenAuthorized } from './fulfillment-status.mjs';
+import { createFulfillmentStatusAutomation, createPhysicalRecipientResolver, statusTokenAuthorized } from './fulfillment-status.mjs';
 
 const SAFE_LOG_CODES = new Set([
   'accepted',
@@ -30,7 +31,9 @@ const SAFE_LOG_CODES = new Set([
   'automation_job_lease_ok',
   'automation_job_lease_rejected',
   'automation_job_ack_ok',
-  'automation_job_ack_rejected'
+  'automation_job_ack_rejected',
+  'automation_recipient_envelope_ok',
+  'automation_recipient_envelope_rejected'
 ]);
 const SAFE_FULFILLMENT_ERRORS = new Set([
   'physical_order_not_fulfillment_ready',
@@ -43,7 +46,9 @@ const SAFE_HANDOFF_ERRORS = new Set([
   'job_not_found',
   'email_job_required',
   'stale_or_mismatched_lease',
-  'lease_expired'
+  'lease_expired',
+  'recipient_state_unavailable',
+  'recipient_reference_mismatch'
 ]);
 
 // Logging is an allowlist: never serialize event bodies, errors, URLs, ZIPs, tokens, or customer data.
@@ -141,6 +146,8 @@ export function createServer({
   fulfillmentStatusWriteToken = '',
   jobLeaseBroker = null,
   automationWorkerToken = '',
+  automationRecipientResolver = null,
+  automationWorkerEnvelopeKey = '',
   live = true,
   logger = console.log,
   now = () => Date.now()
@@ -159,7 +166,8 @@ export function createServer({
       commercialSignalsEnabled: Boolean(signalRecorder && String(signalReadToken).length >= 32),
       automationProjectionEnabled: Boolean(automationBridge),
       fulfillmentStatusAutomationEnabled: Boolean(fulfillmentAutomation && String(fulfillmentStatusWriteToken).length >= 32),
-      automationJobHandoffEnabled: Boolean(jobLeaseBroker && String(automationWorkerToken).length >= 32)
+      automationJobHandoffEnabled: Boolean(jobLeaseBroker && String(automationWorkerToken).length >= 32),
+      automationRecipientHandoffEnabled: Boolean(jobLeaseBroker && automationRecipientResolver && automationWorkerEnvelopeKey)
     });
     if (req.method === 'GET' && req.url === '/commercial-signals') {
       if (!signalRecorder || !signalTokenAuthorized(signalReadToken, req.headers['x-commercial-signal-token'])) return send(404, { error: 'not_found' });
@@ -182,6 +190,42 @@ export function createServer({
       } catch (error) {
         const safe = handoffErrorResponse(error);
         safeLog(logger, 'automation_job_lease_rejected');
+        return send(safe.status, { error: safe.error });
+      }
+    }
+
+    if (req.method === 'POST' && req.url === '/internal/automation/jobs/recipient-envelope') {
+      if (!jobLeaseBroker || !automationRecipientResolver || !automationWorkerEnvelopeKey || !automationWorkerTokenAuthorized(automationWorkerToken, req.headers['x-automation-worker-token'])) {
+        return send(404, { error: 'not_found' });
+      }
+      if (!allowWorker(clientKey(req))) { safeLog(logger, 'rate_limited'); return send(429, { error: 'rate_limited' }); }
+      try {
+        const body = await readJson(req, 4 * 1024);
+        const result = await jobLeaseBroker.withActiveLease({ jobId: body.jobId, leaseId: body.leaseId }, async (job) => {
+          const recipientState = await automationRecipientResolver({
+            recipientRef: job.payload?.recipientRef || null,
+            orderRef: job.payload?.orderRef || null,
+            eventId: job.payload?.eventId || null,
+            templateKind: job.payload?.templateKind || null
+          });
+          if (!recipientState) throw new Error('recipient_state_unavailable');
+          if (recipientState.recipientRef !== job.payload?.recipientRef) throw new Error('recipient_reference_mismatch');
+          return sealRecipientEnvelope({
+            jobId: job.id,
+            leaseId: job.lease.id,
+            recipientState,
+            secret: automationWorkerEnvelopeKey
+          });
+        });
+        if (!result.ok) {
+          safeLog(logger, 'automation_recipient_envelope_rejected');
+          return send(409, result);
+        }
+        safeLog(logger, 'automation_recipient_envelope_ok');
+        return send(200, { jobId: body.jobId, leaseId: body.leaseId, envelope: result.value });
+      } catch (error) {
+        const safe = handoffErrorResponse(error);
+        safeLog(logger, 'automation_recipient_envelope_rejected');
         return send(safe.status, { error: safe.error });
       }
     }
@@ -311,8 +355,10 @@ export async function start(env = process.env) {
   if (env.PHYSICAL_ORDER_AUTOMATION_ENABLED && !['true', 'false'].includes(env.PHYSICAL_ORDER_AUTOMATION_ENABLED)) throw Error('PHYSICAL_ORDER_AUTOMATION_ENABLED must be true or false');
   if (env.FULFILLMENT_STATUS_AUTOMATION_ENABLED && !['true', 'false'].includes(env.FULFILLMENT_STATUS_AUTOMATION_ENABLED)) throw Error('FULFILLMENT_STATUS_AUTOMATION_ENABLED must be true or false');
   if (env.AUTOMATION_JOB_HANDOFF_ENABLED && !['true', 'false'].includes(env.AUTOMATION_JOB_HANDOFF_ENABLED)) throw Error('AUTOMATION_JOB_HANDOFF_ENABLED must be true or false');
+  if (env.AUTOMATION_RECIPIENT_HANDOFF_ENABLED && !['true', 'false'].includes(env.AUTOMATION_RECIPIENT_HANDOFF_ENABLED)) throw Error('AUTOMATION_RECIPIENT_HANDOFF_ENABLED must be true or false');
   if (env.FULFILLMENT_STATUS_AUTOMATION_ENABLED === 'true' && env.PHYSICAL_ORDER_AUTOMATION_ENABLED !== 'true') throw Error('Fulfillment status automation requires physical-order automation');
   if (env.AUTOMATION_JOB_HANDOFF_ENABLED === 'true' && env.PHYSICAL_ORDER_AUTOMATION_ENABLED !== 'true') throw Error('Automation job handoff requires physical-order automation');
+  if (env.AUTOMATION_RECIPIENT_HANDOFF_ENABLED === 'true' && env.AUTOMATION_JOB_HANDOFF_ENABLED !== 'true') throw Error('Recipient handoff requires automation job handoff');
   const catalog = loadCatalog(env.PHYSICAL_CATALOG_PATH);
   if (env.PROD === 'true' && !catalog.mappings.length) throw Error('Physical catalog import required');
   const dataDirectory = resolve(env.DATA_DIR || 'data');
@@ -324,6 +370,7 @@ export async function start(env = process.env) {
   let automationBridge = null;
   let fulfillmentAutomation = null;
   let jobLeaseBroker = null;
+  let automationRecipientResolver = null;
   let jobStore = null;
   if (env.PHYSICAL_ORDER_AUTOMATION_ENABLED === 'true') {
     if (!env.AUTOMATION_CONTACT_VAULT_KEY || !env.AUTOMATION_RECIPIENT_REF_KEY) throw Error('Physical-order automation requires encrypted contact-vault and recipient-reference keys');
@@ -341,6 +388,10 @@ export async function start(env = process.env) {
     if (env.AUTOMATION_JOB_HANDOFF_ENABLED === 'true') {
       if (String(env.AUTOMATION_WORKER_TOKEN || '').length < 32) throw Error('Automation job handoff requires a dedicated worker token of at least 32 characters');
       jobLeaseBroker = createJobLeaseBroker({ store: jobStore });
+      if (env.AUTOMATION_RECIPIENT_HANDOFF_ENABLED === 'true') {
+        validateRecipientEnvelopeSecret(env.AUTOMATION_WORKER_ENVELOPE_KEY);
+        automationRecipientResolver = createPhysicalRecipientResolver({ contactVault, ledger });
+      }
     }
   }
 
@@ -356,6 +407,8 @@ export async function start(env = process.env) {
     fulfillmentStatusWriteToken: env.FULFILLMENT_STATUS_WRITE_TOKEN || '',
     jobLeaseBroker,
     automationWorkerToken: env.AUTOMATION_WORKER_TOKEN || '',
+    automationRecipientResolver,
+    automationWorkerEnvelopeKey: env.AUTOMATION_RECIPIENT_HANDOFF_ENABLED === 'true' ? env.AUTOMATION_WORKER_ENVELOPE_KEY || '' : '',
     live: env.STRIPE_LIVE_MODE === 'true'
   });
   server.listen(Number(env.PORT || 3001), '0.0.0.0', () => safeLog(console.log, 'started'));
