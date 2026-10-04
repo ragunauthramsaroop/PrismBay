@@ -89,3 +89,33 @@ routines:
       - kind: schedule
         cronExpression: "15 8 * * *"
         timezone: "America/Guyana"
+  product-expansion-sprint:
+    triggers:
+      - kind: schedule
+        cronExpression: "5 */4 * * *"
+        timezone: "America/Guyana"
+  daily-retail-content-pack:
+    triggers:
+      - kind: schedule
+        cronExpression: "30 8 * * *"
+        timezone: "America/Guyana"
+  tiktok-publication-readiness:
+    triggers:
+      - kind: schedule
+        cronExpression: "45 8 * * *"
+        timezone: "America/Guyana"
+  lifecycle-recovery-and-review-readiness:
+    triggers:
+      - kind: schedule
+        cronExpression: "30 9 * * *"
+        timezone: "America/Guyana"
+  bundle-merchandising-review:
+    triggers:
+      - kind: schedule
+        cronExpression: "15 10 * * *"
+        timezone: "America/Guyana"
+  fulfillment-dry-run-audit:
+    triggers:
+      - kind: schedule
+        cronExpression: "25 */6 * * *"
+        timezone: "America/Guyana"
