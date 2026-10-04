@@ -1,25 +1,35 @@
 {
-  "schemaVersion": 2,
-  "authorizedAt": "2026-10-02",
-  "scope": "PrismBay Clean organic retail promotion for products that pass every supplier, freight, rights and checkout gate",
+  "schemaVersion": 3,
+  "authorizedAt": "2026-10-04",
+  "scope": "PrismBay Clean organic retail promotion, daily branded short-form content, catalog expansion research, bundle design, lifecycle automation development and fulfillment dry-run engineering for products that pass every supplier, freight, rights, checkout and fulfillment gate",
   "ownerAuthorized": true,
   "paidSpendAuthorized": false,
   "bulkOutreachAuthorized": false,
   "automaticSupplierOrderingAuthorized": false,
   "educationalYouTubeRetailUseAuthorized": false,
+  "catalogExpansionResearchAuthorized": true,
+  "bundleDesignAuthorized": true,
+  "lifecycleAutomationDryRunAuthorized": true,
+  "dailyRetailVideoAuthorized": true,
   "promotion": {
     "automaticPromotionAllowedAfterAllOtherGates": true,
+    "automaticRetailTikTokPublishingAuthorized": true,
     "allowedChannels": [
       "owned-search",
       "owner-approved-creator",
-      "approval-gated-short-form"
-    ]
+      "approval-gated-short-form",
+      "tiktok-retail"
+    ],
+    "channelConditions": {
+      "tiktok-retail": "TikTok account must be connected through an approved scheduler, media must be original or rights-cleared, the promoted SKU must pass all commercial gates, and the post must comply with platform disclosure rules"
+    }
   },
   "media": {
     "policy": "original_graphics_and_original_copy_only",
     "supplierMediaAuthorized": false,
     "thirdPartyMediaAuthorized": false,
-    "promotionMediaRightsVerified": true
+    "promotionMediaRightsVerified": true,
+    "brandedProductPhotographyAndVideoProductionAuthorized": true
   },
   "checkoutInfrastructure": {
     "appId": "prismbay-physical-order-reconciler-srm7mm",
@@ -31,8 +41,15 @@
     },
     "checkoutAllowedOnlyAfterFinalZipFreight": true
   },
+  "automationBoundaries": {
+    "dailyTikTokPublishing": "authorized only after TikTok is connected to the approved scheduler and the selected product/media passes all gates",
+    "reviewRequests": "authorized only after a real delivered purchase and through a permissioned customer communication channel",
+    "abandonmentRecovery": "design and dry-run authorized; outbound recovery must use permissioned, platform-compliant channels and consent evidence",
+    "supplierOrdering": "not authorized; build and test the order payload/state machine only until separate spend authorization is recorded"
+  },
   "evidence": [
     "Owner directive in current ChatGPT session to get Paperclip revenue operations running and market PrismBay Clean",
+    "Owner directive on 2026-10-04 to activate PaperClip, GitHub LLM workers and agents for more products, branded TikTok, daily retail videos, analytics, abandonment recovery, bundles, genuine reviews and post-payment fulfillment engineering",
     "AppDeploy reports the dedicated physical-order reconciler deployed and ready",
     "AppDeploy secret inventory reports STRIPE_WEBHOOK_SECRET configured",
     "PrismBay Clean live storefront contains the Crevice Brush Stripe checkout URL",
