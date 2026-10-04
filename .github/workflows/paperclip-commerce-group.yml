@@ -72,7 +72,7 @@ permissions:
   actions: read
 
 concurrency:
-  group: prismbay-paperclip-commerce-group
+  group: prismbay-paperclip-commerce-group-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
