@@ -39,6 +39,32 @@
     catch { return null; }
   };
 
+  function validatePromotion(promotion, price, now = Date.now()) {
+    if (!promotion || typeof promotion !== 'object') return null;
+    const regularPrice = Number(promotion.regularPriceUsd);
+    const salePrice = Number(promotion.salePriceUsd);
+    const startsAt = Date.parse(String(promotion.startsAt || ''));
+    const endsAt = Date.parse(String(promotion.endsAt || ''));
+    const requiredEvidence = promotion.authorized === true
+      && promotion.checkoutPriceVerified === true
+      && promotion.marginVerified === true
+      && promotion.regularPriceVerified === true;
+    const pricesValid = regularPrice > salePrice && salePrice > 0 && Math.abs(salePrice - price) < 0.001;
+    const datesValid = Number.isFinite(startsAt) && Number.isFinite(endsAt) && startsAt < endsAt && now >= startsAt && now < endsAt;
+    if (!requiredEvidence || !pricesValid || !datesValid) return null;
+    const savings = regularPrice - salePrice;
+    const percentOff = Math.round((savings / regularPrice) * 100);
+    return Object.freeze({
+      campaignId: String(promotion.campaignId || '').slice(0, 80),
+      regularPrice,
+      salePrice,
+      savings,
+      percentOff,
+      startsAt: new Date(startsAt).toISOString(),
+      endsAt: new Date(endsAt).toISOString()
+    });
+  }
+
   function validatePublishedProduct(product) {
     const name = String(product?.name || '').trim();
     const sku = String(product?.sku || '').trim();
@@ -58,7 +84,8 @@
       checkout,
       summary: description,
       tags: ['Ready to order', 'Stripe checkout'],
-      source: String(product.source || 'published-catalog')
+      source: String(product.source || 'published-catalog'),
+      promotion: validatePromotion(product.promotion, price)
     });
   }
 
@@ -74,6 +101,7 @@
       price,
       image,
       checkout,
+      promotion: validatePromotion(product.promotion, price),
       tags: [...(product.tags || [])]
     });
   }
@@ -99,24 +127,32 @@
     return fallbackProducts;
   }
 
-  const money = (product) => new Intl.NumberFormat('en-US', {
+  const moneyValue = (value, currency = 'USD') => new Intl.NumberFormat('en-US', {
     style: 'currency',
-    currency: product.currency || 'USD'
-  }).format(product.price);
+    currency
+  }).format(value);
+  const money = (product) => moneyValue(product.price, product.currency || 'USD');
 
   function card(product) {
+    const promotion = validatePromotion(product.promotion, product.price);
     const tags = (product.tags || []).map((tag) => `<span>${escapeHtml(tag)}</span>`).join('');
     const media = product.image
-      ? `<div class="pb-product-media"><img src="${escapeHtml(product.image)}" alt="${escapeHtml(product.name)}" loading="lazy" width="700" height="700"${normalizeName(product.name) === 'reusable-pet-hair-remover' ? ' referrerpolicy="no-referrer"' : ''}></div>`
+      ? `<div class="pb-product-media"><img src="${escapeHtml(product.image)}" alt="${escapeHtml(product.name)}" loading="lazy" decoding="async" width="1000" height="1000"${normalizeName(product.name) === 'reusable-pet-hair-remover' ? ' referrerpolicy="no-referrer"' : ''}></div>`
       : `<div class="pb-product-media pb-product-placeholder" role="img" aria-label="${escapeHtml(product.name)} product image unavailable"><span>PB</span><small>Product image pending</small></div>`;
+    const status = promotion
+      ? `<span class="pb-status is-sale">On sale</span>`
+      : `<span class="pb-status is-live">Ready to order</span>`;
+    const saleMarkup = promotion
+      ? `<div class="pb-sale-meta"><del>Was ${escapeHtml(moneyValue(promotion.regularPrice, product.currency || 'USD'))}</del><span>Save ${escapeHtml(moneyValue(promotion.savings, product.currency || 'USD'))} (${promotion.percentOff}% off)</span></div>`
+      : '';
     return `<article class="pb-product-card" data-sku="${escapeHtml(product.sku)}" data-status="checkout-live" data-category="${escapeHtml(product.category)}" data-search="${escapeHtml([product.name, product.category, product.summary, ...(product.tags || [])].join(' ').toLowerCase())}">
-      <div class="pb-card-top"><span class="pb-status is-live">Ready to order</span><span class="pb-category">${escapeHtml(product.category)}</span></div>
+      <div class="pb-card-top">${status}<span class="pb-category">${escapeHtml(product.category)}</span></div>
       ${media}
       <div class="pb-product-body">
         <h3>${escapeHtml(product.name)}</h3>
         <p>${escapeHtml(product.summary)}</p>
         <div class="pb-tags">${tags}</div>
-        <div class="pb-price-row"><div><strong>${escapeHtml(money(product))}</strong><span>USD · one-time purchase</span></div><span class="pb-live-dot">Checkout ready</span></div>
+        <div class="pb-price-row"><div>${saleMarkup}<strong>${escapeHtml(money(product))}</strong><span>USD · one-time purchase</span></div><span class="pb-live-dot">Checkout ready</span></div>
         <a class="pb-buy" href="${escapeHtml(product.checkout)}" rel="noopener">Checkout with Stripe <span aria-hidden="true">→</span></a>
         <small class="pb-checkout-note">Secure payment opens on Stripe. Supplier stock and delivery timing are confirmed during order processing; if fulfillment is unavailable, the order is refunded under the published policy.</small>
       </div>
@@ -137,7 +173,8 @@
     if (mobileCount) mobileCount.textContent = `Browse ${products.length} products ready to order`;
     if (!grid || !search || !filterWrap) return;
 
-    grid.innerHTML = products.map(card).join('');
+    const render = () => { grid.innerHTML = products.map(card).join(''); };
+    render();
 
     const categories = [...new Set(products.map((product) => product.category))].sort((a, b) => a.localeCompare(b));
     const filters = [
@@ -178,6 +215,7 @@
     });
 
     apply();
+    setInterval(() => { render(); apply(); }, 60000);
   }
 
   const menuButton = document.getElementById('menuBtn');
