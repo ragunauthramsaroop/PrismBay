@@ -1,0 +1,48 @@
+name: PrismBay Stripe Checkout Factory CI
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'services/physical-orders/checkout-session-factory.mjs'
+      - 'services/physical-orders/checkout-session-factory.test.mjs'
+      - 'services/physical-orders/catalog.prismbay-live.json'
+      - 'services/physical-orders/catalog.mjs'
+      - 'services/physical-orders/checkout-quote-gate.mjs'
+      - 'services/physical-orders/shipping-quote.mjs'
+      - 'services/physical-orders/orders.mjs'
+      - 'docs/STRIPE_CHECKOUT_FACTORY.md'
+      - '.github/workflows/stripe-checkout-factory-ci.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'services/physical-orders/checkout-session-factory.mjs'
+      - 'services/physical-orders/checkout-session-factory.test.mjs'
+      - 'services/physical-orders/catalog.prismbay-live.json'
+      - 'services/physical-orders/catalog.mjs'
+      - 'services/physical-orders/checkout-quote-gate.mjs'
+      - 'services/physical-orders/shipping-quote.mjs'
+      - 'services/physical-orders/orders.mjs'
+      - 'docs/STRIPE_CHECKOUT_FACTORY.md'
+      - '.github/workflows/stripe-checkout-factory-ci.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  checkout-factory:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Run factory and existing physical-order regressions
+        run: |
+          node --test \
+            services/physical-orders/checkout-session-factory.test.mjs \
+            services/physical-orders/catalog.test.mjs \
+            services/physical-orders/checkout-quote-gate.test.mjs \
+            services/physical-orders/orders.test.mjs
