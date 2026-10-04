@@ -58,6 +58,11 @@ function aad(jobId, leaseId) {
   return Buffer.from(`prismbay-worker-recipient-v1|${jobId}|${leaseId}`);
 }
 
+export function validateRecipientEnvelopeSecret(secret) {
+  parse32ByteSecret(secret);
+  return true;
+}
+
 export function sealRecipientEnvelope({ jobId, leaseId, recipientState, secret } = {}) {
   const safeJobId = safeToken(jobId, 'job_id');
   const safeLeaseId = safeToken(leaseId, 'lease_id', 160);
