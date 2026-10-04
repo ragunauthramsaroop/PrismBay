@@ -23,6 +23,8 @@ on:
       - 'scripts/strict-kpi-scorecard.test.mjs'
       - 'scripts/ceo-autonomous-growth-engine.mjs'
       - 'scripts/ceo-autonomous-growth-engine.test.mjs'
+      - 'scripts/clean-storefront-observer.mjs'
+      - 'scripts/clean-storefront-observer.test.mjs'
       - 'scripts/autonomous-company-task-allocator.mjs'
       - 'scripts/autonomous-company-task-allocator.test.mjs'
       - 'scripts/apply-supplier-rank-to-war-room.mjs'
@@ -56,6 +58,8 @@ on:
       - 'scripts/strict-kpi-scorecard.test.mjs'
       - 'scripts/ceo-autonomous-growth-engine.mjs'
       - 'scripts/ceo-autonomous-growth-engine.test.mjs'
+      - 'scripts/clean-storefront-observer.mjs'
+      - 'scripts/clean-storefront-observer.test.mjs'
       - 'scripts/autonomous-company-task-allocator.mjs'
       - 'scripts/autonomous-company-task-allocator.test.mjs'
       - 'scripts/apply-supplier-rank-to-war-room.mjs'
@@ -68,7 +72,7 @@ permissions:
   actions: read
 
 concurrency:
-  group: prismbay-paperclip-commerce-group
+  group: prismbay-paperclip-commerce-group-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
@@ -92,7 +96,7 @@ jobs:
           test -s config/sales-strategy-portfolio.json
           test -s config/strict-kpis.json
           test -s config/autonomous-growth-system.json
-          node --test scripts/paperclip-commerce-group.test.mjs scripts/paperclip-no-idle-guard.test.mjs scripts/paperclip-sales-strategy-engine.test.mjs scripts/prioritize-commercial-candidates.test.mjs scripts/strict-kpi-scorecard.test.mjs scripts/ceo-autonomous-growth-engine.test.mjs scripts/autonomous-company-task-allocator.test.mjs scripts/apply-supplier-rank-to-war-room.test.mjs
+          node --test scripts/clean-storefront-observer.test.mjs scripts/paperclip-commerce-group.test.mjs scripts/paperclip-no-idle-guard.test.mjs scripts/paperclip-sales-strategy-engine.test.mjs scripts/prioritize-commercial-candidates.test.mjs scripts/strict-kpi-scorecard.test.mjs scripts/ceo-autonomous-growth-engine.test.mjs scripts/autonomous-company-task-allocator.test.mjs scripts/apply-supplier-rank-to-war-room.test.mjs
 
       - name: Hydrate latest successful CJ supplier evidence
         shell: bash
@@ -136,6 +140,9 @@ jobs:
       - name: Convert weak KPIs and stale blockers into autonomous recovery work
         run: node scripts/ceo-autonomous-growth-engine.mjs
 
+      - name: Observe customer-facing Clean storefront and catalog delivery
+        run: node scripts/clean-storefront-observer.mjs
+
       - name: Allocate quantified recovery and growth tasks to all ten companies
         run: node scripts/autonomous-company-task-allocator.mjs
 
@@ -149,6 +156,7 @@ jobs:
             growth-reports/ceo-autonomous-growth-board.json
             growth-reports/evidence-debt-ledger.json
             growth-reports/autonomous-company-taskboard.json
+            growth-reports/clean-storefront-observation.json
             growth-reports/sales-strategy-board.json
             growth-reports/global-commerce-opportunities.json
             growth-reports/paperclip-revenue-board.json
@@ -198,6 +206,9 @@ jobs:
           console.log(`- External owner action required: ${(d.externalActionsAwaitingOwnerApproval || []).join(', ') || 'none'}`);
           console.log(`- Next commercial action: ${d.scoreboard?.nextAction || 'none'}`);
           console.log('');
+          const storefront=JSON.parse(fs.readFileSync('growth-reports/clean-storefront-observation.json','utf8'));
+          console.log(`- Customer-facing Clean storefront delivery healthy: ${storefront.healthy}`);
+          console.log(`- Storefront observation: ${storefront.checkedAt}; ${storefront.scope}`);
           console.log('## Strict KPI Scorecard');
           console.log(`- Parent controller: ${k.parentController.score}/100 (${k.parentController.band})`);
           for (const [id,row] of Object.entries(k.companies)) {

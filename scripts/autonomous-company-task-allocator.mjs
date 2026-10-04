@@ -39,7 +39,7 @@ function task(companyId, priority, title, evidenceRequired, doneWhen, context = 
   };
 }
 
-export function allocateTasks({ growthBoard, dashboard, strategyBoard, opportunities, promotion }) {
+export function allocateTasks({ growthBoard, dashboard, strategyBoard, opportunities, promotion, storefront }, now = Date.now()) {
   const primary = growthBoard.primaryProduct || dashboard.firstSaleWarRoom?.closestProduct || 'current-primary';
   const productRace = growthBoard.productRace || [];
   const backups = productRace.filter(row => row.slug !== primary).slice(0, 4).map(row => row.slug);
@@ -55,6 +55,28 @@ export function allocateTasks({ growthBoard, dashboard, strategyBoard, opportuni
     : [];
   const promotionReady = Number(promotion.promotionEligibleCount || 0);
   const tasks = [];
+
+  const age = now - Date.parse(storefront?.checkedAt);
+  const requiredResources = ['/', 'catalog-data.js', 'catalog-ui.js', 'catalog-store.css'];
+  const usableObservation = storefront?.origin === 'https://clean.prismbayai.com'
+    && Number.isFinite(age) && age >= 0 && age <= 30 * 60 * 1000
+    && Array.isArray(storefront.checks)
+    && requiredResources.every(resource => storefront.checks?.some(check => check.resource === resource && typeof check.ok === 'boolean'));
+  if (!usableObservation) {
+    tasks.push(task('storefront-conversion', 1, 'Restore current Clean storefront observations',
+      ['fresh homepage and catalog asset delivery checks from clean.prismbayai.com'],
+      'A complete observation less than 30 minutes old exists for the customer-facing domain. Missing evidence is never healthy.',
+      { observationStatus: 'missing_stale_or_invalid' }));
+  } else {
+    for (const resource of requiredResources) {
+      const check = storefront.checks.find(row => row.resource === resource);
+      if (check.ok) continue;
+      tasks.push(task('storefront-conversion', 1, `Repair Clean storefront delivery ${resource}`,
+        [`${storefront.origin}:${resource}:HTTP ${check.status ?? 'unavailable'}`],
+        'A fresh independent storefront observation passes for this resource; prepare code changes through a reviewed PR.',
+        { resource, checkedAt: storefront.checkedAt, productionChangeRequiresApproval: true }));
+    }
+  }
 
   for (const recovery of growthBoard.recoverySprints || []) {
     tasks.push(task(
@@ -201,6 +223,7 @@ export async function main() {
     strategyBoard: await readJson('growth-reports/sales-strategy-board.json'),
     opportunities: await readJson('growth-reports/global-commerce-opportunities.json'),
     promotion: await readJson('growth-reports/retail-promotion-swarm.json'),
+    storefront: await readJson('growth-reports/clean-storefront-observation.json'),
   });
   await fs.mkdir('growth-reports', { recursive: true });
   await fs.writeFile('growth-reports/autonomous-company-taskboard.json', JSON.stringify(board, null, 2) + '\n');
