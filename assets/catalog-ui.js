@@ -108,7 +108,7 @@
     const tags = (product.tags || []).map((tag) => `<span>${escapeHtml(tag)}</span>`).join('');
     const media = product.image
       ? `<div class="pb-product-media"><img src="${escapeHtml(product.image)}" alt="${escapeHtml(product.name)}" loading="lazy" width="700" height="700"${normalizeName(product.name) === 'reusable-pet-hair-remover' ? ' referrerpolicy="no-referrer"' : ''}></div>`
-      : '';
+      : `<div class="pb-product-media pb-product-placeholder" role="img" aria-label="${escapeHtml(product.name)} product image unavailable"><span>PB</span><small>Product image pending</small></div>`;
     return `<article class="pb-product-card" data-sku="${escapeHtml(product.sku)}" data-status="checkout-live" data-category="${escapeHtml(product.category)}" data-search="${escapeHtml([product.name, product.category, product.summary, ...(product.tags || [])].join(' ').toLowerCase())}">
       <div class="pb-card-top"><span class="pb-status is-live">Ready to order</span><span class="pb-category">${escapeHtml(product.category)}</span></div>
       ${media}
