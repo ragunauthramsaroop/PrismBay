@@ -1,0 +1,93 @@
+name: Publish Gated Catalog Feed
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'growth-reports/catalog-sale-ready-candidates.json'
+      - 'config/legacy-live-catalog.json'
+      - 'config/catalog-scale-500.json'
+      - 'scripts/catalog-scale-gate.mjs'
+      - 'scripts/catalog-scale-gate.test.mjs'
+      - 'scripts/build-public-catalog.mjs'
+      - 'scripts/build-public-catalog.test.mjs'
+      - 'scripts/search-index-adapter.mjs'
+      - 'scripts/search-index-adapter.test.mjs'
+      - '.github/workflows/publish-live-catalog-feed.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: prismbay-live-catalog-feed
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - name: Check out source branch
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Run catalog gate regressions
+        run: >-
+          node --test
+          scripts/catalog-scale-gate.test.mjs
+          scripts/build-public-catalog.test.mjs
+          scripts/search-index-adapter.test.mjs
+
+      - name: Build fail-closed public catalog
+        run: node scripts/build-public-catalog.mjs growth-reports/catalog-sale-ready-candidates.json build/catalog
+
+      - name: Validate public-only feed
+        run: |
+          node - <<'NODE'
+          const fs = require('fs');
+          const catalog = JSON.parse(fs.readFileSync('build/catalog/catalog.json', 'utf8'));
+          if (!catalog || !Array.isArray(catalog.products)) throw new Error('public_catalog_missing');
+          if (catalog.productCount !== catalog.products.length) throw new Error('public_catalog_count_mismatch');
+          const sku = new Set();
+          const slug = new Set();
+          for (const product of catalog.products) {
+            if (!product.sku || !product.slug || !product.name || !product.description) throw new Error('public_product_identity_missing');
+            if (sku.has(product.sku) || slug.has(product.slug)) throw new Error('public_catalog_duplicate');
+            sku.add(product.sku); slug.add(product.slug);
+            if (!(Number(product.priceUsd) > 0)) throw new Error(`invalid_public_price:${product.sku}`);
+            const checkout = new URL(product.checkoutUrl);
+            if (checkout.protocol !== 'https:' || checkout.hostname !== 'buy.stripe.com') throw new Error(`invalid_public_checkout:${product.sku}`);
+            const image = new URL(product.imageUrl);
+            if (image.protocol !== 'https:') throw new Error(`invalid_public_image:${product.sku}`);
+            if (!['legacy-live-migration', 'sale-ready-gate'].includes(product.source)) throw new Error(`invalid_public_source:${product.sku}`);
+          }
+          console.log(`Validated ${catalog.products.length} public catalog products.`);
+          NODE
+
+      - name: Check out live data branch
+        uses: actions/checkout@v4
+        with:
+          ref: catalog-live-data
+          path: catalog-live-data
+          fetch-depth: 0
+
+      - name: Update public catalog feed
+        run: |
+          cp build/catalog/catalog.json catalog-live-data/published-catalog.json
+          cd catalog-live-data
+          if git diff --quiet -- published-catalog.json; then
+            echo 'Catalog feed already current.'
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add published-catalog.json
+          git commit -m "Update gated PrismBay live catalog feed"
+          git push origin HEAD:catalog-live-data
