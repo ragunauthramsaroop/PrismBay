@@ -13,8 +13,6 @@ on:
 permissions:
   contents: read
 
-tasks: {}
-
 jobs:
   aggregate:
     runs-on: ubuntu-latest
