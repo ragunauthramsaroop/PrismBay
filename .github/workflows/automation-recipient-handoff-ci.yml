@@ -1,0 +1,85 @@
+name: PrismBay Encrypted Recipient Handoff CI
+
+on:
+  workflow_dispatch:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'scripts/automation-recipient-envelope.mjs'
+      - 'scripts/automation-recipient-envelope.test.mjs'
+      - 'scripts/commerce-job-lease-broker.mjs'
+      - 'scripts/commerce-job-active-lease.test.mjs'
+      - 'services/physical-orders/server.mjs'
+      - 'services/physical-orders/recipient-envelope-server.test.mjs'
+      - 'docs/AUTOMATION_RECIPIENT_HANDOFF.md'
+      - '.github/workflows/automation-recipient-handoff-ci.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/automation-recipient-envelope.mjs'
+      - 'scripts/automation-recipient-envelope.test.mjs'
+      - 'scripts/commerce-job-lease-broker.mjs'
+      - 'scripts/commerce-job-active-lease.test.mjs'
+      - 'services/physical-orders/server.mjs'
+      - 'services/physical-orders/recipient-envelope-server.test.mjs'
+      - 'docs/AUTOMATION_RECIPIENT_HANDOFF.md'
+      - '.github/workflows/automation-recipient-handoff-ci.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  encrypted-recipient-envelope:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    defaults:
+      run:
+        working-directory: services/physical-orders
+    steps:
+      - name: Check out PrismBay
+        uses: actions/checkout@v4
+      - name: Set up Node.js 24
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+          cache-dependency-path: services/physical-orders/package-lock.json
+      - name: Install locked physical-order dependencies
+        run: npm ci
+      - name: Run envelope, active-lease and endpoint regressions
+        run: >-
+          node --test
+          ../../scripts/automation-recipient-envelope.test.mjs
+          ../../scripts/commerce-job-active-lease.test.mjs
+          ../../scripts/commerce-job-lease-broker.test.mjs
+          recipient-envelope-server.test.mjs
+          automation-job-handoff-server.test.mjs
+      - name: Check changed runtime syntax
+        run: |
+          node --check ../../scripts/automation-recipient-envelope.mjs
+          node --check ../../scripts/commerce-job-lease-broker.mjs
+          node --check server.mjs
+      - name: Verify recipient handoff stays encrypted and non-sending
+        run: |
+          node - <<'NODE'
+          const fs = require('fs');
+          const server = fs.readFileSync('server.mjs', 'utf8');
+          const envelope = fs.readFileSync('../../scripts/automation-recipient-envelope.mjs', 'utf8');
+          if (!server.includes('AUTOMATION_RECIPIENT_HANDOFF_ENABLED')) throw new Error('recipient handoff gate missing');
+          if (!server.includes('AUTOMATION_WORKER_ENVELOPE_KEY')) throw new Error('worker envelope key requirement missing');
+          if (!server.includes('withActiveLease')) throw new Error('lease-bound recipient access missing');
+          if (!envelope.includes("createCipheriv('aes-256-gcm'")) throw new Error('AES-GCM envelope missing');
+          if (!envelope.includes('prismbay-worker-recipient-v1')) throw new Error('job/lease AAD binding missing');
+          for (const source of [server, envelope]) {
+            for (const forbidden of [
+              '/order/createOrder',
+              'shopping/order/createOrder',
+              'stripe.checkout.sessions.create(',
+              'publishProduct(',
+              'resend.emails.send('
+            ]) {
+              if (source.includes(forbidden)) throw new Error(`forbidden irreversible action embedded: ${forbidden}`);
+            }
+          }
+          console.log('Recipient handoff remains lease-bound, encrypted and non-sending.');
+          NODE
