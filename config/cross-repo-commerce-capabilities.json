@@ -1,0 +1,49 @@
+{
+  "version": 1,
+  "objective": "Scale PrismBay Clean toward 500+ verified sale-ready SKUs using proven controls from the owner's GitHub portfolio without weakening commercial gates.",
+  "sources": [
+    {
+      "repository": "ragunauthramsaroop/EvidenceFlow-AI",
+      "capabilities": ["strict state transitions", "checkpointing", "audit events", "correlation IDs", "validation-before-completion"],
+      "adoption": "catalog lifecycle controller"
+    },
+    {
+      "repository": "ragunauthramsaroop/SpendShield-AI",
+      "capabilities": ["supplier research", "quote normalization", "vendor risk", "approval gates", "escalation rules", "total-cost discipline"],
+      "adoption": "supplier/commercial gate governance"
+    },
+    {
+      "repository": "ragunauthramsaroop/open-affiliate",
+      "capabilities": ["agent-readable registry patterns", "structured ranking", "category search", "content generation interfaces"],
+      "adoption": "future distribution/affiliate channel after SKU sale-readiness"
+    },
+    {
+      "repository": "ragunauthramsaroop/ragunauthramsaroop-site",
+      "capabilities": ["forensic browser QA", "responsive regression checks"],
+      "adoption": "already ported into PrismBay live storefront QA"
+    },
+    {
+      "repository": "ragunauthramsaroop/Empire-AI",
+      "capabilities": ["Bun/Vite production packaging", "deployment patterns"],
+      "adoption": "reference deployment/runtime patterns where compatible"
+    },
+    {
+      "repository": "ragunauthramsaroop/Digital-Humans",
+      "capabilities": ["Bun/Vite frontend packaging", "media-facing application patterns"],
+      "adoption": "reference creative/runtime patterns for retail content tooling"
+    },
+    {
+      "repository": "ragunauthramsaroop/GuardianOS",
+      "capabilities": ["shared production packaging patterns"],
+      "adoption": "reference only unless a directly reusable control is proven"
+    }
+  ],
+  "rules": {
+    "sourceReuseRequiresEvidence": true,
+    "noBlindCopying": true,
+    "saleReadyRequiresAllPrismBayGates": true,
+    "automaticSupplierOrdering": false,
+    "liveStripeChangesRequireSeparateAuthorization": true,
+    "unverifiedProductsNeverPublish": true
+  }
+}
