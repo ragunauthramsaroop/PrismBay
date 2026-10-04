@@ -1,6 +1,7 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import { validatePublishableCandidate } from './catalog-scale-gate.mjs';
+import { getMeilisearchIndexSettings, toMeilisearchDocuments } from './search-index-adapter.mjs';
 
 const DEFAULT_LEGACY = 'config/legacy-live-catalog.json';
 const DEFAULT_CONFIG = 'config/catalog-scale-500.json';
@@ -87,7 +88,14 @@ export function buildCatalog({ legacyProducts = [], candidates = [], categories 
     }))
   };
 
-  return { catalog, searchIndex, rejected };
+  const meilisearchDocuments = {
+    generatedAt: catalog.generatedAt,
+    source: 'gated-public-catalog',
+    documents: toMeilisearchDocuments(publicProducts)
+  };
+  const meilisearchSettings = getMeilisearchIndexSettings();
+
+  return { catalog, searchIndex, meilisearchDocuments, meilisearchSettings, rejected };
 }
 
 async function readJson(file, fallback) {
@@ -115,12 +123,15 @@ export async function main({
   await Promise.all([
     fs.writeFile(path.join(outDir, 'catalog.json'), JSON.stringify(result.catalog, null, 2) + '\n'),
     fs.writeFile(path.join(outDir, 'search-index.json'), JSON.stringify(result.searchIndex, null, 2) + '\n'),
+    fs.writeFile(path.join(outDir, 'meilisearch-documents.json'), JSON.stringify(result.meilisearchDocuments, null, 2) + '\n'),
+    fs.writeFile(path.join(outDir, 'meilisearch-settings.json'), JSON.stringify(result.meilisearchSettings, null, 2) + '\n'),
     fs.writeFile(path.join(outDir, 'rejected.json'), JSON.stringify(result.rejected, null, 2) + '\n')
   ]);
   process.stdout.write(JSON.stringify({
     published: result.catalog.productCount,
     rejected: result.rejected.length,
-    categories: result.catalog.categoryCounts
+    categories: result.catalog.categoryCounts,
+    searchDocuments: result.meilisearchDocuments.documents.length
   }, null, 2) + '\n');
   return result;
 }
