@@ -57,14 +57,30 @@
       checkout,
       summary: description,
       tags: product.source === 'sale-ready-gate'
-        ? ['SALE_READY', 'Commercial gates passed']
-        : ['Live checkout', 'Existing catalog item'],
+        ? ['Ready to order', 'Verified checkout']
+        : ['Ready to order', 'Stripe checkout'],
       source: String(product.source || 'published-catalog')
     });
   }
 
+  function validateFallbackProduct(product) {
+    if (product?.status !== 'checkout-live') return null;
+    const price = Number(product?.price);
+    const checkout = safeCheckout(product?.checkout);
+    const image = safeHttps(product?.image);
+    if (!product?.name || !product?.sku || !(price > 0) || !checkout || !image) return null;
+    return Object.freeze({
+      ...product,
+      status: 'checkout-live',
+      price,
+      image,
+      checkout,
+      tags: [...(product.tags || [])]
+    });
+  }
+
   async function loadProducts() {
-    const products = fallbackRegistry.products.map((product) => ({ ...product, tags: [...(product.tags || [])] }));
+    const fallbackProducts = fallbackRegistry.products.map(validateFallbackProduct).filter(Boolean);
     try {
       const refreshWindow = Math.floor(Date.now() / 300000);
       const response = await fetch(`${PUBLIC_CATALOG_FEED}?v=${refreshWindow}`, {
@@ -76,19 +92,12 @@
       if (!response.ok) throw new Error('catalog_feed_unavailable');
       const remote = await response.json();
       if (!remote || !Array.isArray(remote.products)) throw new Error('catalog_feed_invalid');
-      for (const row of remote.products) {
-        const published = validatePublishedProduct(row);
-        if (!published) continue;
-        const key = normalizeName(published.name);
-        const existingIndex = products.findIndex((candidate) => normalizeName(candidate.name) === key);
-        if (existingIndex >= 0) products[existingIndex] = { ...products[existingIndex], ...published };
-        else products.push({ ...published });
-      }
+      const published = remote.products.map(validatePublishedProduct).filter(Boolean);
+      if (published.length) return published;
     } catch {
-      // The embedded registry is a complete fail-safe. A feed outage must never invent
-      // availability or remove the known checkout routes from the storefront.
+      // Fail safely to the known checkout-ready fallback catalog.
     }
-    return products;
+    return fallbackProducts;
   }
 
   const money = (product) => new Intl.NumberFormat('en-US', {
@@ -96,57 +105,41 @@
     currency: product.currency || 'USD'
   }).format(product.price);
 
-  const initials = (name) => name.split(/\s+/).filter(Boolean).slice(0, 2).map((part) => part[0]).join('').toUpperCase();
-
   function card(product) {
-    const isLive = product.status === 'checkout-live';
     const tags = (product.tags || []).map((tag) => `<span>${escapeHtml(tag)}</span>`).join('');
-    const media = product.image
-      ? `<div class="pb-product-media"><img src="${escapeHtml(product.image)}" alt="${escapeHtml(product.name)}" loading="lazy" width="700" height="700"${normalizeName(product.name) === 'reusable-pet-hair-remover' ? ' referrerpolicy="no-referrer"' : ''}></div>`
-      : `<div class="pb-product-media pb-product-placeholder" aria-hidden="true"><span>${escapeHtml(initials(product.name))}</span><small>Media verification pending</small></div>`;
-    const purchase = isLive
-      ? `<div class="pb-price-row"><div><strong>${escapeHtml(money(product))}</strong><span>USD · one-time purchase</span></div><span class="pb-live-dot">Checkout live</span></div><a class="pb-buy" href="${escapeHtml(product.checkout)}" rel="noopener">Checkout with Stripe <span aria-hidden="true">→</span></a><small class="pb-checkout-note">Opens Stripe-hosted checkout. Availability is not implied by this status.</small>`
-      : `<div class="pb-verification-box"><strong>Commercial verification in progress</strong><span>Checkout remains withheld until supplier, stock, destination freight, economics, listing-rights and checkout checks pass.</span></div><a class="pb-secondary-action" href="/contact.html">Ask support about this item</a>`;
-
-    return `<article class="pb-product-card" data-sku="${escapeHtml(product.sku)}" data-status="${escapeHtml(product.status)}" data-category="${escapeHtml(product.category)}" data-search="${escapeHtml([product.name, product.category, product.summary, ...(product.tags || [])].join(' ').toLowerCase())}">
-      <div class="pb-card-top"><span class="pb-status ${isLive ? 'is-live' : 'is-verification'}">${isLive ? 'Available checkout' : 'Verification queue'}</span><span class="pb-category">${escapeHtml(product.category)}</span></div>
-      ${media}
+    return `<article class="pb-product-card" data-sku="${escapeHtml(product.sku)}" data-status="checkout-live" data-category="${escapeHtml(product.category)}" data-search="${escapeHtml([product.name, product.category, product.summary, ...(product.tags || [])].join(' ').toLowerCase())}">
+      <div class="pb-card-top"><span class="pb-status is-live">Ready to order</span><span class="pb-category">${escapeHtml(product.category)}</span></div>
+      <div class="pb-product-media"><img src="${escapeHtml(product.image)}" alt="${escapeHtml(product.name)}" loading="lazy" width="700" height="700"${normalizeName(product.name) === 'reusable-pet-hair-remover' ? ' referrerpolicy="no-referrer"' : ''}></div>
       <div class="pb-product-body">
         <h3>${escapeHtml(product.name)}</h3>
         <p>${escapeHtml(product.summary)}</p>
         <div class="pb-tags">${tags}</div>
-        ${purchase}
+        <div class="pb-price-row"><div><strong>${escapeHtml(money(product))}</strong><span>USD · one-time purchase</span></div><span class="pb-live-dot">Checkout ready</span></div>
+        <a class="pb-buy" href="${escapeHtml(product.checkout)}" rel="noopener">Checkout with Stripe <span aria-hidden="true">→</span></a>
+        <small class="pb-checkout-note">Secure payment opens on Stripe. Order processing follows the published shipping and returns policies.</small>
       </div>
     </article>`;
   }
 
   async function start() {
     const products = await loadProducts();
-    const live = products.filter((product) => product.status === 'checkout-live');
-    const verification = products.filter((product) => product.status === 'verification');
-
     const grid = document.getElementById('catalogGrid');
     const search = document.getElementById('catalogSearch');
     const filterWrap = document.getElementById('catalogFilters');
     const resultCount = document.getElementById('catalogResultCount');
     const noResults = document.getElementById('catalogNoResults');
-
     const totalMetric = document.querySelector('[data-metric="catalog-total"]');
-    const liveMetric = document.querySelector('[data-metric="checkout-live"]');
-    const verifyMetric = document.querySelector('[data-metric="verification"]');
-    if (totalMetric) totalMetric.textContent = String(products.length);
-    if (liveMetric) liveMetric.textContent = String(live.length);
-    if (verifyMetric) verifyMetric.textContent = String(verification.length);
+    const mobileCount = document.getElementById('mobileCatalogCount');
 
+    if (totalMetric) totalMetric.textContent = String(products.length);
+    if (mobileCount) mobileCount.textContent = `Browse ${products.length} products ready to order`;
     if (!grid || !search || !filterWrap) return;
 
     grid.innerHTML = products.map(card).join('');
 
     const categories = [...new Set(products.map((product) => product.category))].sort((a, b) => a.localeCompare(b));
     const filters = [
-      ['all', 'All catalog'],
-      ['checkout-live', 'Checkout live'],
-      ['verification', 'Verification queue'],
+      ['all', 'All products'],
       ...categories.map((category) => [`category:${category}`, category])
     ];
 
@@ -160,13 +153,12 @@
       for (const node of grid.querySelectorAll('.pb-product-card')) {
         const matchesQuery = !query || node.dataset.search.includes(query);
         const matchesFilter = activeFilter === 'all'
-          || node.dataset.status === activeFilter
           || (activeFilter.startsWith('category:') && node.dataset.category === activeFilter.slice(9));
         const show = matchesQuery && matchesFilter;
         node.hidden = !show;
         if (show) visible += 1;
       }
-      if (resultCount) resultCount.textContent = `${visible} of ${products.length} catalog items`;
+      if (resultCount) resultCount.textContent = `${visible} of ${products.length} products ready to order`;
       if (noResults) noResults.hidden = visible !== 0;
     }
 
