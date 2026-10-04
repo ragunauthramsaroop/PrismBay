@@ -1,0 +1,61 @@
+name: PrismBay Catalog Scale CI
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'config/catalog-scale-500.json'
+      - 'config/legacy-live-catalog.json'
+      - 'scripts/catalog-scale-gate.mjs'
+      - 'scripts/catalog-scale-gate.test.mjs'
+      - 'scripts/build-public-catalog.mjs'
+      - 'scripts/build-public-catalog.test.mjs'
+      - 'growth-reports/catalog-sale-ready-candidates.json'
+      - '.github/workflows/catalog-scale-ci.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'config/catalog-scale-500.json'
+      - 'config/legacy-live-catalog.json'
+      - 'scripts/catalog-scale-gate.mjs'
+      - 'scripts/catalog-scale-gate.test.mjs'
+      - 'scripts/build-public-catalog.mjs'
+      - 'scripts/build-public-catalog.test.mjs'
+      - 'growth-reports/catalog-sale-ready-candidates.json'
+      - '.github/workflows/catalog-scale-ci.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate-and-build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Run catalog fail-closed tests
+        run: node --test scripts/catalog-scale-gate.test.mjs scripts/build-public-catalog.test.mjs
+      - name: Build publishable catalog artifacts
+        run: node scripts/build-public-catalog.mjs
+      - name: Verify only grandfathered or gated products are public
+        run: |
+          node - <<'NODE'
+          const fs=require('fs');
+          const d=JSON.parse(fs.readFileSync('build/catalog/catalog.json','utf8'));
+          for(const p of d.products){
+            if(!['legacy-live-migration','sale-ready-gate'].includes(p.source)) throw new Error(`unsafe source ${p.source}`);
+            if(!/^https:\/\/buy\.stripe\.com\//.test(p.checkoutUrl)) throw new Error(`unsafe checkout ${p.sku}`);
+          }
+          console.log(`Validated ${d.productCount} public product records`);
+          NODE
+      - name: Upload catalog artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: prismbay-public-catalog-${{ github.run_id }}
+          path: build/catalog/
+          if-no-files-found: error
+          retention-days: 14
