@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-03T09:27:01.579Z",
+  "updatedAt": "2026-10-04T10:13:38.376Z",
   "market": "US",
   "supplierIntegration": "awaiting-cj-auth",
   "methodology": "Public attention and recency identify candidates. Supplier promotion requires verified US inventory and product-level checks. Freight and checkout creation occur only after supplier validation.",
@@ -9,12 +9,12 @@
       "slug": "cordless-handheld-vacuum",
       "name": "Cordless Handheld Vacuum",
       "query": "cordless handheld vacuum",
-      "attentionScore": 90.1,
+      "attentionScore": 95.8,
       "attentionLabel": "high-attention",
       "evidence": {
-        "publicMentions": 100,
-        "mentionsLast7Days": 2,
-        "mentionsLast30Days": 7,
+        "publicMentions": 102,
+        "mentionsLast7Days": 3,
+        "mentionsLast30Days": 8,
         "sourcesAvailable": [
           "Google News",
           "Bing News"
@@ -33,10 +33,10 @@
             "url": "https://news.google.com/rss/articles/CBMinwFBVV95cUxOdER4d2FJall4NWRNN0ZwbDRFeDVuN1FYTFpZcFZnZ1ZoSF83R2hYanRSd3V6RDdJcEhfT3BVLTdOenc1N29BZl9ja0E1UjZSdENhVWR5dzBTa0RrM0tYaEpwS2ZqRC0xejlNakVHTUZsSm0wS2FscUktRkFYdW9UbnhkQUpXV25HWUc5WmtjUGN3S0Yxck1pVE44SE1DNGs?oc=5"
           },
           {
-            "title": "Our Editors Tested 300 Vacuums, but Only 10 Made the List—and Our Best Budget Pick Just Got Another Price Cut - Real Simple",
+            "title": "Best Handheld Vacuums in 2026 - CNET",
             "source": "Google News",
-            "publishedAt": "2026-09-09T07:00:00.000Z",
-            "url": "https://news.google.com/rss/articles/CBMimgFBVV95cUxNbXdYRW9tSWo4UWowdXBVTzFSYm8xdmZLdTlSVURKclRRRDNoXzhzWXRXbnlWR2Q4cjF6RWdTLUYxX3FDUElMZHZ6emRmczZqY2hEUndfdDQ5LXM4dEtiNE5FbjRKbi1KWjRid0dIZXRBTTM1a09YU0dlLTEwZVQ1WUstU3BwSVFybHNlTW9HYmJQVDlhTFBPVzhR?oc=5"
+            "publishedAt": "2026-08-26T07:00:00.000Z",
+            "url": "https://news.google.com/rss/articles/CBMie0FVX3lxTE1wTTZtemNSZ05pQzR5T3hxUzNIM043S0d5WXhNOVhIVVdrOVMwYmt4Q0VCVEdSdVJPU0JWeUo0alQ0QWxPbGltU3Z6SWVCdzFNbEdWMFFJME00Y1JwNTN5QW1RMXlUQjViR0p0T0VoLVF4X1lsa3J5Q2JBTQ?oc=5"
           },
           {
             "title": "Admit it: You have a dream vacuum. The good news is, it’s probably on sale right now - NBC News",
@@ -61,19 +61,19 @@
       "slug": "hanging-closet-organizer",
       "name": "Hanging Closet Organizer",
       "query": "hanging closet organizer",
-      "attentionScore": 71.3,
+      "attentionScore": 73.1,
       "attentionLabel": "high-attention",
       "evidence": {
-        "publicMentions": 44,
+        "publicMentions": 43,
         "mentionsLast7Days": 0,
-        "mentionsLast30Days": 4,
+        "mentionsLast30Days": 5,
         "sourcesAvailable": [
           "Google News",
           "Bing News"
         ],
         "sampleSignals": [
           {
-            "title": "I Doubled My Closet Storage with This $25 Hanging Organizer - Apartment Therapy",
+            "title": "I Doubled My Closet Storage with This $25 Hanging Organizer - apartmenttherapy.com",
             "source": "Google News",
             "publishedAt": "2026-07-12T07:00:00.000Z",
             "url": "https://news.google.com/rss/articles/CBMiigFBVV95cUxPWFp5N1QwRWRBSlduLVVKYUtGSWFaLXZWWnB3RGVZQ1VFVGotVkdhMWhKMTBxQ3JnVHpJVGJJd0FmYW5NcWgxdlhmM0MtMDNSZkVNa1BMZVdGTjlQSW5ET1paa2p6cFRtWVFMWHpna1ZjdlIzVzI0VnJfdHhJckhvY2RzaFpvZVFSQUE?oc=5"
@@ -116,7 +116,7 @@
       "attentionScore": 71.1,
       "attentionLabel": "high-attention",
       "evidence": {
-        "publicMentions": 33,
+        "publicMentions": 34,
         "mentionsLast7Days": 0,
         "mentionsLast30Days": 3,
         "sourcesAvailable": [
@@ -131,7 +131,7 @@
             "url": "https://news.google.com/rss/articles/CBMiaEFVX3lxTE8xNGhfekNqcklvNmFnN1NuTWVuWFJwLW5TWkxqakRXZVQxNk8yTlhWaGtubTRIT094Y09uNS16TFJoeGFJZ0VPYkVMNnpuRElpXzRjNVRQVG5JQWkzT0hBMnhfcm9FaF9M?oc=5"
           },
           {
-            "title": "This $7 Kitchen Hack Helps Keep Sink Grime and Puddles Under Control - foodandwine.com",
+            "title": "This $7 Kitchen Hack Helps Keep Sink Grime and Puddles Under Control - Food & Wine",
             "source": "Google News",
             "publishedAt": "2026-06-05T07:00:00.000Z",
             "url": "https://news.google.com/rss/articles/CBMigAFBVV95cUxNME5UMWtzQUpSOHA2RWtIc1hxZEEwUUlnMGJ5cVRNN1VkZ1B4dWEtSE5JeHN1aVRSY0o0U2paMFlMSjl1NWxaaVFDZjVsWFBTOXYxcGtUb2ZsRlptQkhSNjRPWHdTVmJFdVZZT01uaG53RFcxUnJ3aVhIbkZyRmxQSw?oc=5"
@@ -165,10 +165,10 @@
       "slug": "dryer-vent-cleaner-kit",
       "name": "Dryer Vent Cleaner Kit",
       "query": "dryer vent cleaner kit",
-      "attentionScore": 70.4,
-      "attentionLabel": "high-attention",
+      "attentionScore": 66.8,
+      "attentionLabel": "promotion-watch",
       "evidence": {
-        "publicMentions": 25,
+        "publicMentions": 23,
         "mentionsLast7Days": 0,
         "mentionsLast30Days": 1,
         "sourcesAvailable": [
@@ -229,7 +229,7 @@
         ],
         "sampleSignals": [
           {
-            "title": "I Didn’t Think There Was a Fix for My Tiny Kitchen — Until I Found These 43-Cent Tools - foodandwine.com",
+            "title": "I Didn’t Think There Was a Fix for My Tiny Kitchen — Until I Found These 43-Cent Tools - Food & Wine",
             "source": "Google News",
             "publishedAt": "2026-07-26T07:00:00.000Z",
             "url": "https://news.google.com/rss/articles/CBMif0FVX3lxTE1XNnJBdTh6VUQxUTZOdlQxQ1RNNEp5ZUxwTThBSEQxLTRJSHZPSFRxUUNCZFduYlBTa1hHYjg5MU9IUXJidkJjM0Njb0ZCQnZMM3pzYmVjRDQ4ZnlPV1hqanNscWJpT3pLMkQ2OWFvSHBHMldzUzFBd2dtSzFfNkk?oc=5"
@@ -241,7 +241,7 @@
             "url": "https://news.google.com/rss/articles/CBMiYEFVX3lxTE9na0hpX3ZWQzRoUmlTaFNSRF9WUlI1X1A2X21vZlRzdXJRRTVnTksyb21PWlFma2N6WE80cG03OVVQZjFkNjQweEJsb3p6VjBzUTF1VlhwaDgzYlY5TktDTw?oc=5"
           },
           {
-            "title": "30 Most Useful Amazon Products Under $30 - Taste of Home",
+            "title": "30 Most Useful Amazon Products Under $30 - tasteofhome.com",
             "source": "Google News",
             "publishedAt": "2024-12-19T08:00:00.000Z",
             "url": "https://news.google.com/rss/articles/CBMib0FVX3lxTFA2VHZmbDExRHlEdnRBa2RmWUI3REc1RUkyX05RWlB1QWlQVWVVVjZIbzlRMXY5Qm9UaDlOZDlHNF8tcXIzNzlWMFFxN0dDeXAyMGYwNmNVVnB5UWh0WnBEN2MxR1RWc2hnZTdpc1l5cw?oc=5"
@@ -266,6 +266,58 @@
       "rank": 5
     },
     {
+      "slug": "bottle-brush-set",
+      "name": "Bottle Brush Cleaning Set",
+      "query": "bottle brush cleaning set",
+      "attentionScore": 33.6,
+      "attentionLabel": "low-signal",
+      "evidence": {
+        "publicMentions": 7,
+        "mentionsLast7Days": 0,
+        "mentionsLast30Days": 0,
+        "sourcesAvailable": [
+          "Google News",
+          "Bing News"
+        ],
+        "sampleSignals": [
+          {
+            "title": "Keep Your Water Bottle Super Clean This Summer With Our Favorite Cleaning Brushes - The Spruce",
+            "source": "Google News",
+            "publishedAt": "2026-05-22T07:00:00.000Z",
+            "url": "https://news.google.com/rss/articles/CBMieEFVX3lxTE8wVjR3S25uUmxHS180VmRZaHUzN3diM2EtZ29mYW1KTTJKX3BBSWlxOS1MZmtVSExfS1V5S2dCUFdjWDFnZW9FRjAyTTMtc0NKS1R3ZzFySGIzWVhkbll4NGhNV3lCMTg4VUN4YUh4elBKZUwwOUh2YQ?oc=5"
+          },
+          {
+            "title": "10 best bottle brushes to keep your water bottles squeaky clean - KSN.com",
+            "source": "Google News",
+            "publishedAt": "2023-03-09T08:00:00.000Z",
+            "url": "https://news.google.com/rss/articles/CBMi1AFBVV95cUxOVENMTzduZWhvSkJ4Mm5CYXhXaEZuR0dLZnkzelRqQ29PZEc0YkFUaUVrWVhTT3AwU2RtTXlOM1BpTTBVR2lzMDlWeVdOUWtJQVlZZnQ0MUZWZzJxZGlwNTVoa2lxUUxiNzhRQjJ3SmkzNXFGbWlJVDVNVlMzRl9ram9qRWRGMUdCVC1Ic0RicFNZWmJ3cTFRVUJRbmRuTkQzSEx0MkVvaWh2UExhVzduVFBTbVpoMWcyckpqcUcySTRxdXRMdy1LUFduNlhnSlBIb0dnNtIB2gFBVV95cUxQVG8zV1ZXUXBvM1RIdnRnVzlJQTZqSVc4cm1GY2pEUVg3QW4xZEQ2cnV1M0lSOWlsMW9heDNKYVotel9QM29icFp3Umg2bGRUbjg3empqekxyblRoYlhUd0F5bmdkendULUtNV3Vyb0hXdkVGZWRNYXNKODR3WHRHcVctbFp3ZTRFNWtVUmZiNFdHNU5XeV9seWZVbWo1QkprMm9wZmxzdHpROFNMVldidXRTU09jZjZUa0ladm85bmJFM04tNUNkc1VBOTExV2pDYlRNdjZ5N0JlZw?oc=5"
+          },
+          {
+            "title": "Cool things with near-perfect Amazon reviews that are under-the-radar - mic.com",
+            "source": "Google News",
+            "publishedAt": "2024-05-07T07:00:00.000Z",
+            "url": "https://news.google.com/rss/articles/CBMinwFBVV95cUxQY3l0eWpVTG12TXJMQXJJc1ppYWhONkVRSUlfLVVla2FNaWowYXpUSHF0NkxjRXItZDVCck12emZtLXMwR0tmZEVzT01kVTQ3bnlMWkxOZlptM095TkppNU5wbXNaWlBYQWs5VEgteXRGTjZ4SEhGV1Q4dC10a3dXWldKdmE5V24xWGJNYmIxaXRHZE5uOXNjSzB4WmZIOUk?oc=5"
+          },
+          {
+            "title": "These 19 Award-Winning Products Will Help Keep Your Baby Nourished and Fed - parents.com",
+            "source": "Google News",
+            "publishedAt": "2026-04-07T07:00:00.000Z",
+            "url": "https://news.google.com/rss/articles/CBMif0FVX3lxTE5VVDlIY3NTbzNFWlY3Wm1XNF95cktMX2ZDckhFNlJ0UEdudUEzbDEzSlo4MHpqc0pMUmxYZm9uWU5BNkVBUG1xblhkcm1fMm9jX1ZSeUQ4OFFDUWJHbUNoclBVNDFKRmt2NWFDZ204eWhLQU5FR0xJSFJpZWxwT3M?oc=5"
+          }
+        ]
+      },
+      "supplier": null,
+      "supplierReady": false,
+      "freightReady": false,
+      "promotionReady": false,
+      "mediaRightsReady": false,
+      "liveStripePricingReady": false,
+      "listed": false,
+      "discoveryEvidence": [],
+      "nextAction": "connect-cj",
+      "rank": 6
+    },
+    {
       "slug": "sheet-laundry-detangler",
       "name": "Bed Sheet Laundry Detangler",
       "query": "sheet laundry detangler",
@@ -281,7 +333,7 @@
         ],
         "sampleSignals": [
           {
-            "title": "These Clever Amazon Products Fix Annoying Home Problems In Minutes—Shop Our Favorite Finds From $9 - Southern Living",
+            "title": "These Clever Amazon Products Fix Annoying Home Problems In Minutes—Shop Our Favorite Finds From $9 - southernliving.com",
             "source": "Google News",
             "publishedAt": "2026-09-21T07:00:00.000Z",
             "url": "https://news.google.com/rss/articles/CBMiigFBVV95cUxNanRCX21aVXIteW9BSUJ3UFIwNHdVV0VSQWxES1pZUllEMF9tTHhUcDZYcWwwLUZtQ2tTU1o2QU5Ia0cyODBTc1lQWHQzQUdFMkhwbUNyQXZwQnJ3MGZfZ0Q2XzlSUTR1dXQzNmU4WS1TSUtuMWE1T3d5c042VksybVcwUjdPb2t6d1E?oc=5"
@@ -303,58 +355,6 @@
             "source": "Google News",
             "publishedAt": "2023-08-28T07:00:00.000Z",
             "url": "https://news.google.com/rss/articles/CBMiugFBVV95cUxOUzZTc29UdU9Vc0U3QmtXY2pJeWx4QlRtYnpqMVZmS1BQaC0tcGlKckFqa2FfVWxDelZUTUhwV2RPNV9YNmNiWXhKbXBmNzAtckFFQXJ5WGZXaHN2WDZVQTNvUVEzLVRDSm9KYmdmUXVReFZCcGo4U19kUHduMDQtbUlwTVpjTDh0Tkt4OXRfSmhZbko0YmgzLTk0WW40ekVad1hzNTBpRWZIcVA5VlFfUThvMURUZUd1akE?oc=5"
-          }
-        ]
-      },
-      "supplier": null,
-      "supplierReady": false,
-      "freightReady": false,
-      "promotionReady": false,
-      "mediaRightsReady": false,
-      "liveStripePricingReady": false,
-      "listed": false,
-      "discoveryEvidence": [],
-      "nextAction": "connect-cj",
-      "rank": 6
-    },
-    {
-      "slug": "bottle-brush-set",
-      "name": "Bottle Brush Cleaning Set",
-      "query": "bottle brush cleaning set",
-      "attentionScore": 30,
-      "attentionLabel": "low-signal",
-      "evidence": {
-        "publicMentions": 5,
-        "mentionsLast7Days": 0,
-        "mentionsLast30Days": 0,
-        "sourcesAvailable": [
-          "Google News",
-          "Bing News"
-        ],
-        "sampleSignals": [
-          {
-            "title": "Keep Your Water Bottle Super Clean This Summer With Our Favorite Cleaning Brushes - The Spruce",
-            "source": "Google News",
-            "publishedAt": "2026-05-22T07:00:00.000Z",
-            "url": "https://news.google.com/rss/articles/CBMieEFVX3lxTE8wVjR3S25uUmxHS180VmRZaHUzN3diM2EtZ29mYW1KTTJKX3BBSWlxOS1MZmtVSExfS1V5S2dCUFdjWDFnZW9FRjAyTTMtc0NKS1R3ZzFySGIzWVhkbll4NGhNV3lCMTg4VUN4YUh4elBKZUwwOUh2YQ?oc=5"
-          },
-          {
-            "title": "10 best bottle brushes to keep your water bottles squeaky clean - alabamas42.com",
-            "source": "Google News",
-            "publishedAt": "2023-03-09T08:00:00.000Z",
-            "url": "https://news.google.com/rss/articles/CBMi1wFBVV95cUxNYjdvWlg4Y0JBWG10b0F6VVcwTU1MMnAxTFRvQzEyeW5lYThwT3JnLTdyQjlmaEFzVjBKMzBmWml5dVotSVJLUmY5Rkd2UF9CY2tPNUF6SU54X1M1S0c0dUdqQlVnTUw0U0FEdjFYOE1POU1zQTE1cl9KVlF4R1MwOG9kR1F3WjZOLXYxbkFxSlFQODlIY3g1bWNWVmVqcmhVbk1pc2lQVGpudk1hTnJSNExyeTktdUJoa2JQM05uakN1aWZ1aHJPbmVmY0VxaVRFRldkNXktZ9IB3AFBVV95cUxNR3p5OHB6OG9YOTZGTEVDWmVFck96SjF0RndINDlwVmcyVUFBVGgzODBXcEhMWWtzM3ZFRmo3N2hWS01JdlJUVnhLSzYyaVQzV2FIeHBYbkllVTZnRWlwSW55OGlDN0ZOa2lLUENJN3VQdElod1NYYlVXeGVWT2xlLUFiX2NmUUx5TEtpd29WZnFkMzhyYnhuWUFWVTJEM3Y4NllfYnlaY0dFZ056Z3dwdFVOUC05SkkzeFdaVVhSLWVfRVMtUDBJSUhQcWxtenpfU0k1a2tYZTNHbndv?oc=5"
-          },
-          {
-            "title": "These 19 Award-Winning Products Will Help Keep Your Baby Nourished and Fed - Parents",
-            "source": "Google News",
-            "publishedAt": "2026-04-07T07:00:00.000Z",
-            "url": "https://news.google.com/rss/articles/CBMif0FVX3lxTE5VVDlIY3NTbzNFWlY3Wm1XNF95cktMX2ZDckhFNlJ0UEdudUEzbDEzSlo4MHpqc0pMUmxYZm9uWU5BNkVBUG1xblhkcm1fMm9jX1ZSeUQ4OFFDUWJHbUNoclBVNDFKRmt2NWFDZ204eWhLQU5FR0xJSFJpZWxwT3M?oc=5"
-          },
-          {
-            "title": "Cool things with near-perfect Amazon reviews that are under-the-radar - mic.com",
-            "source": "Google News",
-            "publishedAt": "2024-05-07T07:00:00.000Z",
-            "url": "https://news.google.com/rss/articles/CBMinwFBVV95cUxQY3l0eWpVTG12TXJMQXJJc1ppYWhONkVRSUlfLVVla2FNaWowYXpUSHF0NkxjRXItZDVCck12emZtLXMwR0tmZEVzT01kVTQ3bnlMWkxOZlptM095TkppNU5wbXNaWlBYQWs5VEgteXRGTjZ4SEhGV1Q4dC10a3dXWldKdmE5V24xWGJNYmIxaXRHZE5uOXNjSzB4WmZIOUk?oc=5"
           }
         ]
       },
