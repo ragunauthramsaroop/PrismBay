@@ -63,3 +63,33 @@ test('keeps external channels in preparation mode before product readiness', () 
   assert.equal(channelTasks.length, 6);
   assert.ok(channelTasks.every(row => row.title.startsWith('Prepare')));
 });
+
+const observedAt = Date.parse('2026-10-04T20:00:00Z');
+function observation() {
+  return { origin: 'https://clean.prismbayai.com', checkedAt: new Date(observedAt).toISOString(),
+    checks: ['/', 'catalog-data.js', 'catalog-ui.js', 'catalog-store.css'].map(resource => ({ resource, ok: true, status: 200 })) };
+}
+function storefrontTasks(storefront) {
+  return allocateTasks({ ...fixture(), storefront }, observedAt).tasks.filter(row => row.title.includes('Clean storefront'));
+}
+test('missing and stale storefront evidence creates an explicit priority-one assignment', () => {
+  assert.equal(storefrontTasks(undefined)[0].priority, 1);
+  assert.equal(storefrontTasks({ ...observation(), checkedAt: '2026-10-03T20:00:00Z' })[0].context.observationStatus, 'missing_stale_or_invalid');
+});
+test('fresh healthy storefront observation creates no repair work', () => {
+  assert.equal(storefrontTasks(observation()).length, 0);
+});
+test('delivery failure is assigned with evidence and stable identity', () => {
+  const report = observation(); report.checks[1].ok = false; report.checks[1].status = 404;
+  const tasks = storefrontTasks(report);
+  assert.equal(tasks.length, 1);
+  assert.equal(tasks[0].companyId, 'storefront-conversion');
+  assert.match(tasks[0].evidenceRequired[0], /404/);
+  assert.equal(tasks[0].id, storefrontTasks(report)[0].id);
+  assert.equal(tasks[0].context.productionChangeRequiresApproval, true);
+});
+test('wrong origin, incomplete and future evidence never receive healthy credit', () => {
+  for (const report of [{ ...observation(), origin: 'https://example.com' }, { ...observation(), checks: [] }, { ...observation(), checkedAt: '2026-10-05T20:00:00Z' }]) {
+    assert.equal(storefrontTasks(report)[0].context.observationStatus, 'missing_stale_or_invalid');
+  }
+});
