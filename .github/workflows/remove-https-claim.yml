@@ -1,0 +1,42 @@
+name: Remove unverified HTTPS trust claim
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/remove-https-claim.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  patch-storefront:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout production storefront
+        uses: actions/checkout@v4
+        with:
+          ref: gh-pages
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Remove self-asserted HTTPS wording
+        shell: python
+        run: |
+          from pathlib import Path
+          files=[Path('index.html'),Path('clean/index.html')]
+          for path in files:
+            if not path.exists():
+              continue
+            text=path.read_text(encoding='utf-8')
+            text=text.replace('HTTPS secured', 'Clear USD pricing')
+            text=text.replace('HTTPS secured storefront', 'Clear USD pricing')
+            path.write_text(text,encoding='utf-8')
+      - name: Commit production copy correction
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html clean/index.html
+          git diff --cached --quiet && exit 0
+          git commit -m "Remove premature HTTPS trust claim"
+          git push origin gh-pages
