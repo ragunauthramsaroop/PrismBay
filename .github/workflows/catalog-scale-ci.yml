@@ -12,6 +12,9 @@ on:
       - 'scripts/build-public-catalog.test.mjs'
       - 'scripts/search-index-adapter.mjs'
       - 'scripts/search-index-adapter.test.mjs'
+      - 'services/commerce-core/contracts.mjs'
+      - 'services/commerce-core/contracts.test.mjs'
+      - 'services/commerce-core/PROVENANCE.md'
       - 'growth-reports/catalog-sale-ready-candidates.json'
       - '.github/workflows/catalog-scale-ci.yml'
   push:
@@ -25,6 +28,9 @@ on:
       - 'scripts/build-public-catalog.test.mjs'
       - 'scripts/search-index-adapter.mjs'
       - 'scripts/search-index-adapter.test.mjs'
+      - 'services/commerce-core/contracts.mjs'
+      - 'services/commerce-core/contracts.test.mjs'
+      - 'services/commerce-core/PROVENANCE.md'
       - 'growth-reports/catalog-sale-ready-candidates.json'
       - '.github/workflows/catalog-scale-ci.yml'
   workflow_dispatch:
@@ -41,8 +47,8 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - name: Run catalog fail-closed tests
-        run: node --test scripts/catalog-scale-gate.test.mjs scripts/build-public-catalog.test.mjs scripts/search-index-adapter.test.mjs
+      - name: Run catalog and commerce-core fail-closed tests
+        run: node --test scripts/catalog-scale-gate.test.mjs scripts/build-public-catalog.test.mjs scripts/search-index-adapter.test.mjs services/commerce-core/contracts.test.mjs
       - name: Build publishable catalog artifacts
         run: node scripts/build-public-catalog.mjs
       - name: Verify only grandfathered or gated products are public
