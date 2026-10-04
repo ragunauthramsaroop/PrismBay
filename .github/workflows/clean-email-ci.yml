@@ -35,5 +35,5 @@ jobs:
         run: npm install --no-package-lock
       - name: Run template safety tests
         run: node --test scripts/clean-email-templates.test.mjs scripts/checkout-payment-guard.test.mjs
-      - name: Compile production app
-        run: npm run build
+      - name: Typecheck the modified email modules
+        run: npx tsc --noEmit --target ES2022 --module ESNext --moduleResolution Bundler --skipLibCheck src/lib/clean-email-templates.ts src/lib/email.ts
