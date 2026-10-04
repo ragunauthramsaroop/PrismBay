@@ -37,6 +37,18 @@ function iso(value) {
 function findOrder(snapshot, sessionId) {
   return Object.values(snapshot?.orders || {}).find((order) => order?.sessionId === sessionId) || null;
 }
+function evidenceFingerprint(evidence) {
+  return crypto.createHash('sha256').update(JSON.stringify({
+    eventId: evidence.eventId,
+    sessionId: evidence.sessionId,
+    type: evidence.type,
+    source: evidence.source,
+    evidenceRef: evidence.evidenceRef,
+    occurredAt: evidence.occurredAt,
+    trackingUrl: evidence.trackingUrl,
+    refundAmountUsd: evidence.refundAmountUsd
+  })).digest('hex');
+}
 
 export function validateFulfillmentEvidence(input = {}) {
   const eventId = token(input.eventId, /^ful_[A-Za-z0-9_-]+$/);
@@ -92,15 +104,22 @@ export function createFulfillmentStatusAutomation({ ledger, contactVault, jobSto
       const validated = validateFulfillmentEvidence(input);
       if (!validated.ok) return { ok: false, status: 422, error: validated.reasons[0] };
       const evidence = validated.evidence;
+      const fingerprint = evidenceFingerprint(evidence);
 
       const recorded = await ledger.transact((state) => {
         state.fulfillmentEvents ??= {};
         const existing = state.fulfillmentEvents[evidence.eventId];
-        if (existing) return { replay: true, sessionId: existing.sessionId, type: existing.type };
+        if (existing) {
+          if (existing.fingerprint !== fingerprint) throw new Error('fulfillment_event_replay_mismatch');
+          return { replay: true, sessionId: existing.sessionId, type: existing.type };
+        }
         const order = findOrder(state, evidence.sessionId);
         if (!order || order.paid !== true || order.status !== 'manual_fulfillment') throw new Error('physical_order_not_fulfillment_ready');
         const current = order.fulfillment?.state || 'none';
         if (!TRANSITIONS[current]?.has(evidence.state)) throw new Error(`illegal_fulfillment_transition:${current}->${evidence.state}`);
+        const priorOccurredAt = order.fulfillment?.occurredAt ? Date.parse(order.fulfillment.occurredAt) : null;
+        const nextOccurredAt = Date.parse(evidence.occurredAt);
+        if (Number.isFinite(priorOccurredAt) && nextOccurredAt < priorOccurredAt) throw new Error('stale_fulfillment_evidence');
         order.fulfillment = {
           state: evidence.state,
           source: evidence.source,
@@ -110,7 +129,14 @@ export function createFulfillmentStatusAutomation({ ledger, contactVault, jobSto
           occurredAt: evidence.occurredAt,
           updatedAt: evidence.occurredAt
         };
-        state.fulfillmentEvents[evidence.eventId] = { sessionId: evidence.sessionId, type: evidence.type, state: evidence.state, evidenceRef: evidence.evidenceRef, occurredAt: evidence.occurredAt };
+        state.fulfillmentEvents[evidence.eventId] = {
+          sessionId: evidence.sessionId,
+          type: evidence.type,
+          state: evidence.state,
+          evidenceRef: evidence.evidenceRef,
+          occurredAt: evidence.occurredAt,
+          fingerprint
+        };
         return { replay: false, sessionId: evidence.sessionId, type: evidence.type };
       });
 
