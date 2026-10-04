@@ -36,7 +36,8 @@ test('webhook handles both confirmed and asynchronous payment success', () => {
 });
 test('email fallback never reports an unsent message as delivered or logs its body', () => {
   const source = readFileSync(new URL('../src/lib/email.ts', import.meta.url), 'utf8');
-  assert.match(source, /return \{ success: false, error: "Transactional email provider not configured\." \}/);
+  assert.match(source, /Transactional email provider not configured\./);
+  assert.match(source, /outcomeKnown: true/);
   assert.doesNotMatch(source, /params\.body\.slice/);
   assert.doesNotMatch(source, /\[EMAIL\] To: \$\{params\.to\}/);
 });

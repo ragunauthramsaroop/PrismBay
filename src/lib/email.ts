@@ -2,7 +2,7 @@
  * Transactional email service using Resend.
  *
  * Sends emails through Resend when RESEND_API_KEY is configured.
- * Falls back to console logging when no API key is present (dev mode).
+ * Returns a known failure when the provider is not configured.
  *
  * Required env vars:
  *   RESEND_API_KEY  — Resend API key for sending
@@ -34,18 +34,34 @@ export interface SendEmailParams {
   html?: string;
 }
 
+export interface SendEmailResult {
+  success: boolean;
+  error?: string;
+  /**
+   * True when we know whether the provider accepted the message.
+   * False means a transport/runtime exception left the delivery outcome uncertain,
+   * so callers must not retry blindly.
+   */
+  outcomeKnown: boolean;
+  providerMessageId?: string;
+}
+
 /**
  * Send a transactional email.
- * When the delivery provider is unconfigured, return a failure. Recipient
+ * When the delivery provider is unconfigured, return a known failure. Recipient
  * addresses and message bodies must never appear in application logs.
  */
-export async function sendEmail(params: SendEmailParams): Promise<{ success: boolean; error?: string }> {
+export async function sendEmail(params: SendEmailParams): Promise<SendEmailResult> {
   const from = process.env.EMAIL_FROM || "PrismBay <support@prismbayai.com>";
 
   // Transactional messages may contain private access links. Never log recipients or bodies.
   if (!process.env.RESEND_API_KEY) {
     console.error("[EMAIL] Transactional email provider not configured.");
-    return { success: false, error: "Transactional email provider not configured." };
+    return {
+      success: false,
+      error: "Transactional email provider not configured.",
+      outcomeKnown: true,
+    };
   }
 
   try {
@@ -60,15 +76,19 @@ export async function sendEmail(params: SendEmailParams): Promise<{ success: boo
 
     if (error) {
       console.error("[EMAIL] Provider rejected delivery. Check provider dashboard.");
-      return { success: false, error: error.message };
+      return { success: false, error: error.message, outcomeKnown: true };
     }
 
     console.log(`[EMAIL] Sent — ID: ${data?.id}`);
-    return { success: true };
+    return {
+      success: true,
+      outcomeKnown: true,
+      ...(data?.id ? { providerMessageId: data.id } : {}),
+    };
   } catch (err) {
     const message = (err as Error).message;
-    console.error("[EMAIL] Transactional delivery failed. Check provider logs.");
-    return { success: false, error: message };
+    console.error("[EMAIL] Transactional delivery failed with an uncertain provider outcome. Check provider logs before retrying.");
+    return { success: false, error: message, outcomeKnown: false };
   }
 }
 
@@ -79,7 +99,7 @@ export async function sendEmail(params: SendEmailParams): Promise<{ success: boo
 export async function sendEmailQuietly(params: SendEmailParams): Promise<void> {
   try {
     const outcome = await sendEmail(params);
-    if (!outcome.success) console.error("[EMAIL] Quiet send failed. Review provider configuration.");
+    if (!outcome.success) console.error("[EMAIL] Quiet send failed. Review provider configuration and delivery logs.");
   } catch {
     console.error("[EMAIL] Quiet send raised an error. Review delivery logs.");
   }
@@ -90,6 +110,10 @@ export async function sendEmailQuietly(params: SendEmailParams): Promise<void> {
 /**
  * Check whether a recipient has already received a specific campaign email.
  * Uses the email_campaign_log table to prevent duplicate sends.
+ *
+ * This legacy/general helper is fail-open on database errors and MUST NOT be
+ * used by the strict commerce-automation delivery path. That path uses the
+ * automation_email_delivery_ledger instead.
  *
  * @param campaignName — e.g. "post-purchase-onboarding"
  * @param templateName — e.g. "post-purchase-day-1"
@@ -114,7 +138,7 @@ export async function hasReceived(
     return (result as unknown[]).length > 0;
   } catch (err) {
     console.error("[EMAIL] Failed to check campaign log:", (err as Error).message);
-    // On error, assume not received to avoid blocking legitimate sends
+    // Legacy behavior: assume not received to avoid blocking unrelated campaign sends.
     return false;
   }
 }
