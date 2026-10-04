@@ -4,7 +4,10 @@ import {
   type CleanEmailData,
   type CleanEmailKind,
 } from "./clean-email-templates";
-import { createAutomationEmailLedger } from "./automation-email-ledger";
+import {
+  createAutomationEmailLedger,
+  type AutomationEmailLedger,
+} from "./automation-email-ledger";
 import { sendEmail } from "./email";
 
 export interface AutomationRecipientLookup {
@@ -37,6 +40,40 @@ export interface ProductionAutomationEmailOptions {
   env?: NodeJS.ProcessEnv;
 }
 
+interface StrictSendOutcome {
+  success: boolean;
+  outcomeKnown: boolean;
+  providerMessageId?: string;
+  errorCode?: string;
+  httpStatus?: number | null;
+}
+
+interface StrictDeliveryFactoryOptions {
+  enabled: true;
+  resolveRecipient: AutomationRecipientResolver;
+  ledger: AutomationEmailLedger;
+  render: (kind: CleanEmailKind, data: CleanEmailData) => {
+    subject: string;
+    text: string;
+    html: string;
+  };
+  send: (params: {
+    to: string;
+    subject: string;
+    body: string;
+    html?: string;
+  }) => Promise<StrictSendOutcome>;
+}
+
+type StrictDeliveryHandler = (job: unknown) => Promise<unknown>;
+type StrictDeliveryFactory = (
+  options: StrictDeliveryFactoryOptions,
+) => StrictDeliveryHandler | null;
+
+// The runtime contract is an original JavaScript module. Keep the untyped JS
+// boundary explicit here rather than weakening type checking across the app.
+const strictDeliveryFactory = createStrictAutomationEmailHandler as unknown as StrictDeliveryFactory;
+
 /**
  * Build the production automation email handler.
  *
@@ -48,7 +85,7 @@ export interface ProductionAutomationEmailOptions {
 export function createProductionAutomationEmailHandler({
   resolveRecipient,
   env = process.env,
-}: ProductionAutomationEmailOptions) {
+}: ProductionAutomationEmailOptions): StrictDeliveryHandler | null {
   if (env.AUTOMATION_EMAIL_DELIVERY_ENABLED !== "true") return null;
   if (!env.DATABASE_URL) {
     throw new Error("DATABASE_URL is required when automation email delivery is enabled.");
@@ -56,18 +93,13 @@ export function createProductionAutomationEmailHandler({
 
   const ledger = createAutomationEmailLedger(env.DATABASE_URL);
 
-  return createStrictAutomationEmailHandler({
+  return strictDeliveryFactory({
     enabled: true,
     resolveRecipient,
     ledger,
     render: (kind: CleanEmailKind, data: CleanEmailData) =>
       renderCleanEmail(kind, data),
-    send: async (params: {
-      to: string;
-      subject: string;
-      body: string;
-      html?: string;
-    }) => {
+    send: async (params) => {
       const result = await sendEmail(params);
       return {
         success: result.success,
