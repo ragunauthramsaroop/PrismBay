@@ -4,6 +4,14 @@
   const fallbackRegistry = window.PRISMBAY_CATALOG;
   if (!fallbackRegistry || !Array.isArray(fallbackRegistry.products)) return;
 
+  if (!document.querySelector('link[data-prismbay-sale-styles]')) {
+    const saleStyles = document.createElement('link');
+    saleStyles.rel = 'stylesheet';
+    saleStyles.href = '/assets/catalog-sale.css?v=20261004-sales-ready-1';
+    saleStyles.dataset.prismbaySaleStyles = 'true';
+    document.head.appendChild(saleStyles);
+  }
+
   const PUBLIC_CATALOG_FEED = 'https://raw.githubusercontent.com/ragunauthramsaroop/PrismBay/catalog-live-data/published-catalog.json';
   const CATEGORY_LABELS = Object.freeze({
     'cleaning-tools': 'Cleaning tools',
