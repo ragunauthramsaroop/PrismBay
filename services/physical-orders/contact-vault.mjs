@@ -66,6 +66,11 @@ function normalizeState(input) {
   if (!input || input.version !== 1 || !input.contacts || typeof input.contacts !== 'object' || Array.isArray(input.contacts)) {
     throw new Error('invalid_contact_vault');
   }
+  for (const record of Object.values(input.contacts)) {
+    if (!Array.isArray(record.checkoutRefs)) {
+      record.checkoutRefs = record.sourceCheckoutRef ? [record.sourceCheckoutRef] : [];
+    }
+  }
   return { version: 1, contacts: input.contacts };
 }
 
@@ -104,14 +109,23 @@ export async function openContactVault({ directory, encryptionSecret, recipientR
     recipientRefForEmail(value) {
       return deriveRecipientRef(normalizeEmail(value), refKey);
     },
+    async recipientRefForCheckout(value) {
+      await tail;
+      const checkoutRef = safeCheckoutRef(value);
+      for (const [recipientRef, record] of Object.entries(state.contacts)) {
+        if (Array.isArray(record.checkoutRefs) && record.checkoutRefs.includes(checkoutRef)) return recipientRef;
+      }
+      return null;
+    },
     async capturePaidCheckout({ email, checkoutRef, now = new Date().toISOString() } = {}) {
       const normalizedEmail = normalizeEmail(email);
       const sourceCheckoutRef = safeCheckoutRef(checkoutRef);
       const recipientRef = deriveRecipientRef(normalizedEmail, refKey);
       const updatedAt = new Date(now).toISOString();
-      if (updatedAt === 'Invalid Date') throw new Error('valid_capture_time_required');
       return mutate((next) => {
         const previous = next.contacts[recipientRef];
+        const priorRefs = Array.isArray(previous?.checkoutRefs) ? previous.checkoutRefs : previous?.sourceCheckoutRef ? [previous.sourceCheckoutRef] : [];
+        const checkoutRefs = [...new Set([...priorRefs, sourceCheckoutRef])].slice(-100);
         next.contacts[recipientRef] = {
           emailCipher: encryptEmail(normalizedEmail, recipientRef, encryptionKey),
           transactionalAllowed: previous ? previous.transactionalAllowed === true : true,
@@ -119,6 +133,7 @@ export async function openContactVault({ directory, encryptionSecret, recipientR
           deliveryVerified: previous ? previous.deliveryVerified === true : false,
           suppressed: previous ? previous.suppressed === true : false,
           sourceCheckoutRef,
+          checkoutRefs,
           updatedAt
         };
         return { recipientRef, created: !previous };
@@ -128,7 +143,6 @@ export async function openContactVault({ directory, encryptionSecret, recipientR
       const recipientRef = String(recipientRefValue || '').trim();
       if (!/^recipient_[A-Za-z0-9_-]{32}$/.test(recipientRef)) throw new Error('valid_recipient_ref_required');
       const updatedAt = new Date(now).toISOString();
-      if (updatedAt === 'Invalid Date') throw new Error('valid_update_time_required');
       const unknown = Object.keys(patch).filter((key) => !BOOLEAN_FIELDS.has(key));
       if (unknown.length) throw new Error('unsupported_contact_evidence_field');
       for (const value of Object.values(patch)) if (typeof value !== 'boolean') throw new Error('contact_evidence_must_be_boolean');
