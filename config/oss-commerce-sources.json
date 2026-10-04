@@ -1,0 +1,115 @@
+{
+  "version": 1,
+  "policy": {
+    "defaultDecision": "REJECT",
+    "requireRecordedProvenance": true,
+    "requireLicenseBoundary": true,
+    "requireTargetModule": true,
+    "requireTestsForImportedLogic": true,
+    "forbidSecrets": true,
+    "forbidCustomerPii": true,
+    "forbidLiveCommercialActionsFromImportJobs": true
+  },
+  "sources": [
+    {
+      "id": "medusa-core",
+      "repository": "medusajs/medusa",
+      "adoption": "PORT_PATTERN",
+      "license": "MIT",
+      "purpose": ["product_variant_model", "catalog_model", "cart_order_workflow", "fulfillment_primitives"],
+      "allowedPaths": ["packages/**", "www/**", "README.md", "LICENSE"],
+      "forbiddenPaths": ["packages/admin-bundler/**/enterprise/**", "enterprise/**", "ENTERPRISE-LICENSE.md"],
+      "notes": "Use only MIT-licensed core. Enterprise Edition material is excluded."
+    },
+    {
+      "id": "saleor-core",
+      "repository": "saleor/saleor",
+      "adoption": "REFERENCE_ONLY",
+      "license": "BSD-3-Clause",
+      "purpose": ["large_catalog_model", "webhook_architecture", "order_payment_patterns", "multichannel_reference"],
+      "allowedPaths": ["saleor/**", "README.md", "LICENSE"],
+      "forbiddenPaths": [],
+      "notes": "Prefer architecture and data-model references over introducing a second commerce backend."
+    },
+    {
+      "id": "meilisearch-ce",
+      "repository": "meilisearch/meilisearch",
+      "adoption": "PORT_PATTERN",
+      "license": "MIT",
+      "purpose": ["catalog_search", "facets", "filtering", "sorting", "query_normalization"],
+      "allowedPaths": ["crates/**", "assets/**", "README.md", "LICENSE-MIT"],
+      "forbiddenPaths": ["enterprise/**", "LICENSE-EE", "**/sharding/**", "**/s3-streaming/**"],
+      "notes": "Community Edition/MIT concepts only. Enterprise/BUSL features are excluded."
+    },
+    {
+      "id": "posthog-open",
+      "repository": "PostHog/posthog",
+      "adoption": "PORT_PATTERN",
+      "license": "MIT-Expat",
+      "purpose": ["event_taxonomy", "web_analytics", "funnels", "revenue_analytics", "session_diagnostics"],
+      "allowedPaths": ["frontend/**", "posthog/**", "products/**", "README.md", "LICENSE"],
+      "forbiddenPaths": ["ee/**"],
+      "notes": "Open-source portions only. Never import ee/ material."
+    },
+    {
+      "id": "dittofeed-core",
+      "repository": "dittofeed/dittofeed",
+      "adoption": "PORT_PATTERN",
+      "license": "MIT",
+      "purpose": ["customer_journeys", "segmentation", "event_triggered_messaging", "abandonment_recovery"],
+      "allowedPaths": ["packages/**", "apps/**", "README.md", "LICENSE"],
+      "forbiddenPaths": ["**/closed-source/**", "**/enterprise/**"],
+      "notes": "Core journey concepts only. Closed-source embedding, white-label and multi-tenant features are excluded."
+    },
+    {
+      "id": "bullmq",
+      "repository": "taskforcesh/bullmq",
+      "adoption": "PORT_PATTERN",
+      "license": "MIT",
+      "purpose": ["retry_backoff", "delayed_jobs", "concurrency", "dead_letter_recovery", "idempotent_job_design"],
+      "allowedPaths": ["src/**", "docs/**", "README.md", "LICENSE"],
+      "forbiddenPaths": ["**/pro/**"],
+      "notes": "Port reliability patterns without provisioning Redis or paid services unless separately authorized."
+    },
+    {
+      "id": "react-email",
+      "repository": "resend/react-email",
+      "adoption": "PORT_PATTERN",
+      "license": "MIT",
+      "purpose": ["transactional_email_components", "accessible_templates", "html_rendering", "plain_text_fallback"],
+      "allowedPaths": ["packages/**", "examples/**", "README.md", "LICENSE.md"],
+      "forbiddenPaths": [],
+      "notes": "Reuse email component/template patterns with PrismBay branding and existing sender path."
+    },
+    {
+      "id": "stripe-checkout-samples",
+      "repository": "stripe-samples/checkout-one-time-payments",
+      "adoption": "PORT_PATTERN",
+      "license": "MIT",
+      "purpose": ["checkout_sessions", "webhook_verification", "test_mode", "payment_return_flow"],
+      "allowedPaths": ["client/**", "server/**", "README.md", "LICENSE"],
+      "forbiddenPaths": [],
+      "notes": "Official Stripe sample patterns only. Live Stripe object mutation remains separately gated."
+    },
+    {
+      "id": "medusa-reviews-beta",
+      "repository": "lambda-curry/medusa-plugin-product-reviews",
+      "adoption": "REFERENCE_ONLY",
+      "license": "MIT",
+      "purpose": ["verified_purchase_reviews", "review_request_tokens", "delayed_review_request"],
+      "allowedPaths": ["packages/**", "README.md", "package.json"],
+      "forbiddenPaths": [],
+      "notes": "Beta and Medusa v1 oriented. Port concepts only after compatibility review."
+    },
+    {
+      "id": "remotion-video",
+      "repository": "remotion-dev/remotion",
+      "adoption": "REJECT_PENDING_LICENSE_REVIEW",
+      "license": "CUSTOM",
+      "purpose": ["programmatic_video_generation"],
+      "allowedPaths": [],
+      "forbiddenPaths": ["**"],
+      "notes": "Do not import or commercially adopt until the current license terms are explicitly reviewed and approved."
+    }
+  ]
+}
