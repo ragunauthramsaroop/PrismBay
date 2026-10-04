@@ -1,0 +1,48 @@
+name: PrismBay Catalog Research Aggregator
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'paperclip/prismbay-global-commerce/research/demand-batch-*-100.json'
+      - 'scripts/aggregate-demand-batches.mjs'
+      - 'scripts/aggregate-demand-batches.test.mjs'
+      - '.github/workflows/catalog-research-aggregator.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  aggregate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Test research queue aggregation
+        run: node --test scripts/aggregate-demand-batches.test.mjs
+      - name: Build canonical research queue
+        run: node scripts/aggregate-demand-batches.mjs
+      - name: Enforce research-only state
+        run: |
+          node - <<'NODE'
+          const fs=require('fs');
+          const d=JSON.parse(fs.readFileSync('growth-reports/catalog-research-candidates.json','utf8'));
+          for(const c of d.candidates){
+            if(c.status!=='RESEARCH_CANDIDATE') throw new Error(`unsafe status: ${c.slug}`);
+            for(const k of ['supplierReady','freightReady','mediaRightsReady','checkoutReady','fulfillmentReady','promotionReady','listed','ordersEnabled']){
+              if(c[k]!==false) throw new Error(`unsafe ${k}: ${c.slug}`);
+            }
+          }
+          console.log(`Research queue safe: ${d.candidateCount} candidate(s) across ${d.batchCount} merged batch(es).`);
+          NODE
+      - name: Upload canonical research queue
+        uses: actions/upload-artifact@v4
+        with:
+          name: prismbay-catalog-research-${{ github.run_id }}
+          path: growth-reports/catalog-research-candidates.json
+          if-no-files-found: error
+          retention-days: 14
