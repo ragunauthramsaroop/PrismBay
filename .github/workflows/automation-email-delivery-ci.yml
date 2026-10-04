@@ -1,0 +1,74 @@
+name: PrismBay Automation Email Delivery CI
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'scripts/automation-email-delivery-contract.mjs'
+      - 'scripts/automation-email-delivery-contract.test.mjs'
+      - 'src/lib/automation-email-ledger.ts'
+      - 'src/lib/automation-email-production.ts'
+      - 'src/lib/email.ts'
+      - 'src/lib/clean-email-templates.ts'
+      - 'migrations/015_automation_email_delivery_ledger.sql'
+      - 'docs/AUTOMATION_EMAIL_DELIVERY.md'
+      - '.github/workflows/automation-email-delivery-ci.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/automation-email-delivery-contract.mjs'
+      - 'scripts/automation-email-delivery-contract.test.mjs'
+      - 'src/lib/automation-email-ledger.ts'
+      - 'src/lib/automation-email-production.ts'
+      - 'src/lib/email.ts'
+      - 'src/lib/clean-email-templates.ts'
+      - 'migrations/015_automation_email_delivery_ledger.sql'
+      - 'docs/AUTOMATION_EMAIL_DELIVERY.md'
+      - '.github/workflows/automation-email-delivery-ci.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  strict-delivery-contract:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install dependencies without mutating repository metadata
+        run: npm install --no-package-lock
+      - name: Run strict delivery and template tests
+        run: node --test scripts/automation-email-delivery-contract.test.mjs scripts/clean-email-templates.test.mjs
+      - name: Typecheck strict delivery integration
+        run: >-
+          npx tsc --noEmit --target ES2022 --module NodeNext --moduleResolution NodeNext
+          --skipLibCheck --esModuleInterop --allowSyntheticDefaultImports --allowJs --checkJs false
+          scripts/automation-email-delivery-contract.mjs
+          src/lib/email.ts src/lib/clean-email-templates.ts
+          src/lib/automation-email-ledger.ts src/lib/automation-email-production.ts
+      - name: Verify fail-closed integration boundary
+        run: |
+          node - <<'NODE'
+          const fs = require('fs');
+          const files = [
+            'scripts/automation-email-delivery-contract.mjs',
+            'src/lib/automation-email-production.ts'
+          ];
+          const source = files.map((f) => fs.readFileSync(f, 'utf8')).join('\n');
+          for (const forbidden of [
+            'stripe.checkout.sessions.create(',
+            '/order/createOrder',
+            'developers.cjdropshipping.com/api2.0/v1/shopping/order',
+            'publishProduct(',
+          ]) {
+            if (source.includes(forbidden)) throw new Error(`forbidden irreversible action embedded: ${forbidden}`);
+          }
+          const production = fs.readFileSync('src/lib/automation-email-production.ts', 'utf8');
+          if (!production.includes('AUTOMATION_EMAIL_DELIVERY_ENABLED')) throw new Error('explicit delivery enable gate missing');
+          if (!production.includes('resolveRecipient')) throw new Error('authoritative recipient resolver injection missing');
+          console.log('Strict automation email boundary remains fail-closed.');
+          NODE
