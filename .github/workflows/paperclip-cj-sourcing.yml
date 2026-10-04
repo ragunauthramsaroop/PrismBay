@@ -66,17 +66,17 @@ jobs:
     if: github.event_name != 'pull_request'
     needs: safety-tests
     runs-on: ubuntu-latest
-    timeout-minutes: 25
+    timeout-minutes: 35
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - name: Source rotating Paperclip opportunity batch through read-only CJ API
+      - name: Source all live-store products plus rotating adjacent opportunities through read-only CJ API
         env:
           CJ_API_KEY: ${{ secrets.CJ_API_KEY }}
-          PAPERCLIP_CJ_BATCH_SIZE: '5'
-          PAPERCLIP_CJ_ANCHOR_COUNT: '2'
+          PAPERCLIP_CJ_BATCH_SIZE: '11'
+          PAPERCLIP_CJ_ANCHOR_COUNT: '9'
         run: node scripts/paperclip-cj-sourcing.mjs
       - name: Capture exact selected variant attributes
         env:
