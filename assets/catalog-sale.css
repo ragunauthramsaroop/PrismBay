@@ -1,0 +1,7 @@
+.pb-product-media{height:auto;aspect-ratio:1/1;background:#f6faf8}
+.pb-product-media img{object-fit:contain;padding:10px;image-rendering:auto}
+.pb-status.is-sale{background:#8f2030;color:#fff;box-shadow:0 0 0 1px rgba(143,32,48,.08)}
+.pb-sale-meta{display:flex;flex-wrap:wrap;align-items:center;gap:7px;margin-bottom:2px}
+.pb-sale-meta del{font-size:12px;color:#76837d;text-decoration-thickness:1.5px}
+.pb-sale-meta span{font-size:11px!important;color:#8f2030!important;background:#fff0f2;padding:4px 7px;border-radius:999px;font-weight:800}
+@media(max-width:640px){.pb-product-media img{padding:8px}.pb-sale-meta{gap:5px}}
