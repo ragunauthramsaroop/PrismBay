@@ -1,0 +1,34 @@
+name: OSS Source Policy CI
+
+on:
+  pull_request:
+    paths:
+      - 'config/oss-commerce-sources.json'
+      - 'scripts/oss-source-policy.mjs'
+      - 'scripts/oss-source-policy.test.mjs'
+      - '.github/workflows/oss-source-policy-ci.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'config/oss-commerce-sources.json'
+      - 'scripts/oss-source-policy.mjs'
+      - 'scripts/oss-source-policy.test.mjs'
+      - '.github/workflows/oss-source-policy-ci.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate-oss-source-policy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Validate source registry
+        run: node scripts/oss-source-policy.mjs
+      - name: Run source policy regression tests
+        run: node --test scripts/oss-source-policy.test.mjs
