@@ -5,6 +5,7 @@ import { getMeilisearchIndexSettings, toMeilisearchDocuments } from './search-in
 
 const DEFAULT_LEGACY = 'config/legacy-live-catalog.json';
 const DEFAULT_CONFIG = 'config/catalog-scale-500.json';
+const DEFAULT_PROMOTIONS = 'config/retail-promotions.json';
 
 function assertString(value, field) {
   if (typeof value !== 'string' || !value.trim()) throw new Error(`invalid_${field}`);
@@ -43,7 +44,42 @@ function validateNewCandidate(candidate) {
   return { ok: true, product: normalizePublicProduct(candidate, 'sale-ready-gate') };
 }
 
-export function buildCatalog({ legacyProducts = [], candidates = [], categories = [] } = {}) {
+function validatePromotion(promotion, product, now = Date.now()) {
+  const reasons = [];
+  if (!promotion || typeof promotion !== 'object') return { ok: false, reasons: ['promotion_invalid'] };
+  const regularPriceUsd = Number(promotion.regularPriceUsd);
+  const salePriceUsd = Number(promotion.salePriceUsd);
+  const startsAtMs = Date.parse(String(promotion.startsAt || ''));
+  const endsAtMs = Date.parse(String(promotion.endsAt || ''));
+  if (String(promotion.sku || '') !== product.sku) reasons.push('sku_mismatch');
+  if (promotion.authorized !== true) reasons.push('authorization_missing');
+  if (promotion.regularPriceVerified !== true) reasons.push('regular_price_unverified');
+  if (promotion.marginVerified !== true) reasons.push('margin_unverified');
+  if (promotion.checkoutPriceVerified !== true) reasons.push('checkout_price_unverified');
+  if (!(regularPriceUsd > salePriceUsd && salePriceUsd > 0)) reasons.push('invalid_sale_prices');
+  if (Math.abs(salePriceUsd - Number(product.priceUsd)) > 0.001) reasons.push('sale_price_not_checkout_price');
+  if (!Number.isFinite(startsAtMs) || !Number.isFinite(endsAtMs) || startsAtMs >= endsAtMs) reasons.push('invalid_promotion_window');
+  if (Number.isFinite(startsAtMs) && now < startsAtMs) reasons.push('promotion_not_started');
+  if (Number.isFinite(endsAtMs) && now >= endsAtMs) reasons.push('promotion_expired');
+  if (!Array.isArray(promotion.evidenceRefs) || promotion.evidenceRefs.length < 1) reasons.push('promotion_evidence_missing');
+  if (reasons.length) return { ok: false, reasons };
+  return {
+    ok: true,
+    promotion: {
+      campaignId: assertString(promotion.campaignId, 'campaignId'),
+      regularPriceUsd,
+      salePriceUsd,
+      startsAt: new Date(startsAtMs).toISOString(),
+      endsAt: new Date(endsAtMs).toISOString(),
+      authorized: true,
+      regularPriceVerified: true,
+      marginVerified: true,
+      checkoutPriceVerified: true
+    }
+  };
+}
+
+export function buildCatalog({ legacyProducts = [], candidates = [], categories = [], promotions = [], now = Date.now() } = {}) {
   const publicProducts = legacyProducts.map(validateLegacy);
   const rejected = [];
   for (const candidate of candidates) {
@@ -68,14 +104,34 @@ export function buildCatalog({ legacyProducts = [], candidates = [], categories 
     }
   }
 
+  const promotionRejections = [];
+  const promotionBySku = new Map();
+  for (const promotion of promotions) {
+    const sku = String(promotion?.sku || '');
+    const product = publicProducts.find(row => row.sku === sku);
+    if (!product) {
+      promotionRejections.push({ sku: sku || null, reasons: ['product_not_public'] });
+      continue;
+    }
+    if (promotionBySku.has(sku)) throw new Error(`duplicate_promotion:${sku}`);
+    const result = validatePromotion(promotion, product, now);
+    if (result.ok) promotionBySku.set(sku, result.promotion);
+    else promotionRejections.push({ sku, reasons: result.reasons });
+  }
+  for (const product of publicProducts) {
+    const promotion = promotionBySku.get(product.sku);
+    if (promotion) product.promotion = promotion;
+  }
+
   publicProducts.sort((a, b) => a.category.localeCompare(b.category) || a.name.localeCompare(b.name));
   const counts = {};
   for (const product of publicProducts) counts[product.category] = (counts[product.category] || 0) + 1;
 
   const catalog = {
-    generatedAt: new Date().toISOString(),
-    sourceOfTruth: 'Stripe paid transaction for sales; fail-closed catalog gate for publishability',
+    generatedAt: new Date(now).toISOString(),
+    sourceOfTruth: 'Stripe paid transaction for sales; fail-closed catalog and promotion gates for publishability',
     productCount: publicProducts.length,
+    promotionCount: publicProducts.filter(product => product.promotion).length,
     categoryCounts: counts,
     products: publicProducts
   };
@@ -95,7 +151,7 @@ export function buildCatalog({ legacyProducts = [], candidates = [], categories 
   };
   const meilisearchSettings = getMeilisearchIndexSettings();
 
-  return { catalog, searchIndex, meilisearchDocuments, meilisearchSettings, rejected };
+  return { catalog, searchIndex, meilisearchDocuments, meilisearchSettings, rejected, promotionRejections };
 }
 
 async function readJson(file, fallback) {
@@ -110,26 +166,37 @@ export async function main({
   candidatePath = process.argv[2] || 'growth-reports/catalog-sale-ready-candidates.json',
   outDir = process.argv[3] || 'build/catalog',
   legacyPath = DEFAULT_LEGACY,
-  configPath = DEFAULT_CONFIG
+  configPath = DEFAULT_CONFIG,
+  promotionsPath = DEFAULT_PROMOTIONS
 } = {}) {
-  const [legacyRaw, candidates, config] = await Promise.all([
+  const [legacyRaw, candidates, config, promotionsRaw] = await Promise.all([
     readJson(legacyPath, { products: [] }),
     readJson(candidatePath, []),
-    readJson(configPath, { categories: [] })
+    readJson(configPath, { categories: [] }),
+    readJson(promotionsPath, { promotions: [] })
   ]);
   if (!Array.isArray(candidates)) throw new Error('candidate_dataset_must_be_array');
-  const result = buildCatalog({ legacyProducts: legacyRaw.products || [], candidates, categories: config.categories || [] });
+  if (!Array.isArray(promotionsRaw?.promotions)) throw new Error('promotion_dataset_must_be_array');
+  const result = buildCatalog({
+    legacyProducts: legacyRaw.products || [],
+    candidates,
+    categories: config.categories || [],
+    promotions: promotionsRaw.promotions
+  });
   await fs.mkdir(outDir, { recursive: true });
   await Promise.all([
     fs.writeFile(path.join(outDir, 'catalog.json'), JSON.stringify(result.catalog, null, 2) + '\n'),
     fs.writeFile(path.join(outDir, 'search-index.json'), JSON.stringify(result.searchIndex, null, 2) + '\n'),
     fs.writeFile(path.join(outDir, 'meilisearch-documents.json'), JSON.stringify(result.meilisearchDocuments, null, 2) + '\n'),
     fs.writeFile(path.join(outDir, 'meilisearch-settings.json'), JSON.stringify(result.meilisearchSettings, null, 2) + '\n'),
-    fs.writeFile(path.join(outDir, 'rejected.json'), JSON.stringify(result.rejected, null, 2) + '\n')
+    fs.writeFile(path.join(outDir, 'rejected.json'), JSON.stringify(result.rejected, null, 2) + '\n'),
+    fs.writeFile(path.join(outDir, 'promotion-rejections.json'), JSON.stringify(result.promotionRejections, null, 2) + '\n')
   ]);
   process.stdout.write(JSON.stringify({
     published: result.catalog.productCount,
+    activePromotions: result.catalog.promotionCount,
     rejected: result.rejected.length,
+    promotionRejections: result.promotionRejections.length,
     categories: result.catalog.categoryCounts,
     searchDocuments: result.meilisearchDocuments.documents.length
   }, null, 2) + '\n');

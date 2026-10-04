@@ -1,0 +1,6 @@
+{
+  "schemaVersion": 1,
+  "updatedAt": "2026-10-04T21:45:00Z",
+  "rule": "No promotion is public until regular price, margin, Stripe checkout sale price, authorization and active dates are all independently verified.",
+  "promotions": []
+}
