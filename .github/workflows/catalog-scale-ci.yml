@@ -10,6 +10,8 @@ on:
       - 'scripts/catalog-scale-gate.test.mjs'
       - 'scripts/build-public-catalog.mjs'
       - 'scripts/build-public-catalog.test.mjs'
+      - 'scripts/search-index-adapter.mjs'
+      - 'scripts/search-index-adapter.test.mjs'
       - 'growth-reports/catalog-sale-ready-candidates.json'
       - '.github/workflows/catalog-scale-ci.yml'
   push:
@@ -21,6 +23,8 @@ on:
       - 'scripts/catalog-scale-gate.test.mjs'
       - 'scripts/build-public-catalog.mjs'
       - 'scripts/build-public-catalog.test.mjs'
+      - 'scripts/search-index-adapter.mjs'
+      - 'scripts/search-index-adapter.test.mjs'
       - 'growth-reports/catalog-sale-ready-candidates.json'
       - '.github/workflows/catalog-scale-ci.yml'
   workflow_dispatch:
@@ -38,7 +42,7 @@ jobs:
         with:
           node-version: '22'
       - name: Run catalog fail-closed tests
-        run: node --test scripts/catalog-scale-gate.test.mjs scripts/build-public-catalog.test.mjs
+        run: node --test scripts/catalog-scale-gate.test.mjs scripts/build-public-catalog.test.mjs scripts/search-index-adapter.test.mjs
       - name: Build publishable catalog artifacts
         run: node scripts/build-public-catalog.mjs
       - name: Verify only grandfathered or gated products are public
@@ -50,7 +54,9 @@ jobs:
             if(!['legacy-live-migration','sale-ready-gate'].includes(p.source)) throw new Error(`unsafe source ${p.source}`);
             if(!/^https:\/\/buy\.stripe\.com\//.test(p.checkoutUrl)) throw new Error(`unsafe checkout ${p.sku}`);
           }
-          console.log(`Validated ${d.productCount} public product records`);
+          const search=JSON.parse(fs.readFileSync('build/catalog/meilisearch-documents.json','utf8'));
+          if(search.documents.some((p)=>Object.prototype.hasOwnProperty.call(p,'checkoutUrl'))) throw new Error('checkout_url_leaked_to_search');
+          console.log(`Validated ${d.productCount} public product records and ${search.documents.length} search documents`);
           NODE
       - name: Upload catalog artifacts
         uses: actions/upload-artifact@v4
