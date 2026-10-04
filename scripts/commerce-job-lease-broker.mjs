@@ -36,6 +36,12 @@ function safeFailure(outcome = {}) {
   };
 }
 
+export function automationWorkerTokenAuthorized(expected, supplied) {
+  const left = Buffer.from(String(expected || ''));
+  const right = Buffer.from(String(supplied || ''));
+  return left.length >= 32 && left.length === right.length && crypto.timingSafeEqual(left, right);
+}
+
 export function createJobLeaseBroker({ store, nowMs = () => Date.now(), randomId = () => crypto.randomUUID() } = {}) {
   if (!store?.list || !store?.update || !store?.get) throw new Error('durable_job_store_with_atomic_update_required');
   let brokerTail = Promise.resolve();
