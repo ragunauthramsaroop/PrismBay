@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-04T21:58:16.270Z",
+  "updatedAt": "2026-10-05T06:16:59.760Z",
   "market": "US",
   "methodology": "Public-news attention, freshness, and short-form demonstration fit. This is not PrismBay sales data and is not a TikTok, Amazon, Google, or Bing product ranking.",
   "refreshTargetHours": 6,
@@ -27,7 +27,7 @@
           "url": "https://news.google.com/rss/articles/CBMiZkFVX3lxTE1ZRDlxanVrQ3JSeXhtdXBjS3JmVTdkQnV2LURHdldCN1BidHU0ZjhselZXRVZWLVhJUEpwaUMwTEgweU5mLVRmZnozS3dJUTk5TGZTZHctbHpmZHkySDktbE1hZ0Zsdw?oc=5"
         },
         {
-          "title": "Say Goodbye to Wrinkled Clothing with an Easy-to-Use Clothes Steamer — Prices Start at $31 - people.com",
+          "title": "Say Goodbye to Wrinkled Clothing with an Easy-to-Use Clothes Steamer — Prices Start at $31 - People.com",
           "source": "Google News",
           "publishedAt": "2026-05-06T07:00:00.000Z",
           "url": "https://news.google.com/rss/articles/CBMiXEFVX3lxTE9HWkFheEdZLU5KN28wQmVlLVZWVFJZSUZpcFlSTmJLSFJJc3lacVNuUTNycF9SN0tnRmM4QnZ1SXNwcDFid3kya1RUU2J0cjEyQUxOY1N6YXI0UHI3?oc=5"
@@ -56,12 +56,12 @@
     {
       "slug": "scrubber",
       "name": "5-in-1 Electric Spin Scrubber",
-      "signalScore": 77.5,
+      "signalScore": 80.5,
       "signalLabel": "high-attention",
       "evidence": {
-        "publicMentions": 83,
+        "publicMentions": 96,
         "mentionsLast7Days": 0,
-        "mentionsLast30Days": 5,
+        "mentionsLast30Days": 7,
         "sourcesAvailable": [
           "Google News",
           "Bing News"
@@ -129,7 +129,7 @@
           "url": "https://news.google.com/rss/articles/CBMisAFBVV95cUxQcmFNWEdvTUxuY1RES2k4bXh1T0U2ci1nTHBJRXVud3F4ekF2NHF4NkF4LTlKR3lRWTNObHBGcjUzOGlLNUlHNXd1dGdOQXBYcEN6QllhNGZyVDFja2h1R3AzX1hIaFk4RUpsZ3JQT05Ga2pkelRscFRTaVJ0NFhyX0c3cVllQzIxTXoyeGhKcTNvLUJuRWNLd0g3Si1mYnRoUjEzZExKZGEtUXlsVlV3dQ?oc=5"
         },
         {
-          "title": "Turns out you do need a mattress vacuum — here’s why I love mine - nj.com",
+          "title": "Turns out you do need a mattress vacuum — here’s why I love mine - NJ.com",
           "source": "Google News",
           "publishedAt": "2026-08-16T07:00:00.000Z",
           "url": "https://news.google.com/rss/articles/CBMirAFBVV95cUxORUVHTHVGWkZtVUhlMG1CSUpQUjRzM0dwTWhNem9pM3ppNkRiZjFxZzRCNkVIc0dhd3RUVU4zTU91am9UQVVYcFZsU2k5a1d1WVFFWHBFTHBpUWJaQzc5bEpxR1hUb1AyZW4wVTRRaE94OW1BYU90cUNWZkcwVzlSWW96VzdzYkZuajBkN2JqSjJzNjBkeEtjTUx6QWtmemRvRUhVT21OWmplTkhh0gHAAUFVX3lxTE95S1VXaDg0OFdlMm85aXdBSjN0aHJUTElRWEhEdlhpaWRCMDlnXzVia2p5NFpJZTEwcUZvVGhnNGJzMDR4N0NWamlXS28yMzRiME15aHdsV3RYMWZucGpRTkFVUEZYakZLeEJJR2w4b0Y1NlNOU1ZURVVsTDRyOVN1SHZyRk5COUJNbnFLbExVMEhrNkszREZJcnp3dnVDck5oZXZYMllyRlN5S3NwMmFNU0FkZ0s1YkJ2TE1EZFpYSw?oc=5"
@@ -155,7 +155,7 @@
       "signalScore": 71,
       "signalLabel": "high-attention",
       "evidence": {
-        "publicMentions": 100,
+        "publicMentions": 104,
         "mentionsLast7Days": 0,
         "mentionsLast30Days": 1,
         "sourcesAvailable": [
@@ -171,13 +171,13 @@
           "url": "https://news.google.com/rss/articles/CBMiggFBVV95cUxQZzA5TzBxdm5yX1RYc3RkUHpOV0FRdmF2YnV6Vk9ma3cweHFkM0xoTzAxQXo5OThsS3BVZ2hOWTdXOWVlQUZnYTBXaHZfUkRmN1BsMVc5RlR1YngtdVNIdWZfZGJpRmd0dDBuMXNJLXlFRllZREJWYktndWYyWVJJU0Zn?oc=5"
         },
         {
-          "title": "In a Decade of Testing Pressure Washers, These Are the Smallest, Most Powerful Models Yet - The New York Times",
+          "title": "In a Decade of Testing Pressure Washers, These Are the Smallest, Most Powerful Models Yet - nytimes.com",
           "source": "Google News",
           "publishedAt": "2026-06-05T07:00:00.000Z",
           "url": "https://news.google.com/rss/articles/CBMickFVX3lxTE12V2hOQ2d1Z0xiSU0ySWNYbmpaS0ZaOC1oc3QzazB3WU5oRHcxV1B1RjNhdHFmckxHc0pEdlRFUGQtN2dkUWtoTHZiQWVWSi02ZV9xTElkQ0xTNWw1MjFnakpCT0pkUTliaWh1aGVWN0RUdw?oc=5"
         },
         {
-          "title": "Does it work? Hydro X5 cordless pressure washer - KY3",
+          "title": "Does it work? Hydro X5 cordless pressure washer - ky3.com",
           "source": "Google News",
           "publishedAt": "2026-08-12T07:00:00.000Z",
           "url": "https://news.google.com/rss/articles/CBMihAFBVV95cUxPVUxYNWVJWVFYUWRES0d1Y2plUHV6b0poQ1dfOEpadkNmM3ZSbnpYZ2FiZDNQaXRRRHB1dVg4Q0ljWDJTdnM0WFJGY3dlUTRDU2x5dnptYjktcDByUnd6NDFPX3YwX3dJRDI4b1hrQ1NSU0hoLVlnVzIxTjJsVHktSUU2cHjSAZgBQVVfeXFMT1EzOF9iaGQxYzk4RUdyUGZVb0pjM0xQUGlQU3l3ZjNBSWFyS2pjQXBOOWpLY2xuS2NLSVBFdHRhWDBNdVdOdkgySHJkcHc5NXg2S3laUEdjU1A5QTdWeEJGQVExWE5DdENTaE5QbEhtWWJPdkVza2FUMjd0Qko4Mk1yR2VJeWhfaGZyTVNiUGJ2X2NEOVBYVjY?oc=5"
@@ -200,10 +200,10 @@
     {
       "slug": "pethair",
       "name": "Reusable Pet Hair Remover",
-      "signalScore": 42.5,
+      "signalScore": 41,
       "signalLabel": "watch",
       "evidence": {
-        "publicMentions": 12,
+        "publicMentions": 11,
         "mentionsLast7Days": 0,
         "mentionsLast30Days": 1,
         "sourcesAvailable": [
@@ -213,13 +213,13 @@
       },
       "sampleSignals": [
         {
-          "title": "The 10 Best Pet Hair Removers We Tested, Including Laundry Sheets and Lint Rollers - people.com",
+          "title": "The 10 Best Pet Hair Removers We Tested, Including Laundry Sheets and Lint Rollers - People.com",
           "source": "Google News",
           "publishedAt": "2026-04-29T07:00:00.000Z",
           "url": "https://news.google.com/rss/articles/CBMiW0FVX3lxTE56STN5dFAtRmlSdG04UW8zZWlkemZwOW4wQTJFeUt5ZU9hYmhrYmJGb1Y1a3p3WDFsaVpkWFBLTkNyR2dMZnNzT2N5UjFoQ0pCZnNTc1hUOUQ3ZE0?oc=5"
         },
         {
-          "title": "10 Best Cat Hair Remover Tools in 2026 - Reviews & Top Picks - catster.com",
+          "title": "10 Best Cat Hair Remover Tools in 2026 - Reviews & Top Picks - Catster",
           "source": "Google News",
           "publishedAt": "2026-09-15T07:00:00.000Z",
           "url": "https://news.google.com/rss/articles/CBMid0FVX3lxTE9TRHBxazJndGdPZkxWeW5xUGRibHc4aGJjUjBRN2tueTdCU1I1dEx2N1RXSGYteThUejc1cWlBcnNiOGhDYmNYSVVRUk0wN1djTE9Ub2VZYzV5VGJYczFLTHo2MHhWdEpXckdnX3V5U0pyOUNTVFpN?oc=5"
@@ -231,7 +231,7 @@
           "url": "https://news.google.com/rss/articles/CBMivAFBVV95cUxNdDdxTXg5VTljRFBmTDlNd0VXaDV5eUJlbHp4NGxpT3RQdk1sUmVhM3RydDJ3OXJGR3dMalAxemlVYjhzT2NZZ2pLYlBSM2F0Rk1zVDNrR2x0NGJyb3FJOUNDY2x0eEVnRk90aGtvdENXX01MMUhSNTIzOEhnZHVHWHByRW1hYmpCa0tTcXc3clBKTjVNMkdkNmR4blJtYng3cVhkRTdoRHBuZEczeWNENUhST0hsY2pRcU9Udw?oc=5"
         },
         {
-          "title": "Best Pet Hair Remover Tools - consumerreports.org",
+          "title": "Best Pet Hair Remover Tools - Consumer Reports",
           "source": "Google News",
           "publishedAt": "2025-02-10T08:00:00.000Z",
           "url": "https://news.google.com/rss/articles/CBMikwFBVV95cUxOdFp5djVaTWsxTXVTeFlpcWdPTXNhNHlHUU5icHMxUFlWWVJab0lDMVpPUHhqbV9MaVh4bGJwLXJMSlB6OGQ5ajlWOThPOXJ2VS0xT2dsWVl4OHZKWm14ZW1JZmVvUlRUWFBlTXZSVzYzZUJzWG9KeEJYUXkzSlp2NWFLSlpad2U1eVRxRVV0QWt4dHc?oc=5"
@@ -273,7 +273,7 @@
           "url": "https://news.google.com/rss/articles/CBMihAFBVV95cUxPcTd3VkN3ZWdpOW1KNXlnTkRWNWhKU09wamtqMDMwcUlPN0F2RF9mem40Mm5tb0hNWVhlSklhQ2xlbHlkWjk3U29WWmhzTTZWdWV1aVg1UWVOay1zaXhpREY3NWNxYUx3WnBhRVRoTlhLekNaQ3lvWkhrWlJCR1BqWUJRQWQ?oc=5"
         },
         {
-          "title": "This Is How to Properly Clean Your Oven So It Doesn't Catch on Fire - Food & Wine",
+          "title": "This Is How to Properly Clean Your Oven So It Doesn't Catch on Fire - foodandwine.com",
           "source": "Google News",
           "publishedAt": "2026-03-22T07:00:00.000Z",
           "url": "https://news.google.com/rss/articles/CBMie0FVX3lxTFA1dlItdGhYRmphWkFGLWJSSlViNXV1eG5mVDVnd1lsRVc0dDBucGtYN3h3ZTZUMHFGVExTOTQ4eVZDcmVsVE9JSmNjMG5hdjZVWm1ta3Y5OWFjSlctQzJrOUFuSzR2dldoSkhuaE9iOUV4dmUtRUpOMTdHUQ?oc=5"
