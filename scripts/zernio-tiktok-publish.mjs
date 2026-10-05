@@ -10,6 +10,7 @@ const CONFIG_PATH = path.join(ROOT, 'config', 'tiktok-publish.json');
 const CATALOG_PATH = path.join(ROOT, 'config', 'legacy-live-catalog.json');
 const PROMOTIONS_PATH = path.join(ROOT, 'config', 'retail-promotions.json');
 const RECEIPT_PATH = path.join(ROOT, 'build', 'tiktok-publish', 'receipt.json');
+const CONFIRMATION = 'PUBLISH_PRISMBAY_TIKTOK';
 
 function fail(message) {
   throw new Error(message);
@@ -28,7 +29,9 @@ export function isPromotionReady(promo, now = new Date()) {
   const start = promo.startsAt ? Date.parse(promo.startsAt) : -Infinity;
   const end = promo.endsAt ? Date.parse(promo.endsAt) : Infinity;
   const t = now.getTime();
-  return Number.isFinite(start) || start === -Infinity ? (t >= start && t <= end) : false;
+  if (!(Number.isFinite(start) || start === -Infinity)) return false;
+  if (!(Number.isFinite(end) || end === Infinity)) return false;
+  return t >= start && t <= end;
 }
 
 export function extractAccountCandidates(value, out = []) {
@@ -46,7 +49,51 @@ export function extractAccountCandidates(value, out = []) {
   return out;
 }
 
-export function buildPayload({ config, product, dryRun }) {
+export function validatePublishRequest(request, config, product) {
+  if (!request || typeof request !== 'object') fail('publish_request_must_be_object');
+  if (request.schemaVersion !== 1) fail('publish_request_schema_version_invalid');
+  if (request.approved !== true) fail('publish_request_not_approved');
+  if (request.confirmation !== CONFIRMATION) fail('publish_request_confirmation_invalid');
+  if (typeof request.requestId !== 'string' || !/^[A-Za-z0-9][A-Za-z0-9._-]{2,99}$/.test(request.requestId)) fail('publish_request_id_invalid');
+  if (request.sku !== product.sku) fail('publish_request_sku_mismatch');
+  if (request.accountId !== config.account.id) fail('publish_request_account_mismatch');
+  if (request.videoUrl !== config.product.videoUrl) fail('publish_request_video_mismatch');
+  if (request.expectedPriceUsd !== undefined && Number(request.expectedPriceUsd) !== Number(product.priceUsd)) fail('publish_request_price_mismatch');
+  return {
+    requestId: request.requestId,
+    approved: true,
+    sku: request.sku,
+    accountId: request.accountId,
+    videoUrl: request.videoUrl
+  };
+}
+
+export function findExistingPublishRequest(value, requestId) {
+  if (Array.isArray(value)) {
+    for (const item of value) {
+      const found = findExistingPublishRequest(item, requestId);
+      if (found) return found;
+    }
+    return null;
+  }
+  if (!value || typeof value !== 'object') return null;
+  if (value.metadata?.prismbayPublishRequestId === requestId) return value;
+  for (const child of Object.values(value)) {
+    if (child && typeof child === 'object') {
+      const found = findExistingPublishRequest(child, requestId);
+      if (found) return found;
+    }
+  }
+  return null;
+}
+
+export function buildPayload({ config, product, dryRun, publishRequestId = null }) {
+  const metadata = {
+    source: 'prismbay-github-actions',
+    sku: product.sku,
+    verifiedPriceUsd: product.priceUsd
+  };
+  if (publishRequestId) metadata.prismbayPublishRequestId = publishRequestId;
   return {
     title: `${product.name} | PrismBay Clean`,
     content: config.product.caption,
@@ -78,11 +125,7 @@ export function buildPayload({ config, product, dryRun }) {
       mediaType: 'VIDEO',
       videoMadeWithAi: config.tiktok.videoMadeWithAi
     },
-    metadata: {
-      source: 'prismbay-github-actions',
-      sku: product.sku,
-      verifiedPriceUsd: product.priceUsd
-    }
+    metadata
   };
 }
 
@@ -104,7 +147,7 @@ async function readJson(file) {
 function validateStaticConfig(config, catalog, promotions) {
   if (config.provider !== 'zernio') fail('provider_must_be_zernio');
   if (config.account?.platform !== 'tiktok') fail('account_platform_must_be_tiktok');
-  if (!/^[-a-f0-9]{24}$/i.test(config.account?.id ?? '')) fail('invalid_tiktok_account_id');
+  if (!/^[a-f0-9]{24}$/i.test(config.account?.id ?? '')) fail('invalid_tiktok_account_id');
   if (config.account?.username !== 'prismbayclean') fail('unexpected_tiktok_username');
 
   const product = catalog.products?.find((row) => row.sku === config.product?.sku);
@@ -119,9 +162,7 @@ function validateStaticConfig(config, catalog, promotions) {
   if (!media.pathname.endsWith('.mp4')) fail('media_must_be_mp4');
 
   const activePromotion = (promotions.promotions ?? []).find((promo) => promo.sku === product.sku && isPromotionReady(promo));
-  if (!activePromotion && config.safety?.requireNoUnverifiedPromotionClaim && hasUnverifiedPromotionClaim(config.product.caption)) {
-    fail('unverified_promotion_claim');
-  }
+  if (!activePromotion && config.safety?.requireNoUnverifiedPromotionClaim && hasUnverifiedPromotionClaim(config.product.caption)) fail('unverified_promotion_claim');
 
   if (config.tiktok?.privacyLevel !== 'PUBLIC_TO_EVERYONE') fail('privacy_must_be_public');
   if (config.tiktok?.videoMadeWithAi !== true) fail('ai_disclosure_must_be_enabled');
@@ -183,13 +224,30 @@ async function verifyZernioAccount(apiBase, apiKey, config) {
   };
 }
 
-function requestId(mode) {
-  const seed = `${process.env.GITHUB_RUN_ID ?? 'local'}:${process.env.GITHUB_RUN_ATTEMPT ?? '1'}:${mode}:${Date.now()}`;
+async function checkDuplicateRequest(apiBase, apiKey, publishRequestId) {
+  if (!publishRequestId) return null;
+  const { response, body } = await fetchJson(`${apiBase}/v1/posts`, {
+    method: 'GET',
+    headers: {
+      Authorization: `Bearer ${apiKey}`,
+      Accept: 'application/json'
+    }
+  });
+  if (!response.ok) fail(`zernio_duplicate_precheck_${response.status}`);
+  const existing = findExistingPublishRequest(body, publishRequestId);
+  if (!existing) return null;
+  const status = String(existing.status ?? '').toLowerCase();
+  if (status === 'failed' || status === 'cancelled') return null;
+  return sanitizeForReceipt(existing);
+}
+
+function requestTraceId(mode, publishRequestId) {
+  const seed = `${process.env.GITHUB_RUN_ID ?? 'local'}:${process.env.GITHUB_RUN_ATTEMPT ?? '1'}:${mode}:${publishRequestId ?? 'none'}:${Date.now()}`;
   return `prismbay-${crypto.createHash('sha256').update(seed).digest('hex').slice(0, 24)}`;
 }
 
-async function createZernioPost(apiBase, apiKey, payload, mode) {
-  const id = requestId(mode);
+async function createZernioPost(apiBase, apiKey, payload, mode, publishRequestId) {
+  const id = requestTraceId(mode, publishRequestId);
   const { response, body } = await fetchJson(`${apiBase}/v1/posts`, {
     method: 'POST',
     headers: {
@@ -211,13 +269,33 @@ async function createZernioPost(apiBase, apiKey, payload, mode) {
   };
 }
 
-export async function run({ publish = false, env = process.env } = {}) {
+function parseArgs(argv) {
+  const publish = argv.includes('--publish');
+  const requestIndex = argv.indexOf('--request');
+  const requestPath = requestIndex >= 0 ? argv[requestIndex + 1] : null;
+  if (requestIndex >= 0 && (!requestPath || requestPath.startsWith('--'))) fail('publish_request_path_missing');
+  return { publish, requestPath };
+}
+
+export async function run({ publish = false, requestPath = null, env = process.env } = {}) {
   const [config, catalog, promotions] = await Promise.all([
     readJson(CONFIG_PATH),
     readJson(CATALOG_PATH),
     readJson(PROMOTIONS_PATH)
   ]);
   const { product, activePromotion } = validateStaticConfig(config, catalog, promotions);
+
+  let request = null;
+  let publishRequestId = null;
+  if (requestPath) {
+    const absoluteRequestPath = path.resolve(ROOT, requestPath);
+    const allowedRequestRoot = path.join(ROOT, 'publish-requests', 'tiktok') + path.sep;
+    if (!absoluteRequestPath.startsWith(allowedRequestRoot)) fail('publish_request_path_not_allowed');
+    request = validatePublishRequest(await readJson(absoluteRequestPath), config, product);
+    publishRequestId = request.requestId;
+  }
+  if (publish && !publishRequestId) publishRequestId = env.PRISMBAY_PUBLISH_REQUEST_ID || `manual-${env.GITHUB_RUN_ID || 'local'}`;
+
   const apiKey = env.ZERNIO_API_KEY;
   if (!apiKey) fail('missing_ZERNIO_API_KEY');
   const apiBase = (env.ZERNIO_API_BASE || DEFAULT_API_BASE).replace(/\/$/, '');
@@ -226,14 +304,21 @@ export async function run({ publish = false, env = process.env } = {}) {
 
   const video = await verifyPublicVideo(config.product.videoUrl);
   const account = await verifyZernioAccount(apiBase, apiKey, config);
-  const dryPayload = buildPayload({ config, product, dryRun: true });
-  const dryRun = await createZernioPost(apiBase, apiKey, dryPayload, 'dry-run');
+  const dryPayload = buildPayload({ config, product, dryRun: true, publishRequestId });
+  const dryRun = await createZernioPost(apiBase, apiKey, dryPayload, 'dry-run', publishRequestId);
   if (dryRun.body?.canPublish === false) fail('tiktok_dry_run_cannot_publish');
 
   let publishResult = null;
+  let duplicatePrevented = false;
+  let existingPost = null;
   if (publish) {
-    const publishPayload = buildPayload({ config, product, dryRun: false });
-    publishResult = await createZernioPost(apiBase, apiKey, publishPayload, 'publish');
+    existingPost = await checkDuplicateRequest(apiBase, apiKey, publishRequestId);
+    if (existingPost) {
+      duplicatePrevented = true;
+    } else {
+      const publishPayload = buildPayload({ config, product, dryRun: false, publishRequestId });
+      publishResult = await createZernioPost(apiBase, apiKey, publishPayload, 'publish', publishRequestId);
+    }
   }
 
   const receipt = {
@@ -241,6 +326,9 @@ export async function run({ publish = false, env = process.env } = {}) {
     generatedAt: new Date().toISOString(),
     mode: publish ? 'publish' : 'dry-run',
     provider: 'zernio',
+    publishRequestId,
+    duplicatePrevented,
+    existingPost,
     account,
     product: {
       sku: product.sku,
@@ -260,6 +348,8 @@ export async function run({ publish = false, env = process.env } = {}) {
   console.log(JSON.stringify({
     ok: true,
     mode: receipt.mode,
+    publishRequestId,
+    duplicatePrevented,
     account: receipt.account.username,
     sku: product.sku,
     priceUsd: product.priceUsd,
@@ -272,8 +362,8 @@ export async function run({ publish = false, env = process.env } = {}) {
 
 const invokedDirectly = process.argv[1] && import.meta.url === pathToFileURL(path.resolve(process.argv[1])).href;
 if (invokedDirectly) {
-  const publish = process.argv.includes('--publish');
-  run({ publish }).catch((error) => {
+  const { publish, requestPath } = parseArgs(process.argv.slice(2));
+  run({ publish, requestPath }).catch((error) => {
     console.error(`PrismBay TikTok publish failed: ${error.message}`);
     process.exitCode = 1;
   });
