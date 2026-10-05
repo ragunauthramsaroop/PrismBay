@@ -73,7 +73,7 @@ jobs:
           echo "Verified PrismBay-hosted media: HTTP $status"
 
   manual:
-    if: github.event_name == 'workflow_dispatch'
+    if: "${{ github.event_name == 'workflow_dispatch' }}"
     needs: validate
     runs-on: ubuntu-latest
     timeout-minutes: 10
@@ -87,7 +87,7 @@ jobs:
           node-version: '22'
 
       - name: Require explicit publish confirmation
-        if: inputs.mode == 'publish'
+        if: "${{ inputs.mode == 'publish' }}"
         env:
           CONFIRM_PUBLISH: ${{ inputs.confirm_publish }}
         shell: bash
@@ -137,7 +137,7 @@ jobs:
           retention-days: 14
 
   approved-request:
-    if: github.event_name == 'push' && startsWith(github.event.head_commit.message, 'publish(tiktok): ')
+    if: "${{ github.event_name == 'push' && startsWith(github.event.head_commit.message, 'publish(tiktok)') }}"
     needs: validate
     runs-on: ubuntu-latest
     timeout-minutes: 10
@@ -156,7 +156,12 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          request_id="${COMMIT_MESSAGE#publish(tiktok): }"
+          prefix='publish(tiktok): '
+          case "$COMMIT_MESSAGE" in
+            "$prefix"*) ;;
+            *) echo 'Commit message is not an approved TikTok publish request.' >&2; exit 1 ;;
+          esac
+          request_id="${COMMIT_MESSAGE#"$prefix"}"
           if ! [[ "$request_id" =~ ^[A-Za-z0-9][A-Za-z0-9._-]{2,99}$ ]]; then
             echo 'Invalid request id in commit message.' >&2
             exit 1
