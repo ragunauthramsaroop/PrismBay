@@ -57,11 +57,11 @@
       && promotion.checkoutPriceVerified === true
       && promotion.marginVerified === true
       && promotion.regularPriceVerified === true;
-    const pricesValid = regularPrice > salePrice && salePrice > 0 && Math.abs(salePrice - price) < 0.001;
+    const pricesValid = [regularPrice, salePrice, price].every(Number.isFinite) && regularPrice > salePrice && salePrice > 0 && Math.abs(salePrice - price) < 0.001;
     const datesValid = Number.isFinite(startsAt) && Number.isFinite(endsAt) && startsAt < endsAt && now >= startsAt && now < endsAt;
     if (!requiredEvidence || !pricesValid || !datesValid) return null;
     const savings = regularPrice - salePrice;
-    const percentOff = Math.round((savings / regularPrice) * 100);
+    const percentOff = Math.floor((savings / regularPrice) * 100);
     return Object.freeze({
       campaignId: String(promotion.campaignId || '').slice(0, 80),
       regularPrice,
@@ -93,7 +93,7 @@
       summary: description,
       tags: ['Ready to order', 'Stripe checkout'],
       source: String(product.source || 'published-catalog'),
-      promotion: validatePromotion(product.promotion, price)
+      promotion: product.promotion ? Object.freeze({ ...product.promotion }) : null
     });
   }
 
@@ -109,7 +109,7 @@
       price,
       image,
       checkout,
-      promotion: validatePromotion(product.promotion, price),
+      promotion: product.promotion ? Object.freeze({ ...product.promotion }) : null,
       tags: [...(product.tags || [])]
     });
   }
