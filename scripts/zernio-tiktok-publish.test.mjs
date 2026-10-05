@@ -3,9 +3,11 @@ import assert from 'node:assert/strict';
 import {
   buildPayload,
   extractAccountCandidates,
+  findExistingPublishRequest,
   hasUnverifiedPromotionClaim,
   isPromotionReady,
-  sanitizeForReceipt
+  sanitizeForReceipt,
+  validatePublishRequest
 } from './zernio-tiktok-publish.mjs';
 
 const config = {
@@ -33,7 +35,7 @@ const product = {
 };
 
 test('payload targets only the connected TikTok account and uses a public hosted MP4', () => {
-  const payload = buildPayload({ config, product, dryRun: true });
+  const payload = buildPayload({ config, product, dryRun: true, publishRequestId: 'first-crevice-001' });
   assert.equal(payload.platforms.length, 1);
   assert.deepEqual(payload.platforms[0], {
     platform: 'tiktok',
@@ -43,6 +45,7 @@ test('payload targets only the connected TikTok account and uses a public hosted
   assert.equal(payload.mediaItems[0].url, config.product.videoUrl);
   assert.equal(payload.dryRun, true);
   assert.equal(payload.publishNow, true);
+  assert.equal(payload.metadata.prismbayPublishRequestId, 'first-crevice-001');
 });
 
 test('TikTok disclosures and interaction controls are explicit', () => {
@@ -78,6 +81,7 @@ test('promotion readiness requires every verification gate and an active price r
   assert.equal(isPromotionReady(ready, now), true);
   assert.equal(isPromotionReady({ ...ready, marginVerified: false }, now), false);
   assert.equal(isPromotionReady({ ...ready, endsAt: '2026-10-04T00:00:00Z' }, now), false);
+  assert.equal(isPromotionReady({ ...ready, startsAt: 'bad-date' }, now), false);
 });
 
 test('account extraction finds nested Zernio account records', () => {
@@ -92,6 +96,37 @@ test('account extraction finds nested Zernio account records', () => {
   const accounts = extractAccountCandidates(body);
   assert.equal(accounts.length, 2);
   assert.equal(accounts[1].username, 'prismbayclean');
+});
+
+test('publish request requires exact approval, product, account, video and price', () => {
+  const request = {
+    schemaVersion: 1,
+    requestId: 'first-crevice-001',
+    approved: true,
+    confirmation: 'PUBLISH_PRISMBAY_TIKTOK',
+    sku: product.sku,
+    accountId: config.account.id,
+    videoUrl: config.product.videoUrl,
+    expectedPriceUsd: 12.95
+  };
+  assert.equal(validatePublishRequest(request, config, product).requestId, 'first-crevice-001');
+  assert.throws(() => validatePublishRequest({ ...request, approved: false }, config, product), /publish_request_not_approved/);
+  assert.throws(() => validatePublishRequest({ ...request, accountId: 'wrong' }, config, product), /publish_request_account_mismatch/);
+  assert.throws(() => validatePublishRequest({ ...request, expectedPriceUsd: 9.99 }, config, product), /publish_request_price_mismatch/);
+});
+
+test('existing request metadata is found recursively for duplicate prevention', () => {
+  const posts = {
+    data: {
+      posts: [
+        { _id: 'a', metadata: { prismbayPublishRequestId: 'other' }, status: 'published' },
+        { _id: 'b', metadata: { prismbayPublishRequestId: 'first-crevice-001' }, status: 'published' }
+      ]
+    }
+  };
+  const found = findExistingPublishRequest(posts, 'first-crevice-001');
+  assert.equal(found._id, 'b');
+  assert.equal(findExistingPublishRequest(posts, 'missing'), null);
 });
 
 test('receipts remove provider credentials and tokens recursively', () => {
