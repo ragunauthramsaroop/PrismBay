@@ -1,0 +1,1 @@
+All-product render expansion prepared on 2026-10-04. See retail-shorts-all-evidence.md for commercial boundaries.
