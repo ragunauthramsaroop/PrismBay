@@ -18,7 +18,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   render:
@@ -81,3 +81,43 @@ jobs:
           path: build/retail-shorts/
           if-no-files-found: error
           retention-days: 14
+
+      - name: Publish verified shorts to GitHub Pages media
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        shell: bash
+        run: |
+          set -euo pipefail
+          git fetch origin gh-pages
+          rm -rf /tmp/prismbay-gh-pages
+          git worktree add /tmp/prismbay-gh-pages origin/gh-pages
+          mkdir -p /tmp/prismbay-gh-pages/media/retail-shorts
+          cp build/retail-shorts/videos/*.mp4 /tmp/prismbay-gh-pages/media/retail-shorts/
+          cp build/retail-shorts/manifest.json /tmp/prismbay-gh-pages/media/retail-shorts/manifest.json
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          src = Path('build/retail-shorts/manifest.json')
+          manifest = json.loads(src.read_text())
+          base = 'https://clean.prismbayai.com/media/retail-shorts/'
+          public = {
+              'generatedAt': manifest.get('generatedAt'),
+              'rule': manifest.get('rule'),
+              'products': []
+          }
+          for product in manifest.get('products', []):
+              row = dict(product)
+              row['videoUrl'] = base + Path(product['video']).name
+              row['cardUrl'] = None
+              public['products'].append(row)
+          Path('/tmp/prismbay-gh-pages/media/retail-shorts/index.json').write_text(json.dumps(public, indent=2) + '\n')
+          PY
+          cd /tmp/prismbay-gh-pages
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add media/retail-shorts
+          if git diff --cached --quiet; then
+            echo 'No Pages media changes to publish.'
+            exit 0
+          fi
+          git commit -m 'Publish verified PrismBay retail shorts'
+          git push origin HEAD:gh-pages
