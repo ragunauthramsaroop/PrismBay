@@ -1,0 +1,134 @@
+name: PrismBay TikTok Direct Publisher
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'config/tiktok-publish.json'
+      - 'config/legacy-live-catalog.json'
+      - 'config/retail-promotions.json'
+      - 'scripts/zernio-tiktok-publish.mjs'
+      - 'scripts/zernio-tiktok-publish.test.mjs'
+      - '.github/workflows/publish-tiktok-zernio.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'config/tiktok-publish.json'
+      - 'config/legacy-live-catalog.json'
+      - 'config/retail-promotions.json'
+      - 'scripts/zernio-tiktok-publish.mjs'
+      - 'scripts/zernio-tiktok-publish.test.mjs'
+      - '.github/workflows/publish-tiktok-zernio.yml'
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: 'Run a Zernio dry-run or publish the verified TikTok post now'
+        required: true
+        default: 'dry-run'
+        type: choice
+        options:
+          - dry-run
+          - publish
+      confirm_publish:
+        description: 'For publish mode enter PUBLISH_PRISMBAY_TIKTOK'
+        required: false
+        default: ''
+        type: string
+
+permissions:
+  contents: read
+
+concurrency:
+  group: prismbay-tiktok-direct-publisher
+  cancel-in-progress: false
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Check out PrismBay
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Syntax check publisher
+        run: node --check scripts/zernio-tiktok-publish.mjs
+
+      - name: Run publisher guardrail tests
+        run: node --test scripts/zernio-tiktok-publish.test.mjs
+
+      - name: Verify the configured public video exists
+        shell: bash
+        run: |
+          set -euo pipefail
+          video_url=$(node -e "const c=require('./config/tiktok-publish.json'); process.stdout.write(c.product.videoUrl)")
+          status=$(curl --location --silent --show-error --output /dev/null --write-out '%{http_code}' --range 0-0 "$video_url")
+          test "$status" = '200' -o "$status" = '206'
+          echo "Verified PrismBay-hosted media: HTTP $status"
+
+  publish:
+    if: github.event_name == 'workflow_dispatch'
+    needs: validate
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Check out PrismBay
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Require explicit publish confirmation
+        if: inputs.mode == 'publish'
+        env:
+          CONFIRM_PUBLISH: ${{ inputs.confirm_publish }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$CONFIRM_PUBLISH" = 'PUBLISH_PRISMBAY_TIKTOK'
+
+      - name: Require Zernio API secret
+        env:
+          ZERNIO_API_KEY: ${{ secrets.ZERNIO_API_KEY }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -n "$ZERNIO_API_KEY"
+          echo 'ZERNIO_API_KEY is configured.'
+
+      - name: Run Zernio preflight and publish route
+        env:
+          ZERNIO_API_KEY: ${{ secrets.ZERNIO_API_KEY }}
+          RUN_MODE: ${{ inputs.mode }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [ "$RUN_MODE" = 'publish' ]; then
+            node scripts/zernio-tiktok-publish.mjs --publish
+          else
+            node scripts/zernio-tiktok-publish.mjs
+          fi
+
+      - name: Publish sanitized execution receipt to job summary
+        shell: bash
+        run: |
+          set -euo pipefail
+          echo '## PrismBay TikTok Zernio result' >> "$GITHUB_STEP_SUMMARY"
+          echo '' >> "$GITHUB_STEP_SUMMARY"
+          echo '```json' >> "$GITHUB_STEP_SUMMARY"
+          cat build/tiktok-publish/receipt.json >> "$GITHUB_STEP_SUMMARY"
+          echo '```' >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Upload sanitized TikTok receipt
+        uses: actions/upload-artifact@v4
+        with:
+          name: prismbay-tiktok-zernio-receipt-${{ github.run_id }}
+          path: build/tiktok-publish/receipt.json
+          if-no-files-found: error
+          retention-days: 14
