@@ -7,6 +7,7 @@ on:
       - 'config/tiktok-publish.json'
       - 'config/legacy-live-catalog.json'
       - 'config/retail-promotions.json'
+      - 'publish-requests/tiktok/*.json'
       - 'scripts/zernio-tiktok-publish.mjs'
       - 'scripts/zernio-tiktok-publish.test.mjs'
       - '.github/workflows/publish-tiktok-zernio.yml'
@@ -16,6 +17,7 @@ on:
       - 'config/tiktok-publish.json'
       - 'config/legacy-live-catalog.json'
       - 'config/retail-promotions.json'
+      - 'publish-requests/tiktok/*.json'
       - 'scripts/zernio-tiktok-publish.mjs'
       - 'scripts/zernio-tiktok-publish.test.mjs'
       - '.github/workflows/publish-tiktok-zernio.yml'
@@ -70,7 +72,7 @@ jobs:
           test "$status" = '200' -o "$status" = '206'
           echo "Verified PrismBay-hosted media: HTTP $status"
 
-  publish:
+  manual:
     if: github.event_name == 'workflow_dispatch'
     needs: validate
     runs-on: ubuntu-latest
@@ -102,10 +104,11 @@ jobs:
           test -n "$ZERNIO_API_KEY"
           echo 'ZERNIO_API_KEY is configured.'
 
-      - name: Run Zernio preflight and publish route
+      - name: Run Zernio preflight and manual route
         env:
           ZERNIO_API_KEY: ${{ secrets.ZERNIO_API_KEY }}
           RUN_MODE: ${{ inputs.mode }}
+          PRISMBAY_PUBLISH_REQUEST_ID: manual-${{ github.run_id }}
         shell: bash
         run: |
           set -euo pipefail
@@ -128,7 +131,72 @@ jobs:
       - name: Upload sanitized TikTok receipt
         uses: actions/upload-artifact@v4
         with:
-          name: prismbay-tiktok-zernio-receipt-${{ github.run_id }}
+          name: prismbay-tiktok-zernio-manual-${{ github.run_id }}
+          path: build/tiktok-publish/receipt.json
+          if-no-files-found: error
+          retention-days: 14
+
+  approved-request:
+    if: github.event_name == 'push' && startsWith(github.event.head_commit.message, 'publish(tiktok): ')
+    needs: validate
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Check out PrismBay
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Resolve and validate publish request path
+        env:
+          COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          request_id="${COMMIT_MESSAGE#publish(tiktok): }"
+          if ! [[ "$request_id" =~ ^[A-Za-z0-9][A-Za-z0-9._-]{2,99}$ ]]; then
+            echo 'Invalid request id in commit message.' >&2
+            exit 1
+          fi
+          request_path="publish-requests/tiktok/${request_id}.json"
+          test -f "$request_path"
+          echo "REQUEST_ID=$request_id" >> "$GITHUB_ENV"
+          echo "REQUEST_PATH=$request_path" >> "$GITHUB_ENV"
+
+      - name: Require Zernio API secret
+        env:
+          ZERNIO_API_KEY: ${{ secrets.ZERNIO_API_KEY }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -n "$ZERNIO_API_KEY"
+          echo 'ZERNIO_API_KEY is configured.'
+
+      - name: Dry-run then publish approved request
+        env:
+          ZERNIO_API_KEY: ${{ secrets.ZERNIO_API_KEY }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          node scripts/zernio-tiktok-publish.mjs --publish --request "$REQUEST_PATH"
+
+      - name: Publish sanitized execution receipt to job summary
+        shell: bash
+        run: |
+          set -euo pipefail
+          echo "## PrismBay TikTok publish request: $REQUEST_ID" >> "$GITHUB_STEP_SUMMARY"
+          echo '' >> "$GITHUB_STEP_SUMMARY"
+          echo '```json' >> "$GITHUB_STEP_SUMMARY"
+          cat build/tiktok-publish/receipt.json >> "$GITHUB_STEP_SUMMARY"
+          echo '```' >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Upload sanitized TikTok receipt
+        uses: actions/upload-artifact@v4
+        with:
+          name: prismbay-tiktok-zernio-${{ env.REQUEST_ID }}-${{ github.run_id }}
           path: build/tiktok-publish/receipt.json
           if-no-files-found: error
           retention-days: 14
