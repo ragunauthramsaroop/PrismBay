@@ -1,0 +1,97 @@
+{
+  "schemaVersion": 1,
+  "updatedAt": "2026-10-04T22:40:00Z",
+  "purpose": "Truthful creative source for PrismBay Clean retail videos. This file records only customer-facing product identity, image, checkout URL and Stripe-verified current price. It does not prove supplier stock, freight, margin or promotion eligibility.",
+  "products": [
+    {
+      "sku": "legacy-crevice-brush-001",
+      "slug": "3-in-1-crevice-cleaning-brush",
+      "name": "3-in-1 Crevice Cleaning Brush",
+      "description": "For window tracks, sink edges, corners, narrow gaps and other detail-cleaning jobs.",
+      "priceUsd": 12.95,
+      "checkoutUrl": "https://buy.stripe.com/cNi5kE8XAeSndGib8QgnK02",
+      "imageUrl": "https://prismbay-clean-global.floot.app/_cdn/static/2e2181bb-5561-4acb-b30e-38c49b34ac9a.png",
+      "checkoutPriceVerified": true
+    },
+    {
+      "sku": "legacy-garment-steamer-001",
+      "slug": "portable-garment-steamer",
+      "name": "Portable Garment Steamer",
+      "description": "For clothing refresh, travel and routine household fabric care with a compact handheld format.",
+      "priceUsd": 29.95,
+      "checkoutUrl": "https://buy.stripe.com/bJe4gA8XAdOjeKmb8QgnK05",
+      "imageUrl": "https://prismbay-clean-global.floot.app/_cdn/static/b57838ed-657b-4fb3-864a-c827a7580758.png",
+      "checkoutPriceVerified": true
+    },
+    {
+      "sku": "legacy-spin-scrubber-001",
+      "slug": "5-in-1-electric-spin-scrubber",
+      "name": "5-in-1 Electric Spin Scrubber",
+      "description": "For tile, tubs, sinks, grout and repetitive bathroom-cleaning jobs where powered scrubbing helps.",
+      "priceUsd": 29.95,
+      "checkoutUrl": "https://buy.stripe.com/7sY5kEehUcKf9q2a4MgnK00",
+      "imageUrl": "https://prismbay-clean-global.floot.app/_cdn/static/fb8dd62e-2f7c-4611-9f7a-0049bb3cd1bc.png",
+      "checkoutPriceVerified": true
+    },
+    {
+      "sku": "legacy-pet-hair-remover-001",
+      "slug": "reusable-pet-hair-remover",
+      "name": "Reusable Pet Hair Remover",
+      "description": "For pet hair and lint on sofas, couches, car seats, bedding and other suitable fabric surfaces.",
+      "priceUsd": 14.95,
+      "checkoutUrl": "https://buy.stripe.com/bJe00k2zc8tZ7hUgtagnK01",
+      "imageUrl": "https://shopifyfile.oss-us-west-1.aliyuncs.com/attached/image/202408/33E14564379AE349799A19EFE94591EA.JPEG",
+      "checkoutPriceVerified": true
+    },
+    {
+      "sku": "pressure-washer",
+      "slug": "cordless-pressure-washer",
+      "name": "Cordless Pressure Washer",
+      "description": "Portable cordless pressure-washing tool for outdoor household cleaning tasks, vehicles and hard surfaces.",
+      "priceUsd": 69.95,
+      "checkoutUrl": "https://buy.stripe.com/7sY6oI8XA7pVbya5OwgnK03",
+      "imageUrl": "https://prismbay-clean-global.floot.app/_cdn/static/a24d8d2b-acd1-417a-a383-c4e965fa80f0-pressure-washer-hd.png",
+      "checkoutPriceVerified": true
+    },
+    {
+      "sku": "mattress-vacuum",
+      "slug": "mattress-vacuum",
+      "name": "Mattress Vacuum",
+      "description": "Compact vacuum designed for mattresses, upholstery and other soft household surfaces.",
+      "priceUsd": 39.95,
+      "checkoutUrl": "https://buy.stripe.com/5kQ14o5Lo7pV31Efp6gnK04",
+      "imageUrl": "https://prismbay-clean-global.floot.app/_cdn/static/606a200f-8ef7-49e4-b955-e11c2e039d62-mattress-vacuum-hd.png",
+      "checkoutPriceVerified": true
+    },
+    {
+      "sku": "mini-mop",
+      "slug": "self-squeeze-mini-mop",
+      "name": "Self-Squeeze Mini Mop",
+      "description": "Compact self-squeeze mop for quick cleaning of counters, glass, tile and small household surfaces.",
+      "priceUsd": 24.95,
+      "checkoutUrl": "https://buy.stripe.com/9B64gAflYfWrbya6SAgnK06",
+      "imageUrl": "https://prismbay-clean-global.floot.app/_cdn/static/8e0bd183-82ec-4ef6-ae73-0c59e31f739e-mini-mop-hd.png",
+      "checkoutPriceVerified": true
+    },
+    {
+      "sku": "drain-catcher",
+      "slug": "sink-drain-catcher-2-pack",
+      "name": "Sink Drain Catcher 2-Pack",
+      "description": "Two-pack sink drain catchers designed to trap debris and simplify sink cleanup.",
+      "priceUsd": 12.95,
+      "checkoutUrl": "https://buy.stripe.com/5kQbJ2ddQh0v0Tw2CkgnK07",
+      "imageUrl": "https://prismbay-clean-global.floot.app/_cdn/static/c7ba2d16-0a94-4dc2-bdbf-6cc9fdd18543-drain-catcher-hd.png",
+      "checkoutPriceVerified": true
+    },
+    {
+      "sku": "home-caddy",
+      "slug": "portable-home-caddy",
+      "name": "Portable Home Caddy",
+      "description": "Portable organizer caddy for cleaning supplies, bathroom essentials, craft items and household storage.",
+      "priceUsd": 24.95,
+      "checkoutUrl": "https://buy.stripe.com/fZueVeflY6lRcCeccUgnK08",
+      "imageUrl": "https://prismbay-clean-global.floot.app/_cdn/static/c7a164e6-19cb-429c-98ed-52eb473f9254-home-caddy-hd.png",
+      "checkoutPriceVerified": true
+    }
+  ]
+}
