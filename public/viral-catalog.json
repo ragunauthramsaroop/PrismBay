@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-06T18:38:36.413Z",
+  "updatedAt": "2026-10-06T22:48:40.289Z",
   "market": "US",
   "methodology": "Public-news attention, freshness, and short-form demonstration fit. This is not PrismBay sales data and is not a TikTok, Amazon, Google, or Bing product ranking.",
   "refreshTargetHours": 6,
@@ -11,7 +11,7 @@
       "signalScore": 83,
       "signalLabel": "high-attention",
       "evidence": {
-        "publicMentions": 34,
+        "publicMentions": 35,
         "mentionsLast7Days": 0,
         "mentionsLast30Days": 11,
         "sourcesAvailable": [
@@ -21,16 +21,16 @@
       },
       "sampleSignals": [
         {
-          "title": "Best travel steamers 2026: tested and reviewed for wrinkle-free packing - CN Traveller",
-          "source": "Google News",
-          "publishedAt": "2026-07-30T07:00:00.000Z",
-          "url": "https://news.google.com/rss/articles/CBMiZkFVX3lxTE1ZRDlxanVrQ3JSeXhtdXBjS3JmVTdkQnV2LURHdldCN1BidHU0ZjhselZXRVZWLVhJUEpwaUMwTEgweU5mLVRmZnozS3dJUTk5TGZTZHctbHpmZHkySDktbE1hZ0Zsdw?oc=5"
-        },
-        {
           "title": "Say Goodbye to Wrinkled Clothing with an Easy-to-Use Clothes Steamer — Prices Start at $31 - People.com",
           "source": "Google News",
           "publishedAt": "2026-05-06T07:00:00.000Z",
           "url": "https://news.google.com/rss/articles/CBMiXEFVX3lxTE9HWkFheEdZLU5KN28wQmVlLVZWVFJZSUZpcFlSTmJLSFJJc3lacVNuUTNycF9SN0tnRmM4QnZ1SXNwcDFid3kya1RUU2J0cjEyQUxOY1N6YXI0UHI3?oc=5"
+        },
+        {
+          "title": "Best travel steamers 2026: tested and reviewed for wrinkle-free packing - CN Traveller",
+          "source": "Google News",
+          "publishedAt": "2026-07-30T07:00:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMiZkFVX3lxTE1ZRDlxanVrQ3JSeXhtdXBjS3JmVTdkQnV2LURHdldCN1BidHU0ZjhselZXRVZWLVhJUEpwaUMwTEgweU5mLVRmZnozS3dJUTk5TGZTZHctbHpmZHkySDktbE1hZ0Zsdw?oc=5"
         },
         {
           "title": "10 of the best handheld steamers on the market - Vogue AU",
@@ -75,16 +75,16 @@
           "url": "https://news.google.com/rss/articles/CBMijwJBVV95cUxNcDFRcm1TT183LWtEanVuS2hYRWhqUkhsdlEyeHRZS0hsOUVBRXNKWkc1dE1oakk5TUlkcE1vRFlrWkVFVE5YWFZOcjg5MVp1SkgyZnpqY1NFc1Z5dHBkZ1UtV2ppdmRRTFFEOGx1TUNYYmlfc1d6aFk5ZUhOLTJoZ1R6MldTOUFDUnV5bWo0SWFma0xGMWUwM0F5S0VhbXQ4V3FuLTBySGwxMU9iZzN6OVZGVVUyNnBZUXhYRHJyYUZHMWJZWkg5U0R4RFkydEhDNjJ4M3NBVjlNSzFUWVFBNU5mRFU1RmNCckRMOGM5aE1Sdlo2QjNrRVRRd0NJa2Rra3R1S3dvSFk1T0N2Qmcw?oc=5"
         },
         {
-          "title": "Stop scrubbing stubborn grime by hand — This cordless electric cleaner is 37% off - New York Post",
-          "source": "Google News",
-          "publishedAt": "2026-09-15T07:00:00.000Z",
-          "url": "https://news.google.com/rss/articles/CBMingFBVV95cUxPZTM4QXNaTU5EX2ozVWs1UF8xU3hwbThWTVBnYWZqbmpvbWJOZm53bFdnRFJ2MGxqSlRscjc5d19fSVcybGZnT21WMG5xRFVjTkZIQzEwbVZzVXBwNUFnS09kMUZFQmZYdDItWEZmZnp6MTFfc3lfMG5BV0FlVGpnNUtTMU95V1lnSGpuN1dCRlNqS2lvMldXNk53b3hqUQ?oc=5"
-        },
-        {
           "title": "Spend Less Time Scrubbing With These Top-Tested Picks - Good Housekeeping",
           "source": "Google News",
           "publishedAt": "2026-06-25T07:00:00.000Z",
           "url": "https://news.google.com/rss/articles/CBMijAFBVV95cUxPeHdhUGRKUmlMQy1qT2hYWXZISTJDcExWc1hFVkoxQXQ0cldiWUVGTFlnOWNNVDQxS0kwRjg0MTFZaUp3X3M4WDhFUjNJLVRYT201NjNKZlkxWmNIYVd3T1JfSGs3dDFTMXQyUGNEcmVFdUtmSHJwUTduM015VGNYNHl4MFd4TDlRSnJBbw?oc=5"
+        },
+        {
+          "title": "Stop scrubbing stubborn grime by hand — This cordless electric cleaner is 37% off - New York Post",
+          "source": "Google News",
+          "publishedAt": "2026-09-15T07:00:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMingFBVV95cUxPZTM4QXNaTU5EX2ozVWs1UF8xU3hwbThWTVBnYWZqbmpvbWJOZm53bFdnRFJ2MGxqSlRscjc5d19fSVcybGZnT21WMG5xRFVjTkZIQzEwbVZzVXBwNUFnS09kMUZFQmZYdDItWEZmZnp6MTFfc3lfMG5BV0FlVGpnNUtTMU95V1lnSGpuN1dCRlNqS2lvMldXNk53b3hqUQ?oc=5"
         },
         {
           "title": "These electric spin scrubbers clean grout, tubs, and floors with ease - Business Insider",
@@ -141,10 +141,10 @@
           "url": "https://news.google.com/rss/articles/CBMickFVX3lxTE12V2hOQ2d1Z0xiSU0ySWNYbmpaS0ZaOC1oc3QzazB3WU5oRHcxV1B1RjNhdHFmckxHc0pEdlRFUGQtN2dkUWtoTHZiQWVWSi02ZV9xTElkQ0xTNWw1MjFnakpCT0pkUTliaWh1aGVWN0RUdw?oc=5"
         },
         {
-          "title": "Stihl launches new cordless pressure washer for easy cleaning around the home - Yahoo",
+          "title": "Bought a cordless pressure washer from Blinkit: Good investment overall - Team-BHP",
           "source": "Google News",
-          "publishedAt": "2026-09-11T07:00:00.000Z",
-          "url": "https://news.google.com/rss/articles/CBMisAFBVV95cUxOX2xfRzZIY0x2R1ZlUE9NVm1XVVZ3THhxZFFwOEJqZHJ1MDBYenNDVGJEUzhISFMxbldXM2lLaDhURWV2a0VmdHYwdHFBX3JyUi1mMlZJcEZQc3VQSkxoaWo4ZUpPZWJxV19ySHFPYnRqV1VFTExyNE1TUmttV2Y1VHBybjh5dlZaRXZ4ckg2MnUzRG9pNUZ1RjlzYWR5NTRvRDBZQnRESkVsQXZsa19RUA?oc=5"
+          "publishedAt": "2026-06-08T07:00:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMimAFBVV95cUxNbzBEcUtteUtoajdvVFFCSnduZllqWlhURUIzR3hoMFMwMWJmZTJveUNuZ0RIbG52VzJzQmhnVlQyVU5xazFhWjI2Vzdxc2ZsNHoyRUd6NXRiWHZPcmhLMjFMZTdfLUtzaGx5eTZlamJjUzgxTDRNcVlIZXBKQ2Q0aGNlaURVeEdScE1MYUQ0aVB2Sk1CZ01iZ9IBngFBVV95cUxPU0RxNW5zeUw0ZlBvM3NoX215SFFWWElmQzRuREJUUUxfWjBma09HSjBOVGVqRC02d2NKN1BxZFdCZ2QwM19vVHZxTHdmdk92bDZUOUZNVUUwYjJreEI3dTF6aWJ5a1ZjU0VTSkU1d29Lc2hKVFNiUmo3SEtHeXRHc2dFamo1THMwbGhyRmxCbmlLdmNITFJBWWs3MmltQQ?oc=5"
         }
       ],
       "rank": 3
@@ -165,9 +165,9 @@
       },
       "sampleSignals": [
         {
-          "title": "I Finally Got a Bed Vacuum, and Now I’m Never Going to Be Without One Again - Apartment Therapy",
+          "title": "I Finally Got a Bed Vacuum, and Now I’m Never Going to Be Without One Again (and It’s on Sale for Prime!) - Apartment Therapy",
           "source": "Google News",
-          "publishedAt": "2026-05-19T07:00:00.000Z",
+          "publishedAt": "2026-05-19T18:59:08.000Z",
           "url": "https://news.google.com/rss/articles/CBMikAFBVV95cUxNbkpkQUFEYVRYc3gzc0Q0MUdkdE1pb2VORTFxbi1XbXk5OXBDYWg0Rmk3R01ZSUt6ZzNlRzRRWGR2RzRGQ09FQVNJNlZOMHk2eU9zZ0p1c1Q1dHpLbXZLZ29RcDQyX1JDZWpPME1pSlRyOG1XUTV2TlRYcDhLUWpXbFFJQkFvS09tb2YyQi1HYnE?oc=5"
         },
         {
