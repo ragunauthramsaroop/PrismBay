@@ -5,6 +5,7 @@ on:
     branches: [main]
     paths:
       - 'config/tiktok-publish.json'
+      - 'config/tiktok-publish-lock.json'
       - 'config/legacy-live-catalog.json'
       - 'config/retail-promotions.json'
       - 'publish-requests/tiktok/*.json'
@@ -15,6 +16,7 @@ on:
     branches: [main]
     paths:
       - 'config/tiktok-publish.json'
+      - 'config/tiktok-publish-lock.json'
       - 'config/legacy-live-catalog.json'
       - 'config/retail-promotions.json'
       - 'publish-requests/tiktok/*.json'
@@ -86,6 +88,12 @@ jobs:
         with:
           node-version: '22'
 
+      - name: Enforce TikTok publishing lock
+        shell: bash
+        run: |
+          set -euo pipefail
+          node -e "const l=require('./config/tiktok-publish-lock.json'); if(l.locked){console.error('TikTok publishing is locked: '+l.reason); process.exit(1)}"
+
       - name: Require explicit publish confirmation
         if: "${{ inputs.mode == 'publish' }}"
         env:
@@ -149,6 +157,12 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '22'
+
+      - name: Enforce TikTok publishing lock
+        shell: bash
+        run: |
+          set -euo pipefail
+          node -e "const l=require('./config/tiktok-publish-lock.json'); if(l.locked){console.error('TikTok publishing is locked: '+l.reason); process.exit(1)}"
 
       - name: Resolve and validate publish request path
         env:
