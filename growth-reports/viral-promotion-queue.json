@@ -1,12 +1,12 @@
 {
-  "updatedAt": "2026-10-05T10:52:45.559Z",
+  "updatedAt": "2026-10-06T10:48:38.651Z",
   "supplierIntegration": "awaiting-cj-auth",
   "items": [
     {
       "rank": 1,
       "slug": "cordless-handheld-vacuum",
       "product": "Cordless Handheld Vacuum",
-      "attentionScore": 95.8,
+      "attentionScore": 99.5,
       "supplierReady": false,
       "freightReady": false,
       "promotionReady": false,
@@ -39,7 +39,7 @@
       "rank": 4,
       "slug": "dryer-vent-cleaner-kit",
       "product": "Dryer Vent Cleaner Kit",
-      "attentionScore": 68.7,
+      "attentionScore": 66.8,
       "supplierReady": false,
       "freightReady": false,
       "promotionReady": false,
