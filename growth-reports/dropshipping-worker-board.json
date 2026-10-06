@@ -1,15 +1,15 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-10-06T06:21:26.749Z",
+  "generatedAt": "2026-10-06T18:22:43.420Z",
   "researchCandidates": 12,
   "publishedResearchSignals": 12,
   "verifiedCJStatus": {
-    "checkedAt": "2026-10-06T06:21:25.801Z",
-    "validSupplierMatches": 4,
-    "variantStock": 2,
-    "freightEstimates": 2,
+    "checkedAt": "2026-10-06T18:22:42.291Z",
+    "validSupplierMatches": 6,
+    "variantStock": 3,
+    "freightEstimates": 3,
     "countryFreightEstimates": 2,
-    "illustrativeZipFreightEstimates": 0,
+    "illustrativeZipFreightEstimates": 1,
     "falseMatches": 0
   },
   "constraints": {
@@ -25,8 +25,29 @@
       "action": "Investigate specific catalog SKUs, incorrect product matches and incomplete stock evidence.",
       "state": "review_required",
       "executionMode": "scheduled_cj_and_manual_review",
-      "candidateCount": 9,
+      "candidateCount": 12,
       "blockers": [
+        {
+          "slug": "cordless-handheld-vacuum",
+          "status": "variant_stock_required",
+          "sku": "CJXC1113517",
+          "shippingDiagnostic": "variant_stock_unverified",
+          "zeroPricedMethods": 0
+        },
+        {
+          "slug": "hanging-closet-organizer",
+          "status": "final_zip_freight_required",
+          "sku": "CJJT254150701AZ",
+          "shippingDiagnostic": "priced_tip_estimate_available",
+          "zeroPricedMethods": 11
+        },
+        {
+          "slug": "roll-up-dish-rack",
+          "status": "supplier_search_needed",
+          "sku": null,
+          "shippingDiagnostic": null,
+          "zeroPricedMethods": 0
+        },
         {
           "slug": "pressure-washer",
           "status": "supplier_search_needed",
