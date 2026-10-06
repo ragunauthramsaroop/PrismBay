@@ -1,0 +1,39 @@
+name: PrismBay TikTok Reset
+
+on:
+  workflow_dispatch:
+    inputs:
+      confirm_reset:
+        description: 'Enter DELETE_PRISMBAY_TIKTOK_POSTS to remove the three PrismBay posts from TikTok'
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  reset:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Check out PrismBay
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Require explicit reset confirmation
+        env:
+          CONFIRM_RESET: ${{ inputs.confirm_reset }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$CONFIRM_RESET" = 'DELETE_PRISMBAY_TIKTOK_POSTS'
+
+      - name: Remove PrismBay posts from TikTok and Zernio
+        env:
+          ZERNIO_API_KEY: ${{ secrets.ZERNIO_API_KEY }}
+          CONFIRM_RESET: ${{ inputs.confirm_reset }}
+        run: node scripts/zernio-tiktok-reset.mjs
