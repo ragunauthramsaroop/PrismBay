@@ -1,0 +1,63 @@
+name: Render Premium TikTok Shorts
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'video-studio/**'
+      - '.github/workflows/render-premium-tiktok-shorts.yml'
+  push:
+    branches:
+      - 'automation/premium-tiktok-rebuild'
+    paths:
+      - 'video-studio/**'
+      - '.github/workflows/render-premium-tiktok-shorts.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Check out PrismBay
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: video-studio/package-lock.json
+
+      - name: Install video studio
+        working-directory: video-studio
+        run: npm install --no-audit --no-fund
+
+      - name: Generate original PrismBay sound bed
+        working-directory: video-studio
+        run: npm run soundtrack
+
+      - name: Render three premium 1080x1920 shorts
+        working-directory: video-studio
+        run: npm run render:all
+
+      - name: Validate video outputs
+        working-directory: video-studio
+        shell: bash
+        run: |
+          set -euo pipefail
+          test $(find out -name '*.mp4' -type f | wc -l) -eq 3
+          for file in out/*.mp4; do
+            test -s "$file"
+            ffprobe -v error -select_streams v:0 -show_entries stream=width,height,r_frame_rate -of default=noprint_wrappers=1 "$file"
+          done
+
+      - name: Upload premium video previews
+        uses: actions/upload-artifact@v4
+        with:
+          name: prismbay-premium-tiktok-previews-${{ github.run_id }}
+          path: video-studio/out/*.mp4
+          retention-days: 14
+          if-no-files-found: error
