@@ -1,0 +1,13 @@
+{
+  "schemaVersion": 1,
+  "requestId": "reset-20261005-001",
+  "approved": true,
+  "scope": "only PrismBay posts created by the GitHub-to-Zernio publishing route",
+  "accountId": "6ac41ebe5450b4ad42dec37e",
+  "username": "prismbayclean",
+  "posts": [
+    "6ac467d6be09390412e67910",
+    "6ac468b9be09390412e67b77",
+    "6ac46904009d2c1f6944f3c1"
+  ]
+}
