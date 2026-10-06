@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-06T06:53:19.442Z",
+  "updatedAt": "2026-10-06T18:38:36.413Z",
   "market": "US",
   "methodology": "Public-news attention, freshness, and short-form demonstration fit. This is not PrismBay sales data and is not a TikTok, Amazon, Google, or Bing product ranking.",
   "refreshTargetHours": 6,
@@ -59,7 +59,7 @@
       "signalScore": 80.5,
       "signalLabel": "high-attention",
       "evidence": {
-        "publicMentions": 94,
+        "publicMentions": 93,
         "mentionsLast7Days": 0,
         "mentionsLast30Days": 7,
         "sourcesAvailable": [
@@ -155,7 +155,7 @@
       "signalScore": 74.5,
       "signalLabel": "high-attention",
       "evidence": {
-        "publicMentions": 108,
+        "publicMentions": 107,
         "mentionsLast7Days": 0,
         "mentionsLast30Days": 4,
         "sourcesAvailable": [
@@ -183,16 +183,16 @@
           "url": "https://news.google.com/rss/articles/CBMirAFBVV95cUxORUVHTHVGWkZtVUhlMG1CSUpQUjRzM0dwTWhNem9pM3ppNkRiZjFxZzRCNkVIc0dhd3RUVU4zTU91am9UQVVYcFZsU2k5a1d1WVFFWHBFTHBpUWJaQzc5bEpxR1hUb1AyZW4wVTRRaE94OW1BYU90cUNWZkcwVzlSWW96VzdzYkZuajBkN2JqSjJzNjBkeEtjTUx6QWtmemRvRUhVT21OWmplTkhh0gHAAUFVX3lxTE95S1VXaDg0OFdlMm85aXdBSjN0aHJUTElRWEhEdlhpaWRCMDlnXzVia2p5NFpJZTEwcUZvVGhnNGJzMDR4N0NWamlXS28yMzRiME15aHdsV3RYMWZucGpRTkFVUEZYakZLeEJJR2w4b0Y1NlNOU1ZURVVsTDRyOVN1SHZyRk5COUJNbnFLbExVMEhrNkszREZJcnp3dnVDck5oZXZYMllyRlN5S3NwMmFNU0FkZ0s1YkJ2TE1EZFpYSw?oc=5"
         },
         {
-          "title": "This Handheld Vacuum Cleaner Is A ‘Game-Changer’ For Mattress Grime — And It’s 34% Off - huffpost.com",
+          "title": "This Handheld Vacuum Cleaner Is A ‘Game-Changer’ For Mattress Grime — And It’s 34% Off - HuffPost",
           "source": "Google News",
           "publishedAt": "2026-09-22T07:00:00.000Z",
           "url": "https://news.google.com/rss/articles/CBMiigFBVV95cUxOeVRLODl6aXZwcHU1M2VNUEx0NW1wbnJFTWFia09PX0tjM3BsN0d5eVRmdW5wR0pPTEUxVnJjNlpvTDBIQnNUN1FzTlpZRUlRYnFWRENNUURaMlFxb253TjMwOGNjdkNyMUs5VVluNEtiVENhOEV6SEhxd0VlVTZhOXpKZzgtNXRGOEHSAY8BQVVfeXFMTi0yUkdFNTlaYXNZLXhnNWY2Z0gwbXhEb0R3dVpYMW1zN0R1Q09pVnQ1SXlXZjZRRWx4NW5qM0NHYzdyWUd0eUNZcWhOMlJ3a1VyNzFva0hBNGpabzYzdm5zdkNsVEZoZFZ2TnhKaXhlc010cDJ0azAwcUR6NGFvd3NNOEJQa3NhV1p3bFIzUGM?oc=5"
         },
         {
-          "title": "As a sinusitis sufferer, I implore you to consider Aldi's £19 UV mattress vacuum — it's not about bed bugs, it's about dust - TechRadar",
+          "title": "Amazon’s mattress vacuum uses UV light and heat to deep clean beds - AL.com",
           "source": "Google News",
-          "publishedAt": "2026-06-12T07:00:00.000Z",
-          "url": "https://news.google.com/rss/articles/CBMi9gFBVV95cUxOOTZqRGZuMWZJTVh2VUhXOHgzMUdhVUhjYTdxeXl6QWVqbkxCb2R2bU45Wl9ERHVFaklYajJWa0JSd2RtdDNpdksyR1IwVV9QeUUyTmcySXJvcnltUDcxazNHaF85ZzZTYnYwNy1yZ1ZjNlhIWGVBRzc2aUtKNDhBbk85UHFueGtRY2JVaXpTMzNxX3dOUl9OazRUVloyVkRscXhwQ2kxSmg4T01BVUZERGlLR3I0b0NhOFJYdVdMTE0xdVY1cjdWYi11MndYbFZZYUpPLVl0LTh2NlhDV3g4aWRYcDZydWtORU01eS1RVWhEZjNQU2c?oc=5"
+          "publishedAt": "2026-07-31T07:00:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxNbzVTWEJoMDJjVjhXZDI0Y3pidGdOVVpsYmk2b2YwNnBWN21RbnJlMFEzOFFDb0luZUpsZHQ5TEJkR0NLY1I4TE5xbXJWcGVZbjN2UE41b085WmhBNnpKQmhRSGJ3Q3FjdlRjRTR3b2pNWm8taDM1Rjkza0ZqdDlfXzZaWV9TN1dEVDNNZXZqak9oY1FoSUVxaGVXTDJHRTIwYlRiTDBrS1Q5UdIBvgFBVV95cUxQSmFCYUJJckRseEt2Ql8xalZQUHV0VVg0cldzQ0MybUUzMDlES25DWGZ3cjR2cFlPUnBDdi1VMlVyQnRRaEhfeFlfYl9LZW5qX1BEczFxZE1aYV9LZl9yTFF0N2d6ZEpLRG9DODlKdDU4NGtlUUxUc0hmQmhpWnZBeUtoU2k3OFJGOURxcE1nNENjZm43RGJjeWZ6NFN0N0NCaTR0N0VKMkVOSjlFOWJnNnA1dEh1SHIwa3lCdVFn?oc=5"
         }
       ],
       "rank": 4
@@ -200,10 +200,10 @@
     {
       "slug": "pethair",
       "name": "Reusable Pet Hair Remover",
-      "signalScore": 42.5,
+      "signalScore": 44,
       "signalLabel": "watch",
       "evidence": {
-        "publicMentions": 12,
+        "publicMentions": 13,
         "mentionsLast7Days": 0,
         "mentionsLast30Days": 1,
         "sourcesAvailable": [
@@ -237,7 +237,7 @@
           "url": "https://news.google.com/rss/articles/CBMikwFBVV95cUxOdFp5djVaTWsxTXVTeFlpcWdPTXNhNHlHUU5icHMxUFlWWVJab0lDMVpPUHhqbV9MaVh4bGJwLXJMSlB6OGQ5ajlWOThPOXJ2VS0xT2dsWVl4OHZKWm14ZW1JZmVvUlRUWFBlTXZSVzYzZUJzWG9KeEJYUXkzSlp2NWFLSlpad2U1eVRxRVV0QWt4dHc?oc=5"
         },
         {
-          "title": "10 Best Lint Rollers for Dog Hair in 2026 – Reviews & Top Picks - dogster.com",
+          "title": "10 Best Lint Rollers for Dog Hair in 2026 – Reviews & Top Picks - Dogster",
           "source": "Google News",
           "publishedAt": "2026-07-04T07:00:00.000Z",
           "url": "https://news.google.com/rss/articles/CBMic0FVX3lxTE4tU0E2SE93Q0pXbFBKY3RfaHNhWEhsVVBpOUVhVXV2SmNHSUkyeUtUNWdwNlYtWEVhcFlhdVJaZ2htTjRrZ21sY0txZmJEa3JMaml6ZnFrSWlVdFhwRGVzaFJnOF9VODllWDhQUEg1dmNYRlE?oc=5"
@@ -248,10 +248,10 @@
     {
       "slug": "crevice",
       "name": "3-in-1 Crevice Cleaning Brush",
-      "signalScore": 36,
+      "signalScore": 37.5,
       "signalLabel": "watch",
       "evidence": {
-        "publicMentions": 9,
+        "publicMentions": 10,
         "mentionsLast7Days": 0,
         "mentionsLast30Days": 0,
         "sourcesAvailable": [
@@ -261,10 +261,16 @@
       },
       "sampleSignals": [
         {
-          "title": "This $10 Brush Makes Cleaning Gross Corners So Much Easier, According To Reviews - huffpost.com",
+          "title": "This $10 Brush Makes Cleaning Gross Corners So Much Easier, According To Reviews - HuffPost",
           "source": "Google News",
           "publishedAt": "2026-03-10T07:00:00.000Z",
           "url": "https://news.google.com/rss/articles/CBMijAFBVV95cUxPWEZBUTZUMG15RkRMZC04Q3pFbkdONV9idXZmeU85Mzl3bUoyTHVkNTU1ZHNDOHNsQm5fZHJFdGZpUnpfWjVuZ0ROLW9aUUYyWGxVXzY5MnBmdGRZcEgyR1pSaXpFaDV6cG5fVXRDcWpVeWRsMlU3NFdmRjZmOHBKTDNxU1R3QkdsUFNDT9IBkgFBVV95cUxOMklBSTJwdEMtMjVMYnhWdWliWEFDbTlGaHRtcUFUcmRpRTRiWU1xUnJ3OWthdXJNRXI1RDFJNmo4MEVLYmQ1cC1DMFBxWjlJaElZZm1QWVBVQklPU3pqemVEaWZXMHVTdldUM0VRQXY5MzNsd1lMSUlVdTcyUjNRTVlQcXlwRzREQmJtRmRWY09vQQ?oc=5"
+        },
+        {
+          "title": "This $7 Best-Selling Cleaning Tool Removes ‘Years’ Worth’ of Lint From Dryer Vents—and It Can Prevent House Fires - Real Simple",
+          "source": "Google News",
+          "publishedAt": "2026-09-02T07:00:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMiogFBVV95cUxOcmh3aXRvVGxPNzUyMXFaNlN4ZV8wYzdnOWRmWUk0RXQzR2NfUW94SXdEMmZQN3JxVTNXUkc3bUpEMklQSzV2cENiT0RzY3BhSjU3d1Z1STFxVlo4V0cyeWI0RDRNU0x2azBUT2FmbFE5TGdmMG53c19QaXlyUTRoWldvUnkyZFhyQmhvTHhFcU9ud2JwcDNjalpLMnl2U3JHZGc?oc=5"
         },
         {
           "title": "14 Must-Have Tools From Amazon’s Cleaning Storefront, Including Vacuums and Steam Cleaners for Up to 41% Off - Real Simple",
@@ -283,12 +289,6 @@
           "source": "Google News",
           "publishedAt": "2024-02-03T08:00:00.000Z",
           "url": "https://news.google.com/rss/articles/CBMi7wFBVV95cUxQMllzbFMyWUc4SVdwd1E1QmJFbXpmc1VnYjFzZnh4SkhxbDVhRldvYjAzZDJKVUZLYVBwSEFOeEMxcl92cGMwMENVRkVKTU9Xbnp5YmkyUk1UTnNETGVNeXo2RWRJZ2ViUnZ3WjRadUtaeUN5SXFlY3I5aHJfYm1qazFKQWQ4Q1FTVUQteHgxX3FNNUJrT2FSc0J6SnFkOHdGeHJVQm5RWWg5dm83OXh0QWFRSlJVdjRPeF9NcEpaMU5CRGhtdGxyY0ZyeDRDVmdBX21xQmtQb0xqTzJXLVdTNlpJQzFsNGtTOGpQdDdfOA?oc=5"
-        },
-        {
-          "title": "The $3 Tool That Gets Rid of All the Grime and Leaves Surfaces Spotless - Apartment Therapy",
-          "source": "Google News",
-          "publishedAt": "2023-08-24T07:00:00.000Z",
-          "url": "https://news.google.com/rss/articles/CBMijwFBVV95cUxQMEt5emphY3dTem5yN3NXMmN3QWJSU1lSZzExN2oyeVZjUUJ1NjZKaFpXMlNFbEROd21PR3l2VkZMLVdSYmpoWTVlcmZsRldVcDcwSlA4VE1JSmZTWFVxbEJicXQ0NmY4aXdLWF9oSUs0eUhIazdITk0yU1lweTFfTmZLbDd3bTRjdWVxdlQzaw?oc=5"
         }
       ],
       "rank": 6
