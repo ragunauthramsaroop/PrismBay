@@ -5,6 +5,7 @@
   "scope": "only PrismBay posts created by the GitHub-to-Zernio publishing route",
   "accountId": "6ac41ebe5450b4ad42dec37e",
   "username": "prismbayclean",
+  "retry": 2,
   "posts": [
     "6ac467d6be09390412e67910",
     "6ac468b9be09390412e67b77",
