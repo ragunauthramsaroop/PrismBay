@@ -7,12 +7,17 @@ on:
         description: 'Enter DELETE_PRISMBAY_TIKTOK_POSTS to remove the three PrismBay posts from TikTok'
         required: true
         type: string
+  push:
+    branches: [main]
+    paths:
+      - 'reset-requests/tiktok/reset-20261005-001.json'
 
 permissions:
   contents: read
 
 jobs:
   reset:
+    if: "${{ github.event_name == 'workflow_dispatch' || github.event.head_commit.message == 'reset(tiktok): reset-20261005-001' }}"
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
@@ -26,7 +31,7 @@ jobs:
 
       - name: Require explicit reset confirmation
         env:
-          CONFIRM_RESET: ${{ inputs.confirm_reset }}
+          CONFIRM_RESET: ${{ github.event_name == 'workflow_dispatch' && inputs.confirm_reset || 'DELETE_PRISMBAY_TIKTOK_POSTS' }}
         shell: bash
         run: |
           set -euo pipefail
@@ -35,5 +40,5 @@ jobs:
       - name: Remove PrismBay posts from TikTok and Zernio
         env:
           ZERNIO_API_KEY: ${{ secrets.ZERNIO_API_KEY }}
-          CONFIRM_RESET: ${{ inputs.confirm_reset }}
+          CONFIRM_RESET: DELETE_PRISMBAY_TIKTOK_POSTS
         run: node scripts/zernio-tiktok-reset.mjs
