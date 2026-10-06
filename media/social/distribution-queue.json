@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-10-04T16:49:35.251Z",
+  "generatedAt": "2026-10-06T18:18:20.425Z",
   "priority": "external_traffic_to_verified_digital_offers",
   "items": [
     {
@@ -52,12 +52,12 @@
       "status": "ready_for_authorized_scheduler",
       "mediaUrl": "https://ragunauthramsaroop.github.io/PrismBay/media/social/esg.mp4",
       "destinationUrl": "https://ragunauthramsaroop.github.io/PrismBay/learn/esg-reporting-toolkit.html?utm_source=youtube&utm_medium=shorts&utm_campaign=prismbay_external_traffic_oct2026&utm_content=esg_short_01",
-      "title": "Start with evidence you can trace before the next review #Shorts",
+      "title": "A polished sustainability dashboard cannot repair an unverified KPI #Shorts",
       "caption": "A polished sustainability dashboard cannot repair an unverified KPI. Create three basic columns today: KPI definition, evidence location and the accountable reviewer. Mark estimates and unresolved exceptions. Start with the free guide: https://ragunauthramsaroop.github.io/PrismBay/learn/esg-reporting-toolkit.html?utm_source=youtube&utm_medium=shorts&utm_campaign=prismbay_external_traffic_oct2026&utm_content=esg_short_01 Optional editable document toolkit: $99 USD one time.",
       "commercialContentOwnBrand": true,
       "madeForKids": false,
       "aiAssisted": true,
-      "strategy": "evidence-led",
+      "strategy": "deterministic_fallback",
       "guardrails": {
         "noInventedTestimonials": true,
         "noGuaranteedResults": true,
@@ -73,12 +73,12 @@
       "status": "ready_for_authorized_scheduler",
       "mediaUrl": "https://ragunauthramsaroop.github.io/PrismBay/media/social/esg.mp4",
       "destinationUrl": "https://ragunauthramsaroop.github.io/PrismBay/learn/esg-reporting-toolkit.html?utm_source=tiktok&utm_medium=organic_video&utm_campaign=prismbay_external_traffic_oct2026&utm_content=esg_short_01",
-      "title": "Start with evidence you can trace before the next review",
+      "title": "A polished sustainability dashboard cannot repair an unverified KPI",
       "caption": "A polished sustainability dashboard cannot repair an unverified KPI. Create three basic columns today: KPI definition, evidence location and the accountable reviewer. Mark estimates and unresolved exceptions. Start with the free guide: https://ragunauthramsaroop.github.io/PrismBay/learn/esg-reporting-toolkit.html?utm_source=tiktok&utm_medium=organic_video&utm_campaign=prismbay_external_traffic_oct2026&utm_content=esg_short_01 Optional editable document toolkit: $99 USD one time.",
       "commercialContentOwnBrand": true,
       "madeForKids": false,
       "aiAssisted": true,
-      "strategy": "evidence-led",
+      "strategy": "deterministic_fallback",
       "guardrails": {
         "noInventedTestimonials": true,
         "noGuaranteedResults": true,
@@ -94,12 +94,12 @@
       "status": "ready_for_authorized_scheduler",
       "mediaUrl": "https://ragunauthramsaroop.github.io/PrismBay/media/social/whitepaper.mp4",
       "destinationUrl": "https://ragunauthramsaroop.github.io/PrismBay/learn/board-briefing-white-paper-system.html?utm_source=youtube&utm_medium=shorts&utm_campaign=prismbay_external_traffic_oct2026&utm_content=whitepaper_short_01",
-      "title": "Start with evidence you can trace before the next review #Shorts",
+      "title": "A convincing report is not the same as a defensible one #Shorts",
       "caption": "A convincing report is not the same as a defensible one. Start a claim ledger with the source, date, methodology, reviewer and what could change the conclusion. Start with the free guide: https://ragunauthramsaroop.github.io/PrismBay/learn/board-briefing-white-paper-system.html?utm_source=youtube&utm_medium=shorts&utm_campaign=prismbay_external_traffic_oct2026&utm_content=whitepaper_short_01 Optional editable document toolkit: $79 USD one time.",
       "commercialContentOwnBrand": true,
       "madeForKids": false,
       "aiAssisted": true,
-      "strategy": "evidence-led",
+      "strategy": "deterministic_fallback",
       "guardrails": {
         "noInventedTestimonials": true,
         "noGuaranteedResults": true,
@@ -115,12 +115,12 @@
       "status": "ready_for_authorized_scheduler",
       "mediaUrl": "https://ragunauthramsaroop.github.io/PrismBay/media/social/whitepaper.mp4",
       "destinationUrl": "https://ragunauthramsaroop.github.io/PrismBay/learn/board-briefing-white-paper-system.html?utm_source=tiktok&utm_medium=organic_video&utm_campaign=prismbay_external_traffic_oct2026&utm_content=whitepaper_short_01",
-      "title": "Start with evidence you can trace before the next review",
+      "title": "A convincing report is not the same as a defensible one",
       "caption": "A convincing report is not the same as a defensible one. Start a claim ledger with the source, date, methodology, reviewer and what could change the conclusion. Start with the free guide: https://ragunauthramsaroop.github.io/PrismBay/learn/board-briefing-white-paper-system.html?utm_source=tiktok&utm_medium=organic_video&utm_campaign=prismbay_external_traffic_oct2026&utm_content=whitepaper_short_01 Optional editable document toolkit: $79 USD one time.",
       "commercialContentOwnBrand": true,
       "madeForKids": false,
       "aiAssisted": true,
-      "strategy": "evidence-led",
+      "strategy": "deterministic_fallback",
       "guardrails": {
         "noInventedTestimonials": true,
         "noGuaranteedResults": true,
@@ -139,16 +139,16 @@
       "routeAttempts": 1
     },
     "esg": {
-      "status": "ok",
-      "strategy": "evidence-led",
-      "model": "auto:reliable",
-      "routedVia": "kilo/nvidia/nemotron-3-super-120b-a12b:free",
-      "routeAttempts": 2
+      "status": "invalid_output",
+      "strategy": "deterministic_fallback",
+      "model": null,
+      "routedVia": "kilo/stepfun/step-3.7-flash:free",
+      "routeAttempts": 3
     },
     "whitepaper": {
-      "status": "ok",
-      "strategy": "evidence-led",
-      "model": "auto:fast",
+      "status": "http_502",
+      "strategy": "deterministic_fallback",
+      "model": null,
       "routedVia": "kilo/kilo-auto/free",
       "routeAttempts": 3
     }
@@ -164,16 +164,16 @@
     {
       "slug": "esg",
       "file": "/home/runner/work/PrismBay/PrismBay/growth-reports/external-social/esg/esg.mp4",
-      "sha256": "cfc137ef414fcdc6c50a7f9039e5d26857c34bf4ca01650feb72f850083e89a7",
+      "sha256": "8e22fad7bf83ce2cee415439c4a835b258953067fdd58b972ffb5fba5e069e72",
       "durationSeconds": 20,
-      "bytes": 212469
+      "bytes": 214432
     },
     {
       "slug": "whitepaper",
       "file": "/home/runner/work/PrismBay/PrismBay/growth-reports/external-social/whitepaper/whitepaper.mp4",
-      "sha256": "af22c1b80fd2a156a71c8e978164f64cae45506d72cde50f7dfe0ae35f408a53",
+      "sha256": "536e5426e6fcee0e13642be3582a75a934fae57569f9990c466e0ef1c734cb5d",
       "durationSeconds": 20,
-      "bytes": 216022
+      "bytes": 214997
     }
   ],
   "publication": {
