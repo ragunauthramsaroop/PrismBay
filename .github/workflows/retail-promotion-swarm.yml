@@ -27,7 +27,7 @@ permissions:
 
 concurrency:
   group: prismbay-retail-promotion-swarm-${{ github.ref }}
-  cancel-in-progress: false
+  cancel-in-progress: true
 
 jobs:
   retail-swarm:
@@ -41,10 +41,10 @@ jobs:
     timeout-minutes: 20
     steps:
       - name: Check out PrismBay
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Set up Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v7
         with:
           node-version: '22'
 
@@ -63,12 +63,20 @@ jobs:
       - name: Run all existing retail growth workers
         shell: bash
         run: |
-          set -euo pipefail
+          set -uo pipefail
           roles=('Trend Scout' 'Hook/Creative Writer' 'Storefront CRO Auditor' 'Creator/Partner Scout' 'Publisher' 'Analytics Reviewer' 'Offer Optimizer' 'GitHub Support Scout')
+          failed=0
           for role in "${roles[@]}"; do
             echo "Running $role"
-            node scripts/organic-growth-agent.mjs "$role"
+            if ! node scripts/organic-growth-agent.mjs "$role"; then
+              echo "::error::Worker failed unexpectedly: $role"
+              failed=1
+            fi
           done
+          if [ "$failed" -ne 0 ]; then
+            echo "One or more workers had a code or runtime fault. Network reachability failures are recorded as degraded evidence and do not reach this branch."
+            exit 1
+          fi
 
       - name: Refresh worker assignments from supplier evidence
         run: node scripts/dropshipping-dispatch.mjs
@@ -101,7 +109,7 @@ jobs:
 
       - name: Retain retail swarm outputs
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: prismbay-retail-promotion-swarm-${{ github.run_id }}
           path: |
@@ -125,6 +133,7 @@ jobs:
         shell: bash
         run: |
           echo 'The retail swarm runs all eight existing growth roles and the supplier-aware dispatch controller.' >> "$GITHUB_STEP_SUMMARY"
+          echo 'Transient network failures are retried and recorded as degraded evidence instead of aborting the swarm.' >> "$GITHUB_STEP_SUMMARY"
           echo 'External product promotion stays blocked until every supplier, final-freight, rights, checkout and promotion gate passes.' >> "$GITHUB_STEP_SUMMARY"
           echo 'TikTok readiness and first-sale evidence are independently fail-closed.' >> "$GITHUB_STEP_SUMMARY"
           echo 'The educational YouTube channel is excluded from retail distribution.' >> "$GITHUB_STEP_SUMMARY"
