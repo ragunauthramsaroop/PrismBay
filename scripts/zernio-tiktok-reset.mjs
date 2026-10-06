@@ -55,7 +55,7 @@ async function verifyAccount() {
 
 async function unpublish(post) {
   const { response, body } = await api(`/v1/posts/${post.postId}/unpublish`, {
-    method: 'DELETE',
+    method: 'POST',
     body: JSON.stringify({ platform: 'tiktok', accountId: ACCOUNT_ID })
   });
   if (!response.ok) fail(`unpublish_${post.postId}_${response.status}:${JSON.stringify(body).slice(0,500)}`);
