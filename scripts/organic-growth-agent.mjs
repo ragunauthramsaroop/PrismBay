@@ -6,6 +6,8 @@ const SHOP = process.env.PRISMBAY_SHOP_URL || 'https://prismbay-clean-49izhg.v2.
 const SHOP_CUSTOM = process.env.PRISMBAY_SHOP_CUSTOM_URL?.trim() || '';
 const SITE = process.env.PRISMBAY_SITE_URL || 'https://www.prismbayai.com';
 const VERIFY = process.env.TIKTOK_VERIFY_URL || SITE + '/tiktokioWxniaZWfubplFsge1pzgPGhS04LORJ.txt';
+const FETCH_ATTEMPTS = Math.max(1, Math.min(5, Number(process.env.PRISMBAY_FETCH_ATTEMPTS || 3)));
+const FETCH_TIMEOUT_MS = Math.max(250, Math.min(30000, Number(process.env.PRISMBAY_FETCH_TIMEOUT_MS || 8000)));
 const products = [
   'Cordless Pressure Washer','Cordless Handheld Vacuum','5-in-1 Electric Spin Scrubber',
   'Mattress Vacuum','Portable Garment Steamer','Portable Home Caddy',
@@ -13,10 +15,41 @@ const products = [
   'Sink Drain Catcher 2-Pack'
 ];
 
-async function fetchText(url) {
-  const r = await fetch(url, { redirect: 'follow', headers: { 'user-agent': 'PrismBay-Growth-Agent/1.0' } });
-  const text = await r.text();
-  return { ok: r.ok, status: r.status, url: r.url, text };
+const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
+
+async function fetchText(url, options = {}) {
+  const attempts = options.attempts ?? FETCH_ATTEMPTS;
+  const timeoutMs = options.timeoutMs ?? FETCH_TIMEOUT_MS;
+  const extraHeaders = options.headers || {};
+  let lastError = null;
+
+  for (let attempt = 1; attempt <= attempts; attempt += 1) {
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), timeoutMs);
+    try {
+      const r = await fetch(url, {
+        redirect: 'follow',
+        headers: { 'user-agent': 'PrismBay-Growth-Agent/2.0', ...extraHeaders },
+        signal: controller.signal,
+      });
+      const text = await r.text();
+      clearTimeout(timer);
+
+      if (r.status >= 500 && attempt < attempts) {
+        lastError = `HTTP ${r.status}`;
+        await sleep(250 * (2 ** (attempt - 1)));
+        continue;
+      }
+
+      return { ok: r.ok, status: r.status, url: r.url, text, error: null, attempts: attempt };
+    } catch (error) {
+      clearTimeout(timer);
+      lastError = error?.cause?.code || error?.name || error?.message || String(error);
+      if (attempt < attempts) await sleep(250 * (2 ** (attempt - 1)));
+    }
+  }
+
+  return { ok: false, status: 0, url, text: '', error: lastError || 'fetch_failed', attempts };
 }
 
 const match = (html, re) => (html.match(re)?.[1] || '').trim();
@@ -28,6 +61,7 @@ async function croAudit() {
     const r = await fetchText(target);
     const html = r.text;
     return { target, status: r.status, finalUrl: r.url,
+      reachable: r.ok, error: r.error, attempts: r.attempts,
       title: strip(match(html, /<title[^>]*>([\s\S]*?)<\/title>/i)),
       description: match(html, /<meta[^>]+name=["']description["'][^>]+content=["']([^"']*)/i),
       canonical: match(html, /<link[^>]+rel=["']canonical["'][^>]+href=["']([^"']*)/i),
@@ -49,16 +83,17 @@ async function publisherReadiness() {
   const results = [];
   for (const url of urls) {
     const r = await fetchText(url);
-    results.push({ url, status: r.status, ok: r.ok, finalUrl: r.url, bodyPreview: strip(r.text).slice(0, 160) });
+    results.push({ url, status: r.status, ok: r.ok, finalUrl: r.url, error: r.error, attempts: r.attempts, bodyPreview: strip(r.text).slice(0, 160) });
   }
   const verification = results.find(x => x.url === VERIFY);
-  return { checks: results, tiktokVerificationReady: Boolean(verification?.ok && /tiktok-developers-site-verification=/i.test(verification.bodyPreview)) };
+  return {
+    checks: results,
+    degraded: results.some(x => !x.ok),
+    tiktokVerificationReady: Boolean(verification?.ok && /tiktok-developers-site-verification=/i.test(verification.bodyPreview))
+  };
 }
 
 function hookWriter() {
-  // All newly researched physical products are unverified until supplier, US
-  // variant, destination freight, product media and merchant approval pass.
-  // Create useful educational drafts without purchase or availability claims.
   const hour = new Date().getUTCHours();
   const p = products[hour % products.length];
   const hooks = [
@@ -70,8 +105,6 @@ function hookWriter() {
     product: p, hooks, cta: null, draftOnly: true,
     physicalProductAvailabilityClaim: false, publicationAuthorized: false,
     note: 'Editorial research only. Validate SKU, current inventory, final US ZIP freight, product media rights and merchant approval before a promotional CTA.',
-    // Independent revenue channel: only the already-built, downloadable document products.
-    // Physical merchandise stays draft-only; neither channel publishes or sends on its own.
     digitalCampaign: campaignForSlot(currentSixHourSlot()),
   };
 }
@@ -106,6 +139,8 @@ async function analyticsReviewer() {
     statusEndpoint: statusUrl,
     httpStatus: r.status,
     live: r.ok,
+    error: r.error,
+    attempts: r.attempts,
     reported: parsed,
     rule: 'Internal/test traffic is not counted as demand or revenue.'
   };
@@ -118,6 +153,9 @@ async function offerOptimizer() {
   const saleEnd = match(html, /Ends\s+([A-Z][a-z]{2}\s+\d{1,2})/i);
   return {
     shopStatus: r.status,
+    reachable: r.ok,
+    error: r.error,
+    attempts: r.attempts,
     countdownText: countdown || null,
     saleEndText: saleEnd || null,
     staleAugustCopy: /August\s+27|Aug\.?\s*27/i.test(html),
@@ -129,11 +167,14 @@ async function githubSupport() {
   const repos = ['puppeteer/puppeteer','browser-use/browser-use','microsoft/playwright','honojs/hono'];
   const out = [];
   for (const repo of repos) {
-    const r = await fetch('https://api.github.com/repos/' + repo, { headers: { 'user-agent': 'PrismBay-Growth-Agent/1.0', accept: 'application/vnd.github+json' } });
-    const j = r.ok ? await r.json() : {};
-    out.push({ repo, status: r.status, updatedAt: j.updated_at || null, pushedAt: j.pushed_at || null, stars: j.stargazers_count ?? null, license: j.license?.spdx_id || null });
+    const r = await fetchText('https://api.github.com/repos/' + repo, {
+      headers: { accept: 'application/vnd.github+json' },
+    });
+    let j = {};
+    try { j = r.ok ? JSON.parse(r.text) : {}; } catch {}
+    out.push({ repo, status: r.status, error: r.error, attempts: r.attempts, updatedAt: j.updated_at || null, pushedAt: j.pushed_at || null, stars: j.stargazers_count ?? null, license: j.license?.spdx_id || null });
   }
-  return { repos: out, use: 'Reference only; adopt code only after license and fit review.' };
+  return { repos: out, degraded: out.some(x => x.status !== 200), use: 'Reference only; adopt code only after license and fit review.' };
 }
 
 const runners = {
