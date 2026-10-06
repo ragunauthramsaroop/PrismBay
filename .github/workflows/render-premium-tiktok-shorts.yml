@@ -56,11 +56,23 @@ jobs:
           for file in out/*.mp4; do
             test -s "$file"
             echo "Inspecting $file"
-            ffprobe -v error -select_streams v:0 -show_entries stream=codec_name,width,height,r_frame_rate -show_entries format=duration -of default=noprint_wrappers=1 "$file"
-            width=$(ffprobe -v error -select_streams v:0 -show_entries stream=width -of csv=p=0 "$file")
-            height=$(ffprobe -v error -select_streams v:0 -show_entries stream=height -of csv=p=0 "$file")
-            test "$width" = '1080'
-            test "$height" = '1920'
+            ffprobe -v error \
+              -select_streams v:0 \
+              -show_entries stream=codec_name,width,height,r_frame_rate \
+              -show_entries format=duration \
+              -of json "$file" > "$file.probe.json"
+            cat "$file.probe.json"
+            node - "$file.probe.json" <<'NODE'
+          const fs = require('fs');
+          const probe = JSON.parse(fs.readFileSync(process.argv[2], 'utf8'));
+          const stream = probe.streams?.[0];
+          const duration = Number(probe.format?.duration);
+          if (!stream) throw new Error('missing_video_stream');
+          if (stream.codec_name !== 'h264') throw new Error(`unexpected_codec_${stream.codec_name}`);
+          if (stream.width !== 1080 || stream.height !== 1920) throw new Error(`unexpected_dimensions_${stream.width}x${stream.height}`);
+          if (stream.r_frame_rate !== '30/1') throw new Error(`unexpected_fps_${stream.r_frame_rate}`);
+          if (!(duration >= 14.9 && duration <= 15.2)) throw new Error(`unexpected_duration_${duration}`);
+          NODE
           done
 
       - name: Upload premium video previews
