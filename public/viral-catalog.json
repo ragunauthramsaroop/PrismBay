@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-07T13:59:10.453Z",
+  "updatedAt": "2026-10-07T23:19:51.617Z",
   "market": "US",
   "methodology": "Public-news attention, freshness, and short-form demonstration fit. This is not PrismBay sales data and is not a TikTok, Amazon, Google, or Bing product ranking.",
   "refreshTargetHours": 6,
@@ -8,12 +8,12 @@
     {
       "slug": "mattress-vacuum",
       "name": "Mattress Vacuum",
-      "signalScore": 88,
+      "signalScore": 83.5,
       "signalLabel": "high-attention",
       "evidence": {
-        "publicMentions": 108,
-        "mentionsLast7Days": 3,
-        "mentionsLast30Days": 7,
+        "publicMentions": 100,
+        "mentionsLast7Days": 2,
+        "mentionsLast30Days": 6,
         "sourcesAvailable": [
           "Google News",
           "Bing News"
@@ -45,10 +45,10 @@
           "url": "https://news.google.com/rss/articles/CBMirAFBVV95cUxORUVHTHVGWkZtVUhlMG1CSUpQUjRzM0dwTWhNem9pM3ppNkRiZjFxZzRCNkVIc0dhd3RUVU4zTU91am9UQVVYcFZsU2k5a1d1WVFFWHBFTHBpUWJaQzc5bEpxR1hUb1AyZW4wVTRRaE94OW1BYU90cUNWZkcwVzlSWW96VzdzYkZuajBkN2JqSjJzNjBkeEtjTUx6QWtmemRvRUhVT21OWmplTkhh0gHAAUFVX3lxTE95S1VXaDg0OFdlMm85aXdBSjN0aHJUTElRWEhEdlhpaWRCMDlnXzVia2p5NFpJZTEwcUZvVGhnNGJzMDR4N0NWamlXS28yMzRiME15aHdsV3RYMWZucGpRTkFVUEZYakZLeEJJR2w4b0Y1NlNOU1ZURVVsTDRyOVN1SHZyRk5COUJNbnFLbExVMEhrNkszREZJcnp3dnVDck5oZXZYMllyRlN5S3NwMmFNU0FkZ0s1YkJ2TE1EZFpYSw?oc=5"
         },
         {
-          "title": "This Handheld Vacuum Cleaner Is A ‘Game-Changer’ For Mattress Grime — And It’s 34% Off - HuffPost",
+          "title": "Amazon’s mattress vacuum uses UV light and heat to deep clean beds - AL.com",
           "source": "Google News",
-          "publishedAt": "2026-09-22T07:00:00.000Z",
-          "url": "https://news.google.com/rss/articles/CBMiigFBVV95cUxOeVRLODl6aXZwcHU1M2VNUEx0NW1wbnJFTWFia09PX0tjM3BsN0d5eVRmdW5wR0pPTEUxVnJjNlpvTDBIQnNUN1FzTlpZRUlRYnFWRENNUURaMlFxb253TjMwOGNjdkNyMUs5VVluNEtiVENhOEV6SEhxd0VlVTZhOXpKZzgtNXRGOEHSAY8BQVVfeXFMTi0yUkdFNTlaYXNZLXhnNWY2Z0gwbXhEb0R3dVpYMW1zN0R1Q09pVnQ1SXlXZjZRRWx4NW5qM0NHYzdyWUd0eUNZcWhOMlJ3a1VyNzFva0hBNGpabzYzdm5zdkNsVEZoZFZ2TnhKaXhlc010cDJ0azAwcUR6NGFvd3NNOEJQa3NhV1p3bFIzUGM?oc=5"
+          "publishedAt": "2026-07-31T07:00:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxNbzVTWEJoMDJjVjhXZDI0Y3pidGdOVVpsYmk2b2YwNnBWN21RbnJlMFEzOFFDb0luZUpsZHQ5TEJkR0NLY1I4TE5xbXJWcGVZbjN2UE41b085WmhBNnpKQmhRSGJ3Q3FjdlRjRTR3b2pNWm8taDM1Rjkza0ZqdDlfXzZaWV9TN1dEVDNNZXZqak9oY1FoSUVxaGVXTDJHRTIwYlRiTDBrS1Q5UdIBvgFBVV95cUxQSmFCYUJJckRseEt2Ql8xalZQUHV0VVg0cldzQ0MybUUzMDlES25DWGZ3cjR2cFlPUnBDdi1VMlVyQnRRaEhfeFlfYl9LZW5qX1BEczFxZE1aYV9LZl9yTFF0N2d6ZEpLRG9DODlKdDU4NGtlUUxUc0hmQmhpWnZBeUtoU2k3OFJGOURxcE1nNENjZm43RGJjeWZ6NFN0N0NCaTR0N0VKMkVOSjlFOWJnNnA1dEh1SHIwa3lCdVFn?oc=5"
         }
       ],
       "rank": 1
@@ -56,12 +56,12 @@
     {
       "slug": "scrubber",
       "name": "5-in-1 Electric Spin Scrubber",
-      "signalScore": 80.5,
+      "signalScore": 77.5,
       "signalLabel": "high-attention",
       "evidence": {
-        "publicMentions": 97,
+        "publicMentions": 87,
         "mentionsLast7Days": 0,
-        "mentionsLast30Days": 7,
+        "mentionsLast30Days": 5,
         "sourcesAvailable": [
           "Google News",
           "Bing News"
@@ -93,10 +93,10 @@
           "url": "https://news.google.com/rss/articles/CBMie0FVX3lxTE40c3JDUmdvYnFzQW4wNUE0VUdoWVMzUk1MT1VGOTBMbDdIT0tBcU1IbzMwWmNwME5za1ozalNqUWdkVDNMV1d0WUx5YUpOSU9TRGhWR1VVTzktT3VBOXR0d0pQM0hpQVZpU2hRdFN4M3dXRlpiejRwSUlDMA?oc=5"
         },
         {
-          "title": "6 Electric Spin Scrubbers That Power Through Soap Scum - Popular Mechanics",
+          "title": "6 Electric Scrubbers Our Editors Tested and Love for Effortlessly Clean Surfaces - Real Simple",
           "source": "Google News",
-          "publishedAt": "2026-03-07T08:00:00.000Z",
-          "url": "https://news.google.com/rss/articles/CBMimwFBVV95cUxQZXBHSFRsNG4zSXpQLTUwdUdYeERDTThQM2w3Y25DaWIxa3prcUJhc01RMTFLN0Q4TFBzSUxlNlRWclBOMjdnN3lQRmhJZktfTkNHdzQ0RElkcnNJcTI1bFI2VURycmg3NmZVZ0pPc21xbjBHcDFhVW1ONlZUcUp1OWZmOGIyVlNTQXBEdGl6bzhNd2FXZmdJS3N1Yw?oc=5"
+          "publishedAt": "2026-08-07T07:00:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMiakFVX3lxTE1oaV9ZeXV0ZjBvUS00bTdZQW1MU3JYOU1PMHdBaEYwY2lPV1VPeUxRSV9QVWVqUmIwTUR4WmE5bGF4LV94SDZHWDFTQ1p2S2xJNUVQaE02UVJaZEZ3TEtrRlZKV2dYMGYxYnc?oc=5"
         }
       ],
       "rank": 2
@@ -152,12 +152,12 @@
     {
       "slug": "garment-steamer",
       "name": "Portable Garment Steamer",
-      "signalScore": 72.5,
+      "signalScore": 71,
       "signalLabel": "high-attention",
       "evidence": {
-        "publicMentions": 36,
+        "publicMentions": 35,
         "mentionsLast7Days": 0,
-        "mentionsLast30Days": 4,
+        "mentionsLast30Days": 3,
         "sourcesAvailable": [
           "Google News",
           "Bing News"
@@ -279,16 +279,16 @@
           "url": "https://news.google.com/rss/articles/CBMidkFVX3lxTE92V3lnSDcyVlhvSUJINnN4VU85em51bjBTNFRKU0ltYzNrd3c5YVNMVE1jTmUzMC1tYnM4S1VUQzAtTmVNa2Jha0tNNFFvMlU1ZnkzSHpZVms4MUFiQmF6b2YxRnYydlVob3RoakhnM2t5cW9zRVE?oc=5"
         },
         {
-          "title": "Amazon Shoppers Bought This $10 Cleaning Tool More Than 2,000 Times Last Month (You'll Use It in Every Room!) - Apartment Therapy",
-          "source": "Google News",
-          "publishedAt": "2024-06-04T07:00:00.000Z",
-          "url": "https://news.google.com/rss/articles/CBMigwFBVV95cUxNaEppZ1kxQmNqdm1LbTVfVTdmMmlkTU0zekl1c1BSdVBmSTZUMi1YUTdfRWlxUlR6ZGlRZEZ1Sk9Uc0JvLTJyUDRHc1hNRnNmRllKTjRvbmxyNlUzcmx4SzlzOWdVRXBQbWxyZ25VX2VlbDJrdmMxU3Z0b0hyXzN5SVpXOA?oc=5"
-        },
-        {
           "title": "These No. 1 bestselling crevice brushes 'get into all the hard to reach places!' — and they're less than $3 a pop - Yahoo",
           "source": "Google News",
           "publishedAt": "2024-02-03T08:00:00.000Z",
           "url": "https://news.google.com/rss/articles/CBMi7wFBVV95cUxQMllzbFMyWUc4SVdwd1E1QmJFbXpmc1VnYjFzZnh4SkhxbDVhRldvYjAzZDJKVUZLYVBwSEFOeEMxcl92cGMwMENVRkVKTU9Xbnp5YmkyUk1UTnNETGVNeXo2RWRJZ2ViUnZ3WjRadUtaeUN5SXFlY3I5aHJfYm1qazFKQWQ4Q1FTVUQteHgxX3FNNUJrT2FSc0J6SnFkOHdGeHJVQm5RWWg5dm83OXh0QWFRSlJVdjRPeF9NcEpaMU5CRGhtdGxyY0ZyeDRDVmdBX21xQmtQb0xqTzJXLVdTNlpJQzFsNGtTOGpQdDdfOA?oc=5"
+        },
+        {
+          "title": "The $3 Tool That Gets Rid of All the Grime and Leaves Surfaces Spotless - Apartment Therapy",
+          "source": "Google News",
+          "publishedAt": "2023-08-24T07:00:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMijwFBVV95cUxQMEt5emphY3dTem5yN3NXMmN3QWJSU1lSZzExN2oyeVZjUUJ1NjZKaFpXMlNFbEROd21PR3l2VkZMLVdSYmpoWTVlcmZsRldVcDcwSlA4VE1JSmZTWFVxbEJicXQ0NmY4aXdLWF9oSUs0eUhIazdITk0yU1lweTFfTmZLbDd3bTRjdWVxdlQzaw?oc=5"
         }
       ],
       "rank": 6
