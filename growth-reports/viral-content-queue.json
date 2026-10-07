@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-06T22:48:40.289Z",
+  "updatedAt": "2026-10-07T06:32:36.511Z",
   "policy": "Content briefs are generated only for already-approved PrismBay Clean products. Publication remains subject to platform authorization and media rights.",
   "items": [
     {
@@ -24,22 +24,22 @@
     },
     {
       "rank": 3,
-      "slug": "pressure-washer",
-      "product": "Cordless Pressure Washer",
-      "channel": "tiktok",
-      "format": "short-video",
-      "hook": "Three places the Cordless Pressure Washer fits into a practical home reset.",
-      "cta": "See the Cordless Pressure Washer details at PrismBay Clean.",
-      "guardrail": "Use original or supplier-authorized media. Do not state sales, rankings, delivery guarantees, or performance claims without evidence."
-    },
-    {
-      "rank": 4,
       "slug": "mattress-vacuum",
       "product": "Mattress Vacuum",
       "channel": "tiktok",
       "format": "short-video",
-      "hook": "The cleaning job people keep putting off, shown with the Mattress Vacuum.",
+      "hook": "Three places the Mattress Vacuum fits into a practical home reset.",
       "cta": "See the Mattress Vacuum details at PrismBay Clean.",
+      "guardrail": "Use original or supplier-authorized media. Do not state sales, rankings, delivery guarantees, or performance claims without evidence."
+    },
+    {
+      "rank": 4,
+      "slug": "pressure-washer",
+      "product": "Cordless Pressure Washer",
+      "channel": "tiktok",
+      "format": "short-video",
+      "hook": "The cleaning job people keep putting off, shown with the Cordless Pressure Washer.",
+      "cta": "See the Cordless Pressure Washer details at PrismBay Clean.",
       "guardrail": "Use original or supplier-authorized media. Do not state sales, rankings, delivery guarantees, or performance claims without evidence."
     },
     {
