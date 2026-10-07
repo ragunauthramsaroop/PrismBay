@@ -1,14 +1,14 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-10-07T06:33:16.445Z",
+  "generatedAt": "2026-10-07T13:23:57.537Z",
   "researchCandidates": 12,
   "publishedResearchSignals": 12,
   "verifiedCJStatus": {
-    "checkedAt": "2026-10-07T06:00:26.029Z",
+    "checkedAt": "2026-10-07T13:23:56.285Z",
     "validSupplierMatches": 5,
-    "variantStock": 3,
-    "freightEstimates": 3,
-    "countryFreightEstimates": 2,
+    "variantStock": 2,
+    "freightEstimates": 2,
+    "countryFreightEstimates": 1,
     "illustrativeZipFreightEstimates": 1,
     "falseMatches": 0
   },
@@ -27,6 +27,27 @@
       "executionMode": "scheduled_cj_and_manual_review",
       "candidateCount": 9,
       "blockers": [
+        {
+          "slug": "mini-mop",
+          "status": "supplier_search_needed",
+          "sku": null,
+          "shippingDiagnostic": null,
+          "zeroPricedMethods": 0
+        },
+        {
+          "slug": "drain-catcher",
+          "status": "variant_stock_required",
+          "sku": "CJCF1653868",
+          "shippingDiagnostic": "variant_stock_unverified",
+          "zeroPricedMethods": 0
+        },
+        {
+          "slug": "home-caddy",
+          "status": "supplier_search_needed",
+          "sku": null,
+          "shippingDiagnostic": null,
+          "zeroPricedMethods": 0
+        },
         {
           "slug": "scrubber",
           "status": "supplier_search_needed",
@@ -67,27 +88,6 @@
           "status": "supplier_search_needed",
           "sku": null,
           "shippingDiagnostic": null,
-          "zeroPricedMethods": 0
-        },
-        {
-          "slug": "pressure-washer",
-          "status": "supplier_search_needed",
-          "sku": null,
-          "shippingDiagnostic": null,
-          "zeroPricedMethods": 0
-        },
-        {
-          "slug": "mattress-vacuum",
-          "status": "supplier_search_needed",
-          "sku": null,
-          "shippingDiagnostic": null,
-          "zeroPricedMethods": 0
-        },
-        {
-          "slug": "garment-steamer",
-          "status": "final_zip_freight_required",
-          "sku": "CJYD245844002BY",
-          "shippingDiagnostic": "priced_estimate_available",
           "zeroPricedMethods": 0
         }
       ]
