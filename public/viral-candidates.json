@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-06T10:48:38.651Z",
+  "updatedAt": "2026-10-07T10:36:07.484Z",
   "market": "US",
   "supplierIntegration": "awaiting-cj-auth",
   "methodology": "Public attention and recency identify candidates. Supplier promotion requires verified US inventory and product-level checks. Freight and checkout creation occur only after supplier validation.",
@@ -13,8 +13,8 @@
       "attentionLabel": "high-attention",
       "evidence": {
         "publicMentions": 102,
-        "mentionsLast7Days": 5,
-        "mentionsLast30Days": 10,
+        "mentionsLast7Days": 6,
+        "mentionsLast30Days": 11,
         "sourcesAvailable": [
           "Google News",
           "Bing News"
@@ -27,22 +27,22 @@
             "url": "https://news.google.com/rss/articles/CBMijwFBVV95cUxPdHhLX21KR0ltRWJlTGMwMXJjOFJSaTY5NldZSTBqRERyQ3cxbWZEM24zZXR5SS1kbkxCOUNBT1Q0Z2RfM19jRlB1OXRnaHJFRmE2UkgtU2dLT2hUQzdSZTJYUDlnSi1YLXZjRWc2SHJNY0d1d0FfUEZrY1N0SzBtWTBsZE5PMlRsckpDaTlxNA?oc=5"
           },
           {
-            "title": "Amazon October Prime Day’s 30 Best Vacuum Deals Are Up to 70% Off - People.com",
+            "title": "10 best handheld vacuums, updated with Amazon Prime Day deals - Yahoo Life UK",
             "source": "Google News",
-            "publishedAt": "2026-10-06T07:30:00.000Z",
-            "url": "https://news.google.com/rss/articles/CBMigAFBVV95cUxPeTNEN2pkRUxQZzlRUDdXa1ZpR09VVlZHaXRiWHA1M1JoVDFoT1hzN205aTNaQnNmOEN1ckJXb0MyaHIzVTZNcnJibVNJcEo3TnJhN2RzWFFHMlVORDF4ck9yaS1GUVE2Q0wzb1RqQmpvOUItLWZEWFJfX2l3dUoxVw?oc=5"
-          },
-          {
-            "title": "I've found the best Shark deals for Amazon Prime Big Deal Days - London Evening Standard",
-            "source": "Google News",
-            "publishedAt": "2026-10-06T09:25:08.000Z",
-            "url": "https://news.google.com/rss/articles/CBMirgFBVV95cUxPdmxhajlRRTlPWi10dXZXbmwwdm02ZHFMem42VW1iaE0tRVBneHR3WE5wdm9fQ3ZjVHA1M09lS2lPX0l2OVdUX2VZMVYxaS1HTTVQYWVWb2I4MmFaV2hhTkQweTdzWml3TVY4ZjZyOU9XVWFiY2xqUUV3UkhhZHRrM0ZaTjBtbHg0dE43Q2V4eEtlX1haQ21GQ1Etd1JSUEg4Z3lVMDlBTFR1aGZEV3c?oc=5"
+            "publishedAt": "2026-10-06T10:10:00.000Z",
+            "url": "https://news.google.com/rss/articles/CBMifEFVX3lxTE1JV05BN240NmxPbWdCVUF5UDRDNTRDTl9COU9haWhRNVpxajViMC1VWFhMekJ1SXo0dHZNbkZYVDFRdVVfLVhpa2d1cWZyRjJWM2VPRmtUVE45Tms2dW1KUnhTeXZreFVSSWlCZTFmOTh5amZyWFRaSGNsb2E?oc=5"
           },
           {
             "title": "This Handheld Vacuum Is ‘The Magic Wand Of Carpet Cleaners’ — And It’s 41% Off - HuffPost",
             "source": "Google News",
             "publishedAt": "2026-10-05T16:41:43.000Z",
             "url": "https://news.google.com/rss/articles/CBMirwFBVV95cUxPQi1OaGQ3VzNUcTZLT0MzRDZyVFVCWUVpSWtHUjFXMmkyRC13UjRmZVZvTWlYdTRfMC1ndDhnTUFaMzF1cENpSGhqdWRBUXVGQUkwYXNJV2ZYN0pnci0yOXU2MDJPSExGRzNGdE0xaEctQl9ReEVydzhSZ0NaNEhyVVdFNk5GekJZci1qa09ibGlBc1NybWctZnBDN0FQWEJSWHZSMVM3ZnBpZU5rdFVN0gG0AUFVX3lxTFBmR1BWMFlqUFZlU2dFMkYzY2VGbklXNWVSMWFrc2Y0N3dXOHViY0JZQnhPYnFpRFlJbGt6YXdDWDhvWGlKOVgwWERZWGhDZEtXOEFrbVpBM0R0MGcxcmdDMjIzUlM2UXdhRllETDNhaVhOQWtJdDBUaGtialNWSE16emNfSmR4MEFQR0FGeTc4NkdoTXpZeW44VzRqbk9xMzNvSl9QYU5YaWJwdjhGV2pWMGcwVQ?oc=5"
+          },
+          {
+            "title": "Amazon October Prime Day’s 30 Best Vacuum Deals Are Up to 70% Off - People.com",
+            "source": "Google News",
+            "publishedAt": "2026-10-06T07:30:00.000Z",
+            "url": "https://news.google.com/rss/articles/CBMigAFBVV95cUxPeTNEN2pkRUxQZzlRUDdXa1ZpR09VVlZHaXRiWHA1M1JoVDFoT1hzN205aTNaQnNmOEN1ckJXb0MyaHIzVTZNcnJibVNJcEo3TnJhN2RzWFFHMlVORDF4ck9yaS1GUVE2Q0wzb1RqQmpvOUItLWZEWFJfX2l3dUoxVw?oc=5"
           }
         ]
       },
@@ -61,12 +61,12 @@
       "slug": "hanging-closet-organizer",
       "name": "Hanging Closet Organizer",
       "query": "hanging closet organizer",
-      "attentionScore": 73.1,
+      "attentionScore": 71.3,
       "attentionLabel": "high-attention",
       "evidence": {
-        "publicMentions": 43,
+        "publicMentions": 40,
         "mentionsLast7Days": 0,
-        "mentionsLast30Days": 5,
+        "mentionsLast30Days": 4,
         "sourcesAvailable": [
           "Google News",
           "Bing News"
@@ -85,16 +85,16 @@
             "url": "https://news.google.com/rss/articles/CBMigwFBVV95cUxNTEktQnJlSWx1UGpURHMxc3VaaVRIaklobEQxSGYtejQ3NW96Qk1Ed25rTlFwRUxfNUx3Y2VsYTduLVg2aURmMDhjYklwS2l2MnhVT2NocnpUZmhmaTlwVmZoSFVYRHBxZGpDMGJOckVNckZMbERudFFRem9uVWl2bkVSUQ?oc=5"
           },
           {
-            "title": "Stocked Up a Little Too Well for Sweater Weather? These Stacking Storage Bins Keep Your Collection Organized - People.com",
-            "source": "Google News",
-            "publishedAt": "2026-09-16T07:00:00.000Z",
-            "url": "https://news.google.com/rss/articles/CBMigAFBVV95cUxNdUt2cm1naldDczF5TFc0bExVNFFsTlBOTFdrOWh6NHpHSl9FckJJc0NoaTFWWmZST2hZWWJQU0Q5TWxzZVlxTjNGZ0pzOXQ5SDlOTFF4QkR2dkVMXzhrelhZcjUxT0d3WkJmRVdaQjRYQjF0d2lDWWUwZmJQNUs2ZA?oc=5"
-          },
-          {
             "title": "12 No-Brainer Closet Organizers That You Can Get So Easily On Amazon - HuffPost",
             "source": "Google News",
             "publishedAt": "2026-03-17T07:00:00.000Z",
             "url": "https://news.google.com/rss/articles/CBMilAFBVV95cUxNSjEzWnJYRVlrUjBPRnRtNGZ0U1pCbVZEY1djNkxza2lpLTRrM05wNGtIclZWVWVvTkxZZ2ZHRFBXTjJ3cWE2VHE1YTQ2M2hNaThLS09SWmFKekEwblFwYUVTeFZfY2E1bDgwcGNFUThzcVhabnpMenBaN3BNLWJlT1dlNjhOaHY3NkhXemF6a0MtYUdu0gGaAUFVX3lxTFBxUGhRcDI2TXFpdWJiR2IteGRNa1VZX2VpWkJMMGxhaE9lWjVBbEkzSkt6QVN4R2h6ZDk5REpkOWxtRGdJUGtNMHFjTUdITi1OakdvalZOcEplWDFncktsd1hDRmNqYVZhT1Y4X3hEOVJVQzFOZm5BcTRPVVlWbXNNbHhKWUliYVFpVWFIbERLMFFiLUJteE1EZ1E?oc=5"
+          },
+          {
+            "title": "Belts, Bags, and Hats Are Awkward to Store—12 Clever Closet Organizers Keep Them (and More!) in Check, From $8 - Real Simple",
+            "source": "Google News",
+            "publishedAt": "2026-09-11T07:00:00.000Z",
+            "url": "https://news.google.com/rss/articles/CBMihAFBVV95cUxOTUlwZXcxVkVxdl9lc1Vib3dIYzdEUW51SEROclR4NlBvbTJqcDFSbGZnNngzVmNObGtBS3pwMkxKbXYxYjN1UXBlN2RwV1RWQW9xaU1iWV9ZcDVlRGZTSnNmME1vRGRHLXNXX0hLUlNCMWFocG5fYjJBdGw5NUlvWVZXcjg?oc=5"
           }
         ]
       },
@@ -116,7 +116,7 @@
       "attentionScore": 71.1,
       "attentionLabel": "high-attention",
       "evidence": {
-        "publicMentions": 33,
+        "publicMentions": 34,
         "mentionsLast7Days": 0,
         "mentionsLast30Days": 3,
         "sourcesAvailable": [
@@ -183,7 +183,7 @@
             "url": "https://news.google.com/rss/articles/CBMi2wFBVV95cUxPNHlsSk1uanVvSjRscmNoSkxIZVVMZjlsMmFDaXc3VEpUUzBjd1d2UGlwRnRuSE9XNXhvVXhQUW9tOXdEU1BjUFFFU0Jrc19mTFZzbTcxLTV5bzFIaUx5RU1YMGZEZFVQTUlyUWR4U1NWVWZsNUZQbk9UWjhMaktnb19LNFJ5bVcyMWM2b3F5S3FnLWROQ1IwTzhHZUgydUhwb2hPRlpFQUo5ZjFTMVVLTzFsYmluWGNvNkZRSHB1bThZX0NzX0JVMnNfNWJRVUY5Y2ZCLUV0bGJqTW8?oc=5"
           },
           {
-            "title": "The Best Dryer Vent Cleaning Kits of 2026, Tested By Experts - bobvila.com",
+            "title": "The Best Dryer Vent Cleaning Kits of 2026, Tested By Experts - BobVila.com",
             "source": "Google News",
             "publishedAt": "2026-01-28T08:00:00.000Z",
             "url": "https://news.google.com/rss/articles/CBMicEFVX3lxTE1YY1R3S1Vab08tdnA5S2FGUWV6TVVqTDhKQnpGQzVKdlhpZ19WVTM1WnVYRkZKV1VqWFBWcXVVbFJ0OFpVRW5DVVMzNGVWRWhMVEpyUEd1NzFnNVlHb3dGMTVzZVQtNU5tUlVtSm4tNVo?oc=5"
@@ -293,16 +293,16 @@
             "url": "https://news.google.com/rss/articles/CBMi1gFBVV95cUxOUmd1OXFMNnRxUnZ1Uy1iYXpNcG5yNHhYZ3diNFcwZzhBX3l1SWp3eXFQTFdZWmVQUVNueVdvU1RZSXNtT2FqRkFrb193Nnhrd2tLRkk1RzdkRzZoYTJNNklrQ0pVRmhtZ2pOQ2JNdGE0RV9EdFlpUk1tWWVJS25yVzJXb1JZZW0weExlVy1PWHVFYWJpWmw4TjhCOXFtMmRicWtYcXRlX2t6S2hYTFI0UTVSRTVIdWs3Z0MzcTU1ekVhRXlzaGROeGhrRFJHYWFVVExzNnd3?oc=5"
           },
           {
-            "title": "These 19 Award-Winning Products Will Help Keep Your Baby Nourished and Fed - Parents",
-            "source": "Google News",
-            "publishedAt": "2026-04-07T07:00:00.000Z",
-            "url": "https://news.google.com/rss/articles/CBMif0FVX3lxTE5VVDlIY3NTbzNFWlY3Wm1XNF95cktMX2ZDckhFNlJ0UEdudUEzbDEzSlo4MHpqc0pMUmxYZm9uWU5BNkVBUG1xblhkcm1fMm9jX1ZSeUQ4OFFDUWJHbUNoclBVNDFKRmt2NWFDZ204eWhLQU5FR0xJSFJpZWxwT3M?oc=5"
-          },
-          {
             "title": "Cool things with near-perfect Amazon reviews that are under-the-radar - mic.com",
             "source": "Google News",
             "publishedAt": "2024-05-07T07:00:00.000Z",
             "url": "https://news.google.com/rss/articles/CBMinwFBVV95cUxQY3l0eWpVTG12TXJMQXJJc1ppYWhONkVRSUlfLVVla2FNaWowYXpUSHF0NkxjRXItZDVCck12emZtLXMwR0tmZEVzT01kVTQ3bnlMWkxOZlptM095TkppNU5wbXNaWlBYQWs5VEgteXRGTjZ4SEhGV1Q4dC10a3dXWldKdmE5V24xWGJNYmIxaXRHZE5uOXNjSzB4WmZIOUk?oc=5"
+          },
+          {
+            "title": "These 19 Award-Winning Products Will Help Keep Your Baby Nourished and Fed - Parents",
+            "source": "Google News",
+            "publishedAt": "2026-04-07T07:00:00.000Z",
+            "url": "https://news.google.com/rss/articles/CBMif0FVX3lxTE5VVDlIY3NTbzNFWlY3Wm1XNF95cktMX2ZDckhFNlJ0UEdudUEzbDEzSlo4MHpqc0pMUmxYZm9uWU5BNkVBUG1xblhkcm1fMm9jX1ZSeUQ4OFFDUWJHbUNoclBVNDFKRmt2NWFDZ204eWhLQU5FR0xJSFJpZWxwT3M?oc=5"
           }
         ]
       },
@@ -379,7 +379,7 @@
         ],
         "sampleSignals": [
           {
-            "title": "This window cleaning set is our top pick – and it's on sale - realhomes.com",
+            "title": "This window cleaning set is our top pick – and it's on sale - Real Homes",
             "source": "Google News",
             "publishedAt": "2020-05-02T07:00:00.000Z",
             "url": "https://news.google.com/rss/articles/CBMikAFBVV95cUxQVE1RZEw3ZXFWNHlYcmQ3bHNKU214UVBSZU9WTVlxUVk0TjNCUkNaYWNzRHpWS0lrZVNBTUcwYVpiU3lmeWdGNDlQSGloV21senpDMW9NUnlkdFdwTFdKVmZYUE1xVC1qY0REQkZKVGQxUVpXQTBFUThicXNVN1FQTTlXVjBaT04tREdiR0ZHSWw?oc=5"
