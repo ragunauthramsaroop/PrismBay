@@ -13,7 +13,7 @@
     "migrate": "bun run scripts/migrate.ts",
     "seed-admin": "bun run scripts/seed-admin.ts",
     "automation:email-worker": "bun run scripts/run-automation-email-worker.ts",
-    "test:youtube-gate": "node --test scripts/youtube-publishing-guard.test.mjs scripts/youtube-publishing-gateway.test.mjs scripts/youtube-publishing-entrypoint.test.mjs",
+    "test:youtube-gate": "node --test scripts/youtube-publishing-guard.test.mjs scripts/youtube-publishing-gateway.test.mjs scripts/youtube-publishing-entrypoint.test.mjs scripts/youtube-growth-resilience.test.mjs",
     "youtube:preflight": "node scripts/youtube-publishing-preflight.mjs",
     "youtube:studio-check": "node scripts/install-youtube-studio-gate.mjs --check",
     "claude:free": "node scripts/claude-9router-auto.mjs --launch",
