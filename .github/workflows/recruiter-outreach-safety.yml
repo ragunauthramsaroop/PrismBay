@@ -47,15 +47,20 @@ jobs:
 
           echo 'Recruiter outreach public-repo guardrails verified.'
 
-      - name: Confirm no recruiter-send implementation is embedded here
+      - name: Verify public policy contains no private contact data or secrets
         shell: bash
         run: |
           set -euo pipefail
-          file='.github/workflows/recruiter-outreach-safety.yml'
-          scanned="$(sed '/grep -E/d' "$file")"
-          pattern='smtp[.]mail[.]me[.]com|nodemailer|resend[.]emails[.]send|GMAIL_|ICLOUD_.*PASSWORD|recipient.*@'
-          if printf '%s\n' "$scanned" | grep -Eq "$pattern"; then
-            echo 'Recruiter delivery logic or private recipient data detected in public guard workflow.' >&2
+          policy='docs/RECRUITER_OUTREACH_AUTOMATION.md'
+
+          if grep -Eq '[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}' "$policy"; then
+            echo 'Personal or recruiter email address detected in public outreach policy.' >&2
             exit 1
           fi
-          echo 'Safety workflow contains no recruiter mail transport or recipient data.'
+
+          if grep -Eiq '(password|api[_ -]?key|token|secret)[[:space:]]*[:=][[:space:]]*[^[:space:]]+' "$policy"; then
+            echo 'Secret-like assignment detected in public outreach policy.' >&2
+            exit 1
+          fi
+
+          echo 'Public outreach policy contains no contact data or secret assignments.'
