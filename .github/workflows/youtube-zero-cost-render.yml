@@ -3,6 +3,7 @@ name: YouTube Zero-Cost Render
 on:
   push:
     branches:
+      - main
       - codex/prismbay-youtube-resilience
     paths:
       - 'content/youtube/requests/*.json'
