@@ -41,6 +41,10 @@ export function when(p) {
 }
 function mediaKey(p) { return String(p?.sha256 || p?.mediaHash || p?.media?.[0] || ''); }
 function sameCreative(a,b) { return Boolean(mediaKey(a) && mediaKey(a)===mediaKey(b)) || titleSimilarity(a,b)>=0.8; }
+function sameCandidateRecord(existing,candidate) {
+  return Boolean((candidate?.uuid && existing?.uuid===candidate.uuid && sameCreative(existing,candidate)) ||
+    (candidate?.id && existing?.id===candidate.id && sameCreative(existing,candidate)));
+}
 function shortLimitIssues(posts) {
   const issues=[];
   const groups=new Map();
@@ -85,12 +89,12 @@ export function reviewCandidate({candidate,queue,brandSettings,fetchedAt,now=Dat
   if(!Array.isArray(queue)||!Array.isArray(published))issues.push('queue-or-published-evidence-missing');
   const others=[...(Array.isArray(queue)?queue:[]),...(Array.isArray(published)?published:[])].filter(live);
   if(isShort(c) && /^\d{4}-\d{2}-\d{2}$/.test(localDay(c))) {
-    const sameDayShorts=others.filter(p=>isShort(p)&&localDay(p)===localDay(c));
+    const sameDayShorts=others.filter(p=>isShort(p)&&localDay(p)===localDay(c)&&!sameCandidateRecord(p,c));
     if(sameDayShorts.length>=MAX_SHORTS_PER_DAY)issues.push('daily-short-limit-reached');
   }
   for(const p of others) {
     if(c.uuid && p.uuid===c.uuid && !sameCreative(p,c))issues.push('uuid-reused-with-new-creative');
-    if((c.uuid && p.uuid===c.uuid && sameCreative(p,c))||(c.id && p.id===c.id && sameCreative(p,c)))continue;
+    if(sameCandidateRecord(p,c))continue;
     if(sameCreative(p,c))issues.push('duplicate-creative');
     try {if(Math.abs(when(p)-moment)<MIN_SPACING_MS)issues.push('spacing-under-four-hours');}catch{issues.push('invalid-existing-schedule');}
   }
