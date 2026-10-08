@@ -1,6 +1,6 @@
 {
   "schemaVersion": 3,
-  "checkedAt": "2026-10-08T04:19:06.277Z",
+  "checkedAt": "2026-10-08T04:19:50.812Z",
   "market": "US",
   "authenticationVerified": true,
   "sourceCandidateCount": 12,
@@ -45,7 +45,7 @@
       "checkoutInfrastructureVerified": false,
       "checkoutAllowed": false,
       "automaticPromotionAllowed": false,
-      "observedAt": "2026-10-08T04:19:06.277Z"
+      "observedAt": "2026-10-08T04:19:50.812Z"
     },
     {
       "slug": "pethair",
@@ -71,7 +71,7 @@
       "checkoutInfrastructureVerified": false,
       "checkoutAllowed": false,
       "automaticPromotionAllowed": true,
-      "observedAt": "2026-10-08T04:19:06.277Z"
+      "observedAt": "2026-10-08T04:19:50.812Z"
     },
     {
       "slug": "crevice",
@@ -97,7 +97,7 @@
       "checkoutInfrastructureVerified": true,
       "checkoutAllowed": false,
       "automaticPromotionAllowed": true,
-      "observedAt": "2026-10-08T04:19:06.277Z"
+      "observedAt": "2026-10-08T04:19:50.812Z"
     },
     {
       "slug": "pressure-washer",
@@ -334,5 +334,5 @@
       "observedAt": "2026-10-07T23:05:57.083Z"
     }
   ],
-  "latestBatchCandidateCount": 9
+  "latestBatchCandidateCount": 3
 }
