@@ -1,10 +1,10 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-10-08T06:41:45.647Z",
+  "generatedAt": "2026-10-08T13:32:23.625Z",
   "researchCandidates": 12,
   "publishedResearchSignals": 12,
   "verifiedCJStatus": {
-    "checkedAt": "2026-10-08T06:04:58.174Z",
+    "checkedAt": "2026-10-08T13:32:21.987Z",
     "validSupplierMatches": 6,
     "variantStock": 3,
     "freightEstimates": 3,
@@ -27,6 +27,27 @@
       "executionMode": "scheduled_cj_and_manual_review",
       "candidateCount": 12,
       "blockers": [
+        {
+          "slug": "mini-mop",
+          "status": "supplier_search_needed",
+          "sku": null,
+          "shippingDiagnostic": null,
+          "zeroPricedMethods": 0
+        },
+        {
+          "slug": "drain-catcher",
+          "status": "variant_stock_required",
+          "sku": "CJCF1653868",
+          "shippingDiagnostic": "variant_stock_unverified",
+          "zeroPricedMethods": 0
+        },
+        {
+          "slug": "home-caddy",
+          "status": "supplier_search_needed",
+          "sku": null,
+          "shippingDiagnostic": null,
+          "zeroPricedMethods": 0
+        },
         {
           "slug": "pressure-washer",
           "status": "supplier_search_needed",
@@ -67,27 +88,6 @@
           "status": "final_zip_freight_required",
           "sku": "CJJT173147702BY",
           "shippingDiagnostic": "priced_estimate_available",
-          "zeroPricedMethods": 0
-        },
-        {
-          "slug": "mini-mop",
-          "status": "supplier_search_needed",
-          "sku": null,
-          "shippingDiagnostic": null,
-          "zeroPricedMethods": 0
-        },
-        {
-          "slug": "drain-catcher",
-          "status": "variant_stock_required",
-          "sku": "CJCF1653868",
-          "shippingDiagnostic": "variant_stock_unverified",
-          "zeroPricedMethods": 0
-        },
-        {
-          "slug": "home-caddy",
-          "status": "supplier_search_needed",
-          "sku": null,
-          "shippingDiagnostic": null,
           "zeroPricedMethods": 0
         },
         {
