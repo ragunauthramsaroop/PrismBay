@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import Head from 'next/head';
 import { ArrowRight, Bath, Car, CheckCircle2, ChevronRight, Droplets, Home, Leaf, LockKeyhole, PackageCheck, PawPrint, Search, Shirt, Sparkles, Truck, UserRound, Wind, Waves, ShoppingBag } from 'lucide-react';
 
@@ -38,6 +39,15 @@ function ProductCard({ product }: { product: typeof products[number] }) {
 }
 
 export default function Storefront({ source = 'direct' }: { source?: string }) {
+  const [query, setQuery] = useState('');
+  const [category, setCategory] = useState('All categories');
+  const searchTerms = query.trim().toLowerCase().split(/\s+/).filter(Boolean);
+  const filteredProducts = products.filter(product => {
+    const searchable = `${product.name} ${product.category} ${product.description}`.toLowerCase();
+    return (category === 'All categories' || product.category === category) &&
+      searchTerms.every(term => searchable.includes(term));
+  });
+  const clearFilters = () => { setQuery(''); setCategory('All categories'); };
   const canonical = source === 'tiktok' ? 'https://prismbay-clean-49izhg.v2.appdeploy.ai/tiktok/' : 'https://prismbay-clean-49izhg.v2.appdeploy.ai/';
   return (
     <>
@@ -62,7 +72,7 @@ export default function Storefront({ source = 'direct' }: { source?: string }) {
           <div className='retailWrap retailNav'>
             <a className='retailLogo' href='/'><span className='leafMark'><Leaf size={22} /></span><span>PrismBay<b>Clean</b><small>EVERYDAY MESS. BETTER TOOLS.</small></span></a>
             <nav className='retailLinks'><a href='/'>Home</a><a href='#shop'>Shop</a><a href='#problems'>By Problem</a><a href='#about'>About</a><a href='#faq'>FAQs</a></nav>
-            <div className='retailActions'><label className='searchShell'><span>Search cleaning solutions…</span><Search size={17} /></label><a href='/contact/' aria-label='Account and support'><UserRound size={21} /></a><a href='#shop' aria-label='Shop'><ShoppingBag size={21} /></a></div>
+            <div className='retailActions'><a className='searchShell' href='#product-search'><span>Search cleaning solutions…</span><Search size={17} aria-hidden='true' /></a><a href='/contact/' aria-label='Account and support'><UserRound size={21} /></a><a href='#shop' aria-label='Shop'><ShoppingBag size={21} /></a></div>
           </div>
         </header>
 
@@ -90,8 +100,29 @@ export default function Storefront({ source = 'direct' }: { source?: string }) {
           </section>
 
           <section id='shop' className='featuredSection retailWrap'>
-            <div className='featuredHeading'><div><h2>Featured Products</h2><p>Focused tools for specific everyday jobs.</p></div><a href='#shop'>View all products <ArrowRight size={15} /></a></div>
-            <div className='retailProductGrid'>{products.map(product => <ProductCard product={product} key={product.slug} />)}</div>
+            <div className='featuredHeading'><div><h2>Featured Products</h2><p>Focused tools for specific everyday jobs.</p></div></div>
+            <div className='catalogControls' role='search' aria-label='Find a cleaning tool'>
+              <div className='catalogField'>
+                <label htmlFor='product-search'>Search products</label>
+                <input id='product-search' type='search' value={query} onChange={event => setQuery(event.target.value)} placeholder='Try pet hair or steamer' aria-controls='product-results' />
+              </div>
+              <div className='catalogField'>
+                <label htmlFor='product-category'>Category</label>
+                <select id='product-category' value={category} onChange={event => setCategory(event.target.value)} aria-controls='product-results'>
+                  <option>All categories</option>
+                  {Array.from(new Set(products.map(product => product.category))).map(value => <option key={value}>{value}</option>)}
+                </select>
+              </div>
+              <button className='catalogReset' type='button' onClick={clearFilters} disabled={!query && category === 'All categories'}>Clear filters</button>
+            </div>
+            <p className='catalogResultCount' role='status' aria-live='polite' aria-atomic='true'>{filteredProducts.length} {filteredProducts.length === 1 ? 'product' : 'products'} found</p>
+            <div id='product-results'>
+              {filteredProducts.length > 0 ? (
+                <div className='retailProductGrid'>{filteredProducts.map(product => <ProductCard product={product} key={product.slug} />)}</div>
+              ) : (
+                <div className='catalogEmpty'><h3>No matching products</h3><p>Try a different search or browse all our featured tools.</p><button className='catalogReset' type='button' onClick={clearFilters}>Show all products</button></div>
+              )}
+            </div>
           </section>
 
           <section id='about' className='lifestyleBand'>

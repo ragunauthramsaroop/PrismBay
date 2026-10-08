@@ -11,3 +11,20 @@
 .trustSection{padding:48px 0 64px;text-align:center}.trustGrid{display:grid;grid-template-columns:repeat(4,1fr);margin-top:25px}.trustGrid>div{padding:12px 30px;border-right:1px solid var(--line)}.trustGrid>div:last-child{border-right:0}.trustGrid svg{color:var(--green2);width:34px;height:34px;margin-bottom:10px}.trustGrid b{display:block;font-size:13px}.trustGrid p{font-size:11px;line-height:1.5;color:#6c7872;margin:6px 0 0}.retailFaq{padding:0 0 75px}.retailFaq h2{text-align:center;margin-bottom:22px}.faqGrid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.faqGrid details{border:1px solid var(--line);border-radius:12px;padding:17px;background:#fff}.faqGrid summary{font-weight:800;cursor:pointer}.faqGrid p{font-size:12px;line-height:1.5;color:#68766f}.retailFooter{background:#123b2d;color:#dfe9e4;padding:48px 0 24px}.footerGrid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:50px}.footerRetailLogo{color:#fff}.footerGrid>div:first-child p{color:#a9bdb5;max-width:350px;font-size:12px;line-height:1.5}.footerGrid>div:not(:first-child){display:flex;flex-direction:column;gap:8px}.footerGrid>div:not(:first-child)>b{font-size:11px;text-transform:uppercase;letter-spacing:.08em}.footerGrid a{text-decoration:none;font-size:12px;color:#b9cbc4}.retailFooterBottom{border-top:1px solid rgba(255,255,255,.1);margin-top:32px;padding-top:18px;font-size:10px;color:#8ea79d}
 @media(max-width:1050px){.retailLinks{display:none}.searchShell{display:none}.retailHeroGrid{grid-template-columns:1fr 1fr}.categoryGrid{grid-template-columns:repeat(3,1fr)}.retailProductGrid{grid-template-columns:repeat(2,1fr)}.lifestyleInner{grid-template-columns:1fr}.trustGrid{grid-template-columns:repeat(2,1fr);row-gap:20px}.trustGrid>div:nth-child(2){border-right:0}}
 @media(max-width:720px){.retailWrap{width:min(100% - 28px,1180px)}.utilityInner{font-size:10px;gap:7px}.utilityInner i{display:none}.utilityInner span:nth-of-type(2){display:none}.retailNav{height:64px}.retailLogo{font-size:20px}.retailActions{gap:12px}.retailHeroGrid{grid-template-columns:1fr}.retailHeroCopy{padding:45px 0 34px}.retailHero h1{font-size:52px}.retailHeroPhoto{min-height:350px;border-left:0}.heroBenefits{grid-template-columns:1fr}.categoryGrid{grid-template-columns:repeat(2,1fr)}.retailProductGrid{grid-template-columns:1fr}.retailProductVisual{height:260px}.featuredHeading{align-items:flex-start;gap:10px;flex-direction:column}.lifestyleBenefits{grid-template-columns:1fr}.trustGrid{grid-template-columns:1fr}.trustGrid>div{border-right:0;border-bottom:1px solid var(--line);padding:20px 10px}.faqGrid{grid-template-columns:1fr}.footerGrid{grid-template-columns:1fr}}
+
+/* Search stays available above the catalog at every screen size. */
+.catalogControls{display:flex;align-items:end;gap:14px;flex-wrap:wrap;margin:24px 0 12px}
+.catalogField{display:flex;flex-direction:column;gap:7px;flex:1 1 220px}
+.catalogField label{font-size:13px;font-weight:750}
+.catalogField input,.catalogField select{width:100%;min-height:44px;padding:10px 12px;border:1px solid #a7b8ad;border-radius:8px;background:#fff;color:var(--ink);font:inherit;font-size:16px}
+.catalogField input{scroll-margin-top:100px}
+.catalogReset{min-height:44px;padding:10px 16px;border:1px solid var(--green);border-radius:8px;background:#fff;color:var(--green);font:inherit;font-weight:700;cursor:pointer}
+.catalogReset:disabled{opacity:.45;cursor:default}
+.catalogField input:focus-visible,.catalogField select:focus-visible,.catalogReset:focus-visible,.searchShell:focus-visible{outline:3px solid #3d8c5d;outline-offset:3px}
+.catalogResultCount{font-size:13px;color:#53615b;margin:12px 0 18px}
+.catalogEmpty{padding:36px 20px;border:1px dashed #a7b8ad;border-radius:12px;background:var(--paper);text-align:center}
+.catalogEmpty h3{margin:0 0 10px}.catalogEmpty p{color:#53615b;line-height:1.5}
+#shop{scroll-margin-top:90px}
+.retailActions>a.searchShell{display:flex;text-decoration:none}
+@media(max-width:1050px){.retailActions>a.searchShell{display:none}}
+@media(max-width:720px){.catalogControls{align-items:stretch}.catalogField{flex-basis:100%}.catalogControls>.catalogReset{width:100%}}
