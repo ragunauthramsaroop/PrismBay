@@ -1,0 +1,58 @@
+name: iCloud SMTP Self Test
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/icloud-smtp-self-test.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  smtp-test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env:
+      ICLOUD_USER: ragunauthramsaroop@icloud.com
+      ICLOUD_PASSWORD: ${{ secrets.ICLOUD_APP_PASSWORD }}
+    steps:
+      - name: Validate configured secret
+        shell: bash
+        run: |
+          if [ -z "$ICLOUD_PASSWORD" ]; then
+            echo "::error::ICLOUD_APP_PASSWORD is missing from this repository."
+            exit 1
+          fi
+          echo "iCloud credential secret is configured."
+
+      - name: Authenticate and send owner-only test
+        shell: python
+        run: |
+          import os
+          import smtplib
+          import ssl
+          from email.message import EmailMessage
+
+          user = os.environ["ICLOUD_USER"]
+          password = os.environ["ICLOUD_PASSWORD"]
+
+          msg = EmailMessage()
+          msg["From"] = user
+          msg["To"] = user
+          msg["Reply-To"] = user
+          msg["Subject"] = "GCC outreach iCloud SMTP test"
+          msg.set_content(
+              "The GitHub Actions iCloud SMTP connection authenticated successfully.\n\n"
+              "This is an owner-only infrastructure test. No recruiter outreach was sent."
+          )
+
+          context = ssl.create_default_context()
+          with smtplib.SMTP("smtp.mail.me.com", 587, timeout=30) as smtp:
+              smtp.ehlo()
+              smtp.starttls(context=context)
+              smtp.ehlo()
+              smtp.login(user, password)
+              smtp.send_message(msg)
+
+          print("SMTP authentication succeeded and the owner-only test message was sent.")
