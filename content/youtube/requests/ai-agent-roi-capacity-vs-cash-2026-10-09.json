@@ -1,0 +1,49 @@
+{
+  "slug": "ai-agent-roi-capacity-vs-cash-2026-10-09",
+  "title": "Your AI Agent Saved 67 Hours. Where Is the Profit?",
+  "voice": "en_US-norman-medium",
+  "voiceLicenseBasis": "Piper en_US-norman-medium model card: trained from scratch on public-domain LibriVox recordings; fallback eSpeak-ng",
+  "sourceAttribution": "Illustrative scenario, not a reported company result. PrismBay AI.",
+  "segments": [
+    {
+      "key": "67 HOURS",
+      "headline": "SAVED TIME IS NOT PROFIT",
+      "body": "Your AI agent saved 67 hours. Your expenses still rose.",
+      "spoken": "Your AI agent saved sixty-seven hours, but your expenses still rose. Here is the missing calculation."
+    },
+    {
+      "key": "1,000",
+      "headline": "TASKS PER MONTH",
+      "body": "Four minutes saved each = 66.7 hours of capacity.",
+      "spoken": "One thousand monthly tasks, multiplied by four minutes saved per task, equals sixty-six point seven hours of capacity. Not automatic payroll savings."
+    },
+    {
+      "key": "$2,000",
+      "headline": "POTENTIAL VALUE",
+      "body": "66.7 hours x $30 per hour. Only valuable if realized.",
+      "spoken": "At thirty dollars an hour, that is about two thousand dollars in potential capacity value. You need reduced expenses or productive redeployment to realize the value."
+    },
+    {
+      "key": "$1,450",
+      "headline": "MONTHLY AI COSTS",
+      "body": "Infrastructure $350 | Human review $600 | Support $500",
+      "spoken": "Now include operating costs. Three hundred fifty dollars for infrastructure, six hundred for human review, and five hundred for integration support. Total, fourteen hundred fifty dollars."
+    },
+    {
+      "key": "$550",
+      "headline": "CONDITIONAL NET BENEFIT",
+      "body": "$2,000 potential value minus $1,450 costs. Not guaranteed cash savings.",
+      "spoken": "Your modeled net benefit is five hundred fifty dollars, only if you realize the entire two thousand dollars in capacity value. Without that value, your business case is negative."
+    },
+    {
+      "headline": "MEASURE REALIZED ROI",
+      "body": "Track cost per task, errors, rework and cash impact.",
+      "badges": [
+        "Cost per completed task",
+        "Quality and rework",
+        "Verified realized value"
+      ],
+      "spoken": "Measure cost per completed task, errors, rework, and verified financial value. PrismBay AI helps founders and operators implement practical AI business systems."
+    }
+  ]
+}
