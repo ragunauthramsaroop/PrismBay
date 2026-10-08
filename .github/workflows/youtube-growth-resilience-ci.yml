@@ -1,0 +1,27 @@
+name: YouTube Growth Resilience CI
+
+on:
+  pull_request:
+    paths:
+      - 'scripts/youtube-publishing-*.mjs'
+      - 'scripts/youtube-growth-resilience*.mjs'
+      - 'package.json'
+      - '.github/workflows/youtube-growth-resilience-ci.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  youtube-safety-and-resilience:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Run YouTube safety and resilience tests
+        run: npm run test:youtube-gate

@@ -1,0 +1,18 @@
+{
+  "channelId": "UCw2hs85TzIpdKwJtG-BSxzQ",
+  "metricoolBrandId": "6945443",
+  "metricoolPostId": "390866726",
+  "metricoolUuid": "8320582979023226807",
+  "title": "Claude Haiku 5.5: Stop Using One AI Model for Everything",
+  "type": "short",
+  "scheduledAt": "2026-10-08T20:00:00-04:00",
+  "timezone": "America/Guyana",
+  "renderSha256": "a70ada49d631b0e01cdd21126eefaac8f503c9a2fa7028023a65d09cf5299be8",
+  "renderCommit": "233fde0ff76e5692377485c90f5748ece5b5dd76",
+  "renderEngine": "piper",
+  "voice": "en_US-norman-medium",
+  "source": "Anthropic, October 7, 2026",
+  "aiGeneratedContentDeclared": true,
+  "paidSpend": 0,
+  "status": "scheduled-pending-publication"
+}

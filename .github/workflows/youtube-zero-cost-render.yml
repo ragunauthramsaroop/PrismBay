@@ -1,0 +1,79 @@
+name: YouTube Zero-Cost Render
+
+on:
+  push:
+    branches:
+      - main
+      - codex/prismbay-youtube-resilience
+    paths:
+      - 'content/youtube/requests/*.json'
+      - 'scripts/render-youtube-short.py'
+      - '.github/workflows/youtube-zero-cost-render.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: youtube-zero-cost-render-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  render:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - name: Checkout request branch
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
+          fetch-depth: 0
+
+      - name: Install zero-cost open production stack
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ffmpeg espeak-ng fonts-dejavu-core
+          python3 -m pip install --disable-pip-version-check --no-input pillow piper-tts
+
+      - name: Render all request specs without an output
+        shell: bash
+        run: |
+          set -euo pipefail
+          shopt -s nullglob
+          specs=(content/youtube/requests/*.json)
+          if [ ${#specs[@]} -eq 0 ]; then
+            echo 'No render requests found.'
+            exit 0
+          fi
+          for spec in "${specs[@]}"; do
+            slug=$(python3 -c 'import json,sys; print(json.load(open(sys.argv[1]))["slug"])' "$spec")
+            if [ -s "public/youtube/${slug}.mp4" ] && [ -s "public/youtube/${slug}.json" ]; then
+              echo "Output already exists for ${slug}; preserving idempotency."
+              continue
+            fi
+            python3 scripts/render-youtube-short.py "$spec"
+          done
+
+      - name: Validate generated media
+        shell: bash
+        run: |
+          set -euo pipefail
+          for media in public/youtube/*.mp4; do
+            [ -s "$media" ] || continue
+            ffprobe -v error -select_streams v:0 -show_entries stream=width,height,codec_name -of default=nw=1 "$media"
+          done
+
+      - name: Commit generated original media to request branch
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'prismbay-ai-render-bot'
+          git config user.email 'actions@users.noreply.github.com'
+          git add public/youtube/
+          if git diff --cached --quiet; then
+            echo 'No new media to commit.'
+            exit 0
+          fi
+          git commit -m 'Render PrismBay AI zero-cost YouTube media'
+          git push origin HEAD:${{ github.ref_name }}
