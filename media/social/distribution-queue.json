@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-10-07T19:01:09.380Z",
+  "generatedAt": "2026-10-08T18:49:17.989Z",
   "priority": "external_traffic_to_verified_digital_offers",
   "items": [
     {
@@ -10,12 +10,12 @@
       "status": "ready_for_authorized_scheduler",
       "mediaUrl": "https://ragunauthramsaroop.github.io/PrismBay/media/social/stakeholder.mp4",
       "destinationUrl": "https://ragunauthramsaroop.github.io/PrismBay/learn/stakeholder-mapping-toolkit.html?utm_source=youtube&utm_medium=shorts&utm_campaign=prismbay_external_traffic_oct2026&utm_content=stakeholder_short_01",
-      "title": "Use the free guide first, then review the editable files listed in the toolkit #Shorts",
+      "title": "Start with evidence you can trace before the next review #Shorts",
       "caption": "A contact list is not a follow-through plan. Start with a free commitments register: record the exact promise, who approved it, the due date and evidence of closure. Start with the free guide: https://ragunauthramsaroop.github.io/PrismBay/learn/stakeholder-mapping-toolkit.html?utm_source=youtube&utm_medium=shorts&utm_campaign=prismbay_external_traffic_oct2026&utm_content=stakeholder_short_01 Optional editable document toolkit: $49 USD one time.",
       "commercialContentOwnBrand": true,
       "madeForKids": false,
       "aiAssisted": true,
-      "strategy": "deliverables-led",
+      "strategy": "evidence-led",
       "guardrails": {
         "noInventedTestimonials": true,
         "noGuaranteedResults": true,
@@ -31,12 +31,12 @@
       "status": "ready_for_authorized_scheduler",
       "mediaUrl": "https://ragunauthramsaroop.github.io/PrismBay/media/social/stakeholder.mp4",
       "destinationUrl": "https://ragunauthramsaroop.github.io/PrismBay/learn/stakeholder-mapping-toolkit.html?utm_source=tiktok&utm_medium=organic_video&utm_campaign=prismbay_external_traffic_oct2026&utm_content=stakeholder_short_01",
-      "title": "Use the free guide first, then review the editable files listed in the toolkit",
+      "title": "Start with evidence you can trace before the next review",
       "caption": "A contact list is not a follow-through plan. Start with a free commitments register: record the exact promise, who approved it, the due date and evidence of closure. Start with the free guide: https://ragunauthramsaroop.github.io/PrismBay/learn/stakeholder-mapping-toolkit.html?utm_source=tiktok&utm_medium=organic_video&utm_campaign=prismbay_external_traffic_oct2026&utm_content=stakeholder_short_01 Optional editable document toolkit: $49 USD one time.",
       "commercialContentOwnBrand": true,
       "madeForKids": false,
       "aiAssisted": true,
-      "strategy": "deliverables-led",
+      "strategy": "evidence-led",
       "guardrails": {
         "noInventedTestimonials": true,
         "noGuaranteedResults": true,
@@ -52,12 +52,12 @@
       "status": "ready_for_authorized_scheduler",
       "mediaUrl": "https://ragunauthramsaroop.github.io/PrismBay/media/social/esg.mp4",
       "destinationUrl": "https://ragunauthramsaroop.github.io/PrismBay/learn/esg-reporting-toolkit.html?utm_source=youtube&utm_medium=shorts&utm_campaign=prismbay_external_traffic_oct2026&utm_content=esg_short_01",
-      "title": "A polished sustainability dashboard cannot repair an unverified KPI #Shorts",
+      "title": "Start with evidence you can trace before the next review #Shorts",
       "caption": "A polished sustainability dashboard cannot repair an unverified KPI. Create three basic columns today: KPI definition, evidence location and the accountable reviewer. Mark estimates and unresolved exceptions. Start with the free guide: https://ragunauthramsaroop.github.io/PrismBay/learn/esg-reporting-toolkit.html?utm_source=youtube&utm_medium=shorts&utm_campaign=prismbay_external_traffic_oct2026&utm_content=esg_short_01 Optional editable document toolkit: $99 USD one time.",
       "commercialContentOwnBrand": true,
       "madeForKids": false,
       "aiAssisted": true,
-      "strategy": "deterministic_fallback",
+      "strategy": "evidence-led",
       "guardrails": {
         "noInventedTestimonials": true,
         "noGuaranteedResults": true,
@@ -73,12 +73,12 @@
       "status": "ready_for_authorized_scheduler",
       "mediaUrl": "https://ragunauthramsaroop.github.io/PrismBay/media/social/esg.mp4",
       "destinationUrl": "https://ragunauthramsaroop.github.io/PrismBay/learn/esg-reporting-toolkit.html?utm_source=tiktok&utm_medium=organic_video&utm_campaign=prismbay_external_traffic_oct2026&utm_content=esg_short_01",
-      "title": "A polished sustainability dashboard cannot repair an unverified KPI",
+      "title": "Start with evidence you can trace before the next review",
       "caption": "A polished sustainability dashboard cannot repair an unverified KPI. Create three basic columns today: KPI definition, evidence location and the accountable reviewer. Mark estimates and unresolved exceptions. Start with the free guide: https://ragunauthramsaroop.github.io/PrismBay/learn/esg-reporting-toolkit.html?utm_source=tiktok&utm_medium=organic_video&utm_campaign=prismbay_external_traffic_oct2026&utm_content=esg_short_01 Optional editable document toolkit: $99 USD one time.",
       "commercialContentOwnBrand": true,
       "madeForKids": false,
       "aiAssisted": true,
-      "strategy": "deterministic_fallback",
+      "strategy": "evidence-led",
       "guardrails": {
         "noInventedTestimonials": true,
         "noGuaranteedResults": true,
@@ -133,23 +133,23 @@
   "freeLLM": {
     "stakeholder": {
       "status": "ok",
-      "strategy": "deliverables-led",
-      "model": "stepfun/step-3.7-flash:free",
-      "routedVia": "kilo/stepfun/step-3.7-flash:free",
-      "routeAttempts": 1
+      "strategy": "evidence-led",
+      "model": "auto:reliable",
+      "routedVia": "ovh/Qwen3.5-9B",
+      "routeAttempts": 2
     },
     "esg": {
-      "status": "invalid_output",
-      "strategy": "deterministic_fallback",
-      "model": null,
-      "routedVia": "kilo/dots-studio/dots-3-note-preview:free",
+      "status": "ok",
+      "strategy": "evidence-led",
+      "model": "auto:fast",
+      "routedVia": "ovh/gpt-oss-120b",
       "routeAttempts": 3
     },
     "whitepaper": {
       "status": "invalid_output",
       "strategy": "deterministic_fallback",
       "model": null,
-      "routedVia": "kilo/nvidia/nemotron-3-ultra-550b-a55b:free",
+      "routedVia": "kilo/liquid/lfm-2.5-2.6b:free",
       "routeAttempts": 3
     }
   },
@@ -157,16 +157,16 @@
     {
       "slug": "stakeholder",
       "file": "/home/runner/work/PrismBay/PrismBay/growth-reports/external-social/stakeholder/stakeholder.mp4",
-      "sha256": "768181c4116e825d15b70f6c932293b683fc6a0acc7cd77bd647a8202ef1709d",
+      "sha256": "449d574300ff7a209e607ccac43a88dda50ec9bf794aa7a5401745d62337bd8a",
       "durationSeconds": 20,
-      "bytes": 227326
+      "bytes": 220493
     },
     {
       "slug": "esg",
       "file": "/home/runner/work/PrismBay/PrismBay/growth-reports/external-social/esg/esg.mp4",
-      "sha256": "8e22fad7bf83ce2cee415439c4a835b258953067fdd58b972ffb5fba5e069e72",
+      "sha256": "cfc137ef414fcdc6c50a7f9039e5d26857c34bf4ca01650feb72f850083e89a7",
       "durationSeconds": 20,
-      "bytes": 214432
+      "bytes": 212469
     },
     {
       "slug": "whitepaper",
