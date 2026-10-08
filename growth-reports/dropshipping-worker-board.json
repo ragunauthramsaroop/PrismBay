@@ -1,10 +1,10 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-10-08T04:19:51.911Z",
+  "generatedAt": "2026-10-08T06:04:59.342Z",
   "researchCandidates": 12,
   "publishedResearchSignals": 12,
   "verifiedCJStatus": {
-    "checkedAt": "2026-10-08T04:19:50.812Z",
+    "checkedAt": "2026-10-08T06:04:58.174Z",
     "validSupplierMatches": 6,
     "variantStock": 3,
     "freightEstimates": 3,
@@ -28,27 +28,6 @@
       "candidateCount": 12,
       "blockers": [
         {
-          "slug": "scrubber",
-          "status": "supplier_search_needed",
-          "sku": null,
-          "shippingDiagnostic": null,
-          "zeroPricedMethods": 0
-        },
-        {
-          "slug": "pethair",
-          "status": "variant_stock_required",
-          "sku": "CJYD2079690",
-          "shippingDiagnostic": "variant_stock_unverified",
-          "zeroPricedMethods": 0
-        },
-        {
-          "slug": "crevice",
-          "status": "final_zip_freight_required",
-          "sku": "CJJT173147702BY",
-          "shippingDiagnostic": "priced_estimate_available",
-          "zeroPricedMethods": 0
-        },
-        {
           "slug": "pressure-washer",
           "status": "supplier_search_needed",
           "sku": null,
@@ -66,6 +45,27 @@
           "slug": "garment-steamer",
           "status": "final_zip_freight_required",
           "sku": "CJYD245844002BY",
+          "shippingDiagnostic": "priced_estimate_available",
+          "zeroPricedMethods": 0
+        },
+        {
+          "slug": "scrubber",
+          "status": "supplier_search_needed",
+          "sku": null,
+          "shippingDiagnostic": null,
+          "zeroPricedMethods": 0
+        },
+        {
+          "slug": "pethair",
+          "status": "variant_stock_required",
+          "sku": "CJYD2079690",
+          "shippingDiagnostic": "variant_stock_unverified",
+          "zeroPricedMethods": 0
+        },
+        {
+          "slug": "crevice",
+          "status": "final_zip_freight_required",
+          "sku": "CJJT173147702BY",
           "shippingDiagnostic": "priced_estimate_available",
           "zeroPricedMethods": 0
         },
