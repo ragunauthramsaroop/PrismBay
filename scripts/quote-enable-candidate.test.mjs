@@ -61,3 +61,29 @@ test('candidate is rejected when independent identity check fails', () => {
   bad.results[0].product.name = 'Stand Airless Paint Sprayer';
   assert.equal(buildQuoteEnableCandidates(bad, authorization).candidateCount, 0);
 });
+
+test('production steamer checkout mapping reaches quote handoff without sale activation', async () => {
+  const fs = await import('node:fs/promises');
+  const configured = JSON.parse(await fs.readFile('config/retail-commercial-authorization.json', 'utf8'));
+  const steamer = {
+    checkedAt: '2026-10-08T04:00:00.000Z',
+    results: [{
+      slug: 'garment-steamer', retailPriceUsd: 29.95,
+      supplierVerified: true, variantInventoryVerified: true, freightVerified: true,
+      originCountryCode: 'CN',
+      product: { name: 'Portable Garment Clothes Steamer', sku: 'SYNTHETIC-STEAMER',
+        variantSku: 'SYNTHETIC-VARIANT', variantId: 'TEST-STEAMER-VID',
+        productCostUsd: 2.72, warehouse: 'CN' },
+    }],
+  };
+  const output = buildQuoteEnableCandidates(steamer, configured);
+  assert.equal(output.candidateCount, 1);
+  assert.equal(output.quoteProducts[0].stripePaymentUrl, 'https://buy.stripe.com/bJe4gA8XAdOjeKmb8QgnK05');
+  assert.equal(output.automaticActivation, false);
+  assert.equal(output.supplierOrderingEnabled, false);
+  assert.equal(output.finalBuyerZipRequired, true);
+  assert.equal(output.quoteProducts[0].activationAllowed, false);
+  assert.equal(output.quoteProducts[0].evidence.finalBuyerZipVerified, false);
+  steamer.results[0].variantInventoryVerified = false;
+  assert.equal(buildQuoteEnableCandidates(steamer, configured).candidateCount, 0);
+});
