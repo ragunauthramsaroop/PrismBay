@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-07T23:19:51.617Z",
+  "updatedAt": "2026-10-08T06:41:11.874Z",
   "market": "US",
   "methodology": "Public-news attention, freshness, and short-form demonstration fit. This is not PrismBay sales data and is not a TikTok, Amazon, Google, or Bing product ranking.",
   "refreshTargetHours": 6,
@@ -8,12 +8,12 @@
     {
       "slug": "mattress-vacuum",
       "name": "Mattress Vacuum",
-      "signalScore": 83.5,
+      "signalScore": 88,
       "signalLabel": "high-attention",
       "evidence": {
-        "publicMentions": 100,
-        "mentionsLast7Days": 2,
-        "mentionsLast30Days": 6,
+        "publicMentions": 108,
+        "mentionsLast7Days": 3,
+        "mentionsLast30Days": 7,
         "sourcesAvailable": [
           "Google News",
           "Bing News"
@@ -23,11 +23,11 @@
         {
           "title": "I Finally Got a Bed Vacuum, and Now I’m Never Going to Be Without One Again (and It’s on Sale for Prime!) - Apartment Therapy",
           "source": "Google News",
-          "publishedAt": "2026-10-06T11:14:15.000Z",
+          "publishedAt": "2026-10-07T04:12:47.000Z",
           "url": "https://news.google.com/rss/articles/CBMikAFBVV95cUxNbkpkQUFEYVRYc3gzc0Q0MUdkdE1pb2VORTFxbi1XbXk5OXBDYWg0Rmk3R01ZSUt6ZzNlRzRRWGR2RzRGQ09FQVNJNlZOMHk2eU9zZ0p1c1Q1dHpLbXZLZ29RcDQyX1JDZWpPME1pSlRyOG1XUTV2TlRYcDhLUWpXbFFJQkFvS09tb2YyQi1HYnE?oc=5"
         },
         {
-          "title": "The UV mattress vacuum I swear by to kill bacteria and dust mites is down to $75 this Prime Day – sale ends tonight - Tom's Guide",
+          "title": "The UV mattress vacuum I sanitize my bed and pillows with is down to $75 for Prime Day — Amazon sale ends today - Tom's Guide",
           "source": "Google News",
           "publishedAt": "2026-10-07T11:11:41.000Z",
           "url": "https://news.google.com/rss/articles/CBMiowFBVV95cUxQZGxoUGxkdUgzVDhQaGpNa1FKb1FSRDliWDRtWEpFZjZsZ0FUQ3hJbHpwaGQxdHVGRzFzbGVCcEpfSThoUlhOa1owYlhhWGVUa3hic1VTWWFueF9VWmppS1JLc0JrcDE2aEhROXhERXcxd0pKcnRaN1J1d1ExclpFZGRYOU9JbW90d1hPYUx0SXdLLS15dGNhSHZycUIyc1Z4TlE4?oc=5"
@@ -56,12 +56,12 @@
     {
       "slug": "scrubber",
       "name": "5-in-1 Electric Spin Scrubber",
-      "signalScore": 77.5,
+      "signalScore": 80.5,
       "signalLabel": "high-attention",
       "evidence": {
-        "publicMentions": 87,
+        "publicMentions": 97,
         "mentionsLast7Days": 0,
-        "mentionsLast30Days": 5,
+        "mentionsLast30Days": 7,
         "sourcesAvailable": [
           "Google News",
           "Bing News"
@@ -155,7 +155,7 @@
       "signalScore": 71,
       "signalLabel": "high-attention",
       "evidence": {
-        "publicMentions": 35,
+        "publicMentions": 36,
         "mentionsLast7Days": 0,
         "mentionsLast30Days": 3,
         "sourcesAvailable": [
