@@ -62,6 +62,7 @@ async function deferCandidate({ candidate, stateDir, reason, now = Date.now }) {
 
 function safeForAlternatePreflight(candidate) {
   if (!youtubeOnly(candidate)) return false;
+  if (candidate.autoPublish !== true || candidate.draft !== false) return false;
   return classify(candidate).ok;
 }
 
@@ -75,7 +76,7 @@ export async function publishWithResilience({
   now = Date.now
 }) {
   if (!safeForAlternatePreflight(candidate)) {
-    return { status: 'blocked', issues: ['channel-or-editorial-policy-failed'], channelId: CHANNEL };
+    return { status: 'blocked', issues: ['channel-editorial-or-approval-policy-failed'], channelId: CHANNEL };
   }
 
   if (metricoolAdapter) {
