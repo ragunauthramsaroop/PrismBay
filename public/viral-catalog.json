@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-08T06:41:11.874Z",
+  "updatedAt": "2026-10-08T14:04:12.717Z",
   "market": "US",
   "methodology": "Public-news attention, freshness, and short-form demonstration fit. This is not PrismBay sales data and is not a TikTok, Amazon, Google, or Bing product ranking.",
   "refreshTargetHours": 6,
@@ -8,12 +8,12 @@
     {
       "slug": "mattress-vacuum",
       "name": "Mattress Vacuum",
-      "signalScore": 88,
+      "signalScore": 86.5,
       "signalLabel": "high-attention",
       "evidence": {
         "publicMentions": 108,
         "mentionsLast7Days": 3,
-        "mentionsLast30Days": 7,
+        "mentionsLast30Days": 6,
         "sourcesAvailable": [
           "Google News",
           "Bing News"
@@ -59,7 +59,7 @@
       "signalScore": 80.5,
       "signalLabel": "high-attention",
       "evidence": {
-        "publicMentions": 97,
+        "publicMentions": 98,
         "mentionsLast7Days": 0,
         "mentionsLast30Days": 7,
         "sourcesAvailable": [
@@ -152,12 +152,12 @@
     {
       "slug": "garment-steamer",
       "name": "Portable Garment Steamer",
-      "signalScore": 71,
-      "signalLabel": "high-attention",
+      "signalScore": 69.5,
+      "signalLabel": "active",
       "evidence": {
         "publicMentions": 36,
         "mentionsLast7Days": 0,
-        "mentionsLast30Days": 3,
+        "mentionsLast30Days": 2,
         "sourcesAvailable": [
           "Google News",
           "Bing News"
@@ -279,16 +279,16 @@
           "url": "https://news.google.com/rss/articles/CBMidkFVX3lxTE92V3lnSDcyVlhvSUJINnN4VU85em51bjBTNFRKU0ltYzNrd3c5YVNMVE1jTmUzMC1tYnM4S1VUQzAtTmVNa2Jha0tNNFFvMlU1ZnkzSHpZVms4MUFiQmF6b2YxRnYydlVob3RoakhnM2t5cW9zRVE?oc=5"
         },
         {
+          "title": "Amazon Shoppers Bought This $10 Cleaning Tool More Than 2,000 Times Last Month (You'll Use It in Every Room!) - Apartment Therapy",
+          "source": "Google News",
+          "publishedAt": "2024-06-04T07:00:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMigwFBVV95cUxNaEppZ1kxQmNqdm1LbTVfVTdmMmlkTU0zekl1c1BSdVBmSTZUMi1YUTdfRWlxUlR6ZGlRZEZ1Sk9Uc0JvLTJyUDRHc1hNRnNmRllKTjRvbmxyNlUzcmx4SzlzOWdVRXBQbWxyZ25VX2VlbDJrdmMxU3Z0b0hyXzN5SVpXOA?oc=5"
+        },
+        {
           "title": "These No. 1 bestselling crevice brushes 'get into all the hard to reach places!' — and they're less than $3 a pop - Yahoo",
           "source": "Google News",
           "publishedAt": "2024-02-03T08:00:00.000Z",
           "url": "https://news.google.com/rss/articles/CBMi7wFBVV95cUxQMllzbFMyWUc4SVdwd1E1QmJFbXpmc1VnYjFzZnh4SkhxbDVhRldvYjAzZDJKVUZLYVBwSEFOeEMxcl92cGMwMENVRkVKTU9Xbnp5YmkyUk1UTnNETGVNeXo2RWRJZ2ViUnZ3WjRadUtaeUN5SXFlY3I5aHJfYm1qazFKQWQ4Q1FTVUQteHgxX3FNNUJrT2FSc0J6SnFkOHdGeHJVQm5RWWg5dm83OXh0QWFRSlJVdjRPeF9NcEpaMU5CRGhtdGxyY0ZyeDRDVmdBX21xQmtQb0xqTzJXLVdTNlpJQzFsNGtTOGpQdDdfOA?oc=5"
-        },
-        {
-          "title": "The $3 Tool That Gets Rid of All the Grime and Leaves Surfaces Spotless - Apartment Therapy",
-          "source": "Google News",
-          "publishedAt": "2023-08-24T07:00:00.000Z",
-          "url": "https://news.google.com/rss/articles/CBMijwFBVV95cUxQMEt5emphY3dTem5yN3NXMmN3QWJSU1lSZzExN2oyeVZjUUJ1NjZKaFpXMlNFbEROd21PR3l2VkZMLVdSYmpoWTVlcmZsRldVcDcwSlA4VE1JSmZTWFVxbEJicXQ0NmY4aXdLWF9oSUs0eUhIazdITk0yU1lweTFfTmZLbDd3bTRjdWVxdlQzaw?oc=5"
         }
       ],
       "rank": 6
