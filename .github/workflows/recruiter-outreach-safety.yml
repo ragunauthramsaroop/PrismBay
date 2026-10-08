@@ -1,0 +1,59 @@
+name: Recruiter Outreach Safety Guard
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '29 * * * *'
+  push:
+    paths:
+      - 'docs/RECRUITER_OUTREACH_AUTOMATION.md'
+      - '.github/workflows/recruiter-outreach-safety.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  public-repo-guardrails:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Verify recruiter outreach remains isolated from commerce delivery
+        shell: bash
+        run: |
+          set -euo pipefail
+          policy='docs/RECRUITER_OUTREACH_AUTOMATION.md'
+          test -f "$policy"
+
+          for required in \
+            'Exclude any firm or domain already contacted' \
+            'Never infer an address from a naming pattern' \
+            'Send no more than 10 qualified new introductions per execution cycle' \
+            'does not send recruiter email'; do
+            grep -Fq "$required" "$policy" || {
+              echo "Missing required outreach guardrail: $required" >&2
+              exit 1
+            }
+          done
+
+          if find . -path './.git' -prune -o \
+            \( -path './recruiter-outreach/*' -o -path './outreach-data/*' \) \
+            -type f -print | grep -q .; then
+            echo 'Private recruiter outreach data must not be committed to this public repository.' >&2
+            exit 1
+          fi
+
+          echo 'Recruiter outreach public-repo guardrails verified.'
+
+      - name: Confirm no recruiter-send implementation is embedded here
+        shell: bash
+        run: |
+          set -euo pipefail
+          file='.github/workflows/recruiter-outreach-safety.yml'
+          if grep -Eq 'smtp\.mail\.me\.com|nodemailer|resend\.emails\.send|GMAIL_|ICLOUD_.*PASSWORD|recipient.*@' "$file"; then
+            echo 'Recruiter delivery logic or private recipient data detected in public guard workflow.' >&2
+            exit 1
+          fi
+          echo 'Safety workflow contains no recruiter mail transport or recipient data.'
