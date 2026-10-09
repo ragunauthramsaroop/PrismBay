@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-08T10:57:13.597Z",
+  "updatedAt": "2026-10-09T10:55:56.190Z",
   "market": "US",
   "supplierIntegration": "awaiting-cj-auth",
   "methodology": "Public attention and recency identify candidates. Supplier promotion requires verified US inventory and product-level checks. Freight and checkout creation occur only after supplier validation.",
@@ -13,7 +13,7 @@
       "attentionLabel": "high-attention",
       "evidence": {
         "publicMentions": 102,
-        "mentionsLast7Days": 5,
+        "mentionsLast7Days": 6,
         "mentionsLast30Days": 10,
         "sourcesAvailable": [
           "Google News",
@@ -39,10 +39,10 @@
             "url": "https://news.google.com/rss/articles/CBMirwFBVV95cUxPQi1OaGQ3VzNUcTZLT0MzRDZyVFVCWUVpSWtHUjFXMmkyRC13UjRmZVZvTWlYdTRfMC1ndDhnTUFaMzF1cENpSGhqdWRBUXVGQUkwYXNJV2ZYN0pnci0yOXU2MDJPSExGRzNGdE0xaEctQl9ReEVydzhSZ0NaNEhyVVdFNk5GekJZci1qa09ibGlBc1NybWctZnBDN0FQWEJSWHZSMVM3ZnBpZU5rdFVN0gG0AUFVX3lxTFBmR1BWMFlqUFZlU2dFMkYzY2VGbklXNWVSMWFrc2Y0N3dXOHViY0JZQnhPYnFpRFlJbGt6YXdDWDhvWGlKOVgwWERZWGhDZEtXOEFrbVpBM0R0MGcxcmdDMjIzUlM2UXdhRllETDNhaVhOQWtJdDBUaGtialNWSE16emNfSmR4MEFQR0FGeTc4NkdoTXpZeW44VzRqbk9xMzNvSl9QYU5YaWJwdjhGV2pWMGcwVQ?oc=5"
           },
           {
-            "title": "Amazon October Prime Day’s 30 Best Vacuum Deals Are Up to 70% Off - People.com",
+            "title": "Top cordless vacuum cleaner brands cut prices in Amazon Great Indian Festival: Check latest deals | Technology News\n(HT Tech) - Hindustan Times",
             "source": "Google News",
-            "publishedAt": "2026-10-07T17:13:00.000Z",
-            "url": "https://news.google.com/rss/articles/CBMigAFBVV95cUxPeTNEN2pkRUxQZzlRUDdXa1ZpR09VVlZHaXRiWHA1M1JoVDFoT1hzN205aTNaQnNmOEN1ckJXb0MyaHIzVTZNcnJibVNJcEo3TnJhN2RzWFFHMlVORDF4ck9yaS1GUVE2Q0wzb1RqQmpvOUItLWZEWFJfX2l3dUoxVw?oc=5"
+            "publishedAt": "2026-10-08T11:22:58.000Z",
+            "url": "https://news.google.com/rss/articles/CBMi8AFBVV95cUxNTmdsM0ViR3ZfalJmemNGaFNiRk5DZnlETzYtb2QzNWJZUFFIMTg3bXR1V205alZaRG8yYW1iUDgwRVVnN3NWMGdfYVFwYTIzQldIV0NjaFd2VktlY3FPXzEtOEV5aFlpWGk1WWNvTno1bGY2RjBBaEJVNUtiZm9ObW9CWC1qNjI5RnIzbGVrSEpSczZWaFh3b2VWaUdCNUpKaWxPS3JUR3ZFY2tqNUZDYkVGd196NmVhQ1J3c01wTkNZWlk1eVVhSktadGN3OGZZQVRodFBDdkZsa2tJSDJGVlF1Ql8yQWR3azRPOEROOXHSAfYBQVVfeXFMTUpad2dLakU2S0F5RWl3SHA1VUpHSU9oV3FxOWpDYUtOZ0d0VTVmQTVUTXFtd3U3ZnprT2FHZXI2S1Jhc2NCWldmZlAyS1hGUUQyZ1RwODI3aTFJZE9vNlBWd1hNVm1Sa25HQmo4bVhXX2RwTXBzaTVFTTdHU1JLV1ZhODJTN09yVVZWdEtqallRblR2WXVwekF3TEpCdUdYZElPdE4tb2hmLXN5N1E5ZjlrTktjUDRjcGZlWUgxUlBhcHR4Q1hkZ2ctWTRTV0JGNnBwVFQxdVBzZDd5MzA4ekNTM25kOHRQbTVtTXE5YTF3d09jR1R3?oc=5"
           }
         ]
       },
@@ -61,12 +61,12 @@
       "slug": "hanging-closet-organizer",
       "name": "Hanging Closet Organizer",
       "query": "hanging closet organizer",
-      "attentionScore": 75,
+      "attentionScore": 76.9,
       "attentionLabel": "high-attention",
       "evidence": {
-        "publicMentions": 37,
+        "publicMentions": 34,
         "mentionsLast7Days": 1,
-        "mentionsLast30Days": 4,
+        "mentionsLast30Days": 5,
         "sourcesAvailable": [
           "Google News",
           "Bing News"
@@ -79,16 +79,16 @@
             "url": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxNZDZtOWlxaWdCX3ptWHFQOHhIdFctNlppRnJzTTh4bktBLTZmUEVIUGRwQVBlcFRHeVJESk10NGJGX0d6OGU5S21CVTVTbTRNYzhKYkprTkJ4TWtnbHBKQWhySkp1VlJ6MVB1YnVUNm1Ebm5Dcm5naV9Gdjd3Yl9kQ2xUUFhZSDJ3clozQ1BTdDVKaC1MQ19HdU8zdjIxaXNRSEs3NlpBdkNLLWM?oc=5"
           },
           {
-            "title": "I Doubled My Closet Storage with This $25 Hanging Organizer - Apartment Therapy",
-            "source": "Google News",
-            "publishedAt": "2026-07-12T07:00:00.000Z",
-            "url": "https://news.google.com/rss/articles/CBMiigFBVV95cUxPWFp5N1QwRWRBSlduLVVKYUtGSWFaLXZWWnB3RGVZQ1VFVGotVkdhMWhKMTBxQ3JnVHpJVGJJd0FmYW5NcWgxdlhmM0MtMDNSZkVNa1BMZVdGTjlQSW5ET1paa2p6cFRtWVFMWHpna1ZjdlIzVzI0VnJfdHhJckhvY2RzaFpvZVFSQUE?oc=5"
-          },
-          {
             "title": "12 Organizers That Will Help Keep Your New Fall Wardrobe From Ending Up on the Floor—Starting at $8 - Real Simple",
             "source": "Google News",
             "publishedAt": "2026-09-10T07:00:00.000Z",
             "url": "https://news.google.com/rss/articles/CBMigwFBVV95cUxNTEktQnJlSWx1UGpURHMxc3VaaVRIaklobEQxSGYtejQ3NW96Qk1Ed25rTlFwRUxfNUx3Y2VsYTduLVg2aURmMDhjYklwS2l2MnhVT2NocnpUZmhmaTlwVmZoSFVYRHBxZGpDMGJOckVNckZMbERudFFRem9uVWl2bkVSUQ?oc=5"
+          },
+          {
+            "title": "Stocked Up a Little Too Well for Sweater Weather? These Stacking Storage Bins Keep Your Collection Organized - People.com",
+            "source": "Google News",
+            "publishedAt": "2026-09-16T07:00:00.000Z",
+            "url": "https://news.google.com/rss/articles/CBMigAFBVV95cUxNdUt2cm1naldDczF5TFc0bExVNFFsTlBOTFdrOWh6NHpHSl9FckJJc0NoaTFWWmZST2hZWWJQU0Q5TWxzZVlxTjNGZ0pzOXQ5SDlOTFF4QkR2dkVMXzhrelhZcjUxT0d3WkJmRVdaQjRYQjF0d2lDWWUwZmJQNUs2ZA?oc=5"
           },
           {
             "title": "Amazon has a stackable 5-piece storage organizer for only $36 - TheStreet",
@@ -113,17 +113,23 @@
       "slug": "roll-up-dish-rack",
       "name": "Roll-Up Dish Drying Rack",
       "query": "roll up dish drying rack",
-      "attentionScore": 71.1,
+      "attentionScore": 76.8,
       "attentionLabel": "high-attention",
       "evidence": {
-        "publicMentions": 33,
-        "mentionsLast7Days": 0,
-        "mentionsLast30Days": 3,
+        "publicMentions": 31,
+        "mentionsLast7Days": 1,
+        "mentionsLast30Days": 4,
         "sourcesAvailable": [
           "Google News",
           "Bing News"
         ],
         "sampleSignals": [
+          {
+            "title": "Your Sponge Holder Is Harboring ‘Mold or Mildew’ — This Hack Is ‘a Lot More Sanitary’ and ‘Maximizes Space’ - Food & Wine",
+            "source": "Google News",
+            "publishedAt": "2026-10-09T05:00:00.000Z",
+            "url": "https://news.google.com/rss/articles/CBMikAFBVV95cUxPczhnRmZTSThDRlB0SERmaHF5dGJ0WFhPZWhCSVlmU2JHU012UVRlN05OOXl3V2RoUFo4UXR3UU52c25BZVdibFRWV0JKZkFtZGZXakVrazg0V0hfZTgyZGJMbUlMQ3JJMHpud1dRcUVjUUpRV25aYzZ0VDVPMi1XNzVjbk8xckZoa2tfVUJ3amI?oc=5"
+          },
           {
             "title": "The 11 Very Best Dish Racks - New York Magazine",
             "source": "Google News",
@@ -141,12 +147,6 @@
             "source": "Google News",
             "publishedAt": "2026-06-25T07:00:00.000Z",
             "url": "https://news.google.com/rss/articles/CBMickFVX3lxTE9SUU9hSG9jNm9TOWp3c2JJV0hNV2NuWDRjTHpIVkxTZHktTWlyWk9VcWRCeG1HVDJZQ3N4NEMxSzhTYXNfc2RqRVBKb2F4cGwwSHZzbVZzTUZELTZJUF81QzAyZHVVOUl0bFpsbjZhLUswUQ?oc=5"
-          },
-          {
-            "title": "10 Clever Amazon Home and Kitchen Gadgets That Pull a Lot More Weight Than Their Under-$10 Price Tag Suggests - Real Simple",
-            "source": "Google News",
-            "publishedAt": "2026-09-19T07:00:00.000Z",
-            "url": "https://news.google.com/rss/articles/CBMijAFBVV95cUxPUHVIbW03WHp0bXI4ZXNXNGpFT2ZtSXhKaUNhd04tdXVRbmM5RWoxS1pQcF9JSjRFN3VNUTJIby13bExHaHdvWDRaZWlqX29pcENKRVB5bDVRNnlERGJieWJPSGhUNnlyeUhhN0RfMFlNanR0UEVrMjg2N1NCa1gxQVlKc1QtLVdZenRKRg?oc=5"
           }
         ]
       },
@@ -165,10 +165,10 @@
       "slug": "dryer-vent-cleaner-kit",
       "name": "Dryer Vent Cleaner Kit",
       "query": "dryer vent cleaner kit",
-      "attentionScore": 66.7,
+      "attentionScore": 64.9,
       "attentionLabel": "promotion-watch",
       "evidence": {
-        "publicMentions": 24,
+        "publicMentions": 23,
         "mentionsLast7Days": 0,
         "mentionsLast30Days": 0,
         "sourcesAvailable": [
@@ -318,6 +318,58 @@
       "rank": 6
     },
     {
+      "slug": "bottle-brush-set",
+      "name": "Bottle Brush Cleaning Set",
+      "query": "bottle brush cleaning set",
+      "attentionScore": 28.2,
+      "attentionLabel": "low-signal",
+      "evidence": {
+        "publicMentions": 4,
+        "mentionsLast7Days": 0,
+        "mentionsLast30Days": 0,
+        "sourcesAvailable": [
+          "Google News",
+          "Bing News"
+        ],
+        "sampleSignals": [
+          {
+            "title": "Keep Your Water Bottle Super Clean This Summer With Our Favorite Cleaning Brushes - The Spruce",
+            "source": "Google News",
+            "publishedAt": "2026-05-22T07:00:00.000Z",
+            "url": "https://news.google.com/rss/articles/CBMieEFVX3lxTE8wVjR3S25uUmxHS180VmRZaHUzN3diM2EtZ29mYW1KTTJKX3BBSWlxOS1MZmtVSExfS1V5S2dCUFdjWDFnZW9FRjAyTTMtc0NKS1R3ZzFySGIzWVhkbll4NGhNV3lCMTg4VUN4YUh4elBKZUwwOUh2YQ?oc=5"
+          },
+          {
+            "title": "10 best bottle brushes to keep your water bottles squeaky clean - KLAS 8 News Now",
+            "source": "Google News",
+            "publishedAt": "2023-03-09T08:00:00.000Z",
+            "url": "https://news.google.com/rss/articles/CBMi2wFBVV95cUxOZDhucW5MSU91cnBUeDU1TU0wTmFCbEREeF9jQ0ZGWGJZUkxJRFZ2T0JwUF83QVpOZmlpc296NF90SFJ0dnV6Tmh4ZHk5SHVtUS1zRWhVTTV3VVRQVVJuY1BjLUI2Ums4SnlBd2kyUGFQRFFZcmpiX0tRZzdzMURSVlY1OHZNZk10YnFKU203MjJFRmEyV2pHSldUQ2FtQ00zZVd3MWI1VExJRWh5MTRhSG0xTGFXR2xYVUI4T29zNkRwU2hrSHp1YndYTkdkTDZUZko4bFptakZGSXPSAeABQVVfeXFMTjZ4RVlaUlA1SlQzcHY2Rzh2VnY3SWVxcjM2dEtmUzg4bmo3c3YxQlFoM1V5Wld2X2phSmtCMWRvN25kTXFodE5YYkdvQlhCMnFLZHNZTlU4UTI1R0ZBUDU2UkFLemEtcHl1eXJ6ODZfNHNnRzFnMW5ZWjB1OUZQeGFLN1JOWVpBcW1pWllJSXUwYlgtdkM4VUZsN0phQTg4UXNOZ0JiN1pOcnpxNzAzUHU0MVFBbjBuRjBOVGR6OV81YS11QXJXWld0T2hHMmpYNTM4MkpabGNGNU5wSy16Y1A?oc=5"
+          },
+          {
+            "title": "These 19 Award-Winning Products Will Help Keep Your Baby Nourished and Fed - Parents",
+            "source": "Google News",
+            "publishedAt": "2026-04-07T07:00:00.000Z",
+            "url": "https://news.google.com/rss/articles/CBMif0FVX3lxTE5VVDlIY3NTbzNFWlY3Wm1XNF95cktMX2ZDckhFNlJ0UEdudUEzbDEzSlo4MHpqc0pMUmxYZm9uWU5BNkVBUG1xblhkcm1fMm9jX1ZSeUQ4OFFDUWJHbUNoclBVNDFKRmt2NWFDZ204eWhLQU5FR0xJSFJpZWxwT3M?oc=5"
+          },
+          {
+            "title": "Cool things with near-perfect Amazon reviews that are under-the-radar - mic.com",
+            "source": "Google News",
+            "publishedAt": "2024-05-07T07:00:00.000Z",
+            "url": "https://news.google.com/rss/articles/CBMinwFBVV95cUxQY3l0eWpVTG12TXJMQXJJc1ppYWhONkVRSUlfLVVla2FNaWowYXpUSHF0NkxjRXItZDVCck12emZtLXMwR0tmZEVzT01kVTQ3bnlMWkxOZlptM095TkppNU5wbXNaWlBYQWs5VEgteXRGTjZ4SEhGV1Q4dC10a3dXWldKdmE5V24xWGJNYmIxaXRHZE5uOXNjSzB4WmZIOUk?oc=5"
+          }
+        ]
+      },
+      "supplier": null,
+      "supplierReady": false,
+      "freightReady": false,
+      "promotionReady": false,
+      "mediaRightsReady": false,
+      "liveStripePricingReady": false,
+      "listed": false,
+      "discoveryEvidence": [],
+      "nextAction": "connect-cj",
+      "rank": 7
+    },
+    {
       "slug": "window-washer-squeegee",
       "name": "3-in-1 Window Washer & Squeegee",
       "query": "window washer squeegee",
@@ -355,7 +407,7 @@
       "listed": false,
       "discoveryEvidence": [],
       "nextAction": "connect-cj",
-      "rank": 7
+      "rank": 8
     },
     {
       "slug": "self-standing-floor-mop",
@@ -377,46 +429,6 @@
             "source": "Google News",
             "publishedAt": "2026-09-25T07:00:00.000Z",
             "url": "https://news.google.com/rss/articles/CBMiwAFBVV95cUxONFZyZk9VbDdXWGYyWXIzRUFLZDdwNk9JWnh0V2dXXzR6MzNVdnRweHlNWUtIWlU2TkJtaFpfVWZWLUxNSUlkZkRLQ0pYa3MzNzFyenlSYURzRlNsNkxxS0RTVGNkN05zcUxUTDVyS0ViaVdUa2oyMEpXUVBPQXJrV2tEZHJRbndyQzd2VnZyc3RPa3JtVVdzdmZ1RjB3SG9tenBpTER2UlNJSnFyZDREYjJyc24zNEUwbGd0d2gzc3Y?oc=5"
-          }
-        ]
-      },
-      "supplier": null,
-      "supplierReady": false,
-      "freightReady": false,
-      "promotionReady": false,
-      "mediaRightsReady": false,
-      "liveStripePricingReady": false,
-      "listed": false,
-      "discoveryEvidence": [],
-      "nextAction": "connect-cj",
-      "rank": 8
-    },
-    {
-      "slug": "bottle-brush-set",
-      "name": "Bottle Brush Cleaning Set",
-      "query": "bottle brush cleaning set",
-      "attentionScore": 24.6,
-      "attentionLabel": "low-signal",
-      "evidence": {
-        "publicMentions": 2,
-        "mentionsLast7Days": 0,
-        "mentionsLast30Days": 0,
-        "sourcesAvailable": [
-          "Google News",
-          "Bing News"
-        ],
-        "sampleSignals": [
-          {
-            "title": "Keep Your Water Bottle Super Clean This Summer With Our Favorite Cleaning Brushes - The Spruce",
-            "source": "Google News",
-            "publishedAt": "2026-05-22T07:00:00.000Z",
-            "url": "https://news.google.com/rss/articles/CBMieEFVX3lxTE8wVjR3S25uUmxHS180VmRZaHUzN3diM2EtZ29mYW1KTTJKX3BBSWlxOS1MZmtVSExfS1V5S2dCUFdjWDFnZW9FRjAyTTMtc0NKS1R3ZzFySGIzWVhkbll4NGhNV3lCMTg4VUN4YUh4elBKZUwwOUh2YQ?oc=5"
-          },
-          {
-            "title": "10 best bottle brushes to keep your water bottles squeaky clean - KLAS 8 News Now",
-            "source": "Google News",
-            "publishedAt": "2023-03-09T08:00:00.000Z",
-            "url": "https://news.google.com/rss/articles/CBMi2wFBVV95cUxOZDhucW5MSU91cnBUeDU1TU0wTmFCbEREeF9jQ0ZGWGJZUkxJRFZ2T0JwUF83QVpOZmlpc296NF90SFJ0dnV6Tmh4ZHk5SHVtUS1zRWhVTTV3VVRQVVJuY1BjLUI2Ums4SnlBd2kyUGFQRFFZcmpiX0tRZzdzMURSVlY1OHZNZk10YnFKU203MjJFRmEyV2pHSldUQ2FtQ00zZVd3MWI1VExJRWh5MTRhSG0xTGFXR2xYVUI4T29zNkRwU2hrSHp1YndYTkdkTDZUZko4bFptakZGSXPSAeABQVVfeXFMTjZ4RVlaUlA1SlQzcHY2Rzh2VnY3SWVxcjM2dEtmUzg4bmo3c3YxQlFoM1V5Wld2X2phSmtCMWRvN25kTXFodE5YYkdvQlhCMnFLZHNZTlU4UTI1R0ZBUDU2UkFLemEtcHl1eXJ6ODZfNHNnRzFnMW5ZWjB1OUZQeGFLN1JOWVpBcW1pWllJSXUwYlgtdkM4VUZsN0phQTg4UXNOZ0JiN1pOcnpxNzAzUHU0MVFBbjBuRjBOVGR6OV81YS11QXJXWld0T2hHMmpYNTM4MkpabGNGNU5wSy16Y1A?oc=5"
           }
         ]
       },
