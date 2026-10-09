@@ -24,6 +24,7 @@ jobs:
     env:
       CJ_API_KEY: ${{ secrets.CJ_API_KEY }}
       QUOTE_ORIGIN: https://browser-worker-production-f5b4.up.railway.app
+      STOREFRONT_ORIGIN: https://clean.prismbayai.com
     steps:
       - name: Validate required secret exists
         shell: bash
@@ -67,4 +68,49 @@ jobs:
             if (!response.ok || body.ready !== true || body.automaticSupplierOrdering !== false) process.exit(1);
             console.log(`Live quote health verified for ${body.product}.`);
           })().catch(() => process.exit(1));
+          NODE
+      - name: Verify storefront CORS and non-payment buyer path
+        shell: bash
+        run: |
+          node <<'NODE'
+          (async () => {
+            const api = `${process.env.QUOTE_ORIGIN}/v1/quote`;
+            const storefront = process.env.STOREFRONT_ORIGIN;
+            const preflight = await fetch(api, {
+              method: 'OPTIONS',
+              headers: {
+                origin: storefront,
+                'access-control-request-method': 'POST',
+                'access-control-request-headers': 'content-type'
+              }
+            });
+            if (preflight.status !== 204 || preflight.headers.get('access-control-allow-origin') !== storefront) {
+              console.error(`CORS preflight failed with HTTP ${preflight.status}.`);
+              process.exit(1);
+            }
+
+            const quote = await fetch(api, {
+              method: 'POST',
+              headers: { origin: storefront, 'content-type': 'application/json' },
+              body: JSON.stringify({ zip: '10001' })
+            });
+            const body = await quote.json().catch(() => ({}));
+            const cors = quote.headers.get('access-control-allow-origin');
+            if (cors !== storefront) {
+              console.error('Quote response is missing the storefront CORS header.');
+              process.exit(1);
+            }
+            if (![200, 409].includes(quote.status)) {
+              console.error(`Buyer-path probe failed with HTTP ${quote.status}: ${body.error || 'unknown_error'}`);
+              process.exit(1);
+            }
+            if (body.checkoutUrl) {
+              console.error('Non-payment probe unexpectedly returned checkout authorization on the first request.');
+              process.exit(1);
+            }
+            console.log(`Buyer-path probe completed safely with HTTP ${quote.status}; no payment or supplier order was initiated.`);
+          })().catch(error => {
+            console.error(`Buyer-path probe failed: ${error.name || 'request_error'}`);
+            process.exit(1);
+          });
           NODE
