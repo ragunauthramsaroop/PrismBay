@@ -1,19 +1,79 @@
 // Conservative alternate sourcing for the existing CJ read-only verifier.
 // Search terms change recall only. Every returned product must still pass
-// strict name, sale-status, US-stock and positive-price checks.
+// strict name, sale-status, stock and positive-price checks before inspection.
 const alternates = Object.freeze({
-  'scrubber':['cordless electric spin scrubber cleaning brush','electric bathroom tile scrubber'],
-  'pethair':['reusable pet hair lint roller remover','pet fur remover roller sofa'],
-  'crevice':['gap cleaning brush crevice tool','window track groove cleaning brush'],
-  'pressure-washer':['battery portable pressure washer','cordless car pressure washer'],
-  'mattress-vacuum':['bed mattress vacuum cleaner','handheld mattress dust vacuum'],
-  'garment-steamer':['handheld clothes steamer portable','travel garment steam iron'],
-  'mini-mop':['compact squeeze mini mop','small self squeeze cleaning mop'],
-  'drain-catcher':['sink drain strainer catcher','kitchen sink drain filter basket'],
-  'home-caddy':['portable cleaning caddy organizer','cleaning supplies storage caddy'],
-  'cordless-handheld-vacuum':['cordless portable handheld car vacuum cleaner','mini cordless hand vacuum cleaner'],
-  'hanging-closet-organizer':['hanging closet shelf storage organizer','wardrobe hanging storage shelves organizer'],
-  'roll-up-dish-rack':['silicone roll up dish drying rack','over sink roll up drying rack'],
+  'scrubber':[
+    'cordless electric spin scrubber cleaning brush',
+    'electric bathroom tile scrubber',
+    'electric shower cleaning brush cordless',
+    'powered rotating cleaning brush bathroom',
+  ],
+  'pethair':[
+    'reusable pet hair lint roller remover',
+    'pet fur remover roller sofa',
+    'washable pet hair remover roller',
+    'pet lint remover brush furniture',
+  ],
+  'crevice':[
+    'gap cleaning brush crevice tool',
+    'window track groove cleaning brush',
+    'narrow gap cleaning brush kitchen',
+    'crevice cleaning brush household',
+  ],
+  'pressure-washer':[
+    'battery portable pressure washer',
+    'cordless car pressure washer',
+    'cordless high pressure water gun washer',
+    'rechargeable portable car washer',
+  ],
+  'mattress-vacuum':[
+    'bed mattress vacuum cleaner',
+    'handheld mattress dust vacuum',
+    'mattress mite vacuum cleaner',
+    'bed dust mite remover vacuum',
+  ],
+  'garment-steamer':[
+    'handheld clothes steamer portable',
+    'travel garment steam iron',
+    'portable clothing steamer handheld',
+    'mini garment steam iron travel',
+  ],
+  'mini-mop':[
+    'compact squeeze mini mop',
+    'small self squeeze cleaning mop',
+    'portable mini squeeze mop',
+    'mini sponge mop self squeeze',
+  ],
+  'drain-catcher':[
+    'sink drain strainer catcher',
+    'kitchen sink drain filter basket',
+    'silicone sink drain hair catcher',
+    'sink drain strainer filter kitchen',
+  ],
+  'home-caddy':[
+    'portable cleaning caddy organizer',
+    'cleaning supplies storage caddy',
+    'plastic cleaning carry caddy handle',
+    'household cleaning basket organizer caddy',
+  ],
+  'cordless-handheld-vacuum':[
+    'cordless portable handheld car vacuum cleaner',
+    'mini cordless hand vacuum cleaner',
+    'rechargeable handheld vacuum cleaner',
+    'portable car vacuum cordless handheld',
+  ],
+  'hanging-closet-organizer':[
+    'hanging closet shelf storage organizer',
+    'wardrobe hanging storage shelves organizer',
+    'fabric hanging closet organizer shelves',
+    'hanging wardrobe organizer storage shelf',
+  ],
+  'roll-up-dish-rack':[
+    'silicone roll up dish drying rack',
+    'over sink roll up drying rack',
+    'folding dish drying rack over sink',
+    'rollable kitchen sink drying rack',
+  ],
   'extendable-high-zone-duster':['telescopic microfiber duster','extendable long reach dusting cleaner'],
   'dryer-vent-cleaner-kit':['dryer vent lint cleaning brush kit','dryer duct lint cleaner brush'],
   'self-standing-floor-mop':['self standing floor mop','upright standing flat mop'],
@@ -35,7 +95,7 @@ export function candidateSearches(candidate) {
     if (!key || key.length > 100 || seen.has(key)) return false;
     seen.add(key);
     return true;
-  }).slice(0, 3);
+  }).slice(0, 5);
 }
 
 export function uniqueEligibleProducts(productLists, limit = 3) {
