@@ -1,0 +1,12 @@
+{
+  "name": "prismbay-railway-clean-quote",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "node server.mjs",
+    "test": "node --test server.test.mjs ../physical-orders/shipping-quote.test.mjs"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}
