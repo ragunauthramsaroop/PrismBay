@@ -34,30 +34,37 @@ jobs:
         run: |
           node <<'NODE'
           const crypto = require('node:crypto');
-          const apiKey = process.env.CJ_API_KEY;
-          const origin = process.env.QUOTE_ORIGIN;
-          const timestamp = Date.now();
-          const proof = crypto.createHmac('sha256', apiKey)
-            .update(`${timestamp}:prismbay-clean-quote-bootstrap`)
-            .digest('hex');
-          const response = await fetch(`${origin}/internal/bootstrap`, {
-            method: 'POST',
-            headers: { 'content-type': 'application/json' },
-            body: JSON.stringify({ apiKey, timestamp, proof }),
-          });
-          const body = await response.json().catch(() => ({}));
-          if (!response.ok || body.ready !== true) {
-            console.error(`Prime failed with HTTP ${response.status}: ${body.error || 'unknown_error'}`);
+          (async () => {
+            const apiKey = process.env.CJ_API_KEY;
+            const origin = process.env.QUOTE_ORIGIN;
+            const timestamp = Date.now();
+            const proof = crypto.createHmac('sha256', apiKey)
+              .update(`${timestamp}:prismbay-clean-quote-bootstrap`)
+              .digest('hex');
+            const response = await fetch(`${origin}/internal/bootstrap`, {
+              method: 'POST',
+              headers: { 'content-type': 'application/json' },
+              body: JSON.stringify({ apiKey, timestamp, proof }),
+            });
+            const body = await response.json().catch(() => ({}));
+            if (!response.ok || body.ready !== true) {
+              console.error(`Prime failed with HTTP ${response.status}: ${body.error || 'unknown_error'}`);
+              process.exit(1);
+            }
+            console.log('Railway live quote service primed successfully.');
+          })().catch(error => {
+            console.error(`Prime request failed: ${error.name || 'request_error'}`);
             process.exit(1);
-          }
-          console.log('Railway live quote service primed successfully.');
+          });
           NODE
       - name: Verify service is ready
         shell: bash
         run: |
           node <<'NODE'
-          const response = await fetch(`${process.env.QUOTE_ORIGIN}/health`, { headers: { accept: 'application/json' } });
-          const body = await response.json();
-          if (!response.ok || body.ready !== true || body.automaticSupplierOrdering !== false) process.exit(1);
-          console.log(`Live quote health verified for ${body.product}.`);
+          (async () => {
+            const response = await fetch(`${process.env.QUOTE_ORIGIN}/health`, { headers: { accept: 'application/json' } });
+            const body = await response.json();
+            if (!response.ok || body.ready !== true || body.automaticSupplierOrdering !== false) process.exit(1);
+            console.log(`Live quote health verified for ${body.product}.`);
+          })().catch(() => process.exit(1));
           NODE
