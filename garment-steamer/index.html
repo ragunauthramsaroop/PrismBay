@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Portable Garment Steamer | PrismBay Clean</title>
+<meta name="description" content="Check current U.S. ZIP availability, destination shipping and checkout eligibility for the PrismBay Clean Portable Garment Steamer.">
+<meta name="robots" content="index,follow">
+<link rel="canonical" href="https://clean.prismbayai.com/garment-steamer/">
+<style>
+:root{font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:#111827;background:#f8fafc}*{box-sizing:border-box}body{margin:0}.shell{max-width:1080px;margin:auto;padding:28px 20px 64px}.top{display:flex;justify-content:space-between;align-items:center;gap:20px;padding-bottom:28px}.brand{font-weight:800;letter-spacing:-.02em;font-size:20px}.top a{color:#334155;text-decoration:none}.hero{display:grid;grid-template-columns:1.1fr .9fr;gap:36px;align-items:start}.copy,.card{background:#fff;border:1px solid #e2e8f0;border-radius:22px;box-shadow:0 10px 35px rgba(15,23,42,.06)}.copy{padding:46px}.eyebrow{font-size:12px;font-weight:800;letter-spacing:.12em;color:#475569}.copy h1{font-size:48px;line-height:1.04;letter-spacing:-.045em;margin:16px 0}.lead{font-size:19px;line-height:1.65;color:#475569}.price{font-size:30px;font-weight:800;margin:28px 0 10px}.checks{display:grid;gap:12px;margin:28px 0 0;padding:0;list-style:none}.checks li{padding-left:28px;position:relative;color:#334155;line-height:1.5}.checks li:before{content:"✓";position:absolute;left:0;font-weight:900}.card{padding:30px;position:sticky;top:20px}.card h2{font-size:25px;margin:0 0 10px;letter-spacing:-.025em}.muted{color:#64748b;line-height:1.55}.label{display:block;font-weight:700;margin:22px 0 8px}input{width:100%;font:inherit;font-size:18px;padding:14px 15px;border:1px solid #cbd5e1;border-radius:12px;outline:none}input:focus{border-color:#475569;box-shadow:0 0 0 3px rgba(71,85,105,.12)}button,.checkout{width:100%;display:block;border:0;border-radius:12px;padding:15px 18px;font:inherit;font-weight:800;font-size:16px;text-align:center;text-decoration:none;cursor:pointer;background:#0f172a;color:#fff;margin-top:12px}button:disabled{opacity:.55;cursor:wait}.status{display:none;margin-top:18px;padding:16px;border-radius:12px;background:#f1f5f9;line-height:1.55}.status.ok{display:block;background:#ecfdf5;border:1px solid #a7f3d0;color:#065f46}.status.bad{display:block;background:#fff7ed;border:1px solid #fed7aa;color:#9a3412}.facts{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:18px}.fact{background:#f8fafc;border:1px solid #e2e8f0;padding:12px;border-radius:12px}.fact b{display:block;font-size:12px;text-transform:uppercase;letter-spacing:.05em;color:#64748b;margin-bottom:4px}.fine{font-size:13px;color:#64748b;line-height:1.55;margin-top:18px}.below{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:26px}.below div{background:#fff;border:1px solid #e2e8f0;border-radius:16px;padding:20px}.below h3{margin:0 0 8px;font-size:17px}.below p{margin:0;color:#64748b;line-height:1.5;font-size:14px}@media(max-width:800px){.hero{grid-template-columns:1fr}.copy{padding:30px}.copy h1{font-size:38px}.card{position:static}.below{grid-template-columns:1fr}.facts{grid-template-columns:1fr}.top{align-items:flex-start}}
+</style>
+</head>
+<body>
+<main class="shell">
+<header class="top"><div class="brand">PrismBay Clean</div><a href="/">Back to store</a></header>
+<section class="hero">
+<article class="copy">
+<div class="eyebrow">PRISMBAY CLEAN</div>
+<h1>Portable Garment Steamer</h1>
+<p class="lead">Compact fabric care for travel and everyday clothing. Check your U.S. ZIP before payment so current supplier stock, destination shipping and unit economics are verified first.</p>
+<div class="price">USD 29.95</div>
+<ul class="checks">
+<li>Current supplier stock checked before checkout</li>
+<li>Shipping checked for your destination ZIP</li>
+<li>Checkout opens only when the order meets PrismBay commercial safeguards</li>
+</ul>
+</article>
+<aside class="card">
+<h2>Check live availability</h2>
+<p class="muted">Enter a 5-digit U.S. ZIP. No payment starts during this check.</p>
+<form id="quoteForm">
+<label class="label" for="zip">U.S. ZIP code</label>
+<input id="zip" name="zip" inputmode="numeric" autocomplete="postal-code" maxlength="5" pattern="[0-9]{5}" placeholder="10001" required>
+<button id="checkButton" type="submit">Check stock and shipping</button>
+</form>
+<div id="status" class="status" role="status" aria-live="polite"></div>
+<div id="verified" hidden>
+<div class="facts">
+<div class="fact"><b>Stock</b><span>Verified now</span></div>
+<div class="fact"><b>Shipping</b><span id="shipValue">Verified</span></div>
+<div class="fact"><b>Delivery</b><span id="deliveryValue">Quoted live</span></div>
+</div>
+<button id="checkoutButton" type="button">Recheck and continue to secure checkout</button>
+</div>
+<p class="fine">Checkout authorization expires shortly and is rechecked before the Stripe payment page opens. Supplier ordering is not automatic.</p>
+</aside>
+</section>
+<section class="below">
+<div><h3>Why ZIP verification?</h3><p>Supplier freight varies by destination. PrismBay checks the current route before presenting payment.</p></div>
+<div><h3>Secure payment</h3><p>When eligibility passes, the final button opens the existing PrismBay Clean Stripe checkout.</p></div>
+<div><h3>Fulfillment controls</h3><p>A payment does not trigger unreviewed supplier purchasing. Fulfillment stays subject to verified order controls.</p></div>
+</section>
+</main>
+<script>
+const API='https://browser-worker-production-f5b4.up.railway.app/v1/quote';
+const form=document.getElementById('quoteForm');
+const zipInput=document.getElementById('zip');
+const checkButton=document.getElementById('checkButton');
+const checkoutButton=document.getElementById('checkoutButton');
+const statusBox=document.getElementById('status');
+const verified=document.getElementById('verified');
+const shipValue=document.getElementById('shipValue');
+const deliveryValue=document.getElementById('deliveryValue');
+let currentQuote=null;
+function show(message,kind){statusBox.textContent=message;statusBox.className='status '+kind}
+async function post(payload){
+ const response=await fetch(API,{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(payload)});
+ const body=await response.json().catch(()=>({}));
+ if(!response.ok||body.success!==true) throw new Error(body.error||'Live check is unavailable right now.');
+ return body;
+}
+form.addEventListener('submit',async event=>{
+ event.preventDefault();
+ const zip=zipInput.value.trim();
+ if(!/^\d{5}$/.test(zip)){show('Enter a valid 5-digit U.S. ZIP code.','bad');return}
+ currentQuote=null;verified.hidden=true;checkButton.disabled=true;checkButton.textContent='Checking live supplier data...';show('Checking current stock and destination shipping.','ok');
+ try{
+  const data=await post({zip});
+  currentQuote={zip,quoteToken:data.quoteToken};
+  shipValue.textContent=typeof data.shippingUsd==='number'?'USD '+data.shippingUsd.toFixed(2):'Verified';
+  deliveryValue.textContent=data.estimatedDelivery||'Quoted live';
+  verified.hidden=false;
+  show('Available for this ZIP. Stock, shipping and order economics passed the live check.','ok');
+ }catch(error){show(error.message,'bad')}
+ finally{checkButton.disabled=false;checkButton.textContent='Check stock and shipping'}
+});
+checkoutButton.addEventListener('click',async()=>{
+ if(!currentQuote)return;
+ checkoutButton.disabled=true;checkoutButton.textContent='Rechecking before checkout...';
+ try{
+  const data=await post(currentQuote);
+  if(!data.checkoutUrl)throw new Error('Checkout is unavailable right now.');
+  window.location.assign(data.checkoutUrl);
+ }catch(error){verified.hidden=true;currentQuote=null;show(error.message,'bad');checkoutButton.disabled=false;checkoutButton.textContent='Recheck and continue to secure checkout'}
+});
+</script>
+</body>
+</html>
