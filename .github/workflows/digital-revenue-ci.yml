@@ -1,0 +1,53 @@
+name: PrismBay Digital Revenue CI
+
+on:
+  pull_request:
+    paths:
+      - 'scripts/digital-conversion-campaign.mjs'
+      - 'scripts/digital-conversion-campaign.test.mjs'
+      - 'scripts/buyer-acquisition-worker.test.mjs'
+      - 'scripts/owned-sales-page-worker.mjs'
+      - 'scripts/owned-sales-page-worker.test.mjs'
+      - 'scripts/freellm-sales-worker.mjs'
+      - 'scripts/freellm-sales-worker.test.mjs'
+      - 'scripts/sales-sitemap-sync.mjs'
+      - 'scripts/sales-sitemap-sync.test.mjs'
+      - '.github/workflows/digital-revenue-ci.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/digital-conversion-campaign.mjs'
+      - 'scripts/digital-conversion-campaign.test.mjs'
+      - 'scripts/buyer-acquisition-worker.test.mjs'
+      - 'scripts/owned-sales-page-worker.mjs'
+      - 'scripts/owned-sales-page-worker.test.mjs'
+      - 'scripts/freellm-sales-worker.mjs'
+      - 'scripts/freellm-sales-worker.test.mjs'
+      - 'scripts/sales-sitemap-sync.mjs'
+      - 'scripts/sales-sitemap-sync.test.mjs'
+      - '.github/workflows/digital-revenue-ci.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  verify-digital-revenue-path:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Run digital revenue tests
+        run: node --test scripts/digital-conversion-campaign.test.mjs scripts/buyer-acquisition-worker.test.mjs scripts/freellm-sales-worker.test.mjs scripts/owned-sales-page-worker.test.mjs scripts/sales-sitemap-sync.test.mjs
+      - name: Generate owned-search offer pages
+        run: node scripts/owned-sales-page-worker.mjs "$RUNNER_TEMP/owned-sales-pages"
+      - name: Verify bundle output
+        shell: bash
+        run: |
+          test -s "$RUNNER_TEMP/owned-sales-pages/executive-intelligence-bundle.html"
+          grep -q 'PrismBay Executive Intelligence Bundle' "$RUNNER_TEMP/owned-sales-pages/executive-intelligence-bundle.html"
+          grep -q '\$179' "$RUNNER_TEMP/owned-sales-pages/executive-intelligence-bundle.html"
+          grep -q 'eVqfZi5Lo7pV31Ea4MgnK0t' "$RUNNER_TEMP/owned-sales-pages/executive-intelligence-bundle.html"
+          test "$(find "$RUNNER_TEMP/owned-sales-pages" -maxdepth 1 -name '*.html' | wc -l)" -eq 5
