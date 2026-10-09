@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-08T23:34:16.899Z",
+  "updatedAt": "2026-10-09T06:47:41.122Z",
   "market": "US",
   "methodology": "Public-news attention, freshness, and short-form demonstration fit. This is not PrismBay sales data and is not a TikTok, Amazon, Google, or Bing product ranking.",
   "refreshTargetHours": 6,
@@ -8,12 +8,12 @@
     {
       "slug": "mattress-vacuum",
       "name": "Mattress Vacuum",
-      "signalScore": 86.5,
+      "signalScore": 82,
       "signalLabel": "high-attention",
       "evidence": {
         "publicMentions": 108,
-        "mentionsLast7Days": 3,
-        "mentionsLast30Days": 6,
+        "mentionsLast7Days": 2,
+        "mentionsLast30Days": 5,
         "sourcesAvailable": [
           "Google News",
           "Bing News"
@@ -56,12 +56,12 @@
     {
       "slug": "scrubber",
       "name": "5-in-1 Electric Spin Scrubber",
-      "signalScore": 77.5,
+      "signalScore": 79,
       "signalLabel": "high-attention",
       "evidence": {
-        "publicMentions": 86,
+        "publicMentions": 96,
         "mentionsLast7Days": 0,
-        "mentionsLast30Days": 5,
+        "mentionsLast30Days": 6,
         "sourcesAvailable": [
           "Google News",
           "Bing News"
@@ -155,7 +155,7 @@
       "signalScore": 69.5,
       "signalLabel": "active",
       "evidence": {
-        "publicMentions": 35,
+        "publicMentions": 36,
         "mentionsLast7Days": 0,
         "mentionsLast30Days": 2,
         "sourcesAvailable": [
