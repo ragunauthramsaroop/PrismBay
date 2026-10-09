@@ -1,0 +1,45 @@
+name: PrismBay Clean Live Quote CI
+
+on:
+  pull_request:
+    paths:
+      - 'src/routes/contact.tsx'
+      - 'src/routes/api/clean-quote.ts'
+      - 'config/clean-live-quote.json'
+      - 'services/physical-orders/shipping-quote.mjs'
+      - 'services/physical-orders/shipping-quote.test.mjs'
+      - 'go-live.sh'
+      - '.github/workflows/deploy-prismbay-production.yml'
+      - '.github/workflows/clean-live-quote-ci.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'src/routes/contact.tsx'
+      - 'src/routes/api/clean-quote.ts'
+      - 'config/clean-live-quote.json'
+      - 'services/physical-orders/shipping-quote.mjs'
+      - 'services/physical-orders/shipping-quote.test.mjs'
+      - 'go-live.sh'
+      - '.github/workflows/deploy-prismbay-production.yml'
+      - '.github/workflows/clean-live-quote-ci.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  validate-live-quote-path:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+      - name: Install dependencies
+        run: bun install --frozen-lockfile
+      - name: Test hardened supplier quote engine
+        run: node --test services/physical-orders/shipping-quote.test.mjs
+      - name: Build production application
+        run: bun run build
+      - name: Verify deployment shell syntax
+        run: bash -n go-live.sh
