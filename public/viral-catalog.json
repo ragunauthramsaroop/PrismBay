@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-09T18:32:02.685Z",
+  "updatedAt": "2026-10-09T22:55:08.063Z",
   "market": "US",
   "methodology": "Public-news attention, freshness, and short-form demonstration fit. This is not PrismBay sales data and is not a TikTok, Amazon, Google, or Bing product ranking.",
   "refreshTargetHours": 6,
@@ -8,12 +8,12 @@
     {
       "slug": "mattress-vacuum",
       "name": "Mattress Vacuum",
-      "signalScore": 86.5,
+      "signalScore": 82,
       "signalLabel": "high-attention",
       "evidence": {
-        "publicMentions": 107,
-        "mentionsLast7Days": 3,
-        "mentionsLast30Days": 6,
+        "publicMentions": 100,
+        "mentionsLast7Days": 2,
+        "mentionsLast30Days": 5,
         "sourcesAvailable": [
           "Google News",
           "Bing News"
@@ -59,7 +59,7 @@
       "signalScore": 79,
       "signalLabel": "high-attention",
       "evidence": {
-        "publicMentions": 98,
+        "publicMentions": 95,
         "mentionsLast7Days": 0,
         "mentionsLast30Days": 6,
         "sourcesAvailable": [
@@ -107,7 +107,7 @@
       "signalScore": 75.5,
       "signalLabel": "high-attention",
       "evidence": {
-        "publicMentions": 104,
+        "publicMentions": 100,
         "mentionsLast7Days": 1,
         "mentionsLast30Days": 2,
         "sourcesAvailable": [
@@ -155,7 +155,7 @@
       "signalScore": 69.5,
       "signalLabel": "active",
       "evidence": {
-        "publicMentions": 36,
+        "publicMentions": 34,
         "mentionsLast7Days": 0,
         "mentionsLast30Days": 2,
         "sourcesAvailable": [
