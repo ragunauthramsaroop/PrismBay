@@ -4,7 +4,7 @@ import { pathToFileURL } from 'node:url';
 import { ACTIVE_DIGITAL_OFFERS } from './digital-conversion-campaign.mjs';
 import { guidedSalesPlan } from './freellm-sales-worker.mjs';
 
-const ROOT = 'https://ragunauthramsaroop.github.io/PrismBay/';
+const ROOT = 'https://clean.prismbayai.com/';
 const LEARN = ROOT + 'learn/';
 const pageSlugs = Object.freeze({
   bundle: 'executive-intelligence-bundle.html',
