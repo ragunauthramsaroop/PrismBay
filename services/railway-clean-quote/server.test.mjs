@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { makeBootstrapProof, validBootstrapEnvelope, validZip } from './server.mjs';
+import { computeEconomics, makeBootstrapProof, validBootstrapEnvelope, validZip } from './server.mjs';
 
 test('accepts only five-digit US ZIP shape', () => {
   assert.equal(validZip('10001'), true);
@@ -17,4 +17,16 @@ test('bootstrap proof binds credential and timestamp', () => {
   assert.equal(validBootstrapEnvelope(envelope, timestamp + 1000), true);
   assert.equal(validBootstrapEnvelope({ ...envelope, apiKey: apiKey + 'x' }, timestamp + 1000), false);
   assert.equal(validBootstrapEnvelope(envelope, timestamp + 6 * 60 * 1000), false);
+});
+
+test('positive freight economics pass only within guarded thresholds', () => {
+  const good = computeEconomics(8.43);
+  assert.equal(good.approved, true);
+  assert.ok(good.contributionUsd >= 3);
+  assert.ok(good.contributionPct >= 25);
+  assert.ok(good.landedPctOfRetail <= 55);
+
+  const bad = computeEconomics(20);
+  assert.equal(bad.approved, false);
+  assert.equal(bad.reason, 'commercial_thresholds_failed');
 });
