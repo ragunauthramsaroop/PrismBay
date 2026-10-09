@@ -19,6 +19,7 @@ const CONFIG = Object.freeze({
 });
 const ALLOWED_ORIGINS = new Set([
   'https://ragunauth123456-maker.github.io',
+  'https://clean.prismbayai.com',
   'https://www.prismbayai.com',
   'https://prismbayai.com',
 ]);
