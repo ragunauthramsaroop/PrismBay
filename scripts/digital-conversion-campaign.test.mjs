@@ -5,7 +5,7 @@ import { ACTIVE_DIGITAL_OFFERS, campaignForSlot, currentSixHourSlot } from './di
 test('rotate four verified paid document offers across six-hour cloud runs', () => {
   assert.equal(ACTIVE_DIGITAL_OFFERS.length, 4);
   const first = [0,1,2,3,4,5,6,7].map(x => campaignForSlot(x).offer.slug);
-  assert.deepEqual(first, ['bundle','stakeholder','esg','whitepaper','bundle','stakeholder','esg','whitepaper']);
+  assert.deepEqual(first, ['stakeholder','esg','whitepaper','bundle','stakeholder','esg','whitepaper','bundle']);
   assert.equal(currentSixHourSlot(0),0);
   assert.equal(currentSixHourSlot(6 * 60 * 60 * 1000),1);
 });
@@ -47,8 +47,8 @@ test('marketing drafts do not claim customers, inventory, certainty or hidden so
     assert.ok(c.guardrails.noInventedTestimonials && c.guardrails.noClaimsOfNewSales);
     assert.ok(!/best.?seller|guaranteed income|only [0-9]+ left|customer testimonial/i.test(c.editorialDraft));
   }
-  assert.match(campaignForSlot(0).editorialDraft,/Free comparison page/);
-  assert.match(campaignForSlot(1).editorialDraft,/Free step-by-step example/);
+  assert.match(campaignForSlot(3).editorialDraft,/Free comparison page/);
+  assert.match(campaignForSlot(0).editorialDraft,/Free step-by-step example/);
   assert.throws(()=>campaignForSlot(-1));
   assert.throws(()=>campaignForSlot(1.5));
   assert.throws(()=>currentSixHourSlot(Number.NaN));
