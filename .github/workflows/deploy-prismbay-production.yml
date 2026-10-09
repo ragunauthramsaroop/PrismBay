@@ -6,6 +6,10 @@ on:
     branches: [main]
     paths:
       - 'src/routes/clean.tsx'
+      - 'src/routes/contact.tsx'
+      - 'src/routes/api/clean-quote.ts'
+      - 'config/clean-live-quote.json'
+      - 'services/physical-orders/shipping-quote.mjs'
       - 'public/images/prismbay-clean-hero.jpg'
       - 'go-live.sh'
       - 'build-vercel.sh'
@@ -27,17 +31,23 @@ jobs:
       - uses: oven-sh/setup-bun@v2
         with:
           bun-version: latest
-      - name: Verify Vercel deployment credential
+      - name: Verify production deployment credentials
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          CJ_API_KEY: ${{ secrets.CJ_API_KEY }}
         run: |
           if [ -z "$VERCEL_TOKEN" ]; then
             echo 'VERCEL_TOKEN is not configured in GitHub Actions secrets.' >&2
+            exit 2
+          fi
+          if [ -z "$CJ_API_KEY" ]; then
+            echo 'CJ_API_KEY is not configured in GitHub Actions secrets.' >&2
             exit 2
           fi
       - name: Build and deploy PrismBay production
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          CJ_API_KEY: ${{ secrets.CJ_API_KEY }}
           VERCEL_PROJECT_NAME: prismbay
         run: bash ./go-live.sh
