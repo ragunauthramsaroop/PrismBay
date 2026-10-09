@@ -1,0 +1,91 @@
+name: Migrate PrismBay Pages Revenue Domain
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/migrate-pages-brand-domain.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: prismbay-pages-brand-domain
+  cancel-in-progress: false
+
+jobs:
+  migrate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: true
+
+      - name: Rewrite legacy revenue URLs on GitHub Pages
+        shell: bash
+        run: |
+          set -euo pipefail
+          target="$RUNNER_TEMP/prismbay-pages-brand-domain"
+          legacy='https://ragunauthramsaroop.github.io/PrismBay/'
+          branded='https://clean.prismbayai.com/'
+
+          git fetch origin gh-pages
+          git worktree add --detach "$target" origin/gh-pages
+          git -C "$target" config user.name 'github-actions[bot]'
+          git -C "$target" config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+
+          test "$(cat "$target/CNAME")" = 'clean.prismbayai.com'
+
+          python3 - "$target" "$legacy" "$branded" <<'PY'
+          from pathlib import Path
+          import sys
+
+          root = Path(sys.argv[1])
+          legacy = sys.argv[2]
+          branded = sys.argv[3]
+          candidates = list(root.glob('*.html')) + list((root / 'learn').glob('*.html')) + [root / 'sitemap.xml']
+          changed = []
+          for path in candidates:
+              if not path.exists() or not path.is_file():
+                  continue
+              text = path.read_text()
+              if legacy not in text:
+                  continue
+              path.write_text(text.replace(legacy, branded))
+              changed.append(str(path.relative_to(root)))
+          print('rewritten=' + ','.join(changed))
+          PY
+
+          grep -q 'https://clean.prismbayai.com/stakeholder-engagement-plan-template.html' "$target/stakeholder-engagement-plan-template.html"
+          grep -q 'https://clean.prismbayai.com/esg-monthly-reporting-template.html' "$target/esg-monthly-reporting-template.html"
+          grep -q 'https://clean.prismbayai.com/board-briefing-white-paper-template.html' "$target/board-briefing-white-paper-template.html"
+          grep -q 'https://clean.prismbayai.com/learn/executive-intelligence-bundle.html' "$target/learn/executive-intelligence-bundle.html"
+          if grep -R -n --include='*.html' --include='sitemap.xml' "$legacy" "$target/learn" "$target/stakeholder-engagement-plan-template.html" "$target/esg-monthly-reporting-template.html" "$target/board-briefing-white-paper-template.html" "$target/sitemap.xml"; then
+            echo 'Legacy revenue URL remains after migration.' >&2
+            exit 1
+          fi
+
+          git -C "$target" add '*.html' learn sitemap.xml
+          if git -C "$target" diff --cached --quiet; then
+            echo 'Pages revenue URLs already use branded domain'
+            exit 0
+          fi
+
+          git -C "$target" commit -m 'revenue: canonicalize Pages funnel to clean.prismbayai.com'
+          for attempt in 1 2 3; do
+            git fetch origin gh-pages
+            if ! git -C "$target" rebase origin/gh-pages; then
+              git -C "$target" rebase --abort || true
+              echo 'Concurrent gh-pages edit requires review.' >&2
+              exit 1
+            fi
+            if git -C "$target" push origin HEAD:gh-pages; then
+              echo 'Branded Pages migration published'
+              exit 0
+            fi
+            sleep $((attempt * 2))
+          done
+          exit 1
