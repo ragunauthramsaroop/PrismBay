@@ -29,7 +29,7 @@ jobs:
           fetch-depth: 0
           persist-credentials: true
 
-      - name: Validate verified offer copy and Stripe destinations
+      - name: Validate verified offer copy, buyer guides and Stripe destinations
         shell: bash
         run: |
           python3 - <<'PY'
@@ -44,6 +44,14 @@ jobs:
           for url, price in expected.items():
               assert page.count(url) >= 2, f'missing Stripe offer URL: {url}'
               assert price in page, f'missing verified price: {price}'
+          guides = [
+              '/learn/stakeholder-mapping-toolkit.html',
+              '/learn/esg-reporting-toolkit.html',
+              '/learn/board-briefing-white-paper-system.html',
+              '/toolkits.html',
+          ]
+          for guide in guides:
+              assert guide in page, f'missing buyer-guide path: {guide}'
           assert '$227' in page and '$48' in page
           forbidden = ['guaranteed income', 'guaranteed results', 'limited time only', 'only today', 'sold out soon']
           lower = page.lower()
@@ -54,7 +62,7 @@ jobs:
           print('Digital storefront verification PASS')
           PY
 
-      - name: Publish /digital to existing GitHub Pages branch
+      - name: Publish digital funnel to existing GitHub Pages branch
         if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
         shell: bash
         run: |
@@ -68,12 +76,48 @@ jobs:
           mkdir -p "$target/digital"
           cp -R public/digital/. "$target/digital/"
           test "$(cat "$target/CNAME")" = 'clean.prismbayai.com'
-          git -C "$target" add digital
+
+          python3 - "$target" <<'PY'
+          from pathlib import Path
+          import sys
+
+          root = Path(sys.argv[1])
+          homepage = root / 'index.html'
+          sitemap = root / 'sitemap.xml'
+
+          home = homepage.read_text()
+          desktop_anchor = '<a href="#faq">FAQs</a></nav>'
+          desktop_replacement = '<a href="#faq">FAQs</a><a href="/digital/">Executive digital systems</a></nav>'
+          if '/digital/' not in home:
+              if desktop_anchor not in home:
+                  raise SystemExit('homepage navigation anchor changed')
+              home = home.replace(desktop_anchor, desktop_replacement, 1)
+              mobile_anchor = '<a href="/contact.html">Contact</a></div>'
+              if mobile_anchor in home:
+                  home = home.replace(mobile_anchor, '<a href="/contact.html">Contact</a><a href="/digital/">Executive digital systems</a></div>', 1)
+              footer_anchor = '<div><h4>Shop</h4><a href="#catalog">Products</a><a href="#how-it-works">How ordering works</a></div>'
+              if footer_anchor in home:
+                  home = home.replace(footer_anchor, '<div><h4>Shop</h4><a href="#catalog">Products</a><a href="/digital/">Executive digital systems</a><a href="#how-it-works">How ordering works</a></div>', 1)
+              homepage.write_text(home)
+
+          xml = sitemap.read_text()
+          digital_url = 'https://clean.prismbayai.com/digital/'
+          if digital_url not in xml:
+              entry = '  <url><loc>https://clean.prismbayai.com/digital/</loc><lastmod>2026-10-09</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>\n'
+              if '</urlset>' not in xml:
+                  raise SystemExit('sitemap closing tag missing')
+              xml = xml.replace('</urlset>', entry + '</urlset>')
+              sitemap.write_text(xml)
+          PY
+
+          grep -q 'href="/digital/"' "$target/index.html"
+          grep -q 'https://clean.prismbayai.com/digital/' "$target/sitemap.xml"
+          git -C "$target" add digital index.html sitemap.xml
           if git -C "$target" diff --cached --quiet; then
-            echo 'Digital storefront unchanged'
+            echo 'Digital funnel unchanged'
             exit 0
           fi
-          git -C "$target" commit -m 'revenue: publish verified digital Stripe storefront'
+          git -C "$target" commit -m 'revenue: connect verified digital Stripe funnel'
           for attempt in 1 2 3; do
             git fetch origin gh-pages
             if ! git -C "$target" rebase origin/gh-pages; then
