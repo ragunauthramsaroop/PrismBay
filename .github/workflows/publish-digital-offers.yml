@@ -1,0 +1,90 @@
+name: Publish PrismBay Digital Offers
+
+on:
+  pull_request:
+    paths:
+      - 'public/digital/**'
+      - '.github/workflows/publish-digital-offers.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'public/digital/**'
+      - '.github/workflows/publish-digital-offers.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: prismbay-digital-pages-publisher
+  cancel-in-progress: false
+
+jobs:
+  validate-and-publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: true
+
+      - name: Validate verified offer copy and Stripe destinations
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          page = Path('public/digital/index.html').read_text()
+          expected = {
+              'https://buy.stripe.com/eVqfZi5Lo7pV31Ea4MgnK0t': '$179',
+              'https://buy.stripe.com/4gM8wQ1v8dOj45Ib8QgnK0q': '$49',
+              'https://buy.stripe.com/4gMeVe8XA5hNfOq2CkgnK0r': '$99',
+              'https://buy.stripe.com/bJe7sMgq25hNcCe6SAgnK0s': '$79',
+          }
+          for url, price in expected.items():
+              assert page.count(url) >= 2, f'missing Stripe offer URL: {url}'
+              assert price in page, f'missing verified price: {price}'
+          assert '$227' in page and '$48' in page
+          forbidden = ['guaranteed income', 'guaranteed results', 'limited time only', 'only today', 'sold out soon']
+          lower = page.lower()
+          for phrase in forbidden:
+              assert phrase not in lower, f'unsupported sales claim: {phrase}'
+          assert 'No subscription' in page
+          assert 'No physical shipping' in page
+          print('Digital storefront verification PASS')
+          PY
+
+      - name: Publish /digital to existing GitHub Pages branch
+        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+        shell: bash
+        run: |
+          set -euo pipefail
+          target="$RUNNER_TEMP/prismbay-gh-pages-digital"
+          git fetch origin gh-pages
+          git worktree add --detach "$target" origin/gh-pages
+          git -C "$target" config user.name 'github-actions[bot]'
+          git -C "$target" config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          rm -rf "$target/digital"
+          mkdir -p "$target/digital"
+          cp -R public/digital/. "$target/digital/"
+          test "$(cat "$target/CNAME")" = 'clean.prismbayai.com'
+          git -C "$target" add digital
+          if git -C "$target" diff --cached --quiet; then
+            echo 'Digital storefront unchanged'
+            exit 0
+          fi
+          git -C "$target" commit -m 'revenue: publish verified digital Stripe storefront'
+          for attempt in 1 2 3; do
+            git fetch origin gh-pages
+            if ! git -C "$target" rebase origin/gh-pages; then
+              git -C "$target" rebase --abort || true
+              echo 'Concurrent GitHub Pages edit requires a clean retry.' >&2
+              exit 1
+            fi
+            if git -C "$target" push origin HEAD:gh-pages; then
+              echo 'Published: https://clean.prismbayai.com/digital/'
+              exit 0
+            fi
+            sleep $((attempt * 2))
+          done
+          exit 1
