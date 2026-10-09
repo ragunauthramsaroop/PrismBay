@@ -45,5 +45,8 @@
       ],
       "spoken": "Measure cost per completed task, errors, rework, and verified financial value. PrismBay AI helps founders and operators implement practical AI business systems."
     }
-  ]
+  ],
+  "experimentId": "PB-ROI-001",
+  "targetChannelId": "UCw2hs85TzIpdKwJtG-BSxzQ",
+  "productionStatus": "render_requested_2026-10-09"
 }
