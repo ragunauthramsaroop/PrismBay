@@ -1,0 +1,63 @@
+name: Prime PrismBay Railway Live Quote
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'services/railway-clean-quote/**'
+      - '.github/workflows/prime-railway-clean-quote.yml'
+  workflow_dispatch:
+  schedule:
+    - cron: '7,37 * * * *'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: prismbay-railway-live-quote-prime
+  cancel-in-progress: true
+
+jobs:
+  prime:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env:
+      CJ_API_KEY: ${{ secrets.CJ_API_KEY }}
+      QUOTE_ORIGIN: https://browser-worker-production-f5b4.up.railway.app
+    steps:
+      - name: Validate required secret exists
+        shell: bash
+        run: |
+          test -n "$CJ_API_KEY" || { echo 'CJ_API_KEY is not configured'; exit 1; }
+      - name: Prime Railway quote service securely
+        shell: bash
+        run: |
+          node <<'NODE'
+          const crypto = require('node:crypto');
+          const apiKey = process.env.CJ_API_KEY;
+          const origin = process.env.QUOTE_ORIGIN;
+          const timestamp = Date.now();
+          const proof = crypto.createHmac('sha256', apiKey)
+            .update(`${timestamp}:prismbay-clean-quote-bootstrap`)
+            .digest('hex');
+          const response = await fetch(`${origin}/internal/bootstrap`, {
+            method: 'POST',
+            headers: { 'content-type': 'application/json' },
+            body: JSON.stringify({ apiKey, timestamp, proof }),
+          });
+          const body = await response.json().catch(() => ({}));
+          if (!response.ok || body.ready !== true) {
+            console.error(`Prime failed with HTTP ${response.status}: ${body.error || 'unknown_error'}`);
+            process.exit(1);
+          }
+          console.log('Railway live quote service primed successfully.');
+          NODE
+      - name: Verify service is ready
+        shell: bash
+        run: |
+          node <<'NODE'
+          const response = await fetch(`${process.env.QUOTE_ORIGIN}/health`, { headers: { accept: 'application/json' } });
+          const body = await response.json();
+          if (!response.ok || body.ready !== true || body.automaticSupplierOrdering !== false) process.exit(1);
+          console.log(`Live quote health verified for ${body.product}.`);
+          NODE
