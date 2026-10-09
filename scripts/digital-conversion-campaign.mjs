@@ -3,20 +3,6 @@
 const ROOT = 'https://ragunauthramsaroop.github.io/PrismBay/';
 export const ACTIVE_DIGITAL_OFFERS = Object.freeze([
   Object.freeze({
-    slug: 'bundle',
-    name: 'PrismBay Executive Intelligence Bundle',
-    priceUsd: 179,
-    guide: ROOT + 'toolkits.html',
-    guideLead: 'Free comparison page',
-    guideCta: 'Compare the included systems',
-    audience: 'Executives, corporate affairs leaders, ESG teams, strategy professionals and consultants who need multiple repeatable document systems',
-    problem: 'Executive work slows down when stakeholder, ESG and board-reporting processes live in disconnected files.',
-    educationalHook: 'A practical executive operating system should separate stakeholder commitments, ESG evidence and board-level claims while preserving accountable owners and source records.',
-    actionableTip: 'Map the work into three evidence lanes: stakeholder commitments, ESG performance records and decision-grade research claims. Assign one accountable owner to each lane.',
-    checkout: 'https://buy.stripe.com/eVqfZi5Lo7pV31Ea4MgnK0t',
-    deliverables: ['Executive Stakeholder Mapping Toolkit', 'ESG & Social Performance Operating Pack', 'Executive White Paper & Board Briefing System']
-  }),
-  Object.freeze({
     slug: 'stakeholder',
     name: 'Executive Stakeholder Mapping Toolkit',
     priceUsd: 49,
@@ -57,6 +43,20 @@ export const ACTIVE_DIGITAL_OFFERS = Object.freeze([
     educationalHook: 'Before a board paper goes out, separate verified facts, calculations, management assumptions and the decision being requested.',
     actionableTip: 'Start a claim ledger with the source, date, methodology, reviewer and what could change the conclusion.',
     deliverables: ['PDF implementation guide', 'editable Excel source-and-claims ledger', 'two Word templates for a white paper and a board brief']
+  }),
+  Object.freeze({
+    slug: 'bundle',
+    name: 'PrismBay Executive Intelligence Bundle',
+    priceUsd: 179,
+    guide: ROOT + 'toolkits.html',
+    guideLead: 'Free comparison page',
+    guideCta: 'Compare the included systems',
+    audience: 'Executives, corporate affairs leaders, ESG teams, strategy professionals and consultants who need multiple repeatable document systems',
+    problem: 'Executive work slows down when stakeholder, ESG and board-reporting processes live in disconnected files.',
+    educationalHook: 'A practical executive operating system should separate stakeholder commitments, ESG evidence and board-level claims while preserving accountable owners and source records.',
+    actionableTip: 'Map the work into three evidence lanes: stakeholder commitments, ESG performance records and decision-grade research claims. Assign one accountable owner to each lane.',
+    checkout: 'https://buy.stripe.com/eVqfZi5Lo7pV31Ea4MgnK0t',
+    deliverables: ['Executive Stakeholder Mapping Toolkit', 'ESG & Social Performance Operating Pack', 'Executive White Paper & Board Briefing System']
   })
 ]);
 const safeSegment = s => String(s).replace(/[^a-z0-9_]/gi,'_').slice(0,64);
