@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { TARGETS, DIGITAL_CHECKOUT_TOKENS, PHYSICAL_PRODUCTS, validatePaidStore, validateBuyerGuide, validateScorecard, validatePhysicalStore, validateCatalog } from './revenue-health-check.mjs';
+import { TARGETS, DIGITAL_CHECKOUT_TOKENS, PHYSICAL_PRODUCTS, BUYER_GUIDE_OFFERS, validatePaidStore, validateBuyerGuide, validateScorecard, validatePhysicalStore, validateCatalog } from './revenue-health-check.mjs';
 import { ACTIVE_DIGITAL_OFFERS } from './digital-conversion-campaign.mjs';
 
 test('paid store requires every configured digital checkout token and customer policy routes', () => {
@@ -35,9 +35,17 @@ test('catalog rejects stale, incomplete and duplicate public attention data', ()
   assert.throws(() => validateCatalog({...base, products:[...base.products.slice(0,8), base.products[0]]}, now), /duplicate_slugs/);
 });
 
+test('four paid offers are monitored while standalone guide validation remains scoped to the three original guides', () => {
+  assert.equal(ACTIVE_DIGITAL_OFFERS.length,4);
+  assert.equal(BUYER_GUIDE_OFFERS.length,3);
+  assert.deepEqual(BUYER_GUIDE_OFFERS.map(offer => offer.slug), ['stakeholder','esg','whitepaper']);
+  const bundle = ACTIVE_DIGITAL_OFFERS.find(offer => offer.slug === 'bundle');
+  assert.ok(bundle);
+  assert.ok(DIGITAL_CHECKOUT_TOKENS.includes(bundle.checkout.split('/').at(-1)));
+});
+
 test('live paid-product acquisition guides enforce exact canonical, checkout, price and refund policy', () => {
-  assert.equal(ACTIVE_DIGITAL_OFFERS.length,3);
-  for(const offer of ACTIVE_DIGITAL_OFFERS) {
+  for(const offer of BUYER_GUIDE_OFFERS) {
     const html='x'.repeat(7200)+'<link rel="canonical" href="'+offer.guide+'">'+
       '<link rel="stylesheet" href="./buyer-guides.css"><h1>Free original guide</h1>'+
       '<a href="'+offer.checkout+'">Buy for $'+offer.priceUsd+'</a>'+
@@ -49,7 +57,7 @@ test('live paid-product acquisition guides enforce exact canonical, checkout, pr
   }
 });
 
- test('revenue checks and campaigns use the current GitHub owner', () => {
+test('revenue checks and campaigns use the current GitHub owner', () => {
   for (const url of [TARGETS.paidStore, TARGETS.freeScorecard, ...ACTIVE_DIGITAL_OFFERS.map(offer => offer.guide)]) {
     assert.equal(new URL(url).hostname, 'ragunauthramsaroop.github.io');
   }

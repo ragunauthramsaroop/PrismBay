@@ -12,6 +12,8 @@ on:
       - 'scripts/freellm-sales-worker.test.mjs'
       - 'scripts/sales-sitemap-sync.mjs'
       - 'scripts/sales-sitemap-sync.test.mjs'
+      - 'scripts/revenue-health-check.mjs'
+      - 'scripts/revenue-health-check.test.mjs'
       - '.github/workflows/digital-revenue-ci.yml'
   push:
     branches: [main]
@@ -25,6 +27,8 @@ on:
       - 'scripts/freellm-sales-worker.test.mjs'
       - 'scripts/sales-sitemap-sync.mjs'
       - 'scripts/sales-sitemap-sync.test.mjs'
+      - 'scripts/revenue-health-check.mjs'
+      - 'scripts/revenue-health-check.test.mjs'
       - '.github/workflows/digital-revenue-ci.yml'
 
 permissions:
@@ -40,7 +44,7 @@ jobs:
         with:
           node-version: '22'
       - name: Run digital revenue tests
-        run: node --test scripts/digital-conversion-campaign.test.mjs scripts/buyer-acquisition-worker.test.mjs scripts/freellm-sales-worker.test.mjs scripts/owned-sales-page-worker.test.mjs scripts/sales-sitemap-sync.test.mjs
+        run: node --test scripts/digital-conversion-campaign.test.mjs scripts/buyer-acquisition-worker.test.mjs scripts/freellm-sales-worker.test.mjs scripts/owned-sales-page-worker.test.mjs scripts/sales-sitemap-sync.test.mjs scripts/revenue-health-check.test.mjs
       - name: Generate owned-search offer pages
         run: node scripts/owned-sales-page-worker.mjs "$RUNNER_TEMP/owned-sales-pages"
       - name: Verify bundle output
