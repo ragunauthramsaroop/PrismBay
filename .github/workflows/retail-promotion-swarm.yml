@@ -15,6 +15,9 @@ on:
       - '.github/workflows/retail-promotion-swarm.yml'
       - 'scripts/retail-promotion-swarm.mjs'
       - 'scripts/retail-promotion-swarm.test.mjs'
+      - 'scripts/viral-product-engine.mjs'
+      - 'scripts/retail-content-brief.mjs'
+      - 'scripts/retail-content-brief.test.mjs'
       - 'scripts/tiktok-retail-readiness.mjs'
       - 'scripts/first-sale-verifier.mjs'
       - 'scripts/retail-readiness-closure.test.mjs'
@@ -52,6 +55,7 @@ jobs:
         run: >-
           node --test
           scripts/retail-promotion-swarm.test.mjs
+          scripts/retail-content-brief.test.mjs
           scripts/retail-readiness-closure.test.mjs
           scripts/cj-review-board.test.mjs
           scripts/cj-match-policy.test.mjs
