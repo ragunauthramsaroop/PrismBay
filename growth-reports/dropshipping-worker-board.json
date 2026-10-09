@@ -1,10 +1,10 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-10-08T23:35:01.329Z",
+  "generatedAt": "2026-10-09T03:08:17.418Z",
   "researchCandidates": 12,
   "publishedResearchSignals": 12,
   "verifiedCJStatus": {
-    "checkedAt": "2026-10-08T23:21:41.461Z",
+    "checkedAt": "2026-10-09T03:08:16.199Z",
     "validSupplierMatches": 6,
     "variantStock": 3,
     "freightEstimates": 3,
@@ -28,45 +28,24 @@
       "candidateCount": 12,
       "blockers": [
         {
-          "slug": "cordless-handheld-vacuum",
+          "slug": "scrubber",
+          "status": "supplier_search_needed",
+          "sku": null,
+          "shippingDiagnostic": null,
+          "zeroPricedMethods": 0
+        },
+        {
+          "slug": "pethair",
           "status": "variant_stock_required",
-          "sku": "CJXC1113517",
+          "sku": "CJYD2079690",
           "shippingDiagnostic": "variant_stock_unverified",
           "zeroPricedMethods": 0
         },
         {
-          "slug": "hanging-closet-organizer",
+          "slug": "crevice",
           "status": "final_zip_freight_required",
-          "sku": "CJJT254150701AZ",
-          "shippingDiagnostic": "priced_tip_estimate_available",
-          "zeroPricedMethods": 11
-        },
-        {
-          "slug": "roll-up-dish-rack",
-          "status": "supplier_search_needed",
-          "sku": null,
-          "shippingDiagnostic": null,
-          "zeroPricedMethods": 0
-        },
-        {
-          "slug": "mini-mop",
-          "status": "supplier_search_needed",
-          "sku": null,
-          "shippingDiagnostic": null,
-          "zeroPricedMethods": 0
-        },
-        {
-          "slug": "drain-catcher",
-          "status": "variant_stock_required",
-          "sku": "CJCF1653868",
-          "shippingDiagnostic": "variant_stock_unverified",
-          "zeroPricedMethods": 0
-        },
-        {
-          "slug": "home-caddy",
-          "status": "supplier_search_needed",
-          "sku": null,
-          "shippingDiagnostic": null,
+          "sku": "CJJT173147702BY",
+          "shippingDiagnostic": "priced_estimate_available",
           "zeroPricedMethods": 0
         },
         {
@@ -91,24 +70,45 @@
           "zeroPricedMethods": 0
         },
         {
-          "slug": "scrubber",
+          "slug": "mini-mop",
           "status": "supplier_search_needed",
           "sku": null,
           "shippingDiagnostic": null,
           "zeroPricedMethods": 0
         },
         {
-          "slug": "pethair",
+          "slug": "drain-catcher",
           "status": "variant_stock_required",
-          "sku": "CJYD2079690",
+          "sku": "CJCF1653868",
           "shippingDiagnostic": "variant_stock_unverified",
           "zeroPricedMethods": 0
         },
         {
-          "slug": "crevice",
+          "slug": "home-caddy",
+          "status": "supplier_search_needed",
+          "sku": null,
+          "shippingDiagnostic": null,
+          "zeroPricedMethods": 0
+        },
+        {
+          "slug": "cordless-handheld-vacuum",
+          "status": "variant_stock_required",
+          "sku": "CJXC1113517",
+          "shippingDiagnostic": "variant_stock_unverified",
+          "zeroPricedMethods": 0
+        },
+        {
+          "slug": "hanging-closet-organizer",
           "status": "final_zip_freight_required",
-          "sku": "CJJT173147702BY",
-          "shippingDiagnostic": "priced_estimate_available",
+          "sku": "CJJT254150701AZ",
+          "shippingDiagnostic": "priced_tip_estimate_available",
+          "zeroPricedMethods": 11
+        },
+        {
+          "slug": "roll-up-dish-rack",
+          "status": "supplier_search_needed",
+          "sku": null,
+          "shippingDiagnostic": null,
           "zeroPricedMethods": 0
         }
       ]
