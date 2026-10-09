@@ -1,0 +1,17 @@
+{
+  "channelId": "UCw2hs85TzIpdKwJtG-BSxzQ",
+  "metricoolBrandId": 6945443,
+  "experimentId": "PB-ROI-001",
+  "checkedAt": "2026-10-09T11:47:00-04:00",
+  "state": "PUBLIC_MEDIA_READY_PUBLISH_BLOCKED",
+  "youtubePublished": false,
+  "scheduledInMetricool": false,
+  "reason": "Metricool createScheduledPost was blocked by connector safety checks. Do not claim upload success or retry identical request.",
+  "videoUrl": "https://raw.githubusercontent.com/ragunauthramsaroop/PrismBay/main/public/youtube/ai-agent-roi-capacity-vs-cash-2026-10-09.mp4",
+  "sourceManifest": "public/youtube/ai-agent-roi-capacity-vs-cash-2026-10-09.json",
+  "targetPublishTime": "2026-10-09T16:00:00-04:00",
+  "verifiedSubscribers": 7,
+  "scheduledInventoryOct9ToOct16": 0,
+  "advertisingSpendUSD": 0,
+  "nextStep": "Resume only via authorized working publisher route after access returns; recheck scheduled and public video inventory first."
+}
