@@ -1,0 +1,66 @@
+{
+  "slug": "ai-vendor-data-three-questions-2026-10-10",
+  "title": "Before You Give an AI Vendor Customer Data, Ask These 3 Questions",
+  "voice": "en_US-norman-medium",
+  "voiceLicenseBasis": "Piper en_US-norman-medium model card: public-domain LibriVox source recordings; fallback eSpeak-ng",
+  "sourceAttribution": "PrismBay framework informed by NIST AI RMF MAP 4.1 and ICO AI guidance.",
+  "segments": [
+    {
+      "key": "STOP",
+      "headline": "BEFORE YOU UPLOAD",
+      "body": "An impressive AI demo is not a data agreement.",
+      "spoken": "Before you upload customer records into an AI vendor's demo, ask for three written answers."
+    },
+    {
+      "key": "01",
+      "headline": "WHERE DOES DATA GO?",
+      "body": "Storage region. Subprocessors. Retention period.",
+      "spoken": "First, where does the information go? Ask about storage location, subprocessors, and how long the vendor keeps prompts and files."
+    },
+    {
+      "key": "02",
+      "headline": "WHO MAY TRAIN ON IT?",
+      "body": "Check training and model-improvement terms.",
+      "spoken": "Second, who may use your information for model training or improvement? Read the contract and service settings. Do not assume the default is private."
+    },
+    {
+      "key": "03",
+      "headline": "HOW DOES IT LEAVE?",
+      "body": "Export. Deletion. Backups. Evidence.",
+      "spoken": "Third, what happens when you terminate? Request export formats, deletion timelines, backup exceptions, and proof of completion."
+    },
+    {
+      "key": "PASS?",
+      "headline": "REQUIRE EVIDENCE",
+      "body": "Written terms and a small test, not a sales promise.",
+      "spoken": "If the answers are unclear, pause sensitive-data access. Test with non-sensitive sample records until the controls are verified."
+    },
+    {
+      "headline": "BUY THE CONTROL",
+      "body": "Three answers before one production upload.",
+      "badges": [
+        "Data location and retention",
+        "Training and reuse rights",
+        "Exit and deletion proof"
+      ],
+      "spoken": "These are procurement checks, not a universal legal checklist. PrismBay AI helps business leaders implement practical AI systems with measurable controls."
+    }
+  ],
+  "experimentId": "PB-PROC-S01",
+  "parentLongformId": "PB-PROC-001",
+  "targetChannelId": "UCw2hs85TzIpdKwJtG-BSxzQ",
+  "sources": [
+    "https://airc.nist.gov/airmf-resources/playbook/map/",
+    "https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/artificial-intelligence/guidance-on-ai-and-data-protection/what-are-the-accountability-and-governance-implications-of-ai/"
+  ],
+  "hypothesis": "Specific written procurement questions will drive higher qualified engagement than generic AI vendor advice.",
+  "targetAudience": "Founders, operations leaders, procurement, privacy and compliance leads",
+  "hookType": "Risk interruption with practical three-step payoff",
+  "format": "short",
+  "thumbnailConcept": "One document icon and three checkboxes, text: BEFORE YOU UPLOAD",
+  "cta": "Subscribe to PrismBay AI for practical AI business controls",
+  "publishTime": "Unassigned pending public media render and authorized publisher access",
+  "successThreshold": "At 72h, SCALE only if view retention and subscribers outperform the median of comparable Shorts with adequate data",
+  "productionStatus": "render_requested_2026-10-09",
+  "paidSpendUSD": 0
+}
