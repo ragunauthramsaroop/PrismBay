@@ -3,6 +3,8 @@ import assert from 'node:assert/strict';
 import { ACTIVE_DIGITAL_OFFERS } from './digital-conversion-campaign.mjs';
 import { buildOfferPage, buildHub, ownedSalesUrls, salesPlanFromReport } from './owned-sales-page-worker.mjs';
 
+const htmlText = value => String(value).replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;').replaceAll("'",'&#39;');
+
 test('owned sales pages use only existing verified digital offers', () => {
   assert.equal(ACTIVE_DIGITAL_OFFERS.length, 4);
   for (const offer of ACTIVE_DIGITAL_OFFERS) {
@@ -10,7 +12,7 @@ test('owned sales pages use only existing verified digital offers', () => {
     assert.match(html, new RegExp('\\$' + offer.priceUsd));
     assert.ok(html.includes(offer.checkout));
     assert.ok(html.includes('One-time purchase'));
-    for (const item of offer.deliverables) assert.ok(html.includes(item));
+    for (const item of offer.deliverables) assert.ok(html.includes(htmlText(item)));
     assert.doesNotMatch(html, /guaranteed|best[- ]?seller|only \\d+ left|verified customer|thousands of customers/i);
   }
 });
