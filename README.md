@@ -30,7 +30,7 @@ These are paid **professional document systems**, not live AI applications or be
 
 [PrismBay Clean](https://clean.prismbayai.com/) is the separate physical-products storefront operated by STUDYSMARTZ LLC. The current public physical funnel is deliberately focused on the **Portable Garment Steamer, USD 29.95**.
 
-- [Check the Portable Garment Steamer for a U.S. ZIP](https://clean.prismbayai.com/garment-steamer/?utm_source=github&utm_medium=readme&utm_campaign=steamer_live)
+- [Check the Portable Garment Steamer for a U.S. ZIP](https://browser-worker-production-f5b4.up.railway.app/garment-steamer/github/)
 - [Portable garment steamer buyer guide](https://clean.prismbayai.com/guides/portable-garment-steamer.html?utm_source=github&utm_medium=readme&utm_campaign=steamer_guide)
 - [Garment steamer vs. iron](https://clean.prismbayai.com/guides/garment-steamer-vs-iron.html?utm_source=github&utm_medium=readme&utm_campaign=steamer_compare)
 - [Travel garment steamer checklist](https://clean.prismbayai.com/guides/travel-garment-steamer-guide.html?utm_source=github&utm_medium=readme&utm_campaign=steamer_travel)
