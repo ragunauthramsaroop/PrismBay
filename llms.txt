@@ -1,0 +1,31 @@
+# PrismBay Clean
+
+PrismBay Clean is operated by STUDYSMARTZ LLC.
+
+Primary storefront:
+https://clean.prismbayai.com/
+
+Current guarded physical-product funnel:
+https://clean.prismbayai.com/garment-steamer/
+
+Portable Garment Steamer buyer guide:
+https://clean.prismbayai.com/guides/portable-garment-steamer.html
+
+Direct live buyer verification service:
+https://browser-worker-production-f5b4.up.railway.app/garment-steamer/
+
+Important commercial rule:
+Physical-product promotion points to a live buyer-specific preflight page, not directly to Stripe. Supplier stock, destination freight to a 5-digit U.S. ZIP, and commercial thresholds are checked before checkout is released. Supplier ordering is not automatic.
+
+Listed physical offer:
+Portable Garment Steamer — USD 29.95 — eligible U.S. addresses only, subject to live verification.
+
+Customer policies:
+https://clean.prismbayai.com/shipping.html
+https://clean.prismbayai.com/returns.html
+https://clean.prismbayai.com/privacy.html
+https://clean.prismbayai.com/terms.html
+https://clean.prismbayai.com/contact.html
+
+Digital products:
+https://clean.prismbayai.com/digital/
