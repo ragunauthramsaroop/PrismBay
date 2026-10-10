@@ -1,11 +1,16 @@
 {
-  "checkedAt": "2026-10-10T22:14:06.290Z",
+  "checkedAt": "2026-10-10T22:18:27.342Z",
   "phase": null,
   "blockers": [],
   "cjEbayAuthorized": false,
   "readyForFinalEbayReview": false,
+  "liveStockVerified": false,
+  "dispatchLocationVerified": false,
+  "economicsPass": false,
+  "orchestratorCheckedAt": null,
+  "orchestratorNextAction": null,
   "ticketStatus": "AWAITING_CJ_REPLY",
   "ticketReplyDetected": false,
   "ticketNextAction": "Waiting for CJ reply. No seller action required yet.",
-  "fingerprint": "48d96d6d9368da4de81f782054c00b1bdc221e02b1440b8ca0281f1f3cc774ad"
+  "fingerprint": "5959418149d951d2148d992e4d86c92974c9244d598ac920a3e6e11942206f25"
 }
