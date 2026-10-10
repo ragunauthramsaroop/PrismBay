@@ -22,21 +22,32 @@ If the resource is useful, you can [support more original free AI education thro
 
 **Free, original guides with optional matching editable files:** [Stakeholder engagement planning](https://ragunauth123456-maker.github.io/PrismBay/stakeholder-engagement-plan-template.html?utm_source=github&utm_medium=readme&utm_campaign=stakeholder_guide) · [Monthly ESG reporting](https://ragunauth123456-maker.github.io/PrismBay/esg-monthly-reporting-template.html?utm_source=github&utm_medium=readme&utm_campaign=esg_guide) · [Board briefing and white paper writing](https://ragunauth123456-maker.github.io/PrismBay/board-briefing-white-paper-template.html?utm_source=github&utm_medium=readme&utm_campaign=whitepaper_guide). These substantive examples are free to use; each page accurately discloses an optional separate paid PDF/Excel/Word package and its verified existing checkout link.
 
-
 [Browse four verified PrismBay executive toolkits](https://ragunauth123456-maker.github.io/PrismBay/toolkits.html): stakeholder mapping ($49), ESG and social performance ($99), executive white papers and board briefings ($79), or the complete three-system bundle ($179, saving $48 versus individual purchases). All offers use existing active Stripe payment links for the current PrismBay account. The available PDF guides, editable Excel workbooks, Word templates and license files were audited in the real ZIP archives; all four existing digital delivery endpoints returned valid ZIP packages. The checkout links are configured to redirect buyers to the corresponding package after payment.
 
 These are paid **professional document systems**, not live AI applications or bespoke consulting. The original free worksheet and assessment remain free. The current digital fulfillment uses opaque, reusable access links, so order-bound delivery hardening and an actual paid end-to-end transaction test remain future safeguards. Follow the [published refund policy](https://www.prismbayai.com/refunds) and [contact support](https://www.prismbayai.com/contact) if a purchase cannot be downloaded.
+
+## PrismBay Clean live commerce
+
+[PrismBay Clean](https://clean.prismbayai.com/) is the separate physical-products storefront operated by STUDYSMARTZ LLC. The current public physical funnel is deliberately focused on the **Portable Garment Steamer, USD 29.95**.
+
+- [Check the Portable Garment Steamer for a U.S. ZIP](https://clean.prismbayai.com/garment-steamer/?utm_source=github&utm_medium=readme&utm_campaign=steamer_live)
+- [Portable garment steamer buyer guide](https://clean.prismbayai.com/guides/portable-garment-steamer.html?utm_source=github&utm_medium=readme&utm_campaign=steamer_guide)
+- [Garment steamer vs. iron](https://clean.prismbayai.com/guides/garment-steamer-vs-iron.html?utm_source=github&utm_medium=readme&utm_campaign=steamer_compare)
+- [Travel garment steamer checklist](https://clean.prismbayai.com/guides/travel-garment-steamer-guide.html?utm_source=github&utm_medium=readme&utm_campaign=steamer_travel)
+- [How to use a garment steamer safely](https://clean.prismbayai.com/guides/how-to-use-a-garment-steamer.html?utm_source=github&utm_medium=readme&utm_campaign=steamer_howto)
+
+Physical-product promotion does **not** link directly to Stripe. The buyer first enters a 5-digit U.S. ZIP. The live Railway service rechecks the mapped supplier variant, stock, destination freight and commercial safeguards. Stripe checkout is released only after a second successful live recheck. Supplier ordering is not automatic.
 
 ## Projects and channels
 
 - [PrismBay AI](https://www.prismbayai.com/) provides business-system blueprint information. Blueprints are documentation, not working software.
 - [PrismBay AI on YouTube](https://www.youtube.com/@PrismBayAI/videos) shares educational videos about AI operations and governance.
-- [PrismBay Clean](https://prismbay-clean-49izhg.v2.appdeploy.ai/tiktok/) is a **separate** home-products storefront; review shipping and fulfillment conditions before purchasing.
+- [PrismBay Clean](https://clean.prismbayai.com/) is a **separate** home-products storefront with live buyer-specific shipping verification before physical checkout.
 
 ## Engineering and publishing
 
-The `main` branch contains the TanStack Start app, tests, commerce tooling and content generation scripts. The `gh-pages` branch serves the [independently published free-resource landing page](https://ragunauth123456-maker.github.io/PrismBay/).
+The `main` branch contains the application, tests, commerce tooling, Railway quote service and content-generation scripts. The `gh-pages` branch publishes the current `clean.prismbayai.com` storefront and its public buyer guides.
 
-Changes merged into `main` do **not** automatically publish the separately hosted `www.prismbayai.com` application. Verify the deployed site before linking to newly added main-app routes. The GitHub Pages resource and its optional Stripe payment link are published independently.
+The guarded physical checkout service is deployed from `services/railway-clean-quote` to Railway. The public storefront does not expose the physical Stripe link before live buyer-specific verification passes.
 
 These educational materials are not vendor ratings or legal, security, procurement or financial advice. Verify relevant facts and obtain appropriate expert review before consequential decisions.
