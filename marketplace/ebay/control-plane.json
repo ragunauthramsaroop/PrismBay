@@ -1,6 +1,6 @@
 {
-  "schemaVersion": 2,
-  "checkedAt": "2026-10-10T18:13:08.277Z",
+  "schemaVersion": 3,
+  "checkedAt": "2026-10-10T18:16:54.748Z",
   "product": {
     "slug": "garment-steamer",
     "variantId": "2508160953561608700",
@@ -60,15 +60,36 @@
     "routeSummary": {
       "countryCode": "CN",
       "inventory": 1,
-      "warehouseCandidateIds": []
+      "nestedStockIds": [
+        "2991a224-737b-42a3-a1d9-8ccd2936b341",
+        "{6709CCD7-0DC7-43B1-B310-17AB499E9B0A}"
+      ],
+      "warehouseCandidateIds": [
+        "2991a224-737b-42a3-a1d9-8ccd2936b341",
+        "{6709CCD7-0DC7-43B1-B310-17AB499E9B0A}"
+      ]
     },
-    "warehouse": null,
+    "warehouse": {
+      "id": "2991a224-737b-42a3-a1d9-8ccd2936b341",
+      "name": "",
+      "countryCode": "CN",
+      "city": "",
+      "province": "",
+      "postalCode": "",
+      "address1": ""
+    },
     "warehouseDiscovery": {
-      "attempted": false,
-      "candidateIds": [],
+      "attempted": true,
+      "source": "queryByVid",
+      "candidateIds": [
+        "2991a224-737b-42a3-a1d9-8ccd2936b341",
+        "{6709CCD7-0DC7-43B1-B310-17AB499E9B0A}"
+      ],
+      "pidInventoryFallbackAttempted": false,
       "errors": []
     },
-    "dispatchLocationVerified": false
+    "dispatchLocationVerified": false,
+    "dispatchEvidenceMode": null
   },
   "gates": {
     "economicsPass": true,
