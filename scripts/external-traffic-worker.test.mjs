@@ -23,7 +23,7 @@ test('external traffic queue covers verified digital offers and guarded steamer 
   assert.equal(physical.length,2);
   for(const item of physical){
     assert.equal(item.offerType,'physical');
-    assert.match(item.destinationUrl,/browser-worker-production-f5b4\.up\.railway\.app\/garment-steamer\/github\//);
+    assert.match(item.destinationUrl,new RegExp('browser-worker-production-f5b4\\.up\\.railway\\.app/garment-steamer/'+item.channel+'/'));
     assert.match(item.destinationUrl,/utm_campaign=prismbay_clean_steamer_oct2026/);
     assert.doesNotMatch(item.destinationUrl,/buy\.stripe\.com/);
     assert.equal(item.guardrails.directStripe,false);
@@ -35,9 +35,13 @@ test('tracking separates YouTube and TikTok traffic for digital and physical cam
   const digital=ACTIVE_DIGITAL_OFFERS[0];
   const physical=VERIFIED_PHYSICAL_OFFERS[0];
   const y=new URL(trackedUrl(digital,'youtube'));
+  const py=new URL(trackedUrl(physical,'youtube'));
   const t=new URL(trackedUrl(physical,'tiktok'));
   assert.equal(y.searchParams.get('utm_source'),'youtube');
   assert.equal(y.searchParams.get('utm_medium'),'shorts');
+  assert.equal(py.pathname,'/garment-steamer/youtube/');
+  assert.equal(py.searchParams.get('utm_source'),'youtube');
+  assert.equal(t.pathname,'/garment-steamer/tiktok/');
   assert.equal(t.searchParams.get('utm_source'),'tiktok');
   assert.equal(t.searchParams.get('utm_medium'),'organic_video');
   assert.equal(t.searchParams.get('utm_campaign'),'prismbay_clean_steamer_oct2026');
