@@ -1,12 +1,41 @@
 {
-  "schemaVersion": 1,
-  "checkedAt": "2026-10-10T15:04:14.479Z",
+  "schemaVersion": 2,
+  "checkedAt": "2026-10-10T18:05:30.534Z",
   "product": {
     "slug": "garment-steamer",
     "variantId": "2508160953561608700",
     "variantSku": "CJYD245844002BY",
     "originCountryCode": "CN",
-    "listingPriceUsd": 29.99
+    "listingPriceUsd": 29.99,
+    "bestOfferFloorUsd": 28.49,
+    "categoryId": "79656",
+    "categoryName": "Household Steam Cleaners"
+  },
+  "economics": {
+    "listPrice": {
+      "priceUsd": 29.99,
+      "marketplaceFeeUsd": 4.21,
+      "returnReserveUsd": 1.5,
+      "maxLandedCostUsd": 17.29,
+      "modeledProfitUsd": 6.99,
+      "modeledMarginRate": 0.2331,
+      "pass": true
+    },
+    "bestOfferFloor": {
+      "priceUsd": 28.49,
+      "marketplaceFeeUsd": 4.02,
+      "returnReserveUsd": 1.42,
+      "maxLandedCostUsd": 17.29,
+      "modeledProfitUsd": 5.76,
+      "modeledMarginRate": 0.2021,
+      "pass": true
+    }
+  },
+  "verification": {
+    "supplierSpecsVerified": true,
+    "ebayCategoryVerified": true,
+    "marketplacePolicyReviewed": true,
+    "checkedAt": "2026-10-10"
   },
   "cj": {
     "authenticated": true,
@@ -42,6 +71,12 @@
     "dispatchLocationVerified": false
   },
   "gates": {
+    "economicsPass": true,
+    "offerFloorEconomicsPass": true,
+    "supplierSpecsVerified": true,
+    "ebayCategoryVerified": true,
+    "marketplacePolicyReviewed": true,
+    "wholesaleSupplierConfigured": true,
     "ebaySellerAuthenticated": false,
     "liveStockVerified": true,
     "dispatchLocationVerified": false,
