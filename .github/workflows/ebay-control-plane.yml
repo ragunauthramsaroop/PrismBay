@@ -8,12 +8,14 @@ on:
     paths:
       - 'scripts/ebay-control-plane.mjs'
       - 'marketplaces/ebay/garment-steamer.json'
+      - 'marketplaces/ebay/seller-packet.html'
       - '.github/workflows/ebay-control-plane.yml'
   push:
     branches: [main]
     paths:
       - 'scripts/ebay-control-plane.mjs'
       - 'marketplaces/ebay/garment-steamer.json'
+      - 'marketplaces/ebay/seller-packet.html'
       - '.github/workflows/ebay-control-plane.yml'
 
 permissions:
@@ -29,7 +31,9 @@ jobs:
         with:
           node-version: '22'
       - name: Validate source
-        run: node --check scripts/ebay-control-plane.mjs
+        run: |
+          node --check scripts/ebay-control-plane.mjs
+          node -e "JSON.parse(require('fs').readFileSync('marketplaces/ebay/garment-steamer.json','utf8'))"
       - name: Discover CJ eBay authorization and dispatch location
         if: github.event_name != 'pull_request'
         env:
@@ -48,6 +52,7 @@ jobs:
           mkdir -p "$syncdir/marketplace/ebay"
           cp growth-reports/ebay/control-plane.json "$syncdir/marketplace/ebay/control-plane.json"
           cp marketplaces/ebay/garment-steamer.json "$syncdir/marketplace/ebay/garment-steamer.json"
+          cp marketplaces/ebay/seller-packet.html "$syncdir/marketplace/ebay/index.html"
           git -C "$syncdir" add marketplace/ebay
           if ! git -C "$syncdir" diff --cached --quiet; then
             git -C "$syncdir" commit -m 'chore: publish eBay marketplace state'
@@ -59,4 +64,4 @@ jobs:
         run: |
           echo '## PrismBay eBay Control Plane' >> "$GITHUB_STEP_SUMMARY"
           echo 'Checks CJ shop authorization, the pinned garment-steamer stock route, and exact dispatch-location evidence.' >> "$GITHUB_STEP_SUMMARY"
-          echo 'No Shopify, TinyFish, Stripe-on-eBay, or automatic supplier ordering is used.' >> "$GITHUB_STEP_SUMMARY"
+          echo 'Publishes a zero-cost seller packet to GitHub Pages. No Shopify, TinyFish, Stripe-on-eBay, or automatic supplier ordering is used.' >> "$GITHUB_STEP_SUMMARY"
