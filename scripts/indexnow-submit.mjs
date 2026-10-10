@@ -5,6 +5,9 @@ const CORE_URLS=[
   ROOT,
   ROOT+'garment-steamer/',
   ROOT+'guides/portable-garment-steamer.html',
+  ROOT+'guides/garment-steamer-vs-iron.html',
+  ROOT+'guides/travel-garment-steamer-guide.html',
+  ROOT+'guides/how-to-use-a-garment-steamer.html',
   ROOT+'shipping.html',
   ROOT+'returns.html',
   ROOT+'contact.html'
@@ -35,7 +38,7 @@ for(const url of [...CORE_URLS,...DIGITAL_URLS]){
 const payload={host:HOST,key:KEY,keyLocation,urlList:liveUrls};
 const r=await fetch('https://api.indexnow.org/indexnow',{
   method:'POST',
-  headers:{'content-type':'application/json; charset=utf-8','user-agent':'PrismBay-IndexNow/2.0'},
+  headers:{'content-type':'application/json; charset=utf-8','user-agent':'PrismBay-IndexNow/2.1'},
   body:JSON.stringify(payload),
   signal:AbortSignal.timeout(15000)
 });
