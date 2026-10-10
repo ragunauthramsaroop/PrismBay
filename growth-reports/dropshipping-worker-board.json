@@ -1,10 +1,10 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-10-09T22:55:50.338Z",
+  "generatedAt": "2026-10-10T05:53:42.321Z",
   "researchCandidates": 12,
   "publishedResearchSignals": 12,
   "verifiedCJStatus": {
-    "checkedAt": "2026-10-09T22:39:08.919Z",
+    "checkedAt": "2026-10-10T05:53:41.014Z",
     "validSupplierMatches": 6,
     "variantStock": 3,
     "freightEstimates": 3,
@@ -27,6 +27,27 @@
       "executionMode": "scheduled_cj_and_manual_review",
       "candidateCount": 12,
       "blockers": [
+        {
+          "slug": "scrubber",
+          "status": "supplier_search_needed",
+          "sku": null,
+          "shippingDiagnostic": null,
+          "zeroPricedMethods": 0
+        },
+        {
+          "slug": "pethair",
+          "status": "variant_stock_required",
+          "sku": "CJYD2079690",
+          "shippingDiagnostic": "variant_stock_unverified",
+          "zeroPricedMethods": 0
+        },
+        {
+          "slug": "crevice",
+          "status": "final_zip_freight_required",
+          "sku": "CJJT173147702BY",
+          "shippingDiagnostic": "priced_estimate_available",
+          "zeroPricedMethods": 0
+        },
         {
           "slug": "cordless-handheld-vacuum",
           "status": "variant_stock_required",
@@ -87,27 +108,6 @@
           "slug": "garment-steamer",
           "status": "final_zip_freight_required",
           "sku": "CJYD245844002BY",
-          "shippingDiagnostic": "priced_estimate_available",
-          "zeroPricedMethods": 0
-        },
-        {
-          "slug": "scrubber",
-          "status": "supplier_search_needed",
-          "sku": null,
-          "shippingDiagnostic": null,
-          "zeroPricedMethods": 0
-        },
-        {
-          "slug": "pethair",
-          "status": "variant_stock_required",
-          "sku": "CJYD2079690",
-          "shippingDiagnostic": "variant_stock_unverified",
-          "zeroPricedMethods": 0
-        },
-        {
-          "slug": "crevice",
-          "status": "final_zip_freight_required",
-          "sku": "CJJT173147702BY",
           "shippingDiagnostic": "priced_estimate_available",
           "zeroPricedMethods": 0
         }
