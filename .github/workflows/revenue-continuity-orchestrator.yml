@@ -1,0 +1,193 @@
+name: PrismBay Revenue Continuity Orchestrator
+
+on:
+  schedule:
+    - cron: '7,37 * * * *'
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/revenue-continuity-orchestrator.yml'
+
+permissions:
+  actions: write
+  contents: read
+  issues: write
+
+concurrency:
+  group: prismbay-revenue-continuity
+  cancel-in-progress: true
+
+jobs:
+  keep-revenue-system-moving:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Recover failed or stale revenue workflows
+        shell: bash
+        run: |
+          set -euo pipefail
+          now=$(date -u +%s)
+          mkdir -p "$RUNNER_TEMP/revenue-continuity"
+          : > "$RUNNER_TEMP/revenue-continuity/actions.log"
+
+          # workflow-file:maximum expected age in minutes
+          workflows=(
+            'ceo-autonomous-recovery.yml:35'
+            'ebay-control-plane.yml:100'
+            'buyer-acquisition.yml:160'
+            'cj-ebay-ticket-watch.yml:100'
+            'external-traffic-factory.yml:1600'
+          )
+
+          for entry in "${workflows[@]}"; do
+            wf="${entry%%:*}"
+            max_age="${entry##*:}"
+            latest=$(gh run list --repo "$GITHUB_REPOSITORY" --workflow "$wf" --branch main --limit 1 --json databaseId,status,conclusion,createdAt,url 2>/dev/null || echo '[]')
+            count=$(jq 'length' <<<"$latest")
+
+            if [[ "$count" -eq 0 ]]; then
+              echo "$wf missing run history -> dispatch" | tee -a "$RUNNER_TEMP/revenue-continuity/actions.log"
+              gh workflow run "$wf" --repo "$GITHUB_REPOSITORY" --ref main || true
+              continue
+            fi
+
+            id=$(jq -r '.[0].databaseId' <<<"$latest")
+            status=$(jq -r '.[0].status // "unknown"' <<<"$latest")
+            conclusion=$(jq -r '.[0].conclusion // ""' <<<"$latest")
+            created=$(jq -r '.[0].createdAt' <<<"$latest")
+            created_epoch=$(date -u -d "$created" +%s)
+            age_min=$(( (now-created_epoch)/60 ))
+
+            if [[ "$status" == 'in_progress' || "$status" == 'queued' || "$status" == 'waiting' || "$status" == 'pending' ]]; then
+              echo "$wf active ($status, ${age_min}m)" | tee -a "$RUNNER_TEMP/revenue-continuity/actions.log"
+              continue
+            fi
+
+            case "$conclusion" in
+              failure|timed_out|cancelled|action_required|startup_failure|stale)
+                echo "$wf unhealthy ($conclusion) -> rerun failed jobs" | tee -a "$RUNNER_TEMP/revenue-continuity/actions.log"
+                gh run rerun "$id" --failed --repo "$GITHUB_REPOSITORY" || gh workflow run "$wf" --repo "$GITHUB_REPOSITORY" --ref main || true
+                ;;
+              *)
+                if (( age_min > max_age )); then
+                  echo "$wf stale (${age_min}m > ${max_age}m) -> dispatch" | tee -a "$RUNNER_TEMP/revenue-continuity/actions.log"
+                  gh workflow run "$wf" --repo "$GITHUB_REPOSITORY" --ref main || true
+                else
+                  echo "$wf healthy ($conclusion, ${age_min}m)" | tee -a "$RUNNER_TEMP/revenue-continuity/actions.log"
+                fi
+                ;;
+            esac
+          done
+
+      - name: Read live eBay and CJ gate state
+        id: gates
+        shell: bash
+        run: |
+          set -euo pipefail
+          control="$RUNNER_TEMP/revenue-continuity/control-plane.json"
+          ticket="$RUNNER_TEMP/revenue-continuity/cj-ticket-watch.json"
+          curl -fsSL --retry 3 --retry-delay 2 'https://raw.githubusercontent.com/ragunauthramsaroop/PrismBay/gh-pages/marketplace/ebay/control-plane.json' -o "$control"
+          curl -fsSL --retry 3 --retry-delay 2 'https://raw.githubusercontent.com/ragunauthramsaroop/PrismBay/gh-pages/marketplace/ebay/cj-ticket-watch.json' -o "$ticket" || echo '{}' > "$ticket"
+
+          ebay_auth=$(jq -r '.gates.ebaySellerAuthenticated // false' "$control")
+          ready=$(jq -r '.readyForBrowserPublish // false' "$control")
+          stock=$(jq -r '.gates.liveStockVerified // false' "$control")
+          dispatch=$(jq -r '.gates.dispatchLocationVerified // false' "$control")
+          city=$(jq -r '.cj.warehouse.city // "unknown"' "$control")
+          region=$(jq -r '.cj.warehouse.province // "unknown"' "$control")
+          country=$(jq -r '.cj.warehouse.countryCode // "unknown"' "$control")
+          ticket_status=$(jq -r '.status // "unknown"' "$ticket")
+          ticket_no=$(jq -r '.ticketNo // "T202610101508010581"' "$ticket")
+
+          echo "ebay_auth=$ebay_auth" >> "$GITHUB_OUTPUT"
+          echo "ready=$ready" >> "$GITHUB_OUTPUT"
+          echo "stock=$stock" >> "$GITHUB_OUTPUT"
+          echo "dispatch=$dispatch" >> "$GITHUB_OUTPUT"
+          echo "city=$city" >> "$GITHUB_OUTPUT"
+          echo "region=$region" >> "$GITHUB_OUTPUT"
+          echo "country=$country" >> "$GITHUB_OUTPUT"
+          echo "ticket_status=$ticket_status" >> "$GITHUB_OUTPUT"
+          echo "ticket_no=$ticket_no" >> "$GITHUB_OUTPUT"
+
+      - name: Maintain permanent revenue continuity control issue
+        shell: bash
+        env:
+          EBAY_AUTH: ${{ steps.gates.outputs.ebay_auth }}
+          READY: ${{ steps.gates.outputs.ready }}
+          STOCK: ${{ steps.gates.outputs.stock }}
+          DISPATCH: ${{ steps.gates.outputs.dispatch }}
+          CITY: ${{ steps.gates.outputs.city }}
+          REGION: ${{ steps.gates.outputs.region }}
+          COUNTRY: ${{ steps.gates.outputs.country }}
+          TICKET_STATUS: ${{ steps.gates.outputs.ticket_status }}
+          TICKET_NO: ${{ steps.gates.outputs.ticket_no }}
+        run: |
+          set -euo pipefail
+          title='[AUTOMATION] PrismBay revenue continuity control'
+          issue=$(gh issue list --repo "$GITHUB_REPOSITORY" --state all --limit 100 --json number,title,state | jq -r --arg t "$title" '.[] | select(.title==$t) | .number' | head -1)
+          actions=$(sed 's/^/- /' "$RUNNER_TEMP/revenue-continuity/actions.log")
+          checked=$(date -u '+%Y-%m-%d %H:%M:%S UTC')
+
+          if [[ "$READY" == 'true' ]]; then
+            blocker='No marketplace gate remains. Proceed to final eBay seller review/listing execution using the local PrismBay agent or an authenticated eBay API route when credentials exist.'
+          elif [[ "$EBAY_AUTH" != 'true' ]]; then
+            blocker='Current external-consent gate: authorize eBay user StudysmartzLLC in CJ. PrismBay Agent v1.1.0 drives the flow and waits only for the visible eBay permission consent click.'
+          else
+            blocker='eBay is authorized but another marketplace gate remains red. The hourly control plane will keep diagnosing stock, dispatch, economics and policy evidence.'
+          fi
+
+          body=$(cat <<EOF
+          ## PrismBay Revenue Continuity
+
+          **Last continuity check:** $checked
+
+          | Gate | State |
+          | --- | --- |
+          | eBay authorized in CJ | $EBAY_AUTH |
+          | Live pinned stock | $STOCK |
+          | Dispatch location verified | $DISPATCH |
+          | Ready for final eBay review | $READY |
+          | Verified dispatch | $CITY, $REGION, $COUNTRY |
+          | CJ support ticket | $TICKET_NO · $TICKET_STATUS |
+
+          ### Current blocker / next route
+          $blocker
+
+          ### Automated recovery actions this cycle
+          $actions
+
+          ### Permanent rules
+          - Keep buyer acquisition and commercial recovery running even while eBay authorization waits.
+          - Rerun failed revenue workflows and dispatch stale ones.
+          - Never fabricate a sale, inventory level, review, delivery promise or item location.
+          - Never bypass required platform consent, identity verification, CAPTCHA, payment approval, payout/banking approval or eBay's final listing review.
+          - No paid ads or new paid services without explicit approval.
+          - No automatic CJ supplier ordering or payment.
+
+          ### Live controls
+          - eBay console: https://clean.prismbayai.com/marketplace/ebay/
+          - Local authorization/listing agent: https://clean.prismbayai.com/marketplace/ebay/agent/
+          EOF
+          )
+
+          if [[ -z "$issue" ]]; then
+            gh issue create --repo "$GITHUB_REPOSITORY" --title "$title" --body "$body"
+          else
+            gh issue edit "$issue" --repo "$GITHUB_REPOSITORY" --body "$body"
+            gh issue reopen "$issue" --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1 || true
+          fi
+
+      - name: Continuity summary
+        if: always()
+        run: |
+          echo '## PrismBay Revenue Continuity' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Runs every 30 minutes as a supervisory layer.' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Recovers failed critical revenue workflows and dispatches stale ones without duplicating healthy active runs.' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Buyer acquisition continues independently while eBay authorization waits.' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Required external account consent, identity verification, payments and final eBay listing review remain human-authorized gates.' >> "$GITHUB_STEP_SUMMARY"
+          echo '- No paid advertising or automatic supplier ordering is introduced.' >> "$GITHUB_STEP_SUMMARY"
