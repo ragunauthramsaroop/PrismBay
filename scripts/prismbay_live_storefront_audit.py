@@ -5,16 +5,11 @@ from pathlib import Path
 from playwright.async_api import async_playwright
 
 BASE='https://clean.prismbayai.com'
-PATHS=['/','/shipping.html','/returns.html','/privacy.html','/terms.html','/about.html','/contact.html']
+LIVE='https://browser-worker-production-f5b4.up.railway.app'
+PATHS=['/','/garment-steamer/','/shipping.html','/returns.html','/privacy.html','/terms.html','/about.html','/contact.html']
 VIEWPORTS={
   'desktop': {'width':1440,'height':1000},
   'mobile': {'width':390,'height':844},
-}
-EXPECTED_STRIPE={
-  'https://buy.stripe.com/cNi5kE8XAeSndGib8QgnK02',
-  'https://buy.stripe.com/bJe4gA8XAdOjeKmb8QgnK05',
-  'https://buy.stripe.com/7sY5kEehUcKf9q2a4MgnK00',
-  'https://buy.stripe.com/bJe00k2zc8tZ7hUgtagnK01',
 }
 JS=r'''() => {
  const vw=innerWidth;
@@ -39,12 +34,12 @@ JS=r'''() => {
    clippedText:clipped.slice(0,20),
    httpAssets:[...document.querySelectorAll('[src],[href]')].map(e=>e.src||e.href).filter(x=>typeof x==='string'&&x.startsWith('http:')),
    stripeLinks:[...document.querySelectorAll('a[href*="buy.stripe.com"]')].map(a=>a.href),
-   localLinks:[...document.querySelectorAll('a[href]')].map(a=>a.href).filter(h=>h.startsWith(location.origin))
+   hrefs:[...document.querySelectorAll('a[href]')].map(a=>a.href),
  };
 }'''
 
 async def audit(strict=True):
-  results=[]; errors=[]; warnings=[]
+  results=[]; errors=[]; warnings=[]; live_service={}
   async with async_playwright() as p:
     browser=await p.chromium.launch(headless=True,args=['--no-sandbox'])
     context=await browser.new_context(ignore_https_errors=False)
@@ -67,20 +62,46 @@ async def audit(strict=True):
           if data['clippedText']: warnings.append(f'{path} {name}: clipped text {data["clippedText"][:3]}')
           if data['offscreen']: warnings.append(f'{path} {name}: offscreen elements {data["offscreen"][:3]}')
           if data['tinyControls']: warnings.append(f'{path} {name}: small controls {data["tinyControls"][:3]}')
+          if path in {'/','/garment-steamer/'} and data['stripeLinks']:
+            errors.append(f'{path} {name}: direct Stripe link exposed before buyer-specific verification')
           if path=='/' and name=='desktop':
-            found=set(data['stripeLinks'])
-            missing=EXPECTED_STRIPE-found
-            unexpected={x for x in found if x not in EXPECTED_STRIPE}
-            if missing: errors.append(f'/: missing expected Stripe links {sorted(missing)}')
-            if unexpected: warnings.append(f'/: unexpected Stripe links {sorted(unexpected)}')
+            if not any(h.startswith(LIVE+'/garment-steamer/') or h.startswith(BASE+'/garment-steamer/') for h in data['hrefs']):
+              errors.append('/: no guarded garment-steamer preflight CTA found')
+          if path=='/garment-steamer/' and name=='desktop':
+            if not any(h.startswith(LIVE+'/garment-steamer/') for h in data['hrefs']):
+              errors.append('/garment-steamer/: direct Railway fallback missing')
         except Exception as exc:
           errors.append(f'{path} {name}: {type(exc).__name__}: {exc}')
       results.append(row)
+
+    try:
+      health=await context.request.get(LIVE+'/health',timeout=30000)
+      health_body=await health.json()
+      live_service['healthStatus']=health.status
+      live_service['ready']=health_body.get('ready') is True
+      live_service['product']=health_body.get('product')
+      live_service['automaticSupplierOrdering']=health_body.get('automaticSupplierOrdering')
+      if health.status != 200: errors.append(f'Railway health HTTP {health.status}')
+      if health_body.get('ready') is not True: errors.append('Railway quote service is not primed/ready')
+      if health_body.get('product') != 'garment-steamer': errors.append('Railway quote service product mismatch')
+      if health_body.get('automaticSupplierOrdering') is not False: errors.append('Railway automatic supplier ordering guard missing')
+
+      live_page=await page.goto(LIVE+'/garment-steamer/',wait_until='domcontentloaded',timeout=30000)
+      live_text=(await page.locator('body').inner_text()).lower()
+      live_service['buyerPageStatus']=live_page.status if live_page else 0
+      live_service['buyerPageHasProduct']= 'portable garment steamer' in live_text
+      if not live_page or live_page.status != 200: errors.append('Railway buyer page is not HTTP 200')
+      if 'portable garment steamer' not in live_text: errors.append('Railway buyer page product content missing')
+      if 'check availability' not in live_text: errors.append('Railway buyer page live availability CTA missing')
+    except Exception as exc:
+      errors.append(f'Railway live service audit: {type(exc).__name__}: {exc}')
+
     await context.close(); await browser.close()
-  report={'base':BASE,'summary':{'pages':len(PATHS),'viewports':list(VIEWPORTS),'errors':len(errors),'warnings':len(warnings)},'errors':errors,'warnings':warnings,'results':results}
+  report={'base':BASE,'liveService':LIVE,'summary':{'pages':len(PATHS),'viewports':list(VIEWPORTS),'errors':len(errors),'warnings':len(warnings)},'liveServiceEvidence':live_service,'errors':errors,'warnings':warnings,'results':results}
   out=Path('audit'); out.mkdir(exist_ok=True)
   (out/'prismbay-live-storefront-audit.json').write_text(json.dumps(report,indent=2,ensure_ascii=False)+'\n',encoding='utf-8')
   print('PRISMBAY_LIVE_AUDIT',json.dumps(report['summary']))
+  print('LIVE_SERVICE',json.dumps(live_service))
   for e in errors: print('ERROR',e)
   for w in warnings: print('WARN',w)
   return 1 if strict and errors else 0
