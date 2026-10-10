@@ -2,16 +2,18 @@ name: PrismBay eBay Autonomous Orchestrator
 
 on:
   schedule:
-    - cron: '52 * * * *'
+    - cron: '7,22,37,52 * * * *'
   workflow_dispatch:
   pull_request:
     paths:
+      - 'scripts/ebay-control-plane.mjs'
       - 'scripts/ebay-autonomous-orchestrator.mjs'
       - 'scripts/ebay-inventory-connector.mjs'
       - '.github/workflows/ebay-autonomous-orchestrator.yml'
   push:
     branches: [main]
     paths:
+      - 'scripts/ebay-control-plane.mjs'
       - 'scripts/ebay-autonomous-orchestrator.mjs'
       - 'scripts/ebay-inventory-connector.mjs'
       - '.github/workflows/ebay-autonomous-orchestrator.yml'
@@ -104,6 +106,24 @@ jobs:
               await github.rest.issues.update({owner, repo, issue_number:existing.number, body});
             } else {
               await github.rest.issues.create({owner, repo, title, body});
+            }
+      - name: Failure heartbeat
+        if: failure() && github.event_name != 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const title = 'PrismBay eBay Autonomous Launch Queue';
+            const {owner, repo} = context.repo;
+            const {data} = await github.rest.issues.listForRepo({owner, repo, state:'open', per_page:100});
+            const existing = data.find(x => !x.pull_request && x.title === title);
+            const stamp = new Date().toISOString();
+            const runUrl = `${context.serverUrl}/${owner}/${repo}/actions/runs/${context.runId}`;
+            const warning = `\n\n## Automation heartbeat\n\nGitHub orchestrator run failed at ${stamp}. The next 15-minute cycle remains scheduled. Run: ${runUrl}\n`;
+            if (existing) {
+              const oldBody = existing.body || '';
+              await github.rest.issues.update({owner, repo, issue_number:existing.number, body:(oldBody + warning).slice(-60000)});
+            } else {
+              await github.rest.issues.create({owner, repo, title, body:warning});
             }
       - name: Summary
         if: always()
