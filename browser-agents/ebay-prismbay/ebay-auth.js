@@ -1,7 +1,7 @@
 const PRISMBAY_AUTH_KEY='prismbayEbayAuth';
-const PRISMBAY_AUTH_MAX_AGE=15*60*1000;
+const PRISMBAY_AUTH_MAX_IDLE=60*60*1000;
 function pnorm(v){return String(v||'').replace(/\s+/g,' ').trim().toLowerCase();}
-async function getPrismBayAuth(){const o=await chrome.storage.local.get(PRISMBAY_AUTH_KEY);const s=o[PRISMBAY_AUTH_KEY];if(!s?.active)return null;if(Date.now()-Number(s.startedAt||0)>PRISMBAY_AUTH_MAX_AGE){await chrome.storage.local.set({[PRISMBAY_AUTH_KEY]:{...s,active:false,phase:'expired',status:'Authorization run expired. Start it again from the PrismBay extension.'}});return null;}return s;}
+async function getPrismBayAuth(){const o=await chrome.storage.local.get(PRISMBAY_AUTH_KEY);const s=o[PRISMBAY_AUTH_KEY];if(!s?.active)return null;const last=Number(s.updatedAt||s.startedAt||0);if(Date.now()-last>PRISMBAY_AUTH_MAX_IDLE){await chrome.storage.local.set({[PRISMBAY_AUTH_KEY]:{...s,active:false,phase:'expired',status:'Authorization session expired after 60 minutes without progress. Start it again from the PrismBay extension.'}});return null;}return s;}
 async function patchPrismBayAuth(patch){const o=await chrome.storage.local.get(PRISMBAY_AUTH_KEY);const s=o[PRISMBAY_AUTH_KEY]||{};await chrome.storage.local.set({[PRISMBAY_AUTH_KEY]:{...s,...patch,updatedAt:Date.now()}});}
 function detectSignedInEbayIds(){const out=[];for(const a of document.querySelectorAll('a[href*="/usr/"]')){try{const m=new URL(a.href,location.href).pathname.match(/\/usr\/([^/?#]+)/i);if(m)out.push(decodeURIComponent(m[1]));}catch{}}
 const ug=document.querySelector('#gh-ug,[data-testid*="user" i],[aria-label*="account" i]');if(ug){const t=String(ug.textContent||'').replace(/^hi[!,\s]*/i,'').replace(/[!\s]+$/,'').trim();if(t&&!/sign in|register/i.test(t))out.push(t);}return [...new Set(out.map(v=>String(v).trim()).filter(Boolean))];}
