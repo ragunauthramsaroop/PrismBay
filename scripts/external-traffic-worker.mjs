@@ -14,7 +14,8 @@ const forbidden=/guaranteed|best[- ]?seller|limited stock|only\s+\d+\s+left|thou
 const pageBySlug={
   stakeholder:'learn/stakeholder-mapping-toolkit.html',
   esg:'learn/esg-reporting-toolkit.html',
-  whitepaper:'learn/board-briefing-white-paper-system.html'
+  whitepaper:'learn/board-briefing-white-paper-system.html',
+  bundle:'toolkits.html'
 };
 export const VERIFIED_PHYSICAL_OFFERS=[{
   kind:'physical',
@@ -55,7 +56,9 @@ function campaignForOffer(offer){
   };
 }
 export function trackedUrl(offer,channel,variant='short_01'){
-  const u=new URL(isPhysical(offer)?offer.destinationUrl:PUBLIC_ROOT+pageBySlug[offer.slug]);
+  const relative=isPhysical(offer)?null:pageBySlug[offer.slug];
+  if(!isPhysical(offer)&&!relative) throw new Error('external_offer_page_missing_'+offer.slug);
+  const u=new URL(isPhysical(offer)?offer.destinationUrl:PUBLIC_ROOT+relative);
   u.searchParams.set('utm_source',channel);
   u.searchParams.set('utm_medium',channel==='youtube'?'shorts':'organic_video');
   u.searchParams.set('utm_campaign',isPhysical(offer)?'prismbay_clean_steamer_oct2026':'prismbay_external_traffic_oct2026');
