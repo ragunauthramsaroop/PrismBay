@@ -36,7 +36,7 @@ jobs:
       - name: Authenticate live quote service
         run: node services/railway-clean-quote/bootstrap-live.mjs
 
-      - name: Verify safe buyer quote and checkout authorization path
+      - name: Verify attributed buyer page and safe checkout authorization path
         shell: bash
         run: |
           node <<'NODE'
@@ -45,7 +45,15 @@ jobs:
           (async () => {
             const origin = process.env.RAILWAY_CLEAN_QUOTE_URL.replace(/\/$/, '');
             const storefront = process.env.STOREFRONT_ORIGIN;
-            const api = `${origin}/v1/quote`;
+            const buyerUrl = `${origin}/garment-steamer/github/`;
+            const api = `${origin}/v1/quote/github`;
+
+            const buyer = await fetch(buyerUrl, { redirect: 'manual' });
+            const buyerHtml = await buyer.text();
+            if (buyer.status !== 200) throw new Error(`buyer_page_${buyer.status}`);
+            if (!buyerHtml.includes("const API='/v1/quote/github'")) throw new Error('buyer_page_missing_attributed_api');
+            if (buyerHtml.includes('buy.stripe.com')) throw new Error('buyer_page_exposed_stripe');
+            console.log('Attributed GitHub buyer page is live and does not expose Stripe before verification.');
 
             const preflight = await fetch(api, {
               method: 'OPTIONS',
@@ -77,7 +85,7 @@ jobs:
             }
             if (firstBody.checkoutUrl) throw new Error('first_stage_exposed_checkout');
             if (firstBody.supplierOrderingEnabled !== false) throw new Error('supplier_ordering_guard_missing');
-            console.log('First-stage live quote passed with no payment link released.');
+            console.log('First-stage attributed live quote passed with no payment link released.');
 
             if (process.env.FULL_CHECKOUT_PROBE !== 'true') return;
 
@@ -110,7 +118,7 @@ jobs:
               throw new Error('checkout_url_not_stripe');
             }
             if (secondBody.supplierOrderingEnabled !== false) throw new Error('supplier_ordering_guard_missing');
-            console.log('Checkout authorization verified without following the Stripe URL, taking payment, or placing a supplier order.');
+            console.log('Attributed checkout authorization verified without following Stripe, taking payment, or placing a supplier order.');
           })().catch(error => {
             console.error(`Live buyer-path verification failed: ${error.message || error.name || 'unknown_error'}`);
             process.exit(1);
