@@ -1,6 +1,6 @@
 {
-  "schemaVersion": 5,
-  "checkedAt": "2026-10-10T18:21:41.913Z",
+  "schemaVersion": 6,
+  "checkedAt": "2026-10-10T18:23:57.420Z",
   "product": {
     "slug": "garment-steamer",
     "variantId": "2508160953561608700",
@@ -71,12 +71,12 @@
     },
     "warehouse": {
       "id": "2991a224-737b-42a3-a1d9-8ccd2936b341",
-      "name": "",
+      "name": "Dongguan, GD, CN",
       "countryCode": "CN",
-      "city": "",
-      "province": "",
+      "city": "Dongguan",
+      "province": "GD",
       "postalCode": "",
-      "address1": ""
+      "address1": "Elevator No. 3, F4, Building F, Fengzhimei Industrial Zone, Jinfenghuang Avenue, Fenggang Town, Dongguan City, Guangdong Province, 523689, China"
     },
     "warehouseDiscovery": {
       "attempted": true,
@@ -116,239 +116,46 @@
         {
           "id": "62cfedee247c4be1a0d497bfd2cf65ae",
           "name": "Jinhua, ZJ, CN",
-          "countryCode": "",
-          "city": "",
-          "province": "",
+          "countryCode": "CN",
+          "city": "Jinhua",
+          "province": "ZJ",
           "postalCode": "",
           "address1": "Cujia Trade, 4th Floor, South Gate 1, Building 2, Sujia Aihua Factory, No. 1511 Jingang Avenue, Fucun Town, Jindong District, Jinhua City, Zhejiang Province",
-          "evidenceVerified": false,
-          "evidenceMode": null
+          "matchesLiveStockId": false,
+          "evidenceVerified": true,
+          "evidenceMode": "city_region_country"
         },
         {
           "id": "2991a224-737b-42a3-a1d9-8ccd2936b341",
           "name": "Dongguan, GD, CN",
-          "countryCode": "",
-          "city": "",
-          "province": "",
+          "countryCode": "CN",
+          "city": "Dongguan",
+          "province": "GD",
           "postalCode": "",
           "address1": "Elevator No. 3, F4, Building F, Fengzhimei Industrial Zone, Jinfenghuang Avenue, Fenggang Town, Dongguan City, Guangdong Province, 523689, China",
-          "evidenceVerified": false,
-          "evidenceMode": null
-        },
+          "matchesLiveStockId": true,
+          "evidenceVerified": true,
+          "evidenceMode": "city_region_country"
+        }
+      ],
+      "exactStockMatches": [
         {
-          "id": "7a169e1a92ee4c719cfaedd837c6e46e",
-          "name": "Jinfeng, ZJ, CN",
-          "countryCode": "",
-          "city": "",
-          "province": "",
+          "id": "2991a224-737b-42a3-a1d9-8ccd2936b341",
+          "name": "Dongguan, GD, CN",
+          "countryCode": "CN",
+          "city": "Dongguan",
+          "province": "GD",
           "postalCode": "",
-          "address1": "2nd floor, Building 9, No. 887 Changchun West Rd. China (Zhejiang) Pilot Free Trade Zone, Jindong District, Jinhua, Zhejiang",
-          "evidenceVerified": false,
-          "evidenceMode": null
-        },
-        {
-          "id": "a0be24ca2b5a27682e73213b0f08a92c",
-          "name": "Jinfeng-2, ZJ, CN",
-          "countryCode": "",
-          "city": "",
-          "province": "",
-          "postalCode": "",
-          "address1": "Gate 3, 3rd Floor, Building 2, Jinfeng Industrial Science and Technology Park, No. 887 Changchun West Road, Xiaoshun Town, Jindong District, Jinhua City, Zhejiang Province",
-          "evidenceVerified": false,
-          "evidenceMode": null
-        },
-        {
-          "id": "758ad2ef89d12c0eb77695fad97c0aa9",
-          "name": "Jinfeng POD Warehouse",
-          "countryCode": "",
-          "city": "",
-          "province": "",
-          "postalCode": "",
-          "address1": "3rd Floor, Building 2, No. 887 Changchun West Road, Xiaoshun Town, Jindong District, Jinhua City, Zhejiang Province",
-          "evidenceVerified": false,
-          "evidenceMode": null
-        },
-        {
-          "id": "fee64e4f700c47c28ee548cf7cd79248",
-          "name": "Guang Zhou Y2, GD, CN",
-          "countryCode": "",
-          "city": "",
-          "province": "",
-          "postalCode": "510300",
-          "address1": "2nd Floor, Building H2, Houhangdao Zhichuang Park, No. 92 Nanzhou Road, Haizhu District, Guangzhou (Cargo Lift)",
-          "evidenceVerified": false,
-          "evidenceMode": null
-        },
-        {
-          "id": "a1b86d4f9a2c7e5c9e213b0f08a92cd8",
-          "name": "Hebei, HB, CN",
-          "countryCode": "",
-          "city": "",
-          "province": "",
-          "postalCode": "071000",
-          "address1": "4th Floor, E3 Building, Gate 6, Shouheng East Area, Qingyuan District, Baoding City, Hebei Province",
-          "evidenceVerified": false,
-          "evidenceMode": null
-        },
-        {
-          "id": "201e67f6ba4644c0a36d63bf4989dd70",
-          "name": "Cranbury, NJ, US",
-          "countryCode": "",
-          "city": "",
-          "province": "",
-          "postalCode": "08512",
-          "address1": "Suite 313, 20 Haypress Road, Cranbury, NJ 08512 USA",
-          "evidenceVerified": false,
-          "evidenceMode": null
-        },
-        {
-          "id": "9d799872044042ab978cd95ba4359b23",
-          "name": "Hamilton, NJ, US",
-          "countryCode": "",
-          "city": "",
-          "province": "",
-          "postalCode": "08691",
-          "address1": "652 US Route 130 Suite #2 DOCK 22-44, Hamilton, NJ 08691, US",
-          "evidenceVerified": false,
-          "evidenceMode": null
-        },
-        {
-          "id": "cf1019c7ceb7399ed77b231bb061cfe7",
-          "name": "Burlington, NJ, US",
-          "countryCode": "",
-          "city": "",
-          "province": "",
-          "postalCode": "08016",
-          "address1": "1620 River Road (door 9-46), Burlington, NJ 08016",
-          "evidenceVerified": false,
-          "evidenceMode": null
-        },
-        {
-          "id": "138d3680257b5c198b358149f73f64f9",
-          "name": "Fontana, CA, US",
-          "countryCode": "",
-          "city": "",
-          "province": "",
-          "postalCode": "92335",
-          "address1": "8375 Sultana Ave,Unit 2,Fontana，CA，92335",
-          "evidenceVerified": false,
-          "evidenceMode": null
-        },
-        {
-          "id": "57d5ba2de9904039af38f04948900fea",
-          "name": "Ontario, CA , US",
-          "countryCode": "",
-          "city": "",
-          "province": "",
-          "postalCode": "91761",
-          "address1": "1800 S. Archibald Ave.DOCK 1-10, Ontario, CA 91761",
-          "evidenceVerified": false,
-          "evidenceMode": null
-        },
-        {
-          "id": "42b0ad71aaec4b352e143a0297cd9319",
-          "name": "Austell, GA, US",
-          "countryCode": "",
-          "city": "",
-          "province": "",
-          "postalCode": "30168",
-          "address1": "C/O 7915 White Road, Building 100, Austell, Georgia 30168",
-          "evidenceVerified": false,
-          "evidenceMode": null
-        },
-        {
-          "id": "5dd41881363849beb155d0900a36e18e",
-          "name": "Missouri, TX, US",
-          "countryCode": "",
-          "city": "",
-          "province": "",
-          "postalCode": "77489",
-          "address1": "13513 S Gessner Rd, Ste #200, Missouri City, TX 77489",
-          "evidenceVerified": false,
-          "evidenceMode": null
-        },
-        {
-          "id": "d5ebb601baeaaca940496846cf19d60b",
-          "name": "Atlanta, GA, US",
-          "countryCode": "",
-          "city": "",
-          "province": "",
-          "postalCode": "30336",
-          "address1": "75 Mendel Dr SW Suite D,Atlanta,GA 30336,US",
-          "evidenceVerified": false,
-          "evidenceMode": null
-        },
-        {
-          "id": "eccc72479ad511e99835b8ee6591991d",
-          "name": "Dortmund, DE",
-          "countryCode": "",
-          "city": "",
-          "province": "",
-          "postalCode": "44145",
-          "address1": "Walter-Gropius-Straße 19, 50126 Bergheim, Germany",
-          "evidenceVerified": false,
-          "evidenceMode": null
-        },
-        {
-          "id": "d6c94710a258eb3df69c017b4528af63",
-          "name": "Limburg, DE",
-          "countryCode": "",
-          "city": "",
-          "province": "",
-          "postalCode": "65614",
-          "address1": "Auf dem Gaul 2, 65614 Beselich-Obertiefenbach, Limburg-Weilburg, DE",
-          "evidenceVerified": false,
-          "evidenceMode": null
-        },
-        {
-          "id": "91e62b1e47fb471a9f6d03c41bcc7712",
-          "name": "Swiecko, PL",
-          "countryCode": "",
-          "city": "",
-          "province": "",
-          "postalCode": "",
-          "address1": "Warehouse of CHL Logistik Sp.z o.o.-CJ(die Drittanbieter von Logistikdiensten), Swiecko 43B, Swiecko, Poland",
-          "evidenceVerified": false,
-          "evidenceMode": null
-        },
-        {
-          "id": "e33b846471722a692b8200da7e9e3a61",
-          "name": "Moscow, RU",
-          "countryCode": "",
-          "city": "",
-          "province": "",
-          "postalCode": "143921",
-          "address1": "деревня Дятловка, 171,городской округ Балашиха, Московская область, Россия 14392",
-          "evidenceVerified": false,
-          "evidenceMode": null
-        },
-        {
-          "id": "d8fbca2f1c0046f7f6aafad5f6b61edd",
-          "name": "Nigeria Lagos Warehouse No. 1",
-          "countryCode": "",
-          "city": "",
-          "province": "",
-          "postalCode": "102262",
-          "address1": "Merkato Plaza by Alakija junction off Badagry expressway, Amuwo Odofin Lagos State.",
-          "evidenceVerified": false,
-          "evidenceMode": null
-        },
-        {
-          "id": "e1a9e2d4f8c31065b7d1f4a6c2e9b3d8",
-          "name": "Sydney,AU",
-          "countryCode": "",
-          "city": "",
-          "province": "",
-          "postalCode": "2143",
-          "address1": "G2/391 Park Road Gate3 NSW 2143",
-          "evidenceVerified": false,
-          "evidenceMode": null
+          "address1": "Elevator No. 3, F4, Building F, Fengzhimei Industrial Zone, Jinfenghuang Avenue, Fenggang Town, Dongguan City, Guangdong Province, 523689, China",
+          "matchesLiveStockId": true,
+          "evidenceVerified": true,
+          "evidenceMode": "city_region_country"
         }
       ],
       "error": null
     },
-    "dispatchLocationVerified": false,
-    "dispatchEvidenceMode": null
+    "dispatchLocationVerified": true,
+    "dispatchEvidenceMode": "city_region_country"
   },
   "gates": {
     "economicsPass": true,
@@ -359,7 +166,7 @@
     "wholesaleSupplierConfigured": true,
     "ebaySellerAuthenticated": false,
     "liveStockVerified": true,
-    "dispatchLocationVerified": false,
+    "dispatchLocationVerified": true,
     "directStripeAbsent": true,
     "automaticSupplierOrderingDisabled": true
   },
