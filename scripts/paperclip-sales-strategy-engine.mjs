@@ -13,7 +13,16 @@ function activeState(strategy,{verifiedSales,saleReadyCount}){
 export function buildStrategyBoard({portfolio,supplier,firstSale,promotion}){
   if(!portfolio?.strategies?.length) throw new Error('sales_strategy_portfolio_missing');
   const verifiedSales=firstSale?.verifiedFirstSale===true?Math.max(1,Number(firstSale.verifiedSaleCount||1)):Number(firstSale?.verifiedSaleCount||0);
-  const saleReadyCount=Number(promotion?.promotionEligibleCount ?? supplier?.saleReadyCount ?? 0);
+  // Research or guarded-preflight promotion never proves buyer-specific sale readiness.
+  const declared = Number.isSafeInteger(supplier?.saleReadyCount) && supplier.saleReadyCount > 0
+    ? supplier.saleReadyCount : 0;
+  const verified = Array.isArray(supplier?.candidates)
+    ? supplier.candidates.filter(c => c.independentIdentityMatch === true &&
+        c.variantStockVerified === true && c.freightEstimateVerified === true &&
+        c.finalZipFreightVerified === true && c.mediaRightsVerified === true &&
+        c.checkoutAllowed === true && c.automaticPromotionAllowed === true).length
+    : 0;
+  const saleReadyCount = Math.min(declared, verified);
   const candidates=Array.isArray(supplier?.candidates)?supplier.candidates:[];
   const primary=candidates.filter(c=>c.independentIdentityMatch===true).sort((a,b)=>{
     const score=x=>[x.variantStockVerified,x.freightEstimateVerified,x.finalZipFreightVerified,x.mediaRightsVerified,x.checkoutAllowed,x.automaticPromotionAllowed].filter(Boolean).length;
