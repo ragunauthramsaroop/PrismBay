@@ -39,6 +39,7 @@ jobs:
           workflows=(
             'ceo-autonomous-recovery.yml:35'
             'ebay-control-plane.yml:100'
+            'prime-railway-clean-quote.yml:390'
             'buyer-acquisition.yml:160'
             'cj-ebay-ticket-watch.yml:100'
             'external-traffic-factory.yml:1600'
@@ -189,5 +190,6 @@ jobs:
           echo '- Runs every 30 minutes as a supervisory layer.' >> "$GITHUB_STEP_SUMMARY"
           echo '- Recovers failed critical revenue workflows and dispatches stale ones without duplicating healthy active runs.' >> "$GITHUB_STEP_SUMMARY"
           echo '- Buyer acquisition continues independently while eBay authorization waits.' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Railway buyer-route verification is now part of supervised recovery.' >> "$GITHUB_STEP_SUMMARY"
           echo '- Required external account consent, identity verification, payments and final eBay listing review remain human-authorized gates.' >> "$GITHUB_STEP_SUMMARY"
           echo '- No paid advertising or automatic supplier ordering is introduced.' >> "$GITHUB_STEP_SUMMARY"
