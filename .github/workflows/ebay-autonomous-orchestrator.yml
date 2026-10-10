@@ -23,7 +23,7 @@ permissions:
   issues: write
 
 concurrency:
-  group: prismbay-ebay-cj-api
+  group: prismbay-ebay-autonomous-orchestrator
   cancel-in-progress: false
 
 jobs:
