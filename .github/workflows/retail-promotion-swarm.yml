@@ -21,6 +21,12 @@ on:
       - 'scripts/dropshipping-dispatch.mjs'
       - 'scripts/organic-growth-agent.mjs'
       - 'scripts/cj-review-board.mjs'
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/retail-promotion-swarm.yml'
+      - 'scripts/retail-promotion-swarm.mjs'
+      - 'scripts/retail-promotion-swarm.test.mjs'
 
 permissions:
   contents: read
@@ -35,6 +41,7 @@ jobs:
       github.event_name == 'schedule' ||
       github.event_name == 'workflow_dispatch' ||
       github.event_name == 'pull_request' ||
+      github.event_name == 'push' ||
       (github.event_name == 'workflow_run' && github.event.workflow_run.conclusion == 'success') ||
       (github.event_name == 'issue_comment' && github.actor == 'ragunauthramsaroop' && startsWith(github.event.issue.title, '[RETAIL-GROWTH-SWARM]') && contains(github.event.comment.body, 'run retail growth swarm'))
     runs-on: ubuntu-latest
@@ -90,7 +97,7 @@ jobs:
       - name: Verify first non-test paid sale evidence
         run: node scripts/first-sale-verifier.mjs
 
-      - name: Verify no blocked product leaked into promotion lanes
+      - name: Verify no unsafe checkout leaked into promotion lanes
         run: |
           node --input-type=module <<'NODE'
           import fs from 'node:fs';
@@ -100,11 +107,16 @@ jobs:
           if (report.promotionEligibleCount !== report.trackedOffers.length) throw new Error('Tracked offer count does not match eligible products');
           for (const item of report.promotionEligible) {
             if (!item.promotionEligible || item.missing.length) throw new Error(`Blocked product leaked into promotion: ${item.slug}`);
+            if (!item.preflightUrl || item.preflightUrl.startsWith('https://buy.stripe.com/')) throw new Error(`Unsafe preflight route for ${item.slug}`);
+          }
+          for (const offer of report.trackedOffers) {
+            if (offer.checkoutMode !== 'buyer_zip_guarded_preflight') throw new Error(`Unexpected checkout mode for ${offer.slug}`);
+            if (offer.storefrontUrl.startsWith('https://buy.stripe.com/')) throw new Error(`Direct Stripe promotion leaked for ${offer.slug}`);
           }
           if (report.promotionEligibleCount === 0 && storefront?.result?.activeStorefront?.hasProductSchema === true) {
             throw new Error('Product offer schema leaked while no physical product is promotion eligible');
           }
-          console.log(`Promotion eligible: ${report.promotionEligibleCount}`);
+          console.log(`Guarded-preflight promotion eligible: ${report.promotionEligibleCount}`);
           NODE
 
       - name: Retain retail swarm outputs
@@ -133,7 +145,8 @@ jobs:
         shell: bash
         run: |
           echo 'The retail swarm runs all eight existing growth roles and the supplier-aware dispatch controller.' >> "$GITHUB_STEP_SUMMARY"
+          echo 'Eligible physical promotion points only to a guarded buyer-ZIP preflight page. Direct Stripe promotion remains prohibited.' >> "$GITHUB_STEP_SUMMARY"
+          echo 'Buyer-specific stock, destination freight and economics are rechecked before checkout is released.' >> "$GITHUB_STEP_SUMMARY"
           echo 'Transient network failures are retried and recorded as degraded evidence instead of aborting the swarm.' >> "$GITHUB_STEP_SUMMARY"
-          echo 'External product promotion stays blocked until every supplier, final-freight, rights, checkout and promotion gate passes.' >> "$GITHUB_STEP_SUMMARY"
           echo 'TikTok readiness and first-sale evidence are independently fail-closed.' >> "$GITHUB_STEP_SUMMARY"
           echo 'The educational YouTube channel is excluded from retail distribution.' >> "$GITHUB_STEP_SUMMARY"
