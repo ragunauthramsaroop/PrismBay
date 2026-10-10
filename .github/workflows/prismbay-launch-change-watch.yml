@@ -37,7 +37,7 @@ jobs:
           set -euo pipefail
           git fetch origin gh-pages
           mkdir -p growth-reports/ebay
-          git show origin/gh-pages:marketplace/ebay/autonomous-state.json > growth-reports/ebay/autonomous-state.json || echo '{}' > growth-reports/ebay/autonomous-state.json
+          git show origin/gh-pages:marketplace/ebay/orchestrator-state.json > growth-reports/ebay/orchestrator-state.json || echo '{}' > growth-reports/ebay/orchestrator-state.json
           git show origin/gh-pages:marketplace/ebay/cj-ticket-watch.json > growth-reports/ebay/cj-ticket-watch.json || echo '{}' > growth-reports/ebay/cj-ticket-watch.json
           git show origin/gh-pages:marketplace/ebay/launch-change-watch.json > "$RUNNER_TEMP/previous-launch-change-watch.json" || echo '{}' > "$RUNNER_TEMP/previous-launch-change-watch.json"
 
@@ -83,17 +83,23 @@ jobs:
             const s=JSON.parse(fs.readFileSync('growth-reports/ebay/launch-change-watch.json','utf8'));
             const q=await github.rest.search.issuesAndPullRequests({q:'repo:${{ github.repository }} is:issue in:title "PrismBay eBay Autonomous Launch Queue"'});
             const issue=q.data.items.find(x=>x.title==='PrismBay eBay Autonomous Launch Queue');
+            const nextAction=s.ticketReplyDetected
+              ? (s.ticketNextAction ?? s.orchestratorNextAction ?? 'follow control plane')
+              : (s.orchestratorNextAction ?? s.ticketNextAction ?? 'follow control plane');
             const lines=[
               'GitHub-native launch condition changed.',
               '',
               `Checked: ${s.checkedAt}`,
-              `Phase: ${s.phase}`,
+              `Phase: ${s.phase ?? 'unknown'}`,
               `CJ eBay authorized: ${s.cjEbayAuthorized ? 'YES' : 'NO'}`,
               `Ready for final eBay review: ${s.readyForFinalEbayReview ? 'YES' : 'NO'}`,
+              `Live stock: ${s.liveStockVerified ? 'YES' : 'NO'}`,
+              `Dispatch location: ${s.dispatchLocationVerified ? 'YES' : 'NO'}`,
+              `Economics: ${s.economicsPass ? 'PASS' : 'FAIL/UNKNOWN'}`,
               `Blockers: ${s.blockers.length ? s.blockers.join(', ') : 'none'}`,
               `CJ ticket status: ${s.ticketStatus ?? 'unknown'}`,
               `CJ reply detected: ${s.ticketReplyDetected ? 'YES' : 'NO'}`,
-              `Next action: ${s.ticketNextAction ?? 'follow control plane'}`,
+              `Next action: ${nextAction}`,
               '',
               'Safety gates remain in force. No consent, CAPTCHA, banking, supplier payment, or final marketplace publication is automated.'
             ].join('\n');
