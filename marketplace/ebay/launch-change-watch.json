@@ -1,0 +1,11 @@
+{
+  "checkedAt": "2026-10-10T22:14:06.290Z",
+  "phase": null,
+  "blockers": [],
+  "cjEbayAuthorized": false,
+  "readyForFinalEbayReview": false,
+  "ticketStatus": "AWAITING_CJ_REPLY",
+  "ticketReplyDetected": false,
+  "ticketNextAction": "Waiting for CJ reply. No seller action required yet.",
+  "fingerprint": "48d96d6d9368da4de81f782054c00b1bdc221e02b1440b8ca0281f1f3cc774ad"
+}
