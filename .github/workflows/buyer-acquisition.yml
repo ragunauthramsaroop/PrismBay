@@ -19,6 +19,7 @@ on:
       - 'scripts/sales-sitemap-sync.test.mjs'
       - 'scripts/indexnow-submit.mjs'
       - 'scripts/indexnow-submit.test.mjs'
+      - 'scripts/sales-revenue-control.mjs'
       - '.github/workflows/buyer-acquisition.yml'
   push:
     branches: [main]
@@ -36,10 +37,12 @@ on:
       - 'scripts/sales-sitemap-sync.test.mjs'
       - 'scripts/indexnow-submit.mjs'
       - 'scripts/indexnow-submit.test.mjs'
+      - 'scripts/sales-revenue-control.mjs'
       - '.github/workflows/buyer-acquisition.yml'
 
 permissions:
   contents: write
+  issues: write
 
 concurrency:
   group: prismbay-buyer-acquisition
@@ -75,7 +78,11 @@ jobs:
       - name: Build revenue-focused owned sales pages
         run: node scripts/owned-sales-page-worker.mjs
 
-      - name: Publish refreshed buyer pages and sitemap
+      - name: Build Sales Revenue Control heartbeat
+        run: node scripts/sales-revenue-control.mjs
+
+      - name: Publish refreshed buyer pages, sitemap and revenue state
+        id: publish
         if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
         shell: bash
         run: |
@@ -85,19 +92,66 @@ jobs:
           git worktree add --detach "$syncdir" origin/gh-pages
           git -C "$syncdir" config user.name 'github-actions[bot]'
           git -C "$syncdir" config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          mkdir -p "$syncdir/learn"
+          mkdir -p "$syncdir/learn" "$syncdir/sales"
           cp -f growth-reports/owned-sales-pages/*.html "$syncdir/learn/"
+          cp -f growth-reports/sales-revenue-control.json "$syncdir/sales/revenue-control.json"
           node scripts/sales-sitemap-sync.mjs "$syncdir/sitemap.xml"
-          git -C "$syncdir" add learn sitemap.xml
+          git -C "$syncdir" add learn sales/revenue-control.json sitemap.xml
           if ! git -C "$syncdir" diff --cached --quiet; then
+            echo 'changed=true' >> "$GITHUB_OUTPUT"
             git -C "$syncdir" commit -m 'chore: refresh PrismBay revenue pages'
             git -C "$syncdir" pull --rebase origin gh-pages
             git -C "$syncdir" push origin HEAD:gh-pages
+          else
+            echo 'changed=false' >> "$GITHUB_OUTPUT"
           fi
 
-      - name: Notify participating search engines about live buyer guides
-        if: github.event_name != 'pull_request'
+      - name: Notify participating search engines about changed buyer guides
+        if: github.event_name != 'pull_request' && (steps.publish.outputs.changed == 'true' || github.event_name == 'workflow_dispatch')
         run: node scripts/indexnow-submit.mjs
+
+      - name: Maintain Sales Revenue Control issue
+        if: github.event_name != 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const s = JSON.parse(fs.readFileSync('growth-reports/sales-revenue-control.json','utf8'));
+            const title = 'PrismBay Sales Revenue Control';
+            const h = s.funnelHealth || {};
+            const o = s.activeOffer || {};
+            const body = [
+              '# PrismBay Sales Revenue Control',
+              '',
+              `**Checked:** ${s.checkedAt}`,
+              `**Priority:** Paid sales from verified existing offers`,
+              `**Active offer:** ${o.title ?? o.slug ?? 'unknown'}`,
+              `**Price:** ${o.priceUsd != null ? '$' + o.priceUsd + ' USD' : 'unknown'}`,
+              `**Positioning:** ${s.positioning ?? 'baseline'}`,
+              `**Guide health:** ${h.guideHealthy ? 'PASS' : 'FAIL'}${h.guideHttpStatus ? ' (' + h.guideHttpStatus + ')' : ''}`,
+              `**Checkout health:** ${h.checkoutHealthy ? 'PASS' : 'FAIL'}${h.checkoutHttpStatus ? ' (' + h.checkoutHttpStatus + ')' : ''}`,
+              `**Demand miner:** ${h.demandMinerReady ? 'READY' : 'NOT READY'}`,
+              `**Conversion writer:** ${h.conversionWriterReady ? 'READY' : 'NOT READY'}`,
+              `**Sales acquisition loop:** ${h.loopHealthy ? 'HEALTHY' : 'BLOCKED'}`,
+              '',
+              `**Guide:** ${o.guideUrl ?? 'unavailable'}`,
+              `**Checkout:** ${o.checkoutUrl ?? 'unavailable'}`,
+              '',
+              `**Next action:** ${s.nextAction}`,
+              '',
+              '## Commercial truth',
+              '',
+              'A GitHub acquisition run is not a sale. Revenue is reported only after a real paid Stripe event is observed.',
+              'Cold email, fake urgency, deceptive claims, paid-ad spend and unauthorized social posting remain disabled.'
+            ].join('\n');
+            const {owner, repo} = context.repo;
+            const {data} = await github.rest.issues.listForRepo({owner, repo, state:'open', per_page:100});
+            const existing = data.find(x => !x.pull_request && x.title === title);
+            if (existing) {
+              await github.rest.issues.update({owner, repo, issue_number:existing.number, body});
+            } else {
+              await github.rest.issues.create({owner, repo, title, body});
+            }
 
       - name: Retain buyer acquisition assets
         uses: actions/upload-artifact@v4
@@ -107,6 +161,7 @@ jobs:
             growth-reports/buyer-acquisition-latest.json
             growth-reports/buyer-acquisition-latest.md
             growth-reports/freellm-sales-worker-latest.json
+            growth-reports/sales-revenue-control.json
             growth-reports/owned-sales-pages/
           retention-days: 7
 
@@ -115,7 +170,7 @@ jobs:
           echo '## PrismBay Revenue Acquisition Loop' >> "$GITHUB_STEP_SUMMARY"
           echo 'Priority: convert qualified organic buyers into existing Stripe checkout visits.' >> "$GITHUB_STEP_SUMMARY"
           echo 'Cadence: every 30 minutes.' >> "$GITHUB_STEP_SUMMARY"
-          echo 'Each production run refreshes buyer campaign assets, sales intelligence, owned sales pages, sitemap discovery and IndexNow notifications.' >> "$GITHUB_STEP_SUMMARY"
+          echo 'Each production run validates checkout health, refreshes acquisition intelligence, publishes owned buyer pages when needed, updates revenue-control state, and notifies search engines only when buyer content changes.' >> "$GITHUB_STEP_SUMMARY"
           echo "FreeLLMAPI mode: ${FREELLMAPI_CI_MODE:-deterministic-fallback}" >> "$GITHUB_STEP_SUMMARY"
           echo 'Revenue is never claimed without a paid Stripe transaction.' >> "$GITHUB_STEP_SUMMARY"
           echo 'No cold email, paid advertising, deceptive claims, or automatic social posting is performed.' >> "$GITHUB_STEP_SUMMARY"
