@@ -1,11 +1,12 @@
 {
-  "schemaVersion": 1,
-  "generatedAt": "2026-10-08T18:49:17.989Z",
-  "priority": "external_traffic_to_verified_digital_offers",
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-10T05:23:43.348Z",
+  "priority": "external_traffic_to_verified_guarded_offers",
   "items": [
     {
       "id": "stakeholder-youtube",
       "offer": "stakeholder",
+      "offerType": "digital",
       "channel": "youtube",
       "status": "ready_for_authorized_scheduler",
       "mediaUrl": "https://ragunauthramsaroop.github.io/PrismBay/media/social/stakeholder.mp4",
@@ -27,6 +28,7 @@
     {
       "id": "stakeholder-tiktok",
       "offer": "stakeholder",
+      "offerType": "digital",
       "channel": "tiktok",
       "status": "ready_for_authorized_scheduler",
       "mediaUrl": "https://ragunauthramsaroop.github.io/PrismBay/media/social/stakeholder.mp4",
@@ -48,6 +50,7 @@
     {
       "id": "esg-youtube",
       "offer": "esg",
+      "offerType": "digital",
       "channel": "youtube",
       "status": "ready_for_authorized_scheduler",
       "mediaUrl": "https://ragunauthramsaroop.github.io/PrismBay/media/social/esg.mp4",
@@ -69,6 +72,7 @@
     {
       "id": "esg-tiktok",
       "offer": "esg",
+      "offerType": "digital",
       "channel": "tiktok",
       "status": "ready_for_authorized_scheduler",
       "mediaUrl": "https://ragunauthramsaroop.github.io/PrismBay/media/social/esg.mp4",
@@ -90,16 +94,17 @@
     {
       "id": "whitepaper-youtube",
       "offer": "whitepaper",
+      "offerType": "digital",
       "channel": "youtube",
       "status": "ready_for_authorized_scheduler",
       "mediaUrl": "https://ragunauthramsaroop.github.io/PrismBay/media/social/whitepaper.mp4",
       "destinationUrl": "https://ragunauthramsaroop.github.io/PrismBay/learn/board-briefing-white-paper-system.html?utm_source=youtube&utm_medium=shorts&utm_campaign=prismbay_external_traffic_oct2026&utm_content=whitepaper_short_01",
-      "title": "A convincing report is not the same as a defensible one #Shorts",
+      "title": "Turn a one-off task into a repeatable documented process #Shorts",
       "caption": "A convincing report is not the same as a defensible one. Start a claim ledger with the source, date, methodology, reviewer and what could change the conclusion. Start with the free guide: https://ragunauthramsaroop.github.io/PrismBay/learn/board-briefing-white-paper-system.html?utm_source=youtube&utm_medium=shorts&utm_campaign=prismbay_external_traffic_oct2026&utm_content=whitepaper_short_01 Optional editable document toolkit: $79 USD one time.",
       "commercialContentOwnBrand": true,
       "madeForKids": false,
       "aiAssisted": true,
-      "strategy": "deterministic_fallback",
+      "strategy": "workflow-led",
       "guardrails": {
         "noInventedTestimonials": true,
         "noGuaranteedResults": true,
@@ -111,22 +116,117 @@
     {
       "id": "whitepaper-tiktok",
       "offer": "whitepaper",
+      "offerType": "digital",
       "channel": "tiktok",
       "status": "ready_for_authorized_scheduler",
       "mediaUrl": "https://ragunauthramsaroop.github.io/PrismBay/media/social/whitepaper.mp4",
       "destinationUrl": "https://ragunauthramsaroop.github.io/PrismBay/learn/board-briefing-white-paper-system.html?utm_source=tiktok&utm_medium=organic_video&utm_campaign=prismbay_external_traffic_oct2026&utm_content=whitepaper_short_01",
-      "title": "A convincing report is not the same as a defensible one",
+      "title": "Turn a one-off task into a repeatable documented process",
       "caption": "A convincing report is not the same as a defensible one. Start a claim ledger with the source, date, methodology, reviewer and what could change the conclusion. Start with the free guide: https://ragunauthramsaroop.github.io/PrismBay/learn/board-briefing-white-paper-system.html?utm_source=tiktok&utm_medium=organic_video&utm_campaign=prismbay_external_traffic_oct2026&utm_content=whitepaper_short_01 Optional editable document toolkit: $79 USD one time.",
       "commercialContentOwnBrand": true,
       "madeForKids": false,
       "aiAssisted": true,
-      "strategy": "deterministic_fallback",
+      "strategy": "workflow-led",
       "guardrails": {
         "noInventedTestimonials": true,
         "noGuaranteedResults": true,
         "exactPriceUsd": 79,
         "originalTypographyVideoOnly": true,
         "paidAds": false
+      }
+    },
+    {
+      "id": "bundle-youtube",
+      "offer": "bundle",
+      "offerType": "digital",
+      "channel": "youtube",
+      "status": "ready_for_authorized_scheduler",
+      "mediaUrl": "https://ragunauthramsaroop.github.io/PrismBay/media/social/bundle.mp4",
+      "destinationUrl": "https://ragunauthramsaroop.github.io/PrismBay/toolkits.html?utm_source=youtube&utm_medium=shorts&utm_campaign=prismbay_external_traffic_oct2026&utm_content=bundle_short_01",
+      "title": "Start with evidence you can trace before the next review #Shorts",
+      "caption": "Executive work slows down when stakeholder, ESG and board-reporting processes live in disconnected files. Map the work into three evidence lanes: stakeholder commitments, ESG performance records and decision-grade research claims. Assign one accountable owner to each lane. Start with the free guide: https://ragunauthramsaroop.github.io/PrismBay/toolkits.html?utm_source=youtube&utm_medium=shorts&utm_campaign=prismbay_external_traffic_oct2026&utm_content=bundle_short_01 Optional editable document toolkit: $179 USD one time.",
+      "commercialContentOwnBrand": true,
+      "madeForKids": false,
+      "aiAssisted": true,
+      "strategy": "evidence-led",
+      "guardrails": {
+        "noInventedTestimonials": true,
+        "noGuaranteedResults": true,
+        "exactPriceUsd": 179,
+        "originalTypographyVideoOnly": true,
+        "paidAds": false
+      }
+    },
+    {
+      "id": "bundle-tiktok",
+      "offer": "bundle",
+      "offerType": "digital",
+      "channel": "tiktok",
+      "status": "ready_for_authorized_scheduler",
+      "mediaUrl": "https://ragunauthramsaroop.github.io/PrismBay/media/social/bundle.mp4",
+      "destinationUrl": "https://ragunauthramsaroop.github.io/PrismBay/toolkits.html?utm_source=tiktok&utm_medium=organic_video&utm_campaign=prismbay_external_traffic_oct2026&utm_content=bundle_short_01",
+      "title": "Start with evidence you can trace before the next review",
+      "caption": "Executive work slows down when stakeholder, ESG and board-reporting processes live in disconnected files. Map the work into three evidence lanes: stakeholder commitments, ESG performance records and decision-grade research claims. Assign one accountable owner to each lane. Start with the free guide: https://ragunauthramsaroop.github.io/PrismBay/toolkits.html?utm_source=tiktok&utm_medium=organic_video&utm_campaign=prismbay_external_traffic_oct2026&utm_content=bundle_short_01 Optional editable document toolkit: $179 USD one time.",
+      "commercialContentOwnBrand": true,
+      "madeForKids": false,
+      "aiAssisted": true,
+      "strategy": "evidence-led",
+      "guardrails": {
+        "noInventedTestimonials": true,
+        "noGuaranteedResults": true,
+        "exactPriceUsd": 179,
+        "originalTypographyVideoOnly": true,
+        "paidAds": false
+      }
+    },
+    {
+      "id": "garment-steamer-youtube",
+      "offer": "garment-steamer",
+      "offerType": "physical",
+      "channel": "youtube",
+      "status": "ready_for_authorized_scheduler",
+      "mediaUrl": "https://ragunauthramsaroop.github.io/PrismBay/media/social/garment-steamer.mp4",
+      "destinationUrl": "https://browser-worker-production-f5b4.up.railway.app/garment-steamer/github/?utm_source=youtube&utm_medium=shorts&utm_campaign=prismbay_clean_steamer_oct2026&utm_content=garment-steamer_short_01",
+      "title": "Portable Garment Steamer: check U.S. ZIP before payment #Shorts",
+      "caption": "Portable Garment Steamer — $29.95 USD. Check your 5-digit U.S. ZIP before payment. PrismBay Clean checks current supplier stock and destination shipping first. Availability varies by ZIP. https://browser-worker-production-f5b4.up.railway.app/garment-steamer/github/?utm_source=youtube&utm_medium=shorts&utm_campaign=prismbay_clean_steamer_oct2026&utm_content=garment-steamer_short_01",
+      "commercialContentOwnBrand": true,
+      "madeForKids": false,
+      "aiAssisted": false,
+      "strategy": "guarded_physical_preflight",
+      "guardrails": {
+        "noInventedTestimonials": true,
+        "noGuaranteedResults": true,
+        "exactPriceUsd": 29.95,
+        "originalTypographyVideoOnly": true,
+        "paidAds": false,
+        "directStripe": false,
+        "zipPreflightRequired": true,
+        "availabilityClaim": "live_check_required"
+      }
+    },
+    {
+      "id": "garment-steamer-tiktok",
+      "offer": "garment-steamer",
+      "offerType": "physical",
+      "channel": "tiktok",
+      "status": "ready_for_authorized_scheduler",
+      "mediaUrl": "https://ragunauthramsaroop.github.io/PrismBay/media/social/garment-steamer.mp4",
+      "destinationUrl": "https://browser-worker-production-f5b4.up.railway.app/garment-steamer/github/?utm_source=tiktok&utm_medium=organic_video&utm_campaign=prismbay_clean_steamer_oct2026&utm_content=garment-steamer_short_01",
+      "title": "Portable Garment Steamer: check U.S. ZIP before payment",
+      "caption": "Portable Garment Steamer — $29.95 USD. Check your 5-digit U.S. ZIP before payment. PrismBay Clean checks current supplier stock and destination shipping first. Availability varies by ZIP. https://browser-worker-production-f5b4.up.railway.app/garment-steamer/github/?utm_source=tiktok&utm_medium=organic_video&utm_campaign=prismbay_clean_steamer_oct2026&utm_content=garment-steamer_short_01",
+      "commercialContentOwnBrand": true,
+      "madeForKids": false,
+      "aiAssisted": false,
+      "strategy": "guarded_physical_preflight",
+      "guardrails": {
+        "noInventedTestimonials": true,
+        "noGuaranteedResults": true,
+        "exactPriceUsd": 29.95,
+        "originalTypographyVideoOnly": true,
+        "paidAds": false,
+        "directStripe": false,
+        "zipPreflightRequired": true,
+        "availabilityClaim": "live_check_required"
       }
     }
   ],
@@ -135,22 +235,36 @@
       "status": "ok",
       "strategy": "evidence-led",
       "model": "auto:reliable",
-      "routedVia": "ovh/Qwen3.5-9B",
+      "routedVia": "kilo/nvidia/nemotron-3-super-120b-a12b:free",
       "routeAttempts": 2
     },
     "esg": {
       "status": "ok",
       "strategy": "evidence-led",
-      "model": "auto:fast",
-      "routedVia": "ovh/gpt-oss-120b",
-      "routeAttempts": 3
+      "model": "auto:reliable",
+      "routedVia": "ovh/Qwen3.6-27B",
+      "routeAttempts": 2
     },
     "whitepaper": {
-      "status": "invalid_output",
-      "strategy": "deterministic_fallback",
+      "status": "ok",
+      "strategy": "workflow-led",
+      "model": "auto:reliable",
+      "routedVia": "ovh/Mistral-Nemo-Instruct-2407",
+      "routeAttempts": 2
+    },
+    "bundle": {
+      "status": "ok",
+      "strategy": "evidence-led",
+      "model": "auto:reliable",
+      "routedVia": "ovh/Qwen3.5-397B-A17B",
+      "routeAttempts": 2
+    },
+    "garment-steamer": {
+      "status": "deterministic_guarded_physical",
+      "strategy": "guarded_physical_preflight",
       "model": null,
-      "routedVia": "kilo/liquid/lfm-2.5-2.6b:free",
-      "routeAttempts": 3
+      "routedVia": null,
+      "routeAttempts": 0
     }
   },
   "media": [
@@ -171,15 +285,30 @@
     {
       "slug": "whitepaper",
       "file": "/home/runner/work/PrismBay/PrismBay/growth-reports/external-social/whitepaper/whitepaper.mp4",
-      "sha256": "536e5426e6fcee0e13642be3582a75a934fae57569f9990c466e0ef1c734cb5d",
+      "sha256": "4a7c56dbfc28ff62f9ae666b2c9c801dbd66cfc7c20209d88a35a5f1ee14cd62",
       "durationSeconds": 20,
-      "bytes": 214997
+      "bytes": 217885
+    },
+    {
+      "slug": "bundle",
+      "file": "/home/runner/work/PrismBay/PrismBay/growth-reports/external-social/bundle/bundle.mp4",
+      "sha256": "e85207f9cfc6b1f2e49fba6ad30bb34c9502988356fd8ec0849375e14e7b1dbd",
+      "durationSeconds": 20,
+      "bytes": 218576
+    },
+    {
+      "slug": "garment-steamer",
+      "file": "/home/runner/work/PrismBay/PrismBay/growth-reports/external-social/garment-steamer/garment-steamer.mp4",
+      "sha256": "05792e7adc0b0405932d38d0e6ad1d2b44952a5a19100d5418762b173afc4306",
+      "durationSeconds": 20,
+      "bytes": 184923
     }
   ],
   "publication": {
     "githubWorker": "renders original media and prepares tracked channel metadata",
     "authorizedScheduler": "required for platform publication",
     "coldEmail": false,
-    "paidAds": false
+    "paidAds": false,
+    "physicalPromotion": "garment steamer only; guarded ZIP preflight required before checkout"
   }
 }
