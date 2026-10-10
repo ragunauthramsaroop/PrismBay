@@ -1,12 +1,14 @@
 {
   "manifest_version": 3,
   "name": "PrismBay eBay Local Agent",
-  "version": "1.0.0",
-  "description": "Zero-cost local eBay listing assistant for the verified PrismBay garment-steamer offer.",
-  "permissions": ["activeTab", "scripting", "tabs"],
+  "version": "1.1.0",
+  "description": "Zero-cost local PrismBay assistant for CJ-to-eBay authorization and verified eBay draft filling.",
+  "permissions": ["activeTab", "scripting", "tabs", "storage"],
   "host_permissions": [
-    "https://www.ebay.com/*",
+    "https://*.ebay.com/*",
     "https://ebay.com/*",
+    "https://cjdropshipping.com/*",
+    "https://www.cjdropshipping.com/*",
     "https://clean.prismbayai.com/*"
   ],
   "action": {
@@ -15,8 +17,13 @@
   },
   "content_scripts": [
     {
-      "matches": ["https://www.ebay.com/*", "https://ebay.com/*"],
+      "matches": ["https://*.ebay.com/*", "https://ebay.com/*"],
       "js": ["content.js"],
+      "run_at": "document_idle"
+    },
+    {
+      "matches": ["https://cjdropshipping.com/*", "https://www.cjdropshipping.com/*"],
+      "js": ["cj-auth.js"],
       "run_at": "document_idle"
     }
   ]
