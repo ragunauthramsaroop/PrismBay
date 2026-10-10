@@ -1,0 +1,111 @@
+name: PrismBay Launch Change Watch
+
+on:
+  schedule:
+    - cron: '12,27,42,57 * * * *'
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/prismbay-launch-change-watch.mjs'
+      - '.github/workflows/prismbay-launch-change-watch.yml'
+
+permissions:
+  contents: write
+  issues: write
+
+concurrency:
+  group: prismbay-launch-change-watch
+  cancel-in-progress: false
+
+jobs:
+  watch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Validate watcher
+        run: node --check scripts/prismbay-launch-change-watch.mjs
+
+      - name: Read latest published launch state
+        shell: bash
+        run: |
+          set -euo pipefail
+          git fetch origin gh-pages
+          mkdir -p growth-reports/ebay
+          git show origin/gh-pages:marketplace/ebay/autonomous-state.json > growth-reports/ebay/autonomous-state.json || echo '{}' > growth-reports/ebay/autonomous-state.json
+          git show origin/gh-pages:marketplace/ebay/cj-ticket-watch.json > growth-reports/ebay/cj-ticket-watch.json || echo '{}' > growth-reports/ebay/cj-ticket-watch.json
+          git show origin/gh-pages:marketplace/ebay/launch-change-watch.json > "$RUNNER_TEMP/previous-launch-change-watch.json" || echo '{}' > "$RUNNER_TEMP/previous-launch-change-watch.json"
+
+      - name: Build current snapshot
+        run: node scripts/prismbay-launch-change-watch.mjs
+
+      - name: Detect meaningful change
+        id: change
+        shell: bash
+        run: |
+          node - <<'JS'
+          const fs=require('fs');
+          const cur=JSON.parse(fs.readFileSync('growth-reports/ebay/launch-change-watch.json','utf8'));
+          let prev={};
+          try{prev=JSON.parse(fs.readFileSync(process.env.RUNNER_TEMP+'/previous-launch-change-watch.json','utf8'));}catch{}
+          const changed=Boolean(cur.fingerprint && cur.fingerprint!==prev.fingerprint);
+          fs.appendFileSync(process.env.GITHUB_OUTPUT,`changed=${changed}\n`);
+          JS
+
+      - name: Publish watcher snapshot
+        shell: bash
+        run: |
+          set -euo pipefail
+          syncdir="$RUNNER_TEMP/prismbay-launch-watch-pages"
+          git worktree add --detach "$syncdir" origin/gh-pages
+          git -C "$syncdir" config user.name 'github-actions[bot]'
+          git -C "$syncdir" config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          mkdir -p "$syncdir/marketplace/ebay"
+          cp growth-reports/ebay/launch-change-watch.json "$syncdir/marketplace/ebay/launch-change-watch.json"
+          git -C "$syncdir" add marketplace/ebay/launch-change-watch.json
+          if ! git -C "$syncdir" diff --cached --quiet; then
+            git -C "$syncdir" commit -m 'chore: publish PrismBay launch change state'
+            git -C "$syncdir" pull --rebase origin gh-pages
+            git -C "$syncdir" push origin HEAD:gh-pages
+          fi
+
+      - name: Escalate meaningful change to launch queue
+        if: steps.change.outputs.changed == 'true'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs=require('fs');
+            const s=JSON.parse(fs.readFileSync('growth-reports/ebay/launch-change-watch.json','utf8'));
+            const q=await github.rest.search.issuesAndPullRequests({q:'repo:${{ github.repository }} is:issue in:title "PrismBay eBay Autonomous Launch Queue"'});
+            const issue=q.data.items.find(x=>x.title==='PrismBay eBay Autonomous Launch Queue');
+            const lines=[
+              'GitHub-native launch condition changed.',
+              '',
+              `Checked: ${s.checkedAt}`,
+              `Phase: ${s.phase}`,
+              `CJ eBay authorized: ${s.cjEbayAuthorized ? 'YES' : 'NO'}`,
+              `Ready for final eBay review: ${s.readyForFinalEbayReview ? 'YES' : 'NO'}`,
+              `Blockers: ${s.blockers.length ? s.blockers.join(', ') : 'none'}`,
+              `CJ ticket status: ${s.ticketStatus ?? 'unknown'}`,
+              `CJ reply detected: ${s.ticketReplyDetected ? 'YES' : 'NO'}`,
+              `Next action: ${s.ticketNextAction ?? 'follow control plane'}`,
+              '',
+              'Safety gates remain in force. No consent, CAPTCHA, banking, supplier payment, or final marketplace publication is automated.'
+            ].join('\n');
+            if(issue){
+              await github.rest.issues.createComment({owner:context.repo.owner,repo:context.repo.repo,issue_number:issue.number,body:lines});
+            } else {
+              await github.rest.issues.create({owner:context.repo.owner,repo:context.repo.repo,title:'PrismBay eBay Autonomous Launch Queue',body:lines});
+            }
+
+      - name: Summary
+        if: always()
+        shell: bash
+        run: |
+          echo '## PrismBay Launch Change Watch' >> "$GITHUB_STEP_SUMMARY"
+          cat growth-reports/ebay/launch-change-watch.json >> "$GITHUB_STEP_SUMMARY" || true
