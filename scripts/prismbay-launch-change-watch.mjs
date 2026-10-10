@@ -7,9 +7,15 @@ const readJson = (p) => {
 
 const launch = readJson('growth-reports/ebay/orchestrator-state.json');
 const ticket = readJson('growth-reports/ebay/cj-ticket-watch.json');
+const now = Date.now();
+const orchestratorTs = launch?.checkedAt ? Date.parse(launch.checkedAt) : Number.NaN;
+const orchestratorAgeMinutes = Number.isFinite(orchestratorTs)
+  ? Math.max(0, Math.floor((now - orchestratorTs) / 60000))
+  : null;
+const orchestratorStale = orchestratorAgeMinutes === null || orchestratorAgeMinutes > 35;
 
 const snapshot = {
-  checkedAt: new Date().toISOString(),
+  checkedAt: new Date(now).toISOString(),
   phase: launch?.phase ?? null,
   blockers: Array.isArray(launch?.blockers) ? launch.blockers : [],
   cjEbayAuthorized: Boolean(launch?.ebaySellerAuthenticated),
@@ -18,6 +24,8 @@ const snapshot = {
   dispatchLocationVerified: Boolean(launch?.dispatchLocationVerified),
   economicsPass: Boolean(launch?.economicsPass),
   orchestratorCheckedAt: launch?.checkedAt ?? null,
+  orchestratorAgeMinutes,
+  orchestratorStale,
   orchestratorNextAction: launch?.nextAction ?? null,
   ticketStatus: ticket?.status ?? null,
   ticketReplyDetected: Boolean(ticket?.replyDetected),
@@ -32,7 +40,7 @@ const stable = {
   liveStockVerified: snapshot.liveStockVerified,
   dispatchLocationVerified: snapshot.dispatchLocationVerified,
   economicsPass: snapshot.economicsPass,
-  orchestratorCheckedAt: snapshot.orchestratorCheckedAt,
+  orchestratorStale: snapshot.orchestratorStale,
   orchestratorNextAction: snapshot.orchestratorNextAction,
   ticketStatus: snapshot.ticketStatus,
   ticketReplyDetected: snapshot.ticketReplyDetected,
