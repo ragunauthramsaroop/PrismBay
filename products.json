@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "updatedAt": "2026-10-09T00:00:00Z",
+  "brand": "PrismBay Clean",
+  "operator": "STUDYSMARTZ LLC",
+  "market": "US",
+  "products": [
+    {
+      "slug": "garment-steamer",
+      "name": "Portable Garment Steamer",
+      "priceUsd": 29.95,
+      "currency": "USD",
+      "publicUrl": "https://clean.prismbayai.com/garment-steamer/",
+      "buyerGuideUrl": "https://clean.prismbayai.com/guides/portable-garment-steamer.html",
+      "livePreflightUrl": "https://browser-worker-production-f5b4.up.railway.app/garment-steamer/",
+      "availability": "buyer_zip_verification_required",
+      "shippingMarket": "US",
+      "checkoutPolicy": "Stripe checkout is released only after live stock, buyer ZIP freight and commercial checks pass.",
+      "automaticSupplierOrdering": false,
+      "directStripePromotion": false
+    }
+  ]
+}
