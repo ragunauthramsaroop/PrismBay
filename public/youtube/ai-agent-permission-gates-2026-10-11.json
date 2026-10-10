@@ -1,0 +1,14 @@
+{
+  "slug": "ai-agent-permission-gates-2026-10-11",
+  "title": "Your AI Agent Should Not Have This Permission",
+  "sha256": "5e1c4c0f3ab8373ecfb97ab106384fdbf4bc490b0fbdf8e40544e830b72112ad",
+  "ttsEngines": [
+    "piper"
+  ],
+  "voice": "en_US-norman-medium",
+  "voiceLicenseBasis": "Piper en_US-norman-medium model card: public-domain LibriVox source recordings; fallback eSpeak-ng",
+  "sourceAttribution": "Original PrismBay implementation framework, informed by OWASP LLM06:2025 Excessive Agency and NIST AI RMF Playbook.",
+  "originalProgrammaticVisuals": true,
+  "paidSpend": 0,
+  "channelId": "UCw2hs85TzIpdKwJtG-BSxzQ"
+}

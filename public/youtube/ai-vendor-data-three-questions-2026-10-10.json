@@ -1,0 +1,14 @@
+{
+  "slug": "ai-vendor-data-three-questions-2026-10-10",
+  "title": "Before You Give an AI Vendor Customer Data, Ask These 3 Questions",
+  "sha256": "f533a5469500549f0168dae8cdffbff1d65b7f0ee118a59e6a2039b3807a2776",
+  "ttsEngines": [
+    "piper"
+  ],
+  "voice": "en_US-norman-medium",
+  "voiceLicenseBasis": "Piper en_US-norman-medium model card: public-domain LibriVox source recordings; fallback eSpeak-ng",
+  "sourceAttribution": "PrismBay framework informed by NIST AI RMF MAP 4.1 and ICO AI guidance.",
+  "originalProgrammaticVisuals": true,
+  "paidSpend": 0,
+  "channelId": "UCw2hs85TzIpdKwJtG-BSxzQ"
+}
