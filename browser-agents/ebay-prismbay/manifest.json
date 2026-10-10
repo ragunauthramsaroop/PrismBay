@@ -18,7 +18,7 @@
   "content_scripts": [
     {
       "matches": ["https://*.ebay.com/*", "https://ebay.com/*"],
-      "js": ["content.js"],
+      "js": ["content.js", "ebay-auth.js"],
       "run_at": "document_idle"
     },
     {
