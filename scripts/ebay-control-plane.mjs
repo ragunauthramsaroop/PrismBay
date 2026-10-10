@@ -84,6 +84,18 @@ function sanitizeWarehouse(data = {}) {
   };
 }
 
+function sanitizeConfirmationWarehouse(data = {}) {
+  return {
+    id: normalizeWarehouseId(data.storageId ?? data.id),
+    name: clean(data.displayName ?? data.name, 160),
+    countryCode: clean(data.countryCode ?? data.areaCountryCode, 10).toUpperCase(),
+    city: '',
+    province: '',
+    postalCode: clean(data.zipCode ?? data.postalCode ?? data.zip, 40),
+    address1: clean(data.addresses ?? data.address ?? data.address1, 300),
+  };
+}
+
 function dispatchEvidence(warehouse) {
   if (!warehouse?.countryCode) return { verified: false, mode: null };
   if (warehouse.postalCode) return { verified: true, mode: 'postal_country' };
@@ -137,6 +149,14 @@ async function main() {
     candidatesChecked: [],
     errors: [],
   };
+  const confirmationDiscovery = {
+    attempted: false,
+    endpoint: '/shopping/privateInventory/getConfirmation',
+    readOnly: true,
+    quantity: 1,
+    candidates: [],
+    error: null,
+  };
 
   if (route && warehouseDiscovery.candidateIds.length === 0) {
     try {
@@ -185,13 +205,45 @@ async function main() {
 
   if (!warehouse && partialWarehouse) warehouse = partialWarehouse;
 
+  if (route && !dispatchEvidence(warehouse).verified) {
+    confirmationDiscovery.attempted = true;
+    try {
+      await new Promise(r => setTimeout(r, 1100));
+      const confirmation = await jsonFetch(`${CJ_BASE}/shopping/privateInventory/getConfirmation`, {
+        method: 'POST',
+        headers: { ...headers, 'content-type':'application/json' },
+        body: JSON.stringify({
+          variants: [{
+            variantId: manifest.product.supplier.variantId,
+            productId: manifest.product.supplier.productId,
+            quantity: 1,
+          }],
+        }),
+      });
+      const rows = Array.isArray(confirmation?.data?.availableStorehouseList)
+        ? confirmation.data.availableStorehouseList
+        : [];
+      for (const row of rows) {
+        const candidate = sanitizeConfirmationWarehouse(row);
+        const evidence = dispatchEvidence(candidate);
+        confirmationDiscovery.candidates.push({ ...candidate, evidenceVerified: evidence.verified, evidenceMode: evidence.mode });
+        if (candidate.countryCode === pinnedOrigin && evidence.verified) {
+          warehouse = candidate;
+          break;
+        }
+      }
+    } catch (error) {
+      confirmationDiscovery.error = clean(error?.message, 260);
+    }
+  }
+
   const dispatch = dispatchEvidence(warehouse);
   const dispatchLocationVerified = dispatch.verified;
   const liveStockVerified = Boolean(route);
   const verification = manifest.verification || {};
 
   const report = {
-    schemaVersion: 4,
+    schemaVersion: 5,
     checkedAt: new Date().toISOString(),
     product: {
       slug: manifest.product.slug,
@@ -229,6 +281,7 @@ async function main() {
       } : null,
       warehouse,
       warehouseDiscovery,
+      confirmationDiscovery,
       dispatchLocationVerified,
       dispatchEvidenceMode: dispatch.mode,
     },
@@ -255,6 +308,9 @@ async function main() {
     liveStockVerified: report.gates.liveStockVerified,
     dispatchLocationVerified: report.gates.dispatchLocationVerified,
     dispatchEvidenceMode: report.cj.dispatchEvidenceMode,
+    confirmationAttempted: report.cj.confirmationDiscovery.attempted,
+    confirmationCandidates: report.cj.confirmationDiscovery.candidates,
+    confirmationError: report.cj.confirmationDiscovery.error,
     offerFloorEconomicsPass: report.gates.offerFloorEconomicsPass,
     listingDataVerified: report.gates.supplierSpecsVerified && report.gates.ebayCategoryVerified && report.gates.marketplacePolicyReviewed,
     readyForBrowserPublish: report.readyForBrowserPublish,
