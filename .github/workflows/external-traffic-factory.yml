@@ -39,6 +39,7 @@ jobs:
         with:
           node-version: '22'
       - name: Install deterministic video renderer
+        if: github.event_name != 'pull_request'
         run: |
           sudo apt-get update -qq
           sudo apt-get install -y -qq ffmpeg fonts-dejavu-core
