@@ -5,15 +5,14 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>PrismBay eBay Agent</title>
 <style>
-body{font:14px/1.4 system-ui,-apple-system,Segoe UI,sans-serif;width:330px;margin:0;padding:16px;color:#173a2f;background:#f7faf8}h1{font-size:18px;margin:0 0 10px}.status{padding:10px;border-radius:10px;background:#fff;border:1px solid #d7e2dc;margin:10px 0}.ok{color:#17643f}.bad{color:#9a3412}button{width:100%;margin:5px 0;padding:11px;border:0;border-radius:10px;font-weight:700;cursor:pointer}button.primary{background:#174b38;color:#fff}button.secondary{background:#e8f0ec;color:#173a2f}.small{font-size:11px;color:#667d74;margin-top:8px}
+body{font:14px/1.4 system-ui,-apple-system,Segoe UI,sans-serif;width:350px;margin:0;padding:16px;color:#173a2f;background:#f7faf8}h1{font-size:18px;margin:0 0 10px}.status{padding:10px;border-radius:10px;background:#fff;border:1px solid #d7e2dc;margin:10px 0}.ok{color:#17643f}.bad{color:#9a3412}.wait{color:#8a5b10}button{width:100%;margin:5px 0;padding:11px;border:0;border-radius:10px;font-weight:700;cursor:pointer}button.primary{background:#174b38;color:#fff}button.secondary{background:#e8f0ec;color:#173a2f}button.danger{background:#f5e7e3;color:#7f2d1c}.small{font-size:11px;color:#667d74;margin-top:8px}.section{margin-top:12px;padding-top:10px;border-top:1px solid #d7e2dc}
 </style>
 </head>
 <body>
 <h1>PrismBay eBay Agent</h1>
 <div id="state" class="status">Loading verified marketplace state…</div>
-<button id="open" class="secondary">Open eBay listing</button>
-<button id="fill" class="primary">Fill verified draft</button>
-<div class="small">Payment stays inside eBay. GitHub/CJ verifies authorization, stock and dispatch location. The agent fills the draft only. Review the eBay form and use eBay's own final List button.</div>
+<div class="section"><strong>Connect eBay to CJ</strong><div id="auth" class="status">Authorization runner idle.</div><button id="connect" class="primary">Connect StudysmartzLLC to CJ</button><button id="stop" class="danger">Stop authorization run</button><div class="small">The agent verifies the signed-in eBay account, navigates CJ, fills the eBay User ID and starts CJ authorization. On eBay's permission screen, review the permissions and click “I agree” yourself. The agent then verifies the CJ connection.</div></div>
+<div class="section"><strong>Listing draft</strong><button id="open" class="secondary">Open eBay listing</button><button id="fill" class="primary">Fill verified draft</button><div class="small">Payment stays inside eBay. Supplier ordering stays manual. The agent never clicks eBay's final List button.</div></div>
 <script src="popup.js"></script>
 </body>
 </html>
