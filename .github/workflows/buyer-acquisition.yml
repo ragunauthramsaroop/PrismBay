@@ -2,7 +2,7 @@ name: PrismBay Buyer Acquisition Priority
 
 on:
   schedule:
-    - cron: '23 */2 * * *'
+    - cron: '8,38 * * * *'
   workflow_dispatch:
   pull_request:
     paths:
@@ -39,7 +39,7 @@ on:
       - '.github/workflows/buyer-acquisition.yml'
 
 permissions:
-  contents: read
+  contents: write
 
 concurrency:
   group: prismbay-buyer-acquisition
@@ -48,16 +48,19 @@ concurrency:
 jobs:
   acquire-buyers:
     runs-on: ubuntu-latest
-    timeout-minutes: 8
+    timeout-minutes: 12
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
+
       - name: Verify conversion worker safeguards
         run: node --test scripts/digital-conversion-campaign.test.mjs scripts/buyer-acquisition-worker.test.mjs scripts/freellm-sales-worker.test.mjs scripts/ci-freellmapi-bootstrap.test.mjs scripts/owned-sales-page-worker.test.mjs scripts/sales-sitemap-sync.test.mjs scripts/indexnow-submit.test.mjs
+
       - name: Build current buyer-to-checkout campaign from live offer
         run: node scripts/buyer-acquisition-worker.mjs
+
       - name: Start live FreeLLMAPI free-model router
         if: github.event_name != 'pull_request'
         env:
@@ -65,11 +68,37 @@ jobs:
           FREELLMAPI_API_KEY: ${{ secrets.FREELLMAPI_API_KEY }}
           FREELLMAPI_MODEL: ${{ secrets.FREELLMAPI_MODEL }}
         run: bash scripts/ci-freellmapi-bootstrap.sh
+
       - name: Run FreeLLM sales intelligence with safe fallback
         run: node scripts/freellm-sales-worker.mjs
+
+      - name: Build revenue-focused owned sales pages
+        run: node scripts/owned-sales-page-worker.mjs
+
+      - name: Publish refreshed buyer pages and sitemap
+        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+        shell: bash
+        run: |
+          set -euo pipefail
+          syncdir="$RUNNER_TEMP/prismbay-sales-pages"
+          git fetch origin gh-pages
+          git worktree add --detach "$syncdir" origin/gh-pages
+          git -C "$syncdir" config user.name 'github-actions[bot]'
+          git -C "$syncdir" config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          mkdir -p "$syncdir/learn"
+          cp -f growth-reports/owned-sales-pages/*.html "$syncdir/learn/"
+          node scripts/sales-sitemap-sync.mjs "$syncdir/sitemap.xml"
+          git -C "$syncdir" add learn sitemap.xml
+          if ! git -C "$syncdir" diff --cached --quiet; then
+            git -C "$syncdir" commit -m 'chore: refresh PrismBay revenue pages'
+            git -C "$syncdir" pull --rebase origin gh-pages
+            git -C "$syncdir" push origin HEAD:gh-pages
+          fi
+
       - name: Notify participating search engines about live buyer guides
         if: github.event_name != 'pull_request'
         run: node scripts/indexnow-submit.mjs
+
       - name: Retain buyer acquisition assets
         uses: actions/upload-artifact@v4
         with:
@@ -78,14 +107,19 @@ jobs:
             growth-reports/buyer-acquisition-latest.json
             growth-reports/buyer-acquisition-latest.md
             growth-reports/freellm-sales-worker-latest.json
+            growth-reports/owned-sales-pages/
           retention-days: 7
+
       - name: Summary
         run: |
-          echo '## Buyer acquisition worker' >> "$GITHUB_STEP_SUMMARY"
-          echo 'This worker validates a real existing guide -> Stripe checkout path and generates truthful conversion assets every two hours.' >> "$GITHUB_STEP_SUMMARY"
+          echo '## PrismBay Revenue Acquisition Loop' >> "$GITHUB_STEP_SUMMARY"
+          echo 'Priority: convert qualified organic buyers into existing Stripe checkout visits.' >> "$GITHUB_STEP_SUMMARY"
+          echo 'Cadence: every 30 minutes.' >> "$GITHUB_STEP_SUMMARY"
+          echo 'Each production run refreshes buyer campaign assets, sales intelligence, owned sales pages, sitemap discovery and IndexNow notifications.' >> "$GITHUB_STEP_SUMMARY"
           echo "FreeLLMAPI mode: ${FREELLMAPI_CI_MODE:-deterministic-fallback}" >> "$GITHUB_STEP_SUMMARY"
-          echo 'GitHub-hosted runs start a loopback-only FreeLLMAPI router with keyless free providers when no remote endpoint is configured.' >> "$GITHUB_STEP_SUMMARY"
-          echo 'It does not claim revenue without a paid Stripe transaction and does not send cold email or auto-post social content.' >> "$GITHUB_STEP_SUMMARY"
+          echo 'Revenue is never claimed without a paid Stripe transaction.' >> "$GITHUB_STEP_SUMMARY"
+          echo 'No cold email, paid advertising, deceptive claims, or automatic social posting is performed.' >> "$GITHUB_STEP_SUMMARY"
+
       - name: Stop run-scoped FreeLLMAPI router
         if: always() && github.event_name != 'pull_request'
         shell: bash
