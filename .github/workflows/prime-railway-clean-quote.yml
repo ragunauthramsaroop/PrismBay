@@ -36,6 +36,45 @@ jobs:
       - name: Authenticate live quote service
         run: node services/railway-clean-quote/bootstrap-live.mjs
 
+      - name: Verify live YouTube and TikTok attribution routes
+        shell: bash
+        run: |
+          node <<'NODE'
+          (async () => {
+            const origin = process.env.RAILWAY_CLEAN_QUOTE_URL.replace(/\/$/, '');
+            for (const channel of ['youtube', 'tiktok']) {
+              const page = await fetch(`${origin}/garment-steamer/${channel}/`, { redirect: 'manual' });
+              const html = await page.text();
+              if (page.status !== 200) throw new Error(`${channel}_buyer_page_${page.status}`);
+              if (!html.includes(`const API='/v1/quote/${channel}'`)) throw new Error(`${channel}_buyer_page_missing_api`);
+              if (html.includes('buy.stripe.com')) throw new Error(`${channel}_buyer_page_exposed_stripe`);
+
+              const options = await fetch(`${origin}/v1/quote/${channel}`, {
+                method: 'OPTIONS',
+                headers: {
+                  origin: process.env.STOREFRONT_ORIGIN,
+                  'access-control-request-method': 'POST',
+                  'access-control-request-headers': 'content-type'
+                }
+              });
+              if (options.status !== 204 || options.headers.get('access-control-allow-origin') !== process.env.STOREFRONT_ORIGIN) {
+                throw new Error(`${channel}_cors_${options.status}`);
+              }
+              console.log(`${channel} buyer and quote routes are live.`);
+            }
+
+            const legacy = await fetch(`${origin}/garment-steamer/github/?utm_source=youtube&utm_medium=shorts&utm_campaign=prismbay_clean_steamer_oct2026`, { redirect: 'manual' });
+            if (legacy.status !== 302) throw new Error(`legacy_youtube_redirect_${legacy.status}`);
+            const location = legacy.headers.get('location') || '';
+            if (!location.startsWith('/garment-steamer/youtube/')) throw new Error('legacy_youtube_redirect_wrong_path');
+            if (!location.includes('utm_source=youtube')) throw new Error('legacy_youtube_redirect_lost_utm');
+            console.log('Legacy social URL redirects into the dedicated YouTube path with UTM attribution preserved.');
+          })().catch(error => {
+            console.error(`Live channel attribution verification failed: ${error.message || error.name || 'unknown_error'}`);
+            process.exit(1);
+          });
+          NODE
+
       - name: Verify attributed buyer page and safe checkout authorization path
         shell: bash
         run: |
