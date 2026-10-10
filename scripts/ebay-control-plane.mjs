@@ -80,17 +80,31 @@ function sanitizeWarehouse(data = {}) {
     city: clean(data.city, 100),
     province: clean(data.province ?? data.state, 100),
     postalCode: clean(data.zipCode ?? data.postalCode ?? data.zip, 40),
-    address1: clean(data.address1, 200),
+    address1: clean(data.address1, 300),
   };
 }
 
-function sanitizeConfirmationWarehouse(data = {}) {
+function confirmationCountryCode(data = {}, pinnedOrigin = '') {
+  const direct = clean(data.countryCode ?? data.areaCountryCode, 10).toUpperCase();
+  if (direct) return direct;
+  const name = clean(data.displayName ?? data.name, 200);
+  const address = clean(data.addresses ?? data.address ?? data.address1, 500);
+  const text = `${name} ${address}`;
+  if (pinnedOrigin === 'CN' && (/(?:^|[,\s])CN(?:$|[,\s])/i.test(text) || /\bChina\b/i.test(text))) return 'CN';
+  return '';
+}
+
+function sanitizeConfirmationWarehouse(data = {}, pinnedOrigin = '') {
+  const name = clean(data.displayName ?? data.name, 160);
+  const countryCode = confirmationCountryCode(data, pinnedOrigin);
+  const parts = name.split(',').map(v => v.replace(/\u00a0/g, ' ').trim()).filter(Boolean);
+  const explicitCountryAtEnd = parts.length >= 2 && countryCode && parts.at(-1).toUpperCase() === countryCode;
   return {
     id: normalizeWarehouseId(data.storageId ?? data.id),
-    name: clean(data.displayName ?? data.name, 160),
-    countryCode: clean(data.countryCode ?? data.areaCountryCode, 10).toUpperCase(),
-    city: '',
-    province: '',
+    name,
+    countryCode,
+    city: explicitCountryAtEnd ? clean(parts[0], 100) : '',
+    province: explicitCountryAtEnd && parts.length >= 3 ? clean(parts[1], 100) : '',
     postalCode: clean(data.zipCode ?? data.postalCode ?? data.zip, 40),
     address1: clean(data.addresses ?? data.address ?? data.address1, 300),
   };
@@ -155,6 +169,7 @@ async function main() {
     readOnly: true,
     quantity: 1,
     candidates: [],
+    exactStockMatches: [],
     error: null,
   };
 
@@ -223,11 +238,15 @@ async function main() {
       const rows = Array.isArray(confirmation?.data?.availableStorehouseList)
         ? confirmation.data.availableStorehouseList
         : [];
+      const stockIdSet = new Set(warehouseDiscovery.candidateIds.map(normalizeWarehouseId));
       for (const row of rows) {
-        const candidate = sanitizeConfirmationWarehouse(row);
+        const candidate = sanitizeConfirmationWarehouse(row, pinnedOrigin);
+        const matchesLiveStockId = stockIdSet.has(candidate.id);
         const evidence = dispatchEvidence(candidate);
-        confirmationDiscovery.candidates.push({ ...candidate, evidenceVerified: evidence.verified, evidenceMode: evidence.mode });
-        if (candidate.countryCode === pinnedOrigin && evidence.verified) {
+        const summary = { ...candidate, matchesLiveStockId, evidenceVerified: evidence.verified, evidenceMode: evidence.mode };
+        confirmationDiscovery.candidates.push(summary);
+        if (matchesLiveStockId) confirmationDiscovery.exactStockMatches.push(summary);
+        if (matchesLiveStockId && candidate.countryCode === pinnedOrigin && evidence.verified) {
           warehouse = candidate;
           break;
         }
@@ -243,7 +262,7 @@ async function main() {
   const verification = manifest.verification || {};
 
   const report = {
-    schemaVersion: 5,
+    schemaVersion: 6,
     checkedAt: new Date().toISOString(),
     product: {
       slug: manifest.product.slug,
@@ -309,7 +328,7 @@ async function main() {
     dispatchLocationVerified: report.gates.dispatchLocationVerified,
     dispatchEvidenceMode: report.cj.dispatchEvidenceMode,
     confirmationAttempted: report.cj.confirmationDiscovery.attempted,
-    confirmationCandidates: report.cj.confirmationDiscovery.candidates,
+    exactStockMatches: report.cj.confirmationDiscovery.exactStockMatches,
     confirmationError: report.cj.confirmationDiscovery.error,
     offerFloorEconomicsPass: report.gates.offerFloorEconomicsPass,
     listingDataVerified: report.gates.supplierSpecsVerified && report.gates.ebayCategoryVerified && report.gates.marketplacePolicyReviewed,
