@@ -1,4 +1,5 @@
 import fs from 'node:fs/promises';
+import { evaluateEconomics } from './ebay-listing-worker.mjs';
 
 const CJ_BASE = 'https://developers.cjdropshipping.com/api2.0/v1';
 const manifestPath = 'marketplaces/ebay/garment-steamer.json';
@@ -51,6 +52,9 @@ async function main() {
   const apiKey = clean(process.env.CJ_API_KEY, 500);
   if (!apiKey) throw new Error('CJ_API_KEY missing');
   const manifest = JSON.parse(await fs.readFile(manifestPath, 'utf8'));
+  const listEconomics = evaluateEconomics(manifest);
+  const offerFloor = Number(manifest?.offer?.bestOffer?.autoDeclineBelowUsd ?? manifest.offer.price);
+  const floorEconomics = evaluateEconomics(manifest, offerFloor);
 
   const auth = await jsonFetch(`${CJ_BASE}/authentication/getAccessToken`, {
     method: 'POST',
@@ -111,9 +115,10 @@ async function main() {
     warehouse && warehouse.countryCode && warehouse.city && warehouse.postalCode
   );
   const liveStockVerified = Boolean(route);
+  const verification = manifest.verification || {};
 
   const report = {
-    schemaVersion: 1,
+    schemaVersion: 2,
     checkedAt: new Date().toISOString(),
     product: {
       slug: manifest.product.slug,
@@ -121,6 +126,19 @@ async function main() {
       variantSku: manifest.product.supplier.variantSku,
       originCountryCode: pinnedOrigin,
       listingPriceUsd: manifest.offer.price,
+      bestOfferFloorUsd: offerFloor,
+      categoryId: manifest.product.categoryId,
+      categoryName: manifest.product.categoryName,
+    },
+    economics: {
+      listPrice: listEconomics,
+      bestOfferFloor: floorEconomics,
+    },
+    verification: {
+      supplierSpecsVerified: verification.supplierSpecsVerified === true,
+      ebayCategoryVerified: verification.ebayCategoryVerified === true,
+      marketplacePolicyReviewed: verification.marketplacePolicyReviewed === true,
+      checkedAt: clean(verification.checkedAt, 40),
     },
     cj: {
       authenticated: true,
@@ -140,6 +158,12 @@ async function main() {
       dispatchLocationVerified,
     },
     gates: {
+      economicsPass: listEconomics.pass,
+      offerFloorEconomicsPass: floorEconomics.pass,
+      supplierSpecsVerified: verification.supplierSpecsVerified === true,
+      ebayCategoryVerified: verification.ebayCategoryVerified === true,
+      marketplacePolicyReviewed: verification.marketplacePolicyReviewed === true,
+      wholesaleSupplierConfigured: manifest.product?.supplier?.relationshipMode === 'wholesale_dropshipping_supplier',
       ebaySellerAuthenticated: Boolean(authorizedEbay),
       liveStockVerified,
       dispatchLocationVerified,
@@ -155,6 +179,8 @@ async function main() {
     ebaySellerAuthenticated: report.gates.ebaySellerAuthenticated,
     liveStockVerified: report.gates.liveStockVerified,
     dispatchLocationVerified: report.gates.dispatchLocationVerified,
+    offerFloorEconomicsPass: report.gates.offerFloorEconomicsPass,
+    listingDataVerified: report.gates.supplierSpecsVerified && report.gates.ebayCategoryVerified && report.gates.marketplacePolicyReviewed,
     readyForBrowserPublish: report.readyForBrowserPublish,
     ebayShopCount: report.cj.ebayShopCount,
     warehouse: report.cj.warehouse,
