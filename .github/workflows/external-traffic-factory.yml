@@ -65,7 +65,7 @@ jobs:
           git -C "$syncdir" config user.name 'github-actions[bot]'
           git -C "$syncdir" config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           mkdir -p "$syncdir/media/social"
-          for slug in stakeholder esg whitepaper garment-steamer; do
+          for slug in stakeholder esg whitepaper bundle garment-steamer; do
             cp "growth-reports/external-social/$slug/$slug.mp4" "$syncdir/media/social/$slug.mp4"
           done
           cp growth-reports/external-social/distribution-queue.json "$syncdir/media/social/distribution-queue.json"
