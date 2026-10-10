@@ -27,9 +27,11 @@ jobs:
       - name: Validate local extension source
         run: |
           node --check browser-agents/ebay-prismbay/content.js
+          node --check browser-agents/ebay-prismbay/ebay-auth.js
+          node --check browser-agents/ebay-prismbay/cj-auth.js
           node --check browser-agents/ebay-prismbay/popup.js
-          node -e "const m=require('./browser-agents/ebay-prismbay/manifest.json'); if(m.manifest_version!==3) process.exit(1); if(!m.host_permissions.includes('https://www.ebay.com/*')) process.exit(1);"
-          ! grep -R -E 'buy\.stripe\.com|CJ_API_KEY|createOrder|payBalance|PRISMBAY_PUBLISH' browser-agents/ebay-prismbay --exclude=README.md --exclude=install.html
+          node -e "const m=require('./browser-agents/ebay-prismbay/manifest.json'); if(m.manifest_version!==3) process.exit(1); if(!m.host_permissions.includes('https://*.ebay.com/*')) process.exit(1); if(!m.host_permissions.includes('https://cjdropshipping.com/*')) process.exit(1); if(!m.permissions.includes('storage')) process.exit(1);"
+          ! grep -R -E 'buy\.stripe\.com|CJ_API_KEY|createOrder|payBalance|PRISMBAY_PUBLISH|final List button.*click' browser-agents/ebay-prismbay --exclude=README.md --exclude=install.html
       - name: Build extension ZIP
         shell: bash
         run: |
@@ -38,6 +40,8 @@ jobs:
           mkdir -p build/ebay-prismbay
           cp browser-agents/ebay-prismbay/manifest.json build/ebay-prismbay/
           cp browser-agents/ebay-prismbay/content.js build/ebay-prismbay/
+          cp browser-agents/ebay-prismbay/ebay-auth.js build/ebay-prismbay/
+          cp browser-agents/ebay-prismbay/cj-auth.js build/ebay-prismbay/
           cp browser-agents/ebay-prismbay/popup.html build/ebay-prismbay/
           cp browser-agents/ebay-prismbay/popup.js build/ebay-prismbay/
           cp browser-agents/ebay-prismbay/README.md build/ebay-prismbay/
@@ -75,5 +79,5 @@ jobs:
       - name: Summary
         run: |
           echo '## PrismBay eBay Local Agent' >> "$GITHUB_STEP_SUMMARY"
-          echo 'Validated and packaged a local draft-only browser extension.' >> "$GITHUB_STEP_SUMMARY"
-          echo 'No Stripe checkout, CJ API key, supplier order, payment, or final eBay publish action is present in the extension package.' >> "$GITHUB_STEP_SUMMARY"
+          echo 'Validated and packaged the local CJ-to-eBay authorization helper plus draft filler.' >> "$GITHUB_STEP_SUMMARY"
+          echo 'No Stripe checkout, CJ API key, supplier order, payment, payout change, final eBay publish action, or automatic eBay permission consent is present in the extension package.' >> "$GITHUB_STEP_SUMMARY"
