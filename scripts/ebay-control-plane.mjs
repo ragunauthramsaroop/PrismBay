@@ -24,6 +24,11 @@ function boolAuthorizedStatus(status) {
   return Number(status) === 1;
 }
 
+function nestedStockIds(row = {}) {
+  const stocks = Array.isArray(row?.stock) ? row.stock : [];
+  return stocks.map(s => clean(s?.stockId, 100)).filter(Boolean);
+}
+
 function candidateWarehouseIds(row = {}) {
   return [...new Set([
     row.storageId,
@@ -31,7 +36,22 @@ function candidateWarehouseIds(row = {}) {
     row.storehouseId,
     row.storage,
     row.warehouse,
+    ...nestedStockIds(row),
   ].map(v => clean(v, 100)).filter(Boolean))];
+}
+
+function candidateIdsFromPidInventory(payload, variantId, originCountryCode) {
+  const variantRows = Array.isArray(payload?.data?.variantInventories) ? payload.data.variantInventories : [];
+  const match = variantRows.find(v => clean(v?.vid, 100) === clean(variantId, 100));
+  if (!match) return [];
+  const inventories = Array.isArray(match?.inventory) ? match.inventory : [];
+  const ids = [];
+  for (const row of inventories) {
+    if (clean(row?.countryCode, 10).toUpperCase() !== originCountryCode) continue;
+    if (Number(row?.totalInventory ?? row?.cjInventory ?? row?.factoryInventory ?? 0) < 1) continue;
+    ids.push(...nestedStockIds(row));
+  }
+  return [...new Set(ids.filter(Boolean))];
 }
 
 function sanitizeShop(shop) {
@@ -46,6 +66,25 @@ function sanitizeShop(shop) {
     storeCountry: clean(shop?.storeCountry, 100),
     currencyCode: clean(shop?.currencyCode, 20).toUpperCase(),
   };
+}
+
+function sanitizeWarehouse(data = {}) {
+  return {
+    id: clean(data.id, 100),
+    name: clean(data.name, 160),
+    countryCode: clean(data.areaCountryCode ?? data.countryCode, 10).toUpperCase(),
+    city: clean(data.city, 100),
+    province: clean(data.province ?? data.state, 100),
+    postalCode: clean(data.zipCode ?? data.postalCode ?? data.zip, 40),
+    address1: clean(data.address1, 200),
+  };
+}
+
+function dispatchEvidence(warehouse) {
+  if (!warehouse?.countryCode) return { verified: false, mode: null };
+  if (warehouse.postalCode) return { verified: true, mode: 'postal_country' };
+  if (warehouse.city && warehouse.province) return { verified: true, mode: 'city_region_country' };
+  return { verified: false, mode: null };
 }
 
 async function main() {
@@ -85,40 +124,61 @@ async function main() {
   ) || null;
 
   let warehouse = null;
-  let warehouseDiscovery = { attempted: false, candidateIds: [], errors: [] };
+  let warehouseDiscovery = {
+    attempted: false,
+    source: 'queryByVid',
+    candidateIds: route ? candidateWarehouseIds(route) : [],
+    pidInventoryFallbackAttempted: false,
+    errors: [],
+  };
+
+  if (route && warehouseDiscovery.candidateIds.length === 0) {
+    try {
+      warehouseDiscovery.pidInventoryFallbackAttempted = true;
+      await new Promise(r => setTimeout(r, 1100));
+      const pidUrl = new URL(`${CJ_BASE}/product/stock/getInventoryByPid`);
+      pidUrl.searchParams.set('pid', manifest.product.supplier.productId);
+      const pidInventory = await jsonFetch(pidUrl, { headers });
+      const fallbackIds = candidateIdsFromPidInventory(
+        pidInventory,
+        manifest.product.supplier.variantId,
+        pinnedOrigin,
+      );
+      if (fallbackIds.length) {
+        warehouseDiscovery.source = 'getInventoryByPid';
+        warehouseDiscovery.candidateIds = fallbackIds;
+      }
+    } catch (error) {
+      warehouseDiscovery.errors.push({ stage: 'getInventoryByPid', error: clean(error?.message, 220) });
+    }
+  }
+
   if (route) {
-    warehouseDiscovery.candidateIds = candidateWarehouseIds(route);
     for (const id of warehouseDiscovery.candidateIds) {
       warehouseDiscovery.attempted = true;
       try {
         await new Promise(r => setTimeout(r, 1100));
         const w = await jsonFetch(`${CJ_BASE}/warehouse/detail?id=${encodeURIComponent(id)}`, { headers });
         if (w?.data) {
-          warehouse = {
-            id: clean(w.data.id, 100),
-            name: clean(w.data.name, 160),
-            countryCode: clean(w.data.areaCountryCode ?? w.data.countryCode, 10).toUpperCase(),
-            city: clean(w.data.city, 100),
-            province: clean(w.data.province ?? w.data.state, 100),
-            postalCode: clean(w.data.zipCode ?? w.data.postalCode ?? w.data.zip, 40),
-            address1: clean(w.data.address1, 200),
-          };
-          break;
+          const candidate = sanitizeWarehouse(w.data);
+          if (candidate.countryCode === pinnedOrigin) {
+            warehouse = candidate;
+            break;
+          }
         }
       } catch (error) {
-        warehouseDiscovery.errors.push({ id, error: clean(error?.message, 220) });
+        warehouseDiscovery.errors.push({ stage: 'warehouse/detail', id, error: clean(error?.message, 220) });
       }
     }
   }
 
-  const dispatchLocationVerified = Boolean(
-    warehouse && warehouse.countryCode && warehouse.city && warehouse.postalCode
-  );
+  const dispatch = dispatchEvidence(warehouse);
+  const dispatchLocationVerified = dispatch.verified;
   const liveStockVerified = Boolean(route);
   const verification = manifest.verification || {};
 
   const report = {
-    schemaVersion: 2,
+    schemaVersion: 3,
     checkedAt: new Date().toISOString(),
     product: {
       slug: manifest.product.slug,
@@ -151,11 +211,13 @@ async function main() {
       routeSummary: route ? {
         countryCode: clean(route.countryCode, 10).toUpperCase(),
         inventory: Number(route.cjInventoryNum ?? route.totalInventoryNum ?? 0),
+        nestedStockIds: nestedStockIds(route),
         warehouseCandidateIds: warehouseDiscovery.candidateIds,
       } : null,
       warehouse,
       warehouseDiscovery,
       dispatchLocationVerified,
+      dispatchEvidenceMode: dispatch.mode,
     },
     gates: {
       economicsPass: listEconomics.pass,
@@ -179,10 +241,12 @@ async function main() {
     ebaySellerAuthenticated: report.gates.ebaySellerAuthenticated,
     liveStockVerified: report.gates.liveStockVerified,
     dispatchLocationVerified: report.gates.dispatchLocationVerified,
+    dispatchEvidenceMode: report.cj.dispatchEvidenceMode,
     offerFloorEconomicsPass: report.gates.offerFloorEconomicsPass,
     listingDataVerified: report.gates.supplierSpecsVerified && report.gates.ebayCategoryVerified && report.gates.marketplacePolicyReviewed,
     readyForBrowserPublish: report.readyForBrowserPublish,
     ebayShopCount: report.cj.ebayShopCount,
+    warehouseCandidateIds: report.cj.warehouseDiscovery.candidateIds,
     warehouse: report.cj.warehouse,
   }));
 }
