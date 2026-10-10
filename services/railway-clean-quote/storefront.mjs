@@ -3,9 +3,21 @@ import { createServer as createCoreServer } from './server.mjs';
 
 export const PRODUCT_IMAGE = 'https://oss-cf.cjdropshipping.com/product/2024/10/02/08/9b378db0-cb12-4b24-85d4-d3bd42e2649d.jpg';
 export const CANONICAL = 'https://clean.prismbayai.com/garment-steamer/';
+export const ATTRIBUTION_SOURCES = new Set(['direct', 'github', 'canonical', 'guide']);
+
+export function buyerSourceFromPath(pathname) {
+  if (pathname === '/' || pathname === '/garment-steamer' || pathname === '/garment-steamer/') return 'direct';
+  const match = pathname.match(/^\/garment-steamer\/(github|canonical|guide|direct)\/?$/);
+  return match ? match[1] : null;
+}
+
+export function quoteSourceFromPath(pathname) {
+  const match = pathname.match(/^\/v1\/quote\/(github|canonical|guide|direct)\/?$/);
+  return match ? match[1] : null;
+}
 
 export function isBuyerPath(pathname) {
-  return pathname === '/' || pathname === '/garment-steamer' || pathname === '/garment-steamer/';
+  return buyerSourceFromPath(pathname) !== null;
 }
 
 function pageHeaders() {
@@ -18,7 +30,9 @@ function pageHeaders() {
   };
 }
 
-export function buyerPage() {
+export function buyerPage(source = 'direct') {
+  const safeSource = ATTRIBUTION_SOURCES.has(source) ? source : 'direct';
+  const quotePath = `/v1/quote/${safeSource}`;
   return `<!doctype html>
 <html lang="en">
 <head>
@@ -42,14 +56,14 @@ export function buyerPage() {
 <div class="eyebrow">Live availability</div><h2>Check delivery to your ZIP</h2><p class="muted">Enter a U.S. ZIP. This check does not charge a card.</p>
 <form id="quote-form"><label for="zip">U.S. ZIP code</label><div class="row"><input id="zip" name="zip" inputmode="numeric" autocomplete="postal-code" maxlength="5" pattern="[0-9]{5}" placeholder="e.g. 10001" required><button id="check" type="submit">Check my ZIP</button></div><p class="fine">We check the mapped supplier variant, current stock and destination freight. No automatic supplier order starts here.</p></form>
 <div id="result" class="status" role="status" aria-live="polite"></div>
-<div class="policy"><strong>Why checkout is gated:</strong> freight and inventory change. PrismBay opens payment only when the current route passes its stock, shipping and margin safeguards. <a href="https://clean.prismbayai.com/guides/portable-garment-steamer.html">Read the buyer guide</a>.</div>
+<div class="policy"><strong>How fulfillment works:</strong> current route eligibility, supplier stock and destination freight are checked before Stripe opens. Final fulfillment and delivery timing are reviewed after payment before supplier dispatch. If fulfillment cannot proceed, the order is refunded. <a href="https://clean.prismbayai.com/guides/portable-garment-steamer.html">Read the buyer guide</a>.</div>
 <div class="direct"><a href="https://clean.prismbayai.com/contact.html">Questions before ordering? Contact PrismBay Clean</a></div>
 </aside>
 </section>
-<section class="trust"><div><h3>No payment during ZIP check</h3><p>The first check verifies eligibility only. Stripe appears only after a second successful live recheck.</p></div><div><h3>Eligible U.S. addresses</h3><p>Launch physical orders are limited to U.S. destinations that pass the live supplier and shipping route.</p></div><div><h3>Clear fulfillment controls</h3><p>PrismBay does not silently substitute an unverified product and does not auto-order from the supplier.</p></div></section>
+<section class="trust"><div><h3>No payment during ZIP check</h3><p>The first check verifies eligibility only. Stripe appears only after a second successful live recheck.</p></div><div><h3>Eligible U.S. addresses</h3><p>Launch physical orders are limited to U.S. destinations that pass the live supplier and shipping route.</p></div><div><h3>Fulfillment reviewed after payment</h3><p>The preflight checks the current route before checkout. A paid order is still reviewed before supplier dispatch, with refund protection if fulfillment cannot proceed.</p></div></section>
 </main>
 <script>
-(()=>{const form=document.getElementById('quote-form'),zip=document.getElementById('zip'),check=document.getElementById('check'),result=document.getElementById('result');let token='',quotedZip='';function show(kind,title,text,checkout){result.className='status '+kind;result.replaceChildren();const b=document.createElement('strong');b.textContent=title;result.appendChild(b);const d=document.createElement('div');d.textContent=text;result.appendChild(d);if(checkout){const x=document.createElement('button');x.type='button';x.className='checkout';x.textContent='Recheck and continue to secure checkout';x.addEventListener('click',authorize);result.appendChild(x)}}async function post(payload){const r=await fetch('/v1/quote',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(payload)});let data={};try{data=await r.json()}catch{}return{r,data}}form.addEventListener('submit',async e=>{e.preventDefault();const value=String(zip.value||'').replace(/\D/g,'').slice(0,5);zip.value=value;if(!/^\d{5}$/.test(value))return show('bad','Enter a valid ZIP','Use a 5-digit U.S. ZIP code.',false);token='';quotedZip='';check.disabled=true;check.textContent='Checking live data…';try{const{r,data}=await post({zip:value});if(!r.ok||!data.success||data.stage!=='quoted'||!data.quoteToken)return show('bad','Not available for this ZIP',data.error||'This route is not approved right now. No payment was taken.',false);token=data.quoteToken;quotedZip=value;const ship=typeof data.shippingUsd==='number'?' Shipping: USD '+data.shippingUsd.toFixed(2)+'.':'';const eta=data.estimatedDelivery?' Estimated transit: '+data.estimatedDelivery+'.':'';show('ok','Available for this ZIP','Live stock and commercial checks passed.'+ship+eta,true)}catch{show('bad','Live check unavailable','Supplier verification is temporarily unavailable. No payment was taken.',false)}finally{check.disabled=false;check.textContent='Check my ZIP'}});async function authorize(e){const btn=e.currentTarget;if(!token||!quotedZip)return;btn.disabled=true;btn.textContent='Final recheck…';try{let final=null;for(let i=0;i<3;i++){const out=await post({zip:quotedZip,quoteToken:token});final=out;if(out.r.status!==502&&out.r.status!==503)break;if(i<2)await new Promise(r=>setTimeout(r,900*(i+1)))}if(!final.r.ok||!final.data.success||final.data.stage!=='checkout_authorized'||!final.data.checkoutUrl){token='';return show('bad','Checkout not released',final.data.error||'Stock or shipping changed. Check your ZIP again.',false)}location.assign(final.data.checkoutUrl)}catch{show('bad','Checkout unavailable','Final verification could not be completed. No payment was taken.',false)}}})();
+(()=>{const API='${quotePath}',form=document.getElementById('quote-form'),zip=document.getElementById('zip'),check=document.getElementById('check'),result=document.getElementById('result');let token='',quotedZip='';function show(kind,title,text,checkout){result.className='status '+kind;result.replaceChildren();const b=document.createElement('strong');b.textContent=title;result.appendChild(b);const d=document.createElement('div');d.textContent=text;result.appendChild(d);if(checkout){const x=document.createElement('button');x.type='button';x.className='checkout';x.textContent='Recheck and continue to secure checkout';x.addEventListener('click',authorize);result.appendChild(x)}}async function post(payload){const r=await fetch(API,{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(payload)});let data={};try{data=await r.json()}catch{}return{r,data}}form.addEventListener('submit',async e=>{e.preventDefault();const value=String(zip.value||'').replace(/\D/g,'').slice(0,5);zip.value=value;if(!/^\d{5}$/.test(value))return show('bad','Enter a valid ZIP','Use a 5-digit U.S. ZIP code.',false);token='';quotedZip='';check.disabled=true;check.textContent='Checking live data…';try{const{r,data}=await post({zip:value});if(!r.ok||!data.success||data.stage!=='quoted'||!data.quoteToken)return show('bad','Not available for this ZIP',data.error||'This route is not approved right now. No payment was taken.',false);token=data.quoteToken;quotedZip=value;const ship=typeof data.shippingUsd==='number'?' Shipping: USD '+data.shippingUsd.toFixed(2)+'.':'';const eta=data.estimatedDelivery?' Estimated transit: '+data.estimatedDelivery+'.':'';show('ok','Available for this ZIP','Live stock and commercial checks passed.'+ship+eta,true)}catch{show('bad','Live check unavailable','Supplier verification is temporarily unavailable. No payment was taken.',false)}finally{check.disabled=false;check.textContent='Check my ZIP'}});async function authorize(e){const btn=e.currentTarget;if(!token||!quotedZip)return;btn.disabled=true;btn.textContent='Final recheck…';try{let final=null;for(let i=0;i<3;i++){const out=await post({zip:quotedZip,quoteToken:token});final=out;if(out.r.status!==502&&out.r.status!==503)break;if(i<2)await new Promise(r=>setTimeout(r,900*(i+1)))}if(!final.r.ok||!final.data.success||final.data.stage!=='checkout_authorized'||!final.data.checkoutUrl){token='';return show('bad','Checkout not released',final.data.error||'Stock or shipping changed. Check your ZIP again.',false)}location.assign(final.data.checkoutUrl)}catch{show('bad','Checkout unavailable','Final verification could not be completed. No payment was taken.',false)}}})();
 </script>
 </body></html>`;
 }
@@ -57,14 +71,20 @@ export function buyerPage() {
 export function createStorefrontServer({ coreServer = createCoreServer() } = {}) {
   return http.createServer((req, res) => {
     const url = new URL(req.url || '/', 'http://localhost');
-    if ((req.method === 'GET' || req.method === 'HEAD') && isBuyerPath(url.pathname)) {
+    const buyerSource = buyerSourceFromPath(url.pathname);
+    if ((req.method === 'GET' || req.method === 'HEAD') && buyerSource) {
       res.writeHead(200, pageHeaders());
       if (req.method === 'HEAD') return res.end();
-      return res.end(buyerPage());
+      return res.end(buyerPage(buyerSource));
     }
     if ((req.method === 'GET' || req.method === 'HEAD') && url.pathname === '/favicon.ico') {
       res.writeHead(204, { 'cache-control': 'public, max-age=86400' });
       return res.end();
+    }
+    const quoteSource = quoteSourceFromPath(url.pathname);
+    if (quoteSource) {
+      req.url = '/v1/quote' + url.search;
+      return coreServer.emit('request', req, res);
     }
     return coreServer.emit('request', req, res);
   });
