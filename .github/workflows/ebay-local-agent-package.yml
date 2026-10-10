@@ -1,0 +1,79 @@
+name: PrismBay eBay Local Agent Package
+
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - 'browser-agents/ebay-prismbay/**'
+      - '.github/workflows/ebay-local-agent-package.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'browser-agents/ebay-prismbay/**'
+      - '.github/workflows/ebay-local-agent-package.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  package-agent:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Validate local extension source
+        run: |
+          node --check browser-agents/ebay-prismbay/content.js
+          node --check browser-agents/ebay-prismbay/popup.js
+          node -e "const m=require('./browser-agents/ebay-prismbay/manifest.json'); if(m.manifest_version!==3) process.exit(1); if(!m.host_permissions.includes('https://www.ebay.com/*')) process.exit(1);"
+          ! grep -R -E 'buy\.stripe\.com|CJ_API_KEY|createOrder|payBalance|PRISMBAY_PUBLISH' browser-agents/ebay-prismbay --exclude=README.md --exclude=install.html
+      - name: Build extension ZIP
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -rf build/ebay-prismbay
+          mkdir -p build/ebay-prismbay
+          cp browser-agents/ebay-prismbay/manifest.json build/ebay-prismbay/
+          cp browser-agents/ebay-prismbay/content.js build/ebay-prismbay/
+          cp browser-agents/ebay-prismbay/popup.html build/ebay-prismbay/
+          cp browser-agents/ebay-prismbay/popup.js build/ebay-prismbay/
+          cp browser-agents/ebay-prismbay/README.md build/ebay-prismbay/
+          cd build
+          zip -qr prismbay-ebay-agent.zip ebay-prismbay
+          sha256sum prismbay-ebay-agent.zip > prismbay-ebay-agent.sha256
+      - name: Upload build evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: prismbay-ebay-local-agent-${{ github.run_id }}
+          path: |
+            build/prismbay-ebay-agent.zip
+            build/prismbay-ebay-agent.sha256
+          retention-days: 14
+      - name: Publish to GitHub Pages
+        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+        shell: bash
+        run: |
+          set -euo pipefail
+          syncdir="$RUNNER_TEMP/prismbay-ebay-agent-pages"
+          git fetch origin gh-pages
+          git worktree add --detach "$syncdir" origin/gh-pages
+          git -C "$syncdir" config user.name 'github-actions[bot]'
+          git -C "$syncdir" config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          mkdir -p "$syncdir/marketplace/ebay/agent"
+          cp build/prismbay-ebay-agent.zip "$syncdir/marketplace/ebay/agent/prismbay-ebay-agent.zip"
+          cp build/prismbay-ebay-agent.sha256 "$syncdir/marketplace/ebay/agent/prismbay-ebay-agent.sha256"
+          cp browser-agents/ebay-prismbay/install.html "$syncdir/marketplace/ebay/agent/index.html"
+          git -C "$syncdir" add marketplace/ebay/agent
+          if ! git -C "$syncdir" diff --cached --quiet; then
+            git -C "$syncdir" commit -m 'chore: publish PrismBay eBay local agent package'
+            git -C "$syncdir" pull --rebase origin gh-pages
+            git -C "$syncdir" push origin HEAD:gh-pages
+          fi
+      - name: Summary
+        run: |
+          echo '## PrismBay eBay Local Agent' >> "$GITHUB_STEP_SUMMARY"
+          echo 'Validated and packaged a local draft-only browser extension.' >> "$GITHUB_STEP_SUMMARY"
+          echo 'No Stripe checkout, CJ API key, supplier order, payment, or final eBay publish action is present in the extension package.' >> "$GITHUB_STEP_SUMMARY"
