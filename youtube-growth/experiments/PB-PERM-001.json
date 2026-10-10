@@ -1,0 +1,20 @@
+{
+  "experimentId": "PB-PERM-001",
+  "channelId": "UCw2hs85TzIpdKwJtG-BSxzQ",
+  "brandId": "6945443",
+  "title": "The 3 Permission Levels Every AI Agent Needs",
+  "status": "RENDERED_NOT_PUBLISHED",
+  "createdAt": "2026-10-10",
+  "videoDurationSeconds": 52.17,
+  "videoSha256": "5996f3a5be1d0cbdf8789ee8f690f62aae226fb696ec3da19229db0fc1f4dbf7",
+  "hypothesis": "Concrete read/draft/approve agent permission framework improves retention over generic AI safety content.",
+  "audience": "Founders, operators, finance and compliance leaders",
+  "hook": "Your AI agent reads an invoice. Should it pay it?",
+  "sources": [
+    "https://genai.owasp.org/llmrisk/llm062025-excessive-agency/",
+    "https://www.nist.gov/itl/ai-risk-management-framework/nist-ai-rmf-playbook"
+  ],
+  "publicationStatus": "NOT_SCHEDULED",
+  "reason": "Media publishing route unavailable. Metricool scheduling call blocked; Opera not connected.",
+  "paidSpendUSD": 0
+}
