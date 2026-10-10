@@ -4,10 +4,9 @@ import { CheckCircle2, Loader2, LockKeyhole, MapPin, PackageCheck, Shirt, Truck 
 
 type QuoteState = {
   ok: boolean;
+  stage?: string | null;
   error?: string;
   freightUsd?: number | null;
-  contributionUsd?: number | null;
-  logisticsMethod?: string | null;
   deliveryEstimate?: string | null;
   quoteToken?: string | null;
   checkoutUrl?: string | null;
@@ -16,32 +15,54 @@ type QuoteState = {
 function messageFor(error?: string) {
   if (error === 'valid_us_zip_required') return 'Enter a valid 5-digit U.S. ZIP code.';
   if (error === 'quote_service_unreachable') return 'Live shipping verification is temporarily unavailable. Please try again.';
-  if (error === 'shipping_quotes_not_configured') return 'This product is not ready for live destination quoting yet.';
+  if (error === 'live_quote_temporarily_unavailable') return 'Live supplier verification is temporarily unavailable. Please try again.';
   if (error === 'quote_unavailable') return 'No approved shipping route is available for this ZIP right now.';
-  return 'We could not approve this destination yet. No payment was taken.';
+  return error || 'We could not approve this destination yet. No payment was taken.';
 }
 
 export default function GarmentSteamer() {
   const [zip, setZip] = useState('');
   const [loading, setLoading] = useState(false);
+  const [authorizing, setAuthorizing] = useState(false);
   const [quote, setQuote] = useState<QuoteState | null>(null);
+
+  async function requestQuote(quoteToken?: string | null) {
+    const response = await fetch('/api/shipping-quote', {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({ sku: 'garment-steamer', zip, quantity: 1, ...(quoteToken ? { quoteToken } : {}) }),
+    });
+    return response.json();
+  }
 
   async function submit(event: FormEvent) {
     event.preventDefault();
     setLoading(true);
     setQuote(null);
     try {
-      const response = await fetch('/api/shipping-quote', {
-        method: 'POST',
-        headers: { 'content-type': 'application/json' },
-        body: JSON.stringify({ sku: 'garment-steamer', zip, quantity: 1 }),
-      });
-      const data = await response.json();
+      const data = await requestQuote();
       setQuote(data);
     } catch {
       setQuote({ ok: false, error: 'quote_service_unreachable' });
     } finally {
       setLoading(false);
+    }
+  }
+
+  async function authorizeCheckout() {
+    if (!quote?.quoteToken) return;
+    setAuthorizing(true);
+    try {
+      const data = await requestQuote(quote.quoteToken);
+      if (data?.ok && data?.stage === 'checkout_authorized' && data?.checkoutUrl) {
+        window.location.assign(data.checkoutUrl);
+        return;
+      }
+      setQuote(data);
+    } catch {
+      setQuote({ ok: false, error: 'quote_service_unreachable' });
+    } finally {
+      setAuthorizing(false);
     }
   }
 
@@ -63,9 +84,9 @@ export default function GarmentSteamer() {
           <div style={{fontSize:30,fontWeight:700,marginBottom:18}}>USD 29.95</div>
           <p style={{fontSize:18,lineHeight:1.6,color:'#476158'}}>Handheld steam care for clothing, travel and everyday household fabric touch-ups.</p>
           <div style={{display:'grid',gap:12,margin:'28px 0'}}>
-            <span style={{display:'flex',gap:10,alignItems:'center'}}><PackageCheck size={20}/> Supplier variant checked before checkout</span>
+            <span style={{display:'flex',gap:10,alignItems:'center'}}><PackageCheck size={20}/> Supplier stock checked before checkout</span>
             <span style={{display:'flex',gap:10,alignItems:'center'}}><Truck size={20}/> Destination freight checked for your ZIP</span>
-            <span style={{display:'flex',gap:10,alignItems:'center'}}><LockKeyhole size={20}/> Payment stays blocked until commercial checks pass</span>
+            <span style={{display:'flex',gap:10,alignItems:'center'}}><LockKeyhole size={20}/> Payment link released only after a final live recheck</span>
           </div>
           <form onSubmit={submit} style={{border:'1px solid #d8e1dc',borderRadius:20,padding:22,background:'#fff'}}>
             <label htmlFor='zip' style={{display:'block',fontWeight:700,marginBottom:8}}>Check shipping to your U.S. ZIP</label>
@@ -74,15 +95,20 @@ export default function GarmentSteamer() {
                 <MapPin size={18} style={{position:'absolute',left:14,top:15,color:'#527467'}} />
                 <input id='zip' inputMode='numeric' autoComplete='postal-code' maxLength={5} value={zip} onChange={e=>setZip(e.target.value.replace(/\D/g,'').slice(0,5))} placeholder='e.g. 10001' style={{width:'100%',boxSizing:'border-box',padding:'14px 14px 14px 42px',border:'1px solid #b9c9c0',borderRadius:12,fontSize:16}} />
               </div>
-              <button type='submit' disabled={loading || zip.length !== 5} style={{border:0,borderRadius:12,padding:'14px 20px',fontWeight:700,background:'#174b38',color:'#fff',cursor:'pointer',minWidth:170}}>{loading ? <span style={{display:'inline-flex',gap:8,alignItems:'center'}}><Loader2 size={18}/> Checking</span> : 'Check availability'}</button>
+              <button type='submit' disabled={loading || authorizing || zip.length !== 5} style={{border:0,borderRadius:12,padding:'14px 20px',fontWeight:700,background:'#174b38',color:'#fff',cursor:'pointer',minWidth:170}}>{loading ? <span style={{display:'inline-flex',gap:8,alignItems:'center'}}><Loader2 size={18}/> Checking</span> : 'Check availability'}</button>
             </div>
             <p style={{fontSize:13,color:'#667d74',marginBottom:0}}>No payment is taken during this check.</p>
           </form>
-          {quote?.ok ? <div style={{marginTop:18,padding:20,borderRadius:16,background:'#edf7f1',border:'1px solid #b8ddc7'}}>
+          {quote?.ok && quote.stage === 'quoted' ? <div style={{marginTop:18,padding:20,borderRadius:16,background:'#edf7f1',border:'1px solid #b8ddc7'}}>
             <div style={{display:'flex',gap:8,alignItems:'center',fontWeight:700}}><CheckCircle2 size={20}/> Destination route approved</div>
-            {typeof quote.freightUsd === 'number' ? <p>Verified shipping: USD {quote.freightUsd.toFixed(2)}</p> : <p>Live supplier and destination checks passed.</p>}
+            <p>Live supplier stock, destination shipping and commercial checks passed.</p>
             {quote.deliveryEstimate ? <p>Estimated transit: {quote.deliveryEstimate}</p> : null}
-            {quote.checkoutUrl ? <a href={quote.checkoutUrl} rel='nofollow' style={{display:'inline-block',marginTop:8,padding:'13px 18px',background:'#174b38',color:'#fff',borderRadius:11,textDecoration:'none',fontWeight:700}}>Continue to secure checkout</a> : <p style={{marginBottom:0}}>Checkout approval is pending final authorization. No payment link has been released.</p>}
+            <button type='button' disabled={authorizing || !quote.quoteToken} onClick={authorizeCheckout} style={{border:0,borderRadius:11,padding:'13px 18px',background:'#174b38',color:'#fff',fontWeight:700,cursor:'pointer'}}>{authorizing ? 'Rechecking…' : 'Continue to secure checkout'}</button>
+            <p style={{fontSize:13,color:'#667d74',marginBottom:0}}>Stock and shipping are checked again before the payment link is released.</p>
+          </div> : null}
+          {quote?.ok && quote.stage === 'checkout_authorized' && quote.checkoutUrl ? <div style={{marginTop:18,padding:20,borderRadius:16,background:'#edf7f1',border:'1px solid #b8ddc7'}}>
+            <div style={{fontWeight:700}}>Checkout approved.</div>
+            <a href={quote.checkoutUrl} rel='nofollow' style={{display:'inline-block',marginTop:8,padding:'13px 18px',background:'#174b38',color:'#fff',borderRadius:11,textDecoration:'none',fontWeight:700}}>Open secure checkout</a>
           </div> : null}
           {quote && !quote.ok ? <div style={{marginTop:18,padding:18,borderRadius:14,background:'#fff7ed',border:'1px solid #f0d5ad'}}>{messageFor(quote.error)}</div> : null}
         </div>

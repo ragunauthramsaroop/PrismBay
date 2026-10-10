@@ -2,6 +2,7 @@ import http from 'node:http';
 import { createHash, createHmac, randomBytes, timingSafeEqual } from 'node:crypto';
 
 const CJ_BASE = 'https://developers.cjdropshipping.com/api2.0/v1';
+const SERVICE_VERSION = '2026-10-09-live-checkout-v3';
 const CONFIG = Object.freeze({
   sku: 'garment-steamer',
   displayName: 'Portable Garment Steamer',
@@ -49,6 +50,141 @@ function json(res, status, value, origin = '') {
   }
   res.writeHead(status, headers);
   res.end(JSON.stringify(value));
+}
+
+function html(res, status, value) {
+  res.writeHead(status, {
+    'content-type': 'text/html; charset=utf-8',
+    'cache-control': 'no-store',
+    'x-content-type-options': 'nosniff',
+    'referrer-policy': 'no-referrer',
+    'content-security-policy': "default-src 'self'; style-src 'unsafe-inline'; script-src 'unsafe-inline'; connect-src 'self'; img-src 'self' data:; base-uri 'none'; form-action 'self'; frame-ancestors 'none'",
+  });
+  res.end(value);
+}
+
+function sameOriginAllowed(origin, req) {
+  if (ALLOWED_ORIGINS.has(origin)) return true;
+  if (!origin) return false;
+  try {
+    const parsed = new URL(origin);
+    return parsed.protocol === 'https:' && parsed.host === String(req.headers.host || '');
+  } catch {
+    return false;
+  }
+}
+
+function buyerPage() {
+  return `<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Portable Garment Steamer | PrismBay Clean</title>
+<meta name="description" content="Check live U.S. destination availability for the PrismBay Clean Portable Garment Steamer before payment.">
+<style>
+:root{font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:#173a2f;background:#f7faf8}*{box-sizing:border-box}body{margin:0}.wrap{max-width:980px;margin:0 auto;padding:32px 20px 70px}.brand{font-weight:800;color:#174b38;text-decoration:none}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:36px;align-items:start;margin-top:28px}.visual{min-height:390px;border-radius:28px;background:linear-gradient(145deg,#f3eadc,#e5f0e9);display:grid;place-items:center;font-size:90px}.eyebrow{font-size:12px;font-weight:800;letter-spacing:1.5px;color:#527467}h1{font-size:clamp(38px,6vw,58px);line-height:1;margin:10px 0 14px}.price{font-size:30px;font-weight:800}.copy{font-size:17px;line-height:1.6;color:#476158}.checks{display:grid;gap:10px;margin:24px 0}.checks div{display:flex;gap:9px;align-items:center}.card{background:#fff;border:1px solid #d8e1dc;border-radius:20px;padding:20px;box-shadow:0 12px 32px rgba(23,58,47,.06)}label{display:block;font-weight:800;margin-bottom:8px}.row{display:flex;gap:10px;flex-wrap:wrap}input{flex:1 1 170px;min-width:0;border:1px solid #b9c9c0;border-radius:12px;padding:14px;font-size:16px}button,a.button{border:0;border-radius:12px;padding:14px 18px;font-size:15px;font-weight:800;background:#174b38;color:#fff;cursor:pointer;text-decoration:none;display:inline-block}button[disabled]{opacity:.55;cursor:not-allowed}.small{font-size:12px;color:#667d74}.result{margin-top:16px;border-radius:15px;padding:17px;display:none}.ok{background:#edf7f1;border:1px solid #b8ddc7}.bad{background:#fff7ed;border:1px solid #f0d5ad}.result strong{display:block;margin-bottom:7px}.checkout{margin-top:12px}.facts{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:18px}.fact{padding:12px;background:#f4f7f5;border-radius:12px}.fact b{display:block;font-size:13px}.fact span{font-size:12px;color:#667d74}@media(max-width:640px){.facts{grid-template-columns:1fr}.visual{min-height:260px}}
+</style>
+</head>
+<body><main class="wrap">
+<a class="brand" href="/">PrismBay Clean</a>
+<section class="grid">
+<div class="visual" aria-label="Portable garment steamer">♨️</div>
+<div>
+<div class="eyebrow">FABRIC CARE</div>
+<h1>Portable Garment Steamer</h1>
+<div class="price">USD 29.95</div>
+<p class="copy">Handheld steam care for clothing, travel and everyday household fabric touch-ups.</p>
+<div class="checks"><div>✓ Live supplier stock rechecked</div><div>✓ U.S. destination route verified for your ZIP</div><div>✓ Checkout released only after margin and freight checks pass</div></div>
+<form id="quote-form" class="card">
+<label for="zip">Check availability for your U.S. ZIP</label>
+<div class="row"><input id="zip" name="zip" inputmode="numeric" autocomplete="postal-code" maxlength="5" pattern="[0-9]{5}" placeholder="e.g. 10001" required><button id="check" type="submit">Check availability</button></div>
+<p class="small">No payment is taken during this check. PrismBay does not enable automatic supplier ordering.</p>
+</form>
+<div id="result" class="result" role="status" aria-live="polite"></div>
+<div class="facts"><div class="fact"><b>Fail-closed checkout</b><span>No verified route means no payment link.</span></div><div class="fact"><b>Fresh recheck</b><span>Stock and shipping are checked again before checkout.</span></div><div class="fact"><b>Secure payment</b><span>Approved buyers continue to Stripe.</span></div></div>
+</div></section></main>
+<script>
+(() => {
+  const form = document.getElementById('quote-form');
+  const zip = document.getElementById('zip');
+  const button = document.getElementById('check');
+  const result = document.getElementById('result');
+  let quoteToken = '';
+  let quotedZip = '';
+
+  function show(kind, title, text, withCheckout) {
+    result.className = 'result ' + kind;
+    result.style.display = 'block';
+    result.replaceChildren();
+    const strong = document.createElement('strong');
+    strong.textContent = title;
+    result.appendChild(strong);
+    const p = document.createElement('div');
+    p.textContent = text;
+    result.appendChild(p);
+    if (withCheckout) {
+      const checkout = document.createElement('button');
+      checkout.type = 'button';
+      checkout.className = 'checkout';
+      checkout.textContent = 'Continue to secure checkout';
+      checkout.addEventListener('click', authorizeCheckout);
+      result.appendChild(checkout);
+    }
+  }
+
+  async function post(payload) {
+    const response = await fetch('/v1/quote', {method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(payload)});
+    let data = {};
+    try { data = await response.json(); } catch {}
+    return { response, data };
+  }
+
+  form.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    const value = String(zip.value || '').replace(/\\D/g,'').slice(0,5);
+    zip.value = value;
+    if (!/^\\d{5}$/.test(value)) return show('bad','ZIP required','Enter a valid 5-digit U.S. ZIP code.',false);
+    quoteToken = '';
+    quotedZip = '';
+    button.disabled = true;
+    button.textContent = 'Checking…';
+    try {
+      const { response, data } = await post({ zip: value });
+      if (!response.ok || !data.success || data.stage !== 'quoted' || !data.quoteToken) {
+        return show('bad','Not approved',data.error || 'This destination is not approved right now. No payment was taken.',false);
+      }
+      quoteToken = data.quoteToken;
+      quotedZip = value;
+      const delivery = data.estimatedDelivery ? ' Estimated transit: ' + data.estimatedDelivery + '.' : '';
+      show('ok','Destination approved','Live stock, destination shipping and commercial checks passed.' + delivery + ' Checkout will recheck these conditions once more.',true);
+    } catch {
+      show('bad','Live check unavailable','The live supplier check is unavailable right now. No payment was taken.',false);
+    } finally {
+      button.disabled = false;
+      button.textContent = 'Check availability';
+    }
+  });
+
+  async function authorizeCheckout(event) {
+    const checkout = event.currentTarget;
+    if (!quoteToken || !quotedZip) return;
+    checkout.disabled = true;
+    checkout.textContent = 'Rechecking…';
+    try {
+      const { response, data } = await post({ zip: quotedZip, quoteToken });
+      if (!response.ok || !data.success || data.stage !== 'checkout_authorized' || !data.checkoutUrl) {
+        quoteToken = '';
+        return show('bad','Checkout not released',data.error || 'Stock or shipping changed. Please check availability again.',false);
+      }
+      window.location.assign(data.checkoutUrl);
+    } catch {
+      show('bad','Checkout unavailable','Final verification could not be completed. No payment was taken.',false);
+    }
+  }
+})();
+</script>
+</body></html>`;
 }
 
 function clientKey(req) {
@@ -120,7 +256,7 @@ async function requestJson(fetchImpl, url, options = {}) {
 async function authenticate(apiKey, fetchImpl = fetch) {
   const payload = await requestJson(fetchImpl, `${CJ_BASE}/authentication/getAccessToken`, {
     method: 'POST',
-    headers: { 'content-type': 'application/json', 'user-agent': 'PrismBay-Railway-Quote/2.0' },
+    headers: { 'content-type': 'application/json', 'user-agent': 'PrismBay-Railway-Quote/3.0' },
     body: JSON.stringify({ apiKey }),
   });
   const token = String(payload?.data?.accessToken || '').trim();
@@ -145,7 +281,7 @@ function cjHeaders(token) {
   return {
     'CJ-Access-Token': token,
     'content-type': 'application/json',
-    'user-agent': 'PrismBay-Railway-Quote/2.0',
+    'user-agent': 'PrismBay-Railway-Quote/3.0',
   };
 }
 
@@ -272,8 +408,12 @@ export function createServer({ fetchImpl = fetch, now = () => Date.now() } = {})
     const url = new URL(req.url || '/', 'http://localhost');
     const origin = String(req.headers.origin || '');
 
+    if (req.method === 'GET' && (url.pathname === '/' || url.pathname === '/garment-steamer' || url.pathname === '/garment-steamer/')) {
+      return html(res, 200, buyerPage());
+    }
+
     if (req.method === 'OPTIONS' && url.pathname === '/v1/quote') {
-      if (!ALLOWED_ORIGINS.has(origin)) return json(res, 403, { error: 'origin_not_allowed' });
+      if (!sameOriginAllowed(origin, req)) return json(res, 403, { error: 'origin_not_allowed' });
       res.writeHead(204, {
         'access-control-allow-origin': origin,
         'access-control-allow-methods': 'POST, OPTIONS',
@@ -287,6 +427,7 @@ export function createServer({ fetchImpl = fetch, now = () => Date.now() } = {})
     if (req.method === 'GET' && url.pathname === '/health') {
       return json(res, 200, {
         service: 'prismbay-clean-live-quote',
+        version: SERVICE_VERSION,
         ready: Boolean(activeApiKey),
         product: CONFIG.sku,
         automaticSupplierOrdering: false,
@@ -305,7 +446,7 @@ export function createServer({ fetchImpl = fetch, now = () => Date.now() } = {})
         activeAccessToken = auth.token;
         activeAccessTokenExpiresAt = auth.expiresAt;
         primedAt = new Date(now()).toISOString();
-        return json(res, 202, { accepted: true, ready: true, primedAt });
+        return json(res, 202, { accepted: true, ready: true, primedAt, version: SERVICE_VERSION });
       } catch (error) {
         const status = error?.status === 413 ? 413 : error?.status === 400 ? 400 : 503;
         return json(res, status, { error: status === 413 ? 'body_too_large' : status === 400 ? 'invalid_json' : 'supplier_validation_unavailable' });
@@ -313,7 +454,7 @@ export function createServer({ fetchImpl = fetch, now = () => Date.now() } = {})
     }
 
     if (req.method === 'POST' && url.pathname === '/v1/quote') {
-      if (!ALLOWED_ORIGINS.has(origin)) return json(res, 403, { success: false, error: 'origin_not_allowed' });
+      if (!sameOriginAllowed(origin, req)) return json(res, 403, { success: false, error: 'origin_not_allowed' });
       if (!allowedRate('quote', clientKey(req), now())) return json(res, 429, { success: false, error: 'rate_limited' }, origin);
       if (!activeApiKey) return json(res, 503, { success: false, error: 'live_quote_temporarily_unavailable' }, origin);
       try {

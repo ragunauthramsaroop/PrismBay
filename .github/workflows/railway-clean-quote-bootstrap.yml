@@ -1,0 +1,34 @@
+name: Railway clean quote bootstrap
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'services/railway-clean-quote/**'
+      - '.github/workflows/railway-clean-quote-bootstrap.yml'
+  schedule:
+    - cron: '17 */6 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: railway-clean-quote-bootstrap
+  cancel-in-progress: true
+
+jobs:
+  bootstrap:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    env:
+      CJ_API_KEY: ${{ secrets.CJ_API_KEY }}
+      RAILWAY_CLEAN_QUOTE_URL: https://browser-worker-production-f5b4.up.railway.app
+      EXPECTED_SERVICE_VERSION: 2026-10-09-live-checkout-v3
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Authenticate live quote service
+        run: node services/railway-clean-quote/bootstrap-live.mjs
