@@ -20,13 +20,17 @@ function clean(value, max = 200) {
   return String(value ?? '').trim().slice(0, max);
 }
 
+function normalizeWarehouseId(value) {
+  return clean(value, 100).replace(/^\{+|\}+$/g, '');
+}
+
 function boolAuthorizedStatus(status) {
   return Number(status) === 1;
 }
 
 function nestedStockIds(row = {}) {
   const stocks = Array.isArray(row?.stock) ? row.stock : [];
-  return stocks.map(s => clean(s?.stockId, 100)).filter(Boolean);
+  return stocks.map(s => normalizeWarehouseId(s?.stockId)).filter(Boolean);
 }
 
 function candidateWarehouseIds(row = {}) {
@@ -37,7 +41,7 @@ function candidateWarehouseIds(row = {}) {
     row.storage,
     row.warehouse,
     ...nestedStockIds(row),
-  ].map(v => clean(v, 100)).filter(Boolean))];
+  ].map(normalizeWarehouseId).filter(Boolean))];
 }
 
 function candidateIdsFromPidInventory(payload, variantId, originCountryCode) {
@@ -70,7 +74,7 @@ function sanitizeShop(shop) {
 
 function sanitizeWarehouse(data = {}) {
   return {
-    id: clean(data.id, 100),
+    id: normalizeWarehouseId(data.id),
     name: clean(data.name, 160),
     countryCode: clean(data.areaCountryCode ?? data.countryCode, 10).toUpperCase(),
     city: clean(data.city, 100),
@@ -124,11 +128,13 @@ async function main() {
   ) || null;
 
   let warehouse = null;
+  let partialWarehouse = null;
   let warehouseDiscovery = {
     attempted: false,
     source: 'queryByVid',
     candidateIds: route ? candidateWarehouseIds(route) : [],
     pidInventoryFallbackAttempted: false,
+    candidatesChecked: [],
     errors: [],
   };
 
@@ -161,9 +167,14 @@ async function main() {
         const w = await jsonFetch(`${CJ_BASE}/warehouse/detail?id=${encodeURIComponent(id)}`, { headers });
         if (w?.data) {
           const candidate = sanitizeWarehouse(w.data);
+          const evidence = dispatchEvidence(candidate);
+          warehouseDiscovery.candidatesChecked.push({ ...candidate, evidenceVerified: evidence.verified, evidenceMode: evidence.mode });
           if (candidate.countryCode === pinnedOrigin) {
-            warehouse = candidate;
-            break;
+            if (!partialWarehouse) partialWarehouse = candidate;
+            if (evidence.verified) {
+              warehouse = candidate;
+              break;
+            }
           }
         }
       } catch (error) {
@@ -172,13 +183,15 @@ async function main() {
     }
   }
 
+  if (!warehouse && partialWarehouse) warehouse = partialWarehouse;
+
   const dispatch = dispatchEvidence(warehouse);
   const dispatchLocationVerified = dispatch.verified;
   const liveStockVerified = Boolean(route);
   const verification = manifest.verification || {};
 
   const report = {
-    schemaVersion: 3,
+    schemaVersion: 4,
     checkedAt: new Date().toISOString(),
     product: {
       slug: manifest.product.slug,
@@ -247,6 +260,7 @@ async function main() {
     readyForBrowserPublish: report.readyForBrowserPublish,
     ebayShopCount: report.cj.ebayShopCount,
     warehouseCandidateIds: report.cj.warehouseDiscovery.candidateIds,
+    candidatesChecked: report.cj.warehouseDiscovery.candidatesChecked,
     warehouse: report.cj.warehouse,
   }));
 }
