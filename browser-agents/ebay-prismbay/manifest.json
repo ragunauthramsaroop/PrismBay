@@ -1,0 +1,23 @@
+{
+  "manifest_version": 3,
+  "name": "PrismBay eBay Local Agent",
+  "version": "1.0.0",
+  "description": "Zero-cost local eBay listing assistant for the verified PrismBay garment-steamer offer.",
+  "permissions": ["activeTab", "scripting", "tabs"],
+  "host_permissions": [
+    "https://www.ebay.com/*",
+    "https://ebay.com/*",
+    "https://clean.prismbayai.com/*"
+  ],
+  "action": {
+    "default_title": "PrismBay eBay Agent",
+    "default_popup": "popup.html"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://www.ebay.com/*", "https://ebay.com/*"],
+      "js": ["content.js"],
+      "run_at": "document_idle"
+    }
+  ]
+}

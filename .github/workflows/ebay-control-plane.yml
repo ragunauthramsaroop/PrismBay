@@ -1,0 +1,67 @@
+name: PrismBay eBay Control Plane
+
+on:
+  schedule:
+    - cron: '37 * * * *'
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - 'scripts/ebay-control-plane.mjs'
+      - 'marketplaces/ebay/garment-steamer.json'
+      - 'marketplaces/ebay/seller-packet.html'
+      - '.github/workflows/ebay-control-plane.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/ebay-control-plane.mjs'
+      - 'marketplaces/ebay/garment-steamer.json'
+      - 'marketplaces/ebay/seller-packet.html'
+      - '.github/workflows/ebay-control-plane.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  verify-marketplace:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Validate source
+        run: |
+          node --check scripts/ebay-control-plane.mjs
+          node -e "JSON.parse(require('fs').readFileSync('marketplaces/ebay/garment-steamer.json','utf8'))"
+      - name: Discover CJ eBay authorization and dispatch location
+        if: github.event_name != 'pull_request'
+        env:
+          CJ_API_KEY: ${{ secrets.CJ_API_KEY }}
+        run: node scripts/ebay-control-plane.mjs
+      - name: Publish sanitized marketplace state
+        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+        shell: bash
+        run: |
+          set -euo pipefail
+          syncdir="$RUNNER_TEMP/prismbay-ebay-pages"
+          git fetch origin gh-pages
+          git worktree add --detach "$syncdir" origin/gh-pages
+          git -C "$syncdir" config user.name 'github-actions[bot]'
+          git -C "$syncdir" config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          mkdir -p "$syncdir/marketplace/ebay"
+          cp growth-reports/ebay/control-plane.json "$syncdir/marketplace/ebay/control-plane.json"
+          cp marketplaces/ebay/garment-steamer.json "$syncdir/marketplace/ebay/garment-steamer.json"
+          cp marketplaces/ebay/seller-packet.html "$syncdir/marketplace/ebay/index.html"
+          git -C "$syncdir" add marketplace/ebay
+          if ! git -C "$syncdir" diff --cached --quiet; then
+            git -C "$syncdir" commit -m 'chore: publish eBay marketplace state'
+            git -C "$syncdir" pull --rebase origin gh-pages
+            git -C "$syncdir" push origin HEAD:gh-pages
+          fi
+      - name: Summary
+        if: always()
+        run: |
+          echo '## PrismBay eBay Control Plane' >> "$GITHUB_STEP_SUMMARY"
+          echo 'Checks CJ shop authorization, the pinned garment-steamer stock route, and exact dispatch-location evidence.' >> "$GITHUB_STEP_SUMMARY"
+          echo 'Publishes a zero-cost seller packet to GitHub Pages. No Shopify, TinyFish, Stripe-on-eBay, or automatic supplier ordering is used.' >> "$GITHUB_STEP_SUMMARY"
