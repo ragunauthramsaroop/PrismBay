@@ -40,6 +40,8 @@ jobs:
         shell: bash
         run: |
           node <<'NODE'
+          const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
+
           (async () => {
             const origin = process.env.RAILWAY_CLEAN_QUOTE_URL.replace(/\/$/, '');
             const storefront = process.env.STOREFRONT_ORIGIN;
@@ -79,13 +81,24 @@ jobs:
 
             if (process.env.FULL_CHECKOUT_PROBE !== 'true') return;
 
-            const second = await fetch(api, {
-              method: 'POST',
-              headers: { origin: storefront, 'content-type': 'application/json' },
-              body: JSON.stringify({ zip: '10001', quoteToken: firstBody.quoteToken }),
-              redirect: 'manual'
-            });
-            const secondBody = await second.json().catch(() => ({}));
+            await sleep(1200);
+            let second;
+            let secondBody = {};
+            for (let attempt = 1; attempt <= 3; attempt += 1) {
+              second = await fetch(api, {
+                method: 'POST',
+                headers: { origin: storefront, 'content-type': 'application/json' },
+                body: JSON.stringify({ zip: '10001', quoteToken: firstBody.quoteToken }),
+                redirect: 'manual'
+              });
+              secondBody = await second.json().catch(() => ({}));
+              if (second.status !== 503) break;
+              if (attempt < 3) {
+                console.log(`Supplier recheck temporarily unavailable on attempt ${attempt}; retrying safely.`);
+                await sleep(1200 * attempt);
+              }
+            }
+
             if (second.status === 409) {
               console.log('Final authorization failed closed after the live recheck. No payment was initiated.');
               return;
