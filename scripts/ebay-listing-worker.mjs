@@ -3,8 +3,8 @@ import path from 'node:path';
 
 const MANIFEST = new URL('../marketplaces/ebay/garment-steamer.json', import.meta.url);
 
-export function evaluateEconomics(manifest) {
-  const price = Number(manifest.offer.price);
+export function evaluateEconomics(manifest, priceOverride = null) {
+  const price = Number(priceOverride ?? manifest.offer.price);
   const feeRate = Number(manifest.economics.assumedFinalValueFeeRate);
   const orderFee = Number(manifest.economics.perOrderFeeUsd);
   const reserveRate = Number(manifest.economics.returnReserveRate);
@@ -28,23 +28,35 @@ export function evaluateEconomics(manifest) {
 
 export function buildListingPack(manifest, env = process.env) {
   const economics = evaluateEconomics(manifest);
+  const offerFloor = Number(manifest?.offer?.bestOffer?.autoDeclineBelowUsd ?? manifest.offer.price);
+  const floorEconomics = evaluateEconomics(manifest, offerFloor);
   const dispatch = {
     city: String(env.CJ_DISPATCH_CITY || '').trim(),
     region: String(env.CJ_DISPATCH_REGION || '').trim(),
     postalCode: String(env.CJ_DISPATCH_POSTAL || '').trim(),
     countryCode: String(env.CJ_DISPATCH_COUNTRY || manifest.product.supplier.originCountryCode || '').trim().toUpperCase(),
   };
+  const verification = manifest.verification || {};
   const gates = {
     economicsPass: economics.pass,
+    offerFloorEconomicsPass: floorEconomics.pass,
+    supplierSpecsVerified: verification.supplierSpecsVerified === true,
+    ebayCategoryVerified: verification.ebayCategoryVerified === true,
+    marketplacePolicyReviewed: verification.marketplacePolicyReviewed === true,
+    wholesaleSupplierConfigured: manifest.product?.supplier?.relationshipMode === 'wholesale_dropshipping_supplier',
     liveStockVerified: env.CJ_LIVE_STOCK_VERIFIED === '1',
     ebaySellerAuthenticated: env.EBAY_AUTH_VERIFIED === '1',
     dispatchLocationVerified: Boolean(dispatch.city && dispatch.postalCode && dispatch.countryCode),
-    offEbayCheckoutAbsent: !/stripe\.com|buy\.stripe\.com/i.test(manifest.product.description),
+    offEbayCheckoutAbsent: !/stripe\.com|buy\.stripe\.com/i.test(JSON.stringify({
+      title: manifest.product.title,
+      description: manifest.product.description,
+      itemSpecifics: manifest.product.itemSpecifics,
+    })),
     supplierOrderingDisabled: manifest.safety.automaticSupplierOrdering === false,
   };
   const readyForPublish = Object.values(gates).every(Boolean);
   return {
-    schemaVersion: 1,
+    schemaVersion: 2,
     generatedAt: new Date().toISOString(),
     marketplace: manifest.marketplace,
     status: readyForPublish ? 'publish_ready' : 'blocked_until_all_gates_pass',
@@ -64,16 +76,20 @@ export function buildListingPack(manifest, env = process.env) {
       quantity: manifest.offer.quantity,
       shippingChargeToBuyerUsd: manifest.offer.shippingChargeToBuyerUsd,
       handlingDays: manifest.offer.handlingDays,
+      bestOffer: manifest.offer.bestOffer || null,
       returns: manifest.offer.returns,
       itemLocation: gates.dispatchLocationVerified ? dispatch : null,
       supplierVariantSku: manifest.product.supplier.variantSku,
       supplierProductUrl: manifest.sources.supplierProductUrl,
     },
     economics,
+    offerFloorEconomics: floorEconomics,
+    verification,
+    shipping: manifest.shipping || {},
     safeguards: manifest.safety,
     nextAction: readyForPublish
-      ? 'Create fixed-price eBay listing through the authenticated CJ/eBay connection. Keep checkout on eBay and keep supplier auto-ordering disabled.'
-      : 'Do not publish. Verify eBay seller authentication, live CJ stock, and the exact CJ dispatch city/postal code first.',
+      ? 'Create the fixed-price eBay listing through the authenticated CJ/eBay connection. Keep payment on eBay, use the verified dispatch location, and keep supplier auto-ordering disabled.'
+      : 'Do not publish. Wait for verified eBay seller authorization and the exact CJ dispatch city/postal code. All listing-data and economics gates must remain green.',
   };
 }
 
@@ -89,10 +105,12 @@ export async function main() {
     `Status: **${pack.status}**`,
     `Title: ${pack.listing.title}`,
     `Price: USD ${pack.listing.priceUsd.toFixed(2)}`,
+    `Best-offer floor: USD ${Number(pack.listing.bestOffer?.autoDeclineBelowUsd ?? pack.listing.priceUsd).toFixed(2)}`,
     `Category: ${pack.listing.categoryName} (${pack.listing.categoryId})`,
     `Supplier SKU: ${pack.listing.supplierVariantSku}`,
     '',
-    `Modeled max-landed-cost profit after eBay fee and reserve: USD ${pack.economics.modeledProfitUsd.toFixed(2)} (${(pack.economics.modeledMarginRate * 100).toFixed(1)}%)`,
+    `Modeled max-landed-cost profit at list price: USD ${pack.economics.modeledProfitUsd.toFixed(2)} (${(pack.economics.modeledMarginRate * 100).toFixed(1)}%)`,
+    `Modeled max-landed-cost profit at offer floor: USD ${pack.offerFloorEconomics.modeledProfitUsd.toFixed(2)} (${(pack.offerFloorEconomics.modeledMarginRate * 100).toFixed(1)}%)`,
     '',
     '## Publish gates',
     ...Object.entries(pack.gates).map(([k,v]) => `- ${k}: ${v ? 'PASS' : 'BLOCKED'}`),
@@ -102,7 +120,7 @@ export async function main() {
     '',
   ].join('\n');
   await fs.writeFile(path.join(outDir, 'garment-steamer-listing.md'), md);
-  console.log(JSON.stringify({status:pack.status, readyForPublish:pack.readyForPublish, gates:pack.gates, economics:pack.economics}));
+  console.log(JSON.stringify({status:pack.status, readyForPublish:pack.readyForPublish, gates:pack.gates, economics:pack.economics, offerFloorEconomics:pack.offerFloorEconomics}));
 }
 
 if (import.meta.url === `file://${process.argv[1]}`) main();

@@ -7,6 +7,8 @@ on:
   pull_request:
     paths:
       - 'scripts/ebay-control-plane.mjs'
+      - 'scripts/ebay-draft-feed.mjs'
+      - 'scripts/ebay-draft-feed.test.mjs'
       - 'marketplaces/ebay/garment-steamer.json'
       - 'marketplaces/ebay/seller-packet.html'
       - '.github/workflows/ebay-control-plane.yml'
@@ -14,6 +16,8 @@ on:
     branches: [main]
     paths:
       - 'scripts/ebay-control-plane.mjs'
+      - 'scripts/ebay-draft-feed.mjs'
+      - 'scripts/ebay-draft-feed.test.mjs'
       - 'marketplaces/ebay/garment-steamer.json'
       - 'marketplaces/ebay/seller-packet.html'
       - '.github/workflows/ebay-control-plane.yml'
@@ -34,16 +38,20 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - name: Validate source
+      - name: Validate source and draft fallback
         run: |
           node --check scripts/ebay-control-plane.mjs
+          node --check scripts/ebay-draft-feed.mjs
+          node --test scripts/ebay-draft-feed.test.mjs
           node -e "JSON.parse(require('fs').readFileSync('marketplaces/ebay/garment-steamer.json','utf8'))"
+      - name: Generate eBay draft and manual-entry packets
+        run: node scripts/ebay-draft-feed.mjs
       - name: Discover CJ eBay authorization and dispatch location
         if: github.event_name != 'pull_request'
         env:
           CJ_API_KEY: ${{ secrets.CJ_API_KEY }}
         run: node scripts/ebay-control-plane.mjs
-      - name: Publish sanitized marketplace state
+      - name: Publish sanitized marketplace state and draft fallback
         if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
         shell: bash
         run: |
@@ -55,11 +63,14 @@ jobs:
           git -C "$syncdir" config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           mkdir -p "$syncdir/marketplace/ebay"
           cp growth-reports/ebay/control-plane.json "$syncdir/marketplace/ebay/control-plane.json"
+          cp growth-reports/ebay/garment-steamer-ebay-draft.csv "$syncdir/marketplace/ebay/garment-steamer-ebay-draft.csv"
+          cp growth-reports/ebay/garment-steamer-manual-packet.csv "$syncdir/marketplace/ebay/garment-steamer-manual-packet.csv"
+          cp growth-reports/ebay/garment-steamer-draft-readme.txt "$syncdir/marketplace/ebay/garment-steamer-draft-readme.txt"
           cp marketplaces/ebay/garment-steamer.json "$syncdir/marketplace/ebay/garment-steamer.json"
           cp marketplaces/ebay/seller-packet.html "$syncdir/marketplace/ebay/index.html"
           git -C "$syncdir" add marketplace/ebay
           if ! git -C "$syncdir" diff --cached --quiet; then
-            git -C "$syncdir" commit -m 'chore: publish eBay marketplace state'
+            git -C "$syncdir" commit -m 'chore: publish eBay marketplace state and draft feed'
             git -C "$syncdir" pull --rebase origin gh-pages
             git -C "$syncdir" push origin HEAD:gh-pages
           fi
@@ -67,5 +78,6 @@ jobs:
         if: always()
         run: |
           echo '## PrismBay eBay Control Plane' >> "$GITHUB_STEP_SUMMARY"
-          echo 'Checks CJ shop authorization, the pinned garment-steamer stock route, and exact dispatch-location evidence.' >> "$GITHUB_STEP_SUMMARY"
-          echo 'Publishes a zero-cost seller packet to GitHub Pages. No Shopify, TinyFish, Stripe-on-eBay, or automatic supplier ordering is used.' >> "$GITHUB_STEP_SUMMARY"
+          echo 'Checks CJ shop authorization, pinned garment-steamer stock, exact dispatch-location evidence, and draft-feed validity.' >> "$GITHUB_STEP_SUMMARY"
+          echo 'Publishes a zero-cost seller console plus official-minimum eBay draft CSV and manual-entry packet to GitHub Pages.' >> "$GITHUB_STEP_SUMMARY"
+          echo 'The draft feed does not publish a live listing. Final listing remains blocked until authorization and dispatch-location gates are green.' >> "$GITHUB_STEP_SUMMARY"

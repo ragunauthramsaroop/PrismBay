@@ -59,6 +59,7 @@ export function trackedUrl(offer,channel,variant='short_01'){
   const relative=isPhysical(offer)?null:pageBySlug[offer.slug];
   if(!isPhysical(offer)&&!relative) throw new Error('external_offer_page_missing_'+offer.slug);
   const u=new URL(isPhysical(offer)?offer.destinationUrl:PUBLIC_ROOT+relative);
+  if(isPhysical(offer)&&['youtube','tiktok'].includes(channel)) u.pathname='/garment-steamer/'+channel+'/';
   u.searchParams.set('utm_source',channel);
   u.searchParams.set('utm_medium',channel==='youtube'?'shorts':'organic_video');
   u.searchParams.set('utm_campaign',isPhysical(offer)?'prismbay_clean_steamer_oct2026':'prismbay_external_traffic_oct2026');

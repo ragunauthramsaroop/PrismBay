@@ -1,0 +1,138 @@
+name: PrismBay eBay Autonomous Orchestrator
+
+on:
+  schedule:
+    - cron: '7,22,37,52 * * * *'
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - 'scripts/ebay-control-plane.mjs'
+      - 'scripts/ebay-autonomous-orchestrator.mjs'
+      - 'scripts/ebay-inventory-connector.mjs'
+      - '.github/workflows/ebay-autonomous-orchestrator.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/ebay-control-plane.mjs'
+      - 'scripts/ebay-autonomous-orchestrator.mjs'
+      - 'scripts/ebay-inventory-connector.mjs'
+      - '.github/workflows/ebay-autonomous-orchestrator.yml'
+
+permissions:
+  contents: write
+  issues: write
+
+concurrency:
+  group: prismbay-ebay-cj-api
+  cancel-in-progress: false
+
+jobs:
+  orchestrate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Validate automation source
+        run: |
+          node --check scripts/ebay-control-plane.mjs
+          node --check scripts/ebay-autonomous-orchestrator.mjs
+          node --check scripts/ebay-inventory-connector.mjs
+      - name: Refresh live CJ and eBay control plane
+        if: github.event_name != 'pull_request'
+        env:
+          CJ_API_KEY: ${{ secrets.CJ_API_KEY }}
+        run: node scripts/ebay-control-plane.mjs
+      - name: Build autonomous state
+        if: github.event_name != 'pull_request'
+        env:
+          EBAY_CLIENT_ID: ${{ secrets.EBAY_CLIENT_ID }}
+          EBAY_CLIENT_SECRET: ${{ secrets.EBAY_CLIENT_SECRET }}
+          EBAY_REFRESH_TOKEN: ${{ secrets.EBAY_REFRESH_TOKEN }}
+          EBAY_PAYMENT_POLICY_ID: ${{ secrets.EBAY_PAYMENT_POLICY_ID }}
+          EBAY_RETURN_POLICY_ID: ${{ secrets.EBAY_RETURN_POLICY_ID }}
+          EBAY_FULFILLMENT_POLICY_ID: ${{ secrets.EBAY_FULFILLMENT_POLICY_ID }}
+          EBAY_MERCHANT_LOCATION_KEY: ${{ secrets.EBAY_MERCHANT_LOCATION_KEY }}
+        run: node scripts/ebay-autonomous-orchestrator.mjs
+      - name: Prepare eBay Inventory API offer when fully ready
+        if: github.event_name != 'pull_request'
+        continue-on-error: true
+        env:
+          EBAY_CLIENT_ID: ${{ secrets.EBAY_CLIENT_ID }}
+          EBAY_CLIENT_SECRET: ${{ secrets.EBAY_CLIENT_SECRET }}
+          EBAY_REFRESH_TOKEN: ${{ secrets.EBAY_REFRESH_TOKEN }}
+          EBAY_PAYMENT_POLICY_ID: ${{ secrets.EBAY_PAYMENT_POLICY_ID }}
+          EBAY_RETURN_POLICY_ID: ${{ secrets.EBAY_RETURN_POLICY_ID }}
+          EBAY_FULFILLMENT_POLICY_ID: ${{ secrets.EBAY_FULFILLMENT_POLICY_ID }}
+          EBAY_MERCHANT_LOCATION_KEY: ${{ secrets.EBAY_MERCHANT_LOCATION_KEY }}
+          EBAY_AUTOPUBLISH: '0'
+        run: node scripts/ebay-inventory-connector.mjs
+      - name: Publish autonomous state
+        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+        shell: bash
+        run: |
+          set -euo pipefail
+          syncdir="$RUNNER_TEMP/prismbay-ebay-orchestrator-pages"
+          git fetch origin gh-pages
+          git worktree add --detach "$syncdir" origin/gh-pages
+          git -C "$syncdir" config user.name 'github-actions[bot]'
+          git -C "$syncdir" config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          mkdir -p "$syncdir/marketplace/ebay"
+          cp growth-reports/ebay/control-plane.json "$syncdir/marketplace/ebay/control-plane.json"
+          cp growth-reports/ebay/orchestrator-state.json "$syncdir/marketplace/ebay/orchestrator-state.json"
+          if [ -f growth-reports/ebay/ebay-api-result.json ]; then
+            cp growth-reports/ebay/ebay-api-result.json "$syncdir/marketplace/ebay/ebay-api-result.json"
+          fi
+          git -C "$syncdir" add marketplace/ebay
+          if ! git -C "$syncdir" diff --cached --quiet; then
+            git -C "$syncdir" commit -m 'chore: publish autonomous eBay state'
+            git -C "$syncdir" pull --rebase origin gh-pages
+            git -C "$syncdir" push origin HEAD:gh-pages
+          fi
+      - name: Maintain GitHub launch queue
+        if: github.event_name != 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const title = 'PrismBay eBay Autonomous Launch Queue';
+            const body = fs.readFileSync('growth-reports/ebay/orchestrator-issue.md','utf8');
+            const {owner, repo} = context.repo;
+            const {data} = await github.rest.issues.listForRepo({owner, repo, state:'open', per_page:100});
+            const existing = data.find(x => !x.pull_request && x.title === title);
+            if (existing) {
+              await github.rest.issues.update({owner, repo, issue_number:existing.number, body});
+            } else {
+              await github.rest.issues.create({owner, repo, title, body});
+            }
+      - name: Failure heartbeat
+        if: failure() && github.event_name != 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const title = 'PrismBay eBay Autonomous Launch Queue';
+            const {owner, repo} = context.repo;
+            const {data} = await github.rest.issues.listForRepo({owner, repo, state:'open', per_page:100});
+            const existing = data.find(x => !x.pull_request && x.title === title);
+            const stamp = new Date().toISOString();
+            const runUrl = `${context.serverUrl}/${owner}/${repo}/actions/runs/${context.runId}`;
+            const warning = `\n\n## Automation heartbeat\n\nGitHub orchestrator run failed at ${stamp}. The next 15-minute cycle remains scheduled. Run: ${runUrl}\n`;
+            if (existing) {
+              const oldBody = existing.body || '';
+              await github.rest.issues.update({owner, repo, issue_number:existing.number, body:(oldBody + warning).slice(-60000)});
+            } else {
+              await github.rest.issues.create({owner, repo, title, body:warning});
+            }
+      - name: Summary
+        if: always()
+        run: |
+          echo '## PrismBay eBay Autonomous Orchestrator' >> "$GITHUB_STEP_SUMMARY"
+          if [ -f growth-reports/ebay/orchestrator-state.json ]; then
+            cat growth-reports/ebay/orchestrator-state.json >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo 'Orchestrator state was not generated.' >> "$GITHUB_STEP_SUMMARY"
+          fi
+          echo '' >> "$GITHUB_STEP_SUMMARY"
+          echo 'The eBay API connector remains prepare-only. It does not auto-publish or incur an intentional listing charge.' >> "$GITHUB_STEP_SUMMARY"
