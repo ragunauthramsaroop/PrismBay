@@ -1,0 +1,16 @@
+{
+  "schemaVersion": 1,
+  "checkedAt": "2026-10-10T15:08:04.776Z",
+  "marker": "PRISMBAY_EBAY_20261010",
+  "sku": "CJYD245844002BY",
+  "created": true,
+  "selectedQuestion": {
+    "ticketTypeId": "1465660799841341440",
+    "ticketTypeName": "Service Consultation",
+    "questionTypeId": "1481146041578426368",
+    "questionTypeName": "Fulfillment Service Consultation",
+    "score": 35
+  },
+  "found": false,
+  "ticket": null
+}
