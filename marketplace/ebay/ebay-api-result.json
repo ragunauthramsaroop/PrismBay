@@ -1,0 +1,8 @@
+{
+  "status": "blocked",
+  "reason": "control_plane_not_ready",
+  "blockers": [
+    "ebaySellerAuthenticated"
+  ],
+  "checkedAt": "2026-10-10T19:45:55.242Z"
+}

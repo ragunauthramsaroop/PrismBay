@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "checkedAt": "2026-10-10T19:45:55.189Z",
+  "phase": "WAITING_EBAY_CJ_AUTH",
+  "readyForBrowserPublish": false,
+  "blockers": [
+    "ebaySellerAuthenticated"
+  ],
+  "controlPlaneCheckedAt": "2026-10-10T19:45:55.137Z",
+  "ebayShopCount": 0,
+  "ebaySellerAuthenticated": false,
+  "liveStockVerified": true,
+  "dispatchLocationVerified": true,
+  "economicsPass": true,
+  "warehouse": {
+    "id": "2991a224-737b-42a3-a1d9-8ccd2936b341",
+    "city": "Dongguan",
+    "province": "GD",
+    "countryCode": "CN",
+    "address1": "Elevator No. 3, F4, Building F, Fengzhimei Industrial Zone, Jinfenghuang Avenue, Fenggang Town, Dongguan City, Guangdong Province, 523689, China"
+  },
+  "ebayApi": {
+    "connectorImplemented": true,
+    "connectorReady": false,
+    "missingOAuthSecrets": [
+      "EBAY_CLIENT_ID",
+      "EBAY_CLIENT_SECRET",
+      "EBAY_REFRESH_TOKEN"
+    ],
+    "missingBusinessPolicySecrets": [
+      "EBAY_PAYMENT_POLICY_ID",
+      "EBAY_RETURN_POLICY_ID",
+      "EBAY_FULFILLMENT_POLICY_ID",
+      "EBAY_MERCHANT_LOCATION_KEY"
+    ],
+    "publishEnabled": false
+  },
+  "nextAction": "Keep CJ/eBay authorization watcher active and keep the zero-cost local authorization runner published. No listing publish until CJ reports the eBay shop authorized."
+}
