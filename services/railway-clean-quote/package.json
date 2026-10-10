@@ -3,8 +3,8 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "start": "node server.mjs",
-    "test": "node --test server.test.mjs"
+    "start": "node storefront.mjs",
+    "test": "node --test server.test.mjs storefront.test.mjs"
   },
   "engines": {
     "node": ">=22"
