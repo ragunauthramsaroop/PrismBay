@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://clean.prismbayai.com/</loc><lastmod>2026-10-03</lastmod><changefreq>weekly</changefreq><priority>1.0</priority></url>
+  <url><loc>https://clean.prismbayai.com/</loc><lastmod>2026-10-09</lastmod><changefreq>daily</changefreq><priority>1.0</priority></url>
+  <url><loc>https://clean.prismbayai.com/garment-steamer/</loc><lastmod>2026-10-09</lastmod><changefreq>daily</changefreq><priority>1.0</priority></url>
+  <url><loc>https://clean.prismbayai.com/guides/portable-garment-steamer.html</loc><lastmod>2026-10-09</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>
   <url><loc>https://clean.prismbayai.com/about.html</loc><lastmod>2026-10-03</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://clean.prismbayai.com/shipping.html</loc><lastmod>2026-10-03</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://clean.prismbayai.com/returns.html</loc><lastmod>2026-10-03</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
@@ -13,9 +15,4 @@
   <url><loc>https://clean.prismbayai.com/learn/board-briefing-white-paper-system.html</loc><lastmod>2026-10-04</lastmod><changefreq>weekly</changefreq></url>
   <url><loc>https://clean.prismbayai.com/digital/</loc><lastmod>2026-10-09</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>
   <url><loc>https://clean.prismbayai.com/learn/executive-intelligence-bundle.html</loc><lastmod>2026-10-09</lastmod><changefreq>weekly</changefreq></url>
-  <url><loc>https://ragunauthramsaroop.github.io/PrismBay/learn/</loc><lastmod>2026-10-09</lastmod><changefreq>weekly</changefreq></url>
-  <url><loc>https://ragunauthramsaroop.github.io/PrismBay/learn/stakeholder-mapping-toolkit.html</loc><lastmod>2026-10-09</lastmod><changefreq>weekly</changefreq></url>
-  <url><loc>https://ragunauthramsaroop.github.io/PrismBay/learn/esg-reporting-toolkit.html</loc><lastmod>2026-10-09</lastmod><changefreq>weekly</changefreq></url>
-  <url><loc>https://ragunauthramsaroop.github.io/PrismBay/learn/board-briefing-white-paper-system.html</loc><lastmod>2026-10-09</lastmod><changefreq>weekly</changefreq></url>
-  <url><loc>https://ragunauthramsaroop.github.io/PrismBay/learn/executive-intelligence-bundle.html</loc><lastmod>2026-10-09</lastmod><changefreq>weekly</changefreq></url>
 </urlset>
