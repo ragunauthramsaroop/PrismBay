@@ -11,6 +11,7 @@ on:
       - '.github/workflows/prismbay-launch-change-watch.yml'
 
 permissions:
+  actions: write
   contents: write
   issues: write
 
@@ -55,7 +56,23 @@ jobs:
           try{prev=JSON.parse(fs.readFileSync(process.env.RUNNER_TEMP+'/previous-launch-change-watch.json','utf8'));}catch{}
           const changed=Boolean(cur.fingerprint && cur.fingerprint!==prev.fingerprint);
           fs.appendFileSync(process.env.GITHUB_OUTPUT,`changed=${changed}\n`);
+          fs.appendFileSync(process.env.GITHUB_OUTPUT,`stale=${Boolean(cur.orchestratorStale)}\n`);
           JS
+
+      - name: Self-heal stale eBay orchestrator
+        if: steps.change.outputs.stale == 'true'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs=require('fs');
+            const s=JSON.parse(fs.readFileSync('growth-reports/ebay/launch-change-watch.json','utf8'));
+            core.notice(`eBay orchestrator state is stale (${s.orchestratorAgeMinutes ?? 'unknown'} minutes). Dispatching recovery run.`);
+            await github.rest.actions.createWorkflowDispatch({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              workflow_id: 'ebay-autonomous-orchestrator.yml',
+              ref: 'main'
+            });
 
       - name: Publish watcher snapshot
         shell: bash
@@ -83,9 +100,11 @@ jobs:
             const s=JSON.parse(fs.readFileSync('growth-reports/ebay/launch-change-watch.json','utf8'));
             const q=await github.rest.search.issuesAndPullRequests({q:'repo:${{ github.repository }} is:issue in:title "PrismBay eBay Autonomous Launch Queue"'});
             const issue=q.data.items.find(x=>x.title==='PrismBay eBay Autonomous Launch Queue');
-            const nextAction=s.ticketReplyDetected
-              ? (s.ticketNextAction ?? s.orchestratorNextAction ?? 'follow control plane')
-              : (s.orchestratorNextAction ?? s.ticketNextAction ?? 'follow control plane');
+            const nextAction=s.orchestratorStale
+              ? 'Automatic recovery run dispatched by the GitHub watchdog.'
+              : (s.ticketReplyDetected
+                ? (s.ticketNextAction ?? s.orchestratorNextAction ?? 'follow control plane')
+                : (s.orchestratorNextAction ?? s.ticketNextAction ?? 'follow control plane'));
             const lines=[
               'GitHub-native launch condition changed.',
               '',
@@ -97,6 +116,7 @@ jobs:
               `Dispatch location: ${s.dispatchLocationVerified ? 'YES' : 'NO'}`,
               `Economics: ${s.economicsPass ? 'PASS' : 'FAIL/UNKNOWN'}`,
               `Blockers: ${s.blockers.length ? s.blockers.join(', ') : 'none'}`,
+              `Orchestrator stale: ${s.orchestratorStale ? 'YES' : 'NO'}${s.orchestratorAgeMinutes === null ? '' : ` (${s.orchestratorAgeMinutes} min)`}`,
               `CJ ticket status: ${s.ticketStatus ?? 'unknown'}`,
               `CJ reply detected: ${s.ticketReplyDetected ? 'YES' : 'NO'}`,
               `Next action: ${nextAction}`,
