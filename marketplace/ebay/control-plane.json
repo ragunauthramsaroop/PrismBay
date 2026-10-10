@@ -1,0 +1,52 @@
+{
+  "schemaVersion": 1,
+  "checkedAt": "2026-10-10T14:59:22.511Z",
+  "product": {
+    "slug": "garment-steamer",
+    "variantId": "2508160953561608700",
+    "variantSku": "CJYD245844002BY",
+    "originCountryCode": "CN",
+    "listingPriceUsd": 29.99
+  },
+  "cj": {
+    "authenticated": true,
+    "shopCount": 1,
+    "shops": [
+      {
+        "id": "2609261627283520400",
+        "name": "PrismBay-Cloud",
+        "type": "api",
+        "status": 1,
+        "authorized": true,
+        "marketplace": "",
+        "countryCode": "",
+        "storeCountry": "",
+        "currencyCode": ""
+      }
+    ],
+    "ebayShopCount": 0,
+    "ebaySellerAuthenticated": false,
+    "authorizedEbayShop": null,
+    "liveStockVerified": true,
+    "routeSummary": {
+      "countryCode": "CN",
+      "inventory": 1,
+      "warehouseCandidateIds": []
+    },
+    "warehouse": null,
+    "warehouseDiscovery": {
+      "attempted": false,
+      "candidateIds": [],
+      "errors": []
+    },
+    "dispatchLocationVerified": false
+  },
+  "gates": {
+    "ebaySellerAuthenticated": false,
+    "liveStockVerified": true,
+    "dispatchLocationVerified": false,
+    "directStripeAbsent": true,
+    "automaticSupplierOrderingDisabled": true
+  },
+  "readyForBrowserPublish": false
+}
