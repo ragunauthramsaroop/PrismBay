@@ -10,12 +10,14 @@ test('external traffic queue covers verified digital offers and guarded steamer 
   plans['garment-steamer']={llmStrategy:'guarded_physical_preflight'};
   const offers=[...ACTIVE_DIGITAL_OFFERS,...VERIFIED_PHYSICAL_OFFERS];
   const q=buildQueue({offers,plans,generatedAt:'2026-10-01T00:00:00.000Z'});
-  assert.equal(q.items.length,8);
+  assert.equal(q.items.length,offers.length*2);
   assert.deepEqual([...new Set(q.items.map(x=>x.channel))].sort(),['tiktok','youtube']);
+  assert.deepEqual([...new Set(q.items.filter(x=>x.offerType==='digital').map(x=>x.offer))].sort(),ACTIVE_DIGITAL_OFFERS.map(x=>x.slug).sort());
   for(const item of q.items){
     assert.equal(item.status,'ready_for_authorized_scheduler');
     assert.match(item.mediaUrl,/ragunauthramsaroop\.github\.io\/PrismBay\/media\/social\/.+\.mp4$/);
     assert.ok(!/guaranteed|best seller|limited stock|verified customer/i.test(item.caption));
+    assert.doesNotMatch(item.destinationUrl,/undefined/);
   }
   const physical=q.items.filter(x=>x.offer==='garment-steamer');
   assert.equal(physical.length,2);
@@ -39,6 +41,12 @@ test('tracking separates YouTube and TikTok traffic for digital and physical cam
   assert.equal(t.searchParams.get('utm_source'),'tiktok');
   assert.equal(t.searchParams.get('utm_medium'),'organic_video');
   assert.equal(t.searchParams.get('utm_campaign'),'prismbay_clean_steamer_oct2026');
+});
+test('bundle traffic maps to a real comparison page',()=>{
+  const bundle=ACTIVE_DIGITAL_OFFERS.find(x=>x.slug==='bundle');
+  assert.ok(bundle);
+  const u=new URL(trackedUrl(bundle,'youtube'));
+  assert.match(u.pathname,/\/PrismBay\/toolkits\.html$/);
 });
 test('digital video scenes use exact offer price and safe educational copy',()=>{
   const offer=ACTIVE_DIGITAL_OFFERS[1];
