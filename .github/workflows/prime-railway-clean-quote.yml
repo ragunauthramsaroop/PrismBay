@@ -8,7 +8,7 @@ on:
       - '.github/workflows/prime-railway-clean-quote.yml'
   workflow_dispatch:
   schedule:
-    - cron: '7,37 * * * *'
+    - cron: '17 */6 * * *'
 
 permissions:
   contents: read
@@ -20,62 +20,31 @@ concurrency:
 jobs:
   prime:
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 8
     env:
       CJ_API_KEY: ${{ secrets.CJ_API_KEY }}
-      QUOTE_ORIGIN: https://browser-worker-production-f5b4.up.railway.app
+      RAILWAY_CLEAN_QUOTE_URL: https://browser-worker-production-f5b4.up.railway.app
+      EXPECTED_SERVICE_VERSION: 2026-10-09-live-checkout-v3
       STOREFRONT_ORIGIN: https://clean.prismbayai.com
+      FULL_CHECKOUT_PROBE: ${{ github.event_name == 'push' && 'true' || 'false' }}
     steps:
-      - name: Validate required secret exists
-        shell: bash
-        run: |
-          test -n "$CJ_API_KEY" || { echo 'CJ_API_KEY is not configured'; exit 1; }
-      - name: Prime Railway quote service securely
-        shell: bash
-        run: |
-          node <<'NODE'
-          const crypto = require('node:crypto');
-          (async () => {
-            const apiKey = process.env.CJ_API_KEY;
-            const origin = process.env.QUOTE_ORIGIN;
-            const timestamp = Date.now();
-            const proof = crypto.createHmac('sha256', apiKey)
-              .update(`${timestamp}:prismbay-clean-quote-bootstrap`)
-              .digest('hex');
-            const response = await fetch(`${origin}/internal/bootstrap`, {
-              method: 'POST',
-              headers: { 'content-type': 'application/json' },
-              body: JSON.stringify({ apiKey, timestamp, proof }),
-            });
-            const body = await response.json().catch(() => ({}));
-            if (!response.ok || body.ready !== true) {
-              console.error(`Prime failed with HTTP ${response.status}: ${body.error || 'unknown_error'}`);
-              process.exit(1);
-            }
-            console.log('Railway live quote service primed successfully.');
-          })().catch(error => {
-            console.error(`Prime request failed: ${error.name || 'request_error'}`);
-            process.exit(1);
-          });
-          NODE
-      - name: Verify service is ready
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+
+      - name: Authenticate live quote service
+        run: node services/railway-clean-quote/bootstrap-live.mjs
+
+      - name: Verify safe buyer quote and checkout authorization path
         shell: bash
         run: |
           node <<'NODE'
           (async () => {
-            const response = await fetch(`${process.env.QUOTE_ORIGIN}/health`, { headers: { accept: 'application/json' } });
-            const body = await response.json();
-            if (!response.ok || body.ready !== true || body.automaticSupplierOrdering !== false) process.exit(1);
-            console.log(`Live quote health verified for ${body.product}.`);
-          })().catch(() => process.exit(1));
-          NODE
-      - name: Verify storefront CORS and non-payment buyer path
-        shell: bash
-        run: |
-          node <<'NODE'
-          (async () => {
-            const api = `${process.env.QUOTE_ORIGIN}/v1/quote`;
+            const origin = process.env.RAILWAY_CLEAN_QUOTE_URL.replace(/\/$/, '');
             const storefront = process.env.STOREFRONT_ORIGIN;
+            const api = `${origin}/v1/quote`;
+
             const preflight = await fetch(api, {
               method: 'OPTIONS',
               headers: {
@@ -85,32 +54,52 @@ jobs:
               }
             });
             if (preflight.status !== 204 || preflight.headers.get('access-control-allow-origin') !== storefront) {
-              console.error(`CORS preflight failed with HTTP ${preflight.status}.`);
-              process.exit(1);
+              throw new Error(`cors_preflight_${preflight.status}`);
             }
 
-            const quote = await fetch(api, {
+            const first = await fetch(api, {
               method: 'POST',
               headers: { origin: storefront, 'content-type': 'application/json' },
               body: JSON.stringify({ zip: '10001' })
             });
-            const body = await quote.json().catch(() => ({}));
-            const cors = quote.headers.get('access-control-allow-origin');
-            if (cors !== storefront) {
-              console.error('Quote response is missing the storefront CORS header.');
-              process.exit(1);
+            const firstBody = await first.json().catch(() => ({}));
+            if (first.headers.get('access-control-allow-origin') !== storefront) {
+              throw new Error('quote_cors_missing');
             }
-            if (![200, 409].includes(quote.status)) {
-              console.error(`Buyer-path probe failed with HTTP ${quote.status}: ${body.error || 'unknown_error'}`);
-              process.exit(1);
+            if (first.status === 409) {
+              console.log('Live buyer path is fail-closed for probe ZIP. No checkout or payment path was released.');
+              return;
             }
-            if (body.checkoutUrl) {
-              console.error('Non-payment probe unexpectedly returned checkout authorization on the first request.');
-              process.exit(1);
+            if (first.status !== 200 || firstBody.success !== true || firstBody.stage !== 'quoted' || !firstBody.quoteToken) {
+              throw new Error(`quote_probe_${first.status}_${firstBody.error || 'invalid_response'}`);
             }
-            console.log(`Buyer-path probe completed safely with HTTP ${quote.status}; no payment or supplier order was initiated.`);
+            if (firstBody.checkoutUrl) throw new Error('first_stage_exposed_checkout');
+            if (firstBody.supplierOrderingEnabled !== false) throw new Error('supplier_ordering_guard_missing');
+            console.log('First-stage live quote passed with no payment link released.');
+
+            if (process.env.FULL_CHECKOUT_PROBE !== 'true') return;
+
+            const second = await fetch(api, {
+              method: 'POST',
+              headers: { origin: storefront, 'content-type': 'application/json' },
+              body: JSON.stringify({ zip: '10001', quoteToken: firstBody.quoteToken }),
+              redirect: 'manual'
+            });
+            const secondBody = await second.json().catch(() => ({}));
+            if (second.status === 409) {
+              console.log('Final authorization failed closed after the live recheck. No payment was initiated.');
+              return;
+            }
+            if (second.status !== 200 || secondBody.success !== true || secondBody.stage !== 'checkout_authorized') {
+              throw new Error(`checkout_probe_${second.status}_${secondBody.error || 'invalid_response'}`);
+            }
+            if (!String(secondBody.checkoutUrl || '').startsWith('https://buy.stripe.com/')) {
+              throw new Error('checkout_url_not_stripe');
+            }
+            if (secondBody.supplierOrderingEnabled !== false) throw new Error('supplier_ordering_guard_missing');
+            console.log('Checkout authorization verified without following the Stripe URL, taking payment, or placing a supplier order.');
           })().catch(error => {
-            console.error(`Buyer-path probe failed: ${error.name || 'request_error'}`);
+            console.error(`Live buyer-path verification failed: ${error.message || error.name || 'unknown_error'}`);
             process.exit(1);
           });
           NODE
