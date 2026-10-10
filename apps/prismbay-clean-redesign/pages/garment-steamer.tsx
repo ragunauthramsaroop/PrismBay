@@ -6,11 +6,14 @@ type QuoteState = {
   ok: boolean;
   stage?: string | null;
   error?: string;
+  httpStatus?: number;
   freightUsd?: number | null;
   deliveryEstimate?: string | null;
   quoteToken?: string | null;
   checkoutUrl?: string | null;
 };
+
+const sleep = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 
 function messageFor(error?: string) {
   if (error === 'valid_us_zip_required') return 'Enter a valid 5-digit U.S. ZIP code.';
@@ -26,13 +29,14 @@ export default function GarmentSteamer() {
   const [authorizing, setAuthorizing] = useState(false);
   const [quote, setQuote] = useState<QuoteState | null>(null);
 
-  async function requestQuote(quoteToken?: string | null) {
+  async function requestQuote(quoteToken?: string | null): Promise<QuoteState> {
     const response = await fetch('/api/shipping-quote', {
       method: 'POST',
       headers: { 'content-type': 'application/json' },
       body: JSON.stringify({ sku: 'garment-steamer', zip, quantity: 1, ...(quoteToken ? { quoteToken } : {}) }),
     });
-    return response.json();
+    const data = await response.json();
+    return { ...data, httpStatus: response.status };
   }
 
   async function submit(event: FormEvent) {
@@ -53,7 +57,13 @@ export default function GarmentSteamer() {
     if (!quote?.quoteToken) return;
     setAuthorizing(true);
     try {
-      const data = await requestQuote(quote.quoteToken);
+      await sleep(900);
+      let data: QuoteState = { ok: false, error: 'quote_service_unreachable' };
+      for (let attempt = 1; attempt <= 3; attempt += 1) {
+        data = await requestQuote(quote.quoteToken);
+        if (data.httpStatus !== 502 && data.httpStatus !== 503) break;
+        if (attempt < 3) await sleep(900 * attempt);
+      }
       if (data?.ok && data?.stage === 'checkout_authorized' && data?.checkoutUrl) {
         window.location.assign(data.checkoutUrl);
         return;
