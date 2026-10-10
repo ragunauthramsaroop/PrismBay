@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "checkedAt": "2026-10-10T23:32:58.467Z",
+  "priority": "paid_sales_from_verified_existing_offers",
+  "activeOffer": {
+    "slug": "bundle",
+    "title": "PrismBay Executive Intelligence Bundle",
+    "priceUsd": 179,
+    "guideUrl": "https://ragunauthramsaroop.github.io/PrismBay/toolkits.html?utm_source=github_cloud&utm_medium=owned_educational_content&utm_campaign=organic_bundle_82947",
+    "checkoutUrl": "https://buy.stripe.com/eVqfZi5Lo7pV31Ea4MgnK0t?client_reference_id=owned_content_bundle"
+  },
+  "positioning": "evidence-led",
+  "freeLLM": {
+    "status": "ok",
+    "workerMode": "freellmapi_guided",
+    "requestedModel": "auto:reliable"
+  },
+  "funnelHealth": {
+    "guideHttpStatus": 200,
+    "guideHealthy": true,
+    "checkoutHttpStatus": 200,
+    "checkoutHealthy": true,
+    "demandMinerReady": true,
+    "conversionWriterReady": true,
+    "loopHealthy": true
+  },
+  "distribution": {
+    "ownedSearchPages": "published_by_existing_free_cloud_workflow_after_verified-page generation",
+    "indexNow": "existing buyer acquisition workflow submits live owned URLs",
+    "social": "draft_only_until_an_authorized_channel_adapter_is_connected",
+    "coldEmail": false
+  },
+  "commercialTruth": {
+    "paidSaleObserved": false,
+    "revenueClaimed": false,
+    "note": "This GitHub control plane can verify acquisition and checkout readiness, but a real paid Stripe event is required before a sale or revenue is reported."
+  },
+  "nextAction": "Keep the 30-minute acquisition loop active, refresh owned buyer pages when strategy changes, and drive qualified organic traffic to the verified Stripe checkout."
+}
