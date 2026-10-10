@@ -1,0 +1,86 @@
+name: PrismBay eBay Marketplace Gate
+
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - 'marketplaces/ebay/**'
+      - 'scripts/ebay-listing-worker.mjs'
+      - 'scripts/ebay-listing-worker.test.mjs'
+      - '.github/workflows/ebay-marketplace-gate.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'marketplaces/ebay/**'
+      - 'scripts/ebay-listing-worker.mjs'
+      - 'scripts/ebay-listing-worker.test.mjs'
+      - '.github/workflows/ebay-marketplace-gate.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  validate-ebay-listing:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Test marketplace safeguards
+        run: node --test scripts/ebay-listing-worker.test.mjs
+      - name: Verify pinned CJ variant stock read-only
+        if: github.event_name != 'pull_request'
+        env:
+          CJ_API_KEY: ${{ secrets.CJ_API_KEY }}
+        shell: bash
+        run: |
+          node --input-type=module <<'JS'
+          import fs from 'node:fs';
+          const manifest = JSON.parse(fs.readFileSync('marketplaces/ebay/garment-steamer.json','utf8'));
+          const key = String(process.env.CJ_API_KEY || '').trim();
+          if (!key) throw new Error('CJ_API_KEY is required for the live stock gate.');
+          const base = 'https://developers.cjdropshipping.com/api2.0/v1';
+          const authRes = await fetch(base + '/authentication/getAccessToken', {
+            method:'POST', headers:{'content-type':'application/json','user-agent':'PrismBay-eBay-Gate/1.0'}, body:JSON.stringify({apiKey:key})
+          });
+          if (!authRes.ok) throw new Error('CJ authentication failed: ' + authRes.status);
+          const auth = await authRes.json();
+          const token = String(auth?.data?.accessToken || '');
+          if (!token) throw new Error('CJ authentication returned no token.');
+          console.log('::add-mask::' + token);
+          await new Promise(r => setTimeout(r, 1100));
+          const url = new URL(base + '/product/stock/queryByVid');
+          url.searchParams.set('vid', manifest.product.supplier.variantId);
+          const stockRes = await fetch(url, {headers:{'CJ-Access-Token':token,'user-agent':'PrismBay-eBay-Gate/1.0'}});
+          if (!stockRes.ok) throw new Error('CJ stock query failed: ' + stockRes.status);
+          const stock = await stockRes.json();
+          const rows = Array.isArray(stock?.data) ? stock.data : [];
+          const route = rows.find(r => String(r?.vid||'') === manifest.product.supplier.variantId && String(r?.countryCode||'').toUpperCase() === manifest.product.supplier.originCountryCode && Number(r?.cjInventoryNum||0) >= 1);
+          if (!route) throw new Error('Pinned garment-steamer route has no verified CJ inventory.');
+          console.log('CJ live stock PASS for pinned eBay variant');
+          fs.appendFileSync(process.env.GITHUB_ENV, 'CJ_LIVE_STOCK_VERIFIED=1\n');
+          JS
+      - name: Build eBay listing packet
+        env:
+          EBAY_AUTH_VERIFIED: '0'
+          CJ_DISPATCH_CITY: ''
+          CJ_DISPATCH_REGION: ''
+          CJ_DISPATCH_POSTAL: ''
+          CJ_DISPATCH_COUNTRY: 'CN'
+        run: node scripts/ebay-listing-worker.mjs
+      - name: Retain listing packet
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ebay-garment-steamer-${{ github.run_id }}
+          path: growth-reports/ebay/
+          retention-days: 14
+      - name: Summary
+        if: always()
+        run: |
+          echo '## PrismBay eBay marketplace gate' >> "$GITHUB_STEP_SUMMARY"
+          echo 'The listing packet uses the verified CJ garment-steamer variant and keeps payment on eBay.' >> "$GITHUB_STEP_SUMMARY"
+          echo 'Publishing remains fail-closed until the eBay seller session and exact CJ dispatch location are verified.' >> "$GITHUB_STEP_SUMMARY"
+          echo 'Automatic supplier ordering remains disabled.' >> "$GITHUB_STEP_SUMMARY"

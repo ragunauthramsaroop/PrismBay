@@ -1,0 +1,73 @@
+{
+  "schemaVersion": 1,
+  "marketplace": "ebay-us",
+  "listingMode": "fixed_price",
+  "product": {
+    "slug": "garment-steamer",
+    "title": "Portable USB Handheld Garment Steamer for Clothes Travel Wrinkle Remover",
+    "condition": "New",
+    "brand": "Unbranded",
+    "categoryId": "79656",
+    "categoryName": "Household Steam Cleaners",
+    "itemSpecifics": {
+      "Type": "Handheld",
+      "Suitable For": "Garment",
+      "Power Type": "USB",
+      "Material": "Plastic",
+      "Color": "Cream Yellow"
+    },
+    "specifications": {
+      "gearAdjustment": "2 settings",
+      "operationMode": "Mechanical",
+      "ratedVoltage": "36V or less",
+      "capacity": "Less than 0.8 L",
+      "packageSizeMm": "88 x 83 x 225",
+      "weightGrams": 250
+    },
+    "description": "Compact USB handheld garment steamer for clothing touch-ups at home or while traveling. Two heat settings, mechanical operation and a compact 250 g format. Package includes one handheld garment steamer. Always follow garment care instructions and test delicate fabrics in a hidden area first.",
+    "supplier": {
+      "name": "CJdropshipping / Yiwu Cujia Trade Co., Ltd.",
+      "productId": "2508160953561608400",
+      "productSku": "CJYD2458440",
+      "variantId": "2508160953561608700",
+      "variantSku": "CJYD245844002BY",
+      "originCountryCode": "CN",
+      "supplierCostUsd": 3.54,
+      "maxScreeningFreightUsd": 13.75,
+      "wholesaleRelationshipRequired": true
+    }
+  },
+  "offer": {
+    "currency": "USD",
+    "price": 29.99,
+    "quantity": 1,
+    "shippingChargeToBuyerUsd": 0,
+    "handlingDays": 3,
+    "returns": {
+      "accepted": true,
+      "windowDays": 30,
+      "buyerPaysReturnShippingForPreferenceReturns": true,
+      "sellerRemedyForWrongDamagedOrMisdescribed": true
+    }
+  },
+  "economics": {
+    "assumedFinalValueFeeRate": 0.127,
+    "perOrderFeeUsd": 0.40,
+    "returnReserveRate": 0.05,
+    "minimumProfitUsd": 5.00,
+    "minimumMarginRate": 0.15
+  },
+  "safety": {
+    "directStripeLinkAllowedInEbay": false,
+    "offEbayCheckoutAllowed": false,
+    "automaticSupplierOrdering": false,
+    "itemLocationMustComeFromCjAuthorizationOrVerifiedWarehouse": true,
+    "publishWithoutVerifiedDispatchLocation": false,
+    "publishWithoutLiveStockCheck": false,
+    "publishWithoutEbaySellerAuthentication": false
+  },
+  "sources": {
+    "supplierProductUrl": "https://cjdropshipping.com/product/usb-handheld-garment-steamer-household-portable-electric-iron-small-fabulous-clothes-ironing-equipment-p-2508160953561608400.html",
+    "canonicalStoreUrl": "https://clean.prismbayai.com/garment-steamer/"
+  }
+}
