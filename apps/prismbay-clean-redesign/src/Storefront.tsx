@@ -4,7 +4,7 @@ import { ArrowRight, Bath, Car, CheckCircle2, ChevronRight, Droplets, Home, Leaf
 
 const products = [
   { name: '3-in-1 Crevice Cleaning Brush', price: '$12.95', slug: 'crevice', category: 'Detail cleaning', description: 'A compact tool for tracks, edges, corners and narrow spaces ordinary brushes miss.', icon: Sparkles, tone: 'mint', badge: 'Featured' },
-  { name: 'Portable Garment Steamer', price: '$29.95', slug: 'garment-steamer', category: 'Fabric care', description: 'Handheld steam care for clothing, travel and everyday household fabric touch-ups.', icon: Shirt, tone: 'sand', badge: 'Fabric care' },
+  { name: 'Portable Garment Steamer', price: '$29.95', slug: 'garment-steamer', category: 'Fabric care', description: 'Handheld steam care for clothing, travel and everyday household fabric touch-ups.', icon: Shirt, tone: 'sand', badge: 'Live checkout' },
   { name: 'Reusable Pet Hair Remover', price: '$14.95', slug: 'pethair', category: 'Pet home', description: 'Reusable manual cleanup for pet hair and lint on suitable fabric surfaces.', icon: Wind, tone: 'blue', badge: 'Reusable' },
   { name: '5-in-1 Electric Spin Scrubber', price: '$29.95', slug: 'scrubber', category: 'Bathroom', description: 'Multi-head powered scrubbing support for tubs, tile, grout and repetitive cleaning jobs.', icon: Droplets, tone: 'lavender', badge: 'Multi-surface' },
 ];
@@ -20,6 +20,8 @@ const categories = [
 
 function ProductCard({ product }: { product: typeof products[number] }) {
   const Icon = product.icon;
+  const liveCheckout = product.slug === 'garment-steamer';
+  const checkoutHref = liveCheckout ? '/garment-steamer/' : '/contact/?product=' + product.slug;
   return (
     <article className='retailProductCard'>
       <a className={'retailProductVisual tone-' + product.tone} href={'/' + product.slug + '/'}>
@@ -32,7 +34,7 @@ function ProductCard({ product }: { product: typeof products[number] }) {
         <h3><a href={'/' + product.slug + '/'}>{product.name}</a></h3>
         <p>{product.description}</p>
         <div className='retailPrice'>{product.price}</div>
-        <a className='retailBuy' href={'/contact/?product=' + product.slug}>Check availability <ArrowRight size={16} /></a>
+        <a className='retailBuy' href={checkoutHref}>{liveCheckout ? 'Check live availability' : 'Check availability'} <ArrowRight size={16} /></a>
       </div>
     </article>
   );
@@ -48,7 +50,7 @@ export default function Storefront({ source = 'direct' }: { source?: string }) {
       searchTerms.every(term => searchable.includes(term));
   });
   const clearFilters = () => { setQuery(''); setCategory('All categories'); };
-  const canonical = source === 'tiktok' ? 'https://prismbay-clean-49izhg.v2.appdeploy.ai/tiktok/' : 'https://prismbay-clean-49izhg.v2.appdeploy.ai/';
+  const canonical = source === 'tiktok' ? 'https://clean.prismbayai.com/tiktok/' : 'https://clean.prismbayai.com/';
   return (
     <>
       <Head>
