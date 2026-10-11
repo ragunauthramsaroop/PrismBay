@@ -113,8 +113,8 @@ jobs:
             if (offer.checkoutMode !== 'buyer_zip_guarded_preflight') throw new Error(`Unexpected checkout mode for ${offer.slug}`);
             if (offer.storefrontUrl.startsWith('https://buy.stripe.com/')) throw new Error(`Direct Stripe promotion leaked for ${offer.slug}`);
           }
-          if (report.promotionEligibleCount === 0 && storefront?.result?.activeStorefront?.hasProductSchema === true) {
-            throw new Error('Product offer schema leaked while no physical product is promotion eligible');
+          if (report.promotionEligibleCount === 0 && storefront?.result?.activeStorefront?.hasDirectStripeLink === true) {
+            throw new Error('Direct Stripe checkout leaked while no physical product is promotion eligible');
           }
           console.log(`Guarded-preflight promotion eligible: ${report.promotionEligibleCount}`);
           NODE

@@ -1,6 +1,6 @@
 {
   "schemaVersion": 3,
-  "checkedAt": "2026-10-10T12:32:44.844Z",
+  "checkedAt": "2026-10-11T12:50:44.827Z",
   "market": "US",
   "authenticationVerified": true,
   "sourceCandidateCount": 9,
@@ -45,7 +45,7 @@
       "checkoutInfrastructureVerified": false,
       "checkoutAllowed": false,
       "automaticPromotionAllowed": false,
-      "observedAt": "2026-10-10T12:32:44.844Z"
+      "observedAt": "2026-10-11T12:50:44.827Z"
     },
     {
       "slug": "drain-catcher",
@@ -71,7 +71,7 @@
       "checkoutInfrastructureVerified": false,
       "checkoutAllowed": false,
       "automaticPromotionAllowed": true,
-      "observedAt": "2026-10-10T12:32:44.844Z"
+      "observedAt": "2026-10-11T12:50:44.827Z"
     },
     {
       "slug": "home-caddy",
@@ -97,7 +97,7 @@
       "checkoutInfrastructureVerified": false,
       "checkoutAllowed": false,
       "automaticPromotionAllowed": false,
-      "observedAt": "2026-10-10T12:32:44.844Z"
+      "observedAt": "2026-10-11T12:50:44.827Z"
     },
     {
       "slug": "scrubber",
@@ -123,7 +123,7 @@
       "checkoutInfrastructureVerified": false,
       "checkoutAllowed": false,
       "automaticPromotionAllowed": false,
-      "observedAt": "2026-10-10T05:53:41.014Z"
+      "observedAt": "2026-10-11T05:47:33.413Z"
     },
     {
       "slug": "pethair",
@@ -149,7 +149,7 @@
       "checkoutInfrastructureVerified": false,
       "checkoutAllowed": false,
       "automaticPromotionAllowed": true,
-      "observedAt": "2026-10-10T05:53:41.014Z"
+      "observedAt": "2026-10-11T05:47:33.413Z"
     },
     {
       "slug": "crevice",
@@ -175,7 +175,7 @@
       "checkoutInfrastructureVerified": true,
       "checkoutAllowed": false,
       "automaticPromotionAllowed": true,
-      "observedAt": "2026-10-10T05:53:41.014Z"
+      "observedAt": "2026-10-11T05:47:33.413Z"
     },
     {
       "slug": "cordless-handheld-vacuum",
@@ -201,33 +201,7 @@
       "checkoutInfrastructureVerified": false,
       "checkoutAllowed": false,
       "automaticPromotionAllowed": true,
-      "observedAt": "2026-10-09T22:39:08.919Z"
-    },
-    {
-      "slug": "hanging-closet-organizer",
-      "candidate": "Hanging Closet Organizer",
-      "observedProduct": "Wall Mounted Storage Bag Door Closet Hanging Storage Bag Organizer Waterproof 3 Pockets Pouch",
-      "liveStoreProduct": false,
-      "retailPriceUsd": 0,
-      "observedSupplierSku": "CJJT2541507",
-      "observedVariantSku": "CJJT254150701AZ",
-      "freightDiagnostic": "priced_tip_estimate_available",
-      "freightQuoteScope": "tip_example_zip_estimate",
-      "zeroPricedMethodCount": 11,
-      "supplierClaimedMatch": true,
-      "independentIdentityMatch": true,
-      "status": "final_zip_freight_required",
-      "variantStockVerified": true,
-      "freightEstimateVerified": true,
-      "countryFreightEstimated": false,
-      "illustrativeZipFreightEstimated": true,
-      "finalZipFreightVerified": false,
-      "mediaRightsVerified": true,
-      "promotionMediaPolicy": "original_graphics_and_original_copy_only",
-      "checkoutInfrastructureVerified": false,
-      "checkoutAllowed": false,
-      "automaticPromotionAllowed": true,
-      "observedAt": "2026-10-09T22:39:08.919Z"
+      "observedAt": "2026-10-10T21:44:35.847Z"
     },
     {
       "slug": "roll-up-dish-rack",
@@ -253,7 +227,33 @@
       "checkoutInfrastructureVerified": false,
       "checkoutAllowed": false,
       "automaticPromotionAllowed": false,
-      "observedAt": "2026-10-09T22:39:08.919Z"
+      "observedAt": "2026-10-10T21:44:35.847Z"
+    },
+    {
+      "slug": "hanging-closet-organizer",
+      "candidate": "Hanging Closet Organizer",
+      "observedProduct": "Wall Mounted Storage Bag Door Closet Hanging Storage Bag Organizer Waterproof 3 Pockets Pouch",
+      "liveStoreProduct": false,
+      "retailPriceUsd": 0,
+      "observedSupplierSku": "CJJT2541507",
+      "observedVariantSku": "CJJT254150701AZ",
+      "freightDiagnostic": "priced_tip_estimate_available",
+      "freightQuoteScope": "tip_example_zip_estimate",
+      "zeroPricedMethodCount": 11,
+      "supplierClaimedMatch": true,
+      "independentIdentityMatch": true,
+      "status": "final_zip_freight_required",
+      "variantStockVerified": true,
+      "freightEstimateVerified": true,
+      "countryFreightEstimated": false,
+      "illustrativeZipFreightEstimated": true,
+      "finalZipFreightVerified": false,
+      "mediaRightsVerified": true,
+      "promotionMediaPolicy": "original_graphics_and_original_copy_only",
+      "checkoutInfrastructureVerified": false,
+      "checkoutAllowed": false,
+      "automaticPromotionAllowed": true,
+      "observedAt": "2026-10-10T21:44:35.847Z"
     }
   ],
   "latestBatchCandidateCount": 3
