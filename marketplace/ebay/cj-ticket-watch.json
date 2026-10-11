@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "checkedAt": "2026-10-11T07:08:24.242Z",
+  "checkedAt": "2026-10-11T07:46:10.030Z",
   "ticketId": "2610101508010810500",
   "ticketNo": "T202610101508010581",
   "ticketType": "Service Consultation",
@@ -9,7 +9,7 @@
   "replyDetected": false,
   "createTime": 1791644881058,
   "lastUpdateTime": 1791644881058,
-  "canRemind": false,
+  "canRemind": true,
   "hasReminded": false,
   "detailKeys": [
     "attachments",
