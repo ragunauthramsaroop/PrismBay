@@ -1,10 +1,10 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-10-11T05:47:34.390Z",
+  "generatedAt": "2026-10-11T12:50:46.202Z",
   "researchCandidates": 12,
   "publishedResearchSignals": 12,
   "verifiedCJStatus": {
-    "checkedAt": "2026-10-11T05:47:33.413Z",
+    "checkedAt": "2026-10-11T12:50:44.827Z",
     "validSupplierMatches": 5,
     "variantStock": 2,
     "freightEstimates": 2,
@@ -27,6 +27,27 @@
       "executionMode": "scheduled_cj_and_manual_review",
       "candidateCount": 9,
       "blockers": [
+        {
+          "slug": "mini-mop",
+          "status": "supplier_search_needed",
+          "sku": null,
+          "shippingDiagnostic": null,
+          "zeroPricedMethods": 0
+        },
+        {
+          "slug": "drain-catcher",
+          "status": "variant_stock_required",
+          "sku": "CJCF1653868",
+          "shippingDiagnostic": "variant_stock_unverified",
+          "zeroPricedMethods": 0
+        },
+        {
+          "slug": "home-caddy",
+          "status": "supplier_search_needed",
+          "sku": null,
+          "shippingDiagnostic": null,
+          "zeroPricedMethods": 0
+        },
         {
           "slug": "scrubber",
           "status": "supplier_search_needed",
@@ -68,27 +89,6 @@
           "sku": "CJJT254150701AZ",
           "shippingDiagnostic": "priced_tip_estimate_available",
           "zeroPricedMethods": 11
-        },
-        {
-          "slug": "mini-mop",
-          "status": "supplier_search_needed",
-          "sku": null,
-          "shippingDiagnostic": null,
-          "zeroPricedMethods": 0
-        },
-        {
-          "slug": "drain-catcher",
-          "status": "variant_stock_required",
-          "sku": "CJCF1653868",
-          "shippingDiagnostic": "variant_stock_unverified",
-          "zeroPricedMethods": 0
-        },
-        {
-          "slug": "home-caddy",
-          "status": "supplier_search_needed",
-          "sku": null,
-          "shippingDiagnostic": null,
-          "zeroPricedMethods": 0
         }
       ]
     },
