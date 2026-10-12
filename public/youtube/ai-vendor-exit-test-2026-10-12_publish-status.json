@@ -1,0 +1,18 @@
+{
+  "channelId": "UCw2hs85TzIpdKwJtG-BSxzQ",
+  "metricoolBrandId": 6945443,
+  "experimentId": "PB-EXIT-001",
+  "checkedAt": "2026-10-12T07:47:00-04:00",
+  "state": "PUBLIC_MEDIA_READY_PUBLISH_BLOCKED",
+  "youtubePublished": false,
+  "scheduledInMetricool": false,
+  "reason": "New, distinct Short rendered successfully using GitHub Actions and Piper open TTS. Metricool createScheduledPost was blocked by connector safety checks on 2026-10-12. Opera browser connector is unavailable. No repeated identical submission or alternative-channel posting.",
+  "videoUrl": "https://raw.githubusercontent.com/ragunauthramsaroop/PrismBay/main/public/youtube/ai-vendor-exit-test-2026-10-12.mp4",
+  "sourceManifest": "public/youtube/ai-vendor-exit-test-2026-10-12.json",
+  "targetPublishTime": "2026-10-12T16:00:00-04:00",
+  "verifiedSubscribers": 7,
+  "scheduledInventoryOct12ToOct20": 0,
+  "originality": "Vendor exit portability test, distinct from AI permissions, ROI and data-boundaries Shorts",
+  "advertisingSpendUSD": 0,
+  "nextStep": "Resume only through authenticated authorized publisher after checking current schedule and published inventory; avoid duplicate upload."
+}
