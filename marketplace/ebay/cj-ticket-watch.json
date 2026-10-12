@@ -1,14 +1,14 @@
 {
   "schemaVersion": 1,
-  "checkedAt": "2026-10-12T06:36:52.577Z",
+  "checkedAt": "2026-10-12T09:06:06.990Z",
   "ticketId": "2610101508010810500",
   "ticketNo": "T202610101508010581",
   "ticketType": "Service Consultation",
   "issueType": "Fulfillment Service Consultation",
-  "status": "AWAITING_CJ_REPLY",
+  "status": "AWAITING_YOUR_REPLY",
   "replyDetected": true,
   "createTime": 1791644881058,
-  "lastUpdateTime": 1791783591628,
+  "lastUpdateTime": 1791789058052,
   "canRemind": false,
   "hasReminded": false,
   "detailKeys": [
