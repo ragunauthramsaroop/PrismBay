@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-12T06:35:47.920Z",
+  "updatedAt": "2026-10-12T16:10:06.814Z",
   "market": "US",
   "methodology": "Public-news attention, freshness, and short-form demonstration fit. This is not PrismBay sales data and is not a TikTok, Amazon, Google, or Bing product ranking.",
   "refreshTargetHours": 6,
@@ -11,7 +11,7 @@
       "signalScore": 91,
       "signalLabel": "high-attention",
       "evidence": {
-        "publicMentions": 107,
+        "publicMentions": 108,
         "mentionsLast7Days": 4,
         "mentionsLast30Days": 7,
         "sourcesAvailable": [
@@ -59,7 +59,7 @@
       "signalScore": 80.5,
       "signalLabel": "high-attention",
       "evidence": {
-        "publicMentions": 95,
+        "publicMentions": 98,
         "mentionsLast7Days": 1,
         "mentionsLast30Days": 5,
         "sourcesAvailable": [
@@ -135,16 +135,16 @@
           "url": "https://news.google.com/rss/articles/CBMihAFBVV95cUxPVUxYNWVJWVFYUWRES0d1Y2plUHV6b0poQ1dfOEpadkNmM3ZSbnpYZ2FiZDNQaXRRRHB1dVg4Q0ljWDJTdnM0WFJGY3dlUTRDU2x5dnptYjktcDByUnd6NDFPX3YwX3dJRDI4b1hrQ1NSU0hoLVlnVzIxTjJsVHktSUU2cHjSAZgBQVVfeXFMT1EzOF9iaGQxYzk4RUdyUGZVb0pjM0xQUGlQU3l3ZjNBSWFyS2pjQXBOOWpLY2xuS2NLSVBFdHRhWDBNdVdOdkgySHJkcHc5NXg2S3laUEdjU1A5QTdWeEJGQVExWE5DdENTaE5QbEhtWWJPdkVza2FUMjd0Qko4Mk1yR2VJeWhfaGZyTVNiUGJ2X2NEOVBYVjY?oc=5"
         },
         {
-          "title": "Does it work? Hydro X5 cordless pressure washer - KWCH",
-          "source": "Google News",
-          "publishedAt": "2026-08-12T07:00:00.000Z",
-          "url": "https://news.google.com/rss/articles/CBMijgFBVV95cUxQNDFVTUZfNXhsbWhmVVZqZW8zQWV3b0FFYUtSWURBSmNOMENsZU9mN0JJclZZNENRakdHb1lqOU5rOHg5cU1pd1IzQUVleFNDVGQ3RmhId1ZHX3JIckVYZEpiNEpZS3paNEM3MER4U2x3SWhETGNwM1JNd2VMbzh4alB6ZE9GTmdZemRnMnBR?oc=5"
-        },
-        {
           "title": "Bought a cordless pressure washer from Blinkit: Good investment overall - Team-BHP",
           "source": "Google News",
           "publishedAt": "2026-06-08T07:00:00.000Z",
           "url": "https://news.google.com/rss/articles/CBMimAFBVV95cUxNbzBEcUtteUtoajdvVFFCSnduZllqWlhURUIzR3hoMFMwMWJmZTJveUNuZ0RIbG52VzJzQmhnVlQyVU5xazFhWjI2Vzdxc2ZsNHoyRUd6NXRiWHZPcmhLMjFMZTdfLUtzaGx5eTZlamJjUzgxTDRNcVlIZXBKQ2Q0aGNlaURVeEdScE1MYUQ0aVB2Sk1CZ01iZ9IBngFBVV95cUxPU0RxNW5zeUw0ZlBvM3NoX215SFFWWElmQzRuREJUUUxfWjBma09HSjBOVGVqRC02d2NKN1BxZFdCZ2QwM19vVHZxTHdmdk92bDZUOUZNVUUwYjJreEI3dTF6aWJ5a1ZjU0VTSkU1d29Lc2hKVFNiUmo3SEtHeXRHc2dFamo1THMwbGhyRmxCbmlLdmNITFJBWWs3MmltQQ?oc=5"
+        },
+        {
+          "title": "Greenworks' 14A Pro 3,000 PSI electric pressure washer sees $140 cut to $310 annual low ahead of Prime Day - 9to5Toys",
+          "source": "Google News",
+          "publishedAt": "2026-10-06T04:51:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxOM3d5b3hyRlFDVEJ4VWxLYWFqMmVZN2VSbWlGSFdlbk9XQ3lDTkg4bVZDR1ZZTjh0UWVCUG9pTVFYN1c3MnJpOEZWM1h0TERGbmthNzhnaWVaLXpLeGlyVEVNT21Od0NDSnZEaU5jcERTeW9OZFRLeUZnbGVlLWdWTC1pc3Q4VW0t?oc=5"
         }
       ],
       "rank": 3
