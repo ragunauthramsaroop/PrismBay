@@ -1,15 +1,15 @@
 {
   "schemaVersion": 1,
-  "checkedAt": "2026-10-12T01:55:29.990Z",
+  "checkedAt": "2026-10-12T06:36:52.577Z",
   "ticketId": "2610101508010810500",
   "ticketNo": "T202610101508010581",
   "ticketType": "Service Consultation",
   "issueType": "Fulfillment Service Consultation",
   "status": "AWAITING_CJ_REPLY",
-  "replyDetected": false,
+  "replyDetected": true,
   "createTime": 1791644881058,
-  "lastUpdateTime": 1791644881058,
-  "canRemind": true,
+  "lastUpdateTime": 1791783591628,
+  "canRemind": false,
   "hasReminded": false,
   "detailKeys": [
     "attachments",
@@ -34,5 +34,5 @@
     "ticketType",
     "yourOrderNo"
   ],
-  "nextAction": "Waiting for CJ reply. No seller action required yet."
+  "nextAction": "CJ response detected: review ticket detail before changing any listing location or authorization state."
 }
