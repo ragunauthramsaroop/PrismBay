@@ -1,0 +1,83 @@
+{
+  "channelId": "UCw2hs85TzIpdKwJtG-BSxzQ",
+  "brandId": 6945443,
+  "experimentId": "PB-AGENT-SEC-002",
+  "createdDate": "2026-10-11",
+  "status": "SCRIPT_READY_UNRENDERED_UNSCHEDULED",
+  "audience": "Founders, operations directors, CFOs, IT/security leads",
+  "format": "Shorts",
+  "targetDurationSeconds": 48,
+  "hypothesis": "A concrete approval-before-action pattern for AI agents will outperform generic agent tool news on qualified engagement and subscriber conversion.",
+  "topic": "Why AI agents should not have unrestricted payment or outbound email authority",
+  "hookVariants": [
+    "Your AI agent can send money? Stop before you connect it.",
+    "An AI agent with full email access is a security decision.",
+    "This one permission mistake turns an AI pilot into a business risk."
+  ],
+  "selectedHook": "Your AI agent can send money? Stop before you connect it.",
+  "script": [
+    {
+      "time": "0-4s",
+      "voice": "Your AI agent can send money? Stop before you connect it.",
+      "visual": "Red transfer button, then LOCKED."
+    },
+    {
+      "time": "4-12s",
+      "voice": "Start with read-only access. Let the agent gather facts, not approve payments or send messages.",
+      "visual": "READ green, SEND and PAY locked."
+    },
+    {
+      "time": "12-23s",
+      "voice": "For every high-impact action, show the recipient, amount, source record and proposed change before a person approves.",
+      "visual": "Four-field approval card with blurred example names."
+    },
+    {
+      "time": "23-33s",
+      "voice": "Then log who approved, what ran, when it ran, and whether it succeeded.",
+      "visual": "Simple audit trail timeline."
+    },
+    {
+      "time": "33-42s",
+      "voice": "Give each agent a limited scope and a stop switch. Test misleading emails before production.",
+      "visual": "Scope meter and emergency stop."
+    },
+    {
+      "time": "42-48s",
+      "voice": "PrismBay AI: practical business systems, with measurable control.",
+      "visual": "Brand promise + series label 'Agent Control Room'."
+    }
+  ],
+  "titleCandidates": [
+    "Never Give an AI Agent These Permissions Without Approval",
+    "AI Agent Security: The 4-Field Approval Rule",
+    "Your AI Agent Can Send Money? Check This First"
+  ],
+  "thumbnailConcepts": [
+    "One payment button, red padlock, text 'APPROVE FIRST'",
+    "Agent icon and outbound email arrow crossed out, text 'TOO MUCH ACCESS'",
+    "Human approval screen, large amount blurred, text 'WHO SIGNS OFF?'"
+  ],
+  "description": "AI agents need bounded permissions. Before an agent sends an email, approves a payment or deletes data, require a trusted approval checkpoint with the complete action details. Start with read-only access, log every tool action, and preserve a stop switch. This is a practical control pattern, not a claim of universal legal compliance. Source: OWASP Top 10 for Agentic Applications 2026 and AWS Prescriptive Guidance on agentic AI security. PrismBay AI helps founders, operators and executives implement practical AI business systems.",
+  "tags": [
+    "AI agent security",
+    "AI automation",
+    "business AI",
+    "human approval",
+    "least privilege"
+  ],
+  "cta": "PrismBay AI helps founders, operators and executives implement practical AI business systems.",
+  "publishTime": "UNASSIGNED; verify scheduled inventory and rendering first",
+  "reviewHours": [
+    6,
+    24,
+    72,
+    168
+  ],
+  "successThreshold": "At 72h, scale if >=2x median views of 5 recent Shorts AND positive subscribers gained; otherwise retest hook after a sufficient sample.",
+  "sources": [
+    "https://genai.owasp.org/download/52117/",
+    "https://docs.aws.amazon.com/prescriptive-guidance/latest/agentic-ai-security/"
+  ],
+  "originality": "Original PrismBay scenario and control diagram. No copied footage or proprietary vendor content.",
+  "zeroPaidSpend": true
+}
