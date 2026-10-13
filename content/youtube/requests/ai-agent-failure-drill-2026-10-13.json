@@ -1,0 +1,66 @@
+{
+  "slug": "ai-agent-failure-drill-2026-10-13",
+  "title": "Your AI Agent Failed. Run This 3-Step Recovery Drill",
+  "voice": "en_US-norman-medium",
+  "voiceLicenseBasis": "Piper en_US-norman-medium public-domain LibriVox recordings; fallback eSpeak-ng",
+  "sourceAttribution": "Original PrismBay operational framework informed by NIST AI RMF Playbook Manage 4.1 and 4.3, and OWASP GenAI agent security guidance.",
+  "segments": [
+    {
+      "key": "FAILURE DRILL",
+      "headline": "YOUR AI AGENT JUST FAILED",
+      "body": "Do you have a recovery plan?",
+      "spoken": "Your AI agent just failed during a live business workflow. What happens next? Run this three-step recovery drill before a real incident."
+    },
+    {
+      "key": "01",
+      "headline": "STOP THE ACTIONS",
+      "body": "Pause tool access. Revoke risky permissions.",
+      "spoken": "First, stop further actions. Pause the workflow and remove risky tool permissions. A prompt telling an agent to stop is not a reliable emergency switch."
+    },
+    {
+      "key": "02",
+      "headline": "REBUILD THE TIMELINE",
+      "body": "Capture tool calls, inputs, outputs and approvals.",
+      "spoken": "Second, reconstruct the timeline. Preserve the inputs, tool calls, outputs and human approvals. Identify the first unsafe action, not only the final error."
+    },
+    {
+      "key": "03",
+      "headline": "RESTORE SAFELY",
+      "body": "Use a known-good state. Test before restart.",
+      "spoken": "Third, restore a known-good state. Test the corrected workflow in a safe environment, then approve a controlled restart."
+    },
+    {
+      "key": "SCORE",
+      "headline": "MEASURE RECOVERY TIME",
+      "body": "Track detection, containment and restoration.",
+      "spoken": "Record how long detection, containment and restoration took. Repeat the drill after major changes. This is a practical management exercise, not a legal standard."
+    },
+    {
+      "key": "PRISMBAY AI",
+      "headline": "BUILD AGENTS YOU CAN CONTROL",
+      "body": "Practical AI business systems",
+      "badges": [
+        "Stop",
+        "Investigate",
+        "Restore"
+      ],
+      "spoken": "PrismBay AI helps founders and operators build practical AI business systems. Subscribe for tested workflows and measurable decisions."
+    }
+  ],
+  "experimentId": "PB-RECOVERY-001",
+  "targetChannelId": "UCw2hs85TzIpdKwJtG-BSxzQ",
+  "sources": [
+    "https://airc.nist.gov/airmf-resources/playbook/manage/",
+    "https://genai.owasp.org/2026/09/01/owasp-genai-security-project-unveils-2026-top-10-for-llm-applications-new-agent-control-standard-and-sponsors-as-community-tops-30000-members/"
+  ],
+  "hypothesis": "An incident-response drill with three operational steps earns higher qualified saves and subscriber conversion than general AI governance warnings",
+  "targetAudience": "Founders, COOs, IT directors, AI operations leads, risk and compliance teams",
+  "hookType": "Unexpected agent failure with immediate actionable payoff",
+  "format": "short",
+  "thumbnailConcept": "Red STOP button beside a broken agent workflow, words: RECOVERY DRILL",
+  "cta": "Subscribe for practical AI systems and measurable operational decisions",
+  "publishTime": "Unassigned pending verified rendering, authenticated scheduling and channel-specific readback",
+  "successThreshold": "At 72 hours compare views, retention proxies, shares and subscriber gain against recent Shorts median; SCALE if >=2x views and positive subscriber conversion, otherwise MODIFY or RETEST",
+  "productionStatus": "render_requested_2026-10-13",
+  "paidSpendUSD": 0
+}
