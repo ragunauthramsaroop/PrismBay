@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "checkedAt": "2026-10-13T09:15:39.212Z",
+  "checkedAt": "2026-10-13T09:18:26.104Z",
   "priority": "paid_sales_from_verified_existing_offers",
   "activeOffer": {
     "slug": "esg",
@@ -13,7 +13,7 @@
   "freeLLM": {
     "status": "ok",
     "workerMode": "freellmapi_guided",
-    "requestedModel": "auto:fast"
+    "requestedModel": "auto:reliable"
   },
   "funnelHealth": {
     "guideHttpStatus": 200,
