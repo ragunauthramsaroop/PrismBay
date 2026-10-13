@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-12T16:10:06.814Z",
+  "updatedAt": "2026-10-13T00:59:11.682Z",
   "market": "US",
   "methodology": "Public-news attention, freshness, and short-form demonstration fit. This is not PrismBay sales data and is not a TikTok, Amazon, Google, or Bing product ranking.",
   "refreshTargetHours": 6,
@@ -11,7 +11,7 @@
       "signalScore": 91,
       "signalLabel": "high-attention",
       "evidence": {
-        "publicMentions": 108,
+        "publicMentions": 109,
         "mentionsLast7Days": 4,
         "mentionsLast30Days": 7,
         "sourcesAvailable": [
@@ -56,12 +56,12 @@
     {
       "slug": "scrubber",
       "name": "5-in-1 Electric Spin Scrubber",
-      "signalScore": 80.5,
+      "signalScore": 76,
       "signalLabel": "high-attention",
       "evidence": {
-        "publicMentions": 98,
-        "mentionsLast7Days": 1,
-        "mentionsLast30Days": 5,
+        "publicMentions": 99,
+        "mentionsLast7Days": 0,
+        "mentionsLast30Days": 4,
         "sourcesAvailable": [
           "Google News",
           "Bing News"
@@ -200,12 +200,12 @@
     {
       "slug": "pethair",
       "name": "Reusable Pet Hair Remover",
-      "signalScore": 42.5,
+      "signalScore": 47,
       "signalLabel": "watch",
       "evidence": {
         "publicMentions": 12,
-        "mentionsLast7Days": 0,
-        "mentionsLast30Days": 1,
+        "mentionsLast7Days": 1,
+        "mentionsLast30Days": 2,
         "sourcesAvailable": [
           "Google News",
           "Bing News"
@@ -219,6 +219,12 @@
           "url": "https://news.google.com/rss/articles/CBMiW0FVX3lxTE56STN5dFAtRmlSdG04UW8zZWlkemZwOW4wQTJFeUt5ZU9hYmhrYmJGb1Y1a3p3WDFsaVpkWFBLTkNyR2dMZnNzT2N5UjFoQ0pCZnNTc1hUOUQ3ZE0?oc=5"
         },
         {
+          "title": "Best Prime Big Deal Days Sales on Pet Products - Consumer Reports",
+          "source": "Google News",
+          "publishedAt": "2026-10-07T07:00:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMiugFBVV95cUxPNUFvYlVIOURkSktJaEk1ZUV3STQtbmhWaU4teXdfZDBvUzR6bFNhX1RBM1h4TEFWUUNaYkgxWjU2bFZXSl9SRnZTbXRtaFJSXzdReWN2N0pzR05pdWxyOVFHTTRKcVE4R29oZlhlU3VLaVRtYXNqWWx0X2JyX091OUluaGJMSWF1YmR6UVMySGxTdk9zczFTY2dMc3ktaDViUUZfMjZMSVp5MkpCQ2VjZTVTcGlFWnBnTUE?oc=5"
+        },
+        {
           "title": "10 Best Cat Hair Remover Tools in 2026 - Reviews & Top Picks - Catster",
           "source": "Google News",
           "publishedAt": "2026-09-15T07:00:00.000Z",
@@ -229,12 +235,6 @@
           "source": "Google News",
           "publishedAt": "2026-05-26T07:00:00.000Z",
           "url": "https://news.google.com/rss/articles/CBMivAFBVV95cUxNdDdxTXg5VTljRFBmTDlNd0VXaDV5eUJlbHp4NGxpT3RQdk1sUmVhM3RydDJ3OXJGR3dMalAxemlVYjhzT2NZZ2pLYlBSM2F0Rk1zVDNrR2x0NGJyb3FJOUNDY2x0eEVnRk90aGtvdENXX01MMUhSNTIzOEhnZHVHWHByRW1hYmpCa0tTcXc3clBKTjVNMkdkNmR4blJtYng3cVhkRTdoRHBuZEczeWNENUhST0hsY2pRcU9Udw?oc=5"
-        },
-        {
-          "title": "Best Pet Hair Remover Tools - Consumer Reports",
-          "source": "Google News",
-          "publishedAt": "2025-02-10T08:00:00.000Z",
-          "url": "https://news.google.com/rss/articles/CBMikwFBVV95cUxOdFp5djVaTWsxTXVTeFlpcWdPTXNhNHlHUU5icHMxUFlWWVJab0lDMVpPUHhqbV9MaVh4bGJwLXJMSlB6OGQ5ajlWOThPOXJ2VS0xT2dsWVl4OHZKWm14ZW1JZmVvUlRUWFBlTXZSVzYzZUJzWG9KeEJYUXkzSlp2NWFLSlpad2U1eVRxRVV0QWt4dHc?oc=5"
         },
         {
           "title": "10 Best Lint Rollers for Dog Hair in 2026 – Reviews & Top Picks - Dogster",
