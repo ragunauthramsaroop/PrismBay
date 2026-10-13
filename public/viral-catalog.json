@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-13T00:59:11.682Z",
+  "updatedAt": "2026-10-13T14:36:36.151Z",
   "market": "US",
   "methodology": "Public-news attention, freshness, and short-form demonstration fit. This is not PrismBay sales data and is not a TikTok, Amazon, Google, or Bing product ranking.",
   "refreshTargetHours": 6,
@@ -8,12 +8,12 @@
     {
       "slug": "mattress-vacuum",
       "name": "Mattress Vacuum",
-      "signalScore": 91,
+      "signalScore": 83.5,
       "signalLabel": "high-attention",
       "evidence": {
-        "publicMentions": 109,
-        "mentionsLast7Days": 4,
-        "mentionsLast30Days": 7,
+        "publicMentions": 107,
+        "mentionsLast7Days": 2,
+        "mentionsLast30Days": 6,
         "sourcesAvailable": [
           "Google News",
           "Bing News"
@@ -33,16 +33,16 @@
           "url": "https://news.google.com/rss/articles/CBMiowFBVV95cUxQZGxoUGxkdUgzVDhQaGpNa1FKb1FSRDliWDRtWEpFZjZsZ0FUQ3hJbHpwaGQxdHVGRzFzbGVCcEpfSThoUlhOa1owYlhhWGVUa3hic1VTWWFueF9VWmppS1JLc0JrcDE2aEhROXhERXcxd0pKcnRaN1J1d1ExclpFZGRYOU9JbW90d1hPYUx0SXdLLS15dGNhSHZycUIyc1Z4TlE4?oc=5"
         },
         {
-          "title": "Narwal at CES 2026: Flow 2 Flagship Robot Vacuum and New Cordless Vacuums - Vacuum Wars",
-          "source": "Google News",
-          "publishedAt": "2026-10-08T16:26:00.000Z",
-          "url": "https://news.google.com/rss/articles/CBMiUEFVX3lxTE8zbmU2SFZIV1N2ZjBhbjhSdi1XanpySGNYRWxqVFlHSHRzbm5Iem5IRGZQakZmbG45NnVWSnUtVU82eXNFQnNUdHE0SUp5dGV2?oc=5"
-        },
-        {
           "title": "Is a Mattress Vacuum the Allergy Solution We’ve Been Needing? I Tested One to Find Out - CNET",
           "source": "Google News",
           "publishedAt": "2026-06-27T07:00:00.000Z",
           "url": "https://news.google.com/rss/articles/CBMisAFBVV95cUxQcmFNWEdvTUxuY1RES2k4bXh1T0U2ci1nTHBJRXVud3F4ekF2NHF4NkF4LTlKR3lRWTNObHBGcjUzOGlLNUlHNXd1dGdOQXBYcEN6QllhNGZyVDFja2h1R3AzX1hIaFk4RUpsZ3JQT05Ga2pkelRscFRTaVJ0NFhyX0c3cVllQzIxTXoyeGhKcTNvLUJuRWNLd0g3Si1mYnRoUjEzZExKZGEtUXlsVlV3dQ?oc=5"
+        },
+        {
+          "title": "Narwal at CES 2026: Flow 2 Flagship Robot Vacuum and New Cordless Vacuums - Vacuum Wars",
+          "source": "Google News",
+          "publishedAt": "2026-10-08T16:26:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMiUEFVX3lxTE8zbmU2SFZIV1N2ZjBhbjhSdi1XanpySGNYRWxqVFlHSHRzbm5Iem5IRGZQakZmbG45NnVWSnUtVU82eXNFQnNUdHE0SUp5dGV2?oc=5"
         },
         {
           "title": "Turns out you do need a mattress vacuum — here’s why I love mine - NJ.com",
@@ -59,7 +59,7 @@
       "signalScore": 76,
       "signalLabel": "high-attention",
       "evidence": {
-        "publicMentions": 99,
+        "publicMentions": 100,
         "mentionsLast7Days": 0,
         "mentionsLast30Days": 4,
         "sourcesAvailable": [
@@ -104,11 +104,11 @@
     {
       "slug": "pressure-washer",
       "name": "Cordless Pressure Washer",
-      "signalScore": 74,
+      "signalScore": 71,
       "signalLabel": "high-attention",
       "evidence": {
         "publicMentions": 103,
-        "mentionsLast7Days": 1,
+        "mentionsLast7Days": 0,
         "mentionsLast30Days": 1,
         "sourcesAvailable": [
           "Google News",
@@ -141,10 +141,10 @@
           "url": "https://news.google.com/rss/articles/CBMimAFBVV95cUxNbzBEcUtteUtoajdvVFFCSnduZllqWlhURUIzR3hoMFMwMWJmZTJveUNuZ0RIbG52VzJzQmhnVlQyVU5xazFhWjI2Vzdxc2ZsNHoyRUd6NXRiWHZPcmhLMjFMZTdfLUtzaGx5eTZlamJjUzgxTDRNcVlIZXBKQ2Q0aGNlaURVeEdScE1MYUQ0aVB2Sk1CZ01iZ9IBngFBVV95cUxPU0RxNW5zeUw0ZlBvM3NoX215SFFWWElmQzRuREJUUUxfWjBma09HSjBOVGVqRC02d2NKN1BxZFdCZ2QwM19vVHZxTHdmdk92bDZUOUZNVUUwYjJreEI3dTF6aWJ5a1ZjU0VTSkU1d29Lc2hKVFNiUmo3SEtHeXRHc2dFamo1THMwbGhyRmxCbmlLdmNITFJBWWs3MmltQQ?oc=5"
         },
         {
-          "title": "Greenworks' 14A Pro 3,000 PSI electric pressure washer sees $140 cut to $310 annual low ahead of Prime Day - 9to5Toys",
+          "title": "Stihl launches new cordless pressure washer for easy cleaning around the home - Yahoo",
           "source": "Google News",
-          "publishedAt": "2026-10-06T04:51:00.000Z",
-          "url": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxOM3d5b3hyRlFDVEJ4VWxLYWFqMmVZN2VSbWlGSFdlbk9XQ3lDTkg4bVZDR1ZZTjh0UWVCUG9pTVFYN1c3MnJpOEZWM1h0TERGbmthNzhnaWVaLXpLeGlyVEVNT21Od0NDSnZEaU5jcERTeW9OZFRLeUZnbGVlLWdWTC1pc3Q4VW0t?oc=5"
+          "publishedAt": "2026-09-11T07:00:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMisAFBVV95cUxOX2xfRzZIY0x2R1ZlUE9NVm1XVVZ3THhxZFFwOEJqZHJ1MDBYenNDVGJEUzhISFMxbldXM2lLaDhURWV2a0VmdHYwdHFBX3JyUi1mMlZJcEZQc3VQSkxoaWo4ZUpPZWJxV19ySHFPYnRqV1VFTExyNE1TUmttV2Y1VHBybjh5dlZaRXZ4ckg2MnUzRG9pNUZ1RjlzYWR5NTRvRDBZQnRESkVsQXZsa19RUA?oc=5"
         }
       ],
       "rank": 3
@@ -155,7 +155,7 @@
       "signalScore": 69.5,
       "signalLabel": "active",
       "evidence": {
-        "publicMentions": 37,
+        "publicMentions": 35,
         "mentionsLast7Days": 0,
         "mentionsLast30Days": 2,
         "sourcesAvailable": [
@@ -225,16 +225,16 @@
           "url": "https://news.google.com/rss/articles/CBMiugFBVV95cUxPNUFvYlVIOURkSktJaEk1ZUV3STQtbmhWaU4teXdfZDBvUzR6bFNhX1RBM1h4TEFWUUNaYkgxWjU2bFZXSl9SRnZTbXRtaFJSXzdReWN2N0pzR05pdWxyOVFHTTRKcVE4R29oZlhlU3VLaVRtYXNqWWx0X2JyX091OUluaGJMSWF1YmR6UVMySGxTdk9zczFTY2dMc3ktaDViUUZfMjZMSVp5MkpCQ2VjZTVTcGlFWnBnTUE?oc=5"
         },
         {
-          "title": "10 Best Cat Hair Remover Tools in 2026 - Reviews & Top Picks - Catster",
-          "source": "Google News",
-          "publishedAt": "2026-09-15T07:00:00.000Z",
-          "url": "https://news.google.com/rss/articles/CBMid0FVX3lxTE9TRHBxazJndGdPZkxWeW5xUGRibHc4aGJjUjBRN2tueTdCU1I1dEx2N1RXSGYteThUejc1cWlBcnNiOGhDYmNYSVVRUk0wN1djTE9Ub2VZYzV5VGJYczFLTHo2MHhWdEpXckdnX3V5U0pyOUNTVFpN?oc=5"
-        },
-        {
           "title": "Uproot Clean Promo Code LOUISAWARWICK10 – Get 10% Off Sitewide on Viral Pet Hair Removal Tools - Muzique Magazine",
           "source": "Google News",
           "publishedAt": "2026-05-26T07:00:00.000Z",
           "url": "https://news.google.com/rss/articles/CBMivAFBVV95cUxNdDdxTXg5VTljRFBmTDlNd0VXaDV5eUJlbHp4NGxpT3RQdk1sUmVhM3RydDJ3OXJGR3dMalAxemlVYjhzT2NZZ2pLYlBSM2F0Rk1zVDNrR2x0NGJyb3FJOUNDY2x0eEVnRk90aGtvdENXX01MMUhSNTIzOEhnZHVHWHByRW1hYmpCa0tTcXc3clBKTjVNMkdkNmR4blJtYng3cVhkRTdoRHBuZEczeWNENUhST0hsY2pRcU9Udw?oc=5"
+        },
+        {
+          "title": "10 Best Cat Hair Remover Tools in 2026 - Reviews & Top Picks - Catster",
+          "source": "Google News",
+          "publishedAt": "2026-09-15T07:00:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMid0FVX3lxTE9TRHBxazJndGdPZkxWeW5xUGRibHc4aGJjUjBRN2tueTdCU1I1dEx2N1RXSGYteThUejc1cWlBcnNiOGhDYmNYSVVRUk0wN1djTE9Ub2VZYzV5VGJYczFLTHo2MHhWdEpXckdnX3V5U0pyOUNTVFpN?oc=5"
         },
         {
           "title": "10 Best Lint Rollers for Dog Hair in 2026 – Reviews & Top Picks - Dogster",
