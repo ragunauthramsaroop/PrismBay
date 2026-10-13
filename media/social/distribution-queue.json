@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-10-12T21:14:37.612Z",
+  "generatedAt": "2026-10-13T19:13:09.750Z",
   "priority": "external_traffic_to_verified_guarded_offers",
   "items": [
     {
@@ -235,29 +235,29 @@
       "status": "ok",
       "strategy": "evidence-led",
       "model": "auto:reliable",
-      "routedVia": "ovh/Qwen3.6-27B",
+      "routedVia": "kilo/nvidia/nemotron-3-super-120b-a12b:free",
       "routeAttempts": 2
     },
     "esg": {
+      "status": "ok",
+      "strategy": "evidence-led",
+      "model": "auto:reliable",
+      "routedVia": "ovh/Qwen3.6-27B",
+      "routeAttempts": 2
+    },
+    "whitepaper": {
       "status": "ok",
       "strategy": "evidence-led",
       "model": "auto:fast",
       "routedVia": "ovh/Qwen3.5-397B-A17B",
       "routeAttempts": 3
     },
-    "whitepaper": {
-      "status": "ok",
-      "strategy": "evidence-led",
-      "model": "auto:fast",
-      "routedVia": "ovh/Qwen3.5-9B",
-      "routeAttempts": 3
-    },
     "bundle": {
       "status": "ok",
       "strategy": "evidence-led",
-      "model": "auto:fast",
-      "routedVia": "ovh/Mistral-Small-3.2-24B-Instruct-2506",
-      "routeAttempts": 3
+      "model": "auto:reliable",
+      "routedVia": "ovh/Qwen3.5-397B-A17B",
+      "routeAttempts": 2
     },
     "garment-steamer": {
       "status": "deterministic_guarded_physical",
