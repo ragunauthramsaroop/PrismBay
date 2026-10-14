@@ -1,6 +1,6 @@
 {
   "schemaVersion": 6,
-  "checkedAt": "2026-10-14T12:30:05.309Z",
+  "checkedAt": "2026-10-14T13:58:47.105Z",
   "product": {
     "slug": "garment-steamer",
     "variantId": "2508160953561608700",
@@ -75,8 +75,8 @@
       "countryCode": "CN",
       "city": "Dongguan",
       "province": "Guangdong",
-      "postalCode": "",
-      "address1": ""
+      "postalCode": "523690",
+      "address1": "Elevator No. 3, F4, Building F, Fengzhimei Industrial Zone, Jinfenghuang Avenue, Fenggang Town, Dongguan City, Guangdong Province, 523689, China"
     },
     "warehouseDiscovery": {
       "attempted": true,
@@ -93,10 +93,10 @@
           "countryCode": "CN",
           "city": "Dongguan",
           "province": "Guangdong",
-          "postalCode": "",
-          "address1": "",
+          "postalCode": "523690",
+          "address1": "Elevator No. 3, F4, Building F, Fengzhimei Industrial Zone, Jinfenghuang Avenue, Fenggang Town, Dongguan City, Guangdong Province, 523689, China",
           "evidenceVerified": true,
-          "evidenceMode": "city_region_country"
+          "evidenceMode": "postal_country"
         }
       ],
       "errors": []
@@ -111,7 +111,7 @@
       "error": null
     },
     "dispatchLocationVerified": true,
-    "dispatchEvidenceMode": "city_region_country"
+    "dispatchEvidenceMode": "postal_country"
   },
   "gates": {
     "economicsPass": true,
