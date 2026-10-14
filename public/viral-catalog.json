@@ -1,67 +1,19 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-14T05:28:05.640Z",
+  "updatedAt": "2026-10-14T12:25:56.682Z",
   "market": "US",
   "methodology": "Public-news attention, freshness, and short-form demonstration fit. This is not PrismBay sales data and is not a TikTok, Amazon, Google, or Bing product ranking.",
   "refreshTargetHours": 6,
   "products": [
     {
-      "slug": "mattress-vacuum",
-      "name": "Mattress Vacuum",
-      "signalScore": 85,
-      "signalLabel": "high-attention",
-      "evidence": {
-        "publicMentions": 107,
-        "mentionsLast7Days": 2,
-        "mentionsLast30Days": 7,
-        "sourcesAvailable": [
-          "Google News",
-          "Bing News"
-        ]
-      },
-      "sampleSignals": [
-        {
-          "title": "I Finally Got a Bed Vacuum, and Now I’m Never Going to Be Without One Again (and It’s on Sale for Prime!) - Apartment Therapy",
-          "source": "Google News",
-          "publishedAt": "2026-10-06T07:00:00.000Z",
-          "url": "https://news.google.com/rss/articles/CBMikAFBVV95cUxNbkpkQUFEYVRYc3gzc0Q0MUdkdE1pb2VORTFxbi1XbXk5OXBDYWg0Rmk3R01ZSUt6ZzNlRzRRWGR2RzRGQ09FQVNJNlZOMHk2eU9zZ0p1c1Q1dHpLbXZLZ29RcDQyX1JDZWpPME1pSlRyOG1XUTV2TlRYcDhLUWpXbFFJQkFvS09tb2YyQi1HYnE?oc=5"
-        },
-        {
-          "title": "Is a Mattress Vacuum the Allergy Solution We’ve Been Needing? I Tested One to Find Out - CNET",
-          "source": "Google News",
-          "publishedAt": "2026-06-27T07:00:00.000Z",
-          "url": "https://news.google.com/rss/articles/CBMisAFBVV95cUxQcmFNWEdvTUxuY1RES2k4bXh1T0U2ci1nTHBJRXVud3F4ekF2NHF4NkF4LTlKR3lRWTNObHBGcjUzOGlLNUlHNXd1dGdOQXBYcEN6QllhNGZyVDFja2h1R3AzX1hIaFk4RUpsZ3JQT05Ga2pkelRscFRTaVJ0NFhyX0c3cVllQzIxTXoyeGhKcTNvLUJuRWNLd0g3Si1mYnRoUjEzZExKZGEtUXlsVlV3dQ?oc=5"
-        },
-        {
-          "title": "Narwal at CES 2026: Flow 2 Flagship Robot Vacuum and New Cordless Vacuums - Vacuum Wars",
-          "source": "Google News",
-          "publishedAt": "2026-10-08T16:26:00.000Z",
-          "url": "https://news.google.com/rss/articles/CBMiUEFVX3lxTE8zbmU2SFZIV1N2ZjBhbjhSdi1XanpySGNYRWxqVFlHSHRzbm5Iem5IRGZQakZmbG45NnVWSnUtVU82eXNFQnNUdHE0SUp5dGV2?oc=5"
-        },
-        {
-          "title": "The UV mattress vacuum I swear by to kill bacteria and dust mites is down to $75 this Prime Day – sale ends tonight - Tom's Guide",
-          "source": "Google News",
-          "publishedAt": "2026-10-07T11:11:41.000Z",
-          "url": "https://news.google.com/rss/articles/CBMiowFBVV95cUxQZGxoUGxkdUgzVDhQaGpNa1FKb1FSRDliWDRtWEpFZjZsZ0FUQ3hJbHpwaGQxdHVGRzFzbGVCcEpfSThoUlhOa1owYlhhWGVUa3hic1VTWWFueF9VWmppS1JLc0JrcDE2aEhROXhERXcxd0pKcnRaN1J1d1ExclpFZGRYOU9JbW90d1hPYUx0SXdLLS15dGNhSHZycUIyc1Z4TlE4?oc=5"
-        },
-        {
-          "title": "As a sinusitis sufferer, I implore you to consider Aldi's £19 UV mattress vacuum — it's not about bed bugs, it's about dust - TechRadar",
-          "source": "Google News",
-          "publishedAt": "2026-06-12T07:00:00.000Z",
-          "url": "https://news.google.com/rss/articles/CBMi9gFBVV95cUxOOTZqRGZuMWZJTVh2VUhXOHgzMUdhVUhjYTdxeXl6QWVqbkxCb2R2bU45Wl9ERHVFaklYajJWa0JSd2RtdDNpdksyR1IwVV9QeUUyTmcySXJvcnltUDcxazNHaF85ZzZTYnYwNy1yZ1ZjNlhIWGVBRzc2aUtKNDhBbk85UHFueGtRY2JVaXpTMzNxX3dOUl9OazRUVloyVkRscXhwQ2kxSmg4T01BVUZERGlLR3I0b0NhOFJYdVdMTE0xdVY1cjdWYi11MndYbFZZYUpPLVl0LTh2NlhDV3g4aWRYcDZydWtORU01eS1RVWhEZjNQU2c?oc=5"
-        }
-      ],
-      "rank": 1
-    },
-    {
       "slug": "scrubber",
       "name": "5-in-1 Electric Spin Scrubber",
-      "signalScore": 76,
+      "signalScore": 80.5,
       "signalLabel": "high-attention",
       "evidence": {
-        "publicMentions": 99,
-        "mentionsLast7Days": 0,
-        "mentionsLast30Days": 4,
+        "publicMentions": 100,
+        "mentionsLast7Days": 1,
+        "mentionsLast30Days": 5,
         "sourcesAvailable": [
           "Google News",
           "Bing News"
@@ -99,6 +51,54 @@
           "url": "https://news.google.com/rss/articles/CBMingFBVV95cUxPZTM4QXNaTU5EX2ozVWs1UF8xU3hwbThWTVBnYWZqbmpvbWJOZm53bFdnRFJ2MGxqSlRscjc5d19fSVcybGZnT21WMG5xRFVjTkZIQzEwbVZzVXBwNUFnS09kMUZFQmZYdDItWEZmZnp6MTFfc3lfMG5BV0FlVGpnNUtTMU95V1lnSGpuN1dCRlNqS2lvMldXNk53b3hqUQ?oc=5"
         }
       ],
+      "rank": 1
+    },
+    {
+      "slug": "mattress-vacuum",
+      "name": "Mattress Vacuum",
+      "signalScore": 80.5,
+      "signalLabel": "high-attention",
+      "evidence": {
+        "publicMentions": 107,
+        "mentionsLast7Days": 1,
+        "mentionsLast30Days": 6,
+        "sourcesAvailable": [
+          "Google News",
+          "Bing News"
+        ]
+      },
+      "sampleSignals": [
+        {
+          "title": "I Finally Got a Bed Vacuum, and Now I’m Never Going to Be Without One Again (and It’s on Sale for Prime!) - Apartment Therapy",
+          "source": "Google News",
+          "publishedAt": "2026-10-06T07:00:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMikAFBVV95cUxNbkpkQUFEYVRYc3gzc0Q0MUdkdE1pb2VORTFxbi1XbXk5OXBDYWg0Rmk3R01ZSUt6ZzNlRzRRWGR2RzRGQ09FQVNJNlZOMHk2eU9zZ0p1c1Q1dHpLbXZLZ29RcDQyX1JDZWpPME1pSlRyOG1XUTV2TlRYcDhLUWpXbFFJQkFvS09tb2YyQi1HYnE?oc=5"
+        },
+        {
+          "title": "Is a Mattress Vacuum the Allergy Solution We’ve Been Needing? I Tested One to Find Out - CNET",
+          "source": "Google News",
+          "publishedAt": "2026-06-27T07:00:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMisAFBVV95cUxQcmFNWEdvTUxuY1RES2k4bXh1T0U2ci1nTHBJRXVud3F4ekF2NHF4NkF4LTlKR3lRWTNObHBGcjUzOGlLNUlHNXd1dGdOQXBYcEN6QllhNGZyVDFja2h1R3AzX1hIaFk4RUpsZ3JQT05Ga2pkelRscFRTaVJ0NFhyX0c3cVllQzIxTXoyeGhKcTNvLUJuRWNLd0g3Si1mYnRoUjEzZExKZGEtUXlsVlV3dQ?oc=5"
+        },
+        {
+          "title": "Narwal at CES 2026: Flow 2 Flagship Robot Vacuum and New Cordless Vacuums - Vacuum Wars",
+          "source": "Google News",
+          "publishedAt": "2026-10-08T16:26:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMiUEFVX3lxTE8zbmU2SFZIV1N2ZjBhbjhSdi1XanpySGNYRWxqVFlHSHRzbm5Iem5IRGZQakZmbG45NnVWSnUtVU82eXNFQnNUdHE0SUp5dGV2?oc=5"
+        },
+        {
+          "title": "The UV mattress vacuum I swear by to kill bacteria and dust mites is down to $75 this Prime Day – sale ends tonight - Tom's Guide",
+          "source": "Google News",
+          "publishedAt": "2026-10-07T11:11:41.000Z",
+          "url": "https://news.google.com/rss/articles/CBMiowFBVV95cUxQZGxoUGxkdUgzVDhQaGpNa1FKb1FSRDliWDRtWEpFZjZsZ0FUQ3hJbHpwaGQxdHVGRzFzbGVCcEpfSThoUlhOa1owYlhhWGVUa3hic1VTWWFueF9VWmppS1JLc0JrcDE2aEhROXhERXcxd0pKcnRaN1J1d1ExclpFZGRYOU9JbW90d1hPYUx0SXdLLS15dGNhSHZycUIyc1Z4TlE4?oc=5"
+        },
+        {
+          "title": "Turns out you do need a mattress vacuum — here’s why I love mine - NJ.com",
+          "source": "Google News",
+          "publishedAt": "2026-08-16T07:00:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMirAFBVV95cUxORUVHTHVGWkZtVUhlMG1CSUpQUjRzM0dwTWhNem9pM3ppNkRiZjFxZzRCNkVIc0dhd3RUVU4zTU91am9UQVVYcFZsU2k5a1d1WVFFWHBFTHBpUWJaQzc5bEpxR1hUb1AyZW4wVTRRaE94OW1BYU90cUNWZkcwVzlSWW96VzdzYkZuajBkN2JqSjJzNjBkeEtjTUx6QWtmemRvRUhVT21OWmplTkhh0gHAAUFVX3lxTE95S1VXaDg0OFdlMm85aXdBSjN0aHJUTElRWEhEdlhpaWRCMDlnXzVia2p5NFpJZTEwcUZvVGhnNGJzMDR4N0NWamlXS28yMzRiME15aHdsV3RYMWZucGpRTkFVUEZYakZLeEJJR2w4b0Y1NlNOU1ZURVVsTDRyOVN1SHZyRk5COUJNbnFLbExVMEhrNkszREZJcnp3dnVDck5oZXZYMllyRlN5S3NwMmFNU0FkZ0s1YkJ2TE1EZFpYSw?oc=5"
+        }
+      ],
       "rank": 2
     },
     {
@@ -123,28 +123,28 @@
           "url": "https://news.google.com/rss/articles/CBMiggFBVV95cUxQZzA5TzBxdm5yX1RYc3RkUHpOV0FRdmF2YnV6Vk9ma3cweHFkM0xoTzAxQXo5OThsS3BVZ2hOWTdXOWVlQUZnYTBXaHZfUkRmN1BsMVc5RlR1YngtdVNIdWZfZGJpRmd0dDBuMXNJLXlFRllZREJWYktndWYyWVJJU0Zn?oc=5"
         },
         {
-          "title": "Does it work? Hydro X5 cordless pressure washer - KY3",
-          "source": "Google News",
-          "publishedAt": "2026-08-12T07:00:00.000Z",
-          "url": "https://news.google.com/rss/articles/CBMihAFBVV95cUxPVUxYNWVJWVFYUWRES0d1Y2plUHV6b0poQ1dfOEpadkNmM3ZSbnpYZ2FiZDNQaXRRRHB1dVg4Q0ljWDJTdnM0WFJGY3dlUTRDU2x5dnptYjktcDByUnd6NDFPX3YwX3dJRDI4b1hrQ1NSU0hoLVlnVzIxTjJsVHktSUU2cHjSAZgBQVVfeXFMT1EzOF9iaGQxYzk4RUdyUGZVb0pjM0xQUGlQU3l3ZjNBSWFyS2pjQXBOOWpLY2xuS2NLSVBFdHRhWDBNdVdOdkgySHJkcHc5NXg2S3laUEdjU1A5QTdWeEJGQVExWE5DdENTaE5QbEhtWWJPdkVza2FUMjd0Qko4Mk1yR2VJeWhfaGZyTVNiUGJ2X2NEOVBYVjY?oc=5"
-        },
-        {
           "title": "In a Decade of Testing Pressure Washers, These Are the Smallest, Most Powerful Models Yet - The New York Times",
           "source": "Google News",
           "publishedAt": "2026-06-05T07:00:00.000Z",
           "url": "https://news.google.com/rss/articles/CBMickFVX3lxTE12V2hOQ2d1Z0xiSU0ySWNYbmpaS0ZaOC1oc3QzazB3WU5oRHcxV1B1RjNhdHFmckxHc0pEdlRFUGQtN2dkUWtoTHZiQWVWSi02ZV9xTElkQ0xTNWw1MjFnakpCT0pkUTliaWh1aGVWN0RUdw?oc=5"
         },
         {
-          "title": "Does it work? Hydro X5 cordless pressure washer - KWCH",
+          "title": "Does it work? Hydro X5 cordless pressure washer - KY3",
           "source": "Google News",
           "publishedAt": "2026-08-12T07:00:00.000Z",
-          "url": "https://news.google.com/rss/articles/CBMijgFBVV95cUxQNDFVTUZfNXhsbWhmVVZqZW8zQWV3b0FFYUtSWURBSmNOMENsZU9mN0JJclZZNENRakdHb1lqOU5rOHg5cU1pd1IzQUVleFNDVGQ3RmhId1ZHX3JIckVYZEpiNEpZS3paNEM3MER4U2x3SWhETGNwM1JNd2VMbzh4alB6ZE9GTmdZemRnMnBR?oc=5"
+          "url": "https://news.google.com/rss/articles/CBMihAFBVV95cUxPVUxYNWVJWVFYUWRES0d1Y2plUHV6b0poQ1dfOEpadkNmM3ZSbnpYZ2FiZDNQaXRRRHB1dVg4Q0ljWDJTdnM0WFJGY3dlUTRDU2x5dnptYjktcDByUnd6NDFPX3YwX3dJRDI4b1hrQ1NSU0hoLVlnVzIxTjJsVHktSUU2cHjSAZgBQVVfeXFMT1EzOF9iaGQxYzk4RUdyUGZVb0pjM0xQUGlQU3l3ZjNBSWFyS2pjQXBOOWpLY2xuS2NLSVBFdHRhWDBNdVdOdkgySHJkcHc5NXg2S3laUEdjU1A5QTdWeEJGQVExWE5DdENTaE5QbEhtWWJPdkVza2FUMjd0Qko4Mk1yR2VJeWhfaGZyTVNiUGJ2X2NEOVBYVjY?oc=5"
         },
         {
           "title": "Bought a cordless pressure washer from Blinkit: Good investment overall - Team-BHP",
           "source": "Google News",
           "publishedAt": "2026-06-08T07:00:00.000Z",
           "url": "https://news.google.com/rss/articles/CBMimAFBVV95cUxNbzBEcUtteUtoajdvVFFCSnduZllqWlhURUIzR3hoMFMwMWJmZTJveUNuZ0RIbG52VzJzQmhnVlQyVU5xazFhWjI2Vzdxc2ZsNHoyRUd6NXRiWHZPcmhLMjFMZTdfLUtzaGx5eTZlamJjUzgxTDRNcVlIZXBKQ2Q0aGNlaURVeEdScE1MYUQ0aVB2Sk1CZ01iZ9IBngFBVV95cUxPU0RxNW5zeUw0ZlBvM3NoX215SFFWWElmQzRuREJUUUxfWjBma09HSjBOVGVqRC02d2NKN1BxZFdCZ2QwM19vVHZxTHdmdk92bDZUOUZNVUUwYjJreEI3dTF6aWJ5a1ZjU0VTSkU1d29Lc2hKVFNiUmo3SEtHeXRHc2dFamo1THMwbGhyRmxCbmlLdmNITFJBWWs3MmltQQ?oc=5"
+        },
+        {
+          "title": "Stihl launches new cordless pressure washer for easy cleaning around the home - Yahoo",
+          "source": "Google News",
+          "publishedAt": "2026-09-11T07:00:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMisAFBVV95cUxOX2xfRzZIY0x2R1ZlUE9NVm1XVVZ3THhxZFFwOEJqZHJ1MDBYenNDVGJEUzhISFMxbldXM2lLaDhURWV2a0VmdHYwdHFBX3JyUi1mMlZJcEZQc3VQSkxoaWo4ZUpPZWJxV19ySHFPYnRqV1VFTExyNE1TUmttV2Y1VHBybjh5dlZaRXZ4ckg2MnUzRG9pNUZ1RjlzYWR5NTRvRDBZQnRESkVsQXZsa19RUA?oc=5"
         }
       ],
       "rank": 3
@@ -155,7 +155,7 @@
       "signalScore": 69.5,
       "signalLabel": "active",
       "evidence": {
-        "publicMentions": 35,
+        "publicMentions": 34,
         "mentionsLast7Days": 0,
         "mentionsLast30Days": 2,
         "sourcesAvailable": [
@@ -200,11 +200,11 @@
     {
       "slug": "pethair",
       "name": "Reusable Pet Hair Remover",
-      "signalScore": 47,
+      "signalScore": 42.5,
       "signalLabel": "watch",
       "evidence": {
-        "publicMentions": 12,
-        "mentionsLast7Days": 1,
+        "publicMentions": 11,
+        "mentionsLast7Days": 0,
         "mentionsLast30Days": 2,
         "sourcesAvailable": [
           "Google News",
@@ -248,11 +248,11 @@
     {
       "slug": "crevice",
       "name": "3-in-1 Crevice Cleaning Brush",
-      "signalScore": 42,
+      "signalScore": 39,
       "signalLabel": "watch",
       "evidence": {
         "publicMentions": 10,
-        "mentionsLast7Days": 1,
+        "mentionsLast7Days": 0,
         "mentionsLast30Days": 1,
         "sourcesAvailable": [
           "Google News",
