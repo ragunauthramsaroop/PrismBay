@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-10-13T19:13:09.750Z",
+  "generatedAt": "2026-10-14T17:03:58.042Z",
   "priority": "external_traffic_to_verified_guarded_offers",
   "items": [
     {
@@ -99,12 +99,12 @@
       "status": "ready_for_authorized_scheduler",
       "mediaUrl": "https://ragunauthramsaroop.github.io/PrismBay/media/social/whitepaper.mp4",
       "destinationUrl": "https://ragunauthramsaroop.github.io/PrismBay/learn/board-briefing-white-paper-system.html?utm_source=youtube&utm_medium=shorts&utm_campaign=prismbay_external_traffic_oct2026&utm_content=whitepaper_short_01",
-      "title": "Start with evidence you can trace before the next review #Shorts",
+      "title": "Use the free guide first, then review the editable files listed in the toolkit #Shorts",
       "caption": "A convincing report is not the same as a defensible one. Start a claim ledger with the source, date, methodology, reviewer and what could change the conclusion. Start with the free guide: https://ragunauthramsaroop.github.io/PrismBay/learn/board-briefing-white-paper-system.html?utm_source=youtube&utm_medium=shorts&utm_campaign=prismbay_external_traffic_oct2026&utm_content=whitepaper_short_01 Optional editable document toolkit: $79 USD one time.",
       "commercialContentOwnBrand": true,
       "madeForKids": false,
       "aiAssisted": true,
-      "strategy": "evidence-led",
+      "strategy": "deliverables-led",
       "guardrails": {
         "noInventedTestimonials": true,
         "noGuaranteedResults": true,
@@ -121,12 +121,12 @@
       "status": "ready_for_authorized_scheduler",
       "mediaUrl": "https://ragunauthramsaroop.github.io/PrismBay/media/social/whitepaper.mp4",
       "destinationUrl": "https://ragunauthramsaroop.github.io/PrismBay/learn/board-briefing-white-paper-system.html?utm_source=tiktok&utm_medium=organic_video&utm_campaign=prismbay_external_traffic_oct2026&utm_content=whitepaper_short_01",
-      "title": "Start with evidence you can trace before the next review",
+      "title": "Use the free guide first, then review the editable files listed in the toolkit",
       "caption": "A convincing report is not the same as a defensible one. Start a claim ledger with the source, date, methodology, reviewer and what could change the conclusion. Start with the free guide: https://ragunauthramsaroop.github.io/PrismBay/learn/board-briefing-white-paper-system.html?utm_source=tiktok&utm_medium=organic_video&utm_campaign=prismbay_external_traffic_oct2026&utm_content=whitepaper_short_01 Optional editable document toolkit: $79 USD one time.",
       "commercialContentOwnBrand": true,
       "madeForKids": false,
       "aiAssisted": true,
-      "strategy": "evidence-led",
+      "strategy": "deliverables-led",
       "guardrails": {
         "noInventedTestimonials": true,
         "noGuaranteedResults": true,
@@ -241,22 +241,22 @@
     "esg": {
       "status": "ok",
       "strategy": "evidence-led",
-      "model": "auto:reliable",
-      "routedVia": "ovh/Qwen3.6-27B",
-      "routeAttempts": 2
+      "model": "auto:fast",
+      "routedVia": "ovh/gpt-oss-120b",
+      "routeAttempts": 3
     },
     "whitepaper": {
       "status": "ok",
-      "strategy": "evidence-led",
-      "model": "auto:fast",
-      "routedVia": "ovh/Qwen3.5-397B-A17B",
-      "routeAttempts": 3
+      "strategy": "deliverables-led",
+      "model": "auto:reliable",
+      "routedVia": "kilo/poolside/laguna-s-2.1:free",
+      "routeAttempts": 2
     },
     "bundle": {
       "status": "ok",
       "strategy": "evidence-led",
       "model": "auto:reliable",
-      "routedVia": "ovh/Qwen3.5-397B-A17B",
+      "routedVia": "ovh/Qwen3.5-9B",
       "routeAttempts": 2
     },
     "garment-steamer": {
@@ -285,9 +285,9 @@
     {
       "slug": "whitepaper",
       "file": "/home/runner/work/PrismBay/PrismBay/growth-reports/external-social/whitepaper/whitepaper.mp4",
-      "sha256": "af22c1b80fd2a156a71c8e978164f64cae45506d72cde50f7dfe0ae35f408a53",
+      "sha256": "965282104498705781c3ca693407e59644210b6ed36adf6aef10ceba824207dc",
       "durationSeconds": 20,
-      "bytes": 216022
+      "bytes": 218827
     },
     {
       "slug": "bundle",
