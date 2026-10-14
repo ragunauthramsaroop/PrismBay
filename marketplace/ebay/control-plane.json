@@ -1,6 +1,6 @@
 {
   "schemaVersion": 6,
-  "checkedAt": "2026-10-14T10:23:36.313Z",
+  "checkedAt": "2026-10-14T12:30:05.309Z",
   "product": {
     "slug": "garment-steamer",
     "variantId": "2508160953561608700",
@@ -71,12 +71,12 @@
     },
     "warehouse": {
       "id": "2991a224-737b-42a3-a1d9-8ccd2936b341",
-      "name": "Dongguan, GD, CN",
+      "name": "CN Dong Guan Ⅱ Warehouse",
       "countryCode": "CN",
       "city": "Dongguan",
-      "province": "GD",
+      "province": "Guangdong",
       "postalCode": "",
-      "address1": "Elevator No. 3, F4, Building F, Fengzhimei Industrial Zone, Jinfenghuang Avenue, Fenggang Town, Dongguan City, Guangdong Province, 523689, China"
+      "address1": ""
     },
     "warehouseDiscovery": {
       "attempted": true,
@@ -89,69 +89,25 @@
       "candidatesChecked": [
         {
           "id": "2991a224-737b-42a3-a1d9-8ccd2936b341",
-          "name": "",
+          "name": "CN Dong Guan Ⅱ Warehouse",
           "countryCode": "CN",
-          "city": "",
-          "province": "",
+          "city": "Dongguan",
+          "province": "Guangdong",
           "postalCode": "",
           "address1": "",
-          "evidenceVerified": false,
-          "evidenceMode": null
+          "evidenceVerified": true,
+          "evidenceMode": "city_region_country"
         }
       ],
-      "errors": [
-        {
-          "stage": "warehouse/detail",
-          "id": "6709CCD7-0DC7-43B1-B310-17AB499E9B0A",
-          "error": "cj_200_1608001_Warehouse info not found"
-        }
-      ]
+      "errors": []
     },
     "confirmationDiscovery": {
-      "attempted": true,
+      "attempted": false,
       "endpoint": "/shopping/privateInventory/getConfirmation",
       "readOnly": true,
       "quantity": 1,
-      "candidates": [
-        {
-          "id": "62cfedee247c4be1a0d497bfd2cf65ae",
-          "name": "Jinhua, ZJ, CN",
-          "countryCode": "CN",
-          "city": "Jinhua",
-          "province": "ZJ",
-          "postalCode": "",
-          "address1": "Cujia Trade, 4th Floor, South Gate 1, Building 2, Sujia Aihua Factory, No. 1511 Jingang Avenue, Fucun Town, Jindong District, Jinhua City, Zhejiang Province",
-          "matchesLiveStockId": false,
-          "evidenceVerified": true,
-          "evidenceMode": "city_region_country"
-        },
-        {
-          "id": "2991a224-737b-42a3-a1d9-8ccd2936b341",
-          "name": "Dongguan, GD, CN",
-          "countryCode": "CN",
-          "city": "Dongguan",
-          "province": "GD",
-          "postalCode": "",
-          "address1": "Elevator No. 3, F4, Building F, Fengzhimei Industrial Zone, Jinfenghuang Avenue, Fenggang Town, Dongguan City, Guangdong Province, 523689, China",
-          "matchesLiveStockId": true,
-          "evidenceVerified": true,
-          "evidenceMode": "city_region_country"
-        }
-      ],
-      "exactStockMatches": [
-        {
-          "id": "2991a224-737b-42a3-a1d9-8ccd2936b341",
-          "name": "Dongguan, GD, CN",
-          "countryCode": "CN",
-          "city": "Dongguan",
-          "province": "GD",
-          "postalCode": "",
-          "address1": "Elevator No. 3, F4, Building F, Fengzhimei Industrial Zone, Jinfenghuang Avenue, Fenggang Town, Dongguan City, Guangdong Province, 523689, China",
-          "matchesLiveStockId": true,
-          "evidenceVerified": true,
-          "evidenceMode": "city_region_country"
-        }
-      ],
+      "candidates": [],
+      "exactStockMatches": [],
       "error": null
     },
     "dispatchLocationVerified": true,
