@@ -1,12 +1,12 @@
 {
   "schemaVersion": 1,
-  "checkedAt": "2026-10-14T00:34:55.117Z",
+  "checkedAt": "2026-10-14T01:50:59.028Z",
   "phase": "WAITING_EBAY_CJ_AUTH",
   "readyForBrowserPublish": false,
   "blockers": [
     "ebaySellerAuthenticated"
   ],
-  "controlPlaneCheckedAt": "2026-10-14T00:34:55.053Z",
+  "controlPlaneCheckedAt": "2026-10-14T01:50:58.983Z",
   "ebayShopCount": 0,
   "ebaySellerAuthenticated": false,
   "liveStockVerified": true,
