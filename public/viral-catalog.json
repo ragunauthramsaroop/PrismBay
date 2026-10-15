@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-15T05:17:07.041Z",
+  "updatedAt": "2026-10-15T12:09:41.165Z",
   "market": "US",
   "methodology": "Public-news attention, freshness, and short-form demonstration fit. This is not PrismBay sales data and is not a TikTok, Amazon, Google, or Bing product ranking.",
   "refreshTargetHours": 6,
@@ -8,11 +8,11 @@
     {
       "slug": "scrubber",
       "name": "5-in-1 Electric Spin Scrubber",
-      "signalScore": 80.5,
+      "signalScore": 83.5,
       "signalLabel": "high-attention",
       "evidence": {
-        "publicMentions": 99,
-        "mentionsLast7Days": 1,
+        "publicMentions": 100,
+        "mentionsLast7Days": 2,
         "mentionsLast30Days": 5,
         "sourcesAvailable": [
           "Google News",
@@ -21,10 +21,10 @@
       },
       "sampleSignals": [
         {
-          "title": "The 3 best spin scrubbers of 2026, tested and reviewed - Yahoo",
+          "title": "Back or joint pain? This electric scrubber means no kneeling down to clean — it's usually $150, but it's on sale for $45 ahead of October Prime Day - Yahoo Lifestyle Canada",
           "source": "Google News",
-          "publishedAt": "2026-06-17T07:00:00.000Z",
-          "url": "https://news.google.com/rss/articles/CBMilAFBVV95cUxPRzZ1NFRxWkFEcVQzWWd5aVJQUlVXa25zMDc1d0NLaDRwZUVDYjBrU2otX0t1c3hzWUszQnZibjJZSk1vOUhrTGJQZUdNSDJLd1dFTGhnQy1lUXFkOFBfNnBGZ3FtSXEzaUJZUWw5ZVZTT0pCODBERUN0eUFqNVZCSG1fN09maWRmMHBqX2ZlZi0wNmFT?oc=5"
+          "publishedAt": "2026-09-22T07:00:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMijwJBVV95cUxNcDFRcm1TT183LWtEanVuS2hYRWhqUkhsdlEyeHRZS0hsOUVBRXNKWkc1dE1oakk5TUlkcE1vRFlrWkVFVE5YWFZOcjg5MVp1SkgyZnpqY1NFc1Z5dHBkZ1UtV2ppdmRRTFFEOGx1TUNYYmlfc1d6aFk5ZUhOLTJoZ1R6MldTOUFDUnV5bWo0SWFma0xGMWUwM0F5S0VhbXQ4V3FuLTBySGwxMU9iZzN6OVZGVVUyNnBZUXhYRHJyYUZHMWJZWkg5U0R4RFkydEhDNjJ4M3NBVjlNSzFUWVFBNU5mRFU1RmNCckRMOGM5aE1Sdlo2QjNrRVRRd0NJa2Rra3R1S3dvSFk1T0N2Qmcw?oc=5"
         },
         {
           "title": "Spend Less Time Scrubbing With These Top-Tested Picks - Good Housekeeping",
@@ -56,12 +56,12 @@
     {
       "slug": "mattress-vacuum",
       "name": "Mattress Vacuum",
-      "signalScore": 80.5,
+      "signalScore": 79,
       "signalLabel": "high-attention",
       "evidence": {
-        "publicMentions": 100,
+        "publicMentions": 106,
         "mentionsLast7Days": 1,
-        "mentionsLast30Days": 6,
+        "mentionsLast30Days": 5,
         "sourcesAvailable": [
           "Google News",
           "Bing News"
@@ -107,7 +107,7 @@
       "signalScore": 75.5,
       "signalLabel": "high-attention",
       "evidence": {
-        "publicMentions": 100,
+        "publicMentions": 103,
         "mentionsLast7Days": 1,
         "mentionsLast30Days": 2,
         "sourcesAvailable": [
@@ -123,16 +123,16 @@
           "url": "https://news.google.com/rss/articles/CBMinAFBVV95cUxOREhINlhaMWtaU215YXJxZ3pkV3JxeVZoTUxNcUhHN190Snk1V1huVHZuSzNkWlVuNmduNm5aMXRzQlA4Y0tHMGUta29MUGRIR3hRT0RDNGpBUXU2TkRXMUg2X2JfajNiQ3dSQW1QZ2tObnNTR2c1VGpvRWVzS1dUQTFVaERSWlo4bDh3US16VzVrTkctc3RiOWE5V0g?oc=5"
         },
         {
-          "title": "In a Decade of Testing Pressure Washers, These Are the Smallest, Most Powerful Models Yet - The New York Times",
-          "source": "Google News",
-          "publishedAt": "2026-06-05T07:00:00.000Z",
-          "url": "https://news.google.com/rss/articles/CBMickFVX3lxTE12V2hOQ2d1Z0xiSU0ySWNYbmpaS0ZaOC1oc3QzazB3WU5oRHcxV1B1RjNhdHFmckxHc0pEdlRFUGQtN2dkUWtoTHZiQWVWSi02ZV9xTElkQ0xTNWw1MjFnakpCT0pkUTliaWh1aGVWN0RUdw?oc=5"
-        },
-        {
           "title": "Does it work? Hydro X5 cordless pressure washer - KY3",
           "source": "Google News",
           "publishedAt": "2026-08-12T07:00:00.000Z",
           "url": "https://news.google.com/rss/articles/CBMihAFBVV95cUxPVUxYNWVJWVFYUWRES0d1Y2plUHV6b0poQ1dfOEpadkNmM3ZSbnpYZ2FiZDNQaXRRRHB1dVg4Q0ljWDJTdnM0WFJGY3dlUTRDU2x5dnptYjktcDByUnd6NDFPX3YwX3dJRDI4b1hrQ1NSU0hoLVlnVzIxTjJsVHktSUU2cHjSAZgBQVVfeXFMT1EzOF9iaGQxYzk4RUdyUGZVb0pjM0xQUGlQU3l3ZjNBSWFyS2pjQXBOOWpLY2xuS2NLSVBFdHRhWDBNdVdOdkgySHJkcHc5NXg2S3laUEdjU1A5QTdWeEJGQVExWE5DdENTaE5QbEhtWWJPdkVza2FUMjd0Qko4Mk1yR2VJeWhfaGZyTVNiUGJ2X2NEOVBYVjY?oc=5"
+        },
+        {
+          "title": "In a Decade of Testing Pressure Washers, These Are the Smallest, Most Powerful Models Yet - The New York Times",
+          "source": "Google News",
+          "publishedAt": "2026-06-05T07:00:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMickFVX3lxTE12V2hOQ2d1Z0xiSU0ySWNYbmpaS0ZaOC1oc3QzazB3WU5oRHcxV1B1RjNhdHFmckxHc0pEdlRFUGQtN2dkUWtoTHZiQWVWSi02ZV9xTElkQ0xTNWw1MjFnakpCT0pkUTliaWh1aGVWN0RUdw?oc=5"
         },
         {
           "title": "Ego Power+ Cordless Pressure Washer Review: Powerful but Pricey - BobVila.com",
@@ -155,7 +155,7 @@
       "signalScore": 69.5,
       "signalLabel": "active",
       "evidence": {
-        "publicMentions": 34,
+        "publicMentions": 35,
         "mentionsLast7Days": 0,
         "mentionsLast30Days": 2,
         "sourcesAvailable": [
@@ -200,12 +200,12 @@
     {
       "slug": "pethair",
       "name": "Reusable Pet Hair Remover",
-      "signalScore": 41,
+      "signalScore": 39.5,
       "signalLabel": "watch",
       "evidence": {
         "publicMentions": 10,
         "mentionsLast7Days": 0,
-        "mentionsLast30Days": 2,
+        "mentionsLast30Days": 1,
         "sourcesAvailable": [
           "Google News",
           "Bing News"
@@ -324,36 +324,6 @@
       "rank": 7
     },
     {
-      "slug": "drain-catcher",
-      "name": "Sink Drain Catcher 2-Pack",
-      "signalScore": 21,
-      "signalLabel": "baseline",
-      "evidence": {
-        "publicMentions": 2,
-        "mentionsLast7Days": 0,
-        "mentionsLast30Days": 0,
-        "sourcesAvailable": [
-          "Google News",
-          "Bing News"
-        ]
-      },
-      "sampleSignals": [
-        {
-          "title": "This drain catcher has the best user ratings of any hair strainer for bathroom sinks, with tens of thousands of five-star reviews. Our Wirecutter testers found that it worked as advertised. https://nyti.ms/4814mzC - Facebook",
-          "source": "Google News",
-          "publishedAt": "2026-03-28T07:00:00.000Z",
-          "url": "https://news.google.com/rss/articles/CBMi0wFBVV95cUxQaU93U01HbWpRbVROOVQ3aVhKYWxUSEdKR3Bmbk5sdXotYmZNSG4ta1o5ZWUwOEp4VXBhNnJ2Wmg2NXBnSWxRVkZMNDlrRVk1OGhsR1N1dWdZZ2ZnaHl0M29ONFFvci15Q3BXQW5jOW0tRHREdWRQUFdBbDJEakZqRklkWWx5N2V1c1RkTi14dDh5ZWh4em1YM19qamNjN2ZaQmNPWEEwT2R1SzBPQzdrNXBPQmdjS2pNTlZnY0U5bzBPLU91MnhRS3ZsWVd0bEtZMjlR?oc=5"
-        },
-        {
-          "title": "7 reasons your sink won't drain – plus expert tips to unclog a sink like a pro - Homes and Gardens",
-          "source": "Google News",
-          "publishedAt": "2025-06-25T07:00:00.000Z",
-          "url": "https://news.google.com/rss/articles/CBMigAFBVV95cUxPanpVUU5ldG5La1Ryb1hfRnhOZlFRdFpLbkhDLTNSZnlSa3NVbzdOelJPWVAzNjZ5WVZTcDFQZHNfaWg1UHUwdGZ3MWdncHkteklzMlhvODZ6cXZHNldJQ1hlblFxbks5eUEzU1E2QnNOam8td1RTQ3RRcW5xcTB0VQ?oc=5"
-        }
-      ],
-      "rank": 8
-    },
-    {
       "slug": "mini-mop",
       "name": "Self-Squeeze Mini Mop",
       "signalScore": 20,
@@ -368,6 +338,30 @@
         ]
       },
       "sampleSignals": [],
+      "rank": 8
+    },
+    {
+      "slug": "drain-catcher",
+      "name": "Sink Drain Catcher 2-Pack",
+      "signalScore": 19.5,
+      "signalLabel": "baseline",
+      "evidence": {
+        "publicMentions": 1,
+        "mentionsLast7Days": 0,
+        "mentionsLast30Days": 0,
+        "sourcesAvailable": [
+          "Google News",
+          "Bing News"
+        ]
+      },
+      "sampleSignals": [
+        {
+          "title": "7 reasons your sink won't drain – plus expert tips to unclog a sink like a pro - Homes and Gardens",
+          "source": "Google News",
+          "publishedAt": "2025-06-25T07:00:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMigAFBVV95cUxPanpVUU5ldG5La1Ryb1hfRnhOZlFRdFpLbkhDLTNSZnlSa3NVbzdOelJPWVAzNjZ5WVZTcDFQZHNfaWg1UHUwdGZ3MWdncHkteklzMlhvODZ6cXZHNldJQ1hlblFxbks5eUEzU1E2QnNOam8td1RTQ3RRcW5xcTB0VQ?oc=5"
+        }
+      ],
       "rank": 9
     }
   ]
