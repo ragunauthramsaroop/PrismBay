@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-10-14T17:03:58.042Z",
+  "generatedAt": "2026-10-15T16:53:41.894Z",
   "priority": "external_traffic_to_verified_guarded_offers",
   "items": [
     {
@@ -99,12 +99,12 @@
       "status": "ready_for_authorized_scheduler",
       "mediaUrl": "https://ragunauthramsaroop.github.io/PrismBay/media/social/whitepaper.mp4",
       "destinationUrl": "https://ragunauthramsaroop.github.io/PrismBay/learn/board-briefing-white-paper-system.html?utm_source=youtube&utm_medium=shorts&utm_campaign=prismbay_external_traffic_oct2026&utm_content=whitepaper_short_01",
-      "title": "Use the free guide first, then review the editable files listed in the toolkit #Shorts",
+      "title": "A convincing report is not the same as a defensible one #Shorts",
       "caption": "A convincing report is not the same as a defensible one. Start a claim ledger with the source, date, methodology, reviewer and what could change the conclusion. Start with the free guide: https://ragunauthramsaroop.github.io/PrismBay/learn/board-briefing-white-paper-system.html?utm_source=youtube&utm_medium=shorts&utm_campaign=prismbay_external_traffic_oct2026&utm_content=whitepaper_short_01 Optional editable document toolkit: $79 USD one time.",
       "commercialContentOwnBrand": true,
       "madeForKids": false,
       "aiAssisted": true,
-      "strategy": "deliverables-led",
+      "strategy": "deterministic_fallback",
       "guardrails": {
         "noInventedTestimonials": true,
         "noGuaranteedResults": true,
@@ -121,12 +121,12 @@
       "status": "ready_for_authorized_scheduler",
       "mediaUrl": "https://ragunauthramsaroop.github.io/PrismBay/media/social/whitepaper.mp4",
       "destinationUrl": "https://ragunauthramsaroop.github.io/PrismBay/learn/board-briefing-white-paper-system.html?utm_source=tiktok&utm_medium=organic_video&utm_campaign=prismbay_external_traffic_oct2026&utm_content=whitepaper_short_01",
-      "title": "Use the free guide first, then review the editable files listed in the toolkit",
+      "title": "A convincing report is not the same as a defensible one",
       "caption": "A convincing report is not the same as a defensible one. Start a claim ledger with the source, date, methodology, reviewer and what could change the conclusion. Start with the free guide: https://ragunauthramsaroop.github.io/PrismBay/learn/board-briefing-white-paper-system.html?utm_source=tiktok&utm_medium=organic_video&utm_campaign=prismbay_external_traffic_oct2026&utm_content=whitepaper_short_01 Optional editable document toolkit: $79 USD one time.",
       "commercialContentOwnBrand": true,
       "madeForKids": false,
       "aiAssisted": true,
-      "strategy": "deliverables-led",
+      "strategy": "deterministic_fallback",
       "guardrails": {
         "noInventedTestimonials": true,
         "noGuaranteedResults": true,
@@ -242,22 +242,22 @@
       "status": "ok",
       "strategy": "evidence-led",
       "model": "auto:fast",
-      "routedVia": "ovh/gpt-oss-120b",
+      "routedVia": "kilo/openrouter/free",
       "routeAttempts": 3
     },
     "whitepaper": {
-      "status": "ok",
-      "strategy": "deliverables-led",
-      "model": "auto:reliable",
-      "routedVia": "kilo/poolside/laguna-s-2.1:free",
-      "routeAttempts": 2
+      "status": "request_failed",
+      "strategy": "deterministic_fallback",
+      "model": null,
+      "routedVia": "kilo/poolside/laguna-xs-2.1:free",
+      "routeAttempts": 3
     },
     "bundle": {
       "status": "ok",
       "strategy": "evidence-led",
-      "model": "auto:reliable",
-      "routedVia": "ovh/Qwen3.5-9B",
-      "routeAttempts": 2
+      "model": "auto:fast",
+      "routedVia": "ovh/gpt-oss-120b",
+      "routeAttempts": 3
     },
     "garment-steamer": {
       "status": "deterministic_guarded_physical",
@@ -285,9 +285,9 @@
     {
       "slug": "whitepaper",
       "file": "/home/runner/work/PrismBay/PrismBay/growth-reports/external-social/whitepaper/whitepaper.mp4",
-      "sha256": "965282104498705781c3ca693407e59644210b6ed36adf6aef10ceba824207dc",
+      "sha256": "536e5426e6fcee0e13642be3582a75a934fae57569f9990c466e0ef1c734cb5d",
       "durationSeconds": 20,
-      "bytes": 218827
+      "bytes": 214997
     },
     {
       "slug": "bundle",
