@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "checkedAt": "2026-10-15T12:49:56.640Z",
+  "checkedAt": "2026-10-15T17:42:53.674Z",
   "priority": "paid_sales_from_verified_existing_offers",
   "activeOffer": {
     "slug": "whitepaper",
@@ -9,7 +9,7 @@
     "guideUrl": "https://ragunauthramsaroop.github.io/PrismBay/board-briefing-white-paper-template.html?utm_source=github_cloud&utm_medium=owned_educational_content&utm_campaign=organic_whitepaper_82966",
     "checkoutUrl": "https://buy.stripe.com/bJe7sMgq25hNcCe6SAgnK0s?client_reference_id=owned_content_whitepaper"
   },
-  "positioning": "evidence-led",
+  "positioning": "deliverables-led",
   "freeLLM": {
     "status": "ok",
     "workerMode": "freellmapi_guided",
