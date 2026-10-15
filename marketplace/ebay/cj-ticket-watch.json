@@ -1,11 +1,11 @@
 {
   "schemaVersion": 1,
-  "checkedAt": "2026-10-15T06:31:05.879Z",
+  "checkedAt": "2026-10-15T10:09:30.817Z",
   "ticketId": "2610101508010810500",
   "ticketNo": "T202610101508010581",
   "ticketType": "Service Consultation",
   "issueType": "Fulfillment Service Consultation",
-  "status": "AWAITING_YOUR_REPLY",
+  "status": "EXPIRED",
   "replyDetected": true,
   "createTime": 1791644881058,
   "lastUpdateTime": 1791789058052,
