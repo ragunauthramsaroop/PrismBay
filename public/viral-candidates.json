@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-14T09:03:29.445Z",
+  "updatedAt": "2026-10-15T08:36:50.533Z",
   "market": "US",
   "supplierIntegration": "awaiting-cj-auth",
   "methodology": "Public attention and recency identify candidates. Supplier promotion requires verified US inventory and product-level checks. Freight and checkout creation occur only after supplier validation.",
@@ -12,20 +12,14 @@
       "attentionScore": 99.5,
       "attentionLabel": "high-attention",
       "evidence": {
-        "publicMentions": 102,
-        "mentionsLast7Days": 5,
-        "mentionsLast30Days": 12,
+        "publicMentions": 101,
+        "mentionsLast7Days": 3,
+        "mentionsLast30Days": 11,
         "sourcesAvailable": [
           "Google News",
           "Bing News"
         ],
         "sampleSignals": [
-          {
-            "title": "Handy Little Suckers, Aren’t They? These Are Our 4 Favorite Handheld Vacs. - The New York Times",
-            "source": "Google News",
-            "publishedAt": "2026-10-09T14:36:27.000Z",
-            "url": "https://news.google.com/rss/articles/CBMickFVX3lxTE1XOUpyanpZbTZFckt6dy1pNzliMHBXUlZncnZlNjdGMEdFVlJrOHVzM2FmVk9uX1o3Y1RTYm9uc1lkRXpJaUlOblJsT05YX096cDdDNDVEVGhRNkNvVGFWajhfTFM4bS1ONkZrSG94T19pQQ?oc=5"
-          },
           {
             "title": "This Handheld Vacuum Is 80% Off at Amazon - People.com",
             "source": "Google News",
@@ -43,6 +37,12 @@
             "source": "Google News",
             "publishedAt": "2026-10-11T06:15:00.000Z",
             "url": "https://news.google.com/rss/articles/CBMihwFBVV95cUxQT2IzTm12R1JpTXN3MjVHai1vQWNSYkFSTWI3UU1WR083WnFSQkFQMlB0dkFsemVMT0E2Sko0UXlJN0Q3cERKQXJ5dWNJN2YtYlFsLU1QLURqdVRuN09jUkRsQTczc3NaNkg0Wl9WUjlZVjdnU3Z5Q1k1LU9tVGZqTU1ldVVMbk0?oc=5"
+          },
+          {
+            "title": "This Handheld Vacuum Is ‘The Magic Wand Of Carpet Cleaners’ — And It’s 41% Off - HuffPost",
+            "source": "Google News",
+            "publishedAt": "2026-10-05T16:41:43.000Z",
+            "url": "https://news.google.com/rss/articles/CBMirwFBVV95cUxPQi1OaGQ3VzNUcTZLT0MzRDZyVFVCWUVpSWtHUjFXMmkyRC13UjRmZVZvTWlYdTRfMC1ndDhnTUFaMzF1cENpSGhqdWRBUXVGQUkwYXNJV2ZYN0pnci0yOXU2MDJPSExGRzNGdE0xaEctQl9ReEVydzhSZ0NaNEhyVVdFNk5GekJZci1qa09ibGlBc1NybWctZnBDN0FQWEJSWHZSMVM3ZnBpZU5rdFVN0gG0AUFVX3lxTFBmR1BWMFlqUFZlU2dFMkYzY2VGbklXNWVSMWFrc2Y0N3dXOHViY0JZQnhPYnFpRFlJbGt6YXdDWDhvWGlKOVgwWERZWGhDZEtXOEFrbVpBM0R0MGcxcmdDMjIzUlM2UXdhRllETDNhaVhOQWtJdDBUaGtialNWSE16emNfSmR4MEFQR0FGeTc4NkdoTXpZeW44VzRqbk9xMzNvSl9QYU5YaWJwdjhGV2pWMGcwVQ?oc=5"
           }
         ]
       },
@@ -61,12 +61,12 @@
       "slug": "roll-up-dish-rack",
       "name": "Roll-Up Dish Drying Rack",
       "query": "roll up dish drying rack",
-      "attentionScore": 93.6,
+      "attentionScore": 95.5,
       "attentionLabel": "high-attention",
       "evidence": {
-        "publicMentions": 34,
-        "mentionsLast7Days": 4,
-        "mentionsLast30Days": 7,
+        "publicMentions": 32,
+        "mentionsLast7Days": 5,
+        "mentionsLast30Days": 8,
         "sourcesAvailable": [
           "Google News",
           "Bing News"
@@ -116,7 +116,7 @@
       "attentionScore": 81.6,
       "attentionLabel": "high-attention",
       "evidence": {
-        "publicMentions": 25,
+        "publicMentions": 27,
         "mentionsLast7Days": 2,
         "mentionsLast30Days": 3,
         "sourcesAvailable": [
@@ -318,6 +318,58 @@
       "rank": 6
     },
     {
+      "slug": "bottle-brush-set",
+      "name": "Bottle Brush Cleaning Set",
+      "query": "bottle brush cleaning set",
+      "attentionScore": 28.2,
+      "attentionLabel": "low-signal",
+      "evidence": {
+        "publicMentions": 4,
+        "mentionsLast7Days": 0,
+        "mentionsLast30Days": 0,
+        "sourcesAvailable": [
+          "Google News",
+          "Bing News"
+        ],
+        "sampleSignals": [
+          {
+            "title": "Keep Your Water Bottle Super Clean This Summer With Our Favorite Cleaning Brushes - The Spruce",
+            "source": "Google News",
+            "publishedAt": "2026-05-22T07:00:00.000Z",
+            "url": "https://news.google.com/rss/articles/CBMieEFVX3lxTE8wVjR3S25uUmxHS180VmRZaHUzN3diM2EtZ29mYW1KTTJKX3BBSWlxOS1MZmtVSExfS1V5S2dCUFdjWDFnZW9FRjAyTTMtc0NKS1R3ZzFySGIzWVhkbll4NGhNV3lCMTg4VUN4YUh4elBKZUwwOUh2YQ?oc=5"
+          },
+          {
+            "title": "10 best bottle brushes to keep your water bottles squeaky clean - KLAS 8 News Now",
+            "source": "Google News",
+            "publishedAt": "2023-03-09T08:00:00.000Z",
+            "url": "https://news.google.com/rss/articles/CBMi2wFBVV95cUxOZDhucW5MSU91cnBUeDU1TU0wTmFCbEREeF9jQ0ZGWGJZUkxJRFZ2T0JwUF83QVpOZmlpc296NF90SFJ0dnV6Tmh4ZHk5SHVtUS1zRWhVTTV3VVRQVVJuY1BjLUI2Ums4SnlBd2kyUGFQRFFZcmpiX0tRZzdzMURSVlY1OHZNZk10YnFKU203MjJFRmEyV2pHSldUQ2FtQ00zZVd3MWI1VExJRWh5MTRhSG0xTGFXR2xYVUI4T29zNkRwU2hrSHp1YndYTkdkTDZUZko4bFptakZGSXPSAeABQVVfeXFMTjZ4RVlaUlA1SlQzcHY2Rzh2VnY3SWVxcjM2dEtmUzg4bmo3c3YxQlFoM1V5Wld2X2phSmtCMWRvN25kTXFodE5YYkdvQlhCMnFLZHNZTlU4UTI1R0ZBUDU2UkFLemEtcHl1eXJ6ODZfNHNnRzFnMW5ZWjB1OUZQeGFLN1JOWVpBcW1pWllJSXUwYlgtdkM4VUZsN0phQTg4UXNOZ0JiN1pOcnpxNzAzUHU0MVFBbjBuRjBOVGR6OV81YS11QXJXWld0T2hHMmpYNTM4MkpabGNGNU5wSy16Y1A?oc=5"
+          },
+          {
+            "title": "These 19 Award-Winning Products Will Help Keep Your Baby Nourished and Fed - Parents",
+            "source": "Google News",
+            "publishedAt": "2026-04-07T07:00:00.000Z",
+            "url": "https://news.google.com/rss/articles/CBMif0FVX3lxTE5VVDlIY3NTbzNFWlY3Wm1XNF95cktMX2ZDckhFNlJ0UEdudUEzbDEzSlo4MHpqc0pMUmxYZm9uWU5BNkVBUG1xblhkcm1fMm9jX1ZSeUQ4OFFDUWJHbUNoclBVNDFKRmt2NWFDZ204eWhLQU5FR0xJSFJpZWxwT3M?oc=5"
+          },
+          {
+            "title": "11 Best Baby Bottle Brushes To Remove Bacteria And Germs In 2026 - MomJunction",
+            "source": "Google News",
+            "publishedAt": "2026-02-09T08:00:00.000Z",
+            "url": "https://news.google.com/rss/articles/CBMie0FVX3lxTFBSSnZJWk02YnZ0a196a2FxNGRxV29yeFJscE4tOUxEb1czcXdQREwta0NRNy1kSmNFVklxd2VENmRRSjkzdnQzX1Bob2dScW1pLXF5YzBGSDBDYnJwalZ0bERjOWdyZEZvcmlwN0ZOYjFhRl9UQmxyQklsMA?oc=5"
+          }
+        ]
+      },
+      "supplier": null,
+      "supplierReady": false,
+      "freightReady": false,
+      "promotionReady": false,
+      "mediaRightsReady": false,
+      "liveStripePricingReady": false,
+      "listed": false,
+      "discoveryEvidence": [],
+      "nextAction": "connect-cj",
+      "rank": 7
+    },
+    {
       "slug": "window-washer-squeegee",
       "name": "3-in-1 Window Washer & Squeegee",
       "query": "window washer squeegee",
@@ -343,52 +395,6 @@
             "source": "Google News",
             "publishedAt": "2026-08-14T07:00:00.000Z",
             "url": "https://news.google.com/rss/articles/CBMic0FVX3lxTE5VVW5NRWgxR2dpcFNXM0MxRE1vVVN3ZE9hTUJQcXJEb3ZkNEd1bExPcnVQT1FDVHpPQ21PUExrS2RES0FIbmtPd2NET2FMaV9mcG9WcUNYOU1FRXdTWlVUUzg1UmlGYlhJVWN3WUpYNVkyUm8?oc=5"
-          }
-        ]
-      },
-      "supplier": null,
-      "supplierReady": false,
-      "freightReady": false,
-      "promotionReady": false,
-      "mediaRightsReady": false,
-      "liveStripePricingReady": false,
-      "listed": false,
-      "discoveryEvidence": [],
-      "nextAction": "connect-cj",
-      "rank": 7
-    },
-    {
-      "slug": "bottle-brush-set",
-      "name": "Bottle Brush Cleaning Set",
-      "query": "bottle brush cleaning set",
-      "attentionScore": 26.4,
-      "attentionLabel": "low-signal",
-      "evidence": {
-        "publicMentions": 3,
-        "mentionsLast7Days": 0,
-        "mentionsLast30Days": 0,
-        "sourcesAvailable": [
-          "Google News",
-          "Bing News"
-        ],
-        "sampleSignals": [
-          {
-            "title": "Keep Your Water Bottle Super Clean This Summer With Our Favorite Cleaning Brushes - The Spruce",
-            "source": "Google News",
-            "publishedAt": "2026-05-22T07:00:00.000Z",
-            "url": "https://news.google.com/rss/articles/CBMieEFVX3lxTE8wVjR3S25uUmxHS180VmRZaHUzN3diM2EtZ29mYW1KTTJKX3BBSWlxOS1MZmtVSExfS1V5S2dCUFdjWDFnZW9FRjAyTTMtc0NKS1R3ZzFySGIzWVhkbll4NGhNV3lCMTg4VUN4YUh4elBKZUwwOUh2YQ?oc=5"
-          },
-          {
-            "title": "10 best bottle brushes to keep your water bottles squeaky clean - KLAS 8 News Now",
-            "source": "Google News",
-            "publishedAt": "2023-03-09T08:00:00.000Z",
-            "url": "https://news.google.com/rss/articles/CBMi2wFBVV95cUxOZDhucW5MSU91cnBUeDU1TU0wTmFCbEREeF9jQ0ZGWGJZUkxJRFZ2T0JwUF83QVpOZmlpc296NF90SFJ0dnV6Tmh4ZHk5SHVtUS1zRWhVTTV3VVRQVVJuY1BjLUI2Ums4SnlBd2kyUGFQRFFZcmpiX0tRZzdzMURSVlY1OHZNZk10YnFKU203MjJFRmEyV2pHSldUQ2FtQ00zZVd3MWI1VExJRWh5MTRhSG0xTGFXR2xYVUI4T29zNkRwU2hrSHp1YndYTkdkTDZUZko4bFptakZGSXPSAeABQVVfeXFMTjZ4RVlaUlA1SlQzcHY2Rzh2VnY3SWVxcjM2dEtmUzg4bmo3c3YxQlFoM1V5Wld2X2phSmtCMWRvN25kTXFodE5YYkdvQlhCMnFLZHNZTlU4UTI1R0ZBUDU2UkFLemEtcHl1eXJ6ODZfNHNnRzFnMW5ZWjB1OUZQeGFLN1JOWVpBcW1pWllJSXUwYlgtdkM4VUZsN0phQTg4UXNOZ0JiN1pOcnpxNzAzUHU0MVFBbjBuRjBOVGR6OV81YS11QXJXWld0T2hHMmpYNTM4MkpabGNGNU5wSy16Y1A?oc=5"
-          },
-          {
-            "title": "11 Best Baby Bottle Brushes To Remove Bacteria And Germs In 2026 - MomJunction",
-            "source": "Google News",
-            "publishedAt": "2026-02-09T08:00:00.000Z",
-            "url": "https://news.google.com/rss/articles/CBMie0FVX3lxTFBSSnZJWk02YnZ0a196a2FxNGRxV29yeFJscE4tOUxEb1czcXdQREwta0NRNy1kSmNFVklxd2VENmRRSjkzdnQzX1Bob2dScW1pLXF5YzBGSDBDYnJwalZ0bERjOWdyZEZvcmlwN0ZOYjFhRl9UQmxyQklsMA?oc=5"
           }
         ]
       },
