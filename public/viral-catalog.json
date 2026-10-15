@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-15T17:23:33.986Z",
+  "updatedAt": "2026-10-15T21:49:02.571Z",
   "market": "US",
   "methodology": "Public-news attention, freshness, and short-form demonstration fit. This is not PrismBay sales data and is not a TikTok, Amazon, Google, or Bing product ranking.",
   "refreshTargetHours": 6,
@@ -11,7 +11,7 @@
       "signalScore": 83.5,
       "signalLabel": "high-attention",
       "evidence": {
-        "publicMentions": 99,
+        "publicMentions": 97,
         "mentionsLast7Days": 2,
         "mentionsLast30Days": 5,
         "sourcesAvailable": [
@@ -107,7 +107,7 @@
       "signalScore": 74,
       "signalLabel": "high-attention",
       "evidence": {
-        "publicMentions": 100,
+        "publicMentions": 103,
         "mentionsLast7Days": 1,
         "mentionsLast30Days": 1,
         "sourcesAvailable": [
@@ -152,12 +152,12 @@
     {
       "slug": "garment-steamer",
       "name": "Portable Garment Steamer",
-      "signalScore": 69.5,
-      "signalLabel": "active",
+      "signalScore": 74,
+      "signalLabel": "high-attention",
       "evidence": {
-        "publicMentions": 35,
-        "mentionsLast7Days": 0,
-        "mentionsLast30Days": 2,
+        "publicMentions": 36,
+        "mentionsLast7Days": 1,
+        "mentionsLast30Days": 3,
         "sourcesAvailable": [
           "Google News",
           "Bing News"
