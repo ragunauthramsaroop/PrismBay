@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-16T16:59:30.403Z",
+  "updatedAt": "2026-10-16T21:44:43.614Z",
   "market": "US",
   "methodology": "Public-news attention, freshness, and short-form demonstration fit. This is not PrismBay sales data and is not a TikTok, Amazon, Google, or Bing product ranking.",
   "refreshTargetHours": 6,
@@ -59,7 +59,7 @@
       "signalScore": 76,
       "signalLabel": "high-attention",
       "evidence": {
-        "publicMentions": 106,
+        "publicMentions": 105,
         "mentionsLast7Days": 0,
         "mentionsLast30Days": 5,
         "sourcesAvailable": [
@@ -155,7 +155,7 @@
       "signalScore": 74,
       "signalLabel": "high-attention",
       "evidence": {
-        "publicMentions": 35,
+        "publicMentions": 36,
         "mentionsLast7Days": 1,
         "mentionsLast30Days": 3,
         "sourcesAvailable": [
@@ -309,16 +309,16 @@
       },
       "sampleSignals": [
         {
-          "title": "This drain catcher has the best user ratings of any hair strainer for bathroom sinks, with tens of thousands of five-star reviews. Our Wirecutter testers found that it worked as advertised. https://nyti.ms/4814mzC - Facebook",
-          "source": "Google News",
-          "publishedAt": "2026-03-28T07:00:00.000Z",
-          "url": "https://news.google.com/rss/articles/CBMi0wFBVV95cUxQaU93U01HbWpRbVROOVQ3aVhKYWxUSEdKR3Bmbk5sdXotYmZNSG4ta1o5ZWUwOEp4VXBhNnJ2Wmg2NXBnSWxRVkZMNDlrRVk1OGhsR1N1dWdZZ2ZnaHl0M29ONFFvci15Q3BXQW5jOW0tRHREdWRQUFdBbDJEakZqRklkWWx5N2V1c1RkTi14dDh5ZWh4em1YM19qamNjN2ZaQmNPWEEwT2R1SzBPQzdrNXBPQmdjS2pNTlZnY0U5bzBPLU91MnhRS3ZsWVd0bEtZMjlR?oc=5"
-        },
-        {
           "title": "This drain catcher has the best user ratings of any hair strainer for bathroom sinks, with tens of thousands of five-star reviews. Our Wirecutter testers found that it worked as advertised, and it made their lives a little bit easier and a little less disgusting. https://nyti. - Facebook",
           "source": "Google News",
           "publishedAt": "2026-03-18T07:00:00.000Z",
           "url": "https://news.google.com/rss/articles/CBMi0wFBVV95cUxNVUUxVVhkcXBtZDB2ODQtYk54WmFzbk5jckdQTEJWRGlnOWJZOHY5aVhlWUVqNUNINEJVOHBCVVNlZ0tlM0VwZWYtWW9sbnBBaUxSSGd1T2lCb3piYTMwa056RHhnTVNFV25aT01rOWlSOFFZSC03MlVmZGg2MUFuMkVncDBrXzRwTGhfcG5TT195Z1BzNFhCaVlBUmNZZjlSWU9jYW8xMWRNV0R5UnJhaUdVVDFhMGJ2a3AzNmVoX1l2ODZZTlpXazhRR19XSWtxZ3kw?oc=5"
+        },
+        {
+          "title": "This drain catcher has the best user ratings of any hair strainer for bathroom sinks, with tens of thousands of five-star reviews. Our Wirecutter testers found that it worked as advertised. https://nyti.ms/4814mzC - Facebook",
+          "source": "Google News",
+          "publishedAt": "2026-03-28T07:00:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMi0wFBVV95cUxQaU93U01HbWpRbVROOVQ3aVhKYWxUSEdKR3Bmbk5sdXotYmZNSG4ta1o5ZWUwOEp4VXBhNnJ2Wmg2NXBnSWxRVkZMNDlrRVk1OGhsR1N1dWdZZ2ZnaHl0M29ONFFvci15Q3BXQW5jOW0tRHREdWRQUFdBbDJEakZqRklkWWx5N2V1c1RkTi14dDh5ZWh4em1YM19qamNjN2ZaQmNPWEEwT2R1SzBPQzdrNXBPQmdjS2pNTlZnY0U5bzBPLU91MnhRS3ZsWVd0bEtZMjlR?oc=5"
         },
         {
           "title": "7 reasons your sink won't drain – plus expert tips to unclog a sink like a pro - Homes and Gardens",
