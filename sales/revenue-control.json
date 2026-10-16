@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "checkedAt": "2026-10-16T18:18:11.113Z",
+  "checkedAt": "2026-10-16T18:19:05.523Z",
   "priority": "paid_sales_from_verified_existing_offers",
   "activeOffer": {
     "slug": "bundle",
@@ -9,7 +9,7 @@
     "guideUrl": "https://ragunauthramsaroop.github.io/PrismBay/toolkits.html?utm_source=github_cloud&utm_medium=owned_educational_content&utm_campaign=organic_bundle_82971",
     "checkoutUrl": "https://buy.stripe.com/eVqfZi5Lo7pV31Ea4MgnK0t?client_reference_id=owned_content_bundle"
   },
-  "positioning": "evidence-led",
+  "positioning": "workflow-led",
   "freeLLM": {
     "status": "ok",
     "workerMode": "freellmapi_guided",
