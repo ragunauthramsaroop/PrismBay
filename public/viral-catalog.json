@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-16T11:55:58.911Z",
+  "updatedAt": "2026-10-16T16:59:30.403Z",
   "market": "US",
   "methodology": "Public-news attention, freshness, and short-form demonstration fit. This is not PrismBay sales data and is not a TikTok, Amazon, Google, or Bing product ranking.",
   "refreshTargetHours": 6,
@@ -8,12 +8,12 @@
     {
       "slug": "scrubber",
       "name": "5-in-1 Electric Spin Scrubber",
-      "signalScore": 77.5,
+      "signalScore": 88,
       "signalLabel": "high-attention",
       "evidence": {
-        "publicMentions": 63,
-        "mentionsLast7Days": 1,
-        "mentionsLast30Days": 3,
+        "publicMentions": 99,
+        "mentionsLast7Days": 3,
+        "mentionsLast30Days": 6,
         "sourcesAvailable": [
           "Google News",
           "Bing News"
@@ -21,10 +21,10 @@
       },
       "sampleSignals": [
         {
-          "title": "The 3 best spin scrubbers of 2026, tested and reviewed - Yahoo",
+          "title": "Back or joint pain? This electric scrubber means no kneeling down to clean — it's usually $150, but it's on sale for $45 ahead of October Prime Day - Yahoo Lifestyle Canada",
           "source": "Google News",
-          "publishedAt": "2026-06-17T07:00:00.000Z",
-          "url": "https://news.google.com/rss/articles/CBMilAFBVV95cUxPRzZ1NFRxWkFEcVQzWWd5aVJQUlVXa25zMDc1d0NLaDRwZUVDYjBrU2otX0t1c3hzWUszQnZibjJZSk1vOUhrTGJQZUdNSDJLd1dFTGhnQy1lUXFkOFBfNnBGZ3FtSXEzaUJZUWw5ZVZTT0pCODBERUN0eUFqNVZCSG1fN09maWRmMHBqX2ZlZi0wNmFT?oc=5"
+          "publishedAt": "2026-09-22T07:00:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMijwJBVV95cUxNcDFRcm1TT183LWtEanVuS2hYRWhqUkhsdlEyeHRZS0hsOUVBRXNKWkc1dE1oakk5TUlkcE1vRFlrWkVFVE5YWFZOcjg5MVp1SkgyZnpqY1NFc1Z5dHBkZ1UtV2ppdmRRTFFEOGx1TUNYYmlfc1d6aFk5ZUhOLTJoZ1R6MldTOUFDUnV5bWo0SWFma0xGMWUwM0F5S0VhbXQ4V3FuLTBySGwxMU9iZzN6OVZGVVUyNnBZUXhYRHJyYUZHMWJZWkg5U0R4RFkydEhDNjJ4M3NBVjlNSzFUWVFBNU5mRFU1RmNCckRMOGM5aE1Sdlo2QjNrRVRRd0NJa2Rra3R1S3dvSFk1T0N2Qmcw?oc=5"
         },
         {
           "title": "Spend Less Time Scrubbing With These Top-Tested Picks - Good Housekeeping",
@@ -59,7 +59,7 @@
       "signalScore": 76,
       "signalLabel": "high-attention",
       "evidence": {
-        "publicMentions": 105,
+        "publicMentions": 106,
         "mentionsLast7Days": 0,
         "mentionsLast30Days": 5,
         "sourcesAvailable": [
@@ -81,6 +81,12 @@
           "url": "https://news.google.com/rss/articles/CBMisAFBVV95cUxQcmFNWEdvTUxuY1RES2k4bXh1T0U2ci1nTHBJRXVud3F4ekF2NHF4NkF4LTlKR3lRWTNObHBGcjUzOGlLNUlHNXd1dGdOQXBYcEN6QllhNGZyVDFja2h1R3AzX1hIaFk4RUpsZ3JQT05Ga2pkelRscFRTaVJ0NFhyX0c3cVllQzIxTXoyeGhKcTNvLUJuRWNLd0g3Si1mYnRoUjEzZExKZGEtUXlsVlV3dQ?oc=5"
         },
         {
+          "title": "As a sinusitis sufferer, I implore you to consider Aldi's £19 UV mattress vacuum — it's not about bed bugs, it's about dust - TechRadar",
+          "source": "Google News",
+          "publishedAt": "2026-06-12T07:00:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMi9gFBVV95cUxOOTZqRGZuMWZJTVh2VUhXOHgzMUdhVUhjYTdxeXl6QWVqbkxCb2R2bU45Wl9ERHVFaklYajJWa0JSd2RtdDNpdksyR1IwVV9QeUUyTmcySXJvcnltUDcxazNHaF85ZzZTYnYwNy1yZ1ZjNlhIWGVBRzc2aUtKNDhBbk85UHFueGtRY2JVaXpTMzNxX3dOUl9OazRUVloyVkRscXhwQ2kxSmg4T01BVUZERGlLR3I0b0NhOFJYdVdMTE0xdVY1cjdWYi11MndYbFZZYUpPLVl0LTh2NlhDV3g4aWRYcDZydWtORU01eS1RVWhEZjNQU2c?oc=5"
+        },
+        {
           "title": "Turns out you do need a mattress vacuum — here’s why I love mine - NJ.com",
           "source": "Google News",
           "publishedAt": "2026-08-16T07:00:00.000Z",
@@ -91,12 +97,6 @@
           "source": "Google News",
           "publishedAt": "2026-07-31T07:00:00.000Z",
           "url": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxNbzVTWEJoMDJjVjhXZDI0Y3pidGdOVVpsYmk2b2YwNnBWN21RbnJlMFEzOFFDb0luZUpsZHQ5TEJkR0NLY1I4TE5xbXJWcGVZbjN2UE41b085WmhBNnpKQmhRSGJ3Q3FjdlRjRTR3b2pNWm8taDM1Rjkza0ZqdDlfXzZaWV9TN1dEVDNNZXZqak9oY1FoSUVxaGVXTDJHRTIwYlRiTDBrS1Q5UdIBvgFBVV95cUxQSmFCYUJJckRseEt2Ql8xalZQUHV0VVg0cldzQ0MybUUzMDlES25DWGZ3cjR2cFlPUnBDdi1VMlVyQnRRaEhfeFlfYl9LZW5qX1BEczFxZE1aYV9LZl9yTFF0N2d6ZEpLRG9DODlKdDU4NGtlUUxUc0hmQmhpWnZBeUtoU2k3OFJGOURxcE1nNENjZm43RGJjeWZ6NFN0N0NCaTR0N0VKMkVOSjlFOWJnNnA1dEh1SHIwa3lCdVFn?oc=5"
-        },
-        {
-          "title": "As a sinusitis sufferer, I implore you to consider Aldi's £19 UV mattress vacuum — it's not about bed bugs, it's about dust - TechRadar",
-          "source": "Google News",
-          "publishedAt": "2026-06-12T07:00:00.000Z",
-          "url": "https://news.google.com/rss/articles/CBMi9gFBVV95cUxOOTZqRGZuMWZJTVh2VUhXOHgzMUdhVUhjYTdxeXl6QWVqbkxCb2R2bU45Wl9ERHVFaklYajJWa0JSd2RtdDNpdksyR1IwVV9QeUUyTmcySXJvcnltUDcxazNHaF85ZzZTYnYwNy1yZ1ZjNlhIWGVBRzc2aUtKNDhBbk85UHFueGtRY2JVaXpTMzNxX3dOUl9OazRUVloyVkRscXhwQ2kxSmg4T01BVUZERGlLR3I0b0NhOFJYdVdMTE0xdVY1cjdWYi11MndYbFZZYUpPLVl0LTh2NlhDV3g4aWRYcDZydWtORU01eS1RVWhEZjNQU2c?oc=5"
         }
       ],
       "rank": 2
@@ -155,7 +155,7 @@
       "signalScore": 74,
       "signalLabel": "high-attention",
       "evidence": {
-        "publicMentions": 36,
+        "publicMentions": 35,
         "mentionsLast7Days": 1,
         "mentionsLast30Days": 3,
         "sourcesAvailable": [
@@ -279,10 +279,10 @@
           "url": "https://news.google.com/rss/articles/CBMidkFVX3lxTE92V3lnSDcyVlhvSUJINnN4VU85em51bjBTNFRKU0ltYzNrd3c5YVNMVE1jTmUzMC1tYnM4S1VUQzAtTmVNa2Jha0tNNFFvMlU1ZnkzSHpZVms4MUFiQmF6b2YxRnYydlVob3RoakhnM2t5cW9zRVE?oc=5"
         },
         {
-          "title": "These No. 1 bestselling crevice brushes 'get into all the hard to reach places!' — and they're less than $3 a pop - Yahoo",
+          "title": "'Mighty little brush': This handy Amazon tool makes cleaning tight spaces a 'breeze' — and its under $20 - Yahoo Lifestyle Canada",
           "source": "Google News",
-          "publishedAt": "2024-02-03T08:00:00.000Z",
-          "url": "https://news.google.com/rss/articles/CBMi7wFBVV95cUxQMllzbFMyWUc4SVdwd1E1QmJFbXpmc1VnYjFzZnh4SkhxbDVhRldvYjAzZDJKVUZLYVBwSEFOeEMxcl92cGMwMENVRkVKTU9Xbnp5YmkyUk1UTnNETGVNeXo2RWRJZ2ViUnZ3WjRadUtaeUN5SXFlY3I5aHJfYm1qazFKQWQ4Q1FTVUQteHgxX3FNNUJrT2FSc0J6SnFkOHdGeHJVQm5RWWg5dm83OXh0QWFRSlJVdjRPeF9NcEpaMU5CRGhtdGxyY0ZyeDRDVmdBX21xQmtQb0xqTzJXLVdTNlpJQzFsNGtTOGpQdDdfOA?oc=5"
+          "publishedAt": "2025-02-02T08:00:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMi1gFBVV95cUxNcEhyRlB4aXZhWUFQLV81OUpVOG9sU2g0eFl5eWhpd216a3UwWE5xekRIeFlqbGJjX3VBMi1UbHhITFlUQVlEM1BWYjBsSW85NWFFZEpFUjRteS16ejRpUVJpclZJZ1dHbTA4UThYX2tOY3prWE81QWktVmtTNTdMc0Z2UnNUcWRtaXU0RGpLMHc2ZGwyNkU2UmZMT3g4cFZJbGI2ZXFCdjk2MnlEaGpRQ200WGhSV0xobENKRFktZ0xuSF9ndUFLZ0ZrUFJsYWpvZ01VMVNB?oc=5"
         },
         {
           "title": "The $3 Tool That Gets Rid of All the Grime and Leaves Surfaces Spotless - Apartment Therapy",
@@ -309,16 +309,16 @@
       },
       "sampleSignals": [
         {
-          "title": "This drain catcher has the best user ratings of any hair strainer for bathroom sinks, with tens of thousands of five-star reviews. Our Wirecutter testers found that it worked as advertised, and it made their lives a little bit easier and a little less disgusting. https://nyti. - Facebook",
-          "source": "Google News",
-          "publishedAt": "2026-03-18T07:00:00.000Z",
-          "url": "https://news.google.com/rss/articles/CBMi0wFBVV95cUxNVUUxVVhkcXBtZDB2ODQtYk54WmFzbk5jckdQTEJWRGlnOWJZOHY5aVhlWUVqNUNINEJVOHBCVVNlZ0tlM0VwZWYtWW9sbnBBaUxSSGd1T2lCb3piYTMwa056RHhnTVNFV25aT01rOWlSOFFZSC03MlVmZGg2MUFuMkVncDBrXzRwTGhfcG5TT195Z1BzNFhCaVlBUmNZZjlSWU9jYW8xMWRNV0R5UnJhaUdVVDFhMGJ2a3AzNmVoX1l2ODZZTlpXazhRR19XSWtxZ3kw?oc=5"
-        },
-        {
           "title": "This drain catcher has the best user ratings of any hair strainer for bathroom sinks, with tens of thousands of five-star reviews. Our Wirecutter testers found that it worked as advertised. https://nyti.ms/4814mzC - Facebook",
           "source": "Google News",
           "publishedAt": "2026-03-28T07:00:00.000Z",
           "url": "https://news.google.com/rss/articles/CBMi0wFBVV95cUxQaU93U01HbWpRbVROOVQ3aVhKYWxUSEdKR3Bmbk5sdXotYmZNSG4ta1o5ZWUwOEp4VXBhNnJ2Wmg2NXBnSWxRVkZMNDlrRVk1OGhsR1N1dWdZZ2ZnaHl0M29ONFFvci15Q3BXQW5jOW0tRHREdWRQUFdBbDJEakZqRklkWWx5N2V1c1RkTi14dDh5ZWh4em1YM19qamNjN2ZaQmNPWEEwT2R1SzBPQzdrNXBPQmdjS2pNTlZnY0U5bzBPLU91MnhRS3ZsWVd0bEtZMjlR?oc=5"
+        },
+        {
+          "title": "This drain catcher has the best user ratings of any hair strainer for bathroom sinks, with tens of thousands of five-star reviews. Our Wirecutter testers found that it worked as advertised, and it made their lives a little bit easier and a little less disgusting. https://nyti. - Facebook",
+          "source": "Google News",
+          "publishedAt": "2026-03-18T07:00:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMi0wFBVV95cUxNVUUxVVhkcXBtZDB2ODQtYk54WmFzbk5jckdQTEJWRGlnOWJZOHY5aVhlWUVqNUNINEJVOHBCVVNlZ0tlM0VwZWYtWW9sbnBBaUxSSGd1T2lCb3piYTMwa056RHhnTVNFV25aT01rOWlSOFFZSC03MlVmZGg2MUFuMkVncDBrXzRwTGhfcG5TT195Z1BzNFhCaVlBUmNZZjlSWU9jYW8xMWRNV0R5UnJhaUdVVDFhMGJ2a3AzNmVoX1l2ODZZTlpXazhRR19XSWtxZ3kw?oc=5"
         },
         {
           "title": "7 reasons your sink won't drain – plus expert tips to unclog a sink like a pro - Homes and Gardens",
