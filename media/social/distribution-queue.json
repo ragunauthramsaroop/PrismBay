@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-10-15T16:53:41.894Z",
+  "generatedAt": "2026-10-16T16:33:22.987Z",
   "priority": "external_traffic_to_verified_guarded_offers",
   "items": [
     {
@@ -143,12 +143,12 @@
       "status": "ready_for_authorized_scheduler",
       "mediaUrl": "https://ragunauthramsaroop.github.io/PrismBay/media/social/bundle.mp4",
       "destinationUrl": "https://ragunauthramsaroop.github.io/PrismBay/toolkits.html?utm_source=youtube&utm_medium=shorts&utm_campaign=prismbay_external_traffic_oct2026&utm_content=bundle_short_01",
-      "title": "Start with evidence you can trace before the next review #Shorts",
+      "title": "Turn a one-off task into a repeatable documented process #Shorts",
       "caption": "Executive work slows down when stakeholder, ESG and board-reporting processes live in disconnected files. Map the work into three evidence lanes: stakeholder commitments, ESG performance records and decision-grade research claims. Assign one accountable owner to each lane. Start with the free guide: https://ragunauthramsaroop.github.io/PrismBay/toolkits.html?utm_source=youtube&utm_medium=shorts&utm_campaign=prismbay_external_traffic_oct2026&utm_content=bundle_short_01 Optional editable document toolkit: $179 USD one time.",
       "commercialContentOwnBrand": true,
       "madeForKids": false,
       "aiAssisted": true,
-      "strategy": "evidence-led",
+      "strategy": "workflow-led",
       "guardrails": {
         "noInventedTestimonials": true,
         "noGuaranteedResults": true,
@@ -165,12 +165,12 @@
       "status": "ready_for_authorized_scheduler",
       "mediaUrl": "https://ragunauthramsaroop.github.io/PrismBay/media/social/bundle.mp4",
       "destinationUrl": "https://ragunauthramsaroop.github.io/PrismBay/toolkits.html?utm_source=tiktok&utm_medium=organic_video&utm_campaign=prismbay_external_traffic_oct2026&utm_content=bundle_short_01",
-      "title": "Start with evidence you can trace before the next review",
+      "title": "Turn a one-off task into a repeatable documented process",
       "caption": "Executive work slows down when stakeholder, ESG and board-reporting processes live in disconnected files. Map the work into three evidence lanes: stakeholder commitments, ESG performance records and decision-grade research claims. Assign one accountable owner to each lane. Start with the free guide: https://ragunauthramsaroop.github.io/PrismBay/toolkits.html?utm_source=tiktok&utm_medium=organic_video&utm_campaign=prismbay_external_traffic_oct2026&utm_content=bundle_short_01 Optional editable document toolkit: $179 USD one time.",
       "commercialContentOwnBrand": true,
       "madeForKids": false,
       "aiAssisted": true,
-      "strategy": "evidence-led",
+      "strategy": "workflow-led",
       "guardrails": {
         "noInventedTestimonials": true,
         "noGuaranteedResults": true,
@@ -242,21 +242,21 @@
       "status": "ok",
       "strategy": "evidence-led",
       "model": "auto:fast",
-      "routedVia": "kilo/openrouter/free",
+      "routedVia": "ovh/Meta-Llama-3_3-70B-Instruct",
       "routeAttempts": 3
     },
     "whitepaper": {
-      "status": "request_failed",
+      "status": "invalid_output",
       "strategy": "deterministic_fallback",
       "model": null,
-      "routedVia": "kilo/poolside/laguna-xs-2.1:free",
+      "routedVia": "kilo/dots-studio/dots-3-note-preview:free",
       "routeAttempts": 3
     },
     "bundle": {
       "status": "ok",
-      "strategy": "evidence-led",
+      "strategy": "workflow-led",
       "model": "auto:fast",
-      "routedVia": "ovh/gpt-oss-120b",
+      "routedVia": "aihorde/koboldcpp/Gemma-4-E4B-Uncensored-HauhauCS-Aggressive-Q4_K_M",
       "routeAttempts": 3
     },
     "garment-steamer": {
@@ -292,9 +292,9 @@
     {
       "slug": "bundle",
       "file": "/home/runner/work/PrismBay/PrismBay/growth-reports/external-social/bundle/bundle.mp4",
-      "sha256": "e85207f9cfc6b1f2e49fba6ad30bb34c9502988356fd8ec0849375e14e7b1dbd",
+      "sha256": "d129379449947e118035facc4fc9174939357d5c2596493c05493be105e9d849",
       "durationSeconds": 20,
-      "bytes": 218576
+      "bytes": 219360
     },
     {
       "slug": "garment-steamer",
