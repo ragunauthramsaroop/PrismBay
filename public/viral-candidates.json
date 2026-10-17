@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-16T08:31:14.157Z",
+  "updatedAt": "2026-10-17T08:03:57.967Z",
   "market": "US",
   "supplierIntegration": "awaiting-cj-auth",
   "methodology": "Public attention and recency identify candidates. Supplier promotion requires verified US inventory and product-level checks. Freight and checkout creation occur only after supplier validation.",
@@ -9,12 +9,12 @@
       "slug": "cordless-handheld-vacuum",
       "name": "Cordless Handheld Vacuum",
       "query": "cordless handheld vacuum",
-      "attentionScore": 97.6,
+      "attentionScore": 93.9,
       "attentionLabel": "high-attention",
       "evidence": {
-        "publicMentions": 100,
+        "publicMentions": 101,
         "mentionsLast7Days": 2,
-        "mentionsLast30Days": 11,
+        "mentionsLast30Days": 9,
         "sourcesAvailable": [
           "Google News",
           "Bing News"
@@ -39,10 +39,10 @@
             "url": "https://news.google.com/rss/articles/CBMi6wFBVV95cUxQd0diVGlZVTdZMm9BN1JwaUtxR1NuNTV0UDhyei1uSE5qdndvNmR3WS1IZnBfVk9QRHZwYW1mUnl2RHVSRThTSUV6NC1KZHZ3aGZSZ2wtV2hnbDBzbGpnQkJBZmxDQWpfUm1td1ViOFhMSmxiUkswOW5Eb0lQbXVkQndOWVpncjRDOG5JQ3UxRTZIdkNJYkF0cWFjYzd2dkhSZVJhUmxZZ0xMS1hWS2t6TDFicHV3OUtlTm9JSENsNkE0TklsZGtHeWRCbWkyREdoeXA5V1FPbUs1ODZCYUctVjhRTjYyMVl2LU5R?oc=5"
           },
           {
-            "title": "Amazon’s Best-Selling Shark Cordless Vacuum Has One Clever Feature That Makes House Cleaning a Breeze - People.com",
+            "title": "Amazon Shoppers Ditched Their Dyson for This Lightweight and Powerful Stick Vacuum That’s 70% Cheaper - People.com",
             "source": "Google News",
-            "publishedAt": "2026-10-11T06:15:00.000Z",
-            "url": "https://news.google.com/rss/articles/CBMihwFBVV95cUxQT2IzTm12R1JpTXN3MjVHai1vQWNSYkFSTWI3UU1WR083WnFSQkFQMlB0dkFsemVMT0E2Sko0UXlJN0Q3cERKQXJ5dWNJN2YtYlFsLU1QLURqdVRuN09jUkRsQTczc3NaNkg0Wl9WUjlZVjdnU3Z5Q1k1LU9tVGZqTU1ldVVMbk0?oc=5"
+            "publishedAt": "2026-10-14T02:00:00.000Z",
+            "url": "https://news.google.com/rss/articles/CBMifkFVX3lxTE8xR25IQ0pSVFpMTGtybUgxLU5Fdm9lS2VBRFVpLTNkUmg5MEtySHdSaFZZNFFTLWRLSVFSU01ZTDVtZWhOSFNuWUh3Q0NLRV9ycGZoTkNnVEVfOVFzTUl3Vlo4eWRtUC1mX19hclVZcTkyMlliZG9WR2VRd3dxQQ?oc=5"
           }
         ]
       },
@@ -61,12 +61,12 @@
       "slug": "roll-up-dish-rack",
       "name": "Roll-Up Dish Drying Rack",
       "query": "roll up dish drying rack",
-      "attentionScore": 88,
+      "attentionScore": 86.1,
       "attentionLabel": "high-attention",
       "evidence": {
-        "publicMentions": 32,
+        "publicMentions": 31,
         "mentionsLast7Days": 3,
-        "mentionsLast30Days": 6,
+        "mentionsLast30Days": 5,
         "sourcesAvailable": [
           "Google News",
           "Bing News"
@@ -79,21 +79,21 @@
             "url": "https://news.google.com/rss/articles/CBMiggFBVV95cUxNX3hDa2V2RHM3N2FBLXg3Y181T3Y2alpkbF9zeHMxS0cwVUhaQjVwNDBiaW5rdWVaUGZaZ1NWU29iSXhxX2xfNG1uMXZLb19Yck1sRi1wUk9HSnhRVmpla3NwTHVlRHdITkJMZXp5MjBIUXZBLVd0U0wydlZPRTBtZF9R?oc=5"
           },
           {
-            "title": "I Put a Dish Rack in My Tiny Bathroom, and It Changed Everything - AOL.com",
-            "source": "Google News",
-            "publishedAt": "2026-10-10T17:15:00.000Z",
-            "url": "https://news.google.com/rss/articles/CBMie0FVX3lxTE5aZ1hXcy1xakRPUDJrak5XM3B6OTJobUVNSUNxNkdVX2RRclNKaEZtaGRVX2VYM0lVeThER3RYWUktY2FaUmtZMzYwT0NJUDlVT25IQ01RQW1IQlNoelhsMDdieUl1d055ZVIwcTBRa1BMRDUzU3oyLXlYZw?oc=5"
-          },
-          {
             "title": "Your Sponge Holder Is Harboring ‘Mold or Mildew’ — This Hack Is ‘a Lot More Sanitary’ and ‘Maximizes Space’ - Food & Wine",
             "source": "Google News",
             "publishedAt": "2026-10-09T05:00:00.000Z",
             "url": "https://news.google.com/rss/articles/CBMikAFBVV95cUxPczhnRmZTSThDRlB0SERmaHF5dGJ0WFhPZWhCSVlmU2JHU012UVRlN05OOXl3V2RoUFo4UXR3UU52c25BZVdibFRWV0JKZkFtZGZXakVrazg0V0hfZTgyZGJMbUlMQ3JJMHpud1dRcUVjUUpRV25aYzZ0VDVPMi1XNzVjbk8xckZoa2tfVUJ3amI?oc=5"
           },
           {
+            "title": "I Put a Dish Rack in My Tiny Bathroom, and It Changed Everything - AOL.com",
+            "source": "Google News",
+            "publishedAt": "2026-10-10T17:15:00.000Z",
+            "url": "https://news.google.com/rss/articles/CBMie0FVX3lxTE5aZ1hXcy1xakRPUDJrak5XM3B6OTJobUVNSUNxNkdVX2RRclNKaEZtaGRVX2VYM0lVeThER3RYWUktY2FaUmtZMzYwT0NJUDlVT25IQ01RQW1IQlNoelhsMDdieUl1d055ZVIwcTBRa1BMRDUzU3oyLXlYZw?oc=5"
+          },
+          {
             "title": "9 Genius Amazon Home Finds Under $15 You Should’ve Bought Ages Ago - Real Simple",
             "source": "Google News",
-            "publishedAt": "2026-10-13T10:30:00.000Z",
+            "publishedAt": "2026-10-14T03:41:41.000Z",
             "url": "https://news.google.com/rss/articles/CBMiigFBVV95cUxPYUl4X3JvQnpUci16eW9ud1JHcGc2U25TekV6Q2JCWUlsZ0x0YmFDaHRiUTlLTVFpUTdpR2ZlaGY0aHNUaE92cHg5YnlJaURxQWd6YUphQVFPMTJXTlBFc0NvQ2JtaEptZHVuUEJpR21LOEtndWhaejRlT2xGRjZkRDJHSWZBeE9KYlE?oc=5"
           }
         ]
@@ -131,16 +131,16 @@
             "url": "https://news.google.com/rss/articles/CBMieEFVX3lxTE53UlZMTDkyaXJfYW13eUdOTmF3WHlhcUIxMjdTbUlnb0JUVUMzZC1WazgtY1ZZUGtnMW5NS1lGaE5GZjJnOTNxUTBkQk45RVhPOXg2R2h1cjI4NHRWYmZKN3RBeGh5WFZ3UHBUbFIyUGtHX3VvVUtoUw?oc=5"
           },
           {
-            "title": "Dryer fires are a major household hazard. This 'must-have' vent cleaner helps prevent them — it's under $20 - Yahoo Lifestyle Canada",
-            "source": "Google News",
-            "publishedAt": "2026-08-11T07:00:00.000Z",
-            "url": "https://news.google.com/rss/articles/CBMi2wFBVV95cUxPNHlsSk1uanVvSjRscmNoSkxIZVVMZjlsMmFDaXc3VEpUUzBjd1d2UGlwRnRuSE9XNXhvVXhQUW9tOXdEU1BjUFFFU0Jrc19mTFZzbTcxLTV5bzFIaUx5RU1YMGZEZFVQTUlyUWR4U1NWVWZsNUZQbk9UWjhMaktnb19LNFJ5bVcyMWM2b3F5S3FnLWROQ1IwTzhHZUgydUhwb2hPRlpFQUo5ZjFTMVVLTzFsYmluWGNvNkZRSHB1bThZX0NzX0JVMnNfNWJRVUY5Y2ZCLUV0bGJqTW8?oc=5"
-          },
-          {
             "title": "Clever laundry hacks that make life easier — tried and tested by our editors - AOL.com",
             "source": "Google News",
             "publishedAt": "2026-10-13T17:56:17.000Z",
             "url": "https://news.google.com/rss/articles/CBMiugFBVV95cUxOb3ZCVDQydFgyaDlGQ0RDTFhnZFcxb2U1VkNGeVY3cGliU3NWMGpjUzRCWGVmTmt3NEJ6THNENXFJYldoXzBpZDlTSWRYX2gxU0V0VWZhclpnVEQzclpLV1hTZ0VXcVpjaVFSd05PbnRGSEZGWDJSYl84NXVubllzRy1INEZHTTF6XzB6Ulg3akJ5V3FHWGNYNFQ2SV9OMnhiRG9ubmYtb09PZndLMHJYQmFMbnhOWUZBZ1E?oc=5"
+          },
+          {
+            "title": "Dryer fires are a major household hazard. This 'must-have' vent cleaner helps prevent them — it's under $20 - Yahoo Lifestyle Canada",
+            "source": "Google News",
+            "publishedAt": "2026-08-11T07:00:00.000Z",
+            "url": "https://news.google.com/rss/articles/CBMi2wFBVV95cUxPNHlsSk1uanVvSjRscmNoSkxIZVVMZjlsMmFDaXc3VEpUUzBjd1d2UGlwRnRuSE9XNXhvVXhQUW9tOXdEU1BjUFFFU0Jrc19mTFZzbTcxLTV5bzFIaUx5RU1YMGZEZFVQTUlyUWR4U1NWVWZsNUZQbk9UWjhMaktnb19LNFJ5bVcyMWM2b3F5S3FnLWROQ1IwTzhHZUgydUhwb2hPRlpFQUo5ZjFTMVVLTzFsYmluWGNvNkZRSHB1bThZX0NzX0JVMnNfNWJRVUY5Y2ZCLUV0bGJqTW8?oc=5"
           },
           {
             "title": "The Best Dryer Vent Cleaning Kits of 2026, Tested By Experts - BobVila.com",
@@ -179,7 +179,7 @@
           {
             "title": "Amazon's 'Space-Saving' Hanging Organizer Is a 'Game-Changer' for Small Closets, Now $14 During Prime Day - Parade Magazine",
             "source": "Google News",
-            "publishedAt": "2026-10-08T09:45:00.000Z",
+            "publishedAt": "2026-10-08T07:00:00.000Z",
             "url": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxNZDZtOWlxaWdCX3ptWHFQOHhIdFctNlppRnJzTTh4bktBLTZmUEVIUGRwQVBlcFRHeVJESk10NGJGX0d6OGU5S21CVTVTbTRNYzhKYkprTkJ4TWtnbHBKQWhySkp1VlJ6MVB1YnVUNm1Ebm5Dcm5naV9Gdjd3Yl9kQ2xUUFhZSDJ3clozQ1BTdDVKaC1MQ19HdU8zdjIxaXNRSEs3NlpBdkNLLWM?oc=5"
           },
           {
@@ -195,10 +195,10 @@
             "url": "https://news.google.com/rss/articles/CBMigAFBVV95cUxNdUt2cm1naldDczF5TFc0bExVNFFsTlBOTFdrOWh6NHpHSl9FckJJc0NoaTFWWmZST2hZWWJQU0Q5TWxzZVlxTjNGZ0pzOXQ5SDlOTFF4QkR2dkVMXzhrelhZcjUxT0d3WkJmRVdaQjRYQjF0d2lDWWUwZmJQNUs2ZA?oc=5"
           },
           {
-            "title": "12 No-Brainer Closet Organizers That You Can Get So Easily On Amazon - HuffPost",
+            "title": "Amazon’s portable wardrobe has 3 baskets, 3 shelves, and 3 hanging areas for only $26 - TheStreet",
             "source": "Google News",
-            "publishedAt": "2026-03-17T07:00:00.000Z",
-            "url": "https://news.google.com/rss/articles/CBMilAFBVV95cUxNSjEzWnJYRVlrUjBPRnRtNGZ0U1pCbVZEY1djNkxza2lpLTRrM05wNGtIclZWVWVvTkxZZ2ZHRFBXTjJ3cWE2VHE1YTQ2M2hNaThLS09SWmFKekEwblFwYUVTeFZfY2E1bDgwcGNFUThzcVhabnpMenBaN3BNLWJlT1dlNjhOaHY3NkhXemF6a0MtYUdu0gGaAUFVX3lxTFBxUGhRcDI2TXFpdWJiR2IteGRNa1VZX2VpWkJMMGxhaE9lWjVBbEkzSkt6QVN4R2h6ZDk5REpkOWxtRGdJUGtNMHFjTUdITi1OakdvalZOcEplWDFncktsd1hDRmNqYVZhT1Y4X3hEOVJVQzFOZm5BcTRPVVlWbXNNbHhKWUliYVFpVWFIbERLMFFiLUJteE1EZ1E?oc=5"
+            "publishedAt": "2026-09-08T07:00:00.000Z",
+            "url": "https://news.google.com/rss/articles/CBMidEFVX3lxTE1Jb2tWbWNsRm83cmVCazg0aUtTbk5KVC1pM2h5cURibmxpVmhUcl9YZnhYc05uWjktdEt3SWJhTnhpVGlGTFA1cXlsWW1TV2M1algxdTd3VmxYQ0V4MDBXQ2h6cF96VzVqbUVlMkJxd1dmbVh0?oc=5"
           }
         ]
       },
@@ -217,10 +217,10 @@
       "slug": "appliance-cord-organizer",
       "name": "Appliance Cord Organizer",
       "query": "appliance cord organizer",
-      "attentionScore": 39.9,
+      "attentionScore": 38.1,
       "attentionLabel": "research",
       "evidence": {
-        "publicMentions": 10,
+        "publicMentions": 9,
         "mentionsLast7Days": 0,
         "mentionsLast30Days": 1,
         "sourcesAvailable": [
@@ -247,10 +247,10 @@
             "url": "https://news.google.com/rss/articles/CBMib0FVX3lxTFA2VHZmbDExRHlEdnRBa2RmWUI3REc1RUkyX05RWlB1QWlQVWVVVjZIbzlRMXY5Qm9UaDlOZDlHNF8tcXIzNzlWMFFxN0dDeXAyMGYwNmNVVnB5UWh0WnBEN2MxR1RWc2hnZTdpc1l5cw?oc=5"
           },
           {
-            "title": "We Gave Professional Organizers $10 to Spend on Amazon — These Are the Clever Storage Hacks They'd Buy - Livingetc",
+            "title": "The 7 Best Under‑Cabinet Lighting Options for Bright, Functional Kitchens - The Spruce",
             "source": "Google News",
-            "publishedAt": "2024-07-16T07:00:00.000Z",
-            "url": "https://news.google.com/rss/articles/CBMiigFBVV95cUxQVGs2eXZIc2xIZjl0Tm1UTmpVQnRVNTg1NHpYMzJJX3JmLVZkeDR6UEUySFJLTUhLRkVTVUs0YVVUZmhOU1Q1WTdyV1dEWjFZVDhWSDEwNEp6eEJ1U3VpR3BlUkpXbHlZUGpCLXBSV2d2VzByclZHejRVNTVuT3JfSTJ0VlljZ1hvdFE?oc=5"
+            "publishedAt": "2026-08-14T07:00:00.000Z",
+            "url": "https://news.google.com/rss/articles/CBMibkFVX3lxTE1fUDFObWNzQ29yWnJsRkw0OW01ZmxNbm1pbGVVZEh6MEZfRFZaWUlfdFgza0RFM2xSWXYwdndIZmRGcmNNZ3RSM0RkWXdsdmw1blNkUl9HTFltVXYxQ2dCaUNVYnREeUJtTU9sSDRB?oc=5"
           }
         ]
       },
