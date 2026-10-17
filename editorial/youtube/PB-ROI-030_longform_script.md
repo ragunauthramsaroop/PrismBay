@@ -18,7 +18,7 @@ On screen: Scope / Owner / Input / Output / Approval / Prohibited actions.
 
 ## 2. Capture a defensible baseline | 2:00–3:15
 
-Take a representative sample before the pilot. Record volume, median handling time, the percentage of work returned for correction, exceptions, and the actual cash spent on overtime or external support. Avoid cherry-picking easy cases. Segment simple requests from complex exceptions, because a model that performs well on routine tasks may still fail on the cases where judgment matters.
+Take a representative sample before the pilot. Record volume, mean and median handling time, the percentage of work returned for correction, exceptions, and the actual cash spent on overtime or external support. Use the mean or actual summed minutes for labor-hour arithmetic; keep the median to detect changes in typical case duration. Avoid cherry-picking easy cases. Segment simple requests from complex exceptions, because a model that performs well on routine tasks may still fail on the cases where judgment matters.
 
 Our hypothetical baseline is one thousand requests times twelve minutes. That equals twelve thousand minutes, or two hundred labor hours. After introducing an AI-assisted draft, suppose average handling time falls to eight minutes. One thousand times eight minutes equals eight thousand minutes, or about one hundred thirty-three hours. The difference is sixty-six point seven hours of capacity per month.
 
