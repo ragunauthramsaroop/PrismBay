@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-16T21:44:43.614Z",
+  "updatedAt": "2026-10-17T05:01:45.913Z",
   "market": "US",
   "methodology": "Public-news attention, freshness, and short-form demonstration fit. This is not PrismBay sales data and is not a TikTok, Amazon, Google, or Bing product ranking.",
   "refreshTargetHours": 6,
@@ -11,7 +11,7 @@
       "signalScore": 88,
       "signalLabel": "high-attention",
       "evidence": {
-        "publicMentions": 99,
+        "publicMentions": 92,
         "mentionsLast7Days": 3,
         "mentionsLast30Days": 6,
         "sourcesAvailable": [
@@ -59,7 +59,7 @@
       "signalScore": 76,
       "signalLabel": "high-attention",
       "evidence": {
-        "publicMentions": 105,
+        "publicMentions": 100,
         "mentionsLast7Days": 0,
         "mentionsLast30Days": 5,
         "sourcesAvailable": [
@@ -102,79 +102,31 @@
       "rank": 2
     },
     {
-      "slug": "pressure-washer",
-      "name": "Cordless Pressure Washer",
-      "signalScore": 74,
-      "signalLabel": "high-attention",
-      "evidence": {
-        "publicMentions": 104,
-        "mentionsLast7Days": 1,
-        "mentionsLast30Days": 1,
-        "sourcesAvailable": [
-          "Google News",
-          "Bing News"
-        ]
-      },
-      "sampleSignals": [
-        {
-          "title": "Blast the Last of Summer's Grime With Our Favorite Tested Pressure Washers - Popular Mechanics",
-          "source": "Google News",
-          "publishedAt": "2026-10-13T20:23:00.000Z",
-          "url": "https://news.google.com/rss/articles/CBMinAFBVV95cUxOREhINlhaMWtaU215YXJxZ3pkV3JxeVZoTUxNcUhHN190Snk1V1huVHZuSzNkWlVuNmduNm5aMXRzQlA4Y0tHMGUta29MUGRIR3hRT0RDNGpBUXU2TkRXMUg2X2JfajNiQ3dSQW1QZ2tObnNTR2c1VGpvRWVzS1dUQTFVaERSWlo4bDh3US16VzVrTkctc3RiOWE5V0g?oc=5"
-        },
-        {
-          "title": "Does it work? Hydro X5 cordless pressure washer - KY3",
-          "source": "Google News",
-          "publishedAt": "2026-08-12T07:00:00.000Z",
-          "url": "https://news.google.com/rss/articles/CBMihAFBVV95cUxPVUxYNWVJWVFYUWRES0d1Y2plUHV6b0poQ1dfOEpadkNmM3ZSbnpYZ2FiZDNQaXRRRHB1dVg4Q0ljWDJTdnM0WFJGY3dlUTRDU2x5dnptYjktcDByUnd6NDFPX3YwX3dJRDI4b1hrQ1NSU0hoLVlnVzIxTjJsVHktSUU2cHjSAZgBQVVfeXFMT1EzOF9iaGQxYzk4RUdyUGZVb0pjM0xQUGlQU3l3ZjNBSWFyS2pjQXBOOWpLY2xuS2NLSVBFdHRhWDBNdVdOdkgySHJkcHc5NXg2S3laUEdjU1A5QTdWeEJGQVExWE5DdENTaE5QbEhtWWJPdkVza2FUMjd0Qko4Mk1yR2VJeWhfaGZyTVNiUGJ2X2NEOVBYVjY?oc=5"
-        },
-        {
-          "title": "In a Decade of Testing Pressure Washers, These Are the Smallest, Most Powerful Models Yet - The New York Times",
-          "source": "Google News",
-          "publishedAt": "2026-06-05T07:00:00.000Z",
-          "url": "https://news.google.com/rss/articles/CBMickFVX3lxTE12V2hOQ2d1Z0xiSU0ySWNYbmpaS0ZaOC1oc3QzazB3WU5oRHcxV1B1RjNhdHFmckxHc0pEdlRFUGQtN2dkUWtoTHZiQWVWSi02ZV9xTElkQ0xTNWw1MjFnakpCT0pkUTliaWh1aGVWN0RUdw?oc=5"
-        },
-        {
-          "title": "Ego Power+ Cordless Pressure Washer Review: Powerful but Pricey - BobVila.com",
-          "source": "Google News",
-          "publishedAt": "2026-09-12T07:00:00.000Z",
-          "url": "https://news.google.com/rss/articles/CBMid0FVX3lxTE1OVkM4ZWhzQmpyUlZ5Z3Jmc3pyel9STTVDZnF1VEdHdERlM21OcUt0UFlUTlVhZG5pUWhyS2hBRTdGZHRNUjhJWGhmQ01EZGZxSXZBcXVPT0Uweno4WXdwbzluUUJYeC1ySUNQTjJXVlE3Umo1YzVN?oc=5"
-        },
-        {
-          "title": "Does it work? Hydro X5 cordless pressure washer - KWCH",
-          "source": "Google News",
-          "publishedAt": "2026-08-12T07:00:00.000Z",
-          "url": "https://news.google.com/rss/articles/CBMijgFBVV95cUxQNDFVTUZfNXhsbWhmVVZqZW8zQWV3b0FFYUtSWURBSmNOMENsZU9mN0JJclZZNENRakdHb1lqOU5rOHg5cU1pd1IzQUVleFNDVGQ3RmhId1ZHX3JIckVYZEpiNEpZS3paNEM3MER4U2x3SWhETGNwM1JNd2VMbzh4alB6ZE9GTmdZemRnMnBR?oc=5"
-        }
-      ],
-      "rank": 3
-    },
-    {
       "slug": "garment-steamer",
       "name": "Portable Garment Steamer",
-      "signalScore": 74,
+      "signalScore": 75.5,
       "signalLabel": "high-attention",
       "evidence": {
-        "publicMentions": 36,
+        "publicMentions": 34,
         "mentionsLast7Days": 1,
-        "mentionsLast30Days": 3,
+        "mentionsLast30Days": 4,
         "sourcesAvailable": [
           "Google News",
           "Bing News"
         ]
       },
       "sampleSignals": [
+        {
+          "title": "Portable Garment Steamers Market Size, Share | Forecast [2034] - Fortune Business Insights",
+          "source": "Google News",
+          "publishedAt": "2026-09-28T07:00:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMihgFBVV95cUxQaXlNc3IwRkdxSWMwS0xGc1dQZEQyRkdjb0l6M2hvZDNual9lUHQzWm5MUS1BSHhNRzRHSGxrQm5tb3dKMXlpeS0tUlJ1TElEbWNoUkN2MGgzMnp4TjRkczE4VlQ0UmNNRy1hbWI2Y05Xa3Z3RzBkU1VpcWZ1OEdRNVgtVEl1UQ?oc=5"
+        },
         {
           "title": "Say Goodbye to Wrinkled Clothing with an Easy-to-Use Clothes Steamer — Prices Start at $31 - People.com",
           "source": "Google News",
           "publishedAt": "2026-05-06T07:00:00.000Z",
           "url": "https://news.google.com/rss/articles/CBMiXEFVX3lxTE9HWkFheEdZLU5KN28wQmVlLVZWVFJZSUZpcFlSTmJLSFJJc3lacVNuUTNycF9SN0tnRmM4QnZ1SXNwcDFid3kya1RUU2J0cjEyQUxOY1N6YXI0UHI3?oc=5"
-        },
-        {
-          "title": "Portable Garment Steamers Market Size, Share | Forecast [2034] - Fortune Business Insights",
-          "source": "Google News",
-          "publishedAt": "2026-09-14T07:00:00.000Z",
-          "url": "https://news.google.com/rss/articles/CBMihgFBVV95cUxQaXlNc3IwRkdxSWMwS0xGc1dQZEQyRkdjb0l6M2hvZDNual9lUHQzWm5MUS1BSHhNRzRHSGxrQm5tb3dKMXlpeS0tUlJ1TElEbWNoUkN2MGgzMnp4TjRkczE4VlQ0UmNNRy1hbWI2Y05Xa3Z3RzBkU1VpcWZ1OEdRNVgtVEl1UQ?oc=5"
         },
         {
           "title": "Best travel steamers 2026: tested and reviewed for wrinkle-free packing - CN Traveller",
@@ -193,6 +145,54 @@
           "source": "Google News",
           "publishedAt": "2024-09-13T07:00:00.000Z",
           "url": "https://news.google.com/rss/articles/CBMiigFBVV95cUxPOEltbERZMDMtemlzdFRPSUdTZGFXLVJDTUJpWWZrMGtSLVVFMDlSWWxHS3YzSXpydFhpWUlyTmd5dTYyMTBaMEtuT1VMazI2SUxzQkhSSVZEV0tqTTdzRGhlYlZxWEw5RVhxSkpsS0xsQjA4cFNkX2Jjb1NYem04OTR0TzNnQlZ1WlE?oc=5"
+        }
+      ],
+      "rank": 3
+    },
+    {
+      "slug": "pressure-washer",
+      "name": "Cordless Pressure Washer",
+      "signalScore": 74,
+      "signalLabel": "high-attention",
+      "evidence": {
+        "publicMentions": 100,
+        "mentionsLast7Days": 1,
+        "mentionsLast30Days": 1,
+        "sourcesAvailable": [
+          "Google News",
+          "Bing News"
+        ]
+      },
+      "sampleSignals": [
+        {
+          "title": "Blast the Last of Summer's Grime With Our Favorite Tested Pressure Washers - Popular Mechanics",
+          "source": "Google News",
+          "publishedAt": "2026-10-13T20:23:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMinAFBVV95cUxOREhINlhaMWtaU215YXJxZ3pkV3JxeVZoTUxNcUhHN190Snk1V1huVHZuSzNkWlVuNmduNm5aMXRzQlA4Y0tHMGUta29MUGRIR3hRT0RDNGpBUXU2TkRXMUg2X2JfajNiQ3dSQW1QZ2tObnNTR2c1VGpvRWVzS1dUQTFVaERSWlo4bDh3US16VzVrTkctc3RiOWE5V0g?oc=5"
+        },
+        {
+          "title": "In a Decade of Testing Pressure Washers, These Are the Smallest, Most Powerful Models Yet - The New York Times",
+          "source": "Google News",
+          "publishedAt": "2026-06-05T07:00:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMickFVX3lxTE12V2hOQ2d1Z0xiSU0ySWNYbmpaS0ZaOC1oc3QzazB3WU5oRHcxV1B1RjNhdHFmckxHc0pEdlRFUGQtN2dkUWtoTHZiQWVWSi02ZV9xTElkQ0xTNWw1MjFnakpCT0pkUTliaWh1aGVWN0RUdw?oc=5"
+        },
+        {
+          "title": "Does it work? Hydro X5 cordless pressure washer - KY3",
+          "source": "Google News",
+          "publishedAt": "2026-08-12T07:00:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMihAFBVV95cUxPVUxYNWVJWVFYUWRES0d1Y2plUHV6b0poQ1dfOEpadkNmM3ZSbnpYZ2FiZDNQaXRRRHB1dVg4Q0ljWDJTdnM0WFJGY3dlUTRDU2x5dnptYjktcDByUnd6NDFPX3YwX3dJRDI4b1hrQ1NSU0hoLVlnVzIxTjJsVHktSUU2cHjSAZgBQVVfeXFMT1EzOF9iaGQxYzk4RUdyUGZVb0pjM0xQUGlQU3l3ZjNBSWFyS2pjQXBOOWpLY2xuS2NLSVBFdHRhWDBNdVdOdkgySHJkcHc5NXg2S3laUEdjU1A5QTdWeEJGQVExWE5DdENTaE5QbEhtWWJPdkVza2FUMjd0Qko4Mk1yR2VJeWhfaGZyTVNiUGJ2X2NEOVBYVjY?oc=5"
+        },
+        {
+          "title": "Ego Power+ Cordless Pressure Washer Review: Powerful but Pricey - BobVila.com",
+          "source": "Google News",
+          "publishedAt": "2026-09-12T07:00:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMid0FVX3lxTE1OVkM4ZWhzQmpyUlZ5Z3Jmc3pyel9STTVDZnF1VEdHdERlM21OcUt0UFlUTlVhZG5pUWhyS2hBRTdGZHRNUjhJWGhmQ01EZGZxSXZBcXVPT0Uweno4WXdwbzluUUJYeC1ySUNQTjJXVlE3Umo1YzVN?oc=5"
+        },
+        {
+          "title": "Does it work? Hydro X5 cordless pressure washer - KWCH",
+          "source": "Google News",
+          "publishedAt": "2026-08-12T07:00:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMijgFBVV95cUxQNDFVTUZfNXhsbWhmVVZqZW8zQWV3b0FFYUtSWURBSmNOMENsZU9mN0JJclZZNENRakdHb1lqOU5rOHg5cU1pd1IzQUVleFNDVGQ3RmhId1ZHX3JIckVYZEpiNEpZS3paNEM3MER4U2x3SWhETGNwM1JNd2VMbzh4alB6ZE9GTmdZemRnMnBR?oc=5"
         }
       ],
       "rank": 4
