@@ -1,10 +1,10 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-10-15T12:10:21.272Z",
+  "generatedAt": "2026-10-16T21:45:16.266Z",
   "researchCandidates": 12,
   "publishedResearchSignals": 12,
   "verifiedCJStatus": {
-    "checkedAt": "2026-10-15T11:29:59.820Z",
+    "checkedAt": "2026-10-16T21:09:01.929Z",
     "validSupplierMatches": 5,
     "variantStock": 2,
     "freightEstimates": 2,
@@ -27,48 +27,6 @@
       "executionMode": "scheduled_cj_and_manual_review",
       "candidateCount": 12,
       "blockers": [
-        {
-          "slug": "pressure-washer",
-          "status": "supplier_search_needed",
-          "sku": null,
-          "shippingDiagnostic": null,
-          "zeroPricedMethods": 0
-        },
-        {
-          "slug": "mattress-vacuum",
-          "status": "supplier_search_needed",
-          "sku": null,
-          "shippingDiagnostic": null,
-          "zeroPricedMethods": 0
-        },
-        {
-          "slug": "garment-steamer",
-          "status": "final_zip_freight_required",
-          "sku": "CJYD245844002BY",
-          "shippingDiagnostic": "priced_estimate_available",
-          "zeroPricedMethods": 0
-        },
-        {
-          "slug": "scrubber",
-          "status": "supplier_search_needed",
-          "sku": null,
-          "shippingDiagnostic": null,
-          "zeroPricedMethods": 0
-        },
-        {
-          "slug": "pethair",
-          "status": "variant_stock_required",
-          "sku": "CJYD2079690",
-          "shippingDiagnostic": "variant_stock_unverified",
-          "zeroPricedMethods": 0
-        },
-        {
-          "slug": "crevice",
-          "status": "final_zip_freight_required",
-          "sku": "CJJT173147702BY",
-          "shippingDiagnostic": "priced_estimate_available",
-          "zeroPricedMethods": 0
-        },
         {
           "slug": "cordless-handheld-vacuum",
           "status": "variant_stock_required",
@@ -109,6 +67,48 @@
           "status": "supplier_search_needed",
           "sku": null,
           "shippingDiagnostic": null,
+          "zeroPricedMethods": 0
+        },
+        {
+          "slug": "pressure-washer",
+          "status": "supplier_search_needed",
+          "sku": null,
+          "shippingDiagnostic": null,
+          "zeroPricedMethods": 0
+        },
+        {
+          "slug": "mattress-vacuum",
+          "status": "supplier_search_needed",
+          "sku": null,
+          "shippingDiagnostic": null,
+          "zeroPricedMethods": 0
+        },
+        {
+          "slug": "garment-steamer",
+          "status": "final_zip_freight_required",
+          "sku": "CJYD245844002BY",
+          "shippingDiagnostic": "priced_estimate_available",
+          "zeroPricedMethods": 0
+        },
+        {
+          "slug": "scrubber",
+          "status": "supplier_search_needed",
+          "sku": null,
+          "shippingDiagnostic": null,
+          "zeroPricedMethods": 0
+        },
+        {
+          "slug": "pethair",
+          "status": "variant_stock_required",
+          "sku": "CJYD2079690",
+          "shippingDiagnostic": "variant_stock_unverified",
+          "zeroPricedMethods": 0
+        },
+        {
+          "slug": "crevice",
+          "status": "final_zip_freight_required",
+          "sku": "CJJT173147702BY",
+          "shippingDiagnostic": "priced_estimate_available",
           "zeroPricedMethods": 0
         }
       ]

@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-15T12:09:41.165Z",
+  "updatedAt": "2026-10-16T21:44:43.614Z",
   "market": "US",
   "methodology": "Public-news attention, freshness, and short-form demonstration fit. This is not PrismBay sales data and is not a TikTok, Amazon, Google, or Bing product ranking.",
   "refreshTargetHours": 6,
@@ -8,12 +8,12 @@
     {
       "slug": "scrubber",
       "name": "5-in-1 Electric Spin Scrubber",
-      "signalScore": 83.5,
+      "signalScore": 88,
       "signalLabel": "high-attention",
       "evidence": {
-        "publicMentions": 100,
-        "mentionsLast7Days": 2,
-        "mentionsLast30Days": 5,
+        "publicMentions": 99,
+        "mentionsLast7Days": 3,
+        "mentionsLast30Days": 6,
         "sourcesAvailable": [
           "Google News",
           "Bing News"
@@ -56,11 +56,11 @@
     {
       "slug": "mattress-vacuum",
       "name": "Mattress Vacuum",
-      "signalScore": 79,
+      "signalScore": 76,
       "signalLabel": "high-attention",
       "evidence": {
-        "publicMentions": 106,
-        "mentionsLast7Days": 1,
+        "publicMentions": 105,
+        "mentionsLast7Days": 0,
         "mentionsLast30Days": 5,
         "sourcesAvailable": [
           "Google News",
@@ -104,12 +104,12 @@
     {
       "slug": "pressure-washer",
       "name": "Cordless Pressure Washer",
-      "signalScore": 75.5,
+      "signalScore": 74,
       "signalLabel": "high-attention",
       "evidence": {
-        "publicMentions": 103,
+        "publicMentions": 104,
         "mentionsLast7Days": 1,
-        "mentionsLast30Days": 2,
+        "mentionsLast30Days": 1,
         "sourcesAvailable": [
           "Google News",
           "Bing News"
@@ -152,18 +152,24 @@
     {
       "slug": "garment-steamer",
       "name": "Portable Garment Steamer",
-      "signalScore": 69.5,
-      "signalLabel": "active",
+      "signalScore": 74,
+      "signalLabel": "high-attention",
       "evidence": {
-        "publicMentions": 35,
-        "mentionsLast7Days": 0,
-        "mentionsLast30Days": 2,
+        "publicMentions": 36,
+        "mentionsLast7Days": 1,
+        "mentionsLast30Days": 3,
         "sourcesAvailable": [
           "Google News",
           "Bing News"
         ]
       },
       "sampleSignals": [
+        {
+          "title": "Say Goodbye to Wrinkled Clothing with an Easy-to-Use Clothes Steamer — Prices Start at $31 - People.com",
+          "source": "Google News",
+          "publishedAt": "2026-05-06T07:00:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMiXEFVX3lxTE9HWkFheEdZLU5KN28wQmVlLVZWVFJZSUZpcFlSTmJLSFJJc3lacVNuUTNycF9SN0tnRmM4QnZ1SXNwcDFid3kya1RUU2J0cjEyQUxOY1N6YXI0UHI3?oc=5"
+        },
         {
           "title": "Portable Garment Steamers Market Size, Share | Forecast [2034] - Fortune Business Insights",
           "source": "Google News",
@@ -175,12 +181,6 @@
           "source": "Google News",
           "publishedAt": "2026-07-30T07:00:00.000Z",
           "url": "https://news.google.com/rss/articles/CBMiZkFVX3lxTE1ZRDlxanVrQ3JSeXhtdXBjS3JmVTdkQnV2LURHdldCN1BidHU0ZjhselZXRVZWLVhJUEpwaUMwTEgweU5mLVRmZnozS3dJUTk5TGZTZHctbHpmZHkySDktbE1hZ0Zsdw?oc=5"
-        },
-        {
-          "title": "Say Goodbye to Wrinkled Clothing with an Easy-to-Use Clothes Steamer — Prices Start at $31 - People.com",
-          "source": "Google News",
-          "publishedAt": "2026-05-06T07:00:00.000Z",
-          "url": "https://news.google.com/rss/articles/CBMiXEFVX3lxTE9HWkFheEdZLU5KN28wQmVlLVZWVFJZSUZpcFlSTmJLSFJJc3lacVNuUTNycF9SN0tnRmM4QnZ1SXNwcDFid3kya1RUU2J0cjEyQUxOY1N6YXI0UHI3?oc=5"
         },
         {
           "title": "10 of the best handheld steamers on the market - Vogue Australia",
@@ -279,10 +279,10 @@
           "url": "https://news.google.com/rss/articles/CBMidkFVX3lxTE92V3lnSDcyVlhvSUJINnN4VU85em51bjBTNFRKU0ltYzNrd3c5YVNMVE1jTmUzMC1tYnM4S1VUQzAtTmVNa2Jha0tNNFFvMlU1ZnkzSHpZVms4MUFiQmF6b2YxRnYydlVob3RoakhnM2t5cW9zRVE?oc=5"
         },
         {
-          "title": "These No. 1 bestselling crevice brushes 'get into all the hard to reach places!' — and they're less than $3 a pop - Yahoo",
+          "title": "'Mighty little brush': This handy Amazon tool makes cleaning tight spaces a 'breeze' — and its under $20 - Yahoo Lifestyle Canada",
           "source": "Google News",
-          "publishedAt": "2024-02-03T08:00:00.000Z",
-          "url": "https://news.google.com/rss/articles/CBMi7wFBVV95cUxQMllzbFMyWUc4SVdwd1E1QmJFbXpmc1VnYjFzZnh4SkhxbDVhRldvYjAzZDJKVUZLYVBwSEFOeEMxcl92cGMwMENVRkVKTU9Xbnp5YmkyUk1UTnNETGVNeXo2RWRJZ2ViUnZ3WjRadUtaeUN5SXFlY3I5aHJfYm1qazFKQWQ4Q1FTVUQteHgxX3FNNUJrT2FSc0J6SnFkOHdGeHJVQm5RWWg5dm83OXh0QWFRSlJVdjRPeF9NcEpaMU5CRGhtdGxyY0ZyeDRDVmdBX21xQmtQb0xqTzJXLVdTNlpJQzFsNGtTOGpQdDdfOA?oc=5"
+          "publishedAt": "2025-02-02T08:00:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMi1gFBVV95cUxNcEhyRlB4aXZhWUFQLV81OUpVOG9sU2g0eFl5eWhpd216a3UwWE5xekRIeFlqbGJjX3VBMi1UbHhITFlUQVlEM1BWYjBsSW85NWFFZEpFUjRteS16ejRpUVJpclZJZ1dHbTA4UThYX2tOY3prWE81QWktVmtTNTdMc0Z2UnNUcWRtaXU0RGpLMHc2ZGwyNkU2UmZMT3g4cFZJbGI2ZXFCdjk2MnlEaGpRQ200WGhSV0xobENKRFktZ0xuSF9ndUFLZ0ZrUFJsYWpvZ01VMVNB?oc=5"
         },
         {
           "title": "The $3 Tool That Gets Rid of All the Grime and Leaves Surfaces Spotless - Apartment Therapy",
@@ -292,6 +292,42 @@
         }
       ],
       "rank": 6
+    },
+    {
+      "slug": "drain-catcher",
+      "name": "Sink Drain Catcher 2-Pack",
+      "signalScore": 22.5,
+      "signalLabel": "baseline",
+      "evidence": {
+        "publicMentions": 3,
+        "mentionsLast7Days": 0,
+        "mentionsLast30Days": 0,
+        "sourcesAvailable": [
+          "Google News",
+          "Bing News"
+        ]
+      },
+      "sampleSignals": [
+        {
+          "title": "This drain catcher has the best user ratings of any hair strainer for bathroom sinks, with tens of thousands of five-star reviews. Our Wirecutter testers found that it worked as advertised, and it made their lives a little bit easier and a little less disgusting. https://nyti. - Facebook",
+          "source": "Google News",
+          "publishedAt": "2026-03-18T07:00:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMi0wFBVV95cUxNVUUxVVhkcXBtZDB2ODQtYk54WmFzbk5jckdQTEJWRGlnOWJZOHY5aVhlWUVqNUNINEJVOHBCVVNlZ0tlM0VwZWYtWW9sbnBBaUxSSGd1T2lCb3piYTMwa056RHhnTVNFV25aT01rOWlSOFFZSC03MlVmZGg2MUFuMkVncDBrXzRwTGhfcG5TT195Z1BzNFhCaVlBUmNZZjlSWU9jYW8xMWRNV0R5UnJhaUdVVDFhMGJ2a3AzNmVoX1l2ODZZTlpXazhRR19XSWtxZ3kw?oc=5"
+        },
+        {
+          "title": "This drain catcher has the best user ratings of any hair strainer for bathroom sinks, with tens of thousands of five-star reviews. Our Wirecutter testers found that it worked as advertised. https://nyti.ms/4814mzC - Facebook",
+          "source": "Google News",
+          "publishedAt": "2026-03-28T07:00:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMi0wFBVV95cUxQaU93U01HbWpRbVROOVQ3aVhKYWxUSEdKR3Bmbk5sdXotYmZNSG4ta1o5ZWUwOEp4VXBhNnJ2Wmg2NXBnSWxRVkZMNDlrRVk1OGhsR1N1dWdZZ2ZnaHl0M29ONFFvci15Q3BXQW5jOW0tRHREdWRQUFdBbDJEakZqRklkWWx5N2V1c1RkTi14dDh5ZWh4em1YM19qamNjN2ZaQmNPWEEwT2R1SzBPQzdrNXBPQmdjS2pNTlZnY0U5bzBPLU91MnhRS3ZsWVd0bEtZMjlR?oc=5"
+        },
+        {
+          "title": "7 reasons your sink won't drain – plus expert tips to unclog a sink like a pro - Homes and Gardens",
+          "source": "Google News",
+          "publishedAt": "2025-06-25T07:00:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMigAFBVV95cUxPanpVUU5ldG5La1Ryb1hfRnhOZlFRdFpLbkhDLTNSZnlSa3NVbzdOelJPWVAzNjZ5WVZTcDFQZHNfaWg1UHUwdGZ3MWdncHkteklzMlhvODZ6cXZHNldJQ1hlblFxbks5eUEzU1E2QnNOam8td1RTQ3RRcW5xcTB0VQ?oc=5"
+        }
+      ],
+      "rank": 7
     },
     {
       "slug": "home-caddy",
@@ -321,7 +357,7 @@
           "url": "https://news.google.com/rss/articles/CBMivwFBVV95cUxQOXNiQWdmazZNR0M4ZTdUMzNJaHhZN2NSMmZHa0tWTmNnYzE3MGltaUcyNjlrMEdfMnlSbk9RY29ycm4tdmd5Y0wtNk9IMktyTzhmN0ZKTzBLTkloRHhvNlgtM0pIcFE4N2NCSUU2WXE0d0NOUy1WS00zWDdzczlBeFk4b3lvQVhCVXNudU5mbG5nNVlNSVJ2MGctMmhPMFNWMFRDUklIZG9tVFZubTVhX3lZeDhXVjBUSTFmMXFtNNIBxAFBVV95cUxPSGJnSkU3ZHNOYURTUThBaXFWbXREOXJlaXR1NVBUMU1vSDBsZlBGRHBPc2xuU3pURkZ5ekhFcy1VaWN0NUhmdU1OdGZsdy1LZTh4X243Vm9SMERCLUJZeUU2LTlKUF81RFY1Q0wxRm03N1EtYndHZmZrczc1am9xTWttWHk5U1diWGhWd3k3VlRfV0ZHRXNHNHB3bkY5MEg5c1U2aDRmN3R3MHZHSUZNYWpLWDNqTzRqZF9qQTlpazlSRWNz?oc=5"
         }
       ],
-      "rank": 7
+      "rank": 8
     },
     {
       "slug": "mini-mop",
@@ -338,30 +374,6 @@
         ]
       },
       "sampleSignals": [],
-      "rank": 8
-    },
-    {
-      "slug": "drain-catcher",
-      "name": "Sink Drain Catcher 2-Pack",
-      "signalScore": 19.5,
-      "signalLabel": "baseline",
-      "evidence": {
-        "publicMentions": 1,
-        "mentionsLast7Days": 0,
-        "mentionsLast30Days": 0,
-        "sourcesAvailable": [
-          "Google News",
-          "Bing News"
-        ]
-      },
-      "sampleSignals": [
-        {
-          "title": "7 reasons your sink won't drain – plus expert tips to unclog a sink like a pro - Homes and Gardens",
-          "source": "Google News",
-          "publishedAt": "2025-06-25T07:00:00.000Z",
-          "url": "https://news.google.com/rss/articles/CBMigAFBVV95cUxPanpVUU5ldG5La1Ryb1hfRnhOZlFRdFpLbkhDLTNSZnlSa3NVbzdOelJPWVAzNjZ5WVZTcDFQZHNfaWg1UHUwdGZ3MWdncHkteklzMlhvODZ6cXZHNldJQ1hlblFxbks5eUEzU1E2QnNOam8td1RTQ3RRcW5xcTB0VQ?oc=5"
-        }
-      ],
       "rank": 9
     }
   ]
