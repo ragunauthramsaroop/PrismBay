@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-17T15:58:08.956Z",
+  "updatedAt": "2026-10-17T21:00:21.136Z",
   "market": "US",
   "methodology": "Public-news attention, freshness, and short-form demonstration fit. This is not PrismBay sales data and is not a TikTok, Amazon, Google, or Bing product ranking.",
   "refreshTargetHours": 6,
@@ -11,7 +11,7 @@
       "signalScore": 88,
       "signalLabel": "high-attention",
       "evidence": {
-        "publicMentions": 98,
+        "publicMentions": 99,
         "mentionsLast7Days": 3,
         "mentionsLast30Days": 6,
         "sourcesAvailable": [
@@ -59,7 +59,7 @@
       "signalScore": 85,
       "signalLabel": "high-attention",
       "evidence": {
-        "publicMentions": 106,
+        "publicMentions": 105,
         "mentionsLast7Days": 2,
         "mentionsLast30Days": 7,
         "sourcesAvailable": [
@@ -75,16 +75,16 @@
           "url": "https://news.google.com/rss/articles/CBMizgFBVV95cUxNSzR4RVJycm9mV2dPd2JCVjNuMmFvWlBoWG1lYWFTWHU1WFYzR18wNVg1TXNJRkptb2FMMzFWNTQwMnE5eDRCcnRnZnR0cjE0NDVneTJTaHhFNTBmU3p3ZVNWeGxsV1VWdGVNeEtiSEhDQjhZSjk2QURyTXZWazNxa1pvTnJfWENiS09BZ2VuQ3JTeTRIU1h2ZVJ6WlppdFFIMzU0SlR0WEZ3bmpNVjNWZFhUVlNXODNIUlhlOHFvRnlmQXVPLUhZVWNGRjdkZw?oc=5"
         },
         {
-          "title": "Xiaomi's New Mijia Mite Remover 3: Fight Dust and Mites with Heat and UV for Just $30! - Gagadget.com",
-          "source": "Google News",
-          "publishedAt": "2026-10-17T12:19:44.000Z",
-          "url": "https://news.google.com/rss/articles/CBMitAFBVV95cUxQRi1DSkJqNlNtSlpFVFUtWjhXZXZpYk5EOEFDM1ZLMFJNN1BtN1ZJWUt5OHhSWFFvTHRPZ0NjSzM0d0J6SFZTTnR6eWhTYkdHU1dwSnBVTGxOZUxmQW5oS3MwYm1NS2dGbHFfMmxYXzFpU0M0X3RUeG9EYVFZSWNoaU16Wkl2eFA1amFiVlVRV2hndmJhenlkR0RsOENqMkwwamRfTUozSlFmLUpZcm5yUXdLQkvSAboBQVVfeXFMT0JIVjdoWndpa1NScWtnV1NESm03aFJMYlFaTUFYT1poZnhpYUQ1VVVyTXpLNlp1MnUzYmFTZXpvZHpoRmFmVXNyc0dMdVdBMFdfZ1BUblNBczlvUWlsSG1GS0ZQSnBMbTJjS0tNc1lZcDV2X2E4amlUanBBNnBPZ0JKWEdlNzN6OXdpbGFnQWZ5VzVHZ3FXbWlGcHBnTHlSRkFaUm5YQmE4YnZScGUzMU5EajhFY2JhZDNn?oc=5"
-        },
-        {
           "title": "I Finally Got a Bed Vacuum, and Now I’m Never Going to Be Without One Again (and It’s on Sale for Prime!) - Apartment Therapy",
           "source": "Google News",
           "publishedAt": "2026-10-06T07:00:00.000Z",
           "url": "https://news.google.com/rss/articles/CBMikAFBVV95cUxNbkpkQUFEYVRYc3gzc0Q0MUdkdE1pb2VORTFxbi1XbXk5OXBDYWg0Rmk3R01ZSUt6ZzNlRzRRWGR2RzRGQ09FQVNJNlZOMHk2eU9zZ0p1c1Q1dHpLbXZLZ29RcDQyX1JDZWpPME1pSlRyOG1XUTV2TlRYcDhLUWpXbFFJQkFvS09tb2YyQi1HYnE?oc=5"
+        },
+        {
+          "title": "Xiaomi's New Mijia Mite Remover 3: Fight Dust and Mites with Heat and UV for Just $30! - Gagadget.com",
+          "source": "Google News",
+          "publishedAt": "2026-10-17T12:19:44.000Z",
+          "url": "https://news.google.com/rss/articles/CBMitAFBVV95cUxQRi1DSkJqNlNtSlpFVFUtWjhXZXZpYk5EOEFDM1ZLMFJNN1BtN1ZJWUt5OHhSWFFvTHRPZ0NjSzM0d0J6SFZTTnR6eWhTYkdHU1dwSnBVTGxOZUxmQW5oS3MwYm1NS2dGbHFfMmxYXzFpU0M0X3RUeG9EYVFZSWNoaU16Wkl2eFA1amFiVlVRV2hndmJhenlkR0RsOENqMkwwamRfTUozSlFmLUpZcm5yUXdLQkvSAboBQVVfeXFMT0JIVjdoWndpa1NScWtnV1NESm03aFJMYlFaTUFYT1poZnhpYUQ1VVVyTXpLNlp1MnUzYmFTZXpvZHpoRmFmVXNyc0dMdVdBMFdfZ1BUblNBczlvUWlsSG1GS0ZQSnBMbTJjS0tNc1lZcDV2X2E4amlUanBBNnBPZ0JKWEdlNzN6OXdpbGFnQWZ5VzVHZ3FXbWlGcHBnTHlSRkFaUm5YQmE4YnZScGUzMU5EajhFY2JhZDNn?oc=5"
         },
         {
           "title": "Is a Mattress Vacuum the Allergy Solution We’ve Been Needing? I Tested One to Find Out - CNET",
@@ -155,7 +155,7 @@
       "signalScore": 74,
       "signalLabel": "high-attention",
       "evidence": {
-        "publicMentions": 35,
+        "publicMentions": 34,
         "mentionsLast7Days": 1,
         "mentionsLast30Days": 3,
         "sourcesAvailable": [
@@ -309,16 +309,16 @@
       },
       "sampleSignals": [
         {
-          "title": "This drain catcher has the best user ratings of any hair strainer for bathroom sinks, with tens of thousands of five-star reviews. Our Wirecutter testers found that it worked as advertised. https://nyti.ms/4814mzC - Facebook",
-          "source": "Google News",
-          "publishedAt": "2026-03-28T07:00:00.000Z",
-          "url": "https://news.google.com/rss/articles/CBMi0wFBVV95cUxQaU93U01HbWpRbVROOVQ3aVhKYWxUSEdKR3Bmbk5sdXotYmZNSG4ta1o5ZWUwOEp4VXBhNnJ2Wmg2NXBnSWxRVkZMNDlrRVk1OGhsR1N1dWdZZ2ZnaHl0M29ONFFvci15Q3BXQW5jOW0tRHREdWRQUFdBbDJEakZqRklkWWx5N2V1c1RkTi14dDh5ZWh4em1YM19qamNjN2ZaQmNPWEEwT2R1SzBPQzdrNXBPQmdjS2pNTlZnY0U5bzBPLU91MnhRS3ZsWVd0bEtZMjlR?oc=5"
-        },
-        {
           "title": "This drain catcher has the best user ratings of any hair strainer for bathroom sinks, with tens of thousands of five-star reviews. Our Wirecutter testers found that it worked as advertised, and it made their lives a little bit easier and a little less disgusting. https://nyti. - Facebook",
           "source": "Google News",
           "publishedAt": "2026-03-18T07:00:00.000Z",
           "url": "https://news.google.com/rss/articles/CBMi0wFBVV95cUxNVUUxVVhkcXBtZDB2ODQtYk54WmFzbk5jckdQTEJWRGlnOWJZOHY5aVhlWUVqNUNINEJVOHBCVVNlZ0tlM0VwZWYtWW9sbnBBaUxSSGd1T2lCb3piYTMwa056RHhnTVNFV25aT01rOWlSOFFZSC03MlVmZGg2MUFuMkVncDBrXzRwTGhfcG5TT195Z1BzNFhCaVlBUmNZZjlSWU9jYW8xMWRNV0R5UnJhaUdVVDFhMGJ2a3AzNmVoX1l2ODZZTlpXazhRR19XSWtxZ3kw?oc=5"
+        },
+        {
+          "title": "This drain catcher has the best user ratings of any hair strainer for bathroom sinks, with tens of thousands of five-star reviews. Our Wirecutter testers found that it worked as advertised. https://nyti.ms/4814mzC - Facebook",
+          "source": "Google News",
+          "publishedAt": "2026-03-28T07:00:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMi0wFBVV95cUxQaU93U01HbWpRbVROOVQ3aVhKYWxUSEdKR3Bmbk5sdXotYmZNSG4ta1o5ZWUwOEp4VXBhNnJ2Wmg2NXBnSWxRVkZMNDlrRVk1OGhsR1N1dWdZZ2ZnaHl0M29ONFFvci15Q3BXQW5jOW0tRHREdWRQUFdBbDJEakZqRklkWWx5N2V1c1RkTi14dDh5ZWh4em1YM19qamNjN2ZaQmNPWEEwT2R1SzBPQzdrNXBPQmdjS2pNTlZnY0U5bzBPLU91MnhRS3ZsWVd0bEtZMjlR?oc=5"
         },
         {
           "title": "7 reasons your sink won't drain – plus expert tips to unclog a sink like a pro - Homes and Gardens",
