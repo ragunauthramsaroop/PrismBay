@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-10-18T15:47:40.624Z",
+  "generatedAt": "2026-10-19T18:44:58.700Z",
   "priority": "external_traffic_to_verified_guarded_offers",
   "items": [
     {
@@ -55,12 +55,12 @@
       "status": "ready_for_authorized_scheduler",
       "mediaUrl": "https://ragunauthramsaroop.github.io/PrismBay/media/social/esg.mp4",
       "destinationUrl": "https://ragunauthramsaroop.github.io/PrismBay/learn/esg-reporting-toolkit.html?utm_source=youtube&utm_medium=shorts&utm_campaign=prismbay_external_traffic_oct2026&utm_content=esg_short_01",
-      "title": "A polished sustainability dashboard cannot repair an unverified KPI #Shorts",
+      "title": "Use the free guide first, then review the editable files listed in the toolkit #Shorts",
       "caption": "A polished sustainability dashboard cannot repair an unverified KPI. Create three basic columns today: KPI definition, evidence location and the accountable reviewer. Mark estimates and unresolved exceptions. Start with the free guide: https://ragunauthramsaroop.github.io/PrismBay/learn/esg-reporting-toolkit.html?utm_source=youtube&utm_medium=shorts&utm_campaign=prismbay_external_traffic_oct2026&utm_content=esg_short_01 Optional editable document toolkit: $99 USD one time.",
       "commercialContentOwnBrand": true,
       "madeForKids": false,
       "aiAssisted": true,
-      "strategy": "deterministic_fallback",
+      "strategy": "deliverables-led",
       "guardrails": {
         "noInventedTestimonials": true,
         "noGuaranteedResults": true,
@@ -77,12 +77,12 @@
       "status": "ready_for_authorized_scheduler",
       "mediaUrl": "https://ragunauthramsaroop.github.io/PrismBay/media/social/esg.mp4",
       "destinationUrl": "https://ragunauthramsaroop.github.io/PrismBay/learn/esg-reporting-toolkit.html?utm_source=tiktok&utm_medium=organic_video&utm_campaign=prismbay_external_traffic_oct2026&utm_content=esg_short_01",
-      "title": "A polished sustainability dashboard cannot repair an unverified KPI",
+      "title": "Use the free guide first, then review the editable files listed in the toolkit",
       "caption": "A polished sustainability dashboard cannot repair an unverified KPI. Create three basic columns today: KPI definition, evidence location and the accountable reviewer. Mark estimates and unresolved exceptions. Start with the free guide: https://ragunauthramsaroop.github.io/PrismBay/learn/esg-reporting-toolkit.html?utm_source=tiktok&utm_medium=organic_video&utm_campaign=prismbay_external_traffic_oct2026&utm_content=esg_short_01 Optional editable document toolkit: $99 USD one time.",
       "commercialContentOwnBrand": true,
       "madeForKids": false,
       "aiAssisted": true,
-      "strategy": "deterministic_fallback",
+      "strategy": "deliverables-led",
       "guardrails": {
         "noInventedTestimonials": true,
         "noGuaranteedResults": true,
@@ -143,12 +143,12 @@
       "status": "ready_for_authorized_scheduler",
       "mediaUrl": "https://ragunauthramsaroop.github.io/PrismBay/media/social/bundle.mp4",
       "destinationUrl": "https://ragunauthramsaroop.github.io/PrismBay/toolkits.html?utm_source=youtube&utm_medium=shorts&utm_campaign=prismbay_external_traffic_oct2026&utm_content=bundle_short_01",
-      "title": "Start with the free guide, test the workflow, then decide whether editable files fit the #Shorts",
+      "title": "Executive work slows down when stakeholder, ESG and board-reporting processes live in di #Shorts",
       "caption": "Executive work slows down when stakeholder, ESG and board-reporting processes live in disconnected files. Map the work into three evidence lanes: stakeholder commitments, ESG performance records and decision-grade research claims. Assign one accountable owner to each lane. Start with the free guide: https://ragunauthramsaroop.github.io/PrismBay/toolkits.html?utm_source=youtube&utm_medium=shorts&utm_campaign=prismbay_external_traffic_oct2026&utm_content=bundle_short_01 Optional editable document toolkit: $179 USD one time.",
       "commercialContentOwnBrand": true,
       "madeForKids": false,
       "aiAssisted": true,
-      "strategy": "free-guide-first",
+      "strategy": "deterministic_fallback",
       "guardrails": {
         "noInventedTestimonials": true,
         "noGuaranteedResults": true,
@@ -165,12 +165,12 @@
       "status": "ready_for_authorized_scheduler",
       "mediaUrl": "https://ragunauthramsaroop.github.io/PrismBay/media/social/bundle.mp4",
       "destinationUrl": "https://ragunauthramsaroop.github.io/PrismBay/toolkits.html?utm_source=tiktok&utm_medium=organic_video&utm_campaign=prismbay_external_traffic_oct2026&utm_content=bundle_short_01",
-      "title": "Start with the free guide, test the workflow, then decide whether editable files fit the",
+      "title": "Executive work slows down when stakeholder, ESG and board-reporting processes live in di",
       "caption": "Executive work slows down when stakeholder, ESG and board-reporting processes live in disconnected files. Map the work into three evidence lanes: stakeholder commitments, ESG performance records and decision-grade research claims. Assign one accountable owner to each lane. Start with the free guide: https://ragunauthramsaroop.github.io/PrismBay/toolkits.html?utm_source=tiktok&utm_medium=organic_video&utm_campaign=prismbay_external_traffic_oct2026&utm_content=bundle_short_01 Optional editable document toolkit: $179 USD one time.",
       "commercialContentOwnBrand": true,
       "madeForKids": false,
       "aiAssisted": true,
-      "strategy": "free-guide-first",
+      "strategy": "deterministic_fallback",
       "guardrails": {
         "noInventedTestimonials": true,
         "noGuaranteedResults": true,
@@ -239,25 +239,25 @@
       "routeAttempts": 2
     },
     "esg": {
-      "status": "invalid_output",
-      "strategy": "deterministic_fallback",
-      "model": null,
-      "routedVia": "ovh/Qwen3.8-27B",
-      "routeAttempts": 3
+      "status": "ok",
+      "strategy": "deliverables-led",
+      "model": "auto:reliable",
+      "routedVia": "kilo/poolside/laguna-s-2.1:free",
+      "routeAttempts": 2
     },
     "whitepaper": {
       "status": "ok",
       "strategy": "deliverables-led",
-      "model": "auto:fast",
-      "routedVia": "kilo/poolside/laguna-s-2.1:free",
-      "routeAttempts": 3
-    },
-    "bundle": {
-      "status": "ok",
-      "strategy": "free-guide-first",
       "model": "auto:reliable",
       "routedVia": "kilo/poolside/laguna-s-2.1:free",
       "routeAttempts": 2
+    },
+    "bundle": {
+      "status": "request_failed",
+      "strategy": "deterministic_fallback",
+      "model": null,
+      "routedVia": "kilo/dots-studio/dots-3-note-preview:free",
+      "routeAttempts": 3
     },
     "garment-steamer": {
       "status": "deterministic_guarded_physical",
@@ -278,9 +278,9 @@
     {
       "slug": "esg",
       "file": "/home/runner/work/PrismBay/PrismBay/growth-reports/external-social/esg/esg.mp4",
-      "sha256": "8e22fad7bf83ce2cee415439c4a835b258953067fdd58b972ffb5fba5e069e72",
+      "sha256": "579864db364c48bee0804a3115218a2c8bbf45a1ee1427200afa1798d995e0e7",
       "durationSeconds": 20,
-      "bytes": 214432
+      "bytes": 237090
     },
     {
       "slug": "whitepaper",
@@ -292,9 +292,9 @@
     {
       "slug": "bundle",
       "file": "/home/runner/work/PrismBay/PrismBay/growth-reports/external-social/bundle/bundle.mp4",
-      "sha256": "30c11ffb46452aafbbe078f92e096e985bc57ce3f87ba6f70c77b5a70e287ef0",
+      "sha256": "185c240a5b872b77d8d5b53384392dfcb87e70cb0e4ee5a96c0dcf4d075085fd",
       "durationSeconds": 20,
-      "bytes": 219690
+      "bytes": 207417
     },
     {
       "slug": "garment-steamer",
