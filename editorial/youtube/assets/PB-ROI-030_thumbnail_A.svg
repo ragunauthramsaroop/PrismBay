@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720">
+<defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#071B29"/><stop offset="1" stop-color="#102F3B"/></linearGradient><filter id="sh"><feDropShadow dx="0" dy="12" stdDeviation="20" flood-opacity=".28"/></filter></defs>
+<rect width="1280" height="720" fill="url(#bg)"/><rect x="44" y="44" width="1192" height="632" rx="38" fill="none" stroke="#31515B" stroke-width="3"/>
+<text x="90" y="114" font-family="DejaVu Sans,sans-serif" font-size="30" font-weight="700" fill="#B1CDD0">PRISMBAY AI / ROI LAB</text>
+<text x="90" y="250" font-family="DejaVu Sans,sans-serif" font-size="58" font-weight="700" fill="#FFFFFF">YOUR AI PILOT</text>
+<text x="90" y="330" font-family="DejaVu Sans,sans-serif" font-size="58" font-weight="700" fill="#FFFFFF">SAVED TIME.</text>
+<rect x="90" y="387" width="500" height="170" rx="26" fill="#0B4653" filter="url(#sh)"/><text x="120" y="473" font-family="DejaVu Sans,sans-serif" font-size="82" font-weight="800" fill="#7BE3CE">67 HRS</text><text x="122" y="522" font-family="DejaVu Sans,sans-serif" font-size="26" fill="#D7F9F2">CAPACITY RELEASED</text>
+<rect x="628" y="387" width="538" height="170" rx="26" fill="#613A33" filter="url(#sh)"/><text x="662" y="471" font-family="DejaVu Sans,sans-serif" font-size="73" font-weight="800" fill="#FFC18C">$0 CASH?</text><text x="662" y="521" font-family="DejaVu Sans,sans-serif" font-size="26" fill="#FBE1D0">NOT AUTOMATIC SAVINGS</text>
+<text x="90" y="631" font-family="DejaVu Sans,sans-serif" font-size="26" fill="#BDD0D3">A HYPOTHETICAL EXAMPLE</text>
+</svg>
