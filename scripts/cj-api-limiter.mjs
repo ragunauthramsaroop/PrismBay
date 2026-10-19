@@ -28,7 +28,15 @@ export function createCJReadOnlyClient({
         // Do not forward raw service/transport exceptions to public reports.
         throw new Error('CJ network request failed');
       }
-      const payload = await response.json().catch(() => ({}));
+      let payload;
+      try {
+        payload = await response.json();
+      } catch {
+        throw new Error('CJ response was not valid JSON');
+      }
+      if (!payload || typeof payload !== 'object' || Array.isArray(payload)) {
+        throw new Error('CJ response had invalid structure');
+      }
       const code = String(payload?.code ?? response.status)
         .replace(/[^0-9a-zA-Z_-]/g, '').slice(0, 15);
       if (code === '1600201') {
@@ -41,7 +49,7 @@ export function createCJReadOnlyClient({
         }
         throw new Error('CJ request failed (HTTP 429, code 1600200)');
       }
-      if (!response.ok || payload?.result === false ||
+      if (!response.ok || payload?.result === false || payload?.success === false ||
           (payload?.code !== undefined && Number(payload.code) !== 200)) {
         throw new Error('CJ request failed (HTTP ' + response.status +
           ', code ' + code + ')');
