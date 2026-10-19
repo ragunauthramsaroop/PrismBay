@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "checkedAt": "2026-10-19T10:12:29.416Z",
+  "checkedAt": "2026-10-19T11:11:40.786Z",
   "priority": "paid_sales_from_verified_existing_offers",
   "activeOffer": {
     "slug": "esg",
@@ -9,11 +9,11 @@
     "guideUrl": "https://ragunauthramsaroop.github.io/PrismBay/esg-monthly-reporting-template.html?utm_source=github_cloud&utm_medium=owned_educational_content&utm_campaign=organic_esg_82981",
     "checkoutUrl": "https://buy.stripe.com/4gMeVe8XA5hNfOq2CkgnK0r?client_reference_id=owned_content_esg"
   },
-  "positioning": "evidence-led",
+  "positioning": "baseline",
   "freeLLM": {
-    "status": "ok",
-    "workerMode": "freellmapi_guided",
-    "requestedModel": "auto:reliable"
+    "status": "invalid_output",
+    "workerMode": "deterministic_fallback",
+    "requestedModel": null
   },
   "funnelHealth": {
     "guideHttpStatus": 200,
