@@ -1,20 +1,15 @@
 import fs from 'node:fs/promises';
 import { evaluateEconomics } from './ebay-listing-worker.mjs';
+import { createCJReadOnlyClient } from './cj-api-limiter.mjs';
 
 const CJ_BASE = 'https://developers.cjdropshipping.com/api2.0/v1';
 const manifestPath = 'marketplaces/ebay/garment-steamer.json';
 const outDir = 'growth-reports/ebay';
 
-async function jsonFetch(url, options = {}) {
-  const response = await fetch(url, { ...options, signal: AbortSignal.timeout(15000) });
-  const text = await response.text();
-  let payload = {};
-  try { payload = JSON.parse(text); } catch { throw new Error(`non_json_${response.status}`); }
-  if (!response.ok || payload?.result === false || payload?.success === false) {
-    throw new Error(`cj_${response.status}_${payload?.code ?? 'unknown'}_${payload?.message ?? 'error'}`);
-  }
-  return payload;
-}
+// Reuse the audited CJ read-only client across workers. It enforces a 1.4 s
+// minimum gap and bounded 1600200/HTTP 429 retries. Quota exhaustion fails
+// closed. No CJ orders, listing publication, or payment actions are enabled.
+const jsonFetch = createCJReadOnlyClient();
 
 function clean(value, max = 200) {
   return String(value ?? '').trim().slice(0, max);
