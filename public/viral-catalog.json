@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-20T17:33:48.809Z",
+  "updatedAt": "2026-10-20T21:55:15.640Z",
   "market": "US",
   "methodology": "Public-news attention, freshness, and short-form demonstration fit. This is not PrismBay sales data and is not a TikTok, Amazon, Google, or Bing product ranking.",
   "refreshTargetHours": 6,
@@ -11,7 +11,7 @@
       "signalScore": 89.5,
       "signalLabel": "high-attention",
       "evidence": {
-        "publicMentions": 103,
+        "publicMentions": 100,
         "mentionsLast7Days": 3,
         "mentionsLast30Days": 7,
         "sourcesAvailable": [
@@ -59,7 +59,7 @@
       "signalScore": 83.5,
       "signalLabel": "high-attention",
       "evidence": {
-        "publicMentions": 107,
+        "publicMentions": 100,
         "mentionsLast7Days": 2,
         "mentionsLast30Days": 6,
         "sourcesAvailable": [
@@ -75,16 +75,16 @@
           "url": "https://news.google.com/rss/articles/CBMikAFBVV95cUxNbkpkQUFEYVRYc3gzc0Q0MUdkdE1pb2VORTFxbi1XbXk5OXBDYWg0Rmk3R01ZSUt6ZzNlRzRRWGR2RzRGQ09FQVNJNlZOMHk2eU9zZ0p1c1Q1dHpLbXZLZ29RcDQyX1JDZWpPME1pSlRyOG1XUTV2TlRYcDhLUWpXbFFJQkFvS09tb2YyQi1HYnE?oc=5"
         },
         {
-          "title": "Don't turn on your indoor heating before vacuuming your mattress — dust mite expert explains why - Tom's Guide",
-          "source": "Google News",
-          "publishedAt": "2026-10-16T11:11:41.000Z",
-          "url": "https://news.google.com/rss/articles/CBMi3AFBVV95cUxOTEJqS3pla2xJMG83MlY5TWstVlFEcEp3VV9ueXVEWU04LS1iZWY2WHItNE9NQ2ZtVE43STBqaFlMdk5TdXFpWFRlU2xMdDU4b2V0blpydE9hNnZBMjJMY0dWNWd2Y05wb0dqc2RKLWlocTE1bHZacm0zRkpISHQ2RkxYc0V0c3o3SXY1bUZMalB6VEFETzRuazFaN2UzcWFod25DY2ZyQVJ2NWNUZ0F2V24xQU11elUtWE5LSGJ1YW1SQWNzeTNPelF0NFNxSlNSRlByR0ZKemVaM2ow?oc=5"
-        },
-        {
           "title": "Is a Mattress Vacuum the Allergy Solution We’ve Been Needing? I Tested One to Find Out - CNET",
           "source": "Google News",
           "publishedAt": "2026-06-27T07:00:00.000Z",
           "url": "https://news.google.com/rss/articles/CBMisAFBVV95cUxQcmFNWEdvTUxuY1RES2k4bXh1T0U2ci1nTHBJRXVud3F4ekF2NHF4NkF4LTlKR3lRWTNObHBGcjUzOGlLNUlHNXd1dGdOQXBYcEN6QllhNGZyVDFja2h1R3AzX1hIaFk4RUpsZ3JQT05Ga2pkelRscFRTaVJ0NFhyX0c3cVllQzIxTXoyeGhKcTNvLUJuRWNLd0g3Si1mYnRoUjEzZExKZGEtUXlsVlV3dQ?oc=5"
+        },
+        {
+          "title": "Don't turn on your indoor heating before vacuuming your mattress — dust mite expert explains why - Tom's Guide",
+          "source": "Google News",
+          "publishedAt": "2026-10-16T11:11:41.000Z",
+          "url": "https://news.google.com/rss/articles/CBMi3AFBVV95cUxOTEJqS3pla2xJMG83MlY5TWstVlFEcEp3VV9ueXVEWU04LS1iZWY2WHItNE9NQ2ZtVE43STBqaFlMdk5TdXFpWFRlU2xMdDU4b2V0blpydE9hNnZBMjJMY0dWNWd2Y05wb0dqc2RKLWlocTE1bHZacm0zRkpISHQ2RkxYc0V0c3o3SXY1bUZMalB6VEFETzRuazFaN2UzcWFod25DY2ZyQVJ2NWNUZ0F2V24xQU11elUtWE5LSGJ1YW1SQWNzeTNPelF0NFNxSlNSRlByR0ZKemVaM2ow?oc=5"
         },
         {
           "title": "As a sinusitis sufferer, I implore you to consider Aldi's £19 UV mattress vacuum — it's not about bed bugs, it's about dust - TechRadar",
@@ -104,12 +104,12 @@
     {
       "slug": "garment-steamer",
       "name": "Portable Garment Steamer",
-      "signalScore": 78.5,
+      "signalScore": 74,
       "signalLabel": "high-attention",
       "evidence": {
-        "publicMentions": 34,
-        "mentionsLast7Days": 2,
-        "mentionsLast30Days": 4,
+        "publicMentions": 32,
+        "mentionsLast7Days": 1,
+        "mentionsLast30Days": 3,
         "sourcesAvailable": [
           "Google News",
           "Bing News"
@@ -123,16 +123,16 @@
           "url": "https://news.google.com/rss/articles/CBMihgFBVV95cUxQaXlNc3IwRkdxSWMwS0xGc1dQZEQyRkdjb0l6M2hvZDNual9lUHQzWm5MUS1BSHhNRzRHSGxrQm5tb3dKMXlpeS0tUlJ1TElEbWNoUkN2MGgzMnp4TjRkczE4VlQ0UmNNRy1hbWI2Y05Xa3Z3RzBkU1VpcWZ1OEdRNVgtVEl1UQ?oc=5"
         },
         {
-          "title": "Say Goodbye to Wrinkled Clothing with an Easy-to-Use Clothes Steamer — Prices Start at $31 - People.com",
-          "source": "Google News",
-          "publishedAt": "2026-05-06T07:00:00.000Z",
-          "url": "https://news.google.com/rss/articles/CBMiXEFVX3lxTE9HWkFheEdZLU5KN28wQmVlLVZWVFJZSUZpcFlSTmJLSFJJc3lacVNuUTNycF9SN0tnRmM4QnZ1SXNwcDFid3kya1RUU2J0cjEyQUxOY1N6YXI0UHI3?oc=5"
-        },
-        {
           "title": "Best travel steamers 2026: tested and reviewed for wrinkle-free packing - CN Traveller",
           "source": "Google News",
           "publishedAt": "2026-07-30T07:00:00.000Z",
           "url": "https://news.google.com/rss/articles/CBMiZkFVX3lxTE1ZRDlxanVrQ3JSeXhtdXBjS3JmVTdkQnV2LURHdldCN1BidHU0ZjhselZXRVZWLVhJUEpwaUMwTEgweU5mLVRmZnozS3dJUTk5TGZTZHctbHpmZHkySDktbE1hZ0Zsdw?oc=5"
+        },
+        {
+          "title": "Say Goodbye to Wrinkled Clothing with an Easy-to-Use Clothes Steamer — Prices Start at $31 - People.com",
+          "source": "Google News",
+          "publishedAt": "2026-05-06T07:00:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMiXEFVX3lxTE9HWkFheEdZLU5KN28wQmVlLVZWVFJZSUZpcFlSTmJLSFJJc3lacVNuUTNycF9SN0tnRmM4QnZ1SXNwcDFid3kya1RUU2J0cjEyQUxOY1N6YXI0UHI3?oc=5"
         },
         {
           "title": "10 of the best handheld steamers on the market - Vogue Australia",
@@ -152,11 +152,11 @@
     {
       "slug": "pressure-washer",
       "name": "Cordless Pressure Washer",
-      "signalScore": 74,
+      "signalScore": 71,
       "signalLabel": "high-attention",
       "evidence": {
         "publicMentions": 104,
-        "mentionsLast7Days": 1,
+        "mentionsLast7Days": 0,
         "mentionsLast30Days": 1,
         "sourcesAvailable": [
           "Google News",
@@ -309,16 +309,16 @@
       },
       "sampleSignals": [
         {
-          "title": "This drain catcher has the best user ratings of any hair strainer for bathroom sinks, with tens of thousands of five-star reviews. Our Wirecutter testers found that it worked as advertised, and it made their lives a little bit easier and a little less disgusting. https://nyti. - Facebook",
-          "source": "Google News",
-          "publishedAt": "2026-03-18T07:00:00.000Z",
-          "url": "https://news.google.com/rss/articles/CBMi0wFBVV95cUxNVUUxVVhkcXBtZDB2ODQtYk54WmFzbk5jckdQTEJWRGlnOWJZOHY5aVhlWUVqNUNINEJVOHBCVVNlZ0tlM0VwZWYtWW9sbnBBaUxSSGd1T2lCb3piYTMwa056RHhnTVNFV25aT01rOWlSOFFZSC03MlVmZGg2MUFuMkVncDBrXzRwTGhfcG5TT195Z1BzNFhCaVlBUmNZZjlSWU9jYW8xMWRNV0R5UnJhaUdVVDFhMGJ2a3AzNmVoX1l2ODZZTlpXazhRR19XSWtxZ3kw?oc=5"
-        },
-        {
           "title": "This drain catcher has the best user ratings of any hair strainer for bathroom sinks, with tens of thousands of five-star reviews. Our Wirecutter testers found that it worked as advertised. https://nyti.ms/4814mzC - Facebook",
           "source": "Google News",
           "publishedAt": "2026-03-28T07:00:00.000Z",
           "url": "https://news.google.com/rss/articles/CBMi0wFBVV95cUxQaU93U01HbWpRbVROOVQ3aVhKYWxUSEdKR3Bmbk5sdXotYmZNSG4ta1o5ZWUwOEp4VXBhNnJ2Wmg2NXBnSWxRVkZMNDlrRVk1OGhsR1N1dWdZZ2ZnaHl0M29ONFFvci15Q3BXQW5jOW0tRHREdWRQUFdBbDJEakZqRklkWWx5N2V1c1RkTi14dDh5ZWh4em1YM19qamNjN2ZaQmNPWEEwT2R1SzBPQzdrNXBPQmdjS2pNTlZnY0U5bzBPLU91MnhRS3ZsWVd0bEtZMjlR?oc=5"
+        },
+        {
+          "title": "This drain catcher has the best user ratings of any hair strainer for bathroom sinks, with tens of thousands of five-star reviews. Our Wirecutter testers found that it worked as advertised, and it made their lives a little bit easier and a little less disgusting. https://nyti. - Facebook",
+          "source": "Google News",
+          "publishedAt": "2026-03-18T07:00:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMi0wFBVV95cUxNVUUxVVhkcXBtZDB2ODQtYk54WmFzbk5jckdQTEJWRGlnOWJZOHY5aVhlWUVqNUNINEJVOHBCVVNlZ0tlM0VwZWYtWW9sbnBBaUxSSGd1T2lCb3piYTMwa056RHhnTVNFV25aT01rOWlSOFFZSC03MlVmZGg2MUFuMkVncDBrXzRwTGhfcG5TT195Z1BzNFhCaVlBUmNZZjlSWU9jYW8xMWRNV0R5UnJhaUdVVDFhMGJ2a3AzNmVoX1l2ODZZTlpXazhRR19XSWtxZ3kw?oc=5"
         },
         {
           "title": "7 reasons your sink won't drain – plus expert tips to unclog a sink like a pro - Homes and Gardens",
