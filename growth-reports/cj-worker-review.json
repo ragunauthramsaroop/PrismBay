@@ -1,6 +1,6 @@
 {
   "schemaVersion": 3,
-  "checkedAt": "2026-10-20T17:08:08.548Z",
+  "checkedAt": "2026-10-20T17:09:13.592Z",
   "market": "US",
   "authenticationVerified": true,
   "sourceCandidateCount": 12,
@@ -45,7 +45,7 @@
       "checkoutInfrastructureVerified": false,
       "checkoutAllowed": false,
       "automaticPromotionAllowed": false,
-      "observedAt": "2026-10-20T17:08:08.548Z"
+      "observedAt": "2026-10-20T17:09:13.592Z"
     },
     {
       "slug": "drain-catcher",
@@ -71,7 +71,7 @@
       "checkoutInfrastructureVerified": false,
       "checkoutAllowed": false,
       "automaticPromotionAllowed": true,
-      "observedAt": "2026-10-20T17:08:08.548Z"
+      "observedAt": "2026-10-20T17:09:13.592Z"
     },
     {
       "slug": "home-caddy",
@@ -97,7 +97,7 @@
       "checkoutInfrastructureVerified": false,
       "checkoutAllowed": false,
       "automaticPromotionAllowed": false,
-      "observedAt": "2026-10-20T17:08:08.548Z"
+      "observedAt": "2026-10-20T17:09:13.592Z"
     },
     {
       "slug": "pressure-washer",
