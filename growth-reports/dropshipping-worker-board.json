@@ -1,10 +1,10 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-10-19T22:39:42.574Z",
+  "generatedAt": "2026-10-20T04:52:09.003Z",
   "researchCandidates": 12,
   "publishedResearchSignals": 12,
   "verifiedCJStatus": {
-    "checkedAt": "2026-10-19T22:21:52.797Z",
+    "checkedAt": "2026-10-20T04:52:07.914Z",
     "validSupplierMatches": 4,
     "variantStock": 1,
     "freightEstimates": 1,
@@ -27,6 +27,27 @@
       "executionMode": "scheduled_cj_and_manual_review",
       "candidateCount": 9,
       "blockers": [
+        {
+          "slug": "scrubber",
+          "status": "supplier_search_needed",
+          "sku": null,
+          "shippingDiagnostic": null,
+          "zeroPricedMethods": 0
+        },
+        {
+          "slug": "pethair",
+          "status": "variant_stock_required",
+          "sku": "CJYD2079690",
+          "shippingDiagnostic": "variant_stock_unverified",
+          "zeroPricedMethods": 0
+        },
+        {
+          "slug": "crevice",
+          "status": "final_zip_freight_required",
+          "sku": "CJJT173147702BY",
+          "shippingDiagnostic": "priced_estimate_available",
+          "zeroPricedMethods": 0
+        },
         {
           "slug": "cordless-handheld-vacuum",
           "status": "variant_stock_required",
@@ -68,27 +89,6 @@
           "sku": null,
           "shippingDiagnostic": null,
           "zeroPricedMethods": 0
-        },
-        {
-          "slug": "scrubber",
-          "status": "supplier_search_needed",
-          "sku": null,
-          "shippingDiagnostic": null,
-          "zeroPricedMethods": 0
-        },
-        {
-          "slug": "pethair",
-          "status": "variant_stock_required",
-          "sku": "CJYD2079690",
-          "shippingDiagnostic": "variant_stock_unverified",
-          "zeroPricedMethods": 0
-        },
-        {
-          "slug": "crevice",
-          "status": "final_zip_freight_required",
-          "sku": "CJJT173147702BY",
-          "shippingDiagnostic": "priced_estimate_available",
-          "zeroPricedMethods": 0
         }
       ]
     },
@@ -108,7 +108,7 @@
       "executionMode": "existing_cloud_script",
       "reportAvailable": true,
       "storefrontStatus": 200,
-      "missingProductSchema": false
+      "missingProductSchema": true
     },
     {
       "worker": "Hook/Creative Writer",
