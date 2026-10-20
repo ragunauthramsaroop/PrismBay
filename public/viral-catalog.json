@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-19T22:39:08.687Z",
+  "updatedAt": "2026-10-20T05:22:16.024Z",
   "market": "US",
   "methodology": "Public-news attention, freshness, and short-form demonstration fit. This is not PrismBay sales data and is not a TikTok, Amazon, Google, or Bing product ranking.",
   "refreshTargetHours": 6,
@@ -8,12 +8,12 @@
     {
       "slug": "scrubber",
       "name": "5-in-1 Electric Spin Scrubber",
-      "signalScore": 89.5,
+      "signalScore": 91,
       "signalLabel": "high-attention",
       "evidence": {
-        "publicMentions": 103,
+        "publicMentions": 99,
         "mentionsLast7Days": 3,
-        "mentionsLast30Days": 7,
+        "mentionsLast30Days": 8,
         "sourcesAvailable": [
           "Google News",
           "Bing News"
@@ -59,7 +59,7 @@
       "signalScore": 83.5,
       "signalLabel": "high-attention",
       "evidence": {
-        "publicMentions": 108,
+        "publicMentions": 109,
         "mentionsLast7Days": 2,
         "mentionsLast30Days": 6,
         "sourcesAvailable": [
@@ -129,10 +129,10 @@
           "url": "https://news.google.com/rss/articles/CBMickFVX3lxTE12V2hOQ2d1Z0xiSU0ySWNYbmpaS0ZaOC1oc3QzazB3WU5oRHcxV1B1RjNhdHFmckxHc0pEdlRFUGQtN2dkUWtoTHZiQWVWSi02ZV9xTElkQ0xTNWw1MjFnakpCT0pkUTliaWh1aGVWN0RUdw?oc=5"
         },
         {
-          "title": "Does it work? Hydro X5 cordless pressure washer - KWCH",
+          "title": "Does it work? Hydro X5 cordless pressure washer - KY3",
           "source": "Google News",
           "publishedAt": "2026-08-12T07:00:00.000Z",
-          "url": "https://news.google.com/rss/articles/CBMihgFBVV95cUxNTWJJdnI5YnFKNlFnNUNhY09iVVFJZ1ZvMHJmQ2FYcEQtbU0xYmRBNzQ5Y3NrRXJ6NS04Sl9uSXBSUDJoSEh2QXVBM3VlQzQtbHdIVWl5S2dDNGxQNzYxdDFuQnQtWEFmdUpLSEU3STlaSkhLSFF3d1JxMVFxZEtZXzYzbTQ1UdIBmgFBVV95cUxPZERNWEJkcWM1a0pySUFEZC12OXE2Q1F1Q3hjSEk1Ql9SUktmSjczWG13Y0doWHV0ZkpGSm9LUnA4eEIwWFg3ZU95TVlZTDQ0WkFtSUhDWDRIY29ITmlJTUljZ3lvNHdYWXNFQ2hGQVo1djZzWkZudTZPdEJtOHJGRDV0Q2pUQkE4OG00WFh6R3ZjQ1Q2NEhldGV3?oc=5"
+          "url": "https://news.google.com/rss/articles/CBMihAFBVV95cUxPVUxYNWVJWVFYUWRES0d1Y2plUHV6b0poQ1dfOEpadkNmM3ZSbnpYZ2FiZDNQaXRRRHB1dVg4Q0ljWDJTdnM0WFJGY3dlUTRDU2x5dnptYjktcDByUnd6NDFPX3YwX3dJRDI4b1hrQ1NSU0hoLVlnVzIxTjJsVHktSUU2cHjSAZgBQVVfeXFMT1EzOF9iaGQxYzk4RUdyUGZVb0pjM0xQUGlQU3l3ZjNBSWFyS2pjQXBOOWpLY2xuS2NLSVBFdHRhWDBNdVdOdkgySHJkcHc5NXg2S3laUEdjU1A5QTdWeEJGQVExWE5DdENTaE5QbEhtWWJPdkVza2FUMjd0Qko4Mk1yR2VJeWhfaGZyTVNiUGJ2X2NEOVBYVjY?oc=5"
         },
         {
           "title": "Ego Power+ Cordless Pressure Washer Review: Powerful but Pricey - BobVila.com",
@@ -155,7 +155,7 @@
       "signalScore": 74,
       "signalLabel": "high-attention",
       "evidence": {
-        "publicMentions": 34,
+        "publicMentions": 31,
         "mentionsLast7Days": 1,
         "mentionsLast30Days": 3,
         "sourcesAvailable": [
@@ -231,16 +231,16 @@
           "url": "https://news.google.com/rss/articles/CBMivAFBVV95cUxNdDdxTXg5VTljRFBmTDlNd0VXaDV5eUJlbHp4NGxpT3RQdk1sUmVhM3RydDJ3OXJGR3dMalAxemlVYjhzT2NZZ2pLYlBSM2F0Rk1zVDNrR2x0NGJyb3FJOUNDY2x0eEVnRk90aGtvdENXX01MMUhSNTIzOEhnZHVHWHByRW1hYmpCa0tTcXc3clBKTjVNMkdkNmR4blJtYng3cVhkRTdoRHBuZEczeWNENUhST0hsY2pRcU9Udw?oc=5"
         },
         {
-          "title": "10 Best Cat Hair Remover Tools in 2026 - Reviews & Top Picks - Catster",
-          "source": "Google News",
-          "publishedAt": "2026-09-15T07:00:00.000Z",
-          "url": "https://news.google.com/rss/articles/CBMid0FVX3lxTE9TRHBxazJndGdPZkxWeW5xUGRibHc4aGJjUjBRN2tueTdCU1I1dEx2N1RXSGYteThUejc1cWlBcnNiOGhDYmNYSVVRUk0wN1djTE9Ub2VZYzV5VGJYczFLTHo2MHhWdEpXckdnX3V5U0pyOUNTVFpN?oc=5"
-        },
-        {
           "title": "10 Best Lint Rollers for Dog Hair in 2026 – Reviews & Top Picks - Dogster",
           "source": "Google News",
           "publishedAt": "2026-07-04T07:00:00.000Z",
           "url": "https://news.google.com/rss/articles/CBMic0FVX3lxTE4tU0E2SE93Q0pXbFBKY3RfaHNhWEhsVVBpOUVhVXV2SmNHSUkyeUtUNWdwNlYtWEVhcFlhdVJaZ2htTjRrZ21sY0txZmJEa3JMaml6ZnFrSWlVdFhwRGVzaFJnOF9VODllWDhQUEg1dmNYRlE?oc=5"
+        },
+        {
+          "title": "15 Pet Hair Removers That Really Work - Reader's Digest",
+          "source": "Google News",
+          "publishedAt": "2024-09-06T07:00:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMia0FVX3lxTE5GUlp0czJ0WG5JY0VlQUFxX0tUUlotdVZpVVg2SmpTYkJKanYtaEpvNlRzeHpkUk81YXJsV3o5dGVNT1BHMWhMdVZhOC1kZHA2a3ZLWFNQVTB2cng5dXpfOUhXS0VqdWd1YUhB?oc=5"
         }
       ],
       "rank": 5
@@ -309,16 +309,16 @@
       },
       "sampleSignals": [
         {
-          "title": "This drain catcher has the best user ratings of any hair strainer for bathroom sinks, with tens of thousands of five-star reviews. Our Wirecutter testers found that it worked as advertised. https://nyti.ms/4814mzC - Facebook",
-          "source": "Google News",
-          "publishedAt": "2026-03-28T07:00:00.000Z",
-          "url": "https://news.google.com/rss/articles/CBMi0wFBVV95cUxQaU93U01HbWpRbVROOVQ3aVhKYWxUSEdKR3Bmbk5sdXotYmZNSG4ta1o5ZWUwOEp4VXBhNnJ2Wmg2NXBnSWxRVkZMNDlrRVk1OGhsR1N1dWdZZ2ZnaHl0M29ONFFvci15Q3BXQW5jOW0tRHREdWRQUFdBbDJEakZqRklkWWx5N2V1c1RkTi14dDh5ZWh4em1YM19qamNjN2ZaQmNPWEEwT2R1SzBPQzdrNXBPQmdjS2pNTlZnY0U5bzBPLU91MnhRS3ZsWVd0bEtZMjlR?oc=5"
-        },
-        {
           "title": "This drain catcher has the best user ratings of any hair strainer for bathroom sinks, with tens of thousands of five-star reviews. Our Wirecutter testers found that it worked as advertised, and it made their lives a little bit easier and a little less disgusting. https://nyti. - Facebook",
           "source": "Google News",
           "publishedAt": "2026-03-18T07:00:00.000Z",
           "url": "https://news.google.com/rss/articles/CBMi0wFBVV95cUxNVUUxVVhkcXBtZDB2ODQtYk54WmFzbk5jckdQTEJWRGlnOWJZOHY5aVhlWUVqNUNINEJVOHBCVVNlZ0tlM0VwZWYtWW9sbnBBaUxSSGd1T2lCb3piYTMwa056RHhnTVNFV25aT01rOWlSOFFZSC03MlVmZGg2MUFuMkVncDBrXzRwTGhfcG5TT195Z1BzNFhCaVlBUmNZZjlSWU9jYW8xMWRNV0R5UnJhaUdVVDFhMGJ2a3AzNmVoX1l2ODZZTlpXazhRR19XSWtxZ3kw?oc=5"
+        },
+        {
+          "title": "This drain catcher has the best user ratings of any hair strainer for bathroom sinks, with tens of thousands of five-star reviews. Our Wirecutter testers found that it worked as advertised. https://nyti.ms/4814mzC - Facebook",
+          "source": "Google News",
+          "publishedAt": "2026-03-28T07:00:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMi0wFBVV95cUxQaU93U01HbWpRbVROOVQ3aVhKYWxUSEdKR3Bmbk5sdXotYmZNSG4ta1o5ZWUwOEp4VXBhNnJ2Wmg2NXBnSWxRVkZMNDlrRVk1OGhsR1N1dWdZZ2ZnaHl0M29ONFFvci15Q3BXQW5jOW0tRHREdWRQUFdBbDJEakZqRklkWWx5N2V1c1RkTi14dDh5ZWh4em1YM19qamNjN2ZaQmNPWEEwT2R1SzBPQzdrNXBPQmdjS2pNTlZnY0U5bzBPLU91MnhRS3ZsWVd0bEtZMjlR?oc=5"
         },
         {
           "title": "7 reasons your sink won't drain – plus expert tips to unclog a sink like a pro - Homes and Gardens",
