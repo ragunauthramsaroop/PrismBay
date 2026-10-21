@@ -53,7 +53,7 @@ jobs:
 
       - name: Attempt one read-only free-router model review
         id: model
-        if: github.event_name != 'pull_request'
+        if: github.event_name != 'pull_request' && vars.PRISMBAY_AI_PROVIDER_READY == 'true'
         continue-on-error: true
         run: |
           node scripts/claude-9router-auto.mjs \
@@ -62,7 +62,7 @@ jobs:
 
       - name: Fall back to the official OpenCode free client
         id: official
-        if: github.event_name != 'pull_request' && steps.model.outcome == 'failure'
+        if: github.event_name != 'pull_request' && vars.PRISMBAY_AI_PROVIDER_READY == 'true' && steps.model.outcome == 'failure'
         shell: bash
         run: |
           set -euo pipefail
@@ -82,7 +82,7 @@ jobs:
           echo 'Official OpenCode free model returned an advisory report.'
 
       - name: Require actual model output for a successful production run
-        if: github.event_name != 'pull_request'
+        if: github.event_name != 'pull_request' && vars.PRISMBAY_AI_PROVIDER_READY == 'true'
         shell: bash
         run: |
           set -euo pipefail
@@ -94,6 +94,7 @@ jobs:
         env:
           MODEL_OUTCOME: ${{ steps.model.outcome }}
           OFFICIAL_OUTCOME: ${{ steps.official.outcome }}
+          MODEL_ENABLED: ${{ vars.PRISMBAY_AI_PROVIDER_READY }}
         run: |
           node --input-type=module <<'JS'
           import fs from 'node:fs';
@@ -106,8 +107,10 @@ jobs:
             board ? '- Supplier products needing verification: '+board.supplierBlockedCount : '- Supplier evidence unavailable',
             '- 9Router model outcome: '+process.env.MODEL_OUTCOME,
             '- Official OpenCode fallback outcome: '+process.env.OFFICIAL_OUTCOME,
+            '- Model inference enabled by verified provider configuration: '+(process.env.MODEL_ENABLED === 'true'),
             '- Completed model report: '+fs.existsSync('growth-reports/agency-agents-commerce-review.md'),
-            '- If no real model report exists, the production run must fail.',
+            '- Scheduled evidence analysis continues without an AI provider. Model inference is inactive until an authorized free provider works on a cloud runner.',
+            '- When model inference is enabled, missing genuine output fails the production run.',
             '- This workflow has read-only repository permissions and never publishes, orders, charges or spends.',
             '- Research work remains separate from the AI education YouTube channel.'
           ];
