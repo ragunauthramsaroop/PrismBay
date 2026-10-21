@@ -10,12 +10,18 @@ on:
       - '.github/workflows/agency-agents-commerce-autopilot.yml'
       - 'scripts/agency-agents-commerce-brief.mjs'
       - 'scripts/agency-agents-commerce-brief.test.mjs'
+      - 'scripts/agency-agents-model-client.mjs'
+      - 'scripts/agency-agents-model-client.test.mjs'
+      - 'scripts/claude-9router-auto.mjs'
   pull_request:
     branches: [main]
     paths:
       - '.github/workflows/agency-agents-commerce-autopilot.yml'
       - 'scripts/agency-agents-commerce-brief.mjs'
       - 'scripts/agency-agents-commerce-brief.test.mjs'
+      - 'scripts/agency-agents-model-client.mjs'
+      - 'scripts/agency-agents-model-client.test.mjs'
+      - 'scripts/claude-9router-auto.mjs'
 
 permissions:
   contents: read
@@ -40,7 +46,7 @@ jobs:
           node-version: '22'
 
       - name: Verify agent permission and evidence rules
-        run: node --test scripts/agency-agents-commerce-brief.test.mjs
+        run: node --test scripts/agency-agents-commerce-brief.test.mjs scripts/agency-agents-model-client.test.mjs
 
       - name: Build six-role Agency Agents rotation brief
         run: node scripts/agency-agents-commerce-brief.mjs
@@ -48,10 +54,9 @@ jobs:
       - name: Run one free-model read-only specialist review
         id: model
         if: github.event_name != 'pull_request'
-        continue-on-error: true
         run: |
           node scripts/claude-9router-auto.mjs \
-            --prompt-file=growth-reports/agency-agents-commerce-prompt.txt \
+            --chat-prompt-file=growth-reports/agency-agents-commerce-prompt.txt \
             --output-file=growth-reports/agency-agents-commerce-review.md
 
       - name: Record advisory findings and blocked authorities
