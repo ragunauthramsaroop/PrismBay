@@ -1,0 +1,43 @@
+{
+  "asOf": "2026-10-17T20:43:39-04:00",
+  "channelId": "UCw2hs85TzIpdKwJtG-BSxzQ",
+  "handle": "@PrismBayAI",
+  "metricoolBrandId": 6945443,
+  "channelIdentityVerified": true,
+  "subscribers": 7,
+  "metricoolEvolutionViewsSumSince20260919": 494,
+  "viewMetricNote": "Sum of daily YouTube Evolution videoViews, not qualified Shorts views or qualified long-form watch hours. Missing daily values treated as unavailable rather than zero. Metricool video-level published-in-range query returned no rows.",
+  "subscribersDeltaSincePrior20261016Audit": 0,
+  "reportedViewsDeltaSincePrior20261016Audit": 1,
+  "scheduledPosts": {
+    "start": "2026-10-17",
+    "end": "2026-10-26",
+    "count": 0
+  },
+  "publishing": {
+    "state": "BLOCKED",
+    "reason": "Prior Metricool createScheduledPost was blocked by safety checks. Do not repeat identical submission. Opera list_tabs unavailable in non-interactive runtime. No new publication attempted or claimed.",
+    "nextAction": "Restore authorized YouTube Studio browser connection or a supported authenticated publisher, then recheck public uploads and schedule inventory before posting."
+  },
+  "production": {
+    "descriptFactoryProjectId": "3de30d73-71c8-4e9d-9ccf-72faf3fb5d11",
+    "descriptRunningJobs": 0,
+    "fsbOriginalShort": "public/youtube/fsb-ai-governance-three-board-tests-2026-10-16.mp4",
+    "fsbVideoStatus": "Rendered in repository, factual source verified, full video/audio QA not completed; do not publish without review.",
+    "otherShort": "PB-PROC-001-S2 audio-corrected draft remains held for narration and captions QA",
+    "longform": "PB-ROI-030 script completed; production/publishing not confirmed."
+  },
+  "editorial": {
+    "verifiedNews": "FSB 15 Oct 2026 issued 12 AI sound practices for financial institutions; three board tests are PrismBay original synthesis, not mandates.",
+    "source": "https://www.fsb.org/2026/10/fsb-finalises-sound-practices-for-the-responsible-adoption-of-artificial-intelligence-ai/",
+    "experiment": "PB-FSB-001",
+    "nextStep": "Complete audio/visual review of existing FSB video, avoid creating another duplicate governance script."
+  },
+  "monetization": {
+    "guyanaAvailability": "Guyana absent from official YPP country list; channel registration country remains unverified.",
+    "20270201NewEntry": "1000 subscribers and either 8000 qualified watch hours in 365 days or 20 million qualified Shorts views in 90 days; earlier fan funding criteria unchanged.",
+    "source": "https://support.google.com/youtube/answer/12843009"
+  },
+  "spendUSD": 0,
+  "notification": "SUPPRESSED: no new public upload, threshold, breakout attribution, new revenue or new policy risk."
+}

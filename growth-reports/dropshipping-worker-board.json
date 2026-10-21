@@ -1,10 +1,10 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-10-14T17:38:11.284Z",
+  "generatedAt": "2026-10-20T21:55:56.477Z",
   "researchCandidates": 12,
   "publishedResearchSignals": 12,
   "verifiedCJStatus": {
-    "checkedAt": "2026-10-14T17:10:56.659Z",
+    "checkedAt": "2026-10-20T21:37:52.603Z",
     "validSupplierMatches": 5,
     "variantStock": 2,
     "freightEstimates": 2,
@@ -27,6 +27,27 @@
       "executionMode": "scheduled_cj_and_manual_review",
       "candidateCount": 12,
       "blockers": [
+        {
+          "slug": "cordless-handheld-vacuum",
+          "status": "variant_stock_required",
+          "sku": "CJXC1113517",
+          "shippingDiagnostic": "variant_stock_unverified",
+          "zeroPricedMethods": 0
+        },
+        {
+          "slug": "roll-up-dish-rack",
+          "status": "supplier_search_needed",
+          "sku": null,
+          "shippingDiagnostic": null,
+          "zeroPricedMethods": 0
+        },
+        {
+          "slug": "dryer-vent-cleaner-kit",
+          "status": "supplier_search_needed",
+          "sku": null,
+          "shippingDiagnostic": null,
+          "zeroPricedMethods": 0
+        },
         {
           "slug": "mini-mop",
           "status": "supplier_search_needed",
@@ -88,27 +109,6 @@
           "status": "final_zip_freight_required",
           "sku": "CJJT173147702BY",
           "shippingDiagnostic": "priced_estimate_available",
-          "zeroPricedMethods": 0
-        },
-        {
-          "slug": "cordless-handheld-vacuum",
-          "status": "variant_stock_required",
-          "sku": "CJXC1113517",
-          "shippingDiagnostic": "variant_stock_unverified",
-          "zeroPricedMethods": 0
-        },
-        {
-          "slug": "roll-up-dish-rack",
-          "status": "supplier_search_needed",
-          "sku": null,
-          "shippingDiagnostic": null,
-          "zeroPricedMethods": 0
-        },
-        {
-          "slug": "dryer-vent-cleaner-kit",
-          "status": "supplier_search_needed",
-          "sku": null,
-          "shippingDiagnostic": null,
           "zeroPricedMethods": 0
         }
       ]

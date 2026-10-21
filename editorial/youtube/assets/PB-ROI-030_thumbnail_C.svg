@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720">
+<defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#F2F5F1"/><stop offset="1" stop-color="#DDE9E4"/></linearGradient><filter id="shadow"><feDropShadow dx="0" dy="10" stdDeviation="13" flood-opacity=".15"/></filter></defs>
+<rect width="1280" height="720" fill="url(#g)"/>
+<rect x="60" y="52" width="1160" height="616" rx="36" fill="#FFFFFF" filter="url(#shadow)"/>
+<rect x="60" y="52" width="1160" height="18" rx="9" fill="#168878"/>
+<text x="106" y="127" font-family="DejaVu Sans,sans-serif" font-size="29" font-weight="700" fill="#356A63">PRISMBAY AI / DECISION SYSTEMS</text>
+<text x="105" y="233" font-family="DejaVu Sans,sans-serif" font-size="61" font-weight="800" fill="#1B2936">SCALE OR STOP</text>
+<text x="105" y="308" font-family="DejaVu Sans,sans-serif" font-size="53" font-weight="700" fill="#1B2936">YOUR AI PILOT?</text>
+<path d="M112 371 H1167" stroke="#C6D5D1" stroke-width="4"/>
+<rect x="107" y="398" width="322" height="166" rx="22" fill="#E2F5ED" stroke="#278B6A" stroke-width="4"/>
+<rect x="478" y="398" width="322" height="166" rx="22" fill="#FFF0D9" stroke="#C58B35" stroke-width="4"/>
+<rect x="849" y="398" width="322" height="166" rx="22" fill="#FCE8E5" stroke="#BC5C52" stroke-width="4"/>
+<text x="268" y="464" text-anchor="middle" font-family="DejaVu Sans,sans-serif" font-size="42" font-weight="800" fill="#1B7153">FINANCE</text>
+<text x="639" y="464" text-anchor="middle" font-family="DejaVu Sans,sans-serif" font-size="42" font-weight="800" fill="#9D671D">QUALITY</text>
+<text x="1010" y="464" text-anchor="middle" font-family="DejaVu Sans,sans-serif" font-size="42" font-weight="800" fill="#A14540">RISK</text>
+<text x="268" y="521" text-anchor="middle" font-family="DejaVu Sans,sans-serif" font-size="26" fill="#2C6254">PROVE THE CASH</text>
+<text x="639" y="521" text-anchor="middle" font-family="DejaVu Sans,sans-serif" font-size="26" fill="#855D2B">CHECK THE ERRORS</text>
+<text x="1010" y="521" text-anchor="middle" font-family="DejaVu Sans,sans-serif" font-size="26" fill="#8B4A43">KEEP CONTROL</text>
+<text x="107" y="625" font-family="DejaVu Sans,sans-serif" font-size="24" fill="#596D71">THREE GATES. ONE DECISION.</text>
+</svg>

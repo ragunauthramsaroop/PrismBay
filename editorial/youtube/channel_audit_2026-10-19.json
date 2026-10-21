@@ -1,0 +1,41 @@
+{
+  "asOf": "2026-10-19T06:43:48-04:00",
+  "channelId": "UCw2hs85TzIpdKwJtG-BSxzQ",
+  "handle": "@PrismBayAI",
+  "metricoolBrandId": 6945443,
+  "brandChannelIdentityConfirmed": true,
+  "analytics": {
+    "subscribers": 7,
+    "reportedEvolutionViewsSince20260919": 495,
+    "changeVs20261018": 0,
+    "source": "Metricool YouTube Evolution daily videoViews sum",
+    "limitations": "Not qualified Shorts views, eligible watch hours, or reliable per-video retention. Missing rows were not treated as zero.",
+    "classification": "HOLD_INSUFFICIENT_DATA"
+  },
+  "scheduledPosts": {
+    "windowStart": "2026-10-18T00:00:00-04:00",
+    "windowEnd": "2026-10-28T23:59:59-04:00",
+    "count": 0
+  },
+  "production": {
+    "descriptProjectId": "3de30d73-71c8-4e9d-9ccf-72faf3fb5d11",
+    "activeJobs": 0,
+    "existingCompositions": 2,
+    "priority": "Finish audio and caption review on existing corrected payment-control Short before scheduling or producing duplicates."
+  },
+  "publishing": {
+    "status": "BLOCKED",
+    "metricoolBrandVerified": true,
+    "reason": "No approved public media URL for reviewed video; prior scheduling rejected; Opera tab access requires interactive user input.",
+    "newPublicUploadConfirmed": false,
+    "duplicateUploadAttempted": false
+  },
+  "policy": {
+    "currentSource": "https://support.google.com/youtube/answer/72851",
+    "futureSource": "https://support.google.com/youtube/answer/12843009",
+    "countryAvailabilitySource": "https://support.google.com/youtube/answer/7101720",
+    "countryEligibilityRisk": "Guyana not listed; channel registration not independently verified"
+  },
+  "paidAdSpendUSD": 0,
+  "notification": "SUPPRESSED: no new upload, milestone, breakout, external revenue, new policy risk, or new exhausted-alternatives blocker."
+}
