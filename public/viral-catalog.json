@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-21T12:27:45.431Z",
+  "updatedAt": "2026-10-21T17:40:52.540Z",
   "market": "US",
   "methodology": "Public-news attention, freshness, and short-form demonstration fit. This is not PrismBay sales data and is not a TikTok, Amazon, Google, or Bing product ranking.",
   "refreshTargetHours": 6,
@@ -11,7 +11,7 @@
       "signalScore": 86.5,
       "signalLabel": "high-attention",
       "evidence": {
-        "publicMentions": 97,
+        "publicMentions": 88,
         "mentionsLast7Days": 2,
         "mentionsLast30Days": 7,
         "sourcesAvailable": [
@@ -59,7 +59,7 @@
       "signalScore": 83.5,
       "signalLabel": "high-attention",
       "evidence": {
-        "publicMentions": 107,
+        "publicMentions": 106,
         "mentionsLast7Days": 2,
         "mentionsLast30Days": 6,
         "sourcesAvailable": [
@@ -102,62 +102,14 @@
       "rank": 2
     },
     {
-      "slug": "garment-steamer",
-      "name": "Portable Garment Steamer",
-      "signalScore": 75.5,
-      "signalLabel": "high-attention",
-      "evidence": {
-        "publicMentions": 32,
-        "mentionsLast7Days": 1,
-        "mentionsLast30Days": 4,
-        "sourcesAvailable": [
-          "Google News",
-          "Bing News"
-        ]
-      },
-      "sampleSignals": [
-        {
-          "title": "Portable Garment Steamers Market Size, Share | Forecast [2034] - Fortune Business Insights",
-          "source": "Google News",
-          "publishedAt": "2026-09-28T07:00:00.000Z",
-          "url": "https://news.google.com/rss/articles/CBMihgFBVV95cUxQaXlNc3IwRkdxSWMwS0xGc1dQZEQyRkdjb0l6M2hvZDNual9lUHQzWm5MUS1BSHhNRzRHSGxrQm5tb3dKMXlpeS0tUlJ1TElEbWNoUkN2MGgzMnp4TjRkczE4VlQ0UmNNRy1hbWI2Y05Xa3Z3RzBkU1VpcWZ1OEdRNVgtVEl1UQ?oc=5"
-        },
-        {
-          "title": "Say Goodbye to Wrinkled Clothing with an Easy-to-Use Clothes Steamer — Prices Start at $31 - People.com",
-          "source": "Google News",
-          "publishedAt": "2026-05-06T07:00:00.000Z",
-          "url": "https://news.google.com/rss/articles/CBMiXEFVX3lxTE9HWkFheEdZLU5KN28wQmVlLVZWVFJZSUZpcFlSTmJLSFJJc3lacVNuUTNycF9SN0tnRmM4QnZ1SXNwcDFid3kya1RUU2J0cjEyQUxOY1N6YXI0UHI3?oc=5"
-        },
-        {
-          "title": "Best travel steamers 2026: tested and reviewed for wrinkle-free packing - CN Traveller",
-          "source": "Google News",
-          "publishedAt": "2026-07-30T07:00:00.000Z",
-          "url": "https://news.google.com/rss/articles/CBMiZkFVX3lxTE1ZRDlxanVrQ3JSeXhtdXBjS3JmVTdkQnV2LURHdldCN1BidHU0ZjhselZXRVZWLVhJUEpwaUMwTEgweU5mLVRmZnozS3dJUTk5TGZTZHctbHpmZHkySDktbE1hZ0Zsdw?oc=5"
-        },
-        {
-          "title": "10 of the best handheld steamers on the market - Vogue Australia",
-          "source": "Google News",
-          "publishedAt": "2026-01-08T08:00:00.000Z",
-          "url": "https://news.google.com/rss/articles/CBMirwFBVV95cUxQdkdwdjFkSnptM0JmTmpLYWRPTjUwZEhjOEI3YTlCT2VmOG1GUVJ1dklzUnV5LTROeXJKQ3QzRnEyakRLQWRrUUhPNUJvZWZ2dlhWaXFoajlpTFkwdXhDaTZjT3M4LThxM3d4bXI0X1ZMUmtSdmZXN1A0ZkM4eWF0amE3ZkxJUEVsUXVuQlM4Zk91andHSk15YVRaUHJLN1JUVGlEc2hVajBRMlRYU0h3?oc=5"
-        },
-        {
-          "title": "The Best Travel Steamers To Keep Clothing Wrinkle-Free On The Go - Forbes",
-          "source": "Google News",
-          "publishedAt": "2024-09-13T07:00:00.000Z",
-          "url": "https://news.google.com/rss/articles/CBMiigFBVV95cUxPOEltbERZMDMtemlzdFRPSUdTZGFXLVJDTUJpWWZrMGtSLVVFMDlSWWxHS3YzSXpydFhpWUlyTmd5dTYyMTBaMEtuT1VMazI2SUxzQkhSSVZEV0tqTTdzRGhlYlZxWEw5RVhxSkpsS0xsQjA4cFNkX2Jjb1NYem04OTR0TzNnQlZ1WlE?oc=5"
-        }
-      ],
-      "rank": 3
-    },
-    {
       "slug": "pressure-washer",
       "name": "Cordless Pressure Washer",
-      "signalScore": 71,
+      "signalScore": 77,
       "signalLabel": "high-attention",
       "evidence": {
-        "publicMentions": 104,
-        "mentionsLast7Days": 0,
-        "mentionsLast30Days": 1,
+        "publicMentions": 54,
+        "mentionsLast7Days": 1,
+        "mentionsLast30Days": 3,
         "sourcesAvailable": [
           "Google News",
           "Bing News"
@@ -193,6 +145,54 @@
           "source": "Google News",
           "publishedAt": "2026-06-08T07:00:00.000Z",
           "url": "https://news.google.com/rss/articles/CBMimAFBVV95cUxNbzBEcUtteUtoajdvVFFCSnduZllqWlhURUIzR3hoMFMwMWJmZTJveUNuZ0RIbG52VzJzQmhnVlQyVU5xazFhWjI2Vzdxc2ZsNHoyRUd6NXRiWHZPcmhLMjFMZTdfLUtzaGx5eTZlamJjUzgxTDRNcVlIZXBKQ2Q0aGNlaURVeEdScE1MYUQ0aVB2Sk1CZ01iZ9IBngFBVV95cUxPU0RxNW5zeUw0ZlBvM3NoX215SFFWWElmQzRuREJUUUxfWjBma09HSjBOVGVqRC02d2NKN1BxZFdCZ2QwM19vVHZxTHdmdk92bDZUOUZNVUUwYjJreEI3dTF6aWJ5a1ZjU0VTSkU1d29Lc2hKVFNiUmo3SEtHeXRHc2dFamo1THMwbGhyRmxCbmlLdmNITFJBWWs3MmltQQ?oc=5"
+        }
+      ],
+      "rank": 3
+    },
+    {
+      "slug": "garment-steamer",
+      "name": "Portable Garment Steamer",
+      "signalScore": 75.5,
+      "signalLabel": "high-attention",
+      "evidence": {
+        "publicMentions": 31,
+        "mentionsLast7Days": 1,
+        "mentionsLast30Days": 4,
+        "sourcesAvailable": [
+          "Google News",
+          "Bing News"
+        ]
+      },
+      "sampleSignals": [
+        {
+          "title": "Portable Garment Steamers Market Size, Share | Forecast [2034] - Fortune Business Insights",
+          "source": "Google News",
+          "publishedAt": "2026-09-28T07:00:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMihgFBVV95cUxQaXlNc3IwRkdxSWMwS0xGc1dQZEQyRkdjb0l6M2hvZDNual9lUHQzWm5MUS1BSHhNRzRHSGxrQm5tb3dKMXlpeS0tUlJ1TElEbWNoUkN2MGgzMnp4TjRkczE4VlQ0UmNNRy1hbWI2Y05Xa3Z3RzBkU1VpcWZ1OEdRNVgtVEl1UQ?oc=5"
+        },
+        {
+          "title": "Say Goodbye to Wrinkled Clothing with an Easy-to-Use Clothes Steamer — Prices Start at $31 - People.com",
+          "source": "Google News",
+          "publishedAt": "2026-05-06T07:00:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMiXEFVX3lxTE9HWkFheEdZLU5KN28wQmVlLVZWVFJZSUZpcFlSTmJLSFJJc3lacVNuUTNycF9SN0tnRmM4QnZ1SXNwcDFid3kya1RUU2J0cjEyQUxOY1N6YXI0UHI3?oc=5"
+        },
+        {
+          "title": "Best travel steamers 2026: tested and reviewed for wrinkle-free packing - CN Traveller",
+          "source": "Google News",
+          "publishedAt": "2026-07-30T07:00:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMiZkFVX3lxTE1ZRDlxanVrQ3JSeXhtdXBjS3JmVTdkQnV2LURHdldCN1BidHU0ZjhselZXRVZWLVhJUEpwaUMwTEgweU5mLVRmZnozS3dJUTk5TGZTZHctbHpmZHkySDktbE1hZ0Zsdw?oc=5"
+        },
+        {
+          "title": "Amazon slashes travel clothes steamer by 40% ahead of summer trips (aff) - NationalWorld",
+          "source": "Google News",
+          "publishedAt": "2026-06-01T07:00:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMi0AFBVV95cUxPLTl5aFAxV1ZnN1N6bjcwdkF6b1FjSGJRUzFwVUF1SVhmVi1pTmVhemhPS3ZNVTNpTXNLaDJ4SGthRUtvY0trYTFvbmJmbjN1bGVFYm83YTYxNTRzYUdSYkNaNU00dE0zU095d1B6VG5SNkdCcnpTZnREX1EwQkdaZWcyRHVvZUNoQmpOZ204RFBBbmNjdm45VTBUN1hLQjNsMUJ5UVA5MGVrQlVadUVVOXVBa1gzRXBxR0QyUmltcW5GcWJSUHhnWUZNX21POHFH?oc=5"
+        },
+        {
+          "title": "10 of the best handheld steamers on the market - Vogue Australia",
+          "source": "Google News",
+          "publishedAt": "2026-01-08T08:00:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMirwFBVV95cUxQdkdwdjFkSnptM0JmTmpLYWRPTjUwZEhjOEI3YTlCT2VmOG1GUVJ1dklzUnV5LTROeXJKQ3QzRnEyakRLQWRrUUhPNUJvZWZ2dlhWaXFoajlpTFkwdXhDaTZjT3M4LThxM3d4bXI0X1ZMUmtSdmZXN1A0ZkM4eWF0amE3ZkxJUEVsUXVuQlM4Zk91andHSk15YVRaUHJLN1JUVGlEc2hVajBRMlRYU0h3?oc=5"
         }
       ],
       "rank": 4
