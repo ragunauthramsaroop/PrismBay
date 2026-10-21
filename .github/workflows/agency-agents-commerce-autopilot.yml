@@ -51,18 +51,49 @@ jobs:
       - name: Build six-role Agency Agents rotation brief
         run: node scripts/agency-agents-commerce-brief.mjs
 
-      - name: Run one free-model read-only specialist review
+      - name: Attempt one read-only free-router model review
         id: model
         if: github.event_name != 'pull_request'
+        continue-on-error: true
         run: |
           node scripts/claude-9router-auto.mjs \
             --chat-prompt-file=growth-reports/agency-agents-commerce-prompt.txt \
             --output-file=growth-reports/agency-agents-commerce-review.md
 
+      - name: Fall back to the official OpenCode free client
+        id: official
+        if: github.event_name != 'pull_request' && steps.model.outcome == 'failure'
+        shell: bash
+        run: |
+          set -euo pipefail
+          # Use the official free client, not a proxy that imitates its identity.
+          npm install --global @opencode/cli@2.0.32
+          safe_dir="$(mktemp -d)"
+          trap 'rm -rf "$safe_dir"' EXIT
+          # Disable every OpenCode tool. The model sees only the sanitized prompt.
+          printf '%s\n' '{"$schema":"https://opencode.ai/config.json","permission":"deny","share":"manual"}' > "$safe_dir/opencode.json"
+          prompt="$(cat growth-reports/agency-agents-commerce-prompt.txt)"
+          [[ -n "$prompt" ]] || { echo 'Sanitized brief is missing'; exit 1; }
+          output="$GITHUB_WORKSPACE/growth-reports/agency-agents-commerce-review.md"
+          cd "$safe_dir"
+          timeout 150s opencode run --standalone --model opencode/big-pickle "$prompt" > "$output"
+          [[ -s "$output" ]] || { echo 'OpenCode did not return a model review'; exit 1; }
+          [[ $(wc -c < "$output") -gt 80 ]] || { echo 'OpenCode reply is too short to substantiate a review'; exit 1; }
+          echo 'Official OpenCode free model returned an advisory report.'
+
+      - name: Require actual model output for a successful production run
+        if: github.event_name != 'pull_request'
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -s growth-reports/agency-agents-commerce-review.md
+          echo 'At least one read-only model route supplied a report.'
+
       - name: Record advisory findings and blocked authorities
         if: always()
         env:
           MODEL_OUTCOME: ${{ steps.model.outcome }}
+          OFFICIAL_OUTCOME: ${{ steps.official.outcome }}
         run: |
           node --input-type=module <<'JS'
           import fs from 'node:fs';
@@ -73,8 +104,10 @@ jobs:
             board ? '- Selected specialist: '+board.specialist : '- Agency evidence brief unavailable',
             board ? '- Evidence status: '+board.status : '- No advisory result',
             board ? '- Supplier products needing verification: '+board.supplierBlockedCount : '- Supplier evidence unavailable',
-            '- Free-model outcome: '+process.env.MODEL_OUTCOME,
-            '- Missing a model output means the deterministic evidence report is the only result.',
+            '- 9Router model outcome: '+process.env.MODEL_OUTCOME,
+            '- Official OpenCode fallback outcome: '+process.env.OFFICIAL_OUTCOME,
+            '- Completed model report: '+fs.existsSync('growth-reports/agency-agents-commerce-review.md'),
+            '- If no real model report exists, the production run must fail.',
             '- This workflow has read-only repository permissions and never publishes, orders, charges or spends.',
             '- Research work remains separate from the AI education YouTube channel.'
           ];
