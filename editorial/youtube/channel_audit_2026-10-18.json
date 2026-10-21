@@ -1,0 +1,86 @@
+{
+  "asOf": "2026-10-18T07:47:00-04:00",
+  "channelId": "UCw2hs85TzIpdKwJtG-BSxzQ",
+  "handle": "@PrismBayAI",
+  "metricoolBrandId": 6945443,
+  "brandChannelIdentityConfirmed": true,
+  "analytics": {
+    "subscribers": 7,
+    "reportedEvolutionViewsSince20260919": 495,
+    "caveat": "Sum of available daily Metricool YouTube Evolution videoViews, not a qualified Shorts count or eligible long-form watch hours. Missing daily rows remain unavailable.",
+    "missingEvolutionDays": [
+      "2026-09-27",
+      "2026-10-06",
+      "2026-10-07",
+      "2026-10-12",
+      "2026-10-16",
+      "2026-10-17",
+      "2026-10-18"
+    ],
+    "subscriberChangeSince20261017": 0,
+    "reportedViewChangeSince20261017": 1,
+    "videoLevelRows": 0,
+    "conclusion": "INSUFFICIENT DATA for per-video SCALE, RETEST, MODIFY, or STOP decisions."
+  },
+  "scheduledPosts": {
+    "start": "2026-10-18T00:00:00-04:00",
+    "end": "2026-11-01T23:59:59-04:00",
+    "count": 0
+  },
+  "publishing": {
+    "status": "BLOCKED",
+    "cause": "Previously attempted Metricool createScheduledPost rejected by connector safety checks. Do not retry the identical request. Opera browser tab access requests interactive input and is unavailable in this non-interactive run.",
+    "newUploadConfirmed": false,
+    "newScheduledPostsConfirmed": false,
+    "noDuplicatePostCreated": true
+  },
+  "production": {
+    "descriptProjectId": "3de30d73-71c8-4e9d-9ccf-72faf3fb5d11",
+    "descriptActiveJobs": 0,
+    "descriptCompositions": [
+      {
+        "durationSeconds": 6
+      },
+      {
+        "durationSeconds": 36.5
+      }
+    ],
+    "pendingLocalVideo": "PB-PROC-001-S2_audio_corrected.mp4",
+    "localVideoQC": {
+      "durationSeconds": 50.442,
+      "width": 1080,
+      "height": 1920,
+      "videoCodec": "h264",
+      "audioCodec": "aac",
+      "audioChannels": 1,
+      "audioSampleRateHz": 96000,
+      "longSilencePassagesSeconds": [
+        1.555,
+        1.546,
+        1.546,
+        1.49,
+        1.617,
+        1.501
+      ],
+      "visualCheck": "Eleven sampled frames show coherent original six-panel payment authorization workflow with clear headings. Static scenes persist several seconds. Narration and caption alignment remain unverified.",
+      "status": "MODIFY_OR_REVIEW_BEFORE_PUBLICATION"
+    },
+    "existingBacklog": "Prioritize complete QA and authenticated publishing route for existing original media before adding similar scripts."
+  },
+  "audienceTiming": {
+    "source": "Metricool YouTube best-time heatmap for 2026-10-18 to 2026-10-24",
+    "pattern": "Most weekday heatmap peaks cluster near 16:00 America/Guyana. Treat as timing hypothesis, not channel-specific causal proof."
+  },
+  "monetization": {
+    "eligibilityCountryRisk": "Guyana absent from official YPP availability list. Actual channel registered country unverified.",
+    "currentFullYPP": "1,000 subscribers and either 4,000 qualified public long-form watch hours in 365 days or 10M qualified Shorts views in 90 days.",
+    "from20270201NewApplicant": "1,000 subscribers and either 8,000 qualified watch hours in 365 days or 20M qualified Shorts views in 90 days.",
+    "from20270201ShortsPool": "10M qualified Shorts views in last 90 days to earn monthly Shorts Creator Pool revenue.",
+    "sources": [
+      "https://support.google.com/youtube/answer/7101720",
+      "https://support.google.com/youtube/answer/12843009"
+    ]
+  },
+  "advertisingSpendUSD": 0,
+  "notification": "SUPPRESSED: no new public upload, breakout, subscriber milestone, threshold crossing, revenue, or newly discovered policy risk."
+}

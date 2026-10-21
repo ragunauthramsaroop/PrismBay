@@ -1,0 +1,44 @@
+{
+  "experiment_id": "PB-AGENT-STOP-001",
+  "created_at": "2026-10-18",
+  "channel_id": "UCw2hs85TzIpdKwJtG-BSxzQ",
+  "handle": "@PrismBayAI",
+  "status": "script_ready_not_rendered",
+  "series": "AI Systems Under Control",
+  "hypothesis": "A concrete failure-mode hook plus a three-step shutdown demonstration will attract more qualified operations viewers than general AI-tool news",
+  "audience": "founders, operators, IT/compliance owners",
+  "hook_type": "operational_failure_question",
+  "format": "youtube_short_1080x1920",
+  "duration_target_seconds": [
+    45,
+    55
+  ],
+  "title": "Your AI Agent Needs a Kill Switch. Test These 3 Steps.",
+  "title_variants": [
+    "AI Agent Shutdown Drill: Stop the Next Wrong Email",
+    "How to Stop an AI Agent Before More Damage"
+  ],
+  "thumbnail_concept": "broken red AI AGENT → SEND connector, STOP TEST overlay",
+  "cta": "Subscribe for measurable, controlled AI workflows.",
+  "publish_time_candidate": "2026-10-21T16:00:00-04:00",
+  "publish_time_status": "candidate_only_not_scheduled",
+  "publication_blocker": "No QA-passed rendered video with accessible public media URL. Browser interaction unavailable; do not invent publication.",
+  "review_offsets_hours": [
+    6,
+    24,
+    72,
+    168
+  ],
+  "success_threshold": {
+    "primary": "72h views at least 2x median of the five most recent comparable Shorts when per-video baseline becomes available",
+    "secondary": "positive net subscriber change and no content/policy issues",
+    "fallback_if_no_per_video_data": "Track first 72h views, comments and subscriber delta; classify RETEST pending comparable baseline"
+  },
+  "classification": "PENDING",
+  "source_urls": [
+    "https://airc.nist.gov/airmf-resources/airmf/5-sec-core/",
+    "https://airc.nist.gov/airmf-resources/playbook/manage/",
+    "https://cornucopia.owasp.org/cards/AAI9"
+  ],
+  "ad_spend_usd": 0
+}
