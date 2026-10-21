@@ -107,7 +107,7 @@ jobs:
             '- 9Router model outcome: '+process.env.MODEL_OUTCOME,
             '- Official OpenCode fallback outcome: '+process.env.OFFICIAL_OUTCOME,
             '- Completed model report: '+fs.existsSync('growth-reports/agency-agents-commerce-review.md'),
-            '- If no real model report exists, the production run must fail.'
+            '- If no real model report exists, the production run must fail.',
             '- This workflow has read-only repository permissions and never publishes, orders, charges or spends.',
             '- Research work remains separate from the AI education YouTube channel.'
           ];
