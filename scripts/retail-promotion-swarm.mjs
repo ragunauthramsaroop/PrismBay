@@ -5,20 +5,23 @@ const PREFLIGHT_ROUTES = Object.freeze({
   'garment-steamer': 'https://browser-worker-production-f5b4.up.railway.app/garment-steamer/',
 });
 
+// Research and guarded preflight do not substitute for approved commercial readiness.
+// All gates fail closed when evidence is absent, stale or not explicitly true.
 const REQUIRED_PREFLIGHT_PROMOTION_GATES = [
   ['independentIdentityMatch', 'independent product identity'],
   ['variantStockVerified', 'exact variant stock'],
   ['freightEstimateVerified', 'supplier freight estimate'],
+  ['finalZipFreightVerified', 'final destination ZIP freight'],
+  ['landedCostApproved', 'approved destination-specific landed cost'],
+  ['fulfillmentReady', 'verified fulfillment route'],
   ['mediaRightsVerified', 'product media rights'],
   ['checkoutInfrastructureVerified', 'guarded checkout infrastructure'],
+  ['checkoutAllowed', 'live checkout approval'],
   ['automaticPromotionAllowed', 'promotion approval'],
+  ['preflightRouteVerified', 'independently verified live preflight route'],
 ];
 
-const REQUIRED_DIRECT_CHECKOUT_GATES = [
-  ...REQUIRED_PREFLIGHT_PROMOTION_GATES,
-  ['finalZipFreightVerified', 'final destination ZIP freight'],
-  ['checkoutAllowed', 'live checkout approval'],
-];
+const REQUIRED_DIRECT_CHECKOUT_GATES = REQUIRED_PREFLIGHT_PROMOTION_GATES;
 
 function missingFor(candidate, gates) {
   return gates
@@ -56,13 +59,20 @@ export function buildRetailPromotionSwarm({ review, workerBoard = null, reports 
   const checkedAt = review?.checkedAt || null;
   const reviewAgeHours = checkedAt ? (now - Date.parse(checkedAt)) / 36e5 : null;
   const reviewFresh = Number.isFinite(reviewAgeHours) && reviewAgeHours >= 0 && reviewAgeHours < 30;
-  const rawCandidates = reviewFresh && Array.isArray(review?.candidates) ? review.candidates : [];
+  const supplierAuthenticated = review?.authenticationVerified === true;
+  const supplierSaleReadyCount = Number.isSafeInteger(review?.saleReadyCount) && review.saleReadyCount > 0
+    ? review.saleReadyCount : 0;
+  const rawCandidates = reviewFresh && supplierAuthenticated && Array.isArray(review?.candidates)
+    ? review.candidates : [];
   const readiness = rawCandidates.map(candidateReadiness).sort((a, b) => {
     if (b.passedGates !== a.passedGates) return b.passedGates - a.passedGates;
     if (a.liveStoreProduct !== b.liveStoreProduct) return a.liveStoreProduct ? -1 : 1;
     return String(a.slug).localeCompare(String(b.slug));
   });
-  const eligible = readiness.filter(item => item.promotionEligible);
+  // Supplier totals are an upper bound, never an authorization on their own.
+  const eligible = supplierSaleReadyCount > 0
+    ? readiness.filter(item => item.promotionEligible).slice(0, supplierSaleReadyCount)
+    : [];
   const nearReady = readiness.filter(item => !item.promotionEligible).slice(0, 3);
   const activeStorefront = reports['storefront-cro-auditor']?.result?.activeStorefront || null;
   const publisher = reports.publisher?.result || null;
@@ -123,7 +133,7 @@ export function buildRetailPromotionSwarm({ review, workerBoard = null, reports 
     generatedAt: new Date(now).toISOString(),
     objective: 'First verified non-test paid PrismBay Clean order through buyer-specific live stock, ZIP freight and checkout verification.',
     reviewFresh,
-    saleReadyCount: Number(review?.saleReadyCount || 0),
+    saleReadyCount: supplierAuthenticated && reviewFresh ? supplierSaleReadyCount : 0,
     promotionEligibleCount: eligible.length,
     promotionEligible: eligible,
     nearReady,
