@@ -1,0 +1,89 @@
+name: PrismBay Agency Agents Commerce Autopilot
+
+on:
+  schedule:
+    - cron: '29 1,7,13,19 * * *'
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/agency-agents-commerce-autopilot.yml'
+      - 'scripts/agency-agents-commerce-brief.mjs'
+      - 'scripts/agency-agents-commerce-brief.test.mjs'
+  pull_request:
+    branches: [main]
+    paths:
+      - '.github/workflows/agency-agents-commerce-autopilot.yml'
+      - 'scripts/agency-agents-commerce-brief.mjs'
+      - 'scripts/agency-agents-commerce-brief.test.mjs'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: prismbay-agency-agents-advisory
+  cancel-in-progress: true
+
+jobs:
+  evidence-based-advisory:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Check out existing commerce evidence
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Verify agent permission and evidence rules
+        run: node --test scripts/agency-agents-commerce-brief.test.mjs
+
+      - name: Build six-role Agency Agents rotation brief
+        run: node scripts/agency-agents-commerce-brief.mjs
+
+      - name: Run one free-model read-only specialist review
+        id: model
+        if: github.event_name != 'pull_request'
+        continue-on-error: true
+        run: |
+          node scripts/claude-9router-auto.mjs \
+            --prompt-file=growth-reports/agency-agents-commerce-prompt.txt \
+            --output-file=growth-reports/agency-agents-commerce-review.md
+
+      - name: Record advisory findings and blocked authorities
+        if: always()
+        env:
+          MODEL_OUTCOME: ${{ steps.model.outcome }}
+        run: |
+          node --input-type=module <<'JS'
+          import fs from 'node:fs';
+          const summaryFile='growth-reports/agency-agents-commerce-brief.json';
+          const board=fs.existsSync(summaryFile) ? JSON.parse(fs.readFileSync(summaryFile,'utf8')) : null;
+          const report=[
+            '## PrismBay Agency Agents commerce advisory',
+            board ? '- Selected specialist: '+board.specialist : '- Agency evidence brief unavailable',
+            board ? '- Evidence status: '+board.status : '- No advisory result',
+            board ? '- Supplier products needing verification: '+board.supplierBlockedCount : '- Supplier evidence unavailable',
+            '- Free-model outcome: '+process.env.MODEL_OUTCOME,
+            '- Missing a model output means the deterministic evidence report is the only result.',
+            '- This workflow has read-only repository permissions and never publishes, orders, charges or spends.',
+            '- Research work remains separate from the AI education YouTube channel.'
+          ];
+          fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY, report.join('\n')+'\n');
+          JS
+
+      - name: Retain short-lived AI analysis and evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: prismbay-agency-agents-${{ github.run_id }}
+          path: |
+            growth-reports/agency-agents-commerce-brief.json
+            growth-reports/agency-agents-commerce-prompt.txt
+            growth-reports/agency-agents-commerce-review.md
+          if-no-files-found: warn
+          retention-days: 3
