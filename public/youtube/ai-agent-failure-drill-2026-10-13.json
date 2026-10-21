@@ -1,0 +1,14 @@
+{
+  "slug": "ai-agent-failure-drill-2026-10-13",
+  "title": "Your AI Agent Failed. Run This 3-Step Recovery Drill",
+  "sha256": "a705f561bb2da906ed84b1cb5b85ec6083ce16ab3f4c8c3f2d699e31e843dd70",
+  "ttsEngines": [
+    "piper"
+  ],
+  "voice": "en_US-norman-medium",
+  "voiceLicenseBasis": "Piper en_US-norman-medium public-domain LibriVox recordings; fallback eSpeak-ng",
+  "sourceAttribution": "Original PrismBay operational framework informed by NIST AI RMF Playbook Manage 4.1 and 4.3, and OWASP GenAI agent security guidance.",
+  "originalProgrammaticVisuals": true,
+  "paidSpend": 0,
+  "channelId": "UCw2hs85TzIpdKwJtG-BSxzQ"
+}

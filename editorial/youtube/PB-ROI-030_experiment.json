@@ -1,0 +1,55 @@
+{
+  "id": "PB-ROI-030",
+  "channelId": "UCw2hs85TzIpdKwJtG-BSxzQ",
+  "handle": "@PrismBayAI",
+  "brandId": 6945443,
+  "status": "pre-production, unpublished",
+  "asOf": "2026-10-19",
+  "format": "long-form",
+  "durationTargetSeconds": 595,
+  "hypothesis": "CFO-grade, demonstrable ROI math and original diagrams will generate more qualified watch time and subscriber conversion than model-announcement Shorts.",
+  "audience": "Founders, CFOs, operators, procurement and transformation leaders evaluating AI pilots",
+  "hookType": "financial contradiction",
+  "hook": "The AI assistant saved 60 hours. Which expense disappeared?",
+  "topic": "The 30-Day AI Pilot Scorecard",
+  "titleVariants": [
+    "Your AI Pilot Saved 67 Hours. Did It Save Any Money?",
+    "How to Measure AI ROI in 30 Days: A CFO-Ready Scorecard",
+    "The AI ROI Calculation Most Teams Get Wrong"
+  ],
+  "thumbnailConcepts": [
+    "67 HOURS vs $90 NET",
+    "30-DAY TEST seven-field scorecard",
+    "$2,333 SAVED crossed out vs $1,050 VERIFIED"
+  ],
+  "CTA": "PrismBay AI helps founders, operators, and executives implement practical AI business systems.",
+  "publishTime": null,
+  "publishTimeReason": "Select only after production QA and confirmed publishing route. Metricool best-time signal currently favors ~16:00 America/Guyana midweek; not a promise of results.",
+  "reviewHours": [
+    6,
+    24,
+    72,
+    168
+  ],
+  "successThresholds": {
+    "note": "Provisional because video-level long-form baseline is not yet available. Recalibrate once Studio data exists.",
+    "primary": "At 7 days, 50+ qualified long-form views and >=35% average percentage viewed, with no misleading financial claims.",
+    "secondary": "At least 1 net new subscriber attributable to the video by 7 days, where attribution is available.",
+    "safeguard": "No confirmed policy incident, false ROI arithmetic, or unsafe automation instruction."
+  },
+  "portfolioDecisionRules": {
+    "SCALE": "Both primary thresholds achieved, positive subscriber signal, and safe execution; create adjacent CFO workflow example.",
+    "RETEST": "Impressions present but title-thumbnail CTR weak relative to the channel long-form baseline; test alternative packaging.",
+    "MODIFY": "Retention falls sharply during setup or math scenes; shorten exposition and improve chart pacing.",
+    "STOP": "Poor audience response after meaningful impressions, or material policy/quality concerns."
+  },
+  "provenance": "Original hypothetical arithmetic; NIST/OECD cited for governance context only.",
+  "derivativeIds": [
+    "PB-ROI-030-S1",
+    "PB-ROI-030-S2",
+    "PB-ROI-030-S3"
+  ],
+  "source": "editorial/youtube/PB-ROI-030_longform_script.md",
+  "storyboard": "editorial/youtube/PB-ROI-030_storyboard.md",
+  "noAdSpend": true
+}
