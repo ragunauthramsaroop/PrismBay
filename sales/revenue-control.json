@@ -1,17 +1,17 @@
 {
   "schemaVersion": 1,
-  "checkedAt": "2026-10-21T07:28:55.665Z",
+  "checkedAt": "2026-10-21T12:17:05.444Z",
   "priority": "paid_sales_from_verified_existing_offers",
   "activeOffer": {
-    "slug": "esg",
-    "title": "ESG & Social Performance Operating Pack",
-    "priceUsd": 99,
-    "guideUrl": "https://ragunauthramsaroop.github.io/PrismBay/esg-monthly-reporting-template.html?utm_source=github_cloud&utm_medium=owned_educational_content&utm_campaign=organic_esg_82989",
-    "checkoutUrl": "https://buy.stripe.com/4gMeVe8XA5hNfOq2CkgnK0r?client_reference_id=owned_content_esg"
+    "slug": "whitepaper",
+    "title": "Executive White Paper & Board Briefing System",
+    "priceUsd": 79,
+    "guideUrl": "https://ragunauthramsaroop.github.io/PrismBay/board-briefing-white-paper-template.html?utm_source=github_cloud&utm_medium=owned_educational_content&utm_campaign=organic_whitepaper_82990",
+    "checkoutUrl": "https://buy.stripe.com/bJe7sMgq25hNcCe6SAgnK0s?client_reference_id=owned_content_whitepaper"
   },
   "positioning": "baseline",
   "freeLLM": {
-    "status": "invalid_output",
+    "status": "request_failed",
     "workerMode": "deterministic_fallback",
     "requestedModel": null
   },
