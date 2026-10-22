@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-21T21:59:40.165Z",
+  "updatedAt": "2026-10-22T05:25:12.409Z",
   "market": "US",
   "methodology": "Public-news attention, freshness, and short-form demonstration fit. This is not PrismBay sales data and is not a TikTok, Amazon, Google, or Bing product ranking.",
   "refreshTargetHours": 6,
@@ -11,7 +11,7 @@
       "signalScore": 86.5,
       "signalLabel": "high-attention",
       "evidence": {
-        "publicMentions": 99,
+        "publicMentions": 86,
         "mentionsLast7Days": 2,
         "mentionsLast30Days": 7,
         "sourcesAvailable": [
@@ -54,14 +54,62 @@
       "rank": 1
     },
     {
-      "slug": "mattress-vacuum",
-      "name": "Mattress Vacuum",
-      "signalScore": 83.5,
+      "slug": "pressure-washer",
+      "name": "Cordless Pressure Washer",
+      "signalScore": 77,
       "signalLabel": "high-attention",
       "evidence": {
-        "publicMentions": 106,
-        "mentionsLast7Days": 2,
-        "mentionsLast30Days": 6,
+        "publicMentions": 54,
+        "mentionsLast7Days": 1,
+        "mentionsLast30Days": 3,
+        "sourcesAvailable": [
+          "Google News",
+          "Bing News"
+        ]
+      },
+      "sampleSignals": [
+        {
+          "title": "If You'd Rather Wash Your Car Than Strip Its Paint, These Cordless Power Washers Are The Tool You Want - Popular Mechanics",
+          "source": "Google News",
+          "publishedAt": "2026-07-24T07:00:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMiggFBVV95cUxQZzA5TzBxdm5yX1RYc3RkUHpOV0FRdmF2YnV6Vk9ma3cweHFkM0xoTzAxQXo5OThsS3BVZ2hOWTdXOWVlQUZnYTBXaHZfUkRmN1BsMVc5RlR1YngtdVNIdWZfZGJpRmd0dDBuMXNJLXlFRllZREJWYktndWYyWVJJU0Zn?oc=5"
+        },
+        {
+          "title": "Does it work? Hydro X5 cordless pressure washer - KY3",
+          "source": "Google News",
+          "publishedAt": "2026-08-12T07:00:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMihAFBVV95cUxPVUxYNWVJWVFYUWRES0d1Y2plUHV6b0poQ1dfOEpadkNmM3ZSbnpYZ2FiZDNQaXRRRHB1dVg4Q0ljWDJTdnM0WFJGY3dlUTRDU2x5dnptYjktcDByUnd6NDFPX3YwX3dJRDI4b1hrQ1NSU0hoLVlnVzIxTjJsVHktSUU2cHjSAZgBQVVfeXFMT1EzOF9iaGQxYzk4RUdyUGZVb0pjM0xQUGlQU3l3ZjNBSWFyS2pjQXBOOWpLY2xuS2NLSVBFdHRhWDBNdVdOdkgySHJkcHc5NXg2S3laUEdjU1A5QTdWeEJGQVExWE5DdENTaE5QbEhtWWJPdkVza2FUMjd0Qko4Mk1yR2VJeWhfaGZyTVNiUGJ2X2NEOVBYVjY?oc=5"
+        },
+        {
+          "title": "Ego Power+ Cordless Pressure Washer Review: Powerful but Pricey - BobVila.com",
+          "source": "Google News",
+          "publishedAt": "2026-09-12T07:00:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMid0FVX3lxTE1OVkM4ZWhzQmpyUlZ5Z3Jmc3pyel9STTVDZnF1VEdHdERlM21OcUt0UFlUTlVhZG5pUWhyS2hBRTdGZHRNUjhJWGhmQ01EZGZxSXZBcXVPT0Uweno4WXdwbzluUUJYeC1ySUNQTjJXVlE3Umo1YzVN?oc=5"
+        },
+        {
+          "title": "In a Decade of Testing Pressure Washers, These Are the Smallest, Most Powerful Models Yet - The New York Times",
+          "source": "Google News",
+          "publishedAt": "2026-06-05T07:00:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMickFVX3lxTE12V2hOQ2d1Z0xiSU0ySWNYbmpaS0ZaOC1oc3QzazB3WU5oRHcxV1B1RjNhdHFmckxHc0pEdlRFUGQtN2dkUWtoTHZiQWVWSi02ZV9xTElkQ0xTNWw1MjFnakpCT0pkUTliaWh1aGVWN0RUdw?oc=5"
+        },
+        {
+          "title": "Bought a cordless pressure washer from Blinkit: Good investment overall - Team-BHP",
+          "source": "Google News",
+          "publishedAt": "2026-06-08T07:00:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMimAFBVV95cUxNbzBEcUtteUtoajdvVFFCSnduZllqWlhURUIzR3hoMFMwMWJmZTJveUNuZ0RIbG52VzJzQmhnVlQyVU5xazFhWjI2Vzdxc2ZsNHoyRUd6NXRiWHZPcmhLMjFMZTdfLUtzaGx5eTZlamJjUzgxTDRNcVlIZXBKQ2Q0aGNlaURVeEdScE1MYUQ0aVB2Sk1CZ01iZ9IBngFBVV95cUxPU0RxNW5zeUw0ZlBvM3NoX215SFFWWElmQzRuREJUUUxfWjBma09HSjBOVGVqRC02d2NKN1BxZFdCZ2QwM19vVHZxTHdmdk92bDZUOUZNVUUwYjJreEI3dTF6aWJ5a1ZjU0VTSkU1d29Lc2hKVFNiUmo3SEtHeXRHc2dFamo1THMwbGhyRmxCbmlLdmNITFJBWWs3MmltQQ?oc=5"
+        }
+      ],
+      "rank": 2
+    },
+    {
+      "slug": "mattress-vacuum",
+      "name": "Mattress Vacuum",
+      "signalScore": 73,
+      "signalLabel": "high-attention",
+      "evidence": {
+        "publicMentions": 58,
+        "mentionsLast7Days": 0,
+        "mentionsLast30Days": 3,
         "sourcesAvailable": [
           "Google News",
           "Bing News"
@@ -87,10 +135,10 @@
           "url": "https://news.google.com/rss/articles/CBMi9gFBVV95cUxOOTZqRGZuMWZJTVh2VUhXOHgzMUdhVUhjYTdxeXl6QWVqbkxCb2R2bU45Wl9ERHVFaklYajJWa0JSd2RtdDNpdksyR1IwVV9QeUUyTmcySXJvcnltUDcxazNHaF85ZzZTYnYwNy1yZ1ZjNlhIWGVBRzc2aUtKNDhBbk85UHFueGtRY2JVaXpTMzNxX3dOUl9OazRUVloyVkRscXhwQ2kxSmg4T01BVUZERGlLR3I0b0NhOFJYdVdMTE0xdVY1cjdWYi11MndYbFZZYUpPLVl0LTh2NlhDV3g4aWRYcDZydWtORU01eS1RVWhEZjNQU2c?oc=5"
         },
         {
-          "title": "Don't turn on your indoor heating before vacuuming your mattress — dust mite expert explains why - Tom's Guide",
+          "title": "Amazon’s mattress vacuum uses UV light and heat to deep clean beds - AL.com",
           "source": "Google News",
-          "publishedAt": "2026-10-16T11:11:41.000Z",
-          "url": "https://news.google.com/rss/articles/CBMi3AFBVV95cUxOTEJqS3pla2xJMG83MlY5TWstVlFEcEp3VV9ueXVEWU04LS1iZWY2WHItNE9NQ2ZtVE43STBqaFlMdk5TdXFpWFRlU2xMdDU4b2V0blpydE9hNnZBMjJMY0dWNWd2Y05wb0dqc2RKLWlocTE1bHZacm0zRkpISHQ2RkxYc0V0c3o3SXY1bUZMalB6VEFETzRuazFaN2UzcWFod25DY2ZyQVJ2NWNUZ0F2V24xQU11elUtWE5LSGJ1YW1SQWNzeTNPelF0NFNxSlNSRlByR0ZKemVaM2ow?oc=5"
+          "publishedAt": "2026-07-31T07:00:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxNbzVTWEJoMDJjVjhXZDI0Y3pidGdOVVpsYmk2b2YwNnBWN21RbnJlMFEzOFFDb0luZUpsZHQ5TEJkR0NLY1I4TE5xbXJWcGVZbjN2UE41b085WmhBNnpKQmhRSGJ3Q3FjdlRjRTR3b2pNWm8taDM1Rjkza0ZqdDlfXzZaWV9TN1dEVDNNZXZqak9oY1FoSUVxaGVXTDJHRTIwYlRiTDBrS1Q5UdIBvgFBVV95cUxQSmFCYUJJckRseEt2Ql8xalZQUHV0VVg0cldzQ0MybUUzMDlES25DWGZ3cjR2cFlPUnBDdi1VMlVyQnRRaEhfeFlfYl9LZW5qX1BEczFxZE1aYV9LZl9yTFF0N2d6ZEpLRG9DODlKdDU4NGtlUUxUc0hmQmhpWnZBeUtoU2k3OFJGOURxcE1nNENjZm43RGJjeWZ6NFN0N0NCaTR0N0VKMkVOSjlFOWJnNnA1dEh1SHIwa3lCdVFn?oc=5"
         },
         {
           "title": "Turns out you do need a mattress vacuum — here’s why I love mine - NJ.com",
@@ -99,16 +147,16 @@
           "url": "https://news.google.com/rss/articles/CBMirAFBVV95cUxORUVHTHVGWkZtVUhlMG1CSUpQUjRzM0dwTWhNem9pM3ppNkRiZjFxZzRCNkVIc0dhd3RUVU4zTU91am9UQVVYcFZsU2k5a1d1WVFFWHBFTHBpUWJaQzc5bEpxR1hUb1AyZW4wVTRRaE94OW1BYU90cUNWZkcwVzlSWW96VzdzYkZuajBkN2JqSjJzNjBkeEtjTUx6QWtmemRvRUhVT21OWmplTkhh0gHAAUFVX3lxTE95S1VXaDg0OFdlMm85aXdBSjN0aHJUTElRWEhEdlhpaWRCMDlnXzVia2p5NFpJZTEwcUZvVGhnNGJzMDR4N0NWamlXS28yMzRiME15aHdsV3RYMWZucGpRTkFVUEZYakZLeEJJR2w4b0Y1NlNOU1ZURVVsTDRyOVN1SHZyRk5COUJNbnFLbExVMEhrNkszREZJcnp3dnVDck5oZXZYMllyRlN5S3NwMmFNU0FkZ0s1YkJ2TE1EZFpYSw?oc=5"
         }
       ],
-      "rank": 2
+      "rank": 3
     },
     {
       "slug": "garment-steamer",
       "name": "Portable Garment Steamer",
-      "signalScore": 75.5,
+      "signalScore": 72.5,
       "signalLabel": "high-attention",
       "evidence": {
         "publicMentions": 32,
-        "mentionsLast7Days": 1,
+        "mentionsLast7Days": 0,
         "mentionsLast30Days": 4,
         "sourcesAvailable": [
           "Google News",
@@ -147,65 +195,17 @@
           "url": "https://news.google.com/rss/articles/CBMiigFBVV95cUxPOEltbERZMDMtemlzdFRPSUdTZGFXLVJDTUJpWWZrMGtSLVVFMDlSWWxHS3YzSXpydFhpWUlyTmd5dTYyMTBaMEtuT1VMazI2SUxzQkhSSVZEV0tqTTdzRGhlYlZxWEw5RVhxSkpsS0xsQjA4cFNkX2Jjb1NYem04OTR0TzNnQlZ1WlE?oc=5"
         }
       ],
-      "rank": 3
-    },
-    {
-      "slug": "pressure-washer",
-      "name": "Cordless Pressure Washer",
-      "signalScore": 71,
-      "signalLabel": "high-attention",
-      "evidence": {
-        "publicMentions": 103,
-        "mentionsLast7Days": 0,
-        "mentionsLast30Days": 1,
-        "sourcesAvailable": [
-          "Google News",
-          "Bing News"
-        ]
-      },
-      "sampleSignals": [
-        {
-          "title": "If You'd Rather Wash Your Car Than Strip Its Paint, These Cordless Power Washers Are The Tool You Want - Popular Mechanics",
-          "source": "Google News",
-          "publishedAt": "2026-07-24T07:00:00.000Z",
-          "url": "https://news.google.com/rss/articles/CBMiggFBVV95cUxQZzA5TzBxdm5yX1RYc3RkUHpOV0FRdmF2YnV6Vk9ma3cweHFkM0xoTzAxQXo5OThsS3BVZ2hOWTdXOWVlQUZnYTBXaHZfUkRmN1BsMVc5RlR1YngtdVNIdWZfZGJpRmd0dDBuMXNJLXlFRllZREJWYktndWYyWVJJU0Zn?oc=5"
-        },
-        {
-          "title": "Does it work? Hydro X5 cordless pressure washer - KY3",
-          "source": "Google News",
-          "publishedAt": "2026-08-12T07:00:00.000Z",
-          "url": "https://news.google.com/rss/articles/CBMihAFBVV95cUxPVUxYNWVJWVFYUWRES0d1Y2plUHV6b0poQ1dfOEpadkNmM3ZSbnpYZ2FiZDNQaXRRRHB1dVg4Q0ljWDJTdnM0WFJGY3dlUTRDU2x5dnptYjktcDByUnd6NDFPX3YwX3dJRDI4b1hrQ1NSU0hoLVlnVzIxTjJsVHktSUU2cHjSAZgBQVVfeXFMT1EzOF9iaGQxYzk4RUdyUGZVb0pjM0xQUGlQU3l3ZjNBSWFyS2pjQXBOOWpLY2xuS2NLSVBFdHRhWDBNdVdOdkgySHJkcHc5NXg2S3laUEdjU1A5QTdWeEJGQVExWE5DdENTaE5QbEhtWWJPdkVza2FUMjd0Qko4Mk1yR2VJeWhfaGZyTVNiUGJ2X2NEOVBYVjY?oc=5"
-        },
-        {
-          "title": "Ego Power+ Cordless Pressure Washer Review: Powerful but Pricey - BobVila.com",
-          "source": "Google News",
-          "publishedAt": "2026-09-12T07:00:00.000Z",
-          "url": "https://news.google.com/rss/articles/CBMid0FVX3lxTE1OVkM4ZWhzQmpyUlZ5Z3Jmc3pyel9STTVDZnF1VEdHdERlM21OcUt0UFlUTlVhZG5pUWhyS2hBRTdGZHRNUjhJWGhmQ01EZGZxSXZBcXVPT0Uweno4WXdwbzluUUJYeC1ySUNQTjJXVlE3Umo1YzVN?oc=5"
-        },
-        {
-          "title": "In a Decade of Testing Pressure Washers, These Are the Smallest, Most Powerful Models Yet - The New York Times",
-          "source": "Google News",
-          "publishedAt": "2026-06-05T07:00:00.000Z",
-          "url": "https://news.google.com/rss/articles/CBMickFVX3lxTE12V2hOQ2d1Z0xiSU0ySWNYbmpaS0ZaOC1oc3QzazB3WU5oRHcxV1B1RjNhdHFmckxHc0pEdlRFUGQtN2dkUWtoTHZiQWVWSi02ZV9xTElkQ0xTNWw1MjFnakpCT0pkUTliaWh1aGVWN0RUdw?oc=5"
-        },
-        {
-          "title": "Bought a cordless pressure washer from Blinkit: Good investment overall - Team-BHP",
-          "source": "Google News",
-          "publishedAt": "2026-06-08T07:00:00.000Z",
-          "url": "https://news.google.com/rss/articles/CBMimAFBVV95cUxNbzBEcUtteUtoajdvVFFCSnduZllqWlhURUIzR3hoMFMwMWJmZTJveUNuZ0RIbG52VzJzQmhnVlQyVU5xazFhWjI2Vzdxc2ZsNHoyRUd6NXRiWHZPcmhLMjFMZTdfLUtzaGx5eTZlamJjUzgxTDRNcVlIZXBKQ2Q0aGNlaURVeEdScE1MYUQ0aVB2Sk1CZ01iZ9IBngFBVV95cUxPU0RxNW5zeUw0ZlBvM3NoX215SFFWWElmQzRuREJUUUxfWjBma09HSjBOVGVqRC02d2NKN1BxZFdCZ2QwM19vVHZxTHdmdk92bDZUOUZNVUUwYjJreEI3dTF6aWJ5a1ZjU0VTSkU1d29Lc2hKVFNiUmo3SEtHeXRHc2dFamo1THMwbGhyRmxCbmlLdmNITFJBWWs3MmltQQ?oc=5"
-        }
-      ],
       "rank": 4
     },
     {
       "slug": "pethair",
       "name": "Reusable Pet Hair Remover",
-      "signalScore": 45.5,
-      "signalLabel": "watch",
+      "signalScore": 50,
+      "signalLabel": "active",
       "evidence": {
         "publicMentions": 11,
-        "mentionsLast7Days": 1,
-        "mentionsLast30Days": 2,
+        "mentionsLast7Days": 2,
+        "mentionsLast30Days": 3,
         "sourcesAvailable": [
           "Google News",
           "Bing News"
@@ -217,6 +217,12 @@
           "source": "Google News",
           "publishedAt": "2026-10-20T13:31:02.000Z",
           "url": "https://news.google.com/rss/articles/CBMimAFBVV95cUxNS1JPT1c5cVFpZFV5T25hU0kzenpnaDM4STZzQWo4Qk9aQXZTc2NSZFlTSmtLS1RCNlpodEt6cWZlNVNQS0d1cVlaQmViZVJpUkpXTmcyb3o0OEh3Y3pLVUtQZnJVZ08td2g3NV9YdkRTVmkxWFJvX1lBdXdKSUVKTUNWSTNybXpQMmZEVnMyOUlYV2xIZ3d5dw?oc=5"
+        },
+        {
+          "title": "10 Best Cat Hair Remover Tools in 2026 - Reviews & Top Picks - Catster",
+          "source": "Google News",
+          "publishedAt": "2026-10-18T19:36:22.000Z",
+          "url": "https://news.google.com/rss/articles/CBMid0FVX3lxTE9TRHBxazJndGdPZkxWeW5xUGRibHc4aGJjUjBRN2tueTdCU1I1dEx2N1RXSGYteThUejc1cWlBcnNiOGhDYmNYSVVRUk0wN1djTE9Ub2VZYzV5VGJYczFLTHo2MHhWdEpXckdnX3V5U0pyOUNTVFpN?oc=5"
         },
         {
           "title": "The 10 Best Pet Hair Removers We Tested, Including Laundry Sheets and Lint Rollers - People.com",
@@ -235,12 +241,6 @@
           "source": "Google News",
           "publishedAt": "2026-05-26T07:00:00.000Z",
           "url": "https://news.google.com/rss/articles/CBMivAFBVV95cUxNdDdxTXg5VTljRFBmTDlNd0VXaDV5eUJlbHp4NGxpT3RQdk1sUmVhM3RydDJ3OXJGR3dMalAxemlVYjhzT2NZZ2pLYlBSM2F0Rk1zVDNrR2x0NGJyb3FJOUNDY2x0eEVnRk90aGtvdENXX01MMUhSNTIzOEhnZHVHWHByRW1hYmpCa0tTcXc3clBKTjVNMkdkNmR4blJtYng3cVhkRTdoRHBuZEczeWNENUhST0hsY2pRcU9Udw?oc=5"
-        },
-        {
-          "title": "10 Best Lint Rollers for Dog Hair in 2026 – Reviews & Top Picks - Dogster",
-          "source": "Google News",
-          "publishedAt": "2026-07-04T07:00:00.000Z",
-          "url": "https://news.google.com/rss/articles/CBMic0FVX3lxTE4tU0E2SE93Q0pXbFBKY3RfaHNhWEhsVVBpOUVhVXV2SmNHSUkyeUtUNWdwNlYtWEVhcFlhdVJaZ2htTjRrZ21sY0txZmJEa3JMaml6ZnFrSWlVdFhwRGVzaFJnOF9VODllWDhQUEg1dmNYRlE?oc=5"
         }
       ],
       "rank": 5
