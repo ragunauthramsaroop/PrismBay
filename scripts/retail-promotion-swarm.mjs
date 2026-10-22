@@ -5,19 +5,27 @@ const PREFLIGHT_ROUTES = Object.freeze({
   'garment-steamer': 'https://browser-worker-production-f5b4.up.railway.app/garment-steamer/',
 });
 
+// Public promotion is withheld until all commercial and fulfillment gates are evidenced.
+// Candidate flags alone never authorize public distribution; the supplier review must
+// also be authenticated, fresh and independently report sale-ready inventory.
 const REQUIRED_PREFLIGHT_PROMOTION_GATES = [
   ['independentIdentityMatch', 'independent product identity'],
+  ['activeSupplierListingVerified', 'active supplier listing'],
   ['variantStockVerified', 'exact variant stock'],
   ['freightEstimateVerified', 'supplier freight estimate'],
-  ['mediaRightsVerified', 'product media rights'],
+  ['finalZipFreightVerified', 'final buyer-destination freight'],
+  ['landedCostApproved', 'approved landed cost'],
+  ['fulfillmentReady', 'verified fulfillment route'],
+  ['mediaRightsVerified', 'original or rights-cleared product media'],
   ['checkoutInfrastructureVerified', 'guarded checkout infrastructure'],
+  ['checkoutAllowed', 'live checkout approval'],
   ['automaticPromotionAllowed', 'promotion approval'],
+  ['verifiedPreflightRoute', 'live verified preflight route'],
 ];
 
 const REQUIRED_DIRECT_CHECKOUT_GATES = [
   ...REQUIRED_PREFLIGHT_PROMOTION_GATES,
-  ['finalZipFreightVerified', 'final destination ZIP freight'],
-  ['checkoutAllowed', 'live checkout approval'],
+  ['verifiedCheckoutRoute', 'verified direct checkout route'],
 ];
 
 function missingFor(candidate, gates) {
@@ -29,10 +37,11 @@ function missingFor(candidate, gates) {
 export function candidateReadiness(candidate = {}) {
   const preflightUrl = PREFLIGHT_ROUTES[candidate.slug] || null;
   const missingPreflight = missingFor(candidate, REQUIRED_PREFLIGHT_PROMOTION_GATES);
-  if (!preflightUrl) missingPreflight.push({ field: 'verifiedPreflightRoute', label: 'verified preflight route' });
+  if (!preflightUrl) missingPreflight.push({ field: 'supportedPreflightRoute', label: 'supported preflight route' });
   const missingDirectCheckout = missingFor(candidate, REQUIRED_DIRECT_CHECKOUT_GATES);
-  const passed = REQUIRED_PREFLIGHT_PROMOTION_GATES.length + 1 - missingPreflight.length;
-  const directPassed = REQUIRED_DIRECT_CHECKOUT_GATES.length - missingDirectCheckout.length;
+  if (!preflightUrl) missingDirectCheckout.push({ field: 'supportedPreflightRoute', label: 'supported preflight route' });
+  const passed = Math.max(0, REQUIRED_PREFLIGHT_PROMOTION_GATES.length + 1 - missingPreflight.length);
+  const directPassed = Math.max(0, REQUIRED_DIRECT_CHECKOUT_GATES.length + 1 - missingDirectCheckout.length);
   return {
     slug: candidate.slug || null,
     candidate: candidate.candidate || null,
@@ -42,7 +51,7 @@ export function candidateReadiness(candidate = {}) {
     passedGates: passed,
     totalGates: REQUIRED_PREFLIGHT_PROMOTION_GATES.length + 1,
     readinessPct: Math.round((passed / (REQUIRED_PREFLIGHT_PROMOTION_GATES.length + 1)) * 100),
-    directCheckoutReadinessPct: Math.round((directPassed / REQUIRED_DIRECT_CHECKOUT_GATES.length) * 100),
+    directCheckoutReadinessPct: Math.round((directPassed / (REQUIRED_DIRECT_CHECKOUT_GATES.length + 1)) * 100),
     missing: missingPreflight,
     missingPreflight,
     missingDirectCheckout,
@@ -62,8 +71,10 @@ export function buildRetailPromotionSwarm({ review, workerBoard = null, reports 
     if (a.liveStoreProduct !== b.liveStoreProduct) return a.liveStoreProduct ? -1 : 1;
     return String(a.slug).localeCompare(String(b.slug));
   });
-  const eligible = readiness.filter(item => item.promotionEligible);
-  const nearReady = readiness.filter(item => !item.promotionEligible).slice(0, 3);
+  const supplierApproved = reviewFresh && review?.authenticationVerified === true &&
+    Number.isSafeInteger(review?.saleReadyCount) && review.saleReadyCount > 0;
+  const eligible = supplierApproved ? readiness.filter(item => item.promotionEligible) : [];
+  const nearReady = readiness.filter(item => !eligible.includes(item)).slice(0, 3);
   const activeStorefront = reports['storefront-cro-auditor']?.result?.activeStorefront || null;
   const publisher = reports.publisher?.result || null;
   const analytics = reports['analytics-reviewer']?.result || null;
