@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "checkedAt": "2026-10-22T04:21:44.952Z",
+  "checkedAt": "2026-10-22T05:20:02.733Z",
   "priority": "paid_sales_from_verified_existing_offers",
   "activeOffer": {
     "slug": "stakeholder",
@@ -9,11 +9,11 @@
     "guideUrl": "https://ragunauthramsaroop.github.io/PrismBay/stakeholder-engagement-plan-template.html?utm_source=github_cloud&utm_medium=owned_educational_content&utm_campaign=organic_stakeholder_82992",
     "checkoutUrl": "https://buy.stripe.com/4gM8wQ1v8dOj45Ib8QgnK0q?client_reference_id=owned_content_stakeholder"
   },
-  "positioning": "baseline",
+  "positioning": "evidence-led",
   "freeLLM": {
-    "status": "invalid_output",
-    "workerMode": "deterministic_fallback",
-    "requestedModel": null
+    "status": "ok",
+    "workerMode": "freellmapi_guided",
+    "requestedModel": "auto:fast"
   },
   "funnelHealth": {
     "guideHttpStatus": 200,
