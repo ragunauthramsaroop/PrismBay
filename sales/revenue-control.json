@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "checkedAt": "2026-10-22T14:39:44.132Z",
+  "checkedAt": "2026-10-22T15:35:16.735Z",
   "priority": "paid_sales_from_verified_existing_offers",
   "activeOffer": {
     "slug": "whitepaper",
@@ -13,7 +13,7 @@
   "freeLLM": {
     "status": "ok",
     "workerMode": "freellmapi_guided",
-    "requestedModel": "auto:fast"
+    "requestedModel": "auto:reliable"
   },
   "funnelHealth": {
     "guideHttpStatus": 200,
