@@ -1,19 +1,19 @@
 {
   "schemaVersion": 1,
-  "checkedAt": "2026-10-22T10:34:13.262Z",
+  "checkedAt": "2026-10-22T14:39:44.132Z",
   "priority": "paid_sales_from_verified_existing_offers",
   "activeOffer": {
-    "slug": "esg",
-    "title": "ESG & Social Performance Operating Pack",
-    "priceUsd": 99,
-    "guideUrl": "https://ragunauthramsaroop.github.io/PrismBay/esg-monthly-reporting-template.html?utm_source=github_cloud&utm_medium=owned_educational_content&utm_campaign=organic_esg_82993",
-    "checkoutUrl": "https://buy.stripe.com/4gMeVe8XA5hNfOq2CkgnK0r?client_reference_id=owned_content_esg"
+    "slug": "whitepaper",
+    "title": "Executive White Paper & Board Briefing System",
+    "priceUsd": 79,
+    "guideUrl": "https://ragunauthramsaroop.github.io/PrismBay/board-briefing-white-paper-template.html?utm_source=github_cloud&utm_medium=owned_educational_content&utm_campaign=organic_whitepaper_82994",
+    "checkoutUrl": "https://buy.stripe.com/bJe7sMgq25hNcCe6SAgnK0s?client_reference_id=owned_content_whitepaper"
   },
   "positioning": "evidence-led",
   "freeLLM": {
     "status": "ok",
     "workerMode": "freellmapi_guided",
-    "requestedModel": "auto:reliable"
+    "requestedModel": "auto:fast"
   },
   "funnelHealth": {
     "guideHttpStatus": 200,
