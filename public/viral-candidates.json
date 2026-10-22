@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-21T08:54:17.866Z",
+  "updatedAt": "2026-10-22T08:56:34.087Z",
   "market": "US",
   "supplierIntegration": "awaiting-cj-auth",
   "methodology": "Public attention and recency identify candidates. Supplier promotion requires verified US inventory and product-level checks. Freight and checkout creation occur only after supplier validation.",
@@ -9,22 +9,28 @@
       "slug": "cordless-handheld-vacuum",
       "name": "Cordless Handheld Vacuum",
       "query": "cordless handheld vacuum",
-      "attentionScore": 93.9,
+      "attentionScore": 99.5,
       "attentionLabel": "high-attention",
       "evidence": {
         "publicMentions": 103,
-        "mentionsLast7Days": 2,
-        "mentionsLast30Days": 9,
+        "mentionsLast7Days": 4,
+        "mentionsLast30Days": 10,
         "sourcesAvailable": [
           "Google News",
           "Bing News"
         ],
         "sampleSignals": [
           {
-            "title": "This Handheld Vacuum Is 80% Off at Amazon - People.com",
+            "title": "Amazon's Choice Shark pet vacuum is 20% off and selling fast - USA Today",
             "source": "Google News",
-            "publishedAt": "2026-10-04T07:00:00.000Z",
-            "url": "https://news.google.com/rss/articles/CBMijwFBVV95cUxPdHhLX21KR0ltRWJlTGMwMXJjOFJSaTY5NldZSTBqRERyQ3cxbWZEM24zZXR5SS1kbkxCOUNBT1Q0Z2RfM19jRlB1OXRnaHJFRmE2UkgtU2dLT2hUQzdSZTJYUDlnSi1YLXZjRWc2SHJNY0d1d0FfUEZrY1N0SzBtWTBsZE5PMlRsckpDaTlxNA?oc=5"
+            "publishedAt": "2026-10-21T16:00:00.000Z",
+            "url": "https://news.google.com/rss/articles/CBMi1gFBVV95cUxQa2N3NUFFQWlpbWN3SEp3aDRJZDUwZE03Ml9JbGlZYTI5dC1WR0FzNDk0M05lenozcHhQQ25ZZ2tsWkZRRWJJUFZUeHl4bFlVcG5fQUFOand1alVuSXptYUhibjJkd1FCMEF5X0wtSzBQakd0MUdwMGZLVWNOVkJPZ1RPMUNpSThib0hpNEs5VDdobnZGaVhWMVkyRGJfMWFXRDJKdjNyQ0hhQkhUd2owRGhvVmFpd0lTQ1pUYnRFaGtNUXZKSjdLYzl1ZFl2NC1YQU45MEVn?oc=5"
+          },
+          {
+            "title": "Amazon's Choice Shark pet vacuum is 20% off and selling fast - AOL.com",
+            "source": "Google News",
+            "publishedAt": "2026-10-21T16:00:32.000Z",
+            "url": "https://news.google.com/rss/articles/CBMigAFBVV95cUxOT2Z3Tm1wQm1ZRGh0T0MzOEhXa1kydGRaRXRyTS16bnQwS0lValZ6emN0dnVJNDNyQkZKSlBGbmZ3SjBQRmtxLVhVcG9VUTRjdldhTkt5TTh5RDZFSEZqWmpNbnQ4eEYzejFqampfRWlwSEtENkZ0elJGWV9hOHRCbA?oc=5"
           },
           {
             "title": "Handy Little Suckers, Aren’t They? These Are Our 4 Favorite Handheld Vacs. - The New York Times",
@@ -37,12 +43,6 @@
             "source": "Google News",
             "publishedAt": "2026-07-20T07:00:00.000Z",
             "url": "https://news.google.com/rss/articles/CBMi6wFBVV95cUxQd0diVGlZVTdZMm9BN1JwaUtxR1NuNTV0UDhyei1uSE5qdndvNmR3WS1IZnBfVk9QRHZwYW1mUnl2RHVSRThTSUV6NC1KZHZ3aGZSZ2wtV2hnbDBzbGpnQkJBZmxDQWpfUm1td1ViOFhMSmxiUkswOW5Eb0lQbXVkQndOWVpncjRDOG5JQ3UxRTZIdkNJYkF0cWFjYzd2dkhSZVJhUmxZZ0xMS1hWS2t6TDFicHV3OUtlTm9JSENsNkE0TklsZGtHeWRCbWkyREdoeXA5V1FPbUs1ODZCYUctVjhRTjYyMVl2LU5R?oc=5"
-          },
-          {
-            "title": "These 5 Car Vacuums Banish Dirt, Crumbs, and More From Your Vehicle - Better Homes & Gardens",
-            "source": "Google News",
-            "publishedAt": "2026-10-14T07:00:00.000Z",
-            "url": "https://news.google.com/rss/articles/CBMiUEFVX3lxTFBaN1V0TmZxdmQxVUxoMm1GdktxUHBIbHdIMmJ1cUluejZ6bGh6RWNFblFuSlA3TkM2TUZ4UnpBcmxjdnNoM0FhQTloMjlScG5K?oc=5"
           }
         ]
       },
@@ -64,7 +64,7 @@
       "attentionScore": 76.9,
       "attentionLabel": "high-attention",
       "evidence": {
-        "publicMentions": 25,
+        "publicMentions": 26,
         "mentionsLast7Days": 2,
         "mentionsLast30Days": 3,
         "sourcesAvailable": [
@@ -73,16 +73,16 @@
         ],
         "sampleSignals": [
           {
-            "title": "I Finally Found a Solution for Storing My Bulky Fall Sweaters — and It’s on Sale for $7 Apiece at Amazon - People.com",
-            "source": "Google News",
-            "publishedAt": "2026-10-21T07:00:00.000Z",
-            "url": "https://news.google.com/rss/articles/CBMieEFVX3lxTFBZaHFIb3JMaHdnQXV3WF9JY3dILVNJWGExMV9sVWo3dU9XbGhZejVxMTNoallNX1E5d1VPZmpJNW9rb3g1VFpKd2FQUGpxS1ptZGFDd2ZMejRfNHJsd0RsbkhjSzkyZll0RURnN0FmbmN3UDc2cGdzWA?oc=5"
-          },
-          {
             "title": "There’s No Such Thing as ‘Too Many Purses’ — You Just Need This $10 Hanging Closet Organizer to Corral Them - People.com",
             "source": "Google News",
             "publishedAt": "2026-10-20T02:30:00.000Z",
             "url": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxOYjBORVJFdTNwbm10ZjVwcGRlT05YaUhOS0lLdW9QQ2RfNmVRSWlzRldURGdMZ0pOM3lPVUdzOVFHS3MtY3ZYdndnVG5WclFnOG43NkpsdURISTNuTVJobjRGYVpkM0lpTGIwbEtEZ1FhbUpWUEt4SDhJdjEwVU5lMXhBWmdnam1T?oc=5"
+          },
+          {
+            "title": "I Finally Found a Solution for Storing My Bulky Fall Sweaters — and It’s on Sale for $7 Apiece at Amazon - شبكة تواصل الإخبارية",
+            "source": "Google News",
+            "publishedAt": "2026-10-21T07:03:15.000Z",
+            "url": "https://news.google.com/rss/articles/CBMiU0FVX3lxTE9rQU8tMWVyWUctcVByOTAzT2U1dGJrZWRXazJKY1NjdnAxT0dORDhXSExHTEIyZjB0alVCQ3M5cnlYLUlrWmhwVFphY28tZDh3aV80?oc=5"
           },
           {
             "title": "Amazon's 'Space-Saving' Hanging Organizer Is a 'Game-Changer' for Small Closets, Now $14 During Prime Day - Parade Magazine",
@@ -108,58 +108,6 @@
       "discoveryEvidence": [],
       "nextAction": "connect-cj",
       "rank": 2
-    },
-    {
-      "slug": "dryer-vent-cleaner-kit",
-      "name": "Dryer Vent Cleaner Kit",
-      "query": "dryer vent cleaner kit",
-      "attentionScore": 74.1,
-      "attentionLabel": "high-attention",
-      "evidence": {
-        "publicMentions": 48,
-        "mentionsLast7Days": 0,
-        "mentionsLast30Days": 3,
-        "sourcesAvailable": [
-          "Google News",
-          "Bing News"
-        ],
-        "sampleSignals": [
-          {
-            "title": "Dryer fires are a major household hazard. This 'must-have' vent cleaner helps prevent them — it's under $20 - Yahoo Lifestyle Canada",
-            "source": "Google News",
-            "publishedAt": "2026-08-11T07:00:00.000Z",
-            "url": "https://news.google.com/rss/articles/CBMi2wFBVV95cUxPNHlsSk1uanVvSjRscmNoSkxIZVVMZjlsMmFDaXc3VEpUUzBjd1d2UGlwRnRuSE9XNXhvVXhQUW9tOXdEU1BjUFFFU0Jrc19mTFZzbTcxLTV5bzFIaUx5RU1YMGZEZFVQTUlyUWR4U1NWVWZsNUZQbk9UWjhMaktnb19LNFJ5bVcyMWM2b3F5S3FnLWROQ1IwTzhHZUgydUhwb2hPRlpFQUo5ZjFTMVVLTzFsYmluWGNvNkZRSHB1bThZX0NzX0JVMnNfNWJRVUY5Y2ZCLUV0bGJqTW8?oc=5"
-          },
-          {
-            "title": "The Best Dryer Vent Cleaning Kits of 2026, Tested By Experts - BobVila.com",
-            "source": "Google News",
-            "publishedAt": "2026-01-28T08:00:00.000Z",
-            "url": "https://news.google.com/rss/articles/CBMicEFVX3lxTE1YY1R3S1Vab08tdnA5S2FGUWV6TVVqTDhKQnpGQzVKdlhpZ19WVTM1WnVYRkZKV1VqWFBWcXVVbFJ0OFpVRW5DVVMzNGVWRWhMVEpyUEd1NzFnNVlHb3dGMTVzZVQtNU5tUlVtSm4tNVo?oc=5"
-          },
-          {
-            "title": "It's Time To Clean Your Dryer Vent, And This Tool Can Help - HuffPost",
-            "source": "Google News",
-            "publishedAt": "2026-06-16T07:00:00.000Z",
-            "url": "https://news.google.com/rss/articles/CBMijAFBVV95cUxORnlBbE1CY2UzX1FoY2w5U3F3UDJ4TWF5QUJVWnVPWlFtbVlmSzVWcldnN1lNbElXejYwUUYxdGw4aTJIRl9ZWERlVkZaMUNtS1FYczd5V19JczVMWFkySGtrWUlqOGRyb0E5aHZRY3V0UjJkdXR2TDZYV2x1S3p2d3dMRW5acEJ2MXp1edIBkgFBVV95cUxOMExETk9DQUY4eHdFN3VCZlJkZjBUTkRkbi15SjdPMTViNmxIVDYwRE52Z0lmSDlLOFlPLVVQUzlPUTd6b3ZtNW94UHJCRjM1TXA2M3V6LXBlRnJ4TGViQTlIdFN2X1Q1TlI1TEFNVnltLWZjSWtnZWk2dTM0MXZpY0tPT09OalZCV0NKSWh1NG9SUQ?oc=5"
-          },
-          {
-            "title": "Clever laundry hacks that make life easier — tried and tested by our editors - AOL.com",
-            "source": "Google News",
-            "publishedAt": "2026-10-13T17:56:17.000Z",
-            "url": "https://news.google.com/rss/articles/CBMiugFBVV95cUxOb3ZCVDQydFgyaDlGQ0RDTFhnZFcxb2U1VkNGeVY3cGliU3NWMGpjUzRCWGVmTmt3NEJ6THNENXFJYldoXzBpZDlTSWRYX2gxU0V0VWZhclpnVEQzclpLV1hTZ0VXcVpjaVFSd05PbnRGSEZGWDJSYl84NXVubllzRy1INEZHTTF6XzB6Ulg3akJ5V3FHWGNYNFQ2SV9OMnhiRG9ubmYtb09PZndLMHJYQmFMbnhOWUZBZ1E?oc=5"
-          }
-        ]
-      },
-      "supplier": null,
-      "supplierReady": false,
-      "freightReady": false,
-      "promotionReady": false,
-      "mediaRightsReady": false,
-      "liveStripePricingReady": false,
-      "listed": false,
-      "discoveryEvidence": [],
-      "nextAction": "connect-cj",
-      "rank": 3
     },
     {
       "slug": "roll-up-dish-rack",
@@ -211,18 +159,70 @@
       "listed": false,
       "discoveryEvidence": [],
       "nextAction": "connect-cj",
+      "rank": 3
+    },
+    {
+      "slug": "dryer-vent-cleaner-kit",
+      "name": "Dryer Vent Cleaner Kit",
+      "query": "dryer vent cleaner kit",
+      "attentionScore": 70.4,
+      "attentionLabel": "high-attention",
+      "evidence": {
+        "publicMentions": 48,
+        "mentionsLast7Days": 0,
+        "mentionsLast30Days": 1,
+        "sourcesAvailable": [
+          "Google News",
+          "Bing News"
+        ],
+        "sampleSignals": [
+          {
+            "title": "Dryer fires are a major household hazard. This 'must-have' vent cleaner helps prevent them — it's under $20 - Yahoo Lifestyle Canada",
+            "source": "Google News",
+            "publishedAt": "2026-08-11T07:00:00.000Z",
+            "url": "https://news.google.com/rss/articles/CBMi2wFBVV95cUxPNHlsSk1uanVvSjRscmNoSkxIZVVMZjlsMmFDaXc3VEpUUzBjd1d2UGlwRnRuSE9XNXhvVXhQUW9tOXdEU1BjUFFFU0Jrc19mTFZzbTcxLTV5bzFIaUx5RU1YMGZEZFVQTUlyUWR4U1NWVWZsNUZQbk9UWjhMaktnb19LNFJ5bVcyMWM2b3F5S3FnLWROQ1IwTzhHZUgydUhwb2hPRlpFQUo5ZjFTMVVLTzFsYmluWGNvNkZRSHB1bThZX0NzX0JVMnNfNWJRVUY5Y2ZCLUV0bGJqTW8?oc=5"
+          },
+          {
+            "title": "The Best Dryer Vent Cleaning Kits of 2026, Tested By Experts - BobVila.com",
+            "source": "Google News",
+            "publishedAt": "2026-01-28T08:00:00.000Z",
+            "url": "https://news.google.com/rss/articles/CBMicEFVX3lxTE1YY1R3S1Vab08tdnA5S2FGUWV6TVVqTDhKQnpGQzVKdlhpZ19WVTM1WnVYRkZKV1VqWFBWcXVVbFJ0OFpVRW5DVVMzNGVWRWhMVEpyUEd1NzFnNVlHb3dGMTVzZVQtNU5tUlVtSm4tNVo?oc=5"
+          },
+          {
+            "title": "It's Time To Clean Your Dryer Vent, And This Tool Can Help - HuffPost",
+            "source": "Google News",
+            "publishedAt": "2026-06-16T07:00:00.000Z",
+            "url": "https://news.google.com/rss/articles/CBMijAFBVV95cUxORnlBbE1CY2UzX1FoY2w5U3F3UDJ4TWF5QUJVWnVPWlFtbVlmSzVWcldnN1lNbElXejYwUUYxdGw4aTJIRl9ZWERlVkZaMUNtS1FYczd5V19JczVMWFkySGtrWUlqOGRyb0E5aHZRY3V0UjJkdXR2TDZYV2x1S3p2d3dMRW5acEJ2MXp1edIBkgFBVV95cUxOMExETk9DQUY4eHdFN3VCZlJkZjBUTkRkbi15SjdPMTViNmxIVDYwRE52Z0lmSDlLOFlPLVVQUzlPUTd6b3ZtNW94UHJCRjM1TXA2M3V6LXBlRnJ4TGViQTlIdFN2X1Q1TlI1TEFNVnltLWZjSWtnZWk2dTM0MXZpY0tPT09OalZCV0NKSWh1NG9SUQ?oc=5"
+          },
+          {
+            "title": "Sealegend Dryer Vent Cleaning Vacuum Hose Review: My Dryer Is So Much Cleaner Now - Dengarden",
+            "source": "Google News",
+            "publishedAt": "2026-01-27T08:00:00.000Z",
+            "url": "https://news.google.com/rss/articles/CBMiugFBVV95cUxOREpad2RpUUhyM2tUcEROY21oU3JNOVMxaTJXMzUtb25YY3ZJd08wdXpDRzh5RTVlT3I4YzVHQWhSQXowTF9CaEY1cWhQWC16NVdQa19hNjByeXV5OGtsazZ5aE9LeWRBSjJfTFNYREd5dHQtS2phWUo4bnlfaF92U1h0ZlQxQVdrVWdEa3F0WGFfWFZINWI3ajNONHQxV1N3M0UzY0RxXzItRnBaVWJyMVljVXdFRGZpc0E?oc=5"
+          }
+        ]
+      },
+      "supplier": null,
+      "supplierReady": false,
+      "freightReady": false,
+      "promotionReady": false,
+      "mediaRightsReady": false,
+      "liveStripePricingReady": false,
+      "listed": false,
+      "discoveryEvidence": [],
+      "nextAction": "connect-cj",
       "rank": 4
     },
     {
       "slug": "appliance-cord-organizer",
       "name": "Appliance Cord Organizer",
       "query": "appliance cord organizer",
-      "attentionScore": 38.1,
-      "attentionLabel": "research",
+      "attentionScore": 34.4,
+      "attentionLabel": "low-signal",
       "evidence": {
-        "publicMentions": 9,
+        "publicMentions": 8,
         "mentionsLast7Days": 0,
-        "mentionsLast30Days": 1,
+        "mentionsLast30Days": 0,
         "sourcesAvailable": [
           "Google News",
           "Bing News"
@@ -269,10 +269,10 @@
       "slug": "bottle-brush-set",
       "name": "Bottle Brush Cleaning Set",
       "query": "bottle brush cleaning set",
-      "attentionScore": 31.8,
+      "attentionScore": 30,
       "attentionLabel": "low-signal",
       "evidence": {
-        "publicMentions": 6,
+        "publicMentions": 5,
         "mentionsLast7Days": 0,
         "mentionsLast30Days": 0,
         "sourcesAvailable": [
