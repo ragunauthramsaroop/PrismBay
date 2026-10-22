@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "checkedAt": "2026-10-22T22:40:17.080Z",
+  "checkedAt": "2026-10-22T22:42:13.364Z",
   "priority": "paid_sales_from_verified_existing_offers",
   "activeOffer": {
     "slug": "bundle",
@@ -11,7 +11,7 @@
   },
   "positioning": "baseline",
   "freeLLM": {
-    "status": "http_502",
+    "status": "invalid_output",
     "workerMode": "deterministic_fallback",
     "requestedModel": null
   },
