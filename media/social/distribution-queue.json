@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-10-21T23:59:01.945Z",
+  "generatedAt": "2026-10-22T19:08:38.383Z",
   "priority": "external_traffic_to_verified_guarded_offers",
   "items": [
     {
@@ -11,12 +11,12 @@
       "status": "ready_for_authorized_scheduler",
       "mediaUrl": "https://ragunauthramsaroop.github.io/PrismBay/media/social/stakeholder.mp4",
       "destinationUrl": "https://ragunauthramsaroop.github.io/PrismBay/learn/stakeholder-mapping-toolkit.html?utm_source=youtube&utm_medium=shorts&utm_campaign=prismbay_external_traffic_oct2026&utm_content=stakeholder_short_01",
-      "title": "A contact list is not a follow-through plan #Shorts",
+      "title": "Start with the free guide, test the workflow, then decide whether editable files fit the #Shorts",
       "caption": "A contact list is not a follow-through plan. Start with a free commitments register: record the exact promise, who approved it, the due date and evidence of closure. Start with the free guide: https://ragunauthramsaroop.github.io/PrismBay/learn/stakeholder-mapping-toolkit.html?utm_source=youtube&utm_medium=shorts&utm_campaign=prismbay_external_traffic_oct2026&utm_content=stakeholder_short_01 Optional editable document toolkit: $49 USD one time.",
       "commercialContentOwnBrand": true,
       "madeForKids": false,
       "aiAssisted": true,
-      "strategy": "deterministic_fallback",
+      "strategy": "free-guide-first",
       "guardrails": {
         "noInventedTestimonials": true,
         "noGuaranteedResults": true,
@@ -33,12 +33,12 @@
       "status": "ready_for_authorized_scheduler",
       "mediaUrl": "https://ragunauthramsaroop.github.io/PrismBay/media/social/stakeholder.mp4",
       "destinationUrl": "https://ragunauthramsaroop.github.io/PrismBay/learn/stakeholder-mapping-toolkit.html?utm_source=tiktok&utm_medium=organic_video&utm_campaign=prismbay_external_traffic_oct2026&utm_content=stakeholder_short_01",
-      "title": "A contact list is not a follow-through plan",
+      "title": "Start with the free guide, test the workflow, then decide whether editable files fit the",
       "caption": "A contact list is not a follow-through plan. Start with a free commitments register: record the exact promise, who approved it, the due date and evidence of closure. Start with the free guide: https://ragunauthramsaroop.github.io/PrismBay/learn/stakeholder-mapping-toolkit.html?utm_source=tiktok&utm_medium=organic_video&utm_campaign=prismbay_external_traffic_oct2026&utm_content=stakeholder_short_01 Optional editable document toolkit: $49 USD one time.",
       "commercialContentOwnBrand": true,
       "madeForKids": false,
       "aiAssisted": true,
-      "strategy": "deterministic_fallback",
+      "strategy": "free-guide-first",
       "guardrails": {
         "noInventedTestimonials": true,
         "noGuaranteedResults": true,
@@ -99,12 +99,12 @@
       "status": "ready_for_authorized_scheduler",
       "mediaUrl": "https://ragunauthramsaroop.github.io/PrismBay/media/social/whitepaper.mp4",
       "destinationUrl": "https://ragunauthramsaroop.github.io/PrismBay/learn/board-briefing-white-paper-system.html?utm_source=youtube&utm_medium=shorts&utm_campaign=prismbay_external_traffic_oct2026&utm_content=whitepaper_short_01",
-      "title": "A convincing report is not the same as a defensible one #Shorts",
+      "title": "Start with evidence you can trace before the next review #Shorts",
       "caption": "A convincing report is not the same as a defensible one. Start a claim ledger with the source, date, methodology, reviewer and what could change the conclusion. Start with the free guide: https://ragunauthramsaroop.github.io/PrismBay/learn/board-briefing-white-paper-system.html?utm_source=youtube&utm_medium=shorts&utm_campaign=prismbay_external_traffic_oct2026&utm_content=whitepaper_short_01 Optional editable document toolkit: $79 USD one time.",
       "commercialContentOwnBrand": true,
       "madeForKids": false,
       "aiAssisted": true,
-      "strategy": "deterministic_fallback",
+      "strategy": "evidence-led",
       "guardrails": {
         "noInventedTestimonials": true,
         "noGuaranteedResults": true,
@@ -121,12 +121,12 @@
       "status": "ready_for_authorized_scheduler",
       "mediaUrl": "https://ragunauthramsaroop.github.io/PrismBay/media/social/whitepaper.mp4",
       "destinationUrl": "https://ragunauthramsaroop.github.io/PrismBay/learn/board-briefing-white-paper-system.html?utm_source=tiktok&utm_medium=organic_video&utm_campaign=prismbay_external_traffic_oct2026&utm_content=whitepaper_short_01",
-      "title": "A convincing report is not the same as a defensible one",
+      "title": "Start with evidence you can trace before the next review",
       "caption": "A convincing report is not the same as a defensible one. Start a claim ledger with the source, date, methodology, reviewer and what could change the conclusion. Start with the free guide: https://ragunauthramsaroop.github.io/PrismBay/learn/board-briefing-white-paper-system.html?utm_source=tiktok&utm_medium=organic_video&utm_campaign=prismbay_external_traffic_oct2026&utm_content=whitepaper_short_01 Optional editable document toolkit: $79 USD one time.",
       "commercialContentOwnBrand": true,
       "madeForKids": false,
       "aiAssisted": true,
-      "strategy": "deterministic_fallback",
+      "strategy": "evidence-led",
       "guardrails": {
         "noInventedTestimonials": true,
         "noGuaranteedResults": true,
@@ -143,12 +143,12 @@
       "status": "ready_for_authorized_scheduler",
       "mediaUrl": "https://ragunauthramsaroop.github.io/PrismBay/media/social/bundle.mp4",
       "destinationUrl": "https://ragunauthramsaroop.github.io/PrismBay/toolkits.html?utm_source=youtube&utm_medium=shorts&utm_campaign=prismbay_external_traffic_oct2026&utm_content=bundle_short_01",
-      "title": "Turn a one-off task into a repeatable documented process #Shorts",
+      "title": "Start with evidence you can trace before the next review #Shorts",
       "caption": "Executive work slows down when stakeholder, ESG and board-reporting processes live in disconnected files. Map the work into three evidence lanes: stakeholder commitments, ESG performance records and decision-grade research claims. Assign one accountable owner to each lane. Start with the free guide: https://ragunauthramsaroop.github.io/PrismBay/toolkits.html?utm_source=youtube&utm_medium=shorts&utm_campaign=prismbay_external_traffic_oct2026&utm_content=bundle_short_01 Optional editable document toolkit: $179 USD one time.",
       "commercialContentOwnBrand": true,
       "madeForKids": false,
       "aiAssisted": true,
-      "strategy": "workflow-led",
+      "strategy": "evidence-led",
       "guardrails": {
         "noInventedTestimonials": true,
         "noGuaranteedResults": true,
@@ -165,12 +165,12 @@
       "status": "ready_for_authorized_scheduler",
       "mediaUrl": "https://ragunauthramsaroop.github.io/PrismBay/media/social/bundle.mp4",
       "destinationUrl": "https://ragunauthramsaroop.github.io/PrismBay/toolkits.html?utm_source=tiktok&utm_medium=organic_video&utm_campaign=prismbay_external_traffic_oct2026&utm_content=bundle_short_01",
-      "title": "Turn a one-off task into a repeatable documented process",
+      "title": "Start with evidence you can trace before the next review",
       "caption": "Executive work slows down when stakeholder, ESG and board-reporting processes live in disconnected files. Map the work into three evidence lanes: stakeholder commitments, ESG performance records and decision-grade research claims. Assign one accountable owner to each lane. Start with the free guide: https://ragunauthramsaroop.github.io/PrismBay/toolkits.html?utm_source=tiktok&utm_medium=organic_video&utm_campaign=prismbay_external_traffic_oct2026&utm_content=bundle_short_01 Optional editable document toolkit: $179 USD one time.",
       "commercialContentOwnBrand": true,
       "madeForKids": false,
       "aiAssisted": true,
-      "strategy": "workflow-led",
+      "strategy": "evidence-led",
       "guardrails": {
         "noInventedTestimonials": true,
         "noGuaranteedResults": true,
@@ -232,31 +232,31 @@
   ],
   "freeLLM": {
     "stakeholder": {
-      "status": "invalid_output",
-      "strategy": "deterministic_fallback",
-      "model": null,
-      "routedVia": "ovh/Qwen3.8-27B",
-      "routeAttempts": 3
+      "status": "ok",
+      "strategy": "free-guide-first",
+      "model": "auto:reliable",
+      "routedVia": "kilo/poolside/laguna-s-2.1:free",
+      "routeAttempts": 2
     },
     "esg": {
       "status": "ok",
       "strategy": "evidence-led",
       "model": "auto:reliable",
-      "routedVia": "ovh/Qwen3.6-27B",
+      "routedVia": "ovh/Meta-Llama-3_3-70B-Instruct",
       "routeAttempts": 2
     },
     "whitepaper": {
-      "status": "invalid_output",
-      "strategy": "deterministic_fallback",
-      "model": null,
-      "routedVia": "kilo/dots-studio/dots-3-note-preview:free",
-      "routeAttempts": 3
+      "status": "ok",
+      "strategy": "evidence-led",
+      "model": "auto:reliable",
+      "routedVia": "kilo/kilo-auto/free",
+      "routeAttempts": 2
     },
     "bundle": {
       "status": "ok",
-      "strategy": "workflow-led",
+      "strategy": "evidence-led",
       "model": "auto:reliable",
-      "routedVia": "aihorde/koboldcpp/Gemma-4-E4B-Uncensored-HauhauCS-Aggressive-Q4_K_M",
+      "routedVia": "ovh/gpt-oss-120b",
       "routeAttempts": 2
     },
     "garment-steamer": {
@@ -271,9 +271,9 @@
     {
       "slug": "stakeholder",
       "file": "/home/runner/work/PrismBay/PrismBay/growth-reports/external-social/stakeholder/stakeholder.mp4",
-      "sha256": "e9f63205e4fc82f70d741a93c8be00b494ab39c49eed4b693b47e5cbc1c87b96",
+      "sha256": "3ef8b529e1cacddeabaa6536c51aa8e6aedcc5b4c61629c514151b0e91a497f5",
       "durationSeconds": 20,
-      "bytes": 201947
+      "bytes": 219298
     },
     {
       "slug": "esg",
@@ -285,16 +285,16 @@
     {
       "slug": "whitepaper",
       "file": "/home/runner/work/PrismBay/PrismBay/growth-reports/external-social/whitepaper/whitepaper.mp4",
-      "sha256": "536e5426e6fcee0e13642be3582a75a934fae57569f9990c466e0ef1c734cb5d",
+      "sha256": "af22c1b80fd2a156a71c8e978164f64cae45506d72cde50f7dfe0ae35f408a53",
       "durationSeconds": 20,
-      "bytes": 214997
+      "bytes": 216022
     },
     {
       "slug": "bundle",
       "file": "/home/runner/work/PrismBay/PrismBay/growth-reports/external-social/bundle/bundle.mp4",
-      "sha256": "d129379449947e118035facc4fc9174939357d5c2596493c05493be105e9d849",
+      "sha256": "e85207f9cfc6b1f2e49fba6ad30bb34c9502988356fd8ec0849375e14e7b1dbd",
       "durationSeconds": 20,
-      "bytes": 219360
+      "bytes": 218576
     },
     {
       "slug": "garment-steamer",
