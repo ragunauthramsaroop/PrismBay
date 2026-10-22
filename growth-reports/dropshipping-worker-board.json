@@ -1,10 +1,10 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-10-21T22:01:31.879Z",
+  "generatedAt": "2026-10-22T04:47:46.147Z",
   "researchCandidates": 12,
   "publishedResearchSignals": 12,
   "verifiedCJStatus": {
-    "checkedAt": "2026-10-21T21:43:36.460Z",
+    "checkedAt": "2026-10-22T04:47:44.759Z",
     "validSupplierMatches": 6,
     "variantStock": 3,
     "freightEstimates": 3,
@@ -25,8 +25,29 @@
       "action": "Investigate specific catalog SKUs, incorrect product matches and incomplete stock evidence.",
       "state": "review_required",
       "executionMode": "scheduled_cj_and_manual_review",
-      "candidateCount": 13,
+      "candidateCount": 12,
       "blockers": [
+        {
+          "slug": "scrubber",
+          "status": "supplier_search_needed",
+          "sku": null,
+          "shippingDiagnostic": null,
+          "zeroPricedMethods": 0
+        },
+        {
+          "slug": "pethair",
+          "status": "variant_stock_required",
+          "sku": "CJYD2079690",
+          "shippingDiagnostic": "variant_stock_unverified",
+          "zeroPricedMethods": 0
+        },
+        {
+          "slug": "crevice",
+          "status": "final_zip_freight_required",
+          "sku": "CJJT173147702BY",
+          "shippingDiagnostic": "priced_estimate_available",
+          "zeroPricedMethods": 0
+        },
         {
           "slug": "cordless-handheld-vacuum",
           "status": "variant_stock_required",
@@ -89,34 +110,6 @@
           "sku": "CJYD245844002BY",
           "shippingDiagnostic": "priced_estimate_available",
           "zeroPricedMethods": 0
-        },
-        {
-          "slug": "scrubber",
-          "status": "supplier_search_needed",
-          "sku": null,
-          "shippingDiagnostic": null,
-          "zeroPricedMethods": 0
-        },
-        {
-          "slug": "pethair",
-          "status": "variant_stock_required",
-          "sku": "CJYD2079690",
-          "shippingDiagnostic": "variant_stock_unverified",
-          "zeroPricedMethods": 0
-        },
-        {
-          "slug": "crevice",
-          "status": "final_zip_freight_required",
-          "sku": "CJJT173147702BY",
-          "shippingDiagnostic": "priced_estimate_available",
-          "zeroPricedMethods": 0
-        },
-        {
-          "slug": "roll-up-dish-rack",
-          "status": "supplier_search_needed",
-          "sku": null,
-          "shippingDiagnostic": null,
-          "zeroPricedMethods": 0
         }
       ]
     },
@@ -136,7 +129,7 @@
       "executionMode": "existing_cloud_script",
       "reportAvailable": true,
       "storefrontStatus": 200,
-      "missingProductSchema": false
+      "missingProductSchema": true
     },
     {
       "worker": "Hook/Creative Writer",
