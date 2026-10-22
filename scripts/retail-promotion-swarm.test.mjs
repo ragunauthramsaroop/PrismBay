@@ -17,12 +17,9 @@ test('blocked product without rights or a verified preflight route never becomes
   });
   assert.equal(item.promotionEligible, false);
   assert.equal(item.directCheckoutEligible, false);
-  assert.deepEqual(item.missing.map(x => x.field), [
-    'mediaRightsVerified',
-    'checkoutInfrastructureVerified',
-    'automaticPromotionAllowed',
-    'verifiedPreflightRoute',
-  ]);
+  for (const field of ['mediaRightsVerified', 'checkoutInfrastructureVerified', 'automaticPromotionAllowed', 'finalZipFreightVerified', 'landedCostApproved', 'fulfillmentReady', 'verifiedPreflightRoute']) {
+    assert.ok(item.missing.some(x => x.field === field), field);
+  }
 });
 
 test('garment steamer can be promoted to guarded preflight without pre-known buyer ZIP or direct checkout release', () => {
