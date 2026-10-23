@@ -12,11 +12,11 @@ test('selects only exact approved on-sale product identity',()=>{
 test('bounded supplier portfolio deduplicates product ids and preserves inventory priority',()=>{
  const c={slug:'crevice'};
  const rows=[
-  {id:'p1',nameEn:'Bottle Gap Cleaner Brush',saleStatus:'3',sellPrice:2,totalVerifiedInventory:100},
-  {id:'p1',nameEn:'Bottle Gap Cleaner Brush',saleStatus:'3',sellPrice:2,totalVerifiedInventory:90},
-  {id:'p2',nameEn:'Crevice Gap Cleaning Brush',saleStatus:'3',sellPrice:2.5,totalVerifiedInventory:80},
-  {id:'p3',nameEn:'Water Bottle Gap Cleaner Brush',saleStatus:'3',sellPrice:3,totalVerifiedInventory:70},
-  {id:'p4',nameEn:'Bottle Gap Cleaner Brush',saleStatus:'3',sellPrice:3,totalVerifiedInventory:60},
+  {id:'p1',nameEn:'3-in-1 Bottle Gap Cleaner Brush',saleStatus:'3',sellPrice:2,totalVerifiedInventory:100},
+  {id:'p1',nameEn:'3-in-1 Bottle Gap Cleaner Brush',saleStatus:'3',sellPrice:2,totalVerifiedInventory:90},
+  {id:'p2',nameEn:'3-in-1 Crevice Gap Cleaning Brush',saleStatus:'3',sellPrice:2.5,totalVerifiedInventory:80},
+  {id:'p3',nameEn:'3-in-1 Water Bottle Gap Cleaner Brush',saleStatus:'3',sellPrice:3,totalVerifiedInventory:70},
+  {id:'p4',nameEn:'3-in-1 Bottle Gap Cleaner Brush',saleStatus:'3',sellPrice:3,totalVerifiedInventory:60},
  ];
  assert.deepEqual(chooseProducts(rows,c,3).map(x=>x.id),['p1','p2','p3']);
 });
@@ -36,7 +36,7 @@ test('normalizes a known CJ product lookup and rejects an echoed SKU mismatch',(
 
 test('known product lookup accepts missing SKU echo only when identity name and product id still pass',()=>{
  const c={slug:'drain-catcher',exactSupplierSku:'CJCF1653868'};
- const row=normalizeKnownProduct({data:{pid:'p3',productNameEn:'Silicone Sink Drain Filter Hair Catcher',saleStatus:'3'}},c);
+ const row=normalizeKnownProduct({data:{pid:'p3',productNameEn:'2PCS Silicone Sink Drain Filter Hair Catcher',saleStatus:'3'}},c);
  assert.equal(row?.id,'p3');
  assert.equal(row?.sku,'CJCF1653868');
  assert.equal(row?.knownSupplierSkuEchoed,false);
@@ -65,8 +65,8 @@ test('falls through to a second exact-match supplier when the first has no verif
  const client=async(url,opts={})=>{
    const text=String(url);
    if(text.includes('/product/listV2')) return {data:{content:[{productList:[
-     {id:'p1',nameEn:'Bottle Gap Cleaner Brush',saleStatus:'3',sellPrice:1.2,totalVerifiedInventory:100},
-     {id:'p2',nameEn:'Crevice Gap Cleaning Brush',saleStatus:'3',sellPrice:1.4,totalVerifiedInventory:80},
+     {id:'p1',nameEn:'3-in-1 Bottle Gap Cleaner Brush',saleStatus:'3',sellPrice:1.2,totalVerifiedInventory:100},
+     {id:'p2',nameEn:'3-in-1 Crevice Gap Cleaning Brush',saleStatus:'3',sellPrice:1.4,totalVerifiedInventory:80},
    ]}]}};
    if(text.includes('/product/variant/query')&&text.includes('pid=p1')) return {data:[{vid:'v1',variantSku:'S1',variantSellPrice:1.2}]};
    if(text.includes('/product/variant/query')&&text.includes('pid=p2')) return {data:[{vid:'v2',variantSku:'S2',variantSellPrice:1.4}]};
@@ -89,8 +89,8 @@ test('chooses the stocked supplier route with lower screened landed cost',async(
  const client=async(url,opts={})=>{
    const text=String(url);
    if(text.includes('/product/listV2')) return {data:{content:[{productList:[
-     {id:'p1',nameEn:'Bottle Gap Cleaner Brush',saleStatus:'3',sellPrice:1,totalVerifiedInventory:100},
-     {id:'p2',nameEn:'Crevice Gap Cleaning Brush',saleStatus:'3',sellPrice:2,totalVerifiedInventory:80},
+     {id:'p1',nameEn:'3-in-1 Bottle Gap Cleaner Brush',saleStatus:'3',sellPrice:1,totalVerifiedInventory:100},
+     {id:'p2',nameEn:'3-in-1 Crevice Gap Cleaning Brush',saleStatus:'3',sellPrice:2,totalVerifiedInventory:80},
    ]}]}};
    if(text.includes('/product/variant/query')&&text.includes('pid=p1')) return {data:[{vid:'v1',variantSku:'S1',variantSellPrice:1}]};
    if(text.includes('/product/variant/query')&&text.includes('pid=p2')) return {data:[{vid:'v2',variantSku:'S2',variantSellPrice:2}]};
