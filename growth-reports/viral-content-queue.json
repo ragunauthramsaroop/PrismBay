@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "updatedAt": "2026-10-23T12:10:48.101Z",
+  "updatedAt": "2026-10-23T17:28:59.363Z",
   "policy": "Research concepts only. Public attention is not supplier approval, stock, final-destination freight, media rights, checkout readiness, sales evidence, or permission to publish. Never promote or render product advertisements from this queue.",
   "items": [
     {
@@ -24,25 +24,6 @@
     },
     {
       "rank": 2,
-      "slug": "mattress-vacuum",
-      "product": "Mattress Vacuum",
-      "channel": "tiktok",
-      "format": "short-video",
-      "status": "RESEARCH_CANDIDATE",
-      "approved": false,
-      "saleReady": false,
-      "finalZipFreightVerified": false,
-      "checkoutAllowed": false,
-      "mediaRightsVerified": false,
-      "publicationAuthorized": false,
-      "publishable": false,
-      "hook": "What to check when comparing Mattress Vacuum options.",
-      "cta": "Research concept only. No product offer or checkout.",
-      "mediaPlan": "Original typography or abstract graphics only. No product footage or performance demonstration without separate evidence.",
-      "guardrail": "No purchase CTA, unsupported product performance, before-and-after results, sales, reviews, stock, discounts, shipping promises, or unlicensed media."
-    },
-    {
-      "rank": 3,
       "slug": "pressure-washer",
       "product": "Cordless Pressure Washer",
       "channel": "tiktok",
@@ -55,7 +36,26 @@
       "mediaRightsVerified": false,
       "publicationAuthorized": false,
       "publishable": false,
-      "hook": "A practical checklist for evaluating a Cordless Pressure Washer.",
+      "hook": "What to check when comparing Cordless Pressure Washer options.",
+      "cta": "Research concept only. No product offer or checkout.",
+      "mediaPlan": "Original typography or abstract graphics only. No product footage or performance demonstration without separate evidence.",
+      "guardrail": "No purchase CTA, unsupported product performance, before-and-after results, sales, reviews, stock, discounts, shipping promises, or unlicensed media."
+    },
+    {
+      "rank": 3,
+      "slug": "mattress-vacuum",
+      "product": "Mattress Vacuum",
+      "channel": "tiktok",
+      "format": "short-video",
+      "status": "RESEARCH_CANDIDATE",
+      "approved": false,
+      "saleReady": false,
+      "finalZipFreightVerified": false,
+      "checkoutAllowed": false,
+      "mediaRightsVerified": false,
+      "publicationAuthorized": false,
+      "publishable": false,
+      "hook": "A practical checklist for evaluating a Mattress Vacuum.",
       "cta": "Research concept only. No product offer or checkout.",
       "mediaPlan": "Original typography or abstract graphics only. No product footage or performance demonstration without separate evidence.",
       "guardrail": "No purchase CTA, unsupported product performance, before-and-after results, sales, reviews, stock, discounts, shipping promises, or unlicensed media."
