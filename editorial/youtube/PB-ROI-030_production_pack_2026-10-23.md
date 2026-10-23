@@ -15,7 +15,7 @@ Initial decision rules at 7 days, only if >=100 impressions and >=30 views: SCAL
 
 ## 2. Three title/thumbnail pairings for native long-form A/B test
 Variant A, financial contradiction:
-Title: "AI Saved 67 Hours. Why Was the Profit Only $90?"
+Title: "AI Saved 67 Hours. Why Was Net Cash Only $90?"
 Thumbnail: Large $90 at right, crossed-out "67 HOURS = PROFIT" at left; one simplified ledger divider. No face or decorative robots. Color system: dark navy, off-white, restrained amber.
 Promise: Exposes difference between capacity and cash. Use title and thumbnail as one matched variant.
 Variant B, decision framework:
@@ -45,7 +45,7 @@ Short S1 | Cash vs capacity | 38-48 seconds | hook type: counterintuitive financ
 Narration:
 "An AI pilot freed sixty-seven staff hours. The CFO asked: 'How much cash did we save?' Not sixty-seven hours times salary. In our hypothetical case, thirty hours of overtime disappeared. At thirty-five dollars an hour, that is one thousand fifty dollars avoided. But software, maintenance and quality checks cost nine hundred sixty. Verified monthly net benefit: ninety dollars. Time released is capacity. Expense removed is cash. Track both, never double count. PrismBay AI explains practical AI business systems."
 Visual identity: receipt-to-ledger transformation, no reuse of S2/S3 shot layout. CTA: "Which benefit would your finance team recognize?"
-Title: "67 AI Hours Saved. Only $90 Profit?"
+Title: "67 AI Hours Saved. Only $90 Net Cash?"
 Target: operators and finance leads.
 Success threshold: >=65% average percentage viewed at 72h once >=50 views, and at least one qualified engagement; otherwise MODIFY hook, not a near-duplicate repost.
 
@@ -79,4 +79,4 @@ No upload claim until a public YouTube URL or verified platform publication rece
 ## 6. Production and safety gate
 Before publishing: verify final video audio at normal playback speed, caption sync, text safe zones, original scene variety, source accuracy, copyright permissions, arithmetic, and exact-channel destination. A static reused visual template with only word swaps fails this gate. Descript project 3de30d73-71c8-4e9d-9ccf-72faf3fb5d11 had no active jobs at check time. Use free capacity if available; otherwise FFmpeg and local/open TTS. Do not duplicate running jobs or buy credits.
 Known channel context: latest Metricool snapshot shows 7 subscribers; publisher access via Opera requested user input in unattended run, so native Studio actions unavailable. Do not invent upload, subscriber breakout or monetization progress.
-Policy caution: As of 2026-10-23, official YouTube Help still lists 1,000 subscribers plus 4,000 qualified long-form watch hours or 10 million qualified Shorts views for full YPP. A Feb 2027 8,000/20 million claim appears in a YouTube Community user question and is not independently substantiated by the official YPP Help pages checked this run. Do not treat that claim as verified policy. Official YPP country availability list does not list Guyana. Channel account's country setting has not been inspected, and geographic eligibility must be resolved through legitimate account settings, never misrepresentation.
+Policy verification (2026-10-23): Official YouTube Help, https://support.google.com/youtube/answer/12843009, confirms changes effective 2027-02-01: new full YPP applicants require 1,000 subscribers plus 8,000 qualified long-form watch hours in 365 days or 20 million qualified Shorts views in 90 days. Current thresholds through 2027-01-31 are 1,000 plus 4,000 hours or 10 million Shorts views. Existing YPP members are not subject to the new entry thresholds, but monthly Shorts Creator Pool earnings require maintaining 10 million qualified Shorts views in 90 days. Updated terms deadline: 2027-01-31 for existing partners. Expanded/fan-funding thresholds remain 500 subscribers, 3 public uploads in 90 days, plus 3,000 hours or 3 million Shorts views. Official YPP availability list https://support.google.com/youtube/answer/7101720 does not list Guyana (French Guiana is distinct). Channel account country is not inspected. Resolve geographic eligibility legitimately; never misrepresent residency or create an alternative channel.
