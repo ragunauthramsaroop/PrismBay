@@ -25,7 +25,7 @@ test('Garment Steamer receives checkout infrastructure credit but remains blocke
 test('checkout permission still requires exact final ZIP evidence even for verified Stripe infrastructure',()=>{
   const board=buildCJReview({...base,results:[{
     slug:'garment-steamer',candidate:'Portable Garment Steamer',liveStoreProduct:true,retailPriceUsd:29.95,
-    supplierVerified:true,variantInventoryVerified:true,freightVerified:true,freightQuoteScope:'country_estimate',
+    supplierVerified:true,variantInventoryVerified:true,freightVerified:true,freightQuoteScope:'buyer_destination_zip',
     finalZipFreightVerified:true,
     product:{name:'Portable Garment Clothes Steamer',sku:'CJYD1883661',variantSku:'CJYD188366101AZ'}
   }]},authorization);
