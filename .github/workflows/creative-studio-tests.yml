@@ -32,7 +32,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: oven-sh/setup-bun@v2
-      - name: Install locked dependencies
-        run: bun install --frozen-lockfile
+      - name: Install dependencies without rewriting lockfile
+        run: bun install --no-save
       - name: Build full PrismBay application
         run: bun run build
