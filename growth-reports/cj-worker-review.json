@@ -1,18 +1,18 @@
 {
   "schemaVersion": 3,
-  "checkedAt": "2026-10-23T17:26:23.960Z",
+  "checkedAt": "2026-10-23T21:17:07.706Z",
   "market": "US",
   "authenticationVerified": true,
   "sourceCandidateCount": 12,
   "liveStoreCandidateCount": 9,
-  "independentProductMatches": 6,
+  "independentProductMatches": 5,
   "rejectedFalseMatches": 0,
-  "verifiedVariantCount": 3,
-  "freightEstimateCount": 3,
-  "countryFreightEstimateCount": 2,
+  "verifiedVariantCount": 2,
+  "freightEstimateCount": 2,
+  "countryFreightEstimateCount": 1,
   "illustrativeZipFreightEstimateCount": 1,
   "finalZipFreightCount": 0,
-  "mediaRightsVerifiedCount": 4,
+  "mediaRightsVerifiedCount": 3,
   "checkoutInfrastructureVerifiedCount": 2,
   "promotionAuthorizedCount": 0,
   "saleReadyCount": 0,
@@ -47,7 +47,7 @@
       "checkoutAllowed": false,
       "promotionPolicyAuthorized": true,
       "automaticPromotionAllowed": false,
-      "observedAt": "2026-10-23T17:26:23.960Z"
+      "observedAt": "2026-10-23T21:17:07.706Z"
     },
     {
       "slug": "pethair",
@@ -75,25 +75,25 @@
       "checkoutAllowed": false,
       "promotionPolicyAuthorized": true,
       "automaticPromotionAllowed": false,
-      "observedAt": "2026-10-23T17:26:23.960Z"
+      "observedAt": "2026-10-23T21:17:07.706Z"
     },
     {
       "slug": "crevice",
       "candidate": "3-in-1 Crevice Cleaning Brush",
-      "observedProduct": "4 In 1 Bottle Gap Cleaner Brush Multifunctional Cup Cleaning Brushes Water Bottles Clean Tool Mini Silicone U-shaped Brush Kitchen Gadgets",
+      "observedProduct": "Curved Toilet Brush Gap Cleaning Tool Bathroom Accessory Long Handle Wall Mounted Toilet Soft Bristle Brush Plastic Durable",
       "liveStoreProduct": true,
       "retailPriceUsd": 12.95,
-      "observedSupplierSku": "CJJT1731477",
-      "observedVariantSku": "CJJT173147702BY",
-      "freightDiagnostic": "priced_estimate_available",
-      "freightQuoteScope": "country_estimate",
+      "observedSupplierSku": "CJYD2196867",
+      "observedVariantSku": null,
+      "freightDiagnostic": "variant_stock_unverified",
+      "freightQuoteScope": null,
       "zeroPricedMethodCount": 0,
       "supplierClaimedMatch": true,
       "independentIdentityMatch": true,
-      "status": "final_zip_freight_required",
-      "variantStockVerified": true,
-      "freightEstimateVerified": true,
-      "countryFreightEstimated": true,
+      "status": "variant_stock_required",
+      "variantStockVerified": false,
+      "freightEstimateVerified": false,
+      "countryFreightEstimated": false,
       "illustrativeZipFreightEstimated": false,
       "finalZipFreightVerified": false,
       "fulfillmentRouteVerified": false,
@@ -103,7 +103,7 @@
       "checkoutAllowed": false,
       "promotionPolicyAuthorized": true,
       "automaticPromotionAllowed": false,
-      "observedAt": "2026-10-23T17:26:23.960Z"
+      "observedAt": "2026-10-23T21:17:07.706Z"
     },
     {
       "slug": "pressure-washer",
@@ -131,7 +131,7 @@
       "checkoutAllowed": false,
       "promotionPolicyAuthorized": true,
       "automaticPromotionAllowed": false,
-      "observedAt": "2026-10-23T17:26:23.960Z"
+      "observedAt": "2026-10-23T21:17:07.706Z"
     },
     {
       "slug": "mattress-vacuum",
@@ -159,7 +159,7 @@
       "checkoutAllowed": false,
       "promotionPolicyAuthorized": true,
       "automaticPromotionAllowed": false,
-      "observedAt": "2026-10-23T17:26:23.960Z"
+      "observedAt": "2026-10-23T21:17:07.706Z"
     },
     {
       "slug": "garment-steamer",
@@ -187,7 +187,7 @@
       "checkoutAllowed": false,
       "promotionPolicyAuthorized": true,
       "automaticPromotionAllowed": false,
-      "observedAt": "2026-10-23T17:26:23.960Z"
+      "observedAt": "2026-10-23T21:17:07.706Z"
     },
     {
       "slug": "mini-mop",
@@ -215,35 +215,35 @@
       "checkoutAllowed": false,
       "promotionPolicyAuthorized": true,
       "automaticPromotionAllowed": false,
-      "observedAt": "2026-10-23T17:26:23.960Z"
+      "observedAt": "2026-10-23T21:17:07.706Z"
     },
     {
       "slug": "drain-catcher",
       "candidate": "Sink Drain Catcher 2-Pack",
-      "observedProduct": "3PCS Silicone Starfish-shaped Sink Drain Filter Bathtub Hair Catcher Stopper Drain Hole Filter Strainer For Bathroom Kitchen Toilet",
+      "observedProduct": null,
       "liveStoreProduct": true,
       "retailPriceUsd": 12.95,
-      "observedSupplierSku": "CJCF1653868",
+      "observedSupplierSku": null,
       "observedVariantSku": null,
-      "freightDiagnostic": "variant_stock_unverified",
+      "freightDiagnostic": null,
       "freightQuoteScope": null,
       "zeroPricedMethodCount": 0,
-      "supplierClaimedMatch": true,
-      "independentIdentityMatch": true,
-      "status": "variant_stock_required",
+      "supplierClaimedMatch": false,
+      "independentIdentityMatch": false,
+      "status": "supplier_search_needed",
       "variantStockVerified": false,
       "freightEstimateVerified": false,
       "countryFreightEstimated": false,
       "illustrativeZipFreightEstimated": false,
       "finalZipFreightVerified": false,
       "fulfillmentRouteVerified": false,
-      "mediaRightsVerified": true,
-      "promotionMediaPolicy": "original_graphics_and_original_copy_only",
+      "mediaRightsVerified": false,
+      "promotionMediaPolicy": null,
       "checkoutInfrastructureVerified": false,
       "checkoutAllowed": false,
       "promotionPolicyAuthorized": true,
       "automaticPromotionAllowed": false,
-      "observedAt": "2026-10-23T17:26:23.960Z"
+      "observedAt": "2026-10-23T21:17:07.706Z"
     },
     {
       "slug": "home-caddy",
@@ -271,7 +271,7 @@
       "checkoutAllowed": false,
       "promotionPolicyAuthorized": true,
       "automaticPromotionAllowed": false,
-      "observedAt": "2026-10-23T17:26:23.960Z"
+      "observedAt": "2026-10-23T21:17:07.706Z"
     },
     {
       "slug": "cordless-handheld-vacuum",
