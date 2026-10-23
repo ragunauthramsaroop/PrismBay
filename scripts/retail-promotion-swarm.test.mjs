@@ -126,6 +126,7 @@ test('even a commercially ready unsupported product is not promoted until a veri
     mediaRightsVerified: true,
     checkoutInfrastructureVerified: true,
     checkoutAllowed: true,
+    fulfillmentRouteVerified: true,
     automaticPromotionAllowed: true,
   });
   assert.equal(item.directCheckoutEligible, true);
