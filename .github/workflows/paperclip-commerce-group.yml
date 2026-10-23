@@ -13,6 +13,8 @@ on:
       - 'config/autonomous-growth-system.json'
       - 'scripts/paperclip-commerce-group.mjs'
       - 'scripts/paperclip-commerce-group.test.mjs'
+      - 'scripts/first-sale-verifier.mjs'
+      - 'scripts/first-sale-verifier.test.mjs'
       - 'scripts/retail-promotion-swarm.mjs'
       - 'scripts/retail-promotion-swarm.test.mjs'
       - 'scripts/paperclip-no-idle-guard.mjs'
@@ -54,6 +56,8 @@ on:
       - 'config/autonomous-growth-system.json'
       - 'scripts/paperclip-commerce-group.mjs'
       - 'scripts/paperclip-commerce-group.test.mjs'
+      - 'scripts/first-sale-verifier.mjs'
+      - 'scripts/first-sale-verifier.test.mjs'
       - 'scripts/retail-promotion-swarm.mjs'
       - 'scripts/retail-promotion-swarm.test.mjs'
       - 'scripts/paperclip-no-idle-guard.mjs'
@@ -108,7 +112,7 @@ jobs:
           test -s config/sales-strategy-portfolio.json
           test -s config/strict-kpis.json
           test -s config/autonomous-growth-system.json
-          node --test scripts/clean-storefront-observer.test.mjs scripts/appdeploy-swarm-verifier.test.mjs scripts/appdeploy-swarm-task-overlay.test.mjs scripts/paperclip-commerce-group.test.mjs scripts/retail-promotion-swarm.test.mjs scripts/paperclip-no-idle-guard.test.mjs scripts/paperclip-sales-strategy-engine.test.mjs scripts/prioritize-commercial-candidates.test.mjs scripts/strict-kpi-scorecard.test.mjs scripts/ceo-autonomous-growth-engine.test.mjs scripts/autonomous-company-task-allocator.test.mjs scripts/apply-supplier-rank-to-war-room.test.mjs
+          node --test scripts/clean-storefront-observer.test.mjs scripts/appdeploy-swarm-verifier.test.mjs scripts/appdeploy-swarm-task-overlay.test.mjs scripts/paperclip-commerce-group.test.mjs scripts/first-sale-verifier.test.mjs scripts/retail-promotion-swarm.test.mjs scripts/paperclip-no-idle-guard.test.mjs scripts/paperclip-sales-strategy-engine.test.mjs scripts/prioritize-commercial-candidates.test.mjs scripts/strict-kpi-scorecard.test.mjs scripts/ceo-autonomous-growth-engine.test.mjs scripts/autonomous-company-task-allocator.test.mjs scripts/apply-supplier-rank-to-war-room.test.mjs
 
       - name: Hydrate latest successful CJ supplier evidence
         shell: bash

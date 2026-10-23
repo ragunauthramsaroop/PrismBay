@@ -38,12 +38,15 @@ test('test or incomplete orders never count as first sale', () => {
   assert.equal(report.verifiedFirstSale, false);
 });
 
-test('complete profitable non-test order evidence verifies first sale', () => {
+test('locally asserted profitable order is not a verified Stripe sale', () => {
   const report = verifyFirstSale({ order: {
     orderReference: 'PB-001', test: false, paid: true, paymentId: 'pi_live_123',
     supplierOrderVerified: true, shipmentVerified: true, refunded: false,
     grossRevenueUsd: 35, productCostUsd: 12, freightCostUsd: 6, paymentFeesUsd: 1.5,
   } });
-  assert.equal(report.verifiedFirstSale, true);
-  assert.equal(report.netMarginUsd, 15.5);
+  assert.equal(report.verifiedFirstSale, false);
+  assert.equal(report.verifiedSaleCount, 0);
+  assert.equal(report.grossRevenueUsd, 0);
+  assert.equal(report.marginVerified, false);
+  assert.equal(report.netMarginUsd, null);
 });
