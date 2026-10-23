@@ -1,4 +1,5 @@
 import fs from 'node:fs/promises';
+import { buildResearchContentQueue } from './retail-content-brief.mjs';
 
 const products = [
   { slug: 'scrubber', name: '5-in-1 Electric Spin Scrubber', query: 'electric spin scrubber', visualFit: 1.00 },
@@ -85,23 +86,6 @@ function signalLabel(score) {
   return 'baseline';
 }
 
-function contentBrief(product, rank) {
-  const hooks = [
-    `The cleaning job people keep putting off, shown with the ${product.name}.`,
-    `A fast before-and-after idea for the ${product.name}.`,
-    `Three places the ${product.name} fits into a practical home reset.`,
-  ];
-  return {
-    rank,
-    slug: product.slug,
-    product: product.name,
-    channel: 'tiktok',
-    format: 'short-video',
-    hook: hooks[(rank - 1) % hooks.length],
-    cta: `See the ${product.name} details at PrismBay Clean.`,
-    guardrail: 'Use original or supplier-authorized media. Do not state sales, rankings, delivery guarantees, or performance claims without evidence.',
-  };
-}
 async function scoreProduct(product) {
   const query = encodeURIComponent('"' + product.query + '"');
   const feeds = await Promise.all([
@@ -145,11 +129,7 @@ const catalog = {
   products: ranked,
 };
 
-const queue = {
-  updatedAt: now.toISOString(),
-  policy: 'Content briefs are generated only for already-approved PrismBay Clean products. Publication remains subject to platform authorization and media rights.',
-  items: ranked.slice(0, 5).map((product, index) => contentBrief(product, index + 1)),
-};
+const queue = buildResearchContentQueue(ranked, now);
 
 await fs.mkdir('public', { recursive: true });
 await fs.mkdir('growth-reports', { recursive: true });
