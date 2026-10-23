@@ -1,5 +1,6 @@
 import fs from 'node:fs/promises';
 import { pathToFileURL } from 'node:url';
+import { buildTikTokRetailReadiness } from './tiktok-retail-readiness.mjs';
 
 const PREFLIGHT_ROUTES = Object.freeze({
   'garment-steamer': 'https://browser-worker-production-f5b4.up.railway.app/garment-steamer/',
@@ -86,6 +87,14 @@ export function buildRetailPromotionSwarm({ review, workerBoard = null, reports 
   const activeStorefront = reports['storefront-cro-auditor']?.result?.activeStorefront || null;
   const publisher = reports.publisher?.result || null;
   const analytics = reports['analytics-reviewer']?.result || null;
+  // Site verification and supplier eligibility do not prove account connection,
+  // video.publish scope, creative rights or owner consent. Reuse the dedicated
+  // TikTok readiness evaluator rather than inferring publication clearance.
+  const tiktokReadiness = buildTikTokRetailReadiness({
+    publisher: reports.publisher,
+    supplierReview: review,
+    publicPost: reports['tiktok-public-post-evidence'],
+  });
 
   const execution = {
     supplierVerification: {
@@ -117,8 +126,11 @@ export function buildRetailPromotionSwarm({ review, workerBoard = null, reports 
       hasProductSchema: activeStorefront?.hasProductSchema ?? null,
     },
     tiktok: {
-      state: eligible.length && publisher?.tiktokVerificationReady ? 'approval_gated_preflight_publication_path_ready' : 'blocked_or_readiness_only',
+      state: eligible.length && tiktokReadiness.readyForPublicRetailPublishing === true
+        ? 'approval_gated_preflight_publication_path_ready' : 'blocked_or_readiness_only',
       siteVerificationReady: publisher?.tiktokVerificationReady === true,
+      publicationAuthorized: tiktokReadiness.readyForPublicRetailPublishing === true,
+      missing: tiktokReadiness.missing,
       products: eligible.map(item => item.slug),
       rule: 'Keep consent, media-digest, rights, OWNER_AUTHORIZED and video.publish gates. Retail posts must land on the guarded preflight page, never direct Stripe. Do not use the educational YouTube channel for retail.',
     },
@@ -174,7 +186,7 @@ export async function main() {
   const review = await readOptional('growth-reports/cj-worker-review.json');
   const workerBoard = await readOptional('growth-reports/dropshipping-worker-board.json');
   const reports = {};
-  for (const name of ['storefront-cro-auditor', 'publisher', 'analytics-reviewer']) {
+  for (const name of ['storefront-cro-auditor', 'publisher', 'analytics-reviewer', 'tiktok-public-post-evidence']) {
     reports[name] = await readOptional(`growth-reports/${name}.json`);
   }
   const swarm = buildRetailPromotionSwarm({ review, workerBoard, reports });
