@@ -1,0 +1,31 @@
+name: Nexus Messenger isolated checks
+on:
+  push:
+    branches:
+      - feature/nexus-messenger-standalone-source
+    paths:
+      - 'apps/nexus-messenger/**'
+      - '.github/workflows/nexus-messenger-ci.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  messenger-build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    defaults:
+      run:
+        working-directory: apps/nexus-messenger
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install
+        run: npm install --no-audit --no-fund
+      - name: Unit tests
+        run: npm test
+      - name: Typecheck and bundle
+        run: npm run build
