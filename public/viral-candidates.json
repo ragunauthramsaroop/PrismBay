@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-22T08:56:34.087Z",
+  "updatedAt": "2026-10-23T08:51:32.146Z",
   "market": "US",
   "supplierIntegration": "awaiting-cj-auth",
   "methodology": "Public attention and recency identify candidates. Supplier promotion requires verified US inventory and product-level checks. Freight and checkout creation occur only after supplier validation.",
@@ -23,7 +23,7 @@
           {
             "title": "Amazon's Choice Shark pet vacuum is 20% off and selling fast - USA Today",
             "source": "Google News",
-            "publishedAt": "2026-10-21T16:00:00.000Z",
+            "publishedAt": "2026-10-21T16:03:00.000Z",
             "url": "https://news.google.com/rss/articles/CBMi1gFBVV95cUxQa2N3NUFFQWlpbWN3SEp3aDRJZDUwZE03Ml9JbGlZYTI5dC1WR0FzNDk0M05lenozcHhQQ25ZZ2tsWkZRRWJJUFZUeHl4bFlVcG5fQUFOand1alVuSXptYUhibjJkd1FCMEF5X0wtSzBQakd0MUdwMGZLVWNOVkJPZ1RPMUNpSThib0hpNEs5VDdobnZGaVhWMVkyRGJfMWFXRDJKdjNyQ0hhQkhUd2owRGhvVmFpd0lTQ1pUYnRFaGtNUXZKSjdLYzl1ZFl2NC1YQU45MEVn?oc=5"
           },
           {
@@ -64,7 +64,7 @@
       "attentionScore": 76.9,
       "attentionLabel": "high-attention",
       "evidence": {
-        "publicMentions": 26,
+        "publicMentions": 42,
         "mentionsLast7Days": 2,
         "mentionsLast30Days": 3,
         "sourcesAvailable": [
@@ -113,10 +113,10 @@
       "slug": "roll-up-dish-rack",
       "name": "Roll-Up Dish Drying Rack",
       "query": "roll up dish drying rack",
-      "attentionScore": 73,
+      "attentionScore": 71.2,
       "attentionLabel": "high-attention",
       "evidence": {
-        "publicMentions": 29,
+        "publicMentions": 24,
         "mentionsLast7Days": 0,
         "mentionsLast30Days": 4,
         "sourcesAvailable": [
@@ -189,16 +189,16 @@
             "url": "https://news.google.com/rss/articles/CBMicEFVX3lxTE1YY1R3S1Vab08tdnA5S2FGUWV6TVVqTDhKQnpGQzVKdlhpZ19WVTM1WnVYRkZKV1VqWFBWcXVVbFJ0OFpVRW5DVVMzNGVWRWhMVEpyUEd1NzFnNVlHb3dGMTVzZVQtNU5tUlVtSm4tNVo?oc=5"
           },
           {
-            "title": "It's Time To Clean Your Dryer Vent, And This Tool Can Help - HuffPost",
-            "source": "Google News",
-            "publishedAt": "2026-06-16T07:00:00.000Z",
-            "url": "https://news.google.com/rss/articles/CBMijAFBVV95cUxORnlBbE1CY2UzX1FoY2w5U3F3UDJ4TWF5QUJVWnVPWlFtbVlmSzVWcldnN1lNbElXejYwUUYxdGw4aTJIRl9ZWERlVkZaMUNtS1FYczd5V19JczVMWFkySGtrWUlqOGRyb0E5aHZRY3V0UjJkdXR2TDZYV2x1S3p2d3dMRW5acEJ2MXp1edIBkgFBVV95cUxOMExETk9DQUY4eHdFN3VCZlJkZjBUTkRkbi15SjdPMTViNmxIVDYwRE52Z0lmSDlLOFlPLVVQUzlPUTd6b3ZtNW94UHJCRjM1TXA2M3V6LXBlRnJ4TGViQTlIdFN2X1Q1TlI1TEFNVnltLWZjSWtnZWk2dTM0MXZpY0tPT09OalZCV0NKSWh1NG9SUQ?oc=5"
-          },
-          {
             "title": "Sealegend Dryer Vent Cleaning Vacuum Hose Review: My Dryer Is So Much Cleaner Now - Dengarden",
             "source": "Google News",
             "publishedAt": "2026-01-27T08:00:00.000Z",
             "url": "https://news.google.com/rss/articles/CBMiugFBVV95cUxOREpad2RpUUhyM2tUcEROY21oU3JNOVMxaTJXMzUtb25YY3ZJd08wdXpDRzh5RTVlT3I4YzVHQWhSQXowTF9CaEY1cWhQWC16NVdQa19hNjByeXV5OGtsazZ5aE9LeWRBSjJfTFNYREd5dHQtS2phWUo4bnlfaF92U1h0ZlQxQVdrVWdEa3F0WGFfWFZINWI3ajNONHQxV1N3M0UzY0RxXzItRnBaVWJyMVljVXdFRGZpc0E?oc=5"
+          },
+          {
+            "title": "These Clever Home Gadgets Will Fix Your Most Frustrating Everyday Problems—and They’re All Under $15 - Better Homes & Gardens",
+            "source": "Google News",
+            "publishedAt": "2026-10-07T07:00:00.000Z",
+            "url": "https://news.google.com/rss/articles/CBMiekFVX3lxTE9QZGRqT1JoVkJaSjBkckpMeUliUDJ1VFlLUlpPSEg0RU12WGs1RG9kbzdSYVh2c1RtTTdEOEVMWGpDanFPVkJwWlhERTB4M0JvQlpiVy1yd3M1MkpEc3NGZW9kWU9va3NlcFFXY0JSTjhLN21TWHd1MHZB?oc=5"
           }
         ]
       },
@@ -321,10 +321,10 @@
       "slug": "sheet-laundry-detangler",
       "name": "Bed Sheet Laundry Detangler",
       "query": "sheet laundry detangler",
-      "attentionScore": 29.7,
+      "attentionScore": 27.9,
       "attentionLabel": "low-signal",
       "evidence": {
-        "publicMentions": 4,
+        "publicMentions": 3,
         "mentionsLast7Days": 0,
         "mentionsLast30Days": 0,
         "sourcesAvailable": [
@@ -343,12 +343,6 @@
             "source": "Google News",
             "publishedAt": "2026-06-16T07:00:00.000Z",
             "url": "https://news.google.com/rss/articles/CBMiekFVX3lxTE9XSTFKR0lJRW5HVWdxdy1WVjdEZ1pCcENEcFI2WmNSM0Q4c0R0OUsteTd4bzM0LVg4cGd3c2tvcVVnZHpLbmVCZUNiQkpESEc2aDZHUk9hTGhvd0Z5dVFKcVdzWnZiZk5aLXFlbDI2V18tWHpMSndac29R?oc=5"
-          },
-          {
-            "title": "Is The Shark Tank Wad-Free Bed Sheet Laundry Detangler Worth Purchasing? - House Digest",
-            "source": "Google News",
-            "publishedAt": "2023-08-05T07:00:00.000Z",
-            "url": "https://news.google.com/rss/articles/CBMiigFBVV95cUxQUGtSVnNObEpraE1XYndPNjdIRTU4NGNFcXpzZHFMR05abUJSRDNYWWlOYjVqM1gzYkczZkhqdS10bHB2M3MzdE5IbS1RREIyZkc5aUlwaThBZjZQaktReDloTGc1RDNUUXFwbWhIRnBYTGtRZUl1eDZHTi1QOFh6eDBhZFROT2poUWc?oc=5"
           },
           {
             "title": "Whatever Happened To Wad-Free Bed Sheet Laundry Detangler After Shark Tank Season 13? - House Digest",
