@@ -246,3 +246,19 @@ test('duplicate supplier variants and duplicate storefront identities fail close
   assert.ok(swarm.nearReady.every(item => item.missing.some(g => g.field === 'uniqueVariantSku')));
   assert.ok(swarm.nearReady.every(item => item.missing.some(g => g.field === 'uniqueProductSlug')));
 });
+
+test('prototype property names never resolve to a verified preflight route', () => {
+  for (const slug of ['constructor', 'toString', '__proto__']) {
+    const item = candidateReadiness({
+      slug, liveStoreProduct: true, observedVariantSku: 'CJYD245844002BY',
+      independentIdentityMatch: true, variantStockVerified: true,
+      freightEstimateVerified: true, finalZipFreightVerified: true,
+      mediaRightsVerified: true, checkoutInfrastructureVerified: true,
+      checkoutAllowed: true, fulfillmentRouteVerified: true,
+      automaticPromotionAllowed: true,
+    });
+    assert.equal(item.preflightUrl, null);
+    assert.equal(item.promotionEligible, false);
+    assert.ok(item.missing.some(g => g.field === 'verifiedPreflightRoute'));
+  }
+});
