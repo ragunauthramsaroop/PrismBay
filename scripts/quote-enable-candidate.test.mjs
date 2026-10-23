@@ -23,9 +23,9 @@ const report = {
     freightVerified: true,
     originCountryCode: 'US',
     product: {
-      name: '4 In 1 Bottle Gap Cleaner Brush Multifunctional Cup Cleaning Brushes Water Bottles Clean Tool Mini Silicone U-shaped Brush Kitchen Gadgets',
-      sku: 'CJJT1731477',
-      variantSku: 'CJJT173147702BY',
+      name: '3 In 1 Crevice Gap Cleaning Brush',
+      sku: 'SYNTHETIC-3IN1-CREVICE',
+      variantSku: 'SYNTHETIC-3IN1-CREVICE-VARIANT',
       variantId: 'VID-123',
       productCostUsd: 1.75,
       warehouse: 'US',
@@ -41,7 +41,7 @@ test('eligible verified product becomes a quote-enable candidate but never auto-
   const candidate = output.quoteProducts[0];
   assert.equal(candidate.sku, 'crevice');
   assert.equal(candidate.cjVariantId, 'VID-123');
-  assert.equal(candidate.cjVariantSku, 'CJJT173147702BY');
+  assert.equal(candidate.cjVariantSku, 'SYNTHETIC-3IN1-CREVICE-VARIANT');
   assert.equal(candidate.supplierCostUsd, 1.75);
   assert.equal(candidate.activationAllowed, false);
   assert.equal(candidate.evidence.finalBuyerZipVerified, false);
@@ -86,4 +86,11 @@ test('production steamer checkout mapping reaches quote handoff without sale act
   assert.equal(output.quoteProducts[0].evidence.finalBuyerZipVerified, false);
   steamer.results[0].variantInventoryVerified = false;
   assert.equal(buildQuoteEnableCandidates(steamer, configured).candidateCount, 0);
+});
+
+test('quote handoff rejects the real 4-in-1 supplier title for a 3-in-1 offer', () => {
+  const mismatched = structuredClone(report);
+  mismatched.results[0].product.name =
+    '4 In 1 Bottle Gap Cleaner Brush Multifunctional Cup Cleaning Brushes';
+  assert.equal(buildQuoteEnableCandidates(mismatched, authorization).candidateCount, 0);
 });
