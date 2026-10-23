@@ -1,4 +1,4 @@
-name: Claude Free GitHub Cloud Agent
+name: PrismBay Read-Only Free-Model Issue Advisory
 
 on:
   issue_comment:
@@ -13,7 +13,8 @@ jobs:
     if: >-
       github.event.issue.pull_request == null &&
       (startsWith(github.event.issue.title, '[CLAUDE-CLOUD]') || startsWith(github.event.issue.title, '[AI-COUNCIL]')) &&
-      github.event.comment.user.login == github.repository_owner
+      github.event.comment.user.login == github.repository_owner &&
+      startsWith(github.event.comment.body, '/free-model-review')
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
@@ -31,9 +32,9 @@ jobs:
           umask 077
           if [[ "$ISSUE_TITLE" == "[AI-COUNCIL]"* ]]; then
             {
-              printf '%s\n' "You are the independent Claude reviewer in a two-model council with ChatGPT."
+              printf '%s\n' "You are an independent free-model advisory reviewer, not Anthropic Claude."
               printf '%s\n' "Do the task independently. Challenge weak assumptions. Do not defer to ChatGPT."
-              printf '%s\n' "For repository work, inspect evidence before conclusions and obey AGENTS.md and CLAUDE.md."
+              printf '%s\n' "Assess only supplied public evidence. No repository tools are available. State unverified facts and obey AGENTS.md and CLAUDE.md."
               printf '%s\n' "Return concise sections: Independent answer, Evidence, Risks or disagreements, Recommended next action."
               printf '\n%s\n' "TASK FROM CHATGPT:"
               printf '%s\n' "$CLAUDE_TASK"
@@ -42,13 +43,16 @@ jobs:
             printf '%s\n' "$CLAUDE_TASK" > /tmp/claude-task.txt
           fi
 
-      - name: Run Claude Code through 9Router and OpenCode Free
+      - name: Verify existing bounded free-model transport
+        run: node --test scripts/agency-agents-model-client.test.mjs
+
+      - name: Run existing read-only OpenCode free-model transport
         run: |
           node scripts/claude-9router-auto.mjs \
-            --prompt-file=/tmp/claude-task.txt \
+            --chat-prompt-file=/tmp/claude-task.txt \
             --output-file=/tmp/claude-output.txt
 
-      - name: Post Claude response
+      - name: Post attributed free-model advisory
         if: success()
         uses: actions/github-script@v7
         with:
@@ -60,7 +64,7 @@ jobs:
               owner: context.repo.owner,
               repo: context.repo.repo,
               issue_number: context.issue.number,
-              body: 'Claude cloud response:\n\n' + result
+              body: 'Independent free-model advisory (not Anthropic Claude; no repository tool access):\n\n' + result
             });
 
       - name: Report failure
@@ -72,5 +76,5 @@ jobs:
               owner: context.repo.owner,
               repo: context.repo.repo,
               issue_number: context.issue.number,
-              body: 'Claude cloud task failed. Workflow: https://github.com/' + context.repo.owner + '/' + context.repo.repo + '/actions/runs/' + context.runId
+              body: 'Read-only free-model advisory failed. No report accepted. Workflow: https://github.com/' + context.repo.owner + '/' + context.repo.repo + '/actions/runs/' + context.runId
             });
