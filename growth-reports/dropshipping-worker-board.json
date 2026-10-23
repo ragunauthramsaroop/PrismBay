@@ -1,10 +1,10 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-10-23T04:49:58.111Z",
+  "generatedAt": "2026-10-23T11:39:41.233Z",
   "researchCandidates": 12,
   "publishedResearchSignals": 12,
   "verifiedCJStatus": {
-    "checkedAt": "2026-10-23T04:49:57.092Z",
+    "checkedAt": "2026-10-23T11:39:40.060Z",
     "validSupplierMatches": 6,
     "variantStock": 3,
     "freightEstimates": 3,
@@ -27,6 +27,27 @@
       "executionMode": "scheduled_cj_and_manual_review",
       "candidateCount": 12,
       "blockers": [
+        {
+          "slug": "pressure-washer",
+          "status": "supplier_search_needed",
+          "sku": null,
+          "shippingDiagnostic": null,
+          "zeroPricedMethods": 0
+        },
+        {
+          "slug": "mattress-vacuum",
+          "status": "supplier_search_needed",
+          "sku": null,
+          "shippingDiagnostic": null,
+          "zeroPricedMethods": 0
+        },
+        {
+          "slug": "garment-steamer",
+          "status": "final_zip_freight_required",
+          "sku": "CJYD245844002BY",
+          "shippingDiagnostic": "priced_estimate_available",
+          "zeroPricedMethods": 0
+        },
         {
           "slug": "scrubber",
           "status": "supplier_search_needed",
@@ -88,27 +109,6 @@
           "status": "supplier_search_needed",
           "sku": null,
           "shippingDiagnostic": null,
-          "zeroPricedMethods": 0
-        },
-        {
-          "slug": "pressure-washer",
-          "status": "supplier_search_needed",
-          "sku": null,
-          "shippingDiagnostic": null,
-          "zeroPricedMethods": 0
-        },
-        {
-          "slug": "mattress-vacuum",
-          "status": "supplier_search_needed",
-          "sku": null,
-          "shippingDiagnostic": null,
-          "zeroPricedMethods": 0
-        },
-        {
-          "slug": "garment-steamer",
-          "status": "final_zip_freight_required",
-          "sku": "CJYD245844002BY",
-          "shippingDiagnostic": "priced_estimate_available",
           "zeroPricedMethods": 0
         }
       ]
