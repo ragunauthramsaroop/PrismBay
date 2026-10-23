@@ -27,7 +27,12 @@ test('TikTok readiness requires a sale-ready product and verified public post', 
     supplierReview: { saleReadyCount: 0 },
   });
   assert.equal(report.readyForPublicRetailPublishing, false);
-  assert.deepEqual(report.missing.sort(), ['public_post_verification','sale_ready_product'].sort());
+  assert.deepEqual(
+    report.missing.filter(x => ['public_post_verification', 'sale_ready_product'].includes(x)).sort(),
+    ['public_post_verification', 'sale_ready_product'].sort(),
+  );
+  assert.ok(report.missing.includes('authenticated_retail_tiktok_connection'));
+  assert.ok(report.missing.includes('owner_publication_authorization'));
 });
 
 test('test or incomplete orders never count as first sale', () => {
