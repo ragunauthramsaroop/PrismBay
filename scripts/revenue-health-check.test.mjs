@@ -48,10 +48,12 @@ test('live paid-product acquisition guides enforce exact canonical, checkout, pr
   for(const offer of BUYER_GUIDE_OFFERS) {
     const canonical = new URL(offer.guide);
     canonical.hostname = 'clean.prismbayai.com';
+    canonical.pathname = canonical.pathname.replace(/^\/PrismBay\//, '/');
     const html='x'.repeat(7200)+'<link rel="canonical" href="'+canonical.href+'">'+
       '<link rel="stylesheet" href="./buyer-guides.css"><h1>Free original guide</h1>'+
       '<a href="'+offer.checkout+'">Buy for $'+offer.priceUsd+'</a>'+
       '<a href="https://www.prismbayai.com/refunds">Refund policy</a>';
+    assert.equal(canonical.pathname.startsWith('/PrismBay/'), false);
     assert.equal(validateBuyerGuide(html,offer).priceUsd,offer.priceUsd);
     assert.throws(()=>validateBuyerGuide(html.replace(offer.checkout,'https://invalid.example/buy'),offer),/buyer_guide_invalid/);
     assert.throws(()=>validateBuyerGuide(html.replace('$'+offer.priceUsd,'$999'),offer),/buyer_guide_invalid/);

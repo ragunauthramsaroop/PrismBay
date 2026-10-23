@@ -44,6 +44,7 @@ export function validateBuyerGuide(html, offer) {
   // Continue checking the published guide URL, but verify its intended canonical.
   const canonical = new URL(offer.guide);
   canonical.hostname = 'clean.prismbayai.com';
+  canonical.pathname = canonical.pathname.replace(/^\/PrismBay\//, '/');
   const expected = [
     '<link rel="canonical" href="' + canonical.href + '"',
     'buyer-guides.css',
