@@ -52,7 +52,7 @@ jobs:
             --chat-prompt-file=/tmp/claude-task.txt \
             --output-file=/tmp/claude-output.txt
 
-      - name: Post Claude response
+      - name: Post attributed free-model advisory
         if: success()
         uses: actions/github-script@v7
         with:
