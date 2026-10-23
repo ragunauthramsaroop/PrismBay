@@ -71,7 +71,10 @@ export function buildCJReview(report, authorization = null) {
     const freightScope = row.freightQuoteScope || null;
     const variantStockVerified = Boolean(identity === true && row.variantInventoryVerified);
     const freightEstimateVerified = Boolean(identity === true && row.variantInventoryVerified && row.freightVerified);
-    const finalZipFreightVerified = Boolean(freightEstimateVerified && row.finalZipFreightVerified === true);
+    // A country estimate or illustrative ZIP is never the buyer's final freight.
+    // The verified flag must be paired with an explicit buyer-destination scope.
+    const finalZipFreightVerified = Boolean(freightEstimateVerified &&
+      freightScope === 'buyer_destination_zip' && row.finalZipFreightVerified === true);
     // An authenticated CJ lookup does not establish fulfillment approval.
     // Require an explicit verified route before promotion or sale readiness.
     const fulfillmentRouteVerified = authenticationVerified && row.fulfillmentRouteVerified === true;

@@ -58,6 +58,7 @@ test('owner authorization closes media and promotion gates without bypassing fin
 test('verified exact destination freight releases checkout only for an approved mapped SKU', () => {
   const withZip = structuredClone(report);
   withZip.results[0].finalZipFreightVerified = true;
+  withZip.results[0].freightQuoteScope = 'buyer_destination_zip';
   const review = buildCJReview(withZip, authorization);
   const row = review.candidates[0];
   assert.equal(row.finalZipFreightVerified, true);
@@ -77,6 +78,7 @@ test('owner approval never authorizes checkout for an unmapped SKU', () => {
   other.results[0].candidate = 'Cordless Pressure Washer';
   other.results[0].product.name = 'Cordless Portable Pressure Washer';
   other.results[0].finalZipFreightVerified = true;
+  other.results[0].freightQuoteScope = 'buyer_destination_zip';
   const review = buildCJReview(other, authorization);
   assert.equal(review.candidates[0].checkoutInfrastructureVerified, false);
   assert.equal(review.candidates[0].checkoutAllowed, false);

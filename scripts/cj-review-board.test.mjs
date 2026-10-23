@@ -172,7 +172,8 @@ test('owner promotion policy never clears a product with missing fulfillment or 
   const row = {
     slug: 'garment-steamer', candidate: 'Portable Garment Steamer',
     supplierVerified: true, variantInventoryVerified: true, freightVerified: true,
-    finalZipFreightVerified: true, fulfillmentRouteVerified: false,
+    finalZipFreightVerified: true, freightQuoteScope: 'buyer_destination_zip',
+    fulfillmentRouteVerified: false,
     product: { name: 'USB Handheld Garment Steamer Household Portable Electric Iron' },
   };
   const withoutFulfillment = buildCJReview({ ...base, results: [row] }, authorization);
@@ -245,4 +246,35 @@ test('contradictory supplier pack counts never inherit stock, freight or commerc
     assert.equal(row.checkoutAllowed, false);
     assert.equal(row.automaticPromotionAllowed, false);
   }
+});
+
+test('final buyer ZIP approval rejects country, example and missing quote scope', () => {
+  const authorization = {
+    ownerAuthorized: true, paidSpendAuthorized: false, bulkOutreachAuthorized: false,
+    media: { promotionMediaRightsVerified: true, policy: 'original_graphics_and_original_copy_only',
+      supplierMediaAuthorized: false, thirdPartyMediaAuthorized: false },
+    promotion: { automaticPromotionAllowedAfterAllOtherGates: true },
+    checkoutInfrastructure: { deployed: true, stripeWebhookSecretConfigured: true,
+      verifiedCheckoutSkus: ['garment-steamer'] },
+  };
+  const row = {
+    slug: 'garment-steamer', candidate: 'Portable Garment Steamer',
+    supplierVerified: true, variantInventoryVerified: true, freightVerified: true,
+    finalZipFreightVerified: true, fulfillmentRouteVerified: true,
+    product: { name: 'Portable Garment Clothes Steamer' },
+  };
+  for (const scope of [undefined, null, 'country_estimate', 'example_zip_estimate',
+    'tip_example_zip_estimate', 'unrecognized_scope']) {
+    const review = buildCJReview({ ...base, results: [{ ...row, freightQuoteScope: scope }] }, authorization);
+    const candidate = review.candidates[0];
+    assert.equal(candidate.finalZipFreightVerified, false, String(scope));
+    assert.equal(candidate.checkoutAllowed, false, String(scope));
+    assert.equal(candidate.automaticPromotionAllowed, false, String(scope));
+    assert.equal(review.saleReadyCount, 0, String(scope));
+  }
+  const verified = buildCJReview({ ...base,
+    results: [{ ...row, freightQuoteScope: 'buyer_destination_zip' }] }, authorization);
+  assert.equal(verified.candidates[0].finalZipFreightVerified, true);
+  assert.equal(verified.candidates[0].checkoutAllowed, true);
+  assert.equal(verified.saleReadyCount, 1);
 });
