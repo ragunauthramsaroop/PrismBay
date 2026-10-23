@@ -1,19 +1,19 @@
 {
   "schemaVersion": 3,
-  "checkedAt": "2026-10-23T21:17:07.706Z",
+  "checkedAt": "2026-10-23T21:22:01.490Z",
   "market": "US",
   "authenticationVerified": true,
   "sourceCandidateCount": 12,
   "liveStoreCandidateCount": 9,
-  "independentProductMatches": 5,
+  "independentProductMatches": 4,
   "rejectedFalseMatches": 0,
   "verifiedVariantCount": 2,
   "freightEstimateCount": 2,
   "countryFreightEstimateCount": 1,
   "illustrativeZipFreightEstimateCount": 1,
   "finalZipFreightCount": 0,
-  "mediaRightsVerifiedCount": 3,
-  "checkoutInfrastructureVerifiedCount": 2,
+  "mediaRightsVerifiedCount": 2,
+  "checkoutInfrastructureVerifiedCount": 1,
   "promotionAuthorizedCount": 0,
   "saleReadyCount": 0,
   "zeroPricedCandidateCount": 1,
@@ -47,7 +47,7 @@
       "checkoutAllowed": false,
       "promotionPolicyAuthorized": true,
       "automaticPromotionAllowed": false,
-      "observedAt": "2026-10-23T21:17:07.706Z"
+      "observedAt": "2026-10-23T21:22:01.490Z"
     },
     {
       "slug": "pethair",
@@ -75,35 +75,35 @@
       "checkoutAllowed": false,
       "promotionPolicyAuthorized": true,
       "automaticPromotionAllowed": false,
-      "observedAt": "2026-10-23T21:17:07.706Z"
+      "observedAt": "2026-10-23T21:22:01.490Z"
     },
     {
       "slug": "crevice",
       "candidate": "3-in-1 Crevice Cleaning Brush",
-      "observedProduct": "Curved Toilet Brush Gap Cleaning Tool Bathroom Accessory Long Handle Wall Mounted Toilet Soft Bristle Brush Plastic Durable",
+      "observedProduct": null,
       "liveStoreProduct": true,
       "retailPriceUsd": 12.95,
-      "observedSupplierSku": "CJYD2196867",
+      "observedSupplierSku": null,
       "observedVariantSku": null,
-      "freightDiagnostic": "variant_stock_unverified",
+      "freightDiagnostic": null,
       "freightQuoteScope": null,
       "zeroPricedMethodCount": 0,
-      "supplierClaimedMatch": true,
-      "independentIdentityMatch": true,
-      "status": "variant_stock_required",
+      "supplierClaimedMatch": false,
+      "independentIdentityMatch": false,
+      "status": "supplier_search_needed",
       "variantStockVerified": false,
       "freightEstimateVerified": false,
       "countryFreightEstimated": false,
       "illustrativeZipFreightEstimated": false,
       "finalZipFreightVerified": false,
       "fulfillmentRouteVerified": false,
-      "mediaRightsVerified": true,
-      "promotionMediaPolicy": "original_graphics_and_original_copy_only",
-      "checkoutInfrastructureVerified": true,
+      "mediaRightsVerified": false,
+      "promotionMediaPolicy": null,
+      "checkoutInfrastructureVerified": false,
       "checkoutAllowed": false,
       "promotionPolicyAuthorized": true,
       "automaticPromotionAllowed": false,
-      "observedAt": "2026-10-23T21:17:07.706Z"
+      "observedAt": "2026-10-23T21:22:01.490Z"
     },
     {
       "slug": "pressure-washer",
@@ -131,7 +131,7 @@
       "checkoutAllowed": false,
       "promotionPolicyAuthorized": true,
       "automaticPromotionAllowed": false,
-      "observedAt": "2026-10-23T21:17:07.706Z"
+      "observedAt": "2026-10-23T21:22:01.490Z"
     },
     {
       "slug": "mattress-vacuum",
@@ -159,7 +159,7 @@
       "checkoutAllowed": false,
       "promotionPolicyAuthorized": true,
       "automaticPromotionAllowed": false,
-      "observedAt": "2026-10-23T21:17:07.706Z"
+      "observedAt": "2026-10-23T21:22:01.490Z"
     },
     {
       "slug": "garment-steamer",
@@ -187,7 +187,7 @@
       "checkoutAllowed": false,
       "promotionPolicyAuthorized": true,
       "automaticPromotionAllowed": false,
-      "observedAt": "2026-10-23T21:17:07.706Z"
+      "observedAt": "2026-10-23T21:22:01.490Z"
     },
     {
       "slug": "mini-mop",
@@ -215,7 +215,7 @@
       "checkoutAllowed": false,
       "promotionPolicyAuthorized": true,
       "automaticPromotionAllowed": false,
-      "observedAt": "2026-10-23T21:17:07.706Z"
+      "observedAt": "2026-10-23T21:22:01.490Z"
     },
     {
       "slug": "drain-catcher",
@@ -243,7 +243,7 @@
       "checkoutAllowed": false,
       "promotionPolicyAuthorized": true,
       "automaticPromotionAllowed": false,
-      "observedAt": "2026-10-23T21:17:07.706Z"
+      "observedAt": "2026-10-23T21:22:01.490Z"
     },
     {
       "slug": "home-caddy",
@@ -271,7 +271,7 @@
       "checkoutAllowed": false,
       "promotionPolicyAuthorized": true,
       "automaticPromotionAllowed": false,
-      "observedAt": "2026-10-23T21:17:07.706Z"
+      "observedAt": "2026-10-23T21:22:01.490Z"
     },
     {
       "slug": "cordless-handheld-vacuum",

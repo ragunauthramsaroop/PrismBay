@@ -1,11 +1,11 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-10-23T21:17:08.880Z",
+  "generatedAt": "2026-10-23T21:22:02.972Z",
   "researchCandidates": 12,
   "publishedResearchSignals": 12,
   "verifiedCJStatus": {
-    "checkedAt": "2026-10-23T21:17:07.706Z",
-    "validSupplierMatches": 5,
+    "checkedAt": "2026-10-23T21:22:01.490Z",
+    "validSupplierMatches": 4,
     "variantStock": 2,
     "freightEstimates": 2,
     "countryFreightEstimates": 1,
@@ -43,9 +43,9 @@
         },
         {
           "slug": "crevice",
-          "status": "variant_stock_required",
-          "sku": "CJYD2196867",
-          "shippingDiagnostic": "variant_stock_unverified",
+          "status": "supplier_search_needed",
+          "sku": null,
+          "shippingDiagnostic": null,
           "zeroPricedMethods": 0
         },
         {
