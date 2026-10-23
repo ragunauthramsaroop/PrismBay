@@ -27,7 +27,8 @@ test('HTML-escapes malicious user fields',()=>{
  const h=landingHtml(p);
  assert.doesNotMatch(h,/<script>/);
  assert.doesNotMatch(h,/<img src=x/);
- assert.match(h,/&lt;img/);
+ assert.match(h,/&lt;script&gt;/);
+ assert.match(h,/%3Cimg%20src/);
  assert.equal(escapeHtml("'&<>"),'&#39;&amp;&lt;&gt;');
 });
 test('truncates long input and strips control chars',()=>{
