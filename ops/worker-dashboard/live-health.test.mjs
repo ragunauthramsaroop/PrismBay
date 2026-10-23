@@ -56,7 +56,7 @@ test('stale audit never displays a stale PASS indefinitely',()=>{
  const r=reconcile(audit(),[],null,later);
  assert.equal(r.workers[0].status,'unknown');
  assert.equal(r.workers[0].reason,'published_audit_stale');
- assert.equal(r.summary.attention,2);
+ assert.equal(r.summary.attention,3); // All three have expired independent evidence, including the old running run.
 });
 test('stale GitHub API data cannot override fresher audited success',()=>{
  const r=reconcile(audit(),[item('PrismBay Buyer Acquisition Priority',110,'completed','failure')],'2026-10-23T21:30:00Z',now);
