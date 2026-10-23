@@ -27,22 +27,41 @@ function missingFor(candidate, gates) {
 }
 
 export function candidateReadiness(candidate = {}) {
-  const preflightUrl = PREFLIGHT_ROUTES[candidate.slug] || null;
+  // Only explicit, owned route mappings qualify; inherited object keys such
+  // as "constructor" or "__proto__" must never become preflight URLs.
+  const preflightUrl = typeof candidate.slug === 'string' && Object.hasOwn(PREFLIGHT_ROUTES, candidate.slug)
+    ? PREFLIGHT_ROUTES[candidate.slug] : null;
   const missingPreflight = missingFor(candidate, REQUIRED_PREFLIGHT_PROMOTION_GATES);
-  if (!preflightUrl) missingPreflight.push({ field: 'verifiedPreflightRoute', label: 'verified preflight route' });
   const missingDirectCheckout = missingFor(candidate, REQUIRED_DIRECT_CHECKOUT_GATES);
-  const passed = REQUIRED_PREFLIGHT_PROMOTION_GATES.length + 1 - missingPreflight.length;
-  const directPassed = REQUIRED_DIRECT_CHECKOUT_GATES.length - missingDirectCheckout.length;
+  // Boolean stock and identity flags do not establish an exact variant SKU
+  // or an independently recognized live-store product.
+  const variantSku = typeof candidate.observedVariantSku === 'string'
+    ? candidate.observedVariantSku.trim() : '';
+  const identityMissing = [];
+  if (candidate.liveStoreProduct !== true) {
+    identityMissing.push({ field: 'liveStoreProduct', label: 'verified live-store product identity' });
+  }
+  if (!/^[A-Za-z0-9_-]{4,80}$/.test(variantSku)) {
+    identityMissing.push({ field: 'observedVariantSku', label: 'exact verified supplier variant SKU' });
+  }
+  missingPreflight.push(...identityMissing);
+  missingDirectCheckout.push(...identityMissing);
+  if (!preflightUrl) missingPreflight.push({ field: 'verifiedPreflightRoute', label: 'verified preflight route' });
+  const preflightTotal = REQUIRED_PREFLIGHT_PROMOTION_GATES.length + 3;
+  const directTotal = REQUIRED_DIRECT_CHECKOUT_GATES.length + 2;
+  const passed = preflightTotal - missingPreflight.length;
+  const directPassed = directTotal - missingDirectCheckout.length;
   return {
     slug: candidate.slug || null,
     candidate: candidate.candidate || null,
-    sku: candidate.observedVariantSku || candidate.observedSupplierSku || null,
+    sku: variantSku || candidate.observedSupplierSku || null,
+    variantSku: variantSku || null,
     liveStoreProduct: candidate.liveStoreProduct === true,
     status: candidate.status || 'unknown',
     passedGates: passed,
-    totalGates: REQUIRED_PREFLIGHT_PROMOTION_GATES.length + 1,
-    readinessPct: Math.round((passed / (REQUIRED_PREFLIGHT_PROMOTION_GATES.length + 1)) * 100),
-    directCheckoutReadinessPct: Math.round((directPassed / REQUIRED_DIRECT_CHECKOUT_GATES.length) * 100),
+    totalGates: preflightTotal,
+    readinessPct: Math.round((passed / preflightTotal) * 100),
+    directCheckoutReadinessPct: Math.round((directPassed / directTotal) * 100),
     missing: missingPreflight,
     missingPreflight,
     missingDirectCheckout,
@@ -62,11 +81,37 @@ export function buildRetailPromotionSwarm({ review, workerBoard = null, reports 
   const declaredSaleReadyCount = Number.isSafeInteger(review?.saleReadyCount) && review.saleReadyCount > 0
     ? review.saleReadyCount : 0;
   let remainingSupplierApprovals = declaredSaleReadyCount;
+  // Reject all occurrences of ambiguous product/variant identities.
+  const variantCounts = new Map();
+  const slugCounts = new Map();
+  for (const candidate of rawCandidates) {
+    const variant = typeof candidate?.observedVariantSku === 'string' ? candidate.observedVariantSku.trim() : '';
+    const slug = typeof candidate?.slug === 'string' ? candidate.slug.trim() : '';
+    if (variant) variantCounts.set(variant, (variantCounts.get(variant) || 0) + 1);
+    if (slug) slugCounts.set(slug, (slugCounts.get(slug) || 0) + 1);
+  }
   const readiness = rawCandidates.map(candidateReadiness).sort((a, b) => {
     if (b.passedGates !== a.passedGates) return b.passedGates - a.passedGates;
     if (a.liveStoreProduct !== b.liveStoreProduct) return a.liveStoreProduct ? -1 : 1;
     return String(a.slug).localeCompare(String(b.slug));
   }).map(item => {
+    const duplicates = [];
+    if (item.variantSku && variantCounts.get(item.variantSku) > 1) {
+      duplicates.push({ field: 'uniqueVariantSku', label: 'unambiguous supplier variant identity' });
+    }
+    if (item.slug && slugCounts.get(item.slug) > 1) {
+      duplicates.push({ field: 'uniqueProductSlug', label: 'unambiguous live-store product identity' });
+    }
+    if (duplicates.length) {
+      return {
+        ...item,
+        promotionEligible: false,
+        directCheckoutEligible: false,
+        missing: [...item.missing, ...duplicates],
+        missingPreflight: [...item.missingPreflight, ...duplicates],
+        missingDirectCheckout: [...item.missingDirectCheckout, ...duplicates],
+      };
+    }
     if (!item.promotionEligible) return item;
     if (remainingSupplierApprovals > 0) {
       remainingSupplierApprovals -= 1;
