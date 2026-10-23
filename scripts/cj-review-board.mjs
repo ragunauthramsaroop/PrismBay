@@ -15,14 +15,14 @@ function normalizeFreight(row) {
   };
 }
 
-function authorizationFor(authorization, slug, finalZipFreightVerified) {
+function authorizationFor(authorization, slug, finalZipFreightVerified, supplierGatesVerified = false) {
   const ownerAuthorized = authorization?.ownerAuthorized === true;
   const originalMedia = ownerAuthorized &&
     authorization?.media?.promotionMediaRightsVerified === true &&
     authorization?.media?.policy === 'original_graphics_and_original_copy_only' &&
     authorization?.media?.supplierMediaAuthorized !== true &&
     authorization?.media?.thirdPartyMediaAuthorized !== true;
-  const promotionAuthorized = ownerAuthorized &&
+  const promotionPolicyAuthorized = ownerAuthorized &&
     authorization?.promotion?.automaticPromotionAllowedAfterAllOtherGates === true &&
     authorization?.paidSpendAuthorized !== true &&
     authorization?.bulkOutreachAuthorized !== true;
@@ -39,7 +39,10 @@ function authorizationFor(authorization, slug, finalZipFreightVerified) {
     promotionMediaPolicy: originalMedia ? 'original_graphics_and_original_copy_only' : null,
     checkoutInfrastructureVerified,
     checkoutAllowed,
-    automaticPromotionAllowed: promotionAuthorized,
+    // Owner policy approval is not product-specific clearance. Do not expose a
+    // publishable flag before supplier, ZIP freight, checkout and fulfillment pass.
+    promotionPolicyAuthorized,
+    automaticPromotionAllowed: promotionPolicyAuthorized && supplierGatesVerified && originalMedia && checkoutAllowed,
   };
 }
 
@@ -50,6 +53,7 @@ function isSaleReady(candidate = {}) {
     candidate.finalZipFreightVerified === true &&
     candidate.mediaRightsVerified === true &&
     candidate.checkoutAllowed === true &&
+    candidate.fulfillmentRouteVerified === true &&
     candidate.automaticPromotionAllowed === true;
 }
 
@@ -68,7 +72,13 @@ export function buildCJReview(report, authorization = null) {
     const variantStockVerified = Boolean(identity === true && row.variantInventoryVerified);
     const freightEstimateVerified = Boolean(identity === true && row.variantInventoryVerified && row.freightVerified);
     const finalZipFreightVerified = Boolean(freightEstimateVerified && row.finalZipFreightVerified === true);
-    const commercial = authorizationFor(authorization, slug, finalZipFreightVerified);
+    // An authenticated CJ lookup does not establish fulfillment approval.
+    // Require an explicit verified route before promotion or sale readiness.
+    const fulfillmentRouteVerified = authenticationVerified && row.fulfillmentRouteVerified === true;
+    const supplierGatesVerified = authenticationVerified && row.supplierVerified === true &&
+      identity === true && variantStockVerified && freightEstimateVerified &&
+      finalZipFreightVerified && fulfillmentRouteVerified;
+    const commercial = authorizationFor(authorization, slug, finalZipFreightVerified, supplierGatesVerified);
     let status = 'supplier_search_needed';
     if (row.supplierVerified) {
       status = identity === false ? 'identity_rejected' :
@@ -77,6 +87,8 @@ export function buildCJReview(report, authorization = null) {
         !row.freightVerified ? 'destination_freight_required' :
         !finalZipFreightVerified ? 'final_zip_freight_required' :
         !commercial.checkoutAllowed ? 'checkout_review_required' :
+        !fulfillmentRouteVerified ? 'fulfillment_route_required' :
+        !commercial.automaticPromotionAllowed ? 'promotion_approval_required' :
         'commercial_review_required';
     } else if (row.status === 'search_error') {
       status = 'supplier_api_retry_required';
@@ -99,6 +111,7 @@ export function buildCJReview(report, authorization = null) {
       countryFreightEstimated: Boolean(freightEstimateVerified && freightScope === 'country_estimate'),
       illustrativeZipFreightEstimated: Boolean(freightEstimateVerified && illustrativeScopes.has(freightScope)),
       finalZipFreightVerified,
+      fulfillmentRouteVerified,
       ...commercial,
     };
     return candidate;
