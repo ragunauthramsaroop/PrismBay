@@ -7,8 +7,8 @@ on:
       - 'services/railway-clean-quote/**'
       - '.github/workflows/prime-railway-clean-quote.yml'
   workflow_dispatch:
-  schedule:
-    - cron: '17 */6 * * *'
+  # The old Railway service is offline. Keep manual and code-change
+  # diagnostics available, but do not spend free Actions minutes polling a 404.
 
 permissions:
   contents: read

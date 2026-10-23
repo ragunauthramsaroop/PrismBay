@@ -45,8 +45,11 @@ jobs:
           sudo apt-get install -y -qq ffmpeg fonts-dejavu-core
       - name: Verify external traffic safeguards
         run: node --test scripts/external-traffic-worker.test.mjs scripts/freellm-sales-worker.test.mjs scripts/ci-freellmapi-bootstrap.test.mjs
-      - name: Start FreeLLMAPI acquisition router
-        if: github.event_name != 'pull_request'
+      # Free AI providers can return 404/406. Video and channel asset creation
+      # must continue with the verified deterministic worker when they do.
+      - name: Start optional FreeLLMAPI acquisition router
+        if: github.event_name != 'pull_request' && vars.PRISMBAY_ENABLE_FREE_LLM == 'true'
+        continue-on-error: true
         env:
           FREELLMAPI_BASE_URL: ${{ secrets.FREELLMAPI_BASE_URL }}
           FREELLMAPI_API_KEY: ${{ secrets.FREELLMAPI_API_KEY }}

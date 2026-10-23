@@ -101,17 +101,35 @@ jobs:
           cp -f growth-reports/sales-revenue-control.json "$syncdir/sales/revenue-control.json"
           node scripts/sales-sitemap-sync.mjs "$syncdir/sitemap.xml"
           git -C "$syncdir" add learn sales/revenue-control.json sitemap.xml
+          # A changing revenue-control heartbeat is not a change to buyer content.
+          if git -C "$syncdir" diff --cached --quiet -- learn sitemap.xml; then
+            echo 'buyer_pages_changed=false' >> "$GITHUB_OUTPUT"
+          else
+            echo 'buyer_pages_changed=true' >> "$GITHUB_OUTPUT"
+          fi
           if ! git -C "$syncdir" diff --cached --quiet; then
             echo 'changed=true' >> "$GITHUB_OUTPUT"
             git -C "$syncdir" commit -m 'chore: refresh PrismBay revenue pages'
-            git -C "$syncdir" pull --rebase origin gh-pages
-            git -C "$syncdir" push origin HEAD:gh-pages
+            for attempt in 1 2 3; do
+              git fetch origin gh-pages
+              if ! git -C "$syncdir" rebase origin/gh-pages; then
+                git -C "$syncdir" rebase --abort || true
+                echo 'Concurrent Pages edit needs review; no force push.' >&2
+                exit 1
+              fi
+              if git -C "$syncdir" push origin HEAD:gh-pages; then
+                exit 0
+              fi
+              if [[ "$attempt" != "3" ]]; then sleep "$((attempt * 3))"; fi
+            done
+            echo 'Pages publication failed after three attempts.' >&2
+            exit 1
           else
             echo 'changed=false' >> "$GITHUB_OUTPUT"
           fi
 
       - name: Notify participating search engines about changed buyer guides
-        if: github.event_name != 'pull_request' && (steps.publish.outputs.changed == 'true' || github.event_name == 'workflow_dispatch')
+        if: github.event_name != 'pull_request' && steps.publish.outputs.buyer_pages_changed == 'true'
         run: node scripts/indexnow-submit.mjs
 
       - name: Maintain Sales Revenue Control issue
