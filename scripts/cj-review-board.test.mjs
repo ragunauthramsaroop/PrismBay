@@ -194,3 +194,55 @@ test('owner promotion policy never clears a product with missing fulfillment or 
   assert.equal(missingZip.candidates[0].automaticPromotionAllowed, false);
   assert.equal(missingZip.saleReadyCount, 0);
 });
+
+test('contradictory supplier pack counts never inherit stock, freight or commercial approval', () => {
+  const report = buildCJReview({
+    ...base,
+    results: [
+      {
+        slug: 'crevice', candidate: '3-in-1 Crevice Cleaning Brush',
+        supplierVerified: true, variantInventoryVerified: true,
+        freightVerified: true, finalZipFreightVerified: true,
+        fulfillmentRouteVerified: true,
+        product: {
+          name: '4 In 1 Bottle Gap Cleaner Brush Multifunctional Cup Cleaning Brushes',
+          sku: 'CJJT1731477', variantSku: 'CJJT173147702BY',
+        },
+      },
+      {
+        slug: 'drain-catcher', candidate: 'Sink Drain Catcher 2-Pack',
+        supplierVerified: true, variantInventoryVerified: true,
+        freightVerified: true, finalZipFreightVerified: true,
+        fulfillmentRouteVerified: true,
+        product: {
+          name: '3PCS Silicone Starfish-shaped Sink Drain Filter Bathtub Hair Catcher',
+          sku: 'CJCF1653868',
+        },
+      },
+    ],
+  }, {
+    ownerAuthorized: true,
+    paidSpendAuthorized: false,
+    bulkOutreachAuthorized: false,
+    media: { promotionMediaRightsVerified: true, policy: 'original_graphics_and_original_copy_only' },
+    promotion: { automaticPromotionAllowedAfterAllOtherGates: true },
+    checkoutInfrastructure: {
+      deployed: true, stripeWebhookSecretConfigured: true,
+      verifiedCheckoutSkus: ['crevice', 'drain-catcher'],
+    },
+  });
+  assert.equal(report.independentProductMatches, 0);
+  assert.equal(report.rejectedFalseMatches, 2);
+  assert.equal(report.verifiedVariantCount, 0);
+  assert.equal(report.freightEstimateCount, 0);
+  assert.equal(report.saleReadyCount, 0);
+  assert.equal(report.promotionAuthorizedCount, 0);
+  for (const row of report.candidates) {
+    assert.equal(row.status, 'identity_rejected');
+    assert.equal(row.independentIdentityMatch, false);
+    assert.equal(row.variantStockVerified, false);
+    assert.equal(row.finalZipFreightVerified, false);
+    assert.equal(row.checkoutAllowed, false);
+    assert.equal(row.automaticPromotionAllowed, false);
+  }
+});
