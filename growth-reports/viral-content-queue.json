@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-20T21:55:15.640Z",
+  "updatedAt": "2026-10-23T12:10:48.101Z",
   "policy": "Content briefs are generated only for already-approved PrismBay Clean products. Publication remains subject to platform authorization and media rights.",
   "items": [
     {
@@ -24,22 +24,22 @@
     },
     {
       "rank": 3,
-      "slug": "garment-steamer",
-      "product": "Portable Garment Steamer",
-      "channel": "tiktok",
-      "format": "short-video",
-      "hook": "Three places the Portable Garment Steamer fits into a practical home reset.",
-      "cta": "See the Portable Garment Steamer details at PrismBay Clean.",
-      "guardrail": "Use original or supplier-authorized media. Do not state sales, rankings, delivery guarantees, or performance claims without evidence."
-    },
-    {
-      "rank": 4,
       "slug": "pressure-washer",
       "product": "Cordless Pressure Washer",
       "channel": "tiktok",
       "format": "short-video",
-      "hook": "The cleaning job people keep putting off, shown with the Cordless Pressure Washer.",
+      "hook": "Three places the Cordless Pressure Washer fits into a practical home reset.",
       "cta": "See the Cordless Pressure Washer details at PrismBay Clean.",
+      "guardrail": "Use original or supplier-authorized media. Do not state sales, rankings, delivery guarantees, or performance claims without evidence."
+    },
+    {
+      "rank": 4,
+      "slug": "garment-steamer",
+      "product": "Portable Garment Steamer",
+      "channel": "tiktok",
+      "format": "short-video",
+      "hook": "The cleaning job people keep putting off, shown with the Portable Garment Steamer.",
+      "cta": "See the Portable Garment Steamer details at PrismBay Clean.",
       "guardrail": "Use original or supplier-authorized media. Do not state sales, rankings, delivery guarantees, or performance claims without evidence."
     },
     {

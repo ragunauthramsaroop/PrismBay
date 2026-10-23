@@ -9,16 +9,15 @@ const REQUIRED_PREFLIGHT_PROMOTION_GATES = [
   ['independentIdentityMatch', 'independent product identity'],
   ['variantStockVerified', 'exact variant stock'],
   ['freightEstimateVerified', 'supplier freight estimate'],
+  ['finalZipFreightVerified', 'final destination ZIP freight'],
   ['mediaRightsVerified', 'product media rights'],
   ['checkoutInfrastructureVerified', 'guarded checkout infrastructure'],
+  ['checkoutAllowed', 'live checkout approval'],
+  ['fulfillmentRouteVerified', 'verified supplier fulfillment route'],
   ['automaticPromotionAllowed', 'promotion approval'],
 ];
 
-const REQUIRED_DIRECT_CHECKOUT_GATES = [
-  ...REQUIRED_PREFLIGHT_PROMOTION_GATES,
-  ['finalZipFreightVerified', 'final destination ZIP freight'],
-  ['checkoutAllowed', 'live checkout approval'],
-];
+const REQUIRED_DIRECT_CHECKOUT_GATES = REQUIRED_PREFLIGHT_PROMOTION_GATES;
 
 function missingFor(candidate, gates) {
   return gates
@@ -57,10 +56,30 @@ export function buildRetailPromotionSwarm({ review, workerBoard = null, reports 
   const reviewAgeHours = checkedAt ? (now - Date.parse(checkedAt)) / 36e5 : null;
   const reviewFresh = Number.isFinite(reviewAgeHours) && reviewAgeHours >= 0 && reviewAgeHours < 30;
   const rawCandidates = reviewFresh && Array.isArray(review?.candidates) ? review.candidates : [];
+  // An individual candidate's flags do not override the supplier board's sale-ready declaration.
+  // Preserve a strict cap when supplier evidence declares fewer approved products than candidates.
+  const declaredSaleReadyCount = Number.isSafeInteger(review?.saleReadyCount) && review.saleReadyCount > 0
+    ? review.saleReadyCount : 0;
+  let remainingSupplierApprovals = declaredSaleReadyCount;
   const readiness = rawCandidates.map(candidateReadiness).sort((a, b) => {
     if (b.passedGates !== a.passedGates) return b.passedGates - a.passedGates;
     if (a.liveStoreProduct !== b.liveStoreProduct) return a.liveStoreProduct ? -1 : 1;
     return String(a.slug).localeCompare(String(b.slug));
+  }).map(item => {
+    if (!item.promotionEligible) return item;
+    if (remainingSupplierApprovals > 0) {
+      remainingSupplierApprovals -= 1;
+      return item;
+    }
+    const gate = { field: 'supplierSaleReadyCount', label: 'independent supplier sale-ready approval' };
+    return {
+      ...item,
+      promotionEligible: false,
+      directCheckoutEligible: false,
+      missing: [...item.missing, gate],
+      missingPreflight: [...item.missingPreflight, gate],
+      missingDirectCheckout: [...item.missingDirectCheckout, gate],
+    };
   });
   const eligible = readiness.filter(item => item.promotionEligible);
   const nearReady = readiness.filter(item => !item.promotionEligible).slice(0, 3);
@@ -123,7 +142,7 @@ export function buildRetailPromotionSwarm({ review, workerBoard = null, reports 
     generatedAt: new Date(now).toISOString(),
     objective: 'First verified non-test paid PrismBay Clean order through buyer-specific live stock, ZIP freight and checkout verification.',
     reviewFresh,
-    saleReadyCount: Number(review?.saleReadyCount || 0),
+    saleReadyCount: declaredSaleReadyCount,
     promotionEligibleCount: eligible.length,
     promotionEligible: eligible,
     nearReady,

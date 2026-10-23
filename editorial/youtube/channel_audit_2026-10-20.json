@@ -1,0 +1,69 @@
+{
+  "asOf": "2026-10-20T23:47:47-04:00",
+  "channelId": "UCw2hs85TzIpdKwJtG-BSxzQ",
+  "handle": "@PrismBayAI",
+  "metricoolBrandId": 6945443,
+  "verifiedChannelMapping": true,
+  "analytics": {
+    "subscribers": 7,
+    "videoViewsSince20260919": 496,
+    "deltaVs20261019Audit": 1,
+    "measurement": "Sum of available daily Metricool YouTube Evolution videoViews values, 2026-09-19 through 2026-10-20",
+    "caution": "Daily values missing for several recent dates; missing values were excluded rather than treated as zero. This is not YPP-qualified Shorts views or eligible long-form watch hours.",
+    "qualifiedWatchHours": null,
+    "qualifiedShortsViews": null,
+    "perVideoRetention": null,
+    "decision": "HOLD_INSUFFICIENT_DATA"
+  },
+  "scheduledPosts": {
+    "start": "2026-10-20T00:00:00-04:00",
+    "end": "2026-10-29T23:59:59-04:00",
+    "count": 0,
+    "source": "Metricool getScheduledPosts"
+  },
+  "production": {
+    "descriptProjectId": "3de30d73-71c8-4e9d-9ccf-72faf3fb5d11",
+    "recentProjectJobs": 0,
+    "compositions": 2,
+    "unpublishedVideoUnderReview": "PB-PROC-001-S2_audio_corrected.mp4",
+    "technicalAudioCheck": "AAC audio present, peak -1.2 dBFS, mean -17.7 dBFS, 50.44 s video, 1080x1920",
+    "visualCheck": "Six sequential control-card scenes inspected; visuals are legible but maintain a near-identical slide design across scenes. Rework toward substantive, distinctive diagrams before publication.",
+    "releaseGate": "HOLD pending audible narration review, caption/text synchronization, meaningful visual differentiation, and public hosting suitable for scheduling"
+  },
+  "connectors": {
+    "metricool": "connected and channel mapping confirmed",
+    "opera": "interactive user input required, inaccessible in this unattended run",
+    "descript": "project readable, no active jobs",
+    "exa": "free credits exhausted (HTTP 402), no purchase authorized",
+    "github": "read/write connected",
+    "fallback": "Local FFmpeg available; no payment required"
+  },
+  "policy": {
+    "yppCurrent": "1000 subscribers and either 4000 eligible watch hours or 10M eligible Shorts views, subject to country eligibility",
+    "ypp20270201": "1000 subscribers and either 8000 qualified watch hours or 20M qualified Shorts views for new ads/Premium applicants",
+    "shortsPool20270201": "10M qualified Shorts views in prior 90 days for monthly Creator Pool earnings",
+    "countryRisk": "Guyana not listed in official YPP country availability list; registered channel country unknown",
+    "sources": [
+      "https://support.google.com/youtube/answer/72851",
+      "https://support.google.com/youtube/answer/12843009",
+      "https://support.google.com/youtube/answer/7101720",
+      "https://support.google.com/youtube/answer/1311392"
+    ],
+    "noViolationConfirmed": true
+  },
+  "portfolioDecision": {
+    "scale": [],
+    "retest": [],
+    "modify": [
+      "Payment-control Short visual storytelling, narration QA and publishing route"
+    ],
+    "stop": [
+      "Near-duplicate template-led publishing until differentiation passes review"
+    ],
+    "nextBestAction": "Restore publishable media hosting and finish release QA on one original video rather than generate more interchangeable drafts"
+  },
+  "publicUploadConfirmedThisRun": false,
+  "newRevenueConfirmedThisRun": false,
+  "paidAdSpendUSD": 0,
+  "notify": false
+}

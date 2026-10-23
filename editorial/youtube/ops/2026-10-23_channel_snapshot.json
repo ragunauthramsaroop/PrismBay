@@ -1,0 +1,44 @@
+{
+  "as_of": "2026-10-23T06:48:48-04:00",
+  "target": {
+    "channel_id": "UCw2hs85TzIpdKwJtG-BSxzQ",
+    "handle": "@PrismBayAI",
+    "metricool_brand_id": 6945443
+  },
+  "analytics": {
+    "source": "Metricool YouTube evolution",
+    "subscribers": 7,
+    "views_since_2026_09_19": 496,
+    "days_with_reported_views": 24,
+    "days_queried": 35,
+    "video_level_analytics": "empty response",
+    "traffic_sources": "empty response",
+    "breakout_confirmed": false
+  },
+  "scheduling": {
+    "checked": "2026-10-22 through 2026-11-05",
+    "scheduled_posts": 0,
+    "new_public_upload_confirmed": false
+  },
+  "production": {
+    "descript_active_jobs": 0,
+    "shorts_factory_project_id": "3de30d73-71c8-4e9d-9ccf-72faf3fb5d11",
+    "thumbnail_B": "editorial/youtube/assets/PB-ROI-030_thumbnail_B.svg",
+    "thumbnail_B_commit": "a23d8244f4e78cddf89d627b29924643ca762a09",
+    "video_quality_gate": "PB-PROC-001-S2 remains held: narration subjective QC unverified; existing 6-panel visual template lacks distinctiveness",
+    "new_media_published": 0
+  },
+  "access": {
+    "opera": "noninteractive authorization required",
+    "metricool": "reads operational; scheduling has no verified accessible media URL",
+    "google_drive": "existing 2026-10-09 MP4 is not shared publicly"
+  },
+  "policies": {
+    "country_eligibility": "Guyana not listed on official YouTube YPP availability page as of 2026-10-23; channel registered country unverified",
+    "policy_source": "https://support.google.com/youtube/answer/7101720",
+    "monetization_updates_source": "https://support.google.com/youtube/answer/12843009",
+    "originality_source": "https://support.google.com/youtube/answer/1311392"
+  },
+  "spend_usd": 0,
+  "alert_criteria_met": false
+}

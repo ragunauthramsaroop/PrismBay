@@ -1,0 +1,40 @@
+{
+  "id": "PB-ROI-030-S2",
+  "parent": "PB-ROI-030",
+  "channelId": "UCw2hs85TzIpdKwJtG-BSxzQ",
+  "handle": "@PrismBayAI",
+  "metricoolBrandId": 6945443,
+  "status": "pre-production, unpublished, unscheduled",
+  "asOf": "2026-10-21",
+  "format": "Short",
+  "targetDurationSeconds": 53,
+  "audience": "Founders, CFOs, operations managers, procurement leaders",
+  "hypothesis": "A transparent cashflow waterfall with an unexpected $90 result will outperform interchangeable template-based AI tips on completion and relevant subscriber conversion.",
+  "hookType": "small-profit paradox",
+  "title": "The AI Pilot Saved Time. Why Was Net Profit Only $90?",
+  "alternativeTitles": [
+    "AI ROI Math: $1,050 Saved, $960 Spent",
+    "Why a Positive AI Pilot Still Might Fail the CFO Test"
+  ],
+  "thumbnailConcept": "White invoice with large $90 NET and three cost deductions",
+  "cta": "PrismBay AI. Practical business systems, measured honestly.",
+  "publishTime": null,
+  "creativeDifferentiation": "White finance-statement visual with original waterfall and payback ruler; no dark-panel template.",
+  "visualAsset": "editorial/youtube/assets/PB-ROI-030-S2-waterfall.svg",
+  "script": "editorial/youtube/PB-ROI-030-S2_short.md",
+  "reviewHours": [
+    6,
+    24,
+    72,
+    168
+  ],
+  "thresholds": {
+    "provisional": true,
+    "scale": "24h viewed-vs-swiped and average percentage viewed both above median of 10 comparable Shorts, with positive subscriber signal and no QA/policy issues",
+    "retest": "Strong retention but poor reach after sufficient Shorts feed exposure",
+    "modify": "First-second drop or weak cost waterfall comprehension",
+    "stop": "Misleading economics, audio defects, or persistent below-baseline completion after meaningful exposure"
+  },
+  "dataProvenance": "Original hypothetical arithmetic from PB-ROI-030; not a company case study",
+  "zeroPaidSpend": true
+}
