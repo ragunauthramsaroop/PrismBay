@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-22T08:56:34.087Z",
+  "updatedAt": "2026-10-23T08:51:32.146Z",
   "supplierIntegration": "awaiting-cj-auth",
   "items": [
     {
@@ -28,7 +28,7 @@
       "rank": 3,
       "slug": "roll-up-dish-rack",
       "product": "Roll-Up Dish Drying Rack",
-      "attentionScore": 73,
+      "attentionScore": 71.2,
       "supplierReady": false,
       "freightReady": false,
       "promotionReady": false,
