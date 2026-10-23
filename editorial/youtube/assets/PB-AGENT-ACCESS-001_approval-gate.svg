@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080" role="img" aria-label="PrismBay AI independent approval gate architecture">
+<defs>
+  <linearGradient id="bg" x2="1" y2="1"><stop stop-color="#07121f"/><stop offset="1" stop-color="#13253c"/></linearGradient>
+  <linearGradient id="a" x2="1"><stop stop-color="#2dcbbd"/><stop offset="1" stop-color="#57a4f7"/></linearGradient>
+  <filter id="shadow"><feDropShadow dx="0" dy="12" stdDeviation="20" flood-color="#020813" flood-opacity=".45"/></filter>
+  <marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#78a6bc"/></marker>
+</defs>
+<rect width="1920" height="1080" fill="url(#bg)"/>
+<path d="M0 900 Q900 560 1920 910" fill="none" stroke="#23435b" stroke-width="2" opacity=".4"/>
+<rect x="80" y="74" width="11" height="43" rx="5" fill="url(#a)"/>
+<text x="111" y="104" fill="#86cbd1" font-size="28" font-weight="700" font-family="DejaVu Sans, sans-serif" letter-spacing="4">PRISMBAY AI / SYSTEMS UNDER CONTROL</text>
+<text x="82" y="198" fill="#ffffff" font-size="66" font-weight="750" font-family="DejaVu Sans, sans-serif">THE APPROVAL GATE IS OUTSIDE THE MODEL.</text>
+<text x="84" y="253" fill="#b9cbd7" font-size="30" font-family="DejaVu Sans, sans-serif">A convincing recommendation never equals authorization to act.</text>
+<g font-family="DejaVu Sans, sans-serif" filter="url(#shadow)">
+  <g transform="translate(82 365)">
+    <rect width="398" height="384" rx="24" fill="#19334a" stroke="#3b647a" stroke-width="2"/>
+    <rect x="28" y="28" width="78" height="78" rx="20" fill="#1c5b63"/><text x="67" y="82" text-anchor="middle" font-size="43" fill="#6cf0dd">01</text>
+    <text x="29" y="157" font-size="37" font-weight="700" fill="#ffffff">AGENT PROPOSES</text>
+    <text x="29" y="211" font-size="26" fill="#c6d9e5">Invoice field change</text>
+    <text x="29" y="256" font-size="26" fill="#c6d9e5">Evidence attached</text>
+    <text x="29" y="301" font-size="26" fill="#c6d9e5">No execution token</text>
+  </g>
+  <g transform="translate(535 365)">
+    <rect width="398" height="384" rx="24" fill="#19334a" stroke="#3b647a" stroke-width="2"/>
+    <rect x="28" y="28" width="78" height="78" rx="20" fill="#1c5b63"/><text x="67" y="82" text-anchor="middle" font-size="43" fill="#6cf0dd">02</text>
+    <text x="29" y="157" font-size="35" font-weight="700" fill="#ffffff">HUMAN REVIEWS</text>
+    <text x="29" y="211" font-size="26" fill="#c6d9e5">Identity verified</text>
+    <text x="29" y="256" font-size="26" fill="#c6d9e5">Exact change approved</text>
+    <text x="29" y="301" font-size="26" fill="#c6d9e5">Approval bound to data</text>
+  </g>
+  <g transform="translate(988 365)">
+    <rect width="398" height="384" rx="24" fill="#19334a" stroke="#3b647a" stroke-width="2"/>
+    <rect x="28" y="28" width="78" height="78" rx="20" fill="#1c5b63"/><text x="67" y="82" text-anchor="middle" font-size="43" fill="#6cf0dd">03</text>
+    <text x="29" y="157" font-size="36" font-weight="700" fill="#ffffff">POLICY CHECKS</text>
+    <text x="29" y="211" font-size="26" fill="#c6d9e5">Role and limit valid</text>
+    <text x="29" y="256" font-size="26" fill="#c6d9e5">Data unchanged</text>
+    <text x="29" y="301" font-size="26" fill="#c6d9e5">Allowed destination</text>
+  </g>
+  <g transform="translate(1441 365)">
+    <rect width="398" height="384" rx="24" fill="#19334a" stroke="#3b647a" stroke-width="2"/>
+    <rect x="28" y="28" width="78" height="78" rx="20" fill="#1c5b63"/><text x="67" y="82" text-anchor="middle" font-size="43" fill="#6cf0dd">04</text>
+    <text x="29" y="157" font-size="35" font-weight="700" fill="#ffffff">CONTROLLED ACT</text>
+    <text x="29" y="211" font-size="26" fill="#c6d9e5">Narrow tool permission</text>
+    <text x="29" y="256" font-size="26" fill="#c6d9e5">Transaction audit log</text>
+    <text x="29" y="301" font-size="26" fill="#c6d9e5">Recovery plan ready</text>
+  </g>
+</g>
+<path d="M482 557H527 M935 557H980 M1388 557H1433" stroke="#78a6bc" stroke-width="7" marker-end="url(#arr)" fill="none"/>
+<rect x="82" y="820" width="1757" height="116" rx="18" fill="#492534" stroke="#d06479" stroke-width="2"/>
+<text x="124" y="867" font-family="DejaVu Sans, sans-serif" font-size="28" font-weight="700" fill="#ffb8bd">STOP CONDITIONS</text>
+<text x="124" y="907" font-family="DejaVu Sans, sans-serif" font-size="26" fill="#f8d7d9">Changed transaction  /  Missing approval  /  Unauthorized destination  /  Failed policy check</text>
+<text x="82" y="1023" font-family="DejaVu Sans, sans-serif" font-size="21" fill="#91a8ba">Original PrismBay AI teaching diagram. Illustrative architecture, not a NIST-certified control or live system.</text>
+</svg>
