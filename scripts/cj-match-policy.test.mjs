@@ -22,3 +22,27 @@ test('rejects known CJ and category false positives',()=>{
 });
 
 // 2026-10-04 sale-readiness verification trigger: no gate logic changed.
+
+test('rejects contradictory live-offer component counts in supplier titles', () => {
+  const rejected = [
+    ['crevice', '4 In 1 Bottle Gap Cleaner Brush Multifunctional Cup Cleaning Tool'],
+    ['crevice', '4-in-1 Crevice Gap Cleaning Brush'],
+    ['drain-catcher', '3PCS Silicone Sink Drain Filter Hair Catcher'],
+    ['drain-catcher', 'Sink Drain Catcher 3-Pack Strainer'],
+    ['drain-catcher', 'Sink Drain Filter 1 Piece Catcher'],
+  ];
+  for (const [slug, name] of rejected) {
+    assert.equal(matchesIntendedProduct({ slug }, name), false, slug + ': ' + name);
+  }
+  const accepted = [
+    ['crevice', '3 In 1 Crevice Gap Cleaning Brush'],
+    ['drain-catcher', '2PCS Silicone Sink Drain Filter Catcher'],
+    ['drain-catcher', 'Sink Drain Catcher 2-Pack Strainer'],
+  ];
+  for (const [slug, name] of accepted) {
+    assert.equal(matchesIntendedProduct({ slug }, name), true, slug + ': ' + name);
+  }
+  // A title without a count is not final pack proof. Downstream exact-variant
+  // inspection, freight, checkout and fulfillment authorization still apply.
+  assert.equal(matchesIntendedProduct({ slug: 'crevice' }, 'Gap Crevice Cleaning Brush'), true);
+});
