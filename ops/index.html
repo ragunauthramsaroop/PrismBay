@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#0b1324">
+<meta name="robots" content="noindex,nofollow">
+<link rel="canonical" href="https://clean.prismbayai.com/ops/">
+<title>PrismBay Mission Control | Workers & Revenue Operations</title>
+<meta name="description" content="Live read-only PrismBay GitHub worker monitoring with evidence, workflow activity and commercial readiness.">
+<link rel="icon" href="/favicon.svg">
+<link rel="stylesheet" href="dashboard.css">
+<script src="dashboard.js" defer></script>
+</head>
+<body>
+<a href="#main" class="skip">Skip to dashboard</a>
+<div class="app-shell">
+  <aside class="sidebar" aria-label="Mission Control navigation">
+    <a class="brand" href="/ops/" aria-label="PrismBay Mission Control home"><span class="brand-mark" aria-hidden="true">P</span><span>PRISMBAY <small>MISSION CONTROL</small></span></a>
+    <div class="side-group-title">WORKSPACE</div>
+    <nav class="side-nav">
+      <a href="#overview" class="nav-item active"><span aria-hidden="true">▦</span> Overview</a>
+      <a href="#workers" class="nav-item"><span aria-hidden="true">◈</span> Worker fleet</a>
+      <a href="#activity" class="nav-item"><span aria-hidden="true">≋</span> Live activity</a>
+      <a href="#commerce" class="nav-item"><span aria-hidden="true">▥</span> Commerce checks</a>
+    </nav>
+    <div class="side-group-title">DIRECT ACCESS</div>
+    <nav class="side-nav">
+      <a class="nav-item" href="https://github.com/ragunauthramsaroop/PrismBay/actions" target="_blank" rel="noopener noreferrer"><span aria-hidden="true">↗</span> GitHub Actions</a>
+      <a class="nav-item" href="https://github.com/ragunauthramsaroop/PrismBay/issues/413" target="_blank" rel="noopener noreferrer"><span aria-hidden="true">⚑</span> Accountability</a>
+      <a class="nav-item" href="https://clean.prismbayai.com/" target="_blank" rel="noopener noreferrer"><span aria-hidden="true">↗</span> Storefront</a>
+    </nav>
+    <div class="sidebar-bottom"><div class="sidebar-dot"></div><div><b>Read-only oversight</b><small>GitHub Actions is the execution engine. This page cannot place orders or trigger payments.</small></div></div>
+  </aside>
+  <div class="main-column">
+    <header class="topbar">
+      <div class="crumb">PRISMBAY <span>/</span> OPERATIONS <span>/</span> <b>MISSION CONTROL</b></div>
+      <div class="top-actions"><span class="live-pill"><span class="live-dot"></span> AUTO-REFRESH ON</span><span id="clock" class="clock" aria-label="Local time">--:--</span><button id="refresh" class="refresh-button" type="button"><span aria-hidden="true">↻</span> Refresh now</button></div>
+    </header>
+    <main id="main">
+      <section id="overview" class="page-intro">
+        <div class="page-intro-top"><span class="eyebrow">CONTROL ROOM <span class="eyebrow-divider">/</span> SALES SYSTEM & AUTOMATION</span><span id="data-pill" class="data-pill">Awaiting worker evidence</span></div>
+        <h1>Every worker. <span>One clear view.</span></h1>
+        <p>See which GitHub agents are delivering evidence, what they worked on, and which commercial gates remain unresolved. Operational success is not the same as a paid sale.</p>
+        <div class="health-note"><span class="health-icon" aria-hidden="true">i</span><span id="health-note">Connecting to published GitHub evidence. Scheduled Actions are best-effort, not continuous real-time servers.</span></div>
+      </section>
+
+      <section class="kpi-grid" aria-label="Operational summary">
+        <article class="kpi"><div class="kpi-head"><span>PASSING WORKERS</span><span class="kpi-symbol teal">↗</span></div><div id="kpi-pass" class="kpi-value">—</div><div class="kpi-sub">Recent successful run <strong>and</strong> output artifact</div></article>
+        <article class="kpi"><div class="kpi-head"><span>IN PROGRESS</span><span class="kpi-symbol blue">◉</span></div><div id="kpi-running" class="kpi-value">—</div><div class="kpi-sub">Execution pending or underway</div></article>
+        <article class="kpi"><div class="kpi-head"><span>NEEDS ATTENTION</span><span class="kpi-symbol amber">!</span></div><div id="kpi-fail" class="kpi-value">—</div><div class="kpi-sub"><span id="warning-count">—</span> with active warning streaks</div></article>
+        <article class="kpi revenue-kpi"><div class="kpi-head"><span>VERIFIED PAID SALES</span><span class="kpi-symbol purple">$</span></div><div class="kpi-value status-word">Not verified</div><div class="kpi-sub">Requires independent authenticated payment evidence</div></article>
+      </section>
+
+      <section id="workers" class="section">
+        <div class="section-head">
+          <div><span class="section-kicker">THE WORKFORCE</span><h2>Agent & worker fleet <span id="fleet-count" class="count-pill">5</span></h2><p>Performance, freshness, evidence artifacts and recovery consequences.</p></div>
+          <div class="filters" role="group" aria-label="Filter workers">
+            <button type="button" class="filter active" data-filter="all" aria-pressed="true">All</button>
+            <button type="button" class="filter" data-filter="pass" aria-pressed="false">Passing</button>
+            <button type="button" class="filter" data-filter="running" aria-pressed="false">Running</button>
+            <button type="button" class="filter" data-filter="fail" aria-pressed="false">Attention</button>
+          </div>
+        </div>
+        <div id="workers-list" class="workers-grid" aria-live="polite"><div class="empty-worker">Connecting to live worker evidence…</div></div>
+        <div class="section-footer"><span id="snapshot-updated">Last evidence: awaiting first publish</span><span>Watchdog audits on schedule and when selected workflows finish</span></div>
+      </section>
+
+      <div class="lower-grid">
+        <section id="activity" class="section panel activity-panel">
+          <div class="section-head compact"><div><span class="section-kicker">AUTOMATION TELEMETRY</span><h2>Recent GitHub activity</h2><p>Actual public workflow runs from GitHub, not simulated events.</p></div><span id="activity-source" class="source-badge">Connecting</span></div>
+          <div class="activity-controls"><label for="activity-filter">Show</label><select id="activity-filter"><option value="operational">Operational & failed runs</option><option value="all">All runs, including skipped</option><option value="fail">Failures only</option></select><span id="activity-fetched" class="muted-time">—</span></div>
+          <div id="activity-list" class="activity-list" aria-live="polite"><div class="activity-empty">Loading GitHub Actions…</div></div>
+          <div class="panel-bottom"><a href="https://github.com/ragunauthramsaroop/PrismBay/actions" target="_blank" rel="noopener noreferrer">Open full Actions history <span>↗</span></a><span>Activity refreshes every 5 minutes</span></div>
+        </section>
+
+        <div id="commerce" class="side-panels">
+          <section class="panel commerce-panel">
+            <div class="section-head compact"><div><span class="section-kicker">COMMERCIAL GATES</span><h2>Revenue readiness</h2><p>What is ready and what remains blocked.</p></div></div>
+            <div class="gate-list">
+              <div class="gate"><div class="gate-icon good">✓</div><div><strong>Digital product pages</strong><p id="digital-gate">Checking current storefront report…</p></div><span id="digital-badge" class="gate-tag neutral">Checking</span></div>
+              <div class="gate"><div class="gate-icon caution">!</div><div><strong>Physical product checkout</strong><p id="physical-gate">Checking seller and fulfillment gates…</p></div><span id="physical-badge" class="gate-tag neutral">Checking</span></div>
+              <div class="gate"><div class="gate-icon caution">○</div><div><strong>Payment & profit proof</strong><p>No independent live paid-order evidence in the watchdog data.</p></div><span class="gate-tag neutral">Unverified</span></div>
+            </div>
+            <div class="commerce-note">Availability, offer links, and completed GitHub runs do <strong>not</strong> prove revenue. Never interpret this dashboard as payment authorization.</div>
+          </section>
+          <section class="panel shortcuts">
+            <span class="section-kicker">QUICK ACCESS</span>
+            <h2>Open the source of truth</h2>
+            <a href="https://github.com/ragunauthramsaroop/PrismBay/issues/413" target="_blank" rel="noopener noreferrer"><span>⚑</span><div><b>Accountability dashboard</b><small>Warnings, probation and reassignment</small></div><span class="arrow">↗</span></a>
+            <a href="https://clean.prismbayai.com/toolkits.html" target="_blank" rel="noopener noreferrer"><span>▣</span><div><b>Digital product catalog</b><small>Offers and checkout destinations</small></div><span class="arrow">↗</span></a>
+            <a href="https://prismbay-clean-global.floot.app/quote-inbox" target="_blank" rel="noopener noreferrer"><span>✉</span><div><b>Private inquiry inbox</b><small>Authenticated operators only</small></div><span class="arrow">↗</span></a>
+          </section>
+        </div>
+      </div>
+      <footer class="foot"><span>PRISMBAY / MISSION CONTROL</span><span>Public operational metadata only · No buyer personal information · No automatic payments</span><a href="https://github.com/ragunauthramsaroop/PrismBay" target="_blank" rel="noopener noreferrer">Source repository ↗</a></footer>
+    </main>
+  </div>
+</div>
+</body>
+</html>
