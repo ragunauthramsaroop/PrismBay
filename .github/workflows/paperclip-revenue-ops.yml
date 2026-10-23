@@ -2,8 +2,12 @@ name: PrismBay Paperclip Revenue Ops
 
 on:
   schedule:
-    - cron: '11 */3 * * *'
+    - cron: '17 * * * *'
   workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/paperclip-revenue-ops.yml'
   issue_comment:
     types: [created]
   pull_request:
@@ -26,6 +30,7 @@ jobs:
     if: >-
       github.event_name == 'schedule' ||
       github.event_name == 'workflow_dispatch' ||
+      github.event_name == 'push' ||
       github.event_name == 'pull_request' ||
       (github.event_name == 'issue_comment' && github.actor == 'ragunauthramsaroop' && startsWith(github.event.issue.title, '[PAPERCLIP-REVENUE]') && contains(github.event.comment.body, 'run revenue ops'))
     runs-on: ubuntu-latest
@@ -66,6 +71,16 @@ jobs:
           node scripts/first-sale-verifier.mjs
           node scripts/paperclip-revenue-bridge.mjs
 
+      - name: Verify current revenue agent outputs before credit
+        shell: bash
+        run: |
+          set -euo pipefail
+          for file in growth-reports/paperclip-revenue-board.json growth-reports/retail-promotion-swarm.json growth-reports/first-sale-verification.json growth-reports/storefront-cro-auditor.json growth-reports/creator-partner-scout.json; do
+            test -s "$file" || { echo "::error::Missing agent output $file"; exit 1; }
+            node -e 'JSON.parse(require("node:fs").readFileSync(process.argv[1],"utf8"))' "$file"
+          done
+          echo 'Evidence outputs verified, independent of whether any sale occurred.'
+
       - name: Retain Paperclip revenue board
         if: always()
         uses: actions/upload-artifact@v4
@@ -78,7 +93,7 @@ jobs:
             growth-reports/first-sale-verification.json
             growth-reports/storefront-cro-auditor.json
             growth-reports/creator-partner-scout.json
-          if-no-files-found: warn
+          if-no-files-found: error
           retention-days: 7
 
       - name: Write revenue status
