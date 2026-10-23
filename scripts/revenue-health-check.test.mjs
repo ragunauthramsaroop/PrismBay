@@ -58,7 +58,7 @@ test('live paid-product acquisition guides enforce exact canonical, checkout, pr
     assert.throws(()=>validateBuyerGuide(html.replace(offer.checkout,'https://invalid.example/buy'),offer),/buyer_guide_invalid/);
     assert.throws(()=>validateBuyerGuide(html.replace('$'+offer.priceUsd,'$999'),offer),/buyer_guide_invalid/);
     assert.throws(()=>validateBuyerGuide(html.replace(canonical.href,'https://incorrect.example/'),offer),/buyer_guide_invalid/);
-    assert.throws(()=>validateBuyerGuide(html.replace(canonical.href,offer.guide),offer),/buyer_guide_invalid/);
+    assert.throws(()=>validateBuyerGuide(html.replace(canonical.href,'https://ragunauthramsaroop.github.io/PrismBay/'+canonical.pathname.slice(1)),offer),/buyer_guide_invalid/);
   }
 });
 
