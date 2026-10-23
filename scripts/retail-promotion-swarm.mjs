@@ -27,7 +27,10 @@ function missingFor(candidate, gates) {
 }
 
 export function candidateReadiness(candidate = {}) {
-  const preflightUrl = PREFLIGHT_ROUTES[candidate.slug] || null;
+  // Only explicit, owned route mappings qualify; inherited object keys such
+  // as "constructor" or "__proto__" must never become preflight URLs.
+  const preflightUrl = typeof candidate.slug === 'string' && Object.hasOwn(PREFLIGHT_ROUTES, candidate.slug)
+    ? PREFLIGHT_ROUTES[candidate.slug] : null;
   const missingPreflight = missingFor(candidate, REQUIRED_PREFLIGHT_PROMOTION_GATES);
   const missingDirectCheckout = missingFor(candidate, REQUIRED_DIRECT_CHECKOUT_GATES);
   // Boolean stock and identity flags do not establish an exact variant SKU
