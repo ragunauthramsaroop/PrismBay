@@ -33,7 +33,7 @@ on:
 permissions:
   actions: write
   issues: write
-  contents: read
+  contents: write
 
 concurrency:
   group: prismbay-worker-accountability
