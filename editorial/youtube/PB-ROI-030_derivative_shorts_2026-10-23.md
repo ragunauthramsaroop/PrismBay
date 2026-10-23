@@ -1,4 +1,4 @@
-# PrismBay AI | PB-ROI-030 | Two original derivative Shorts
+# PrismBay AI | PB-ROI-030 | Three original derivative Shorts
 Status: SCRIPTED ONLY. NOT RENDERED. NOT SCHEDULED. NOT PUBLISHED.
 Channel ID: UCw2hs85TzIpdKwJtG-BSxzQ
 Handle: @PrismBayAI
@@ -49,3 +49,22 @@ Originality gate: Use a distinct visual grammar from S1 and all prior procuremen
 - Classify SCALE, RETEST, MODIFY, STOP from observed results. Never infer retention from total views alone.
 - These are original derivative concepts from a single long-form framework, not near-duplicate Shorts.
 - No paid distribution, artificial engagement, or unlicensed footage.
+
+
+## Short C: The AI Pilot Sampling Trap
+Experiment ID: PB-ROI-030-S3
+Audience: procurement managers, operations improvement teams and finance reviewers.
+Hypothesis: A representative-sampling demonstration earns saves and qualified subscribers from leaders evaluating real deployments.
+Format: 9:16, 52–62 seconds. Original animated dot-matrix demonstration. Unlike S1's financial ledger and S2's decision tree, this uses matched case populations and no financial claim.
+Hook type: measurement reveal.
+Primary title: Your AI Pilot Is Fast Because You Tested the Easy Cases
+Alternative titles: The 200 Cases Your AI Pilot Ignored | Why AI Speed Tests Mislead Executives
+Cover concept: 800 light dots, 200 dark dots, with one arrow labelled "EXCLUDED?" No generic AI illustration.
+CTA after value: "PrismBay AI explains measurable AI business systems. Follow for the next pilot test."
+Narration, approximately 56 seconds:
+"If your AI pilot only handles easy cases, a forty-percent speed gain tells you little about the full workflow. Picture one thousand requests. Eight hundred are routine. Two hundred need exceptions or human judgment. If the pilot measures only the routine requests, the result looks fast while the hardest work stays invisible. Before testing, record a baseline for both groups. Track handling time, correction rate and escalations. Keep the case mix consistent when you compare results. Use average or total minutes to calculate capacity. Keep the median to understand a typical case. Ask who selected the test examples. A credible pilot measures representative work, not a highlight reel. Follow PrismBay AI for practical AI evaluation."
+Storyboard: 0–3s "40% FASTER?" overlays an 800-dot selection; 3–15s zoom out to reveal 200 excluded exception dots; 15–29s side-by-side representative baseline and pilot samples; 29–43s time, correction and escalation gauges; 43–54s sample-selection checklist and named owner; 54–60s channel promise.
+Integrity: All numbers and the 40% figure are explicitly hypothetical, not measured performance or a vendor accusation. Label "Illustrative example" on-screen.
+Provisional publishing slot: Monday 2026-11-02 16:00 America/Guyana, subject to schedule audit, editorial QA, confirmed valid media hosting and four-hour spacing.
+Success threshold: At 72 hours compare average percentage viewed and subscriber gain per 100 views against five or more comparable Shorts. If the sample is too small, RETEST; SCALE only on measured outperformance with useful sample size. Review at 6h, 24h, 72h and 7d.
+Originality gate: Create the dot matrix and sampling visuals from scratch. Do not reuse the seven-card procurement template or repeat S1's financial equations.
