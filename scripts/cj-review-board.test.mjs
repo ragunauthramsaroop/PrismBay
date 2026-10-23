@@ -159,3 +159,38 @@ test('retained supplier evidence never preserves revoked approval or destination
  assert.equal(merged.promotionAuthorizedCount, 0);
  assert.equal(merged.saleReadyCount, 0);
 });
+
+test('owner promotion policy never clears a product with missing fulfillment or freight gates', () => {
+  const authorization = {
+    ownerAuthorized: true, paidSpendAuthorized: false, bulkOutreachAuthorized: false,
+    media: { promotionMediaRightsVerified: true, policy: 'original_graphics_and_original_copy_only',
+      supplierMediaAuthorized: false, thirdPartyMediaAuthorized: false },
+    promotion: { automaticPromotionAllowedAfterAllOtherGates: true },
+    checkoutInfrastructure: { deployed: true, stripeWebhookSecretConfigured: true,
+      verifiedCheckoutSkus: ['garment-steamer'] },
+  };
+  const row = {
+    slug: 'garment-steamer', candidate: 'Portable Garment Steamer',
+    supplierVerified: true, variantInventoryVerified: true, freightVerified: true,
+    finalZipFreightVerified: true, fulfillmentRouteVerified: false,
+    product: { name: 'USB Handheld Garment Steamer Household Portable Electric Iron' },
+  };
+  const withoutFulfillment = buildCJReview({ ...base, results: [row] }, authorization);
+  assert.equal(withoutFulfillment.candidates[0].independentIdentityMatch, true);
+  assert.equal(withoutFulfillment.candidates[0].promotionPolicyAuthorized, true);
+  assert.equal(withoutFulfillment.candidates[0].checkoutAllowed, true);
+  assert.equal(withoutFulfillment.candidates[0].automaticPromotionAllowed, false);
+  assert.equal(withoutFulfillment.candidates[0].status, 'fulfillment_route_required');
+  assert.equal(withoutFulfillment.promotionAuthorizedCount, 0);
+  assert.equal(withoutFulfillment.saleReadyCount, 0);
+
+  const withFulfillment = buildCJReview({ ...base, results: [{ ...row, fulfillmentRouteVerified: true }] }, authorization);
+  assert.equal(withFulfillment.candidates[0].automaticPromotionAllowed, true);
+  assert.equal(withFulfillment.candidates[0].fulfillmentRouteVerified, true);
+  assert.equal(withFulfillment.saleReadyCount, 1);
+
+  const missingZip = buildCJReview({ ...base, results: [{ ...row,
+    fulfillmentRouteVerified: true, finalZipFreightVerified: false }] }, authorization);
+  assert.equal(missingZip.candidates[0].automaticPromotionAllowed, false);
+  assert.equal(missingZip.saleReadyCount, 0);
+});

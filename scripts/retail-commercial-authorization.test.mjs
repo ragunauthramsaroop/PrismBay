@@ -46,7 +46,8 @@ test('owner authorization closes media and promotion gates without bypassing fin
   const row = review.candidates[0];
   assert.equal(row.mediaRightsVerified, true);
   assert.equal(row.promotionMediaPolicy, 'original_graphics_and_original_copy_only');
-  assert.equal(row.automaticPromotionAllowed, true);
+  assert.equal(row.promotionPolicyAuthorized, true);
+  assert.equal(row.automaticPromotionAllowed, false);
   assert.equal(row.checkoutInfrastructureVerified, true);
   assert.equal(row.finalZipFreightVerified, false);
   assert.equal(row.checkoutAllowed, false);
@@ -63,8 +64,11 @@ test('verified exact destination freight releases checkout only for an approved 
   assert.equal(row.checkoutInfrastructureVerified, true);
   assert.equal(row.checkoutAllowed, true);
   assert.equal(row.mediaRightsVerified, true);
-  assert.equal(row.automaticPromotionAllowed, true);
-  assert.equal(review.saleReadyCount, 1);
+  assert.equal(row.promotionPolicyAuthorized, true);
+  assert.equal(row.automaticPromotionAllowed, false);
+  assert.equal(row.fulfillmentRouteVerified, false);
+  assert.equal(row.status, 'fulfillment_route_required');
+  assert.equal(review.saleReadyCount, 0);
 });
 
 test('owner approval never authorizes checkout for an unmapped SKU', () => {

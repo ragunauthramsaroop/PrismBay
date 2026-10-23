@@ -32,5 +32,7 @@ test('checkout permission still requires exact final ZIP evidence even for verif
   const row=board.candidates[0];
   assert.equal(row.checkoutInfrastructureVerified,true);
   assert.equal(row.checkoutAllowed,true);
-  assert.equal(row.status,'commercial_review_required');
+  assert.equal(row.status,'fulfillment_route_required');
+  assert.equal(row.automaticPromotionAllowed,false);
+  assert.equal(board.saleReadyCount,0);
 });
