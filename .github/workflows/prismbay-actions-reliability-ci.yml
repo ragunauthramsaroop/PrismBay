@@ -1,0 +1,41 @@
+name: PrismBay Actions Reliability Checks
+
+on:
+  pull_request:
+    paths:
+      - 'scripts/revenue-health-check.mjs'
+      - 'scripts/revenue-health-check.test.mjs'
+      - 'scripts/garment-checkout-evidence.test.mjs'
+      - 'scripts/retail-commercial-authorization.test.mjs'
+      - 'scripts/retail-readiness-closure.test.mjs'
+      - '.github/workflows/cj-ebay-ticket-watch-15min.yml'
+      - '.github/workflows/prismbay-actions-reliability-ci.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/revenue-health-check.mjs'
+      - 'scripts/revenue-health-check.test.mjs'
+      - '.github/workflows/cj-ebay-ticket-watch-15min.yml'
+      - '.github/workflows/prismbay-actions-reliability-ci.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  offline-regression:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Validate watcher JavaScript
+        run: node --check scripts/cj-ebay-ticket-watch.mjs
+      - name: Run revenue and retail safety regressions
+        run: |
+          node --test \
+            scripts/revenue-health-check.test.mjs \
+            scripts/garment-checkout-evidence.test.mjs \
+            scripts/retail-commercial-authorization.test.mjs \
+            scripts/retail-readiness-closure.test.mjs
