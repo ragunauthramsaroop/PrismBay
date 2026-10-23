@@ -29,7 +29,6 @@ function missingFor(candidate, gates) {
 export function candidateReadiness(candidate = {}) {
   const preflightUrl = PREFLIGHT_ROUTES[candidate.slug] || null;
   const missingPreflight = missingFor(candidate, REQUIRED_PREFLIGHT_PROMOTION_GATES);
-  if (!preflightUrl) missingPreflight.push({ field: 'verifiedPreflightRoute', label: 'verified preflight route' });
   const missingDirectCheckout = missingFor(candidate, REQUIRED_DIRECT_CHECKOUT_GATES);
   // Boolean stock and identity flags do not establish an exact variant SKU
   // or an independently recognized live-store product.
@@ -44,6 +43,7 @@ export function candidateReadiness(candidate = {}) {
   }
   missingPreflight.push(...identityMissing);
   missingDirectCheckout.push(...identityMissing);
+  if (!preflightUrl) missingPreflight.push({ field: 'verifiedPreflightRoute', label: 'verified preflight route' });
   const preflightTotal = REQUIRED_PREFLIGHT_PROMOTION_GATES.length + 3;
   const directTotal = REQUIRED_DIRECT_CHECKOUT_GATES.length + 2;
   const passed = preflightTotal - missingPreflight.length;
