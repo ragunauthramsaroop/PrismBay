@@ -24,6 +24,8 @@ test('blocked product without rights or a verified preflight route never becomes
     'checkoutAllowed',
     'fulfillmentRouteVerified',
     'automaticPromotionAllowed',
+    'liveStoreProduct',
+    'observedVariantSku',
     'verifiedPreflightRoute',
   ]);
 });
@@ -78,6 +80,8 @@ test('fully verified product requires independent supplier sale-ready declaratio
   const now = Date.parse('2026-10-23T09:00:00.000Z');
   const candidate = {
     slug: 'garment-steamer',
+    liveStoreProduct: true,
+    observedVariantSku: 'CJYD245844002BY',
     independentIdentityMatch: true,
     variantStockVerified: true,
     freightEstimateVerified: true,
@@ -105,6 +109,8 @@ test('supplier-ready products and public TikTok site flags do not authorize reta
   const now = Date.parse('2026-10-23T18:00:00.000Z');
   const candidate = {
     slug: 'garment-steamer',
+    liveStoreProduct: true,
+    observedVariantSku: 'CJYD245844002BY',
     independentIdentityMatch: true,
     variantStockVerified: true,
     freightEstimateVerified: true,
@@ -147,7 +153,7 @@ test('supplier-ready products and public TikTok site flags do not authorize reta
 test('supplier sale-ready count never authorizes a candidate missing fulfillment evidence', () => {
   const now = Date.parse('2026-10-23T09:00:00.000Z');
   const candidate = {
-    slug: 'garment-steamer', independentIdentityMatch: true, variantStockVerified: true,
+    slug: 'garment-steamer', liveStoreProduct: true, observedVariantSku: 'CJYD245844002BY', independentIdentityMatch: true, variantStockVerified: true,
     freightEstimateVerified: true, finalZipFreightVerified: true, mediaRightsVerified: true,
     checkoutInfrastructureVerified: true, checkoutAllowed: true,
     fulfillmentRouteVerified: false, automaticPromotionAllowed: true,
@@ -172,9 +178,9 @@ test('even a commercially ready unsupported product is not promoted until a veri
     fulfillmentRouteVerified: true,
     automaticPromotionAllowed: true,
   });
-  assert.equal(item.directCheckoutEligible, true);
+  assert.equal(item.directCheckoutEligible, false);
   assert.equal(item.promotionEligible, false);
-  assert.deepEqual(item.missing.map(x => x.field), ['verifiedPreflightRoute']);
+  assert.deepEqual(item.missing.map(x => x.field), ['liveStoreProduct', 'observedVariantSku', 'verifiedPreflightRoute']);
 });
 
 test('stale supplier evidence blocks every product', () => {
@@ -200,4 +206,43 @@ test('stale supplier evidence blocks every product', () => {
   assert.equal(swarm.reviewFresh, false);
   assert.equal(swarm.promotionEligibleCount, 0);
   assert.equal(swarm.execution.supplierVerification.state, 'stale_or_missing');
+});
+
+test('product-level supplier SKU or an unlisted variant never receives retail promotion clearance', () => {
+  const now = Date.parse('2026-10-23T23:00:00.000Z');
+  const complete = {
+    slug: 'garment-steamer', liveStoreProduct: true, observedVariantSku: 'CJYD245844002BY',
+    independentIdentityMatch: true, variantStockVerified: true, freightEstimateVerified: true,
+    finalZipFreightVerified: true, mediaRightsVerified: true, checkoutInfrastructureVerified: true,
+    checkoutAllowed: true, fulfillmentRouteVerified: true, automaticPromotionAllowed: true,
+  };
+  for (const candidate of [
+    { ...complete, observedVariantSku: null, observedSupplierSku: 'CJYD2458440' },
+    { ...complete, liveStoreProduct: false },
+    { ...complete, observedVariantSku: '  ' },
+  ]) {
+    const swarm = buildRetailPromotionSwarm({ now, review: {
+      checkedAt: '2026-10-23T22:59:00.000Z', saleReadyCount: 1, candidates: [candidate],
+    } });
+    assert.equal(swarm.promotionEligibleCount, 0);
+    assert.equal(swarm.trackedOffers.length, 0);
+    assert.equal(swarm.nearReady[0].directCheckoutEligible, false);
+  }
+});
+
+test('duplicate supplier variants and duplicate storefront identities fail closed', () => {
+  const now = Date.parse('2026-10-23T23:00:00.000Z');
+  const complete = {
+    slug: 'garment-steamer', liveStoreProduct: true, observedVariantSku: 'CJYD245844002BY',
+    independentIdentityMatch: true, variantStockVerified: true, freightEstimateVerified: true,
+    finalZipFreightVerified: true, mediaRightsVerified: true, checkoutInfrastructureVerified: true,
+    checkoutAllowed: true, fulfillmentRouteVerified: true, automaticPromotionAllowed: true,
+  };
+  const swarm = buildRetailPromotionSwarm({ now, review: {
+    checkedAt: '2026-10-23T22:59:00.000Z', saleReadyCount: 2, candidates: [complete, { ...complete }],
+  } });
+  assert.equal(swarm.promotionEligibleCount, 0);
+  assert.equal(swarm.trackedOffers.length, 0);
+  assert.ok(swarm.nearReady.every(item => item.missing.some(g => g.field === 'uniqueVariantSku')));
+  assert.ok(swarm.nearReady.every(item => item.missing.some(g => g.field === 'uniqueProductSlug')));
 });
