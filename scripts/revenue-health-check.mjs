@@ -40,8 +40,12 @@ export function validatePaidStore(html) {
 
 export function validateBuyerGuide(html, offer) {
   if (!offer?.guide || !offer?.checkout || !Number.isInteger(offer.priceUsd)) throw new TypeError('A verified offer is required');
+  // The deployed buyer guides declare the PrismBay Clean domain as canonical.
+  // Continue checking the published guide URL, but verify its intended canonical.
+  const canonical = new URL(offer.guide);
+  canonical.hostname = 'clean.prismbayai.com';
   const expected = [
-    '<link rel="canonical" href="' + offer.guide + '"',
+    '<link rel="canonical" href="' + canonical.href + '"',
     'buyer-guides.css',
     offer.checkout.split('/').at(-1),
     'www.prismbayai.com/refunds',
