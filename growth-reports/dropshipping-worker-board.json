@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-10-23T17:26:25.242Z",
+  "generatedAt": "2026-10-23T17:29:42.227Z",
   "researchCandidates": 12,
   "publishedResearchSignals": 12,
   "verifiedCJStatus": {
@@ -129,7 +129,7 @@
       "executionMode": "existing_cloud_script",
       "reportAvailable": true,
       "storefrontStatus": 200,
-      "missingProductSchema": true
+      "missingProductSchema": false
     },
     {
       "worker": "Hook/Creative Writer",
