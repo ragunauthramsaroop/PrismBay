@@ -13,6 +13,10 @@ const GATE_OWNERS = Object.freeze({
   final_zip_freight: 'supplier-fulfillment',
   mediaRightsVerified: 'creative-studio',
   media_rights: 'creative-studio',
+  checkoutInfrastructureVerified: 'storefront-conversion',
+  checkout_infrastructure: 'storefront-conversion',
+  fulfillmentRouteVerified: 'supplier-fulfillment',
+  fulfillment_route: 'supplier-fulfillment',
   checkoutAllowed: 'storefront-conversion',
   checkout: 'storefront-conversion',
   automaticPromotionAllowed: 'commerce-control',
@@ -33,6 +37,16 @@ export function validateOrganization(manifest) {
   return true;
 }
 
+const REQUIRED_PHYSICAL_PROMOTION_GATES = Object.freeze([
+  'independentIdentityMatch', 'variantStockVerified', 'freightEstimateVerified',
+  'finalZipFreightVerified', 'mediaRightsVerified', 'checkoutInfrastructureVerified',
+  'checkoutAllowed', 'fulfillmentRouteVerified', 'automaticPromotionAllowed',
+]);
+
+function isCommerciallyCleared(candidate) {
+  return REQUIRED_PHYSICAL_PROMOTION_GATES.every(key => candidate?.[key] === true);
+}
+
 // A promotion/preflight counter is not proof of a buyer-ready physical offer.
 // Require independent candidate evidence and agreement between both supplier and
 // retail promotion reports before activating any external acquisition route.
@@ -41,13 +55,8 @@ export function verifiedPromotionReadyCount(supplier, promotion) {
   const declaredPromotionCount = promotion?.promotionEligibleCount;
   if (!Number.isSafeInteger(declaredSupplierCount) || declaredSupplierCount < 1 ||
       !Number.isSafeInteger(declaredPromotionCount) || declaredPromotionCount < 1) return 0;
-  const required = [
-    'independentIdentityMatch', 'variantStockVerified', 'freightEstimateVerified',
-    'finalZipFreightVerified', 'mediaRightsVerified', 'checkoutAllowed',
-    'automaticPromotionAllowed'
-  ];
   const candidates = Array.isArray(supplier?.candidates) ? supplier.candidates : [];
-  const verified = candidates.filter(c => required.every(key => c?.[key] === true)).length;
+  const verified = candidates.filter(isCommerciallyCleared).length;
   return Math.min(declaredSupplierCount, declaredPromotionCount, verified);
 }
 
@@ -56,7 +65,7 @@ function nearestCommercialCandidate(supplier) {
   return candidates
     .filter(c => c.independentIdentityMatch === true)
     .sort((a,b) => {
-      const score = c => [c.variantStockVerified,c.freightEstimateVerified,c.finalZipFreightVerified,c.mediaRightsVerified,c.checkoutAllowed,c.automaticPromotionAllowed].filter(Boolean).length;
+      const score = c => [c.variantStockVerified,c.freightEstimateVerified,c.finalZipFreightVerified,c.mediaRightsVerified,c.checkoutInfrastructureVerified,c.checkoutAllowed,c.fulfillmentRouteVerified,c.automaticPromotionAllowed].filter(Boolean).length;
       return score(b) - score(a) || Number(b.liveStoreProduct === true) - Number(a.liveStoreProduct === true);
     })[0] || null;
 }
@@ -77,7 +86,9 @@ export function selectBottleneck({firstSale, promotion, supplier, storefront, ti
     const missing = [];
     if (!nearCommercial.finalZipFreightVerified) missing.push('final_zip_freight');
     if (!nearCommercial.mediaRightsVerified) missing.push('media_rights');
+    if (!nearCommercial.checkoutInfrastructureVerified) missing.push('checkout_infrastructure');
     if (!nearCommercial.checkoutAllowed) missing.push('checkout');
+    if (!nearCommercial.fulfillmentRouteVerified) missing.push('fulfillment_route');
     if (!nearCommercial.automaticPromotionAllowed) missing.push('promotion_authorization');
     return {stage:'supplier_verification', owner:'supplier-fulfillment', reason:'nearest_product_has_unclosed_commercial_gates', product:nearCommercial.slug, missing};
   }
@@ -87,12 +98,18 @@ export function selectBottleneck({firstSale, promotion, supplier, storefront, ti
   return {stage:'product_discovery', owner:'product-intelligence', reason:'no_verified_commercial_candidate_available'};
 }
 
-function listSupplierStates(supplier) {
+function listSupplierStates(supplier, promotion) {
   const candidates = Array.isArray(supplier?.candidates) ? supplier.candidates : [];
+  // A candidate is not approved merely because local flags are set.
+  // Both independent supplier and retail promotion counts must agree.
+  const verifiedCount = verifiedPromotionReadyCount(supplier, promotion);
+  const cleared = candidates.filter(isCommerciallyCleared);
+  const approved = cleared.slice(0, verifiedCount);
+  const approvedSlugs = new Set(approved.map(c => c.slug));
   return {
     awaitingSupplierVerification: candidates.filter(c => c.independentIdentityMatch !== true || c.variantStockVerified !== true || c.freightEstimateVerified !== true).map(c => c.slug).filter(Boolean),
-    awaitingCommercialGateClosure: candidates.filter(c => c.independentIdentityMatch === true && c.variantStockVerified === true && c.freightEstimateVerified === true && !(c.finalZipFreightVerified && c.mediaRightsVerified && c.checkoutAllowed && c.automaticPromotionAllowed)).map(c => c.slug).filter(Boolean),
-    approvedForPromotion: candidates.filter(c => c.independentIdentityMatch === true && c.variantStockVerified === true && c.freightEstimateVerified === true && c.finalZipFreightVerified === true && c.mediaRightsVerified === true && c.checkoutAllowed === true && c.automaticPromotionAllowed === true).map(c => c.slug).filter(Boolean),
+    awaitingCommercialGateClosure: candidates.filter(c => c.independentIdentityMatch === true && c.variantStockVerified === true && c.freightEstimateVerified === true && !approvedSlugs.has(c.slug)).map(c => c.slug).filter(Boolean),
+    approvedForPromotion: approved.map(c => c.slug).filter(Boolean),
     removedFromPromotion: candidates.filter(c => c.status === 'identity_rejected').map(c => c.slug).filter(Boolean),
   };
 }
@@ -228,7 +245,7 @@ function buildPriorityTasks({bottleneck, warRoom, opportunities}) {
 export function buildDashboard({manifest, opportunities, supplier, promotion, storefront, tiktok, firstSale, revenueBoard}) {
   validateOrganization(manifest);
   const bottleneck = selectBottleneck({firstSale,promotion,supplier,storefront,tiktok,opportunities});
-  const supplierStates = listSupplierStates(supplier);
+  const supplierStates = listSupplierStates(supplier, promotion);
   const verifiedSales = Number.isFinite(Number(firstSale?.verifiedSaleCount)) ? Number(firstSale.verifiedSaleCount) : (firstSale?.verifiedFirstSale === true ? 1 : 0);
   const verifiedRevenueUsd = verifiedSales > 0 && Number.isFinite(Number(firstSale?.grossRevenueUsd)) ? Number(firstSale.grossRevenueUsd) : 0;
   const known = value => value === undefined || value === null ? null : value;

@@ -82,7 +82,7 @@ test('a verified sale closes First Sale War Room and shifts control to measureme
  assert.equal(war,null);
 });
 
-const fullyCleared={slug:'verified-physical-item',independentIdentityMatch:true,variantStockVerified:true,freightEstimateVerified:true,finalZipFreightVerified:true,mediaRightsVerified:true,checkoutAllowed:true,automaticPromotionAllowed:true};
+const fullyCleared={slug:'verified-physical-item',independentIdentityMatch:true,variantStockVerified:true,freightEstimateVerified:true,finalZipFreightVerified:true,mediaRightsVerified:true,checkoutInfrastructureVerified:true,checkoutAllowed:true,fulfillmentRouteVerified:true,automaticPromotionAllowed:true};
 
 test('physical readiness requires independent supplier and promotion counts plus complete candidate evidence',()=>{
  const supplier={saleReadyCount:1,candidates:[fullyCleared]};
@@ -94,7 +94,7 @@ test('physical readiness requires independent supplier and promotion counts plus
 });
 
 test('no missing or malformed commercial gate is treated as approval',()=>{
- const keys=['independentIdentityMatch','variantStockVerified','freightEstimateVerified','finalZipFreightVerified','mediaRightsVerified','checkoutAllowed','automaticPromotionAllowed'];
+ const keys=['independentIdentityMatch','variantStockVerified','freightEstimateVerified','finalZipFreightVerified','mediaRightsVerified','checkoutInfrastructureVerified','checkoutAllowed','fulfillmentRouteVerified','automaticPromotionAllowed'];
  for(const key of keys){
   for(const value of [false,null,undefined,'true',1]){
    const candidate={...fullyCleared,[key]:value};
@@ -119,4 +119,26 @@ test('a partially cleared candidate stays in supplier verification despite infla
  const bottleneck=selectBottleneck({firstSale:{verifiedFirstSale:false},supplier,promotion,opportunities:{sourcingQueue:[]},tiktok:{readyForPublicRetailPublishing:false}});
  assert.equal(bottleneck.stage,'supplier_verification');
  assert.deepEqual(bottleneck.missing.sort(),['checkout','final_zip_freight']);
+});
+
+
+test('Paperclip does not approve promotion without independent checkout and fulfillment evidence',()=>{
+ const promotion={promotionEligibleCount:1};
+ for(const gate of ['checkoutInfrastructureVerified','fulfillmentRouteVerified']){
+  const supplier={saleReadyCount:1,candidates:[{...fullyCleared,[gate]:false}]};
+  assert.equal(verifiedPromotionReadyCount(supplier,promotion),0);
+  const dashboard=buildDashboard({manifest,supplier,promotion,firstSale:{verifiedFirstSale:false},opportunities:{sourcingQueue:[]},storefront:{result:{activeStorefront:{status:200}}},tiktok:{readyForPublicRetailPublishing:false}});
+  assert.equal(dashboard.promotionEligibleCount,0);
+  assert.deepEqual(dashboard.productsApprovedForPromotion,[]);
+  assert.ok(dashboard.productsAwaitingCommercialGateClosure.includes('verified-physical-item'));
+  assert.ok(dashboard.currentBottleneck.missing.includes(gate==='fulfillmentRouteVerified'?'fulfillment_route':'checkout_infrastructure'));
+ }
+});
+
+test('Paperclip approval list requires agreeing supplier and promotion counts',()=>{
+ const supplier={saleReadyCount:0,candidates:[fullyCleared]};
+ const dashboard=buildDashboard({manifest,supplier,promotion:{promotionEligibleCount:1},firstSale:{verifiedFirstSale:false},opportunities:{sourcingQueue:[]},storefront:{result:{activeStorefront:{status:200}}},tiktok:{readyForPublicRetailPublishing:false}});
+ assert.equal(dashboard.promotionEligibleCount,0);
+ assert.deepEqual(dashboard.productsApprovedForPromotion,[]);
+ assert.ok(dashboard.productsAwaitingCommercialGateClosure.includes('verified-physical-item'));
 });
