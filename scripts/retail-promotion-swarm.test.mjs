@@ -101,6 +101,49 @@ test('fully verified product requires independent supplier sale-ready declaratio
   assert.equal(cleared.trackedOffers[0].storefrontUrl.startsWith('https://buy.stripe.com/'), false);
 });
 
+test('supplier-ready products and public TikTok site flags do not authorize retail publication', () => {
+  const now = Date.parse('2026-10-23T18:00:00.000Z');
+  const candidate = {
+    slug: 'garment-steamer',
+    independentIdentityMatch: true,
+    variantStockVerified: true,
+    freightEstimateVerified: true,
+    finalZipFreightVerified: true,
+    mediaRightsVerified: true,
+    checkoutInfrastructureVerified: true,
+    checkoutAllowed: true,
+    fulfillmentRouteVerified: true,
+    automaticPromotionAllowed: true,
+  };
+  const swarm = buildRetailPromotionSwarm({
+    now,
+    review: {
+      checkedAt: '2026-10-23T17:59:00.000Z',
+      saleReadyCount: 1,
+      candidates: [candidate],
+    },
+    reports: {
+      publisher: { result: {
+        tiktokVerificationReady: true,
+        checks: [
+          { url: 'https://www.prismbayai.com/terms', ok: true, status: 200 },
+          { url: 'https://www.prismbayai.com/privacy', ok: true, status: 200 },
+          { url: 'https://www.prismbayai.com/tiktokio-test.txt', ok: true, status: 200 },
+        ],
+      } },
+      'tiktok-public-post-evidence': { publicPostVerified: true },
+    },
+  });
+  assert.equal(swarm.promotionEligibleCount, 1);
+  assert.equal(swarm.execution.tiktok.siteVerificationReady, true);
+  assert.equal(swarm.execution.tiktok.publicationAuthorized, false);
+  assert.equal(swarm.execution.tiktok.state, 'blocked_or_readiness_only');
+  assert.ok(swarm.execution.tiktok.missing.includes('authenticated_retail_tiktok_connection'));
+  assert.ok(swarm.execution.tiktok.missing.includes('retail_video_publish_scope'));
+  assert.ok(swarm.execution.tiktok.missing.includes('creative_rights_and_media_digest'));
+  assert.ok(swarm.execution.tiktok.missing.includes('owner_publication_authorization'));
+});
+
 test('supplier sale-ready count never authorizes a candidate missing fulfillment evidence', () => {
   const now = Date.parse('2026-10-23T09:00:00.000Z');
   const candidate = {
