@@ -10,6 +10,7 @@
 <meta name="description" content="Live read-only PrismBay GitHub worker monitoring with evidence, workflow activity and commercial readiness.">
 <link rel="icon" href="/favicon.svg">
 <link rel="stylesheet" href="dashboard.css">
+<script src="live-health.js" defer></script>
 <script src="dashboard.js" defer></script>
 </head>
 <body>
@@ -35,26 +36,26 @@
   <div class="main-column">
     <header class="topbar">
       <div class="crumb">PRISMBAY <span>/</span> OPERATIONS <span>/</span> <b>MISSION CONTROL</b></div>
-      <div class="top-actions"><span class="live-pill"><span class="live-dot"></span> AUTO-REFRESH ON</span><span id="clock" class="clock" aria-label="Local time">--:--</span><button id="refresh" class="refresh-button" type="button"><span aria-hidden="true">↻</span> Refresh now</button></div>
+      <div class="top-actions"><span id="live-mode" class="live-pill"><span class="live-dot"></span> CHECKING GITHUB</span><span id="clock" class="clock" aria-label="Local time">--:--</span><button id="refresh" class="refresh-button" type="button"><span aria-hidden="true">↻</span> Refresh now</button></div>
     </header>
     <main id="main">
       <section id="overview" class="page-intro">
-        <div class="page-intro-top"><span class="eyebrow">CONTROL ROOM <span class="eyebrow-divider">/</span> SALES SYSTEM & AUTOMATION</span><span id="data-pill" class="data-pill">Awaiting worker evidence</span></div>
+        <div class="page-intro-top"><span class="eyebrow">CONTROL ROOM <span class="eyebrow-divider">/</span> SALES SYSTEM & AUTOMATION</span><div class="sync-pills"><span id="api-pill" class="data-pill">GitHub runs: connecting</span><span id="data-pill" class="data-pill">Audit: awaiting evidence</span></div></div>
         <h1>Every worker. <span>One clear view.</span></h1>
         <p>See which GitHub agents are delivering evidence, what they worked on, and which commercial gates remain unresolved. Operational success is not the same as a paid sale.</p>
         <div class="health-note"><span class="health-icon" aria-hidden="true">i</span><span id="health-note">Connecting to published GitHub evidence. Scheduled Actions are best-effort, not continuous real-time servers.</span></div>
       </section>
 
       <section class="kpi-grid" aria-label="Operational summary">
-        <article class="kpi"><div class="kpi-head"><span>PASSING WORKERS</span><span class="kpi-symbol teal">↗</span></div><div id="kpi-pass" class="kpi-value">—</div><div class="kpi-sub">Recent successful run <strong>and</strong> output artifact</div></article>
-        <article class="kpi"><div class="kpi-head"><span>IN PROGRESS</span><span class="kpi-symbol blue">◉</span></div><div id="kpi-running" class="kpi-value">—</div><div class="kpi-sub">Execution pending or underway</div></article>
+        <article class="kpi"><div class="kpi-head"><span>PASSING WORKERS</span><span class="kpi-symbol teal">↗</span></div><div id="kpi-pass" class="kpi-value">—</div><div class="kpi-sub">Latest run independently audited with an output artifact</div></article>
+        <article class="kpi"><div class="kpi-head"><span>RUNNING / PROOF PENDING</span><span class="kpi-symbol blue">◉</span></div><div id="kpi-running" class="kpi-value">—</div><div class="kpi-sub">Live execution or newer run awaiting artifact audit</div></article>
         <article class="kpi"><div class="kpi-head"><span>NEEDS ATTENTION</span><span class="kpi-symbol amber">!</span></div><div id="kpi-fail" class="kpi-value">—</div><div class="kpi-sub"><span id="warning-count">—</span> with active warning streaks</div></article>
         <article class="kpi revenue-kpi"><div class="kpi-head"><span>VERIFIED PAID SALES</span><span class="kpi-symbol purple">$</span></div><div class="kpi-value status-word">Not verified</div><div class="kpi-sub">Requires independent authenticated payment evidence</div></article>
       </section>
 
       <section id="workers" class="section">
         <div class="section-head">
-          <div><span class="section-kicker">THE WORKFORCE</span><h2>Agent & worker fleet <span id="fleet-count" class="count-pill">5</span></h2><p>Performance, freshness, evidence artifacts and recovery consequences.</p></div>
+          <div><span class="section-kicker">THE WORKFORCE</span><h2>Agent & worker fleet <span id="fleet-count" class="count-pill">5</span></h2><p>Latest GitHub run state, independent artifact audits and recovery consequences.</p></div>
           <div class="filters" role="group" aria-label="Filter workers">
             <button type="button" class="filter active" data-filter="all" aria-pressed="true">All</button>
             <button type="button" class="filter" data-filter="pass" aria-pressed="false">Passing</button>
@@ -63,7 +64,7 @@
           </div>
         </div>
         <div id="workers-list" class="workers-grid" aria-live="polite"><div class="empty-worker">Connecting to live worker evidence…</div></div>
-        <div class="section-footer"><span id="snapshot-updated">Last evidence: awaiting first publish</span><span>Watchdog audits on schedule and when selected workflows finish</span></div>
+        <div class="section-footer"><span id="snapshot-updated">Last evidence: awaiting first publish</span><span>Worker runs: ~2-minute browser checks · independent proof: scheduled GitHub audits</span></div>
       </section>
 
       <div class="lower-grid">
