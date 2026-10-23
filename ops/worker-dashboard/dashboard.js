@@ -4,10 +4,10 @@
  */
 'use strict';
 const REPO='ragunauthramsaroop/PrismBay';
-const RUNS_ENDPOINT='https://api.github.com/repos/'+REPO+'/actions/runs?per_page=100';
+const RUNS_ENDPOINT='https://api.github.com/repos/'+REPO+'/actions/runs?branch=main&per_page=100';
 const SNAPSHOT_INTERVAL=60000;
-const ACTIVITY_INTERVAL=300000;
-const state={snapshot:null,events:[],eventsAt:null,workerFilter:'all',activityFilter:'operational',loading:false};
+const ACTIVITY_INTERVAL=120000; // 30 requests/hour in a single open browser tab (GitHub anonymous limit is typically 60/hour)
+const state={snapshot:null,events:[],eventsAt:null,activityError:null,workerFilter:'all',activityFilter:'operational',loading:false};
 const byId=id=>document.getElementById(id);
 const safeTime=value=>{
   const time=Date.parse(value||'');
@@ -46,6 +46,8 @@ const displayReasons={
   'workflow_api_unavailable':'GitHub operational data could not be checked',
   'run_stuck':'Run exceeded its allowed execution grace period',
   'no_operational_runs':'No production run found',
+  'completed_awaiting_artifact_audit':'Run finished successfully; output artifact verification is pending',
+  'published_audit_stale':'The published audit is overdue; cannot mark this worker as passing',
 };
 const el=(tag,className,text)=>{
   const node=document.createElement(tag);
@@ -63,13 +65,15 @@ const link=(text,url,className='')=>{
 const placeholder=(message,cls='empty-worker')=>el('div',cls,message);
 
 function renderSnapshot(){
-  const snap=state.snapshot;
+  const source=state.snapshot;
+  const snap=source&&globalThis.PrismBayRunHealth?.reconcile(source,state.events,state.eventsAt,Date.now());
   const parent=byId('workers-list');
   parent.replaceChildren();
   if(!snap||!Array.isArray(snap.workers)){
     for(const id of ['kpi-pass','kpi-running','kpi-fail'])byId(id).textContent='—';
     byId('snapshot-updated').textContent='No operational evidence has been published';
-    byId('data-pill').textContent='EVIDENCE UNAVAILABLE';
+    byId('data-pill').textContent='AUDIT UNAVAILABLE';
+    byId('api-pill').textContent=state.eventsAt?'GitHub runs checked '+relative(state.eventsAt):'GitHub runs: unavailable';
     byId('data-pill').className='data-pill stale';
     parent.append(placeholder('Published worker evidence is unavailable. Open the accountability issue or refresh after the next GitHub run.'));
     return;
@@ -84,13 +88,15 @@ function renderSnapshot(){
   const age=Date.now()-(safeTime(snap.checkedAt)||0);
   const stale=age>75*60000;
   byId('data-pill').className='data-pill '+(stale?'stale':'fresh');
-  byId('data-pill').textContent=stale?'STALE · '+updated.toUpperCase():'EVIDENCE UPDATED · '+updated.toUpperCase();
+  byId('data-pill').textContent='INDEPENDENT AUDIT · '+updated.toUpperCase();
+  byId('api-pill').textContent=snap.liveFresh?'GITHUB RUNS · '+relative(state.eventsAt).toUpperCase():state.activityError?'GITHUB RUNS · API LIMITED':'GITHUB RUNS · WAITING';
+  byId('api-pill').className='data-pill '+(snap.liveFresh?'fresh':'stale');
   byId('snapshot-updated').textContent='Last accountability audit: '+fullTime(snap.checkedAt)+' · '+updated;
-  byId('health-note').textContent=stale
-    ? 'The latest GitHub evidence is overdue. Results may be stale; inspect Actions and the permanent accountability issue before acting.'
-    : 'Worker evidence is current as of '+fullTime(snap.checkedAt)+'. A green worker proves a completed run and artifact, not visits or revenue.';
-  const ordered=[...snap.workers].sort((a,b)=>({fail:0,running:1,pass:2}[a.status]??3)-({fail:0,running:1,pass:2}[b.status]??3));
-  const filtered=state.workerFilter==='all'?ordered:ordered.filter(w=>w.status===state.workerFilter);
+  byId('health-note').textContent=snap.liveFresh
+    ? 'Latest GitHub run check: '+fullTime(state.eventsAt)+'. Last independent evidence audit: '+fullTime(snap.checkedAt)+'. A successful run without audited output is shown as proof pending.'
+    : (stale?'The independent audit is overdue and live GitHub run data is unavailable; results are not confirmed current.':'Independent evidence last audited '+fullTime(snap.checkedAt)+'. Checking GitHub for newer runs.');
+  const ordered=[...snap.workers].sort((a,b)=>({fail:0,unknown:0,running:1,pending:1,pass:2}[a.status]??3)-({fail:0,unknown:0,running:1,pending:1,pass:2}[b.status]??3));
+  const filtered=state.workerFilter==='all'?ordered:ordered.filter(w=>state.workerFilter==='running'?['running','pending'].includes(w.status):state.workerFilter==='fail'?['fail','unknown'].includes(w.status):w.status===state.workerFilter);
   if(filtered.length===0){parent.append(placeholder('No workers match this filter.'));return;}
   for(const worker of filtered)parent.append(workerCard(worker));
 }
@@ -98,8 +104,8 @@ function workerCard(w){
   const article=el('article','worker');
   const top=el('div','worker-top'),left=el('div');
   left.append(el('div','worker-group',w.group||'Automation'),el('div','worker-name',w.title||w.id));
-  const status=['pass','fail','running'].includes(w.status)?w.status:'fail';
-  const chip=el('span','status-chip '+status,status==='pass'?'Passing':status==='running'?'Running':'Needs attention');
+  const status=['pass','fail','running','pending','unknown'].includes(w.status)?w.status:'unknown';
+  const chip=el('span','status-chip '+status,status==='pass'?'Passing · audited':status==='running'?'Running now':status==='pending'?'Proof pending':status==='unknown'?'Audit overdue':'Needs attention');
   top.append(left,chip);article.append(top);
   article.append(el('div','worker-purpose',w.purpose||'Workflow'));
   const details=el('div','worker-details');
@@ -107,7 +113,7 @@ function workerCard(w){
     ['Run age',w.runAgeMinutes===null?'Unknown':w.runAgeMinutes+' min'],
     ['Expected frequency',w.cadence||'Scheduled'],
     ['Consecutive bad checks',w.failureStreak??0],
-    ['Output evidence',w.artifactName?(w.artifactBytes?Number(w.artifactBytes).toLocaleString()+' bytes':'Retained artifact'):'Awaiting proof']
+    ['Last audited artifact',w.artifactName?(w.artifactBytes?Number(w.artifactBytes).toLocaleString()+' bytes':'Retained artifact'):'Awaiting proof']
   ]){
     const d=el('div');d.append(el('span','detail-label',name),el('span','detail-value',value));details.append(d);
   }
@@ -117,7 +123,7 @@ function workerCard(w){
   else bottom.append(link('Open workflow ↗','https://github.com/'+REPO+'/actions/workflows/'+encodeURIComponent(w.workflow)));
   const consequence=w.consequence==='none'?'No warnings':capital(w.consequence);
   bottom.append(el('span','worker-consequence'+(w.consequence!=='none'?' alert':''),consequence));article.append(bottom);
-  article.append(el('div','worker-description',w.remediation?('Recovery: '+w.remediation):displayReasons[w.reason]||capital(w.reason)));
+  article.append(el('div','worker-description',(w.source==='github_live'?'Live GitHub run: ':'Audited status: ')+(w.statusText||displayReasons[w.reason]||capital(w.reason))+(w.remediation?' · Recovery: '+w.remediation:'')));
   return article;
 }
 function activityType(run){
@@ -140,8 +146,8 @@ function renderActivity(){
     parent.append(placeholder('GitHub activity could not be loaded. The evidence-backed worker cards above can still be used.','activity-empty'));
     return;
   }
-  byId('activity-source').className='source-badge ok';
-  byId('activity-source').textContent='GitHub API';
+  byId('activity-source').className='source-badge '+(state.activityError?'error':'ok');
+  byId('activity-source').textContent=state.activityError?'GitHub delayed':'GitHub API';
   byId('activity-fetched').textContent='Fetched '+relative(state.eventsAt);
   const rows=recentRuns();
   if(!rows.length){parent.append(placeholder('No recent runs match this filter.','activity-empty'));return;}
@@ -176,13 +182,17 @@ async function updateActivity(){
   try{
     const data=await getJson(RUNS_ENDPOINT,15000);
     if(!Array.isArray(data.workflow_runs))throw Error('Invalid GitHub response');
-    state.events=data.workflow_runs;state.eventsAt=new Date().toISOString();
+    state.events=data.workflow_runs;state.eventsAt=new Date().toISOString();state.activityError=null;
+    byId('live-mode').innerHTML='<span class="live-dot"></span> GITHUB SYNC · ~2 MIN';
   }catch(err){
+    state.activityError=err instanceof Error?err.message:'Github API unavailable';
     if(!state.eventsAt)state.events=[];
     byId('activity-source').className='source-badge error';
     byId('activity-source').textContent='GitHub limited';
+    byId('live-mode').textContent='GITHUB API DELAYED';
   }
   renderActivity();
+  renderSnapshot();
 }
 async function updateCommerce(){
   const [digital,physical]=await Promise.allSettled([
