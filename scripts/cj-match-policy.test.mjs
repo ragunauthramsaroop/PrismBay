@@ -4,7 +4,7 @@ import {matchesIntendedProduct,hasApprovedProductClass,approvedClassCount} from 
 
 test('every live and research category has an explicit positive identity policy',()=>{
  const positives=[
- ['scrubber','Electric Spin Scrubber Cleaning Tool'],['pethair','Reusable Pet Hair Remover Roller'],['crevice','Gap Crevice Cleaning Brush'],['pressure-washer','Cordless Portable Pressure Washer'],['mattress-vacuum','Mattress Bed Vacuum Cleaner'],['garment-steamer','Portable Garment Clothes Steamer'],['mini-mop','Mini Self Squeeze Mop'],['drain-catcher','Sink Drain Strainer Catcher'],['home-caddy','Portable Cleaning Supply Caddy'],['cordless-handheld-vacuum','Cordless Portable Handheld Vacuum Cleaner'],['extendable-high-zone-duster','Extendable High Reach Microfiber Duster'],['dryer-vent-cleaner-kit','Dryer Vent Cleaning Brush Kit'],['self-standing-floor-mop','Self Standing Floor Mop'],['window-washer-squeegee','Window Washer Squeegee Cleaner'],['roll-up-dish-rack','Roll-Up Dish Drying Rack'],['appliance-cord-organizer','Kitchen Appliance Cord Organizer Holder'],['rug-grippers','Non-slip Rug Grippers'],['rug-grippers','Reusable Adhesive Carpet Gripper'],['rug-grippers','Non Slip Rug Corner Pads'],['bottle-brush-set','Bottle Brush Cleaning Set'],['sheet-laundry-detangler','Sheet Laundry Detangler Ball'],['hanging-closet-organizer','Hanging Closet Shelf Storage Organizer'],['pan-scraper','Non-Scratch Pan Scraper'],
+ ['scrubber','Electric Spin Scrubber Cleaning Tool'],['pethair','Reusable Pet Hair Remover Roller'],['crevice','3-in-1 Gap Crevice Cleaning Brush'],['pressure-washer','Cordless Portable Pressure Washer'],['mattress-vacuum','Mattress Bed Vacuum Cleaner'],['garment-steamer','Portable Garment Clothes Steamer'],['mini-mop','Mini Self Squeeze Mop'],['drain-catcher','2-Pack Sink Drain Strainer Catcher'],['home-caddy','Portable Cleaning Supply Caddy'],['cordless-handheld-vacuum','Cordless Portable Handheld Vacuum Cleaner'],['extendable-high-zone-duster','Extendable High Reach Microfiber Duster'],['dryer-vent-cleaner-kit','Dryer Vent Cleaning Brush Kit'],['self-standing-floor-mop','Self Standing Floor Mop'],['window-washer-squeegee','Window Washer Squeegee Cleaner'],['roll-up-dish-rack','Roll-Up Dish Drying Rack'],['appliance-cord-organizer','Kitchen Appliance Cord Organizer Holder'],['rug-grippers','Non-slip Rug Grippers'],['rug-grippers','Reusable Adhesive Carpet Gripper'],['rug-grippers','Non Slip Rug Corner Pads'],['bottle-brush-set','Bottle Brush Cleaning Set'],['sheet-laundry-detangler','Sheet Laundry Detangler Ball'],['hanging-closet-organizer','Hanging Closet Shelf Storage Organizer'],['pan-scraper','Non-Scratch Pan Scraper'],
  ['car-seat-headrest-hooks','Car Seat Headrest Bag Hooks'],['microfiber-car-detailing-cloths','Microfiber Car Detailing Cleaning Towels'],['knife-cleaning-brush','Knife Cutlery Cleaning Brush'],['car-trash-can','Compact Car Trash Can Bin'],['collapsible-microwave-cover','Collapsible Microwave Food Cover'],['toilet-scrubber-kit','Disposable Toilet Scrubber Brush Cleaning Kit'],['mini-bag-sealer','Portable Mini Snack Bag Sealer']
  ];
  assert.equal(approvedClassCount(),28);
@@ -42,7 +42,9 @@ test('rejects contradictory live-offer component counts in supplier titles', () 
   for (const [slug, name] of accepted) {
     assert.equal(matchesIntendedProduct({ slug }, name), true, slug + ': ' + name);
   }
-  // A title without a count is not final pack proof. Downstream exact-variant
-  // inspection, freight, checkout and fulfillment authorization still apply.
-  assert.equal(matchesIntendedProduct({ slug: 'crevice' }, 'Gap Crevice Cleaning Brush'), true);
+  // Missing component/pack counts fail identity screening. A matching title
+  // still needs exact-variant, freight, checkout and fulfillment evidence.
+  assert.equal(matchesIntendedProduct({ slug: 'crevice' }, 'Gap Crevice Cleaning Brush'), false);
+  assert.equal(matchesIntendedProduct({ slug: 'drain-catcher' }, 'Sink Drain Filter Catcher'), false);
+  assert.equal(matchesIntendedProduct({ slug: 'crevice' }, 'Curved Toilet Brush Gap Cleaning Tool Bathroom Accessory'), false);
 });
