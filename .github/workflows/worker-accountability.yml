@@ -55,7 +55,8 @@ jobs:
           node --check scripts/worker-accountability-runner.mjs
           node --check scripts/public-ops-snapshot.mjs
           node --check ops/worker-dashboard/dashboard.js
-          node --test scripts/worker-accountability.test.mjs scripts/public-ops-snapshot.test.mjs
+          node --check ops/worker-dashboard/live-health.js
+          node --test scripts/worker-accountability.test.mjs scripts/public-ops-snapshot.test.mjs ops/worker-dashboard/live-health.test.mjs
       - name: Inspect operational runs, artifacts and recover failing routes
         if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
         env:
@@ -74,6 +75,7 @@ jobs:
           mkdir -p "$syncdir/ops"
           cp ops/worker-dashboard/index.html "$syncdir/ops/index.html"
           cp ops/worker-dashboard/dashboard.js "$syncdir/ops/dashboard.js"
+          cp ops/worker-dashboard/live-health.js "$syncdir/ops/live-health.js"
           cp ops/worker-dashboard/dashboard.css "$syncdir/ops/dashboard.css"
           # Never publish the raw operational report; whitelist safe metadata.
           if test -s growth-reports/worker-accountability.json; then
@@ -81,7 +83,7 @@ jobs:
           else
             echo '::warning::No accountability report; retained the previous public snapshot.'
           fi
-          git -C "$syncdir" add ops/index.html ops/dashboard.js ops/dashboard.css
+          git -C "$syncdir" add ops/index.html ops/dashboard.js ops/live-health.js ops/dashboard.css
           if test -s "$syncdir/ops/status.json"; then
             git -C "$syncdir" add ops/status.json
           fi
