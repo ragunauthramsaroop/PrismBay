@@ -5,7 +5,10 @@ import { ownedSalesUrls } from './owned-sales-page-worker.mjs';
 export function mergeSitemap(xml, date = new Date().toISOString().slice(0,10)) {
   const text = String(xml || '').trim();
   if (!text.includes('<urlset') || !text.includes('</urlset>')) throw new Error('invalid_sitemap');
-  let body = text.replace(/\s*<\/urlset>\s*$/, '');
+  // Remove old GitHub Pages buyer URLs: the branded storefront is canonical.
+  // Keeping both in the public sitemap splits indexing and weakens buyer traffic.
+  const withoutLegacyBuyers = text.replace(/\s*<url>\s*<loc>https:\/\/ragunauthramsaroop\.github\.io\/PrismBay\/learn\/(?:[^<]*)<\/loc>[\s\S]*?<\/url>/g, '');
+  let body = withoutLegacyBuyers.replace(/\s*<\/urlset>\s*$/, '');
   for (const url of ownedSalesUrls()) {
     if (body.includes('<loc>' + url + '</loc>')) continue;
     body += '\n  <url><loc>' + url + '</loc><lastmod>' + date + '</lastmod><changefreq>weekly</changefreq></url>';
