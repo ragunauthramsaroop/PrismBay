@@ -41,6 +41,28 @@ jobs:
           git -C "$syncdir" add marketplace/ebay/cj-ticket-watch.json
           if ! git -C "$syncdir" diff --cached --quiet; then
             git -C "$syncdir" commit -m 'chore: publish CJ eBay reply status'
-            git -C "$syncdir" pull --rebase origin gh-pages
-            git -C "$syncdir" push origin HEAD:gh-pages
+            for attempt in 1 2 3; do
+              git fetch origin gh-pages
+              if ! git -C "$syncdir" rebase origin/gh-pages; then
+                git -C "$syncdir" rebase --abort || true
+                echo 'Concurrent page edit needs review. No forced push.' >&2
+                exit 1
+              fi
+              if git -C "$syncdir" push origin HEAD:gh-pages; then
+                echo 'CJ eBay reply status published.'
+                exit 0
+              fi
+              echo "Publish attempt $attempt failed; retrying safely." >&2
+              if [[ "$attempt" != "3" ]]; then sleep "$((attempt * 3))"; fi
+            done
+            echo 'CJ reply status publish failed after three attempts.' >&2
+            exit 1
           fi
+      - name: Retain CJ status report if publishing fails
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: prismbay-cj-reply-${{ github.run_id }}
+          path: growth-reports/ebay/cj-ticket-watch.json
+          if-no-files-found: warn
+          retention-days: 3
