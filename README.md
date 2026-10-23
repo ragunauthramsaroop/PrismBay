@@ -2,6 +2,15 @@
 
 Practical, evidence-based AI operations education and implementation planning.
 
+## Live worker & agent operations dashboard
+
+**[Open PrismBay Mission Control](https://clean.prismbayai.com/ops/)** | [Accountability and escalation](https://github.com/ragunauthramsaroop/PrismBay/issues/413) | [GitHub Actions runs](https://github.com/ragunauthramsaroop/PrismBay/actions)
+
+This read-only dashboard displays the five core revenue worker groups, latest GitHub run evidence, output artifacts, warning/probation status, recent workflow activity, and a limited commercial readiness summary. GitHub Actions publishes a privacy-filtered status snapshot after each accountability audit, and the page refreshes that snapshot every 60 seconds. The recent-run feed queries GitHub every five minutes and is subject to its public API rate limits. Scheduled workflows may be delayed; the page is **near-live**, not a guaranteed continuously running system. It deliberately excludes customer personal data, API keys and internal supplier records. A successful run does **not** establish visits, orders, payments or profit.
+
+Dashboard source: [`ops/worker-dashboard/`](ops/worker-dashboard/) · public status generator: [`scripts/public-ops-snapshot.mjs`](scripts/public-ops-snapshot.mjs).
+
+
 ## PrismBay Clean: shop the current offer
 
 [View the Portable Garment Steamer, USD 29.95](https://clean.prismbayai.com/garment-steamer/?utm_source=github&utm_medium=readme&utm_campaign=clean_steamer) | [Read the buyer guide](https://clean.prismbayai.com/guides/portable-garment-steamer.html?utm_source=github&utm_medium=readme&utm_campaign=clean_buyer_guide) | [Shipping and returns](https://clean.prismbayai.com/shipping.html)
