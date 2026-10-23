@@ -47,17 +47,41 @@ function isCommerciallyCleared(candidate) {
   return REQUIRED_PHYSICAL_PROMOTION_GATES.every(key => candidate?.[key] === true);
 }
 
-// A promotion/preflight counter is not proof of a buyer-ready physical offer.
-// Require independent candidate evidence and agreement between both supplier and
-// retail promotion reports before activating any external acquisition route.
-export function verifiedPromotionReadyCount(supplier, promotion) {
-  const declaredSupplierCount = supplier?.saleReadyCount;
-  const declaredPromotionCount = promotion?.promotionEligibleCount;
-  if (!Number.isSafeInteger(declaredSupplierCount) || declaredSupplierCount < 1 ||
-      !Number.isSafeInteger(declaredPromotionCount) || declaredPromotionCount < 1) return 0;
+// Aggregate counters are not SKU-level authorization. Require matching exact
+// variants in both independent supplier and retail promotion reports, and
+// reject ambiguous duplicate slugs before any external acquisition route.
+function verifiedPromotionReadyCandidates(supplier, promotion) {
+  const supplierCount = supplier?.saleReadyCount;
+  const promotionCount = promotion?.promotionEligibleCount;
+  if (!Number.isSafeInteger(supplierCount) || supplierCount < 1 ||
+      !Number.isSafeInteger(promotionCount) || promotionCount < 1) return [];
   const candidates = Array.isArray(supplier?.candidates) ? supplier.candidates : [];
-  const verified = candidates.filter(isCommerciallyCleared).length;
-  return Math.min(declaredSupplierCount, declaredPromotionCount, verified);
+  const retail = Array.isArray(promotion?.promotionEligible) ? promotion.promotionEligible : [];
+  const approvedRetail = new Map();
+  for (const item of retail) {
+    if (item?.promotionEligible !== true || item?.directCheckoutEligible !== true ||
+        typeof item.slug !== 'string' || !item.slug ||
+        typeof item.sku !== 'string' || !item.sku) continue;
+    // A duplicate entry invalidates the slug, even if both entries agree.
+    approvedRetail.set(item.slug, approvedRetail.has(item.slug) ? null : item.sku);
+  }
+  const supplierSlugCounts = new Map();
+  for (const candidate of candidates) {
+    if (typeof candidate?.slug === 'string')
+      supplierSlugCounts.set(candidate.slug, (supplierSlugCounts.get(candidate.slug) || 0) + 1);
+  }
+  const matched = candidates.filter(candidate =>
+    isCommerciallyCleared(candidate) &&
+    supplierSlugCounts.get(candidate.slug) === 1 &&
+    typeof candidate.observedVariantSku === 'string' &&
+    candidate.observedVariantSku.length > 0 &&
+    approvedRetail.get(candidate.slug) === candidate.observedVariantSku
+  );
+  return matched.slice(0, Math.min(supplierCount, promotionCount));
+}
+
+export function verifiedPromotionReadyCount(supplier, promotion) {
+  return verifiedPromotionReadyCandidates(supplier, promotion).length;
 }
 
 function nearestCommercialCandidate(supplier) {
@@ -102,9 +126,7 @@ function listSupplierStates(supplier, promotion) {
   const candidates = Array.isArray(supplier?.candidates) ? supplier.candidates : [];
   // A candidate is not approved merely because local flags are set.
   // Both independent supplier and retail promotion counts must agree.
-  const verifiedCount = verifiedPromotionReadyCount(supplier, promotion);
-  const cleared = candidates.filter(isCommerciallyCleared);
-  const approved = cleared.slice(0, verifiedCount);
+  const approved = verifiedPromotionReadyCandidates(supplier, promotion);
   const approvedSlugs = new Set(approved.map(c => c.slug));
   return {
     awaitingSupplierVerification: candidates.filter(c => c.independentIdentityMatch !== true || c.variantStockVerified !== true || c.freightEstimateVerified !== true).map(c => c.slug).filter(Boolean),
