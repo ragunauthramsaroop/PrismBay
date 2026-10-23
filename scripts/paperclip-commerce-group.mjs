@@ -33,6 +33,24 @@ export function validateOrganization(manifest) {
   return true;
 }
 
+// A promotion/preflight counter is not proof of a buyer-ready physical offer.
+// Require independent candidate evidence and agreement between both supplier and
+// retail promotion reports before activating any external acquisition route.
+export function verifiedPromotionReadyCount(supplier, promotion) {
+  const declaredSupplierCount = supplier?.saleReadyCount;
+  const declaredPromotionCount = promotion?.promotionEligibleCount;
+  if (!Number.isSafeInteger(declaredSupplierCount) || declaredSupplierCount < 1 ||
+      !Number.isSafeInteger(declaredPromotionCount) || declaredPromotionCount < 1) return 0;
+  const required = [
+    'independentIdentityMatch', 'variantStockVerified', 'freightEstimateVerified',
+    'finalZipFreightVerified', 'mediaRightsVerified', 'checkoutAllowed',
+    'automaticPromotionAllowed'
+  ];
+  const candidates = Array.isArray(supplier?.candidates) ? supplier.candidates : [];
+  const verified = candidates.filter(c => required.every(key => c?.[key] === true)).length;
+  return Math.min(declaredSupplierCount, declaredPromotionCount, verified);
+}
+
 function nearestCommercialCandidate(supplier) {
   const candidates = Array.isArray(supplier?.candidates) ? supplier.candidates : [];
   return candidates
@@ -50,7 +68,7 @@ export function selectBottleneck({firstSale, promotion, supplier, storefront, ti
   if (firstSale?.verifiedFirstSale === true) {
     return {stage:'measurement', owner:'revenue-analytics', reason:'verified_sale_exists_measure_margin_and_repeatability'};
   }
-  const approved = Number(promotion?.promotionEligibleCount || supplier?.saleReadyCount || 0);
+  const approved = verifiedPromotionReadyCount(supplier, promotion);
   if (approved > 0 && tiktok?.readyForPublicRetailPublishing !== true) {
     return {stage:'traffic_generation', owner:'organic-growth', reason:'sale_ready_product_exists_but_public_distribution_not_ready'};
   }
@@ -100,7 +118,7 @@ export function buildFirstSaleWarRoom({bottleneck, supplier, promotion, storefro
   const remainingGates = Array.isArray(bottleneck?.missing) ? bottleneck.missing : [];
   const gateOwners = remainingGates.map(gate => ({gate, owner:GATE_OWNERS[gate] || bottleneck?.owner || 'commerce-control'}));
   const nextBest = nextBestCandidate({closestProduct,opportunities,supplier});
-  const promotionReady = Number(promotion?.promotionEligibleCount || supplier?.saleReadyCount || 0);
+  const promotionReady = verifiedPromotionReadyCount(supplier, promotion);
   const storefrontReachable = storefront?.result?.activeStorefront?.status === 200;
   const closestRecord = (supplier?.candidates || []).find(c => c.slug === closestProduct) || nearest;
   const checkoutReadiness = closestRecord?.checkoutAllowed === true
@@ -214,7 +232,7 @@ export function buildDashboard({manifest, opportunities, supplier, promotion, st
   const verifiedSales = Number.isFinite(Number(firstSale?.verifiedSaleCount)) ? Number(firstSale.verifiedSaleCount) : (firstSale?.verifiedFirstSale === true ? 1 : 0);
   const verifiedRevenueUsd = verifiedSales > 0 && Number.isFinite(Number(firstSale?.grossRevenueUsd)) ? Number(firstSale.grossRevenueUsd) : 0;
   const known = value => value === undefined || value === null ? null : value;
-  const promotionEligibleCount = Number(promotion?.promotionEligibleCount || supplier?.saleReadyCount || 0);
+  const promotionEligibleCount = verifiedPromotionReadyCount(supplier, promotion);
   const warRoom = buildFirstSaleWarRoom({bottleneck,supplier,promotion,storefront,tiktok,opportunities,firstSale});
   const priorityTasks = buildPriorityTasks({bottleneck,warRoom,opportunities});
   const externalApprovals = [];
