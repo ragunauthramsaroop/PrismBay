@@ -1,5 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import {readFileSync} from 'node:fs';
 import {completeVia9Router, extractChatText} from './agency-agents-model-client.mjs';
 
 const freeModel='oc/muse-spark-1.3-contributor-free';
@@ -40,4 +41,16 @@ test('HTTP failures and malformed responses fail without false successful AI out
 test('missing API key and missing prompt are not accepted',async()=>{
   await assert.rejects(completeVia9Router({model:freeModel,prompt:'Review'}),/missing_9router_api_key/);
   await assert.rejects(completeVia9Router({apiKey:'x',model:freeModel,prompt:''}),/invalid_or_oversized_agent_prompt/);
+});
+
+
+test('issue advisory is opt-in, read-only, honestly attributed and uses supported free-model transport', () => {
+  const workflow=readFileSync(new URL('../.github/workflows/claude-free-issue-agent.yml', import.meta.url),'utf8');
+  assert.match(workflow,/startsWith\(github\.event\.comment\.body, '\/free-model-review'\)/);
+  assert.match(workflow,/--chat-prompt-file=\/tmp\/claude-task\.txt/);
+  assert.doesNotMatch(workflow,/^\s*--prompt-file=/m);
+  assert.match(workflow,/contents: read/);
+  assert.match(workflow,/node --test scripts\/agency-agents-model-client\.test\.mjs/);
+  assert.match(workflow,/not Anthropic Claude/);
+  assert.match(workflow,/No repository tools are available/);
 });
