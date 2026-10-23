@@ -39,11 +39,30 @@ test('external product-distribution paths wait for sale-ready product but keep p
 });
 
 test('sale-ready product moves acquisition strategies to activation checks without pretending publication is authorized',()=>{
- const b=buildStrategyBoard({portfolio,supplier:{...supplier,saleReadyCount:1},firstSale:{verifiedFirstSale:false},promotion:{promotionEligibleCount:1}});
+ const ready={...supplier.candidates[0],finalZipFreightVerified:true,checkoutAllowed:true};
+ const b=buildStrategyBoard({portfolio,supplier:{...supplier,saleReadyCount:1,candidates:[ready]},firstSale:{verifiedFirstSale:false},promotion:{promotionEligibleCount:1}});
  assert.equal(b.strategies.find(x=>x.id==='google-free-listings').state,'account_or_owner_activation_check');
  assert.equal(b.strategies.find(x=>x.id==='owned-search-seo').state,'activation_ready');
 });
 
 test('fails closed if strategy diversification falls below CEO minimum',()=>{
  assert.throws(()=>buildStrategyBoard({portfolio:{...portfolio,strategies:portfolio.strategies.slice(0,7)},supplier,firstSale:{verifiedFirstSale:false},promotion:{promotionEligibleCount:0}}),/insufficient_concurrent_sales_paths/);
+});
+
+test('preflight attention never becomes sale-ready stock',()=>{
+ const b=buildStrategyBoard({portfolio,supplier,firstSale:{verifiedFirstSale:false},promotion:{promotionEligibleCount:1}});
+ assert.equal(b.saleReadyCount,0);
+ assert.equal(b.strategies.find(x=>x.id==='google-free-listings').state,'active_internal_prepare');
+ assert.deepEqual(b.strategies.find(x=>x.id==='google-free-listings').blockedBy,['sale_ready_product']);
+});
+
+test('missing supplier evidence blocks distribution even with eligible promotion',()=>{
+ const b=buildStrategyBoard({portfolio,supplier:null,firstSale:{verifiedFirstSale:false},promotion:{promotionEligibleCount:1}});
+ assert.equal(b.saleReadyCount,0);
+});
+
+test('supplier summary cannot override missing final ZIP freight and checkout',()=>{
+ const b=buildStrategyBoard({portfolio,supplier:{...supplier,saleReadyCount:1},firstSale:{verifiedFirstSale:false},promotion:{promotionEligibleCount:1}});
+ assert.equal(b.saleReadyCount,0);
+ assert.equal(b.strategies.find(x=>x.id==='tiktok-shop-affiliate').state,'active_internal_prepare');
 });
