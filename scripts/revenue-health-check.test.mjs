@@ -62,9 +62,11 @@ test('live paid-product acquisition guides enforce exact canonical, checkout, pr
   }
 });
 
-test('revenue checks and campaigns use the current GitHub owner', () => {
+test('digital buyer paths use the canonical branded domain and the catalog uses the current GitHub owner', () => {
   for (const url of [TARGETS.paidStore, TARGETS.freeScorecard, ...ACTIVE_DIGITAL_OFFERS.map(offer => offer.guide)]) {
-    assert.equal(new URL(url).hostname, 'ragunauthramsaroop.github.io');
+    assert.equal(new URL(url).hostname, 'clean.prismbayai.com');
+    assert.equal(new URL(url).pathname.startsWith('/PrismBay/'), false);
   }
+  assert.equal(new URL(TARGETS.catalog).hostname, 'api.github.com');
   assert.equal(new URL(TARGETS.catalog).pathname, '/repos/ragunauthramsaroop/PrismBay/contents/public/viral-catalog.json');
 });
