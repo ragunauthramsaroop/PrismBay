@@ -91,9 +91,11 @@ permissions:
   contents: read
   actions: read
 
+# Preserve an audit already in progress. GitHub consolidates redundant queued
+# runs within a concurrency group, but must not repeatedly cancel active work.
 concurrency:
   group: prismbay-paperclip-commerce-group-${{ github.ref }}
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 jobs:
   commerce-control:
