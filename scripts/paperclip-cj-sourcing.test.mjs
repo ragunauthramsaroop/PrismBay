@@ -23,12 +23,14 @@ test('bounded supplier portfolio deduplicates product ids and preserves inventor
 
 test('normalizes a known CJ product lookup and rejects an echoed SKU mismatch',()=>{
  const c={slug:'crevice',exactSupplierSku:'CJJT1731477',exactVariantSku:'CJJT173147702BY'};
- const good=normalizeKnownProduct({data:{pid:'p1',productSku:'CJJT1731477',productNameEn:'4 In 1 Bottle Gap Cleaner Brush',saleStatus:'3'}},c);
+ const mismatchedConfiguration=normalizeKnownProduct({data:{pid:'p1',productSku:'CJJT1731477',productNameEn:'4 In 1 Bottle Gap Cleaner Brush',saleStatus:'3'}},c);
+ assert.equal(mismatchedConfiguration,null,'a known SKU cannot override an explicitly conflicting 4-in-1 title');
+ const good=normalizeKnownProduct({data:{pid:'p1',productSku:'CJJT1731477',productNameEn:'3 In 1 Crevice Gap Cleaning Brush',saleStatus:'3'}},c);
  assert.equal(good?.id,'p1');
  assert.equal(good?.sku,'CJJT1731477');
  assert.equal(good?.knownIdentitySource,'variant_sku_query');
  assert.equal(good?.knownSupplierSkuEchoed,true);
- const bad=normalizeKnownProduct({data:{pid:'p2',productSku:'OTHER',productNameEn:'4 In 1 Bottle Gap Cleaner Brush',saleStatus:'3'}},c);
+ const bad=normalizeKnownProduct({data:{pid:'p2',productSku:'OTHER',productNameEn:'3 In 1 Crevice Gap Cleaning Brush',saleStatus:'3'}},c);
  assert.equal(bad,null);
 });
 
