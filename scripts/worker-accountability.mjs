@@ -10,7 +10,7 @@ export const WORKERS = Object.freeze([
 ]);
 const VALID_EVENTS = new Set(['schedule', 'workflow_dispatch', 'push', 'workflow_run']);
 const TIMEOUT_MINUTES = 35;
-const MAX_WORKER_HISTORY = 10;
+const MAX_WORKER_HISTORY = 50;
 
 export function checkWorker({ worker, runs = [], artifacts = [], fetchError = null, nowMs = Date.now() }) {
   if (fetchError) return { id: worker.id, status: 'fail', reason: 'workflow_api_unavailable', evidence: fetchError.slice(0,100) };
