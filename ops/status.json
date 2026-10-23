@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "checkedAt": "2026-10-23T22:20:37.903Z",
+  "checkedAt": "2026-10-23T22:20:58.689Z",
   "source": "GitHub Actions accountability evidence",
   "refreshPolicy": "Best-effort GitHub schedules. Static snapshot; refresh does not run agents.",
   "summary": {
@@ -24,7 +24,7 @@
       "failureStreak": 0,
       "runId": 40024168437,
       "runUrl": "https://github.com/ragunauthramsaroop/PrismBay/actions/runs/40024168437",
-      "runAgeMinutes": 75,
+      "runAgeMinutes": 76,
       "artifactName": "buyer-acquisition-40024168437",
       "artifactBytes": 16994,
       "remediation": null
@@ -42,7 +42,7 @@
       "failureStreak": 0,
       "runId": 40024168268,
       "runUrl": "https://github.com/ragunauthramsaroop/PrismBay/actions/runs/40024168268",
-      "runAgeMinutes": 75,
+      "runAgeMinutes": 76,
       "artifactName": "prismbay-external-traffic-40024168268",
       "artifactBytes": 799888,
       "remediation": null
@@ -94,8 +94,8 @@
       "reason": "operational_run_in_progress",
       "consequence": "warning",
       "failureStreak": 1,
-      "runId": 40032986376,
-      "runUrl": "https://github.com/ragunauthramsaroop/PrismBay/actions/runs/40032986376",
+      "runId": 40033014178,
+      "runUrl": "https://github.com/ragunauthramsaroop/PrismBay/actions/runs/40033014178",
       "runAgeMinutes": 0,
       "artifactName": null,
       "artifactBytes": null,
