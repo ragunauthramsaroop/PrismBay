@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-22T21:56:16.128Z",
+  "updatedAt": "2026-10-23T05:25:25.796Z",
   "market": "US",
   "methodology": "Public-news attention, freshness, and short-form demonstration fit. This is not PrismBay sales data and is not a TikTok, Amazon, Google, or Bing product ranking.",
   "refreshTargetHours": 6,
@@ -11,7 +11,7 @@
       "signalScore": 85,
       "signalLabel": "high-attention",
       "evidence": {
-        "publicMentions": 85,
+        "publicMentions": 93,
         "mentionsLast7Days": 2,
         "mentionsLast30Days": 6,
         "sourcesAvailable": [
@@ -59,7 +59,7 @@
       "signalScore": 82,
       "signalLabel": "high-attention",
       "evidence": {
-        "publicMentions": 106,
+        "publicMentions": 105,
         "mentionsLast7Days": 2,
         "mentionsLast30Days": 5,
         "sourcesAvailable": [
@@ -152,12 +152,12 @@
     {
       "slug": "garment-steamer",
       "name": "Portable Garment Steamer",
-      "signalScore": 72.5,
+      "signalScore": 71,
       "signalLabel": "high-attention",
       "evidence": {
         "publicMentions": 31,
         "mentionsLast7Days": 0,
-        "mentionsLast30Days": 4,
+        "mentionsLast30Days": 3,
         "sourcesAvailable": [
           "Google News",
           "Bing News"
@@ -177,12 +177,6 @@
           "url": "https://news.google.com/rss/articles/CBMiZkFVX3lxTE1ZRDlxanVrQ3JSeXhtdXBjS3JmVTdkQnV2LURHdldCN1BidHU0ZjhselZXRVZWLVhJUEpwaUMwTEgweU5mLVRmZnozS3dJUTk5TGZTZHctbHpmZHkySDktbE1hZ0Zsdw?oc=5"
         },
         {
-          "title": "Portable Garment Steamers Market Size, Share | Forecast [2034] - Fortune Business Insights",
-          "source": "Google News",
-          "publishedAt": "2026-09-28T07:00:00.000Z",
-          "url": "https://news.google.com/rss/articles/CBMihgFBVV95cUxQaXlNc3IwRkdxSWMwS0xGc1dQZEQyRkdjb0l6M2hvZDNual9lUHQzWm5MUS1BSHhNRzRHSGxrQm5tb3dKMXlpeS0tUlJ1TElEbWNoUkN2MGgzMnp4TjRkczE4VlQ0UmNNRy1hbWI2Y05Xa3Z3RzBkU1VpcWZ1OEdRNVgtVEl1UQ?oc=5"
-        },
-        {
           "title": "10 of the best handheld steamers on the market - Vogue Australia",
           "source": "Google News",
           "publishedAt": "2026-01-08T08:00:00.000Z",
@@ -193,6 +187,12 @@
           "source": "Google News",
           "publishedAt": "2024-09-13T07:00:00.000Z",
           "url": "https://news.google.com/rss/articles/CBMiigFBVV95cUxPOEltbERZMDMtemlzdFRPSUdTZGFXLVJDTUJpWWZrMGtSLVVFMDlSWWxHS3YzSXpydFhpWUlyTmd5dTYyMTBaMEtuT1VMazI2SUxzQkhSSVZEV0tqTTdzRGhlYlZxWEw5RVhxSkpsS0xsQjA4cFNkX2Jjb1NYem04OTR0TzNnQlZ1WlE?oc=5"
+        },
+        {
+          "title": "Amazon Prime Day 2023: Get a Portable Garment Steamer With 65,000+ 5-Star Amazon Reviews for Just $28 - E! News",
+          "source": "Google News",
+          "publishedAt": "2023-07-12T07:00:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMi0gFBVV95cUxOdDk2RDdCUE1xN09MdVBTQ1VhbTY3X1BFZkhYT090cWF1Y0s0b0Z0S2hPODlUb0dYUFBaeHRxRVduMHh0STVtSXNZOVRINTNhd0d6VE9HTHduY29xTHRYbVpaN0p1RTNEOEU4eHFERksybmpyUmRMNUd6ZnZYaEtZSUZzN04zd2JJd3ZfRk9YYm82ZUFBS0NOcGZmVzFxeEg1bjFYYTBxaGdoN0RZd3lwYW5OSTk2ZkdOUlhkSkJfbDh5aHVETDktMEYtOFJ6R3pTWmc?oc=5"
         }
       ],
       "rank": 4
