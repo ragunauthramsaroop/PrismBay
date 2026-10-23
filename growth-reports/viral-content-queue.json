@@ -1,6 +1,7 @@
 {
+  "schemaVersion": 2,
   "updatedAt": "2026-10-23T12:10:48.101Z",
-  "policy": "Content briefs are generated only for already-approved PrismBay Clean products. Publication remains subject to platform authorization and media rights.",
+  "policy": "Research concepts only. Public attention is not supplier approval, stock, final-destination freight, media rights, checkout readiness, sales evidence, or permission to publish. Never promote or render product advertisements from this queue.",
   "items": [
     {
       "rank": 1,
@@ -8,9 +9,18 @@
       "product": "5-in-1 Electric Spin Scrubber",
       "channel": "tiktok",
       "format": "short-video",
-      "hook": "The cleaning job people keep putting off, shown with the 5-in-1 Electric Spin Scrubber.",
-      "cta": "See the 5-in-1 Electric Spin Scrubber details at PrismBay Clean.",
-      "guardrail": "Use original or supplier-authorized media. Do not state sales, rankings, delivery guarantees, or performance claims without evidence."
+      "status": "RESEARCH_CANDIDATE",
+      "approved": false,
+      "saleReady": false,
+      "finalZipFreightVerified": false,
+      "checkoutAllowed": false,
+      "mediaRightsVerified": false,
+      "publicationAuthorized": false,
+      "publishable": false,
+      "hook": "Three questions to ask before choosing a 5-in-1 Electric Spin Scrubber.",
+      "cta": "Research concept only. No product offer or checkout.",
+      "mediaPlan": "Original typography or abstract graphics only. No product footage or performance demonstration without separate evidence.",
+      "guardrail": "No purchase CTA, unsupported product performance, before-and-after results, sales, reviews, stock, discounts, shipping promises, or unlicensed media."
     },
     {
       "rank": 2,
@@ -18,9 +28,18 @@
       "product": "Mattress Vacuum",
       "channel": "tiktok",
       "format": "short-video",
-      "hook": "A fast before-and-after idea for the Mattress Vacuum.",
-      "cta": "See the Mattress Vacuum details at PrismBay Clean.",
-      "guardrail": "Use original or supplier-authorized media. Do not state sales, rankings, delivery guarantees, or performance claims without evidence."
+      "status": "RESEARCH_CANDIDATE",
+      "approved": false,
+      "saleReady": false,
+      "finalZipFreightVerified": false,
+      "checkoutAllowed": false,
+      "mediaRightsVerified": false,
+      "publicationAuthorized": false,
+      "publishable": false,
+      "hook": "What to check when comparing Mattress Vacuum options.",
+      "cta": "Research concept only. No product offer or checkout.",
+      "mediaPlan": "Original typography or abstract graphics only. No product footage or performance demonstration without separate evidence.",
+      "guardrail": "No purchase CTA, unsupported product performance, before-and-after results, sales, reviews, stock, discounts, shipping promises, or unlicensed media."
     },
     {
       "rank": 3,
@@ -28,9 +47,18 @@
       "product": "Cordless Pressure Washer",
       "channel": "tiktok",
       "format": "short-video",
-      "hook": "Three places the Cordless Pressure Washer fits into a practical home reset.",
-      "cta": "See the Cordless Pressure Washer details at PrismBay Clean.",
-      "guardrail": "Use original or supplier-authorized media. Do not state sales, rankings, delivery guarantees, or performance claims without evidence."
+      "status": "RESEARCH_CANDIDATE",
+      "approved": false,
+      "saleReady": false,
+      "finalZipFreightVerified": false,
+      "checkoutAllowed": false,
+      "mediaRightsVerified": false,
+      "publicationAuthorized": false,
+      "publishable": false,
+      "hook": "A practical checklist for evaluating a Cordless Pressure Washer.",
+      "cta": "Research concept only. No product offer or checkout.",
+      "mediaPlan": "Original typography or abstract graphics only. No product footage or performance demonstration without separate evidence.",
+      "guardrail": "No purchase CTA, unsupported product performance, before-and-after results, sales, reviews, stock, discounts, shipping promises, or unlicensed media."
     },
     {
       "rank": 4,
@@ -38,9 +66,18 @@
       "product": "Portable Garment Steamer",
       "channel": "tiktok",
       "format": "short-video",
-      "hook": "The cleaning job people keep putting off, shown with the Portable Garment Steamer.",
-      "cta": "See the Portable Garment Steamer details at PrismBay Clean.",
-      "guardrail": "Use original or supplier-authorized media. Do not state sales, rankings, delivery guarantees, or performance claims without evidence."
+      "status": "RESEARCH_CANDIDATE",
+      "approved": false,
+      "saleReady": false,
+      "finalZipFreightVerified": false,
+      "checkoutAllowed": false,
+      "mediaRightsVerified": false,
+      "publicationAuthorized": false,
+      "publishable": false,
+      "hook": "Three questions to ask before choosing a Portable Garment Steamer.",
+      "cta": "Research concept only. No product offer or checkout.",
+      "mediaPlan": "Original typography or abstract graphics only. No product footage or performance demonstration without separate evidence.",
+      "guardrail": "No purchase CTA, unsupported product performance, before-and-after results, sales, reviews, stock, discounts, shipping promises, or unlicensed media."
     },
     {
       "rank": 5,
@@ -48,9 +85,18 @@
       "product": "Reusable Pet Hair Remover",
       "channel": "tiktok",
       "format": "short-video",
-      "hook": "A fast before-and-after idea for the Reusable Pet Hair Remover.",
-      "cta": "See the Reusable Pet Hair Remover details at PrismBay Clean.",
-      "guardrail": "Use original or supplier-authorized media. Do not state sales, rankings, delivery guarantees, or performance claims without evidence."
+      "status": "RESEARCH_CANDIDATE",
+      "approved": false,
+      "saleReady": false,
+      "finalZipFreightVerified": false,
+      "checkoutAllowed": false,
+      "mediaRightsVerified": false,
+      "publicationAuthorized": false,
+      "publishable": false,
+      "hook": "What to check when comparing Reusable Pet Hair Remover options.",
+      "cta": "Research concept only. No product offer or checkout.",
+      "mediaPlan": "Original typography or abstract graphics only. No product footage or performance demonstration without separate evidence.",
+      "guardrail": "No purchase CTA, unsupported product performance, before-and-after results, sales, reviews, stock, discounts, shipping promises, or unlicensed media."
     }
   ]
 }
