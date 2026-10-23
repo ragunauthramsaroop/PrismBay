@@ -40,7 +40,7 @@ jobs:
             'ceo-autonomous-recovery.yml:35'
             'ebay-control-plane.yml:100'
             'buyer-acquisition.yml:100'
-            'paperclip-revenue-ops.yml:230'
+            'paperclip-revenue-ops.yml:150'
             'cj-ebay-ticket-watch.yml:100'
             'external-traffic-factory.yml:1600'
           )
@@ -48,7 +48,11 @@ jobs:
           for entry in "${workflows[@]}"; do
             wf="${entry%%:*}"
             max_age="${entry##*:}"
-            latest=$(gh run list --repo "$GITHUB_REPOSITORY" --workflow "$wf" --branch main --limit 1 --json databaseId,status,conclusion,createdAt,url 2>/dev/null || echo '[]')
+            # Ignore issue-comment and PR-only runs: they can be 'skipped'
+            # without executing any commercial workers. Only production
+            # schedules, manual dispatch, pushes and workflow_run count.
+            history=$(gh run list --repo "$GITHUB_REPOSITORY" --workflow "$wf" --branch main --limit 30 --json databaseId,status,conclusion,createdAt,url,event 2>/dev/null || echo '[]')
+            latest=$(jq '[.[] | select(.event == "schedule" or .event == "workflow_dispatch" or .event == "push" or .event == "workflow_run")] | .[:1]' <<<"$history")
             count=$(jq 'length' <<<"$latest")
 
             if [[ "$count" -eq 0 ]]; then
@@ -65,22 +69,26 @@ jobs:
             age_min=$(( (now-created_epoch)/60 ))
 
             if [[ "$status" == 'in_progress' || "$status" == 'queued' || "$status" == 'waiting' || "$status" == 'pending' ]]; then
-              echo "$wf active ($status, ${age_min}m)" | tee -a "$RUNNER_TEMP/revenue-continuity/actions.log"
+              if (( age_min > max_age )); then
+                echo "::warning::$wf appears stuck ($status, ${age_min}m); preserved for investigation" | tee -a "$RUNNER_TEMP/revenue-continuity/actions.log"
+              else
+                echo "$wf active ($status, ${age_min}m)" | tee -a "$RUNNER_TEMP/revenue-continuity/actions.log"
+              fi
               continue
             fi
 
             case "$conclusion" in
-              failure|timed_out|cancelled|action_required|startup_failure|stale)
-                echo "$wf unhealthy ($conclusion) -> rerun failed jobs" | tee -a "$RUNNER_TEMP/revenue-continuity/actions.log"
-                gh run rerun "$id" --failed --repo "$GITHUB_REPOSITORY" || gh workflow run "$wf" --repo "$GITHUB_REPOSITORY" --ref main || true
+              success)
+                if (( age_min > max_age )); then
+                  echo "$wf stale (${age_min}m > ${max_age}m) -> dispatch fresh code" | tee -a "$RUNNER_TEMP/revenue-continuity/actions.log"
+                  gh workflow run "$wf" --repo "$GITHUB_REPOSITORY" --ref main || echo "::error::Could not dispatch $wf"
+                else
+                  echo "$wf healthy (successful operational run, ${age_min}m)" | tee -a "$RUNNER_TEMP/revenue-continuity/actions.log"
+                fi
                 ;;
               *)
-                if (( age_min > max_age )); then
-                  echo "$wf stale (${age_min}m > ${max_age}m) -> dispatch" | tee -a "$RUNNER_TEMP/revenue-continuity/actions.log"
-                  gh workflow run "$wf" --repo "$GITHUB_REPOSITORY" --ref main || true
-                else
-                  echo "$wf healthy ($conclusion, ${age_min}m)" | tee -a "$RUNNER_TEMP/revenue-continuity/actions.log"
-                fi
+                echo "::warning::$wf unhealthy ($conclusion) -> dispatch fresh main workflow" | tee -a "$RUNNER_TEMP/revenue-continuity/actions.log"
+                gh workflow run "$wf" --repo "$GITHUB_REPOSITORY" --ref main || echo "::error::Could not dispatch $wf"
                 ;;
             esac
           done
