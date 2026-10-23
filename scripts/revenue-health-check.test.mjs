@@ -46,14 +46,17 @@ test('four paid offers are monitored while standalone guide validation remains s
 
 test('live paid-product acquisition guides enforce exact canonical, checkout, price and refund policy', () => {
   for(const offer of BUYER_GUIDE_OFFERS) {
-    const html='x'.repeat(7200)+'<link rel="canonical" href="'+offer.guide+'">'+
+    const canonical = new URL(offer.guide);
+    canonical.hostname = 'clean.prismbayai.com';
+    const html='x'.repeat(7200)+'<link rel="canonical" href="'+canonical.href+'">'+
       '<link rel="stylesheet" href="./buyer-guides.css"><h1>Free original guide</h1>'+
       '<a href="'+offer.checkout+'">Buy for $'+offer.priceUsd+'</a>'+
       '<a href="https://www.prismbayai.com/refunds">Refund policy</a>';
     assert.equal(validateBuyerGuide(html,offer).priceUsd,offer.priceUsd);
     assert.throws(()=>validateBuyerGuide(html.replace(offer.checkout,'https://invalid.example/buy'),offer),/buyer_guide_invalid/);
     assert.throws(()=>validateBuyerGuide(html.replace('$'+offer.priceUsd,'$999'),offer),/buyer_guide_invalid/);
-    assert.throws(()=>validateBuyerGuide(html.replace(offer.guide,'https://incorrect.example/'),offer),/buyer_guide_invalid/);
+    assert.throws(()=>validateBuyerGuide(html.replace(canonical.href,'https://incorrect.example/'),offer),/buyer_guide_invalid/);
+    assert.throws(()=>validateBuyerGuide(html.replace(canonical.href,offer.guide),offer),/buyer_guide_invalid/);
   }
 });
 
