@@ -5,6 +5,7 @@ import os from "node:os";
 import path from "node:path";
 import { spawn, spawnSync } from "node:child_process";
 import crypto from "node:crypto";
+import {completeVia9Router} from "./agency-agents-model-client.mjs";
 import { DatabaseSync } from "node:sqlite";
 
 const ROUTER_BASE = "http://127.0.0.1:20128";
@@ -342,6 +343,7 @@ async function main() {
   const launch = args.has("--launch");
   const verify = args.has("--verify");
   const promptFile = argValue("--prompt-file");
+  const chatPromptFile = argValue("--chat-prompt-file");
   const outputFile = argValue("--output-file");
 
   await ensureTools();
@@ -364,6 +366,21 @@ async function main() {
 
   const env = wrapperEnv(apiKey, model);
   run("bash", ["scripts/claude-9router.sh", "--check"], { env });
+
+  // Agency Agents advisory needs text only. Use the router's supported
+  // OpenAI-compatible HTTP endpoint instead of Claude Code's model catalog.
+  // The old --prompt-file flow remains unchanged for existing GitHub agents.
+  if (chatPromptFile) {
+    const prompt = (await fsp.readFile(chatPromptFile, "utf8")).trim();
+    const response = await completeVia9Router({apiKey,model,prompt});
+    if (outputFile) {
+      await fsp.writeFile(outputFile, response + "\n", {mode:0o600});
+      console.log("Free-model advisory completed and saved to protected output.");
+    } else {
+      console.log(response);
+    }
+    return;
+  }
 
   if (promptFile) {
     const prompt = (await fsp.readFile(promptFile, "utf8")).trim();

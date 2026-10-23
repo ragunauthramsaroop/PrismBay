@@ -1,0 +1,14 @@
+{
+  "slug": "ai-vendor-exit-test-2026-10-12",
+  "title": "Before You Sign an AI Contract, Run This Exit Test",
+  "sha256": "a12cdc21397ed0daa6ddb0d9953024b4ad269a717c7f86b442a5887221700271",
+  "ttsEngines": [
+    "piper"
+  ],
+  "voice": "en_US-norman-medium",
+  "voiceLicenseBasis": "Piper en_US-norman-medium public-domain LibriVox recordings; fallback eSpeak-ng",
+  "sourceAttribution": "Original PrismBay management framework informed by ICO AI procurement guidance and NIST AI RMF.",
+  "originalProgrammaticVisuals": true,
+  "paidSpend": 0,
+  "channelId": "UCw2hs85TzIpdKwJtG-BSxzQ"
+}

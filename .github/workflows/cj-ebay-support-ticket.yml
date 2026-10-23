@@ -1,0 +1,61 @@
+name: PrismBay CJ eBay Blocker Support
+
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - 'scripts/cj-ebay-support-ticket.mjs'
+      - '.github/workflows/cj-ebay-support-ticket.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/cj-ebay-support-ticket.mjs'
+      - '.github/workflows/cj-ebay-support-ticket.yml'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: prismbay-ebay-cj-api
+  cancel-in-progress: false
+
+jobs:
+  cj-support:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Validate ticket worker
+        run: node --check scripts/cj-ebay-support-ticket.mjs
+      - name: Create or reuse CJ eBay blocker ticket
+        if: github.event_name != 'pull_request'
+        env:
+          CJ_API_KEY: ${{ secrets.CJ_API_KEY }}
+        run: node scripts/cj-ebay-support-ticket.mjs
+      - name: Publish sanitized ticket status
+        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+        shell: bash
+        run: |
+          set -euo pipefail
+          syncdir="$RUNNER_TEMP/prismbay-cj-support-pages"
+          git fetch origin gh-pages
+          git worktree add --detach "$syncdir" origin/gh-pages
+          git -C "$syncdir" config user.name 'github-actions[bot]'
+          git -C "$syncdir" config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          mkdir -p "$syncdir/marketplace/ebay"
+          cp growth-reports/ebay/cj-support-ticket.json "$syncdir/marketplace/ebay/cj-support-ticket.json"
+          git -C "$syncdir" add marketplace/ebay/cj-support-ticket.json
+          if ! git -C "$syncdir" diff --cached --quiet; then
+            git -C "$syncdir" commit -m 'chore: publish CJ eBay support ticket status'
+            git -C "$syncdir" pull --rebase origin gh-pages
+            git -C "$syncdir" push origin HEAD:gh-pages
+          fi
+      - name: Summary
+        if: always()
+        run: |
+          echo '## PrismBay CJ eBay blocker support' >> "$GITHUB_STEP_SUMMARY"
+          echo 'Creates at most one CJ support ticket for the exact dispatch-location and eBay-authorization blockers, then reuses it on later runs.' >> "$GITHUB_STEP_SUMMARY"
+          echo 'No order placement, payment, or supplier purchase is performed.' >> "$GITHUB_STEP_SUMMARY"

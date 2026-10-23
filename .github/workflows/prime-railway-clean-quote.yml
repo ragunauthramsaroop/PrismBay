@@ -1,0 +1,165 @@
+name: Prime PrismBay Railway Live Quote
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'services/railway-clean-quote/**'
+      - '.github/workflows/prime-railway-clean-quote.yml'
+  workflow_dispatch:
+  schedule:
+    - cron: '17 */6 * * *'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: prismbay-railway-live-quote-prime
+  cancel-in-progress: true
+
+jobs:
+  prime:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    env:
+      CJ_API_KEY: ${{ secrets.CJ_API_KEY }}
+      RAILWAY_CLEAN_QUOTE_URL: https://browser-worker-production-f5b4.up.railway.app
+      EXPECTED_SERVICE_VERSION: 2026-10-09-live-checkout-v3
+      STOREFRONT_ORIGIN: https://clean.prismbayai.com
+      FULL_CHECKOUT_PROBE: ${{ github.event_name == 'push' && 'true' || 'false' }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+
+      - name: Authenticate live quote service
+        run: node services/railway-clean-quote/bootstrap-live.mjs
+
+      - name: Verify live YouTube and TikTok attribution routes
+        shell: bash
+        run: |
+          node <<'NODE'
+          (async () => {
+            const origin = process.env.RAILWAY_CLEAN_QUOTE_URL.replace(/\/$/, '');
+            for (const channel of ['youtube', 'tiktok']) {
+              const page = await fetch(`${origin}/garment-steamer/${channel}/`, { redirect: 'manual' });
+              const html = await page.text();
+              if (page.status !== 200) throw new Error(`${channel}_buyer_page_${page.status}`);
+              if (!html.includes(`const API='/v1/quote/${channel}'`)) throw new Error(`${channel}_buyer_page_missing_api`);
+              if (html.includes('buy.stripe.com')) throw new Error(`${channel}_buyer_page_exposed_stripe`);
+
+              const options = await fetch(`${origin}/v1/quote/${channel}`, {
+                method: 'OPTIONS',
+                headers: {
+                  origin: process.env.STOREFRONT_ORIGIN,
+                  'access-control-request-method': 'POST',
+                  'access-control-request-headers': 'content-type'
+                }
+              });
+              if (options.status !== 204 || options.headers.get('access-control-allow-origin') !== process.env.STOREFRONT_ORIGIN) {
+                throw new Error(`${channel}_cors_${options.status}`);
+              }
+              console.log(`${channel} buyer and quote routes are live.`);
+            }
+
+            const legacy = await fetch(`${origin}/garment-steamer/github/?utm_source=youtube&utm_medium=shorts&utm_campaign=prismbay_clean_steamer_oct2026`, { redirect: 'manual' });
+            if (legacy.status !== 302) throw new Error(`legacy_youtube_redirect_${legacy.status}`);
+            const location = legacy.headers.get('location') || '';
+            if (!location.startsWith('/garment-steamer/youtube/')) throw new Error('legacy_youtube_redirect_wrong_path');
+            if (!location.includes('utm_source=youtube')) throw new Error('legacy_youtube_redirect_lost_utm');
+            console.log('Legacy social URL redirects into the dedicated YouTube path with UTM attribution preserved.');
+          })().catch(error => {
+            console.error(`Live channel attribution verification failed: ${error.message || error.name || 'unknown_error'}`);
+            process.exit(1);
+          });
+          NODE
+
+      - name: Verify attributed buyer page and safe checkout authorization path
+        shell: bash
+        run: |
+          node <<'NODE'
+          const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
+
+          (async () => {
+            const origin = process.env.RAILWAY_CLEAN_QUOTE_URL.replace(/\/$/, '');
+            const storefront = process.env.STOREFRONT_ORIGIN;
+            const buyerUrl = `${origin}/garment-steamer/github/`;
+            const api = `${origin}/v1/quote/github`;
+
+            const buyer = await fetch(buyerUrl, { redirect: 'manual' });
+            const buyerHtml = await buyer.text();
+            if (buyer.status !== 200) throw new Error(`buyer_page_${buyer.status}`);
+            if (!buyerHtml.includes("const API='/v1/quote/github'")) throw new Error('buyer_page_missing_attributed_api');
+            if (buyerHtml.includes('buy.stripe.com')) throw new Error('buyer_page_exposed_stripe');
+            console.log('Attributed GitHub buyer page is live and does not expose Stripe before verification.');
+
+            const preflight = await fetch(api, {
+              method: 'OPTIONS',
+              headers: {
+                origin: storefront,
+                'access-control-request-method': 'POST',
+                'access-control-request-headers': 'content-type'
+              }
+            });
+            if (preflight.status !== 204 || preflight.headers.get('access-control-allow-origin') !== storefront) {
+              throw new Error(`cors_preflight_${preflight.status}`);
+            }
+
+            const first = await fetch(api, {
+              method: 'POST',
+              headers: { origin: storefront, 'content-type': 'application/json' },
+              body: JSON.stringify({ zip: '10001' })
+            });
+            const firstBody = await first.json().catch(() => ({}));
+            if (first.headers.get('access-control-allow-origin') !== storefront) {
+              throw new Error('quote_cors_missing');
+            }
+            if (first.status === 409) {
+              console.log('Live buyer path is fail-closed for probe ZIP. No checkout or payment path was released.');
+              return;
+            }
+            if (first.status !== 200 || firstBody.success !== true || firstBody.stage !== 'quoted' || !firstBody.quoteToken) {
+              throw new Error(`quote_probe_${first.status}_${firstBody.error || 'invalid_response'}`);
+            }
+            if (firstBody.checkoutUrl) throw new Error('first_stage_exposed_checkout');
+            if (firstBody.supplierOrderingEnabled !== false) throw new Error('supplier_ordering_guard_missing');
+            console.log('First-stage attributed live quote passed with no payment link released.');
+
+            if (process.env.FULL_CHECKOUT_PROBE !== 'true') return;
+
+            await sleep(1200);
+            let second;
+            let secondBody = {};
+            for (let attempt = 1; attempt <= 3; attempt += 1) {
+              second = await fetch(api, {
+                method: 'POST',
+                headers: { origin: storefront, 'content-type': 'application/json' },
+                body: JSON.stringify({ zip: '10001', quoteToken: firstBody.quoteToken }),
+                redirect: 'manual'
+              });
+              secondBody = await second.json().catch(() => ({}));
+              if (second.status !== 503) break;
+              if (attempt < 3) {
+                console.log(`Supplier recheck temporarily unavailable on attempt ${attempt}; retrying safely.`);
+                await sleep(1200 * attempt);
+              }
+            }
+
+            if (second.status === 409) {
+              console.log('Final authorization failed closed after the live recheck. No payment was initiated.');
+              return;
+            }
+            if (second.status !== 200 || secondBody.success !== true || secondBody.stage !== 'checkout_authorized') {
+              throw new Error(`checkout_probe_${second.status}_${secondBody.error || 'invalid_response'}`);
+            }
+            if (!String(secondBody.checkoutUrl || '').startsWith('https://buy.stripe.com/')) {
+              throw new Error('checkout_url_not_stripe');
+            }
+            if (secondBody.supplierOrderingEnabled !== false) throw new Error('supplier_ordering_guard_missing');
+            console.log('Attributed checkout authorization verified without following Stripe, taking payment, or placing a supplier order.');
+          })().catch(error => {
+            console.error(`Live buyer-path verification failed: ${error.message || error.name || 'unknown_error'}`);
+            process.exit(1);
+          });
+          NODE

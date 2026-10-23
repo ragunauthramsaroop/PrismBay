@@ -21,10 +21,11 @@ test('revenue health workflow routes production errors to the existing n8n error
 });
 
 test('broken Railway custom store route is not a default public target', () => {
-  assert.ok(!growth.includes("const SHOP_CUSTOM = process.env.PRISMBAY_SHOP_CUSTOM_URL || 'https://shop.prismbayai.com/tiktok'"));
-  assert.ok(growth.includes("const SHOP_CUSTOM = process.env.PRISMBAY_SHOP_CUSTOM_URL?.trim() || '';"));
-  assert.ok(growth.includes("status: 'not_configured'"));
-  assert.ok(growth.includes("use the verified AppDeploy storefront URL"));
+  assert.ok(!growth.includes('PRISMBAY_SHOP_CUSTOM_URL'));
+  assert.ok(!growth.includes('https://shop.prismbayai.com/tiktok'));
+  assert.ok(growth.includes("const SHOP = process.env.PRISMBAY_SHOP_URL || 'https://clean.prismbayai.com/';"));
+  assert.ok(growth.includes("directStripeOnPublicStorefrontAllowed: false"));
+  assert.ok(growth.includes("buyerZipPreflightRequired: true"));
 });
 
 test('documentation distinguishes local failure routing from external notification delivery', () => {

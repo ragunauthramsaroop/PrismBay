@@ -1,0 +1,17 @@
+{
+  "channelId": "UCw2hs85TzIpdKwJtG-BSxzQ",
+  "metricoolBrandId": 6945443,
+  "experimentId": "PB-RECOVERY-001",
+  "checkedAt": "2026-10-14T14:47:00-04:00",
+  "state": "PUBLIC_MEDIA_READY_PUBLISH_BLOCKED",
+  "youtubePublished": false,
+  "scheduledInMetricool": false,
+  "reason": "New, distinct original Short was checked against an empty Metricool scheduled inventory. Metricool createScheduledPost for 2026-10-15 16:00 Guyana time was blocked by OpenAI safety checks. Do not retry identical submission. Opera browser list_tabs requires user interaction and is unavailable in the scheduled runtime.",
+  "videoUrl": "https://raw.githubusercontent.com/ragunauthramsaroop/PrismBay/main/public/youtube/ai-agent-failure-drill-2026-10-13.mp4",
+  "sourceManifest": "public/youtube/ai-agent-failure-drill-2026-10-13.json",
+  "targetPublishTime": "2026-10-15T16:00:00-04:00",
+  "verifiedSubscribers": 7,
+  "scheduledInventoryOct14ToOct23": 0,
+  "advertisingSpendUSD": 0,
+  "nextStep": "Only attempt authenticated publishing through a restored authorized route, after checking queue and published inventory and confirming channel identity."
+}

@@ -1,0 +1,27 @@
+import fs from 'node:fs/promises';
+
+const BASE='https://developers.cjdropshipping.com/api2.0/v1';
+const MARKER='PRISMBAY_EBAY_20261010';
+const SKU='CJYD245844002BY';
+const PRODUCT_ID='2508160953561608400';
+const VARIANT_ID='2508160953561608700';
+const OUT='growth-reports/ebay/cj-support-ticket.json';
+const wait=ms=>new Promise(r=>setTimeout(r,ms));
+
+async function readJson(url,options={}){const r=await fetch(url,{...options,signal:AbortSignal.timeout(15000)});const text=await r.text();let body={};try{body=JSON.parse(text)}catch{throw new Error(`non_json_${r.status}`)}if(!r.ok||body?.result===false||body?.success===false)throw new Error(`cj_${r.status}_${body?.code??'unknown'}_${body?.message??'error'}`);return body}
+function clean(v,n=1000){return String(v??'').trim().slice(0,n)}
+function headers(token){return {'CJ-Access-Token':token,'content-type':'application/json','user-agent':'PrismBay-eBay-Support/1.0'}}
+
+async function authenticate(key){let last;for(let i=1;i<=4;i++){last=await fetch(`${BASE}/authentication/getAccessToken`,{method:'POST',headers:{'content-type':'application/json','user-agent':'PrismBay-eBay-Support/1.0'},body:JSON.stringify({apiKey:key}),signal:AbortSignal.timeout(15000)});if(last.status!==429)break;await wait(1500*i)}if(!last?.ok)throw new Error(`CJ authentication failed: ${last?.status}`);const body=await last.json();const token=clean(body?.data?.accessToken,1200);if(!token)throw new Error('CJ token missing');console.log(`::add-mask::${token}`);return token}
+
+async function recentTickets(token){await wait(1100);const p=await readJson(`${BASE}/ticket/list`,{method:'POST',headers:headers(token),body:JSON.stringify({pageNum:1,pageSize:20})});return Array.isArray(p?.data?.list)?p.data.list:[]}
+async function detail(token,id){await wait(1100);return (await readJson(`${BASE}/ticket/detail?ticketId=${encodeURIComponent(id)}`,{headers:headers(token)}))?.data||null}
+
+async function findExisting(token,list){for(const row of list.slice(0,8)){const d=await detail(token,row.ticketId);if(!d)continue;if(clean(d.message).includes(MARKER)||clean(d.sku,120)===SKU)return {...row,detail:d}}return null}
+
+function chooseQuestion(types){const candidates=[];for(const t of Array.isArray(types)?types:[]){for(const q of Array.isArray(t.questionTypes)?t.questionTypes:[]){const fields=Array.isArray(q.formFields)?q.formFields:[];const required=fields.filter(f=>f?.required===true);if(required.length)continue;const hay=`${t.ticketTypeName||''} ${q.questionTypeName||''}`.toLowerCase();let score=0;if(hay.includes('service consultation'))score+=20;if(hay.includes('fulfillment'))score+=15;if(hay.includes('store'))score+=10;if(hay.includes('authorization'))score+=10;if(hay.includes('product'))score+=6;if(hay.includes('other'))score+=2;candidates.push({ticketTypeId:t.ticketTypeId,ticketTypeName:t.ticketTypeName,questionTypeId:q.questionTypeId,questionTypeName:q.questionTypeName,score})}}candidates.sort((a,b)=>b.score-a.score);return candidates[0]||null}
+
+async function main(){const key=clean(process.env.CJ_API_KEY,500);if(!key)throw new Error('CJ_API_KEY missing');const token=await authenticate(key);let list=await recentTickets(token);let existing=await findExisting(token,list);let created=false;let selectedQuestion=null;
+if(!existing){await wait(1100);const types=await readJson(`${BASE}/ticket/types`,{headers:headers(token)});selectedQuestion=chooseQuestion(types?.data);if(!selectedQuestion)throw new Error('No suitable CJ support question type without mandatory unknown form fields.');const message=`${MARKER}: We are preparing a compliant eBay listing for CJ product ${SKU} (product ${PRODUCT_ID}, variant ${VARIANT_ID}). CJ OpenAPI confirms live CN inventory for this pinned variant, but the stock response does not expose an exact dispatch city/postal code and the CJ shop list currently shows no authorized eBay store. Please confirm the exact warehouse/item location that should be declared on eBay (city, province/state, postal code, country), and confirm the current CJ Apps > eBay authorization path or whether an API authorization method exists. Do not place any order or make any paid purchase.`;const expectResult='Please provide the exact dispatch/item-location fields suitable for an eBay listing and the current zero-cost method/path to authorize this eBay seller account in CJ so orders can sync. No order placement is requested.';await wait(1100);await readJson(`${BASE}/ticket/create`,{method:'POST',headers:headers(token),body:JSON.stringify({ticketTypeId:selectedQuestion.ticketTypeId,questionTypeId:selectedQuestion.questionTypeId,message,expectResult,sku:SKU,requestNo:'PB-EBAY-20261010'})});created=true;list=await recentTickets(token);existing=await findExisting(token,list)}
+const report={schemaVersion:1,checkedAt:new Date().toISOString(),marker:MARKER,sku:SKU,created,selectedQuestion,found:Boolean(existing),ticket:existing?{ticketId:clean(existing.ticketId,100),ticketNo:clean(existing.ticketNo,100),ticketType:clean(existing.ticketType,160),issueType:clean(existing.issueType,160),status:clean(existing.status,80),createTime:existing.createTime,lastUpdateTime:existing.lastUpdateTime,canRemind:Boolean(existing.canRemind),hasReminded:Boolean(existing.hasReminded)}:null};await fs.mkdir('growth-reports/ebay',{recursive:true});await fs.writeFile(OUT,JSON.stringify(report,null,2)+'\n');console.log(JSON.stringify(report));}
+main().catch(e=>{console.error(e?.stack||e);process.exit(1)});

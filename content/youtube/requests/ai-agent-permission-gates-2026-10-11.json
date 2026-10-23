@@ -1,0 +1,65 @@
+{
+  "slug": "ai-agent-permission-gates-2026-10-11",
+  "title": "Your AI Agent Should Not Have This Permission",
+  "voice": "en_US-norman-medium",
+  "voiceLicenseBasis": "Piper en_US-norman-medium model card: public-domain LibriVox source recordings; fallback eSpeak-ng",
+  "sourceAttribution": "Original PrismBay implementation framework, informed by OWASP LLM06:2025 Excessive Agency and NIST AI RMF Playbook.",
+  "segments": [
+    {
+      "key": "STOP",
+      "headline": "DON'T GIVE AN AGENT YOUR KEYS",
+      "body": "An AI agent should not approve and send payments alone.",
+      "spoken": "Your AI agent should not be able to approve and send a payment without an independent check."
+    },
+    {
+      "key": "01",
+      "headline": "READ FIRST",
+      "body": "Start with read-only access. Separate every write permission.",
+      "spoken": "Gate one: start with read-only access. Give each workflow only the specific write permissions it needs."
+    },
+    {
+      "key": "02",
+      "headline": "HUMAN APPROVAL",
+      "body": "Payments, deletions and external messages need checkpoints.",
+      "spoken": "Gate two: require independent human approval before payments, destructive changes, or other high-impact actions."
+    },
+    {
+      "key": "03",
+      "headline": "LOG AND REVOKE",
+      "body": "Record tool, actor, action, approval and outcome.",
+      "spoken": "Gate three: record every action and approval. Keep a simple way to revoke access and stop the workflow."
+    },
+    {
+      "key": "TEST",
+      "headline": "TRY A BAD INSTRUCTION",
+      "body": "See whether untrusted content can trigger an unauthorized action.",
+      "spoken": "Then test with a misleading document. If an embedded instruction can bypass those controls, do not deploy the agent with production authority."
+    },
+    {
+      "headline": "CONTROL THE PERMISSIONS",
+      "body": "A system prompt is not a substitute for access controls.",
+      "badges": [
+        "Least privilege",
+        "Human checkpoints",
+        "Audit and stop controls"
+      ],
+      "spoken": "These are practical management safeguards, not a universal legal checklist. PrismBay AI explains AI systems founders and operators can govern."
+    }
+  ],
+  "experimentId": "PB-AGENT-SEC-001",
+  "targetChannelId": "UCw2hs85TzIpdKwJtG-BSxzQ",
+  "sources": [
+    "https://owasp.org/www-project-top-10-for-large-language-model-applications/assets/PDF/OWASP-Top-10-for-LLMs-v2025.pdf",
+    "https://www.nist.gov/itl/ai-risk-management-framework/nist-ai-rmf-playbook"
+  ],
+  "hypothesis": "Specific action-permission controls produce more qualified retention and subscribers than generic AI safety advice",
+  "targetAudience": "Founders, COOs, IT managers and compliance leaders",
+  "hookType": "High-stakes permission warning with three actionable controls",
+  "format": "short",
+  "thumbnailConcept": "Single key icon behind a red stop sign; minimal text: NO AUTO PAYMENTS",
+  "cta": "Subscribe for practical AI systems and implementation controls",
+  "publishTime": "Unassigned pending original render, metadata verification and authorized publisher route",
+  "successThreshold": "At 72 hours, SCALE if views at least 2x comparable median with positive subscriber conversion and adequate sample",
+  "productionStatus": "render_requested_2026-10-10",
+  "paidSpendUSD": 0
+}

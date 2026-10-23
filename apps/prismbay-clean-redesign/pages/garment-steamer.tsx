@@ -1,0 +1,128 @@
+import { FormEvent, useState } from 'react';
+import Head from 'next/head';
+import { CheckCircle2, Loader2, LockKeyhole, MapPin, PackageCheck, Shirt, Truck } from 'lucide-react';
+
+type QuoteState = {
+  ok: boolean;
+  stage?: string | null;
+  error?: string;
+  httpStatus?: number;
+  freightUsd?: number | null;
+  deliveryEstimate?: string | null;
+  quoteToken?: string | null;
+  checkoutUrl?: string | null;
+};
+
+const sleep = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
+
+function messageFor(error?: string) {
+  if (error === 'valid_us_zip_required') return 'Enter a valid 5-digit U.S. ZIP code.';
+  if (error === 'quote_service_unreachable') return 'Live shipping verification is temporarily unavailable. Please try again.';
+  if (error === 'live_quote_temporarily_unavailable') return 'Live supplier verification is temporarily unavailable. Please try again.';
+  if (error === 'quote_unavailable') return 'No approved shipping route is available for this ZIP right now.';
+  return error || 'We could not approve this destination yet. No payment was taken.';
+}
+
+export default function GarmentSteamer() {
+  const [zip, setZip] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [authorizing, setAuthorizing] = useState(false);
+  const [quote, setQuote] = useState<QuoteState | null>(null);
+
+  async function requestQuote(quoteToken?: string | null): Promise<QuoteState> {
+    const response = await fetch('/api/shipping-quote', {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({ sku: 'garment-steamer', zip, quantity: 1, ...(quoteToken ? { quoteToken } : {}) }),
+    });
+    const data = await response.json();
+    return { ...data, httpStatus: response.status };
+  }
+
+  async function submit(event: FormEvent) {
+    event.preventDefault();
+    setLoading(true);
+    setQuote(null);
+    try {
+      const data = await requestQuote();
+      setQuote(data);
+    } catch {
+      setQuote({ ok: false, error: 'quote_service_unreachable' });
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  async function authorizeCheckout() {
+    if (!quote?.quoteToken) return;
+    setAuthorizing(true);
+    try {
+      await sleep(900);
+      let data: QuoteState = { ok: false, error: 'quote_service_unreachable' };
+      for (let attempt = 1; attempt <= 3; attempt += 1) {
+        data = await requestQuote(quote.quoteToken);
+        if (data.httpStatus !== 502 && data.httpStatus !== 503) break;
+        if (attempt < 3) await sleep(900 * attempt);
+      }
+      if (data?.ok && data?.stage === 'checkout_authorized' && data?.checkoutUrl) {
+        window.location.assign(data.checkoutUrl);
+        return;
+      }
+      setQuote(data);
+    } catch {
+      setQuote({ ok: false, error: 'quote_service_unreachable' });
+    } finally {
+      setAuthorizing(false);
+    }
+  }
+
+  return <>
+    <Head>
+      <title>Portable Garment Steamer | PrismBay Clean</title>
+      <meta name='description' content='Check live U.S. destination shipping for the PrismBay Clean Portable Garment Steamer before payment.' />
+      <meta name='robots' content='index,follow,max-image-preview:large' />
+    </Head>
+    <main style={{maxWidth:1080,margin:'0 auto',padding:'48px 24px 80px',fontFamily:'Arial, sans-serif',color:'#173a2f'}}>
+      <a href='/' style={{color:'#174b38',textDecoration:'none'}}>← PrismBay Clean</a>
+      <section style={{display:'grid',gridTemplateColumns:'repeat(auto-fit,minmax(300px,1fr))',gap:40,alignItems:'start',marginTop:32}}>
+        <div style={{background:'#f4efe5',borderRadius:28,padding:48,minHeight:420,display:'grid',placeItems:'center'}}>
+          <Shirt size={140} strokeWidth={1.1} />
+        </div>
+        <div>
+          <div style={{fontSize:13,fontWeight:700,letterSpacing:1.4,color:'#527467'}}>FABRIC CARE</div>
+          <h1 style={{fontSize:48,lineHeight:1.02,margin:'12px 0'}}>Portable Garment Steamer</h1>
+          <div style={{fontSize:30,fontWeight:700,marginBottom:18}}>USD 29.95</div>
+          <p style={{fontSize:18,lineHeight:1.6,color:'#476158'}}>Handheld steam care for clothing, travel and everyday household fabric touch-ups.</p>
+          <div style={{display:'grid',gap:12,margin:'28px 0'}}>
+            <span style={{display:'flex',gap:10,alignItems:'center'}}><PackageCheck size={20}/> Supplier stock checked before checkout</span>
+            <span style={{display:'flex',gap:10,alignItems:'center'}}><Truck size={20}/> Destination freight checked for your ZIP</span>
+            <span style={{display:'flex',gap:10,alignItems:'center'}}><LockKeyhole size={20}/> Payment link released only after a final live recheck</span>
+          </div>
+          <form onSubmit={submit} style={{border:'1px solid #d8e1dc',borderRadius:20,padding:22,background:'#fff'}}>
+            <label htmlFor='zip' style={{display:'block',fontWeight:700,marginBottom:8}}>Check shipping to your U.S. ZIP</label>
+            <div style={{display:'flex',gap:10,flexWrap:'wrap'}}>
+              <div style={{position:'relative',flex:'1 1 180px'}}>
+                <MapPin size={18} style={{position:'absolute',left:14,top:15,color:'#527467'}} />
+                <input id='zip' inputMode='numeric' autoComplete='postal-code' maxLength={5} value={zip} onChange={e=>setZip(e.target.value.replace(/\D/g,'').slice(0,5))} placeholder='e.g. 10001' style={{width:'100%',boxSizing:'border-box',padding:'14px 14px 14px 42px',border:'1px solid #b9c9c0',borderRadius:12,fontSize:16}} />
+              </div>
+              <button type='submit' disabled={loading || authorizing || zip.length !== 5} style={{border:0,borderRadius:12,padding:'14px 20px',fontWeight:700,background:'#174b38',color:'#fff',cursor:'pointer',minWidth:170}}>{loading ? <span style={{display:'inline-flex',gap:8,alignItems:'center'}}><Loader2 size={18}/> Checking</span> : 'Check availability'}</button>
+            </div>
+            <p style={{fontSize:13,color:'#667d74',marginBottom:0}}>No payment is taken during this check.</p>
+          </form>
+          {quote?.ok && quote.stage === 'quoted' ? <div style={{marginTop:18,padding:20,borderRadius:16,background:'#edf7f1',border:'1px solid #b8ddc7'}}>
+            <div style={{display:'flex',gap:8,alignItems:'center',fontWeight:700}}><CheckCircle2 size={20}/> Destination route approved</div>
+            <p>Live supplier stock, destination shipping and commercial checks passed.</p>
+            {quote.deliveryEstimate ? <p>Estimated transit: {quote.deliveryEstimate}</p> : null}
+            <button type='button' disabled={authorizing || !quote.quoteToken} onClick={authorizeCheckout} style={{border:0,borderRadius:11,padding:'13px 18px',background:'#174b38',color:'#fff',fontWeight:700,cursor:'pointer'}}>{authorizing ? 'Rechecking…' : 'Continue to secure checkout'}</button>
+            <p style={{fontSize:13,color:'#667d74',marginBottom:0}}>Stock and shipping are checked again before the payment link is released.</p>
+          </div> : null}
+          {quote?.ok && quote.stage === 'checkout_authorized' && quote.checkoutUrl ? <div style={{marginTop:18,padding:20,borderRadius:16,background:'#edf7f1',border:'1px solid #b8ddc7'}}>
+            <div style={{fontWeight:700}}>Checkout approved.</div>
+            <a href={quote.checkoutUrl} rel='nofollow' style={{display:'inline-block',marginTop:8,padding:'13px 18px',background:'#174b38',color:'#fff',borderRadius:11,textDecoration:'none',fontWeight:700}}>Open secure checkout</a>
+          </div> : null}
+          {quote && !quote.ok ? <div style={{marginTop:18,padding:18,borderRadius:14,background:'#fff7ed',border:'1px solid #f0d5ad'}}>{messageFor(quote.error)}</div> : null}
+        </div>
+      </section>
+    </main>
+  </>;
+}

@@ -1,0 +1,46 @@
+{
+  "experimentId": "PB-PROC-001",
+  "channelId": "UCw2hs85TzIpdKwJtG-BSxzQ",
+  "metricoolBrandId": 6945443,
+  "status": "STORYBOARD_COMMITTED_SCRIPT_RESEARCHED_NOT_RENDERED_NOT_SCHEDULED",
+  "format": "long_form",
+  "targetMinutes": [
+    9,
+    11
+  ],
+  "hypothesis": "A seven-gate AI procurement decision framework yields stronger qualified watch time and subscriber conversion than generic model announcements",
+  "audience": "Founders, COOs, CFOs, procurement and compliance leaders",
+  "hook": "The AI demo succeeded but the purchase failed",
+  "candidateTitles": [
+    "7 AI Vendor Contract Checks Before You Sign",
+    "Your AI Demo Worked. The Purchase Still Failed.",
+    "The AI Procurement Checklist Most Companies Skip"
+  ],
+  "thumbnailConcepts": [
+    "Seven-gate scorecard with two red boxes: BEFORE YOU SIGN",
+    "Split demo vs expensive operating reality: DEMO ≠ ROI",
+    "Contract with red risk stamp: AI VENDOR RISK"
+  ],
+  "cta": "PrismBay AI helps founders, operators and executives implement practical AI business systems",
+  "publishTime": null,
+  "analysisCheckpointsHours": [
+    6,
+    24,
+    72,
+    168
+  ],
+  "successCriteria": "Compare watch time and subscribers per 100 views to five comparable long-form videos after enough observations. SCALE if watch time at least 2x comparable median and net subscribers positive, RETEST if packaging underperforms, MODIFY if retention drop has clear fix, STOP only after repeated weak tests.",
+  "derivativeShortIdeas": [
+    "Read-only vs payment-authorized AI agents",
+    "ROI capacity versus cash",
+    "Vendor exit rehearsal"
+  ],
+  "publicationStatus": "UNPUBLISHED",
+  "spendUsd": 0,
+  "blockedRoutes": [
+    "Metricool createScheduledPost safety-blocked 2026-10-13",
+    "Opera browser access requires interactive approval",
+    "Descript AI credits exhausted"
+  ],
+  "sourceBrief": "content/youtube/longform/PB-PROC-001-seven-ai-vendor-gates.md"
+}

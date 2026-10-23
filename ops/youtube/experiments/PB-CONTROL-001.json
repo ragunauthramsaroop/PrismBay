@@ -1,0 +1,25 @@
+{
+  "experimentId": "PB-CONTROL-001",
+  "channelId": "UCw2hs85TzIpdKwJtG-BSxzQ",
+  "brandId": 6945443,
+  "title": "Before Your AI Agent Goes Live, Test These 3 Controls",
+  "format": "short",
+  "durationSeconds": 52.71,
+  "asset": "PB-CONTROL-001_AI_Agent_Kill_Switch_Shorts.mp4",
+  "assetLocation": "conversation artifact (not hosted publicly)",
+  "status": "RENDERED_LOCAL_NOT_PUBLISHED",
+  "publishBlockedBy": "No public media URL; browser interaction unavailable; Descript AI credits exhausted",
+  "originality": "original narration and custom graphics, locally rendered with FFmpeg and espeak",
+  "hypothesis": "Actionable three-control agent safety checklist appeals to operators more than generic model news",
+  "metricsToTrack": [
+    "24h views",
+    "watch minutes",
+    "average view duration",
+    "shares",
+    "comments",
+    "subscribers gained"
+  ],
+  "successRule": "SCALE if >=2x comparable median watch time and positive subscriber gain after 72h",
+  "costUsd": 0,
+  "createdAt": "2026-10-12"
+}

@@ -1,0 +1,86 @@
+{
+  "snapshotAt": "2026-10-11T01:47:54-04:00",
+  "target": {
+    "channelId": "UCw2hs85TzIpdKwJtG-BSxzQ",
+    "handle": "@PrismBayAI",
+    "metricoolBrandId": 6945443
+  },
+  "metrics": {
+    "subscribers": 7,
+    "videoViewsSince20260919": 330,
+    "metricoolVideoRowsReturned": 0,
+    "videoLevelRetentionAvailable": false,
+    "revenueReportedUSD": 0,
+    "interpretation": "Video views are sum of available daily Metricool evolution rows; no view counts were returned for October 6-10. Do not interpret 330 as current lifetime views."
+  },
+  "scheduled": [
+    {
+      "metricoolId": 393047880,
+      "uuid": "5293554101037780583",
+      "title": "Before You Give an AI Vendor Customer Data, Ask These 3 Questions",
+      "localTime": "2026-10-11T16:00:00-04:00",
+      "state": "PENDING",
+      "media": "https://static.metricool.com/planner/202610/6945443-file-3049137019179059590.mp4"
+    }
+  ],
+  "production": {
+    "descriptProjectId": "3de30d73-71c8-4e9d-9ccf-72faf3fb5d11",
+    "activeJobs": 0,
+    "lastMediaImport": "stopped_failed",
+    "operaBrowser": "disconnected",
+    "queuedOriginals": [
+      "PB-PROC-001 long-form researched script not rendered",
+      "PB-AGENT-SEC-001 permission-gates Short rendered not scheduled",
+      "PB-ROI-001 ROI Short ready, prior publishing attempt blocked"
+    ]
+  },
+  "portfolioDecisions": [
+    {
+      "decision": "RETAIN",
+      "experimentId": "PB-PROC-001",
+      "reason": "9-11 minute long-form procurement controls fits qualified watch-time objective; production not complete."
+    },
+    {
+      "decision": "HOLD",
+      "experimentId": "PB-AGENT-SEC-001",
+      "reason": "Original media available, but must use guarded publisher with verified public history and current queue."
+    },
+    {
+      "decision": "RETEST_LATER",
+      "experimentId": "PB-PERM-001",
+      "reason": "Significant topic overlap with PB-AGENT-SEC-001; do not publish near-duplicate permission Shorts."
+    },
+    {
+      "decision": "REVIEW_AFTER_PUBLICATION",
+      "metricoolId": 393047880,
+      "checkpointsHours": [
+        6,
+        24,
+        72,
+        168
+      ],
+      "reason": "Assess retention, subscriber conversion and source mix after public video ID and video-level analytics become available."
+    }
+  ],
+  "postingWindows": {
+    "timezone": "America/Guyana",
+    "metricoolBestTimeForSunday": "16:00",
+    "metricoolBestTimeForMonday": "16:00",
+    "metricoolBestTimeForTuesday": "16:00",
+    "metricoolBestTimeForWednesday": "16:00",
+    "note": "Metricool relative activity scores are not guaranteed views. Preserve 4h minimum separation and verify queue before scheduling."
+  },
+  "constraints": {
+    "paidSpendUSD": 0,
+    "newChannelCreated": false,
+    "newPostScheduledThisRun": false,
+    "duplicateUpload": false,
+    "monetizationCountry": "unverified"
+  },
+  "sources": [
+    "Metricool connected brand, scheduled posts, evolution analytics, and best-time APIs",
+    "Descript connected project/jobs",
+    "GitHub original creative metadata",
+    "https://support.google.com/youtube/answer/12843009"
+  ]
+}

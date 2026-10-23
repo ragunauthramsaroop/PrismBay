@@ -2,17 +2,16 @@ import fs from 'node:fs/promises';
 import { campaignForSlot, currentSixHourSlot } from './digital-conversion-campaign.mjs';
 
 const role = process.argv[2] || 'Storefront CRO Auditor';
-const SHOP = process.env.PRISMBAY_SHOP_URL || 'https://prismbay-clean-49izhg.v2.appdeploy.ai/tiktok/';
-const SHOP_CUSTOM = process.env.PRISMBAY_SHOP_CUSTOM_URL?.trim() || '';
-const SITE = process.env.PRISMBAY_SITE_URL || 'https://www.prismbayai.com';
+const SHOP = process.env.PRISMBAY_SHOP_URL || 'https://clean.prismbayai.com/';
+const LIVE_PREFLIGHT = process.env.PRISMBAY_LIVE_PREFLIGHT_URL || 'https://browser-worker-production-f5b4.up.railway.app/garment-steamer/';
+const SITE = process.env.PRISMBAY_SITE_URL || 'https://clean.prismbayai.com';
 const VERIFY = process.env.TIKTOK_VERIFY_URL || SITE + '/tiktokioWxniaZWfubplFsge1pzgPGhS04LORJ.txt';
 const FETCH_ATTEMPTS = Math.max(1, Math.min(5, Number(process.env.PRISMBAY_FETCH_ATTEMPTS || 3)));
 const FETCH_TIMEOUT_MS = Math.max(250, Math.min(30000, Number(process.env.PRISMBAY_FETCH_TIMEOUT_MS || 8000)));
 const products = [
-  'Cordless Pressure Washer','Cordless Handheld Vacuum','5-in-1 Electric Spin Scrubber',
-  'Mattress Vacuum','Portable Garment Steamer','Portable Home Caddy',
-  'Reusable Pet Hair Remover','Self-Squeeze Mini Mop','3-in-1 Crevice Cleaning Brush',
-  'Sink Drain Catcher 2-Pack'
+  'Portable Garment Steamer','3-in-1 Crevice Cleaning Brush','Hanging Closet Organizer',
+  'Sink Drain Catcher 2-Pack','Cordless Handheld Vacuum','5-in-1 Electric Spin Scrubber',
+  'Mattress Vacuum','Portable Home Caddy','Reusable Pet Hair Remover','Self-Squeeze Mini Mop'
 ];
 
 const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
@@ -29,7 +28,7 @@ async function fetchText(url, options = {}) {
     try {
       const r = await fetch(url, {
         redirect: 'follow',
-        headers: { 'user-agent': 'PrismBay-Growth-Agent/2.0', ...extraHeaders },
+        headers: { 'user-agent': 'PrismBay-Growth-Agent/3.0', ...extraHeaders },
         signal: controller.signal,
       });
       const text = await r.text();
@@ -56,30 +55,39 @@ const match = (html, re) => (html.match(re)?.[1] || '').trim();
 const count = (html, re) => [...html.matchAll(re)].length;
 const strip = s => s.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
 
+async function inspectStorefront(target) {
+  const r = await fetchText(target);
+  const html = r.text;
+  return { target, status: r.status, finalUrl: r.url,
+    reachable: r.ok, error: r.error, attempts: r.attempts,
+    title: strip(match(html, /<title[^>]*>([\s\S]*?)<\/title>/i)),
+    description: match(html, /<meta[^>]+name=["']description["'][^>]+content=["']([^"']*)/i),
+    canonical: match(html, /<link[^>]+rel=["']canonical["'][^>]+href=["']([^"']*)/i),
+    h1: strip(match(html, /<h1[^>]*>([\s\S]*?)<\/h1>/i)),
+    ctaCount: count(html, /<(?:a|button)\b[^>]*>[\s\S]*?(?:buy|shop|checkout|order|view|see|get|check|open)[\s\S]*?<\/(?:a|button)>/gi),
+    hasProductSchema: /"@type"\s*:\s*"(?:Product|ItemList)"/i.test(html),
+    hasDirectStripeLink: /https:\/\/buy\.stripe\.com\//i.test(html),
+    hasRailwayPreflight: /browser-worker-production-f5b4\.up\.railway\.app\/garment-steamer/i.test(html),
+    hasExpiredAugustCopy: /August\s+27|Aug\.?\s*27/i.test(html)
+  };
+}
+
 async function croAudit() {
-  async function inspect(target) {
-    const r = await fetchText(target);
-    const html = r.text;
-    return { target, status: r.status, finalUrl: r.url,
-      reachable: r.ok, error: r.error, attempts: r.attempts,
-      title: strip(match(html, /<title[^>]*>([\s\S]*?)<\/title>/i)),
-      description: match(html, /<meta[^>]+name=["']description["'][^>]+content=["']([^"']*)/i),
-      canonical: match(html, /<link[^>]+rel=["']canonical["'][^>]+href=["']([^"']*)/i),
-      h1: strip(match(html, /<h1[^>]*>([\s\S]*?)<\/h1>/i)),
-      ctaCount: count(html, /<(?:a|button)\b[^>]*>[\s\S]*?(?:buy|shop|checkout|order|view|see|get)[\s\S]*?<\/(?:a|button)>/gi),
-      hasProductSchema: /"@type"\s*:\s*"(?:Product|ItemList)"/i.test(html),
-      hasExpiredAugustCopy: /August\s+27|Aug\.?\s*27/i.test(html)
-    };
-  }
-  const activeStorefront = await inspect(SHOP);
-  const customDomain = SHOP_CUSTOM
-    ? await inspect(SHOP_CUSTOM)
-    : { target: null, status: 'not_configured', publicPromotion: false, note: 'No custom PrismBay Clean storefront hostname is configured; use the verified AppDeploy storefront URL.' };
-  return { activeStorefront, customDomain };
+  const activeStorefront = await inspectStorefront(SHOP);
+  const livePreflight = await inspectStorefront(LIVE_PREFLIGHT);
+  return {
+    activeStorefront,
+    livePreflight,
+    routePolicy: {
+      appDeployRequired: false,
+      directStripeOnPublicStorefrontAllowed: false,
+      buyerZipPreflightRequired: true,
+    }
+  };
 }
 
 async function publisherReadiness() {
-  const urls = [SITE + '/terms', SITE + '/privacy', VERIFY];
+  const urls = [SITE + '/terms.html', SITE + '/privacy.html', VERIFY];
   const results = [];
   for (const url of urls) {
     const r = await fetchText(url);
@@ -89,44 +97,65 @@ async function publisherReadiness() {
   return {
     checks: results,
     degraded: results.some(x => !x.ok),
-    tiktokVerificationReady: Boolean(verification?.ok && /tiktok-developers-site-verification=/i.test(verification.bodyPreview))
+    tiktokVerificationReady: Boolean(verification?.ok && /tiktok-developers-site-verification=/i.test(verification.bodyPreview)),
+    retailLandingPage: LIVE_PREFLIGHT,
+    rule: 'TikTok publication stays blocked until the exact provider verification file and all channel-specific authorization gates pass.'
   };
 }
 
 function hookWriter() {
-  const hour = new Date().getUTCHours();
-  const p = products[hour % products.length];
+  const campaignId = 'garment_steamer_preflight_' + Math.floor(Date.now() / 21600000);
+  const cta = LIVE_PREFLIGHT + '?utm_source=github_cloud&utm_medium=organic_draft&utm_campaign=' + campaignId;
   const hooks = [
-    `What to check before choosing a ${p} for your home.`,
-    `Compare key specifications and safety information for ${p} models.`,
-    `Three questions to ask a supplier before ordering a ${p}.`,
+    'Travel steamer shopping? Check the delivered route before paying.',
+    'A garment steamer price is only part of the order. Destination shipping matters too.',
+    'Before buying a portable garment steamer, verify stock, U.S. ZIP shipping and the exact checkout route.'
   ];
   return {
-    product: p, hooks, cta: null, draftOnly: true,
-    physicalProductAvailabilityClaim: false, publicationAuthorized: false,
-    note: 'Editorial research only. Validate SKU, current inventory, final US ZIP freight, product media rights and merchant approval before a promotional CTA.',
+    product: 'Portable Garment Steamer',
+    hooks,
+    cta,
+    draftOnly: true,
+    physicalProductAvailabilityClaim: false,
+    publicationAuthorized: false,
+    guardedPreflightPromotion: true,
+    directStripePromotion: false,
+    note: 'Editorial promotion draft points only to the live buyer-ZIP preflight. It does not claim universal availability, a sale, or guaranteed delivery.',
+    originalMediaBrief: {
+      format: 'vertical short-form',
+      thirdPartyMediaRequired: false,
+      scenes: [
+        'Original text hook about checking total delivered route before payment.',
+        'Simple original garment-care iconography or typography, no copied product footage.',
+        'Explain: enter U.S. ZIP, live stock and freight check, then secure checkout only if approved.',
+        'CTA: check live availability. Do not show a direct Stripe link.'
+      ]
+    },
     digitalCampaign: campaignForSlot(currentSixHourSlot()),
   };
 }
 
 function trendScout() {
   return {
+    commercialPriority: 'Portable Garment Steamer',
     priorityProducts: products.slice(0, 5),
     liveResearchQueries: [
-      'TikTok Shop US cleaning tools current demand',
-      'TikTok Shop cordless pressure washer current demand',
-      'TikTok Shop electric spin scrubber current demand',
-      'TikTok Shop garment steamer current demand'
+      'portable garment steamer US buyer demand',
+      'travel garment steamer buyer questions',
+      'garment steamer clothing wrinkle care shopping trends',
+      'portable steamer U.S. shipping buyer intent'
     ],
-    instruction: 'Use connected live-web research to validate demand before changing product priority.'
+    instruction: 'Keep the garment steamer first while it is the only product with a verified guarded preflight route. Research other products without promoting them until their route exists.'
   };
 }
 
 function creatorScout() {
   return {
-    segments: ['CleanTok','home organization','car cleaning','pet hair','household tools'],
+    product: 'Portable Garment Steamer',
+    landingPage: LIVE_PREFLIGHT,
+    segments: ['garment care','travel packing','workwear and office style','small-space living','home care'],
     qualification: ['recent relevant content','real engagement','clear contact route','commission/revenue-share fit','no paid-upfront requirement'],
-    outreachRule: 'Do not bulk-spam. Contact only qualified creators with a relevant product angle.'
+    outreachRule: 'Research only until owner-approved contact. Do not bulk-spam. Any future outreach must link to the guarded preflight page, not Stripe.'
   };
 }
 
@@ -142,12 +171,13 @@ async function analyticsReviewer() {
     error: r.error,
     attempts: r.attempts,
     reported: parsed,
-    rule: 'Internal/test traffic is not counted as demand or revenue.'
+    buyerFunnel: LIVE_PREFLIGHT,
+    rule: 'Internal/test traffic, availability probes and workflow activity are not counted as demand or revenue. Only verified non-test customer payments count.'
   };
 }
 
 async function offerOptimizer() {
-  const r = await fetchText(SHOP);
+  const r = await fetchText(LIVE_PREFLIGHT);
   const html = r.text;
   const countdown = strip(match(html, /<div[^>]+id=["']timer["'][^>]*>([\s\S]*?)<\/div>/i));
   const saleEnd = match(html, /Ends\s+([A-Z][a-z]{2}\s+\d{1,2})/i);
@@ -156,10 +186,11 @@ async function offerOptimizer() {
     reachable: r.ok,
     error: r.error,
     attempts: r.attempts,
+    target: LIVE_PREFLIGHT,
     countdownText: countdown || null,
     saleEndText: saleEnd || null,
     staleAugustCopy: /August\s+27|Aug\.?\s*27/i.test(html),
-    recommendation: 'Keep price/value claims tied to live checkout values; remove expired urgency immediately.'
+    recommendation: 'Keep the $29.95 page and checkout route aligned. Optimize copy around live ZIP verification rather than urgency or unsupported discount claims.'
   };
 }
 

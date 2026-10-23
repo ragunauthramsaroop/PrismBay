@@ -1,0 +1,130 @@
+name: PrismBay Agency Agents Commerce Autopilot
+
+on:
+  schedule:
+    - cron: '29 1,7,13,19 * * *'
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/agency-agents-commerce-autopilot.yml'
+      - 'scripts/agency-agents-commerce-brief.mjs'
+      - 'scripts/agency-agents-commerce-brief.test.mjs'
+      - 'scripts/agency-agents-model-client.mjs'
+      - 'scripts/agency-agents-model-client.test.mjs'
+      - 'scripts/claude-9router-auto.mjs'
+  pull_request:
+    branches: [main]
+    paths:
+      - '.github/workflows/agency-agents-commerce-autopilot.yml'
+      - 'scripts/agency-agents-commerce-brief.mjs'
+      - 'scripts/agency-agents-commerce-brief.test.mjs'
+      - 'scripts/agency-agents-model-client.mjs'
+      - 'scripts/agency-agents-model-client.test.mjs'
+      - 'scripts/claude-9router-auto.mjs'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: prismbay-agency-agents-advisory
+  cancel-in-progress: true
+
+jobs:
+  evidence-based-advisory:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Check out existing commerce evidence
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Verify agent permission and evidence rules
+        run: node --test scripts/agency-agents-commerce-brief.test.mjs scripts/agency-agents-model-client.test.mjs
+
+      - name: Build six-role Agency Agents rotation brief
+        run: node scripts/agency-agents-commerce-brief.mjs
+
+      - name: Attempt one read-only free-router model review
+        id: model
+        if: github.event_name != 'pull_request' && vars.PRISMBAY_AI_PROVIDER_READY == 'true'
+        continue-on-error: true
+        run: |
+          node scripts/claude-9router-auto.mjs \
+            --chat-prompt-file=growth-reports/agency-agents-commerce-prompt.txt \
+            --output-file=growth-reports/agency-agents-commerce-review.md
+
+      - name: Fall back to the official OpenCode free client
+        id: official
+        if: github.event_name != 'pull_request' && vars.PRISMBAY_AI_PROVIDER_READY == 'true' && steps.model.outcome == 'failure'
+        shell: bash
+        run: |
+          set -euo pipefail
+          # Use the official free client, not a proxy that imitates its identity.
+          npm install --global @opencode/cli@2.0.32
+          safe_dir="$(mktemp -d)"
+          trap 'rm -rf "$safe_dir"' EXIT
+          # Disable every OpenCode tool. The model sees only the sanitized prompt.
+          printf '%s\n' '{"$schema":"https://opencode.ai/config.json","permission":"deny","share":"manual"}' > "$safe_dir/opencode.json"
+          prompt="$(cat growth-reports/agency-agents-commerce-prompt.txt)"
+          [[ -n "$prompt" ]] || { echo 'Sanitized brief is missing'; exit 1; }
+          output="$GITHUB_WORKSPACE/growth-reports/agency-agents-commerce-review.md"
+          cd "$safe_dir"
+          timeout 150s opencode run --standalone --model opencode/big-pickle "$prompt" > "$output"
+          [[ -s "$output" ]] || { echo 'OpenCode did not return a model review'; exit 1; }
+          [[ $(wc -c < "$output") -gt 80 ]] || { echo 'OpenCode reply is too short to substantiate a review'; exit 1; }
+          echo 'Official OpenCode free model returned an advisory report.'
+
+      - name: Require actual model output for a successful production run
+        if: github.event_name != 'pull_request' && vars.PRISMBAY_AI_PROVIDER_READY == 'true'
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -s growth-reports/agency-agents-commerce-review.md
+          echo 'At least one read-only model route supplied a report.'
+
+      - name: Record advisory findings and blocked authorities
+        if: always()
+        env:
+          MODEL_OUTCOME: ${{ steps.model.outcome }}
+          OFFICIAL_OUTCOME: ${{ steps.official.outcome }}
+          MODEL_ENABLED: ${{ vars.PRISMBAY_AI_PROVIDER_READY }}
+        run: |
+          node --input-type=module <<'JS'
+          import fs from 'node:fs';
+          const summaryFile='growth-reports/agency-agents-commerce-brief.json';
+          const board=fs.existsSync(summaryFile) ? JSON.parse(fs.readFileSync(summaryFile,'utf8')) : null;
+          const report=[
+            '## PrismBay Agency Agents commerce advisory',
+            board ? '- Selected specialist: '+board.specialist : '- Agency evidence brief unavailable',
+            board ? '- Evidence status: '+board.status : '- No advisory result',
+            board ? '- Supplier products needing verification: '+board.supplierBlockedCount : '- Supplier evidence unavailable',
+            '- 9Router model outcome: '+process.env.MODEL_OUTCOME,
+            '- Official OpenCode fallback outcome: '+process.env.OFFICIAL_OUTCOME,
+            '- Model inference enabled by verified provider configuration: '+(process.env.MODEL_ENABLED === 'true'),
+            '- Completed model report: '+fs.existsSync('growth-reports/agency-agents-commerce-review.md'),
+            '- Scheduled evidence analysis continues without an AI provider. Model inference is inactive until an authorized free provider works on a cloud runner.',
+            '- When model inference is enabled, missing genuine output fails the production run.',
+            '- This workflow has read-only repository permissions and never publishes, orders, charges or spends.',
+            '- Research work remains separate from the AI education YouTube channel.'
+          ];
+          fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY, report.join('\n')+'\n');
+          JS
+
+      - name: Retain short-lived AI analysis and evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: prismbay-agency-agents-${{ github.run_id }}
+          path: |
+            growth-reports/agency-agents-commerce-brief.json
+            growth-reports/agency-agents-commerce-prompt.txt
+            growth-reports/agency-agents-commerce-review.md
+          if-no-files-found: warn
+          retention-days: 3

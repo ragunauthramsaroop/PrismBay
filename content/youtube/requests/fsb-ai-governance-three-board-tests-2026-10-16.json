@@ -1,0 +1,66 @@
+{
+  "slug": "fsb-ai-governance-three-board-tests-2026-10-16",
+  "title": "New Global AI Guidance: 3 Board Tests Before You Deploy Agents",
+  "voice": "en_US-norman-medium",
+  "voiceLicenseBasis": "Piper en_US-norman-medium public-domain LibriVox recordings; fallback eSpeak-ng",
+  "sourceAttribution": "Financial Stability Board, 15 Oct 2026: 12 Sound Practices for Responsible Adoption of AI. Three executive tests are PrismBay's original synthesis, not FSB mandates.",
+  "segments": [
+    {
+      "key": "15 OCT 2026",
+      "headline": "12 NEW AI PRACTICES",
+      "body": "The FSB published guidance for financial institutions.",
+      "spoken": "A global financial watchdog published twelve AI governance practices on October fifteenth. They are guidance for financial institutions, not a new law. Here are three executive tests worth running."
+    },
+    {
+      "key": "01",
+      "headline": "WHO OWNS THE DECISION?",
+      "body": "Name the accountable person and the approval boundary.",
+      "spoken": "First, name the owner. Who is accountable for each AI use case? Who approves high impact actions? An agent's access is not the same as human authorization."
+    },
+    {
+      "key": "02",
+      "headline": "WHERE IS THE EVIDENCE?",
+      "body": "Track performance, errors and changing risks.",
+      "spoken": "Second, show the evidence. Test performance before launch, monitor failures after launch, and record decisions. A confident output is not proof of a safe process."
+    },
+    {
+      "key": "03",
+      "headline": "HOW DO YOU STOP IT?",
+      "body": "Human oversight, shutdown and vendor fallback.",
+      "spoken": "Third, prove you can intervene. Define human oversight, a stop mechanism and a recovery path, including third party dependencies."
+    },
+    {
+      "key": "10-MIN TEST",
+      "headline": "CHECK ONE LIVE WORKFLOW",
+      "body": "Owner. Evidence. Stop procedure.",
+      "badges": [
+        "Named owner",
+        "Performance record",
+        "Tested intervention"
+      ],
+      "spoken": "Choose one live AI workflow. Find its owner, performance record and tested stop procedure in ten minutes. Missing answers become management actions."
+    },
+    {
+      "key": "PRISMBAY AI",
+      "headline": "BUILD GOVERNABLE AI",
+      "body": "Practical AI business systems",
+      "spoken": "These three tests are PrismBay's synthesis of the FSB guidance. Subscribe for practical AI business systems and measurable decisions."
+    }
+  ],
+  "experimentId": "PB-FSB-001",
+  "targetChannelId": "UCw2hs85TzIpdKwJtG-BSxzQ",
+  "sources": [
+    "https://www.fsb.org/2026/10/fsb-finalises-sound-practices-for-the-responsible-adoption-of-artificial-intelligence-ai/",
+    "https://www.fsb.org/uploads/P151026-1.pdf"
+  ],
+  "hypothesis": "Timely governance news paired with an original 10-minute executive test will outperform general AI governance Shorts on qualified views and subscriber conversion.",
+  "targetAudience": "Founders, board members, COOs, CFOs, AI program leaders, financial-services risk managers",
+  "hookType": "Time-sensitive primary-source news plus concrete board-level decision test",
+  "format": "short",
+  "thumbnailConcept": "12 PRACTICES / 3 TESTS with three minimal checkboxes, one central executive decision",
+  "cta": "Subscribe for practical AI business systems and measurable decisions",
+  "publishTime": "Unassigned pending rendering QA, authenticated scheduling and target-channel verification",
+  "successThreshold": "At 72h, SCALE only if >=2x recent comparable Shorts median views with positive subscriber conversion; RETEST hook if retention weak; STOP if factual or policy issue.",
+  "productionStatus": "render_requested_2026-10-16",
+  "paidSpendUSD": 0
+}

@@ -30,7 +30,8 @@ bash ./build-vercel.sh
 SCOPE_ARGS=()
 if [ -n "${VERCEL_SCOPE:-}" ]; then SCOPE_ARGS=(--scope "$VERCEL_SCOPE"); fi
 ENV_ARGS=()
-if [ -n "${DATABASE_URL:-}" ]; then ENV_ARGS=(-e "DATABASE_URL=$DATABASE_URL"); fi
+if [ -n "${DATABASE_URL:-}" ]; then ENV_ARGS+=(-e "DATABASE_URL=$DATABASE_URL"); fi
+if [ -n "${CJ_API_KEY:-}" ]; then ENV_ARGS+=(-e "CJ_API_KEY=$CJ_API_KEY"); fi
 
 echo "==> deploying to production${VERCEL_SCOPE:+ (scope: $VERCEL_SCOPE)}"
 DEPLOY_OUT="$($VERCEL deploy --prebuilt --prod --yes --token "$VERCEL_TOKEN" \

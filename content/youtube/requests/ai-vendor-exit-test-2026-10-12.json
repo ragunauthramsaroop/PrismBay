@@ -1,0 +1,65 @@
+{
+  "slug": "ai-vendor-exit-test-2026-10-12",
+  "title": "Before You Sign an AI Contract, Run This Exit Test",
+  "voice": "en_US-norman-medium",
+  "voiceLicenseBasis": "Piper en_US-norman-medium public-domain LibriVox recordings; fallback eSpeak-ng",
+  "sourceAttribution": "Original PrismBay management framework informed by ICO AI procurement guidance and NIST AI RMF.",
+  "segments": [
+    {
+      "key": "EXIT TEST",
+      "headline": "YOUR AI VENDOR HAS YOUR DATA",
+      "body": "Could your business leave tomorrow?",
+      "spoken": "Your AI vendor has your workflows and business data. Before you sign, ask one question: could your company leave tomorrow?"
+    },
+    {
+      "key": "01",
+      "headline": "EXPORT A REAL SAMPLE",
+      "body": "Download records, prompts and logs in usable formats.",
+      "spoken": "First, export a small real sample. Check whether records, prompts and logs arrive in formats another system can read."
+    },
+    {
+      "key": "02",
+      "headline": "REBUILD THE WORKFLOW",
+      "body": "Test prompts, integrations and permissions outside the vendor.",
+      "spoken": "Second, try rebuilding one workflow elsewhere. A data export alone does not restore your integrations, prompts, or permissions."
+    },
+    {
+      "key": "03",
+      "headline": "VERIFY THE EXIT TERMS",
+      "body": "Deletion, backup retention, fees and transition support.",
+      "spoken": "Third, confirm deletion, backup retention, exit fees and transition support in writing. Ask who verifies the result."
+    },
+    {
+      "key": "DECISION",
+      "headline": "PASS, PILOT OR PAUSE",
+      "body": "No verified exit path? Limit production dependence.",
+      "spoken": "If the exit test fails, limit dependence until the supplier fixes the gap. This is a proposed management test, not a universal legal requirement."
+    },
+    {
+      "headline": "KEEP THE RIGHT TO LEAVE",
+      "body": "PrismBay AI | Practical AI business systems",
+      "badges": [
+        "Test portability",
+        "Check written terms",
+        "Preserve continuity"
+      ],
+      "spoken": "PrismBay AI helps founders and executives implement practical AI systems. Subscribe for measurable business decisions, not vendor promises."
+    }
+  ],
+  "experimentId": "PB-EXIT-001",
+  "targetChannelId": "UCw2hs85TzIpdKwJtG-BSxzQ",
+  "sources": [
+    "https://ico.org.uk/for-organisations/advice-and-services/audits/data-protection-audit-framework/toolkits/artificial-intelligence/contracts-and-third-parties/",
+    "https://www.nist.gov/itl/ai-risk-management-framework/nist-ai-rmf-playbook"
+  ],
+  "hypothesis": "A concrete vendor exit test earns stronger 72-hour retention and qualified engagement than general AI procurement warnings",
+  "targetAudience": "Founders, COOs, procurement directors, IT and compliance leads",
+  "hookType": "Business continuity question",
+  "format": "short",
+  "thumbnailConcept": "One open exit door and contract icon, words: EXIT TEST",
+  "cta": "Subscribe for practical AI systems and business controls",
+  "publishTime": "Unassigned pending render and successful channel-specific publishing validation",
+  "successThreshold": "At 72 hours compare views, shares and subscriber gain to median of recent comparable Shorts; SCALE only if >=2x views and positive subscriber conversion",
+  "productionStatus": "render_requested_2026-10-12",
+  "paidSpendUSD": 0
+}

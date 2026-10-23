@@ -1,6 +1,8 @@
 import fs from 'node:fs/promises';
 import { ACTIVE_DIGITAL_OFFERS } from './digital-conversion-campaign.mjs';
 
+export const BUYER_GUIDE_OFFERS = Object.freeze(ACTIVE_DIGITAL_OFFERS.filter(offer => offer.slug !== 'bundle'));
+
 export const TARGETS = Object.freeze({
   paidStore: 'https://ragunauthramsaroop.github.io/PrismBay/toolkits.html',
   freeScorecard: 'https://ragunauthramsaroop.github.io/PrismBay/scorecard.html',
@@ -114,14 +116,14 @@ export async function runHealth({ nowMs = Date.now() } = {}) {
     get(TARGETS.freeScorecard),
     get(TARGETS.physicalStore),
     getCatalog(TARGETS.catalog + '&t=' + encodeURIComponent(String(nowMs))),
-    ...ACTIVE_DIGITAL_OFFERS.map(offer => get(offer.guide)),
+    ...BUYER_GUIDE_OFFERS.map(offer => get(offer.guide)),
   ]);
   return {
     status: 'PASS',
     checkedAt: new Date(nowMs).toISOString(),
     paidStore: validatePaidStore(paidStore),
     freeScorecard: validateScorecard(freeScorecard),
-    buyerGuides: ACTIVE_DIGITAL_OFFERS.map((offer,index) => validateBuyerGuide(buyerGuideHtml[index],offer)),
+    buyerGuides: BUYER_GUIDE_OFFERS.map((offer,index) => validateBuyerGuide(buyerGuideHtml[index],offer)),
     physicalStore: validatePhysicalStore(physicalStore),
     catalog: validateCatalog(catalog, nowMs),
     boundaries: {

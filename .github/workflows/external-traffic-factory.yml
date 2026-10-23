@@ -39,6 +39,7 @@ jobs:
         with:
           node-version: '22'
       - name: Install deterministic video renderer
+        if: github.event_name != 'pull_request'
         run: |
           sudo apt-get update -qq
           sudo apt-get install -y -qq ffmpeg fonts-dejavu-core
@@ -51,7 +52,7 @@ jobs:
           FREELLMAPI_API_KEY: ${{ secrets.FREELLMAPI_API_KEY }}
           FREELLMAPI_MODEL: ${{ secrets.FREELLMAPI_MODEL }}
         run: bash scripts/ci-freellmapi-bootstrap.sh
-      - name: Generate three original traffic videos and six channel packages
+      - name: Generate original traffic videos and channel packages
         if: github.event_name != 'pull_request'
         run: node scripts/external-traffic-worker.mjs --render
       - name: Publish social media files to PrismBay GitHub Pages
@@ -65,7 +66,7 @@ jobs:
           git -C "$syncdir" config user.name 'github-actions[bot]'
           git -C "$syncdir" config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           mkdir -p "$syncdir/media/social"
-          for slug in stakeholder esg whitepaper; do
+          for slug in stakeholder esg whitepaper bundle garment-steamer; do
             cp "growth-reports/external-social/$slug/$slug.mp4" "$syncdir/media/social/$slug.mp4"
           done
           cp growth-reports/external-social/distribution-queue.json "$syncdir/media/social/distribution-queue.json"
@@ -98,9 +99,10 @@ jobs:
         if: always()
         run: |
           echo '## PrismBay external traffic factory' >> "$GITHUB_STEP_SUMMARY"
-          echo 'FreeLLM selects bounded positioning strategies for all three verified digital offers.' >> "$GITHUB_STEP_SUMMARY"
+          echo 'FreeLLM selects bounded positioning strategies for the verified digital offers. The garment steamer uses deterministic guarded physical-product copy only.' >> "$GITHUB_STEP_SUMMARY"
           echo 'The worker renders original silent 1080x1920 H264 videos and prepares separate UTM-tagged YouTube and TikTok packages.' >> "$GITHUB_STEP_SUMMARY"
-          echo 'Media is published to GitHub Pages for the authorized scheduler. No cold email, paid advertising, fabricated reviews, or unverified physical-product promotion is performed.' >> "$GITHUB_STEP_SUMMARY"
+          echo 'The physical-product package points only to the live U.S. ZIP preflight. It does not expose a direct Stripe URL and does not claim fixed inventory or delivery.' >> "$GITHUB_STEP_SUMMARY"
+          echo 'Media is published to GitHub Pages for the authorized scheduler. No cold email, paid advertising, fabricated reviews, or automatic social posting is performed.' >> "$GITHUB_STEP_SUMMARY"
       - name: Stop run-scoped FreeLLMAPI router
         if: always() && github.event_name != 'pull_request'
         shell: bash

@@ -1,0 +1,32 @@
+{
+  "schemaVersion": 1,
+  "enabled": true,
+  "sku": "garment-steamer",
+  "displayName": "Portable Garment Steamer",
+  "retailUsd": 29.95,
+  "feeRatePct": 3.2,
+  "returnReservePct": 5,
+  "stripePaymentUrl": "https://buy.stripe.com/bJe4gA8XAdOjeKmb8QgnK05",
+  "routes": [
+    {
+      "routeId": "cj-primary-guarded",
+      "cjVariantId": "2508160953561608700",
+      "supplierCostUsd": 3.54,
+      "originCountryCode": "CN",
+      "verifiedSupplierCostUsd": 2.72,
+      "costGuardPct": 30
+    }
+  ],
+  "rules": {
+    "quantity": 1,
+    "country": "US",
+    "exactZipFreightRequired": true,
+    "freshStockRequired": true,
+    "positiveEconomicsRequired": true,
+    "automaticSupplierOrdering": false
+  },
+  "evidence": {
+    "source": "2026-10-09 supplier challenger plus 2026-10-08 live Stripe re-verification",
+    "note": "The runtime cost basis includes a 30 percent supplier-cost guard above the last verified CJ unit cost. Checkout is returned only after live stock, destination ZIP freight and commercial thresholds pass."
+  }
+}

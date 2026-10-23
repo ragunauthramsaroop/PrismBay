@@ -1,0 +1,46 @@
+name: PrismBay CJ eBay Reply Watch 15m
+
+on:
+  schedule:
+    - cron: '7,22,37,52 * * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: prismbay-ebay-cj-api
+  cancel-in-progress: false
+
+jobs:
+  watch-ticket:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Validate watcher
+        run: node --check scripts/cj-ebay-ticket-watch.mjs
+      - name: Check CJ ticket
+        env:
+          CJ_API_KEY: ${{ secrets.CJ_API_KEY }}
+        run: node scripts/cj-ebay-ticket-watch.mjs
+      - name: Publish sanitized reply status
+        shell: bash
+        run: |
+          set -euo pipefail
+          syncdir="$RUNNER_TEMP/prismbay-cj-watch-pages"
+          git fetch origin gh-pages
+          git worktree add --detach "$syncdir" origin/gh-pages
+          git -C "$syncdir" config user.name 'github-actions[bot]'
+          git -C "$syncdir" config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          mkdir -p "$syncdir/marketplace/ebay"
+          cp growth-reports/ebay/cj-ticket-watch.json "$syncdir/marketplace/ebay/cj-ticket-watch.json"
+          git -C "$syncdir" add marketplace/ebay/cj-ticket-watch.json
+          if ! git -C "$syncdir" diff --cached --quiet; then
+            git -C "$syncdir" commit -m 'chore: publish CJ eBay reply status'
+            git -C "$syncdir" pull --rebase origin gh-pages
+            git -C "$syncdir" push origin HEAD:gh-pages
+          fi

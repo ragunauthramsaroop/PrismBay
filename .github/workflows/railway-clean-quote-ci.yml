@@ -1,0 +1,45 @@
+name: PrismBay Railway Clean Quote CI
+
+on:
+  pull_request:
+    paths:
+      - 'services/railway-clean-quote/**'
+      - 'services/physical-orders/shipping-quote.mjs'
+      - 'services/physical-orders/shipping-quote.test.mjs'
+      - 'config/clean-live-quote.json'
+      - '.github/workflows/railway-clean-quote-ci.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'services/railway-clean-quote/**'
+      - 'services/physical-orders/shipping-quote.mjs'
+      - 'services/physical-orders/shipping-quote.test.mjs'
+      - 'config/clean-live-quote.json'
+      - '.github/workflows/railway-clean-quote-ci.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Test Railway quote adapter and hardened CJ quote engine
+        working-directory: services/railway-clean-quote
+        run: npm test
+      - name: Verify service starts without exposing a credential
+        working-directory: services/railway-clean-quote
+        run: |
+          PORT=3099 node server.mjs > /tmp/prismbay-quote.log 2>&1 &
+          pid=$!
+          trap 'kill $pid 2>/dev/null || true' EXIT
+          for i in $(seq 1 20); do
+            if curl --fail --silent http://127.0.0.1:3099/health > /tmp/health.json; then break; fi
+            sleep 0.25
+          done
+          node -e "const d=require('/tmp/health.json'); if(d.service!=='prismbay-clean-live-quote'||d.ready!==false||d.automaticSupplierOrdering!==false) process.exit(1)"
