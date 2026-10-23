@@ -1,13 +1,13 @@
 {
   "schemaVersion": 1,
-  "checkedAt": "2026-10-23T21:48:20.167Z",
+  "checkedAt": "2026-10-23T22:19:35.575Z",
   "source": "GitHub Actions accountability evidence",
   "refreshPolicy": "Best-effort GitHub schedules. Static snapshot; refresh does not run agents.",
   "summary": {
     "passing": 4,
-    "running": 1,
-    "attention": 0,
-    "warnings": 0,
+    "running": 0,
+    "attention": 1,
+    "warnings": 1,
     "total": 5
   },
   "workers": [
@@ -24,7 +24,7 @@
       "failureStreak": 0,
       "runId": 40024168437,
       "runUrl": "https://github.com/ragunauthramsaroop/PrismBay/actions/runs/40024168437",
-      "runAgeMinutes": 43,
+      "runAgeMinutes": 74,
       "artifactName": "buyer-acquisition-40024168437",
       "artifactBytes": 16994,
       "remediation": null
@@ -42,7 +42,7 @@
       "failureStreak": 0,
       "runId": 40024168268,
       "runUrl": "https://github.com/ragunauthramsaroop/PrismBay/actions/runs/40024168268",
-      "runAgeMinutes": 43,
+      "runAgeMinutes": 74,
       "artifactName": "prismbay-external-traffic-40024168268",
       "artifactBytes": 799888,
       "remediation": null
@@ -60,7 +60,7 @@
       "failureStreak": 0,
       "runId": 40024181546,
       "runUrl": "https://github.com/ragunauthramsaroop/PrismBay/actions/runs/40024181546",
-      "runAgeMinutes": 43,
+      "runAgeMinutes": 74,
       "artifactName": "prismbay-ceo-recovery-40024181546",
       "artifactBytes": 58164,
       "remediation": null
@@ -78,7 +78,7 @@
       "failureStreak": 0,
       "runId": 40025919828,
       "runUrl": "https://github.com/ragunauthramsaroop/PrismBay/actions/runs/40025919828",
-      "runAgeMinutes": 29,
+      "runAgeMinutes": 60,
       "artifactName": "prismbay-paperclip-revenue-40025919828",
       "artifactBytes": 5755,
       "remediation": null
@@ -90,12 +90,12 @@
       "cadence": "Every 15 minutes",
       "purpose": "Checks supplier, fulfillment and order safeguards",
       "workflow": "paperclip-commerce-group.yml",
-      "status": "running",
-      "reason": "operational_run_in_progress",
-      "consequence": "none",
-      "failureStreak": 0,
-      "runId": 40029387460,
-      "runUrl": "https://github.com/ragunauthramsaroop/PrismBay/actions/runs/40029387460",
+      "status": "fail",
+      "reason": "run_cancelled",
+      "consequence": "warning",
+      "failureStreak": 1,
+      "runId": 40032869138,
+      "runUrl": "https://github.com/ragunauthramsaroop/PrismBay/actions/runs/40032869138",
       "runAgeMinutes": 0,
       "artifactName": null,
       "artifactBytes": null,
