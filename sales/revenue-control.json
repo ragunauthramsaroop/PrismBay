@@ -1,19 +1,19 @@
 {
   "schemaVersion": 1,
-  "checkedAt": "2026-10-23T20:17:31.448Z",
+  "checkedAt": "2026-10-23T20:51:22.590Z",
   "priority": "paid_sales_from_verified_existing_offers",
   "activeOffer": {
     "slug": "bundle",
     "title": "PrismBay Executive Intelligence Bundle",
     "priceUsd": 179,
-    "guideUrl": "https://ragunauthramsaroop.github.io/PrismBay/toolkits.html?utm_source=github_cloud&utm_medium=owned_educational_content&utm_campaign=organic_bundle_82999",
+    "guideUrl": "https://clean.prismbayai.com/toolkits.html?utm_source=github_cloud&utm_medium=owned_educational_content&utm_campaign=organic_bundle_82999",
     "checkoutUrl": "https://buy.stripe.com/eVqfZi5Lo7pV31Ea4MgnK0t?client_reference_id=owned_content_bundle"
   },
-  "positioning": "evidence-led",
+  "positioning": "baseline",
   "freeLLM": {
-    "status": "ok",
-    "workerMode": "freellmapi_guided",
-    "requestedModel": "auto:reliable"
+    "status": "not_configured",
+    "workerMode": "deterministic_fallback",
+    "requestedModel": null
   },
   "funnelHealth": {
     "guideHttpStatus": 200,
