@@ -1,0 +1,56 @@
+name: PrismBay Worker Accountability Watchdog
+
+on:
+  schedule:
+    - cron: '42 * * * *'
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - 'scripts/worker-accountability.mjs'
+      - 'scripts/worker-accountability-runner.mjs'
+      - 'scripts/worker-accountability.test.mjs'
+      - '.github/workflows/worker-accountability.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/worker-accountability.mjs'
+      - 'scripts/worker-accountability-runner.mjs'
+      - 'scripts/worker-accountability.test.mjs'
+      - '.github/workflows/worker-accountability.yml'
+
+permissions:
+  actions: write
+  issues: write
+  contents: read
+
+concurrency:
+  group: prismbay-worker-accountability
+  cancel-in-progress: false
+
+jobs:
+  enforce:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verify worker accountability thresholds and output requirements
+        run: |
+          node --check scripts/worker-accountability.mjs
+          node --check scripts/worker-accountability-runner.mjs
+          node --test scripts/worker-accountability.test.mjs
+      - name: Inspect operational runs, artifacts and recover failing routes
+        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: node scripts/worker-accountability-runner.mjs
+      - name: Preserve signed-in GitHub Actions accountability evidence
+        if: always() && github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+        uses: actions/upload-artifact@v4
+        with:
+          name: worker-accountability-${{ github.run_id }}
+          path: growth-reports/worker-accountability.json
+          if-no-files-found: warn
+          retention-days: 14
