@@ -15,6 +15,9 @@ on:
       - 'scripts/worker-accountability.mjs'
       - 'scripts/worker-accountability-runner.mjs'
       - 'scripts/worker-accountability.test.mjs'
+      - 'scripts/public-ops-snapshot.mjs'
+      - 'scripts/public-ops-snapshot.test.mjs'
+      - 'ops/worker-dashboard/**'
       - '.github/workflows/worker-accountability.yml'
   push:
     branches: [main]
@@ -22,6 +25,9 @@ on:
       - 'scripts/worker-accountability.mjs'
       - 'scripts/worker-accountability-runner.mjs'
       - 'scripts/worker-accountability.test.mjs'
+      - 'scripts/public-ops-snapshot.mjs'
+      - 'scripts/public-ops-snapshot.test.mjs'
+      - 'ops/worker-dashboard/**'
       - '.github/workflows/worker-accountability.yml'
 
 permissions:
@@ -43,16 +49,63 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - name: Verify worker accountability thresholds and output requirements
+      - name: Verify worker accountability and dashboard safety
         run: |
           node --check scripts/worker-accountability.mjs
           node --check scripts/worker-accountability-runner.mjs
-          node --test scripts/worker-accountability.test.mjs
+          node --check scripts/public-ops-snapshot.mjs
+          node --check ops/worker-dashboard/dashboard.js
+          node --test scripts/worker-accountability.test.mjs scripts/public-ops-snapshot.test.mjs
       - name: Inspect operational runs, artifacts and recover failing routes
         if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
         env:
           GITHUB_TOKEN: ${{ github.token }}
         run: node scripts/worker-accountability-runner.mjs
+      - name: Publish read-only GitHub worker dashboard
+        if: always() && github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+        shell: bash
+        run: |
+          set -euo pipefail
+          syncdir="$RUNNER_TEMP/prismbay-ops-dashboard"
+          git fetch origin gh-pages
+          git worktree add --detach "$syncdir" origin/gh-pages
+          git -C "$syncdir" config user.name 'github-actions[bot]'
+          git -C "$syncdir" config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          mkdir -p "$syncdir/ops"
+          cp ops/worker-dashboard/index.html "$syncdir/ops/index.html"
+          cp ops/worker-dashboard/dashboard.js "$syncdir/ops/dashboard.js"
+          cp ops/worker-dashboard/dashboard.css "$syncdir/ops/dashboard.css"
+          # Never publish the raw operational report; whitelist safe metadata.
+          if test -s growth-reports/worker-accountability.json; then
+            node scripts/public-ops-snapshot.mjs growth-reports/worker-accountability.json "$syncdir/ops/status.json"
+          else
+            echo '::warning::No accountability report; retained the previous public snapshot.'
+          fi
+          git -C "$syncdir" add ops/index.html ops/dashboard.js ops/dashboard.css
+          if test -s "$syncdir/ops/status.json"; then
+            git -C "$syncdir" add ops/status.json
+          fi
+          if git -C "$syncdir" diff --cached --quiet; then
+            echo 'No new dashboard source or operational status to publish.'
+            exit 0
+          fi
+          git -C "$syncdir" commit -m 'chore: publish PrismBay mission control'
+          for attempt in 1 2 3; do
+            git fetch origin gh-pages
+            if ! git -C "$syncdir" rebase origin/gh-pages; then
+              git -C "$syncdir" rebase --abort || true
+              echo '::error::Concurrent Pages conflict; no force push.'
+              exit 1
+            fi
+            if git -C "$syncdir" push origin HEAD:gh-pages; then
+              echo 'Read-only dashboard deployed to /ops/.'
+              exit 0
+            fi
+            if [[ "$attempt" != "3" ]]; then sleep "$((attempt * 3))"; fi
+          done
+          echo '::error::Dashboard publish unsuccessful after safe retries.'
+          exit 1
+
       - name: Preserve signed-in GitHub Actions accountability evidence
         if: always() && github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
         uses: actions/upload-artifact@v4
