@@ -136,7 +136,19 @@ export function mergeCJReview(previous, fresh) {
     const observedAt = Date.parse(c.observedAt || previous?.checkedAt);
     return Boolean(c.slug) && !seen.has(c.slug) && Number.isFinite(observedAt) &&
       observedAt <= now && now - observedAt < 30 * 36e5;
-  }) : [];
+  }).map(c => ({
+    ...c,
+    // Historical observations support research continuity, not current commercial consent.
+    // Revoke all approval and buyer-specific gates until this SKU is checked again.
+    finalZipFreightVerified: false,
+    mediaRightsVerified: false,
+    promotionMediaPolicy: null,
+    checkoutInfrastructureVerified: false,
+    checkoutAllowed: false,
+    automaticPromotionAllowed: false,
+    fulfillmentRouteVerified: false,
+    status: c.independentIdentityMatch === true ? 'fresh_commercial_evidence_required' : c.status,
+  })) : [];
   // Recheck carried evidence after policy corrections. A prior accepted title
   // must not preserve stock/freight or commercial approval for a newly rejected identity.
   const combined = [...current, ...retained].map(source => {

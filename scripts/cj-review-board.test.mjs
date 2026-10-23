@@ -119,3 +119,43 @@ test('carried supplier classifications are checked against corrected identity ru
  assert.equal(merged.countryFreightEstimateCount,0);
  assert.equal(merged.rejectedFalseMatches,1);
 });
+
+test('retained supplier evidence never preserves revoked approval or destination-specific freight', () => {
+ const earlier = {
+  checkedAt: '2026-10-23T12:00:00Z',
+  candidates: [{
+   slug: 'garment-steamer', candidate: 'Portable Garment Steamer',
+   observedProduct: 'USB Handheld Garment Steamer Household Portable Electric Iron',
+   observedAt: '2026-10-23T12:00:00Z',
+   supplierClaimedMatch: true, independentIdentityMatch: true,
+   variantStockVerified: true, freightEstimateVerified: true,
+   freightQuoteScope: 'country_estimate',
+   finalZipFreightVerified: true, mediaRightsVerified: true,
+   promotionMediaPolicy: 'original_graphics_and_original_copy_only',
+   checkoutInfrastructureVerified: true, checkoutAllowed: true,
+   automaticPromotionAllowed: true, fulfillmentRouteVerified: true,
+   status: 'commercial_review_required',
+  }],
+ };
+ const current = buildCJReview({
+  checkedAt: '2026-10-23T18:00:00Z', authentication: 'verified',
+  results: [{slug: 'roll-up-dish-rack', candidate: 'Roll-Up Dish Drying Rack', supplierVerified: false}],
+ });
+ const merged = mergeCJReview(earlier, current);
+ const carried = merged.candidates.find(c => c.slug === 'garment-steamer');
+ assert.ok(carried);
+ assert.equal(carried.independentIdentityMatch, true);
+ assert.equal(carried.variantStockVerified, true);
+ assert.equal(carried.freightEstimateVerified, true);
+ assert.equal(carried.countryFreightEstimated, true);
+ assert.equal(carried.status, 'fresh_commercial_evidence_required');
+ for (const key of ['finalZipFreightVerified', 'mediaRightsVerified',
+   'checkoutInfrastructureVerified', 'checkoutAllowed',
+   'automaticPromotionAllowed', 'fulfillmentRouteVerified']) {
+  assert.equal(carried[key], false, key);
+ }
+ assert.equal(carried.promotionMediaPolicy, null);
+ assert.equal(merged.finalZipFreightCount, 0);
+ assert.equal(merged.promotionAuthorizedCount, 0);
+ assert.equal(merged.saleReadyCount, 0);
+});
