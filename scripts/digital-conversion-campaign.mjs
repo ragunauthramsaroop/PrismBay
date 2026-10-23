@@ -1,6 +1,6 @@
 // Revenue-focused content planning for *existing* PDF/XLSX/DOCX products.
 // No API credentials, purchases, outreach sends, social publishing, or unverified physical stock.
-const ROOT = 'https://ragunauthramsaroop.github.io/PrismBay/';
+const ROOT = 'https://clean.prismbayai.com/';
 export const ACTIVE_DIGITAL_OFFERS = Object.freeze([
   Object.freeze({
     slug: 'stakeholder',
