@@ -32,6 +32,21 @@ const policy = Object.freeze({
   'mini-bag-sealer': { required: [/\b(bag|plastic|snack)\b/i, /\bseal(?:er|ing)\b/i, /\b(mini|portable|handheld|recharge\w*)\b/i], excluded: [/\b(vacuum sealer machine|industrial|impulse tabletop)\b/i] },
 });
 
+ // A supplier title that explicitly contradicts a live offer's component count
+ // cannot establish exact product identity. Absence of a count is not proof of
+ // the correct pack: variant and fulfillment checks must still establish it.
+const liveOfferConfigurations = Object.freeze({
+  'crevice': { expected: 3, pattern: /\\b(\\d{1,2})\\s*[- ]?in\\s*[- ]?1\\b/i },
+  'drain-catcher': { expected: 2, pattern: /\\b(\\d{1,2})\\s*[- ]?(?:pcs?|pieces?|packs?|pk|count|ct)\\b/i },
+});
+
+function contradictsLiveOfferConfiguration(slug, name) {
+  const config = liveOfferConfigurations[slug];
+  if (!config) return false;
+  const match = name.match(config.pattern);
+  return Boolean(match && Number(match[1]) !== config.expected);
+}
+
 export function hasApprovedProductClass(slug) {
   return Object.prototype.hasOwnProperty.call(policy, String(slug || ''));
 }
@@ -39,7 +54,9 @@ export function hasApprovedProductClass(slug) {
 export function matchesIntendedProduct(candidate, name) {
   const rule = policy[String(candidate?.slug || '')];
   if (!rule || typeof name !== 'string' || !name.trim() || name.length > 500) return false;
-  return rule.required.every(pattern => pattern.test(name)) && !rule.excluded.some(pattern => pattern.test(name));
+  return rule.required.every(pattern => pattern.test(name)) &&
+    !rule.excluded.some(pattern => pattern.test(name)) &&
+    !contradictsLiveOfferConfiguration(String(candidate.slug), name);
 }
 
 export function approvedClassCount() { return Object.keys(policy).length; }
