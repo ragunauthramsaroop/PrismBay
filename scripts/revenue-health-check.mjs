@@ -4,8 +4,8 @@ import { ACTIVE_DIGITAL_OFFERS } from './digital-conversion-campaign.mjs';
 export const BUYER_GUIDE_OFFERS = Object.freeze(ACTIVE_DIGITAL_OFFERS.filter(offer => offer.slug !== 'bundle'));
 
 export const TARGETS = Object.freeze({
-  paidStore: 'https://ragunauthramsaroop.github.io/PrismBay/toolkits.html',
-  freeScorecard: 'https://ragunauthramsaroop.github.io/PrismBay/scorecard.html',
+  paidStore: 'https://clean.prismbayai.com/toolkits.html',
+  freeScorecard: 'https://clean.prismbayai.com/scorecard.html',
   physicalStore: 'https://prismbay-clean-49izhg.v2.appdeploy.ai/tiktok/',
   catalog: 'https://api.github.com/repos/ragunauthramsaroop/PrismBay/contents/public/viral-catalog.json?ref=main',
 });

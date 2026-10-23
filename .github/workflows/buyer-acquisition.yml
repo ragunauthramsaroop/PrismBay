@@ -64,8 +64,12 @@ jobs:
       - name: Build current buyer-to-checkout campaign from live offer
         run: node scripts/buyer-acquisition-worker.mjs
 
-      - name: Start live FreeLLMAPI free-model router
-        if: github.event_name != 'pull_request'
+      # Free provider gateways are currently returning 404/406. Keep the
+      # evidence-based, deterministic acquisition worker running on free CI.
+      # Owners can opt back into a verified model route using this repository variable.
+      - name: Start optional FreeLLMAPI free-model router
+        if: github.event_name != 'pull_request' && vars.PRISMBAY_ENABLE_FREE_LLM == 'true'
+        continue-on-error: true
         env:
           FREELLMAPI_BASE_URL: ${{ secrets.FREELLMAPI_BASE_URL }}
           FREELLMAPI_API_KEY: ${{ secrets.FREELLMAPI_API_KEY }}
