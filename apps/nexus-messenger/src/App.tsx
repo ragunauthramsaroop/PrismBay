@@ -3,7 +3,7 @@ import {
   ArrowLeft, ArrowRight, Check, ChevronDown, CircleHelp, Globe2, Hash, Inbox,
   KeyRound, Link2, LoaderCircle, LockKeyhole, LogOut, Menu, MessageCircle,
   Plus, Search, Send, ShieldCheck, Sparkles, UserPlus, Users, Wifi, WifiOff, X,
-  Reply, Heart, ThumbsUp, Trash2, ChevronUp, ExternalLink,
+  Reply, Heart, ThumbsUp, Trash2, ChevronUp, ExternalLink, Pencil, Copy,
 } from 'lucide-react';
 import * as sdk from 'matrix-js-sdk';
 import type { MatrixClient, MatrixEvent, Room } from 'matrix-js-sdk';
@@ -134,6 +134,7 @@ export default function App({ onPreview }: { onPreview: () => void }) {
   const [draft, setDraft] = useState('');
   const [sending, setSending] = useState(false);
   const [replyTarget, setReplyTarget] = useState<{ eventId: string; snippet: string } | null>(null);
+  const [editingTarget, setEditingTarget] = useState<string | null>(null);
   const [historyBusy, setHistoryBusy] = useState(false);
   const [historyDone, setHistoryDone] = useState(false);
   const [eventBusy, setEventBusy] = useState<string | null>(null);
@@ -212,7 +213,7 @@ export default function App({ onPreview }: { onPreview: () => void }) {
   }, [chosen, rooms, messages.length]);
   const isJoined = chosen?.getMyMembership() === 'join';
 
-  useEffect(() => { setReplyTarget(null); setHistoryDone(false); }, [selectedId]);
+  useEffect(() => { setReplyTarget(null); setEditingTarget(null); setHistoryDone(false); }, [selectedId]);
   useEffect(() => { if (!historyBusy) bottomRef.current?.scrollIntoView({ block: 'end' }); }, [selectedId, messages.length]);
 
   async function sendMessage(event?: React.FormEvent) {
@@ -223,7 +224,13 @@ export default function App({ onPreview }: { onPreview: () => void }) {
       const body = validateMessage(draft);
       setSending(true);
       setError('');
-      if (replyTarget?.eventId) {
+      if (editingTarget) {
+        await active.sendEvent(chosen.roomId, sdk.EventType.RoomMessage, {
+          msgtype: sdk.MsgType.Text, body: '* ' + body,
+          'm.new_content': { msgtype: sdk.MsgType.Text, body },
+          'm.relates_to': { rel_type: sdk.RelationType.Replace, event_id: editingTarget },
+        });
+      } else if (replyTarget?.eventId) {
         await active.sendEvent(chosen.roomId, sdk.EventType.RoomMessage, {
           msgtype: sdk.MsgType.Text, body,
           'm.relates_to': { 'm.in_reply_to': { event_id: replyTarget.eventId } },
@@ -232,10 +239,24 @@ export default function App({ onPreview }: { onPreview: () => void }) {
         await active.sendTextMessage(chosen.roomId, body);
       }
       setReplyTarget(null);
+      setEditingTarget(null);
       setDraft('');
       refresh(active);
     } catch (cause) { setError(cleanError(cause)); }
     finally { setSending(false); }
+  }
+
+  function editMyMessage(message: MatrixEvent) {
+    if (message.getSender() !== session?.userId || message.isRedacted() || !message.getId()) return;
+    setEditingTarget(message.getId()!);
+    setReplyTarget(null);
+    setDraft(messageText(message));
+  }
+
+  async function copyMessage(text: string) {
+    if (!navigator.clipboard?.writeText) { setError('Clipboard is not available.'); return; }
+    try { await navigator.clipboard.writeText(text); }
+    catch { setError('Clipboard access was denied.'); }
   }
 
   async function sendReaction(eventId: string, emoji: string) {
@@ -380,11 +401,11 @@ export default function App({ onPreview }: { onPreview: () => void }) {
               const replyToId = message.getContent()?.['m.relates_to']?.['m.in_reply_to']?.event_id;
               const replyTo = typeof replyToId === 'string' ? messages.find(e => e.getId() === replyToId) : undefined;
               const counts = eventId ? visibleReactionCounts[eventId] : undefined;
-              return <div className={`message-row ${own ? 'message-own' : ''}`} key={eventId || `event-${index}`}><Avatar name={sender} size="small" /><div className="message-body"><div className="message-meta"><strong>{own ? 'You' : sender.split(':')[0]}</strong><Clock timestamp={message.getTs()} /></div><div className="message-bubble">{replyToId && <div className="message-reply-cite">↳ {replyTo ? messageText(replyTo).slice(0, 95) : 'Reply to an earlier message'}</div>}{message.isRedacted() ? 'Message removed' : messageText(message)}</div>{counts && <div className="reaction-list">{Object.entries(counts).map(([key,value])=><span className="reaction-pill" key={key}>{key} {value}</span>)}</div>}{!message.isRedacted() && eventId && <div className="message-actions"><button type="button" title="Reply to message" aria-label="Reply to message" onClick={() => setReplyTarget({eventId, snippet: messageText(message).slice(0, 90)})}><Reply size={14}/></button><button type="button" title="React with thumbs up" aria-label="React with thumbs up" disabled={eventBusy === eventId} onClick={() => void sendReaction(eventId, '👍')}><ThumbsUp size={14}/></button><button type="button" title="React with heart" aria-label="React with heart" disabled={eventBusy === eventId} onClick={() => void sendReaction(eventId, '❤️')}><Heart size={14}/></button>{own && <button type="button" title="Remove message for everyone" aria-label="Remove message for everyone" disabled={eventBusy === eventId} onClick={() => void removeMyMessage(eventId)}><Trash2 size={14}/></button>}</div>}</div></div>;
+              return <div className={`message-row ${own ? 'message-own' : ''}`} key={eventId || `event-${index}`}><Avatar name={sender} size="small" /><div className="message-body"><div className="message-meta"><strong>{own ? 'You' : sender.split(':')[0]}</strong><Clock timestamp={message.getTs()} /></div><div className="message-bubble">{replyToId && <div className="message-reply-cite">↳ {replyTo ? messageText(replyTo).slice(0, 95) : 'Reply to an earlier message'}</div>}{message.isRedacted() ? 'Message removed' : messageText(message)}</div>{counts && <div className="reaction-list">{Object.entries(counts).map(([key,value])=><span className="reaction-pill" key={key}>{key} {value}</span>)}</div>}{!message.isRedacted() && eventId && <div className="message-actions"><button type="button" title="Reply to message" aria-label="Reply to message" onClick={() => { setReplyTarget({eventId, snippet: messageText(message).slice(0, 90)}); setEditingTarget(null); setDraft(''); }}><Reply size={14}/></button><button type="button" title="Copy message" aria-label="Copy message" onClick={() => void copyMessage(messageText(message))}><Copy size={14}/></button><button type="button" title="React with thumbs up" aria-label="React with thumbs up" disabled={eventBusy === eventId} onClick={() => void sendReaction(eventId, '👍')}><ThumbsUp size={14}/></button><button type="button" title="React with heart" aria-label="React with heart" disabled={eventBusy === eventId} onClick={() => void sendReaction(eventId, '❤️')}><Heart size={14}/></button>{own && <button type="button" title="Edit message" aria-label="Edit message" onClick={() => editMyMessage(message)}><Pencil size={14}/></button>}{own && <button type="button" title="Remove message for everyone" aria-label="Remove message for everyone" disabled={eventBusy === eventId} onClick={() => void removeMyMessage(eventId)}><Trash2 size={14}/></button>}</div>}</div></div>;
             })}
             <div ref={bottomRef} />
           </div>
-          <div className="composer-area">{replyTarget && <div className="reply-preview"><span><Reply size={15}/> Replying to: {replyTarget.snippet}</span><button type="button" aria-label="Cancel reply" onClick={() => setReplyTarget(null)}><X size={16}/></button></div>}<form className="composer" onSubmit={sendMessage}><textarea aria-label="Write a message" disabled={sending} value={draft} onChange={(e) => setDraft(e.target.value)} onKeyDown={(e) => { if (e.key === 'Enter' && !e.shiftKey && !e.nativeEvent.isComposing) { e.preventDefault(); void sendMessage(); } }} placeholder={`Message ${chosen.name || 'this room'}…`} rows={2} maxLength={10000} /><button type="submit" disabled={!draft.trim() || !client || sending} aria-label="Send message" className="send-button">{sending ? <LoaderCircle className="spin" size={19} /> : <Send size={18} />}</button></form><div className="composer-note"><span>Enter to send <span className="note-dot">·</span> Shift + Enter for a new line</span><span>{encryptionEnabled ? <><LockKeyhole size={12} /> E2EE enabled</> : 'Unencrypted room'}</span></div></div>
+          <div className="composer-area">{editingTarget && <div className="reply-preview"><span><Pencil size={15}/> Editing your message</span><button type="button" aria-label="Cancel editing" onClick={() => { setEditingTarget(null); setDraft(''); }}><X size={16}/></button></div>}{replyTarget && <div className="reply-preview"><span><Reply size={15}/> Replying to: {replyTarget.snippet}</span><button type="button" aria-label="Cancel reply" onClick={() => setReplyTarget(null)}><X size={16}/></button></div>}<form className="composer" onSubmit={sendMessage}><textarea aria-label="Write a message" disabled={sending} value={draft} onChange={(e) => setDraft(e.target.value)} onKeyDown={(e) => { if (e.key === 'Enter' && !e.shiftKey && !e.nativeEvent.isComposing) { e.preventDefault(); void sendMessage(); } }} placeholder={`Message ${chosen.name || 'this room'}…`} rows={2} maxLength={10000} /><button type="submit" disabled={!draft.trim() || !client || sending} aria-label="Send message" className="send-button">{sending ? <LoaderCircle className="spin" size={19} /> : <Send size={18} />}</button></form><div className="composer-note"><span>Enter to send <span className="note-dot">·</span> Shift + Enter for a new line</span><span>{encryptionEnabled ? <><LockKeyhole size={12} /> E2EE enabled</> : 'Unencrypted room'}</span></div></div>
         </>}
       </>}
     </section>
