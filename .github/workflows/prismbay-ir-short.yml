@@ -1,0 +1,41 @@
+name: PrismBay AI | Render Original Incident Short
+on:
+  push:
+    paths:
+      - automation/youtube/render_pb_ir_060_s1.py
+      - .github/workflows/prismbay-ir-short.yml
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install free rendering dependencies
+        run: |
+          python -m pip install --quiet pillow
+          ffmpeg -version | head -1
+      - name: Render original short for QA only
+        run: python automation/youtube/render_pb_ir_060_s1.py
+      - name: Publish QA artifact for inspection
+        uses: actions/upload-artifact@v4
+        with:
+          name: PB-IR-060-S1-QA
+          path: |
+            production/youtube/PB-IR-060-S1/PB-IR-060-S1_review.mp4
+            production/youtube/PB-IR-060-S1/contact_sheet.jpg
+            production/youtube/PB-IR-060-S1/QA_REPORT.json
+            production/youtube/PB-IR-060-S1/captions.srt
+          retention-days: 14
+      - name: Commit render to existing PrismBay repository
+        run: |
+          git config user.name "PrismBay Production Bot"
+          git config user.email "prismbay-production-bot@users.noreply.github.com"
+          git add production/youtube/PB-IR-060-S1/PB-IR-060-S1_review.mp4
+          git add production/youtube/PB-IR-060-S1/contact_sheet.jpg
+          git add production/youtube/PB-IR-060-S1/QA_REPORT.json
+          git add production/youtube/PB-IR-060-S1/captions.srt
+          git diff --cached --quiet || git commit -m "Render PB-IR-060-S1 for quality review, no publication"
+          git push
