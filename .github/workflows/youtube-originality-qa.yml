@@ -28,6 +28,32 @@ jobs:
         run: |
           sudo apt-get update -qq
           sudo apt-get install -y ffmpeg
+      - name: Attenuate any detected near-clipping audio before final QA
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          import glob, json, hashlib, subprocess
+          from pathlib import Path
+          for req in sorted(glob.glob('content/youtube/qa-requests/*.json')):
+              slug=json.loads(Path(req).read_text())['slug']
+              src=Path('public/youtube')/(slug+'.mp4')
+              meta=Path('public/youtube')/(slug+'.json')
+              report=Path('editorial/youtube/qa')/slug/'technical_report.json'
+              if not src.exists() or not meta.exists() or not report.exists():
+                  continue
+              q=json.loads(report.read_text())
+              if q.get('technicalChecks',{}).get('noDigitalClipping') is not False:
+                  continue
+              tmp=src.with_name(slug+'.mastering-tmp.mp4')
+              subprocess.run(['ffmpeg','-hide_banner','-loglevel','error','-y','-i',str(src),'-c:v','copy','-af','volume=-3dB','-c:a','aac','-b:a','160k','-movflags','+faststart',str(tmp)],check=True)
+              tmp.replace(src)
+              md=json.loads(meta.read_text())
+              md['sha256']=hashlib.sha256(src.read_bytes()).hexdigest()
+              md['audioMastering']='-3dB attenuation after near-clipping QA detection'
+              meta.write_text(json.dumps(md,indent=2)+'\\n')
+              report.unlink()
+              print('Mastered and queued for renewed QA:',slug)
+          PY
       - name: Audit video and generate preview evidence
         shell: bash
         run: |
@@ -76,7 +102,7 @@ jobs:
           git config user.name prismbay-ai-qa-bot
           git config user.email actions@users.noreply.github.com
           mkdir -p editorial/youtube/qa/
-          git add editorial/youtube/qa/
+          git add editorial/youtube/qa/ public/youtube/
           if git diff --cached --quiet; then exit 0; fi
           git commit -m 'Record PrismBay YouTube media technical QA evidence'
           git push origin HEAD:main
