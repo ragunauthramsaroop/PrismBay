@@ -42,7 +42,7 @@ export async function observeStorefront(fetcher = fetch) {
     status: home.status
   });
 
-  const inlineStyle = home.text.match(/<style(?:\\s[^>]*)?>([\\s\\S]*?)<\\/style>/i);
+  const inlineStyle = home.text.match(/<style(?:\s[^>]*)?>([\s\S]*?)<\/style>/i);
   checks.push({
     resource: 'homepage_inline_style',
     ok: isHtml(home) && Boolean(inlineStyle && inlineStyle[1].trim().length > 50),
@@ -78,7 +78,7 @@ export async function observeStorefront(fetcher = fetch) {
     const style = await probe(stylesheet, fetcher);
     checks.push({
       resource: STYLE_PATH,
-      ok: style.ok && /text\\/css/i.test(style.type) && style.text.trim().length > 0,
+      ok: style.ok && /text\/css/i.test(style.type) && style.text.trim().length > 0,
       status: style.status,
       url: stylesheet
     });
