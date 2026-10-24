@@ -41,14 +41,9 @@ on:
       - 'scripts/apply-supplier-rank-to-war-room.test.mjs'
       - 'scripts/hydrate-latest-cj-evidence.sh'
       - '.github/workflows/paperclip-commerce-group.yml'
-  workflow_run:
-    workflows:
-      - 'PrismBay Paperclip Revenue Ops'
-      - 'Paperclip Global Commerce Company'
-      - 'Paperclip Global Commerce CJ Sourcing'
-      - 'PrismBay CJ Supplier Verification'
-      - 'PrismBay Retail Promotion Swarm'
-    types: [completed]
+  # Production work runs on its 15-minute schedule and explicit dispatch.
+  # Do not fan out on five upstream workflow completions: they generate
+  # redundant queued runs that GitHub cancels under group concurrency.
   pull_request:
     branches: [main]
     paths:
