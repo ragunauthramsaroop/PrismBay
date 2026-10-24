@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080" role="img" aria-labelledby="title desc">
+<title id="title">Transaction-specific AI approval gate</title><desc id="desc">Five-step approval architecture with server-side validation and hard-stop controls.</desc>
+<rect width="1920" height="1080" fill="#F4F7F8"/>
+<g font-family="DejaVu Sans,Arial,sans-serif">
+<text x="120" y="120" font-size="55" font-weight="bold" fill="#142A39">A REAL APPROVAL GATE</text><text x="120" y="170" font-size="27" fill="#496372">Illustrative procurement workflow, not a production system</text>
+<g font-size="28" font-weight="bold" text-anchor="middle">
+<rect x="100" y="315" width="300" height="190" rx="24" fill="#DDE9F5" stroke="#346B9A" stroke-width="4"/><text x="250" y="383" fill="#143C62">1. PROPOSE</text><text x="250" y="430" font-size="21" fill="#143C62">Old + new values</text>
+<rect x="455" y="315" width="300" height="190" rx="24" fill="#FCE9C6" stroke="#C2872E" stroke-width="4"/><text x="605" y="383" fill="#75420C">2. APPROVE</text><text x="605" y="430" font-size="21" fill="#75420C">Named human</text>
+<rect x="810" y="315" width="300" height="190" rx="24" fill="#DDE9F5" stroke="#346B9A" stroke-width="4"/><text x="960" y="383" fill="#143C62">3. VALIDATE</text><text x="960" y="430" font-size="21" fill="#143C62">Server-side policy</text>
+<rect x="1165" y="315" width="300" height="190" rx="24" fill="#D6F3E6" stroke="#36856D" stroke-width="4"/><text x="1315" y="383" fill="#175641">4. EXECUTE</text><text x="1315" y="430" font-size="21" fill="#175641">Narrow tool scope</text>
+<rect x="1520" y="315" width="300" height="190" rx="24" fill="#DDE9F5" stroke="#346B9A" stroke-width="4"/><text x="1670" y="383" fill="#143C62">5. RECORD</text><text x="1670" y="430" font-size="21" fill="#143C62">Audit + recovery</text>
+</g>
+<g stroke="#4B687C" stroke-width="8" fill="none"><path d="M405 410H448"/><path d="M760 410H803"/><path d="M1115 410H1158"/><path d="M1470 410H1513"/></g>
+<g fill="#4B687C"><path d="M448 398l18 12-18 12z"/><path d="M803 398l18 12-18 12z"/><path d="M1158 398l18 12-18 12z"/><path d="M1513 398l18 12-18 12z"/></g>
+<rect x="230" y="630" width="1460" height="190" rx="30" fill="#FFF0EF" stroke="#D94748" stroke-width="4"/>
+<text x="300" y="695" font-size="38" font-weight="bold" fill="#A5222B">HARD STOP</text><text x="300" y="745" font-size="28" fill="#662E34">Wrong approver  •  Changed transaction  •  Unapproved destination  •  Duplicate request</text>
+<text x="120" y="945" font-size="29" fill="#142A39">The agent proposes. Independent systems authorize and enforce.</text>
+<text x="1600" y="1020" font-size="22" fill="#496372">PrismBay AI</text>
+</g></svg>
