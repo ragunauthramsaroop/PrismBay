@@ -38,7 +38,7 @@ function cleanString(value, max = 160) {
 
 // Keys alone are not a privacy boundary. URLs and allowed string fields can
 // contain encoded emails, phone numbers, IP addresses or Stripe identifiers.
-function containsSensitiveValue(value, { opaque = false } = {}) {
+function containsSensitiveValue(value) {
   let text = String(value);
   for (let i = 0; i < 2; i++) {
     try {
@@ -49,7 +49,7 @@ function containsSensitiveValue(value, { opaque = false } = {}) {
   }
   if (/@/.test(text) || /\b(?:\d{1,3}\.){3}\d{1,3}\b/.test(text)) return true;
   if (/(?:^|[^A-Za-z0-9])(?:cus|cs|pm|tok|sk|rk)_[A-Za-z0-9]{8,}/i.test(text)) return true;
-  return !opaque && /(?:^|[^\w])\+?\d(?:[\s().-]*\d){8,}(?:$|[^\w])/.test(text);
+  return /(?:^|[^\w])\+?\d(?:[\s().-]*\d){8,}(?:$|[^\w])/.test(text);
 }
 
 function cleanPath(value) {
@@ -116,8 +116,7 @@ export function sanitizeCommerceProperties(input = {}) {
       if (/^[A-Z]{3}$/.test(currency || '')) output.currency = currency;
     } else {
       const str = cleanString(value);
-      const opaque = key === 'sku' || key === 'orderRef' || key === 'correlationId';
-      if (str && !containsSensitiveValue(str, { opaque })) output[key] = str;
+      if (str && !containsSensitiveValue(str)) output[key] = str;
     }
   }
   return output;
