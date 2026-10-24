@@ -4,9 +4,8 @@ on:
   workflow_dispatch:
   schedule:
     - cron: '17 */6 * * *'
-  workflow_run:
-    workflows: ['pages build and deployment']
-    types: [completed]
+  # Scheduled browser QA is sufficient; Pages deployments happen frequently.
+  # Avoid a new Chromium installation after every status-only Pages update.
   pull_request:
     branches: [main]
     paths:
@@ -23,7 +22,7 @@ permissions:
 
 concurrency:
   group: prismbay-live-storefront-qa
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 jobs:
   forensic-live-audit:
@@ -38,7 +37,9 @@ jobs:
         run: |
           python -m pip install --disable-pip-version-check playwright==1.56.0
           python -m playwright install --with-deps chromium
-      - name: Audit GitHub Pages storefront and GitHub-backed Railway buyer funnel
+      - name: Validate QA syntax
+        run: python -m py_compile scripts/prismbay_live_storefront_audit.py
+      - name: Audit GitHub Pages storefront and guarded Floot shipping inquiry
         run: python scripts/prismbay_live_storefront_audit.py
       - name: Upload machine-readable QA report
         if: always()
