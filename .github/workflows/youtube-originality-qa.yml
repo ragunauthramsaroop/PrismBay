@@ -126,7 +126,7 @@ jobs:
               score=difflib.SequenceMatcher(None,norm(expected),norm(heard)).ratio()
               q['machineNarrationReview']={'completed':True,'model':'faster-whisper tiny.en CPU','scriptWordCount':len(norm(expected)),'transcribedWordCount':len(norm(heard)),'wordSequenceSimilarity':round(score,3),'intelligibilityProxyPass':score>=0.72,'transcript':heard,'humanListeningReview':'NOT PERFORMED'}
               q['publicationApproved']=bool(q.get('technicalPass') and score>=0.72 and q.get('manualVisualReview')=='PASS')
-              report.write_text(json.dumps(q,indent=2)+'\\n')
+              report.write_text(json.dumps(q,indent=2)+'\n')
               print(slug,'narration similarity',round(score,3),'pass',score>=0.72)
           PY
       - name: Commit technical QA artifacts
