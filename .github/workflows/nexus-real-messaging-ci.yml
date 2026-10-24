@@ -27,6 +27,19 @@ jobs:
         run: npm test
       - name: TypeScript validation and production bundle
         run: npm run build
+      - name: Install headless Chromium
+        run: npx playwright install --with-deps chromium
+      - name: Browser interaction tests (desktop and mobile)
+        run: npm run test:e2e
+      - name: Upload browser traces on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nexus-browser-test-traces
+          path: |
+            apps/nexus-messenger/test-results/
+            apps/nexus-messenger/playwright-report/
+          if-no-files-found: ignore
       - name: Production dependency audit
         run: npm audit --omit=dev --audit-level=high
       - uses: actions/upload-artifact@v4
