@@ -2,9 +2,11 @@ import fs from 'node:fs/promises';
 import { pathToFileURL } from 'node:url';
 
 export const ORIGIN = 'https://clean.prismbayai.com';
-const ASSETS = ['catalog-data.js', 'catalog-ui.js', 'catalog-store.css'];
+const BUYER_PATH = '/garment-steamer/';
+const POLICY_PATH = '/shipping.html';
+const STYLE_PATH = '/assets/store.css';
 
-// Fetch only the known public storefront. Never execute downloaded JavaScript.
+// Read only the public canonical storefront. Never execute fetched scripts or follow redirects.
 async function probe(url, fetcher) {
   try {
     const response = await fetcher(url, { redirect: 'error', signal: AbortSignal.timeout(15000) });
@@ -15,26 +17,81 @@ async function probe(url, fetcher) {
   }
 }
 
+function sameOriginReference(html, path) {
+  const refs = [...html.matchAll(/(?:src|href)\s*=\s*["']([^"']+)["']/gi)].map(match => match[1]);
+  for (const ref of refs) {
+    try {
+      const url = new URL(ref, ORIGIN);
+      if (url.origin === ORIGIN && url.pathname === path && !url.username && !url.password) return url.href;
+    } catch {
+      // Malformed and foreign references do not authorize a fetch.
+    }
+  }
+  return null;
+}
+
+const isHtml = response => response.ok && /text\/html/i.test(response.type);
+
 export async function observeStorefront(fetcher = fetch) {
   const checks = [];
   const home = await probe(ORIGIN + '/', fetcher);
-  checks.push({ resource: '/', ok: home.ok && /text\/html/i.test(home.type) && /id=["']catalog["']/i.test(home.text), status: home.status });
-  const refs = [...home.text.matchAll(/(?:src|href)\s*=\s*["']([^"']+)["']/gi)].map(m => m[1]);
-  for (const asset of ASSETS) {
-    const url = refs.map(ref => { try { return new URL(ref, ORIGIN); } catch { return null; } })
-      .find(url => url?.origin === ORIGIN && url.pathname === `/assets/${asset}` && !url.username && !url.password);
-    if (!url) {
-      checks.push({ resource: asset, ok: false, status: null, reason: 'missing_same_origin_reference' });
-      continue;
-    }
-    const result = await probe(url.href, fetcher);
-    const expectedType = asset.endsWith('.css') ? /text\/css/i : /(?:javascript|ecmascript)/i;
-    checks.push({ resource: asset, ok: result.ok && expectedType.test(result.type) && result.text.trim().length > 0,
-      status: result.status, url: url.href });
+  checks.push({
+    resource: '/',
+    ok: isHtml(home) && /PrismBay\s*(?:<[^>]+>\s*)?Clean/i.test(home.text) &&
+      home.text.includes(BUYER_PATH) && home.text.includes(POLICY_PATH),
+    status: home.status
+  });
+
+  const inlineStyle = home.text.match(/<style(?:\s[^>]*)?>([\s\S]*?)<\/style>/i);
+  checks.push({
+    resource: 'homepage_inline_style',
+    ok: isHtml(home) && Boolean(inlineStyle && inlineStyle[1].trim().length > 50),
+    status: home.status
+  });
+
+  const buyer = await probe(ORIGIN + BUYER_PATH, fetcher);
+  checks.push({
+    resource: BUYER_PATH,
+    ok: isHtml(buyer) && /<h1[^>]*>\s*Portable Garment Steamer\s*<\/h1>/i.test(buyer.text) &&
+      /Request shipping review/i.test(buyer.text) &&
+      /No payment during ZIP check/i.test(buyer.text) &&
+      !/https:\/\/(?:buy|checkout)\.stripe\.com\//i.test(buyer.text),
+    status: buyer.status
+  });
+
+  const policy = await probe(ORIGIN + POLICY_PATH, fetcher);
+  checks.push({
+    resource: POLICY_PATH,
+    ok: isHtml(policy) && /Shipping Policy/i.test(policy.text) &&
+      /Physical-product checkout remains unavailable/i.test(policy.text) &&
+      /before any physical-product payment/i.test(policy.text) &&
+      !/Supplier stock and delivery timing are confirmed after payment/i.test(policy.text),
+    status: policy.status,
+    reason: isHtml(policy) && !/Physical-product checkout remains unavailable/i.test(policy.text)
+      ? 'physical_policy_not_prepayment_gated' : undefined
+  });
+
+  const stylesheet = sameOriginReference(policy.text, STYLE_PATH);
+  if (!stylesheet) {
+    checks.push({ resource: STYLE_PATH, ok: false, status: null, reason: 'missing_same_origin_reference' });
+  } else {
+    const style = await probe(stylesheet, fetcher);
+    checks.push({
+      resource: STYLE_PATH,
+      ok: style.ok && /text\/css/i.test(style.type) && style.text.trim().length > 0,
+      status: style.status,
+      url: stylesheet
+    });
   }
-  return { schemaVersion: 1, checkedAt: new Date().toISOString(), origin: ORIGIN,
-    healthy: checks.every(check => check.ok), checks,
-    scope: 'Homepage and catalog asset delivery only; browser rendering, images, remote feed, worker execution, checkout and sales are not verified.' };
+
+  return {
+    schemaVersion: 2,
+    checkedAt: new Date().toISOString(),
+    origin: ORIGIN,
+    healthy: checks.every(check => check.ok),
+    checks,
+    scope: 'Canonical homepage and inline styles, steamer inquiry, physical shipping-policy consistency and same-origin policy stylesheet only. Browser rendering, TLS trust, remote inquiry handling, checkout, supplier fulfillment, worker execution and sales are not verified.'
+  };
 }
 
 export async function main() {
@@ -42,7 +99,7 @@ export async function main() {
   await fs.mkdir('growth-reports', { recursive: true });
   await fs.writeFile('growth-reports/clean-storefront-observation.json', JSON.stringify(report, null, 2) + '\n');
   console.log(JSON.stringify(report, null, 2));
-  // Delivery failures become controller tasks. They must not stop allocation.
+  // Failed checks create repair tasks without stopping independent allocation.
   return report;
 }
 
