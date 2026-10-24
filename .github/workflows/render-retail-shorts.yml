@@ -15,6 +15,7 @@ on:
       - 'config/legacy-live-catalog.json'
       - 'config/retail-promotions.json'
       - 'scripts/render-retail-shorts.py'
+      - 'scripts/test_render_retail_shorts.py'
       - '.github/workflows/render-retail-shorts.yml'
   workflow_dispatch:
 
