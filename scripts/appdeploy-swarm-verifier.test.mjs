@@ -100,6 +100,12 @@ test('rejects duplicate or unexpected worker receipts even when the claimed coun
   assert.equal(unknownReport.executionVerified, false);
   assert.ok(unknownReport.reasons.includes('unexpected_worker_id'));
   assert.ok(unknownReport.reasons.includes('worker_missing:analytics-experiment'));
+
+  const miscount = healthyPayload();
+  miscount.workerCount = 99;
+  const miscountReport = verifySwarmStatus(miscount, { now });
+  assert.equal(miscountReport.executionVerified, false);
+  assert.ok(miscountReport.reasons.includes('worker_count_mismatch'));
 });
 
 test('requires typed positive integer run and inspection receipts', () => {
