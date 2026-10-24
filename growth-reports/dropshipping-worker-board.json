@@ -1,10 +1,10 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-10-24T16:55:31.603Z",
+  "generatedAt": "2026-10-24T20:50:12.867Z",
   "researchCandidates": 12,
   "publishedResearchSignals": 12,
   "verifiedCJStatus": {
-    "checkedAt": "2026-10-24T15:57:50.919Z",
+    "checkedAt": "2026-10-24T20:50:11.666Z",
     "validSupplierMatches": 4,
     "variantStock": 2,
     "freightEstimates": 2,
@@ -25,8 +25,29 @@
       "action": "Investigate specific catalog SKUs, incorrect product matches and incomplete stock evidence.",
       "state": "review_required",
       "executionMode": "scheduled_cj_and_manual_review",
-      "candidateCount": 12,
+      "candidateCount": 14,
       "blockers": [
+        {
+          "slug": "cordless-handheld-vacuum",
+          "status": "variant_stock_required",
+          "sku": "CJXC1113517",
+          "shippingDiagnostic": "variant_stock_unverified",
+          "zeroPricedMethods": 0
+        },
+        {
+          "slug": "dryer-vent-cleaner-kit",
+          "status": "supplier_search_needed",
+          "sku": null,
+          "shippingDiagnostic": null,
+          "zeroPricedMethods": 0
+        },
+        {
+          "slug": "window-washer-squeegee",
+          "status": "supplier_search_needed",
+          "sku": null,
+          "shippingDiagnostic": null,
+          "zeroPricedMethods": 0
+        },
         {
           "slug": "mini-mop",
           "status": "supplier_search_needed",
@@ -91,13 +112,6 @@
           "zeroPricedMethods": 0
         },
         {
-          "slug": "cordless-handheld-vacuum",
-          "status": "fresh_commercial_evidence_required",
-          "sku": "CJXC1113517",
-          "shippingDiagnostic": "variant_stock_unverified",
-          "zeroPricedMethods": 0
-        },
-        {
           "slug": "hanging-closet-organizer",
           "status": "fresh_commercial_evidence_required",
           "sku": "CJJT254150701AZ",
@@ -129,7 +143,7 @@
       "executionMode": "existing_cloud_script",
       "reportAvailable": true,
       "storefrontStatus": 200,
-      "missingProductSchema": false
+      "missingProductSchema": true
     },
     {
       "worker": "Hook/Creative Writer",
