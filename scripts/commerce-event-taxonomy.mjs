@@ -36,15 +36,43 @@ function cleanString(value, max = 160) {
   return out ? out.slice(0, max) : undefined;
 }
 
+// Keys alone are not a privacy boundary. URLs and allowed string fields can
+// contain encoded emails, phone numbers, IP addresses or Stripe identifiers.
+function containsSensitiveValue(value) {
+  let text = String(value);
+  for (let i = 0; i < 2; i++) {
+    try {
+      const decoded = decodeURIComponent(text);
+      if (decoded === text) break;
+      text = decoded;
+    } catch { break; }
+  }
+  if (/@/.test(text) || /\b(?:\d{1,3}\.){3}\d{1,3}\b/.test(text)) return true;
+  if (/(?:^|[^A-Za-z0-9])(?:cus|cs|pm|tok|sk|rk)_[A-Za-z0-9]{8,}/i.test(text)) return true;
+  return /(?:^|[^\w])\+?\d(?:[\s().-]*\d){8,}(?:$|[^\w])/.test(text);
+}
+
 function cleanPath(value) {
-  const out = cleanString(value, 240);
+  const out = cleanString(value, 2048);
   if (!out) return undefined;
   try {
-    const url = new URL(out, 'https://clean.prismbayai.com');
-    return url.pathname.slice(0, 240);
+    const path = new URL(out, 'https://clean.prismbayai.com').pathname;
+    return path.length <= 240 && !containsSensitiveValue(path) ? path : undefined;
   } catch {
-    return out.split('?')[0].split('#')[0].slice(0, 240);
+    return undefined;
   }
+}
+
+function cleanReferrerHost(value) {
+  const raw = cleanString(value, 500);
+  if (!raw) return undefined;
+  try {
+    const url = new URL(/^[a-z][a-z0-9+.-]*:\/\//i.test(raw) ? raw : `https://${raw}`);
+    if (!['http:', 'https:'].includes(url.protocol) || url.username || url.password) return undefined;
+    const host = url.hostname.toLowerCase().replace(/\.$/, '');
+    if (!host.includes('.') || !/^[a-z0-9.-]+$/.test(host) || containsSensitiveValue(host)) return undefined;
+    return host.slice(0, 160);
+  } catch { return undefined; }
 }
 
 function cleanInteger(value, min, max) {
@@ -69,6 +97,9 @@ export function sanitizeCommerceProperties(input = {}) {
     if (key === 'path') {
       const path = cleanPath(value);
       if (path) output.path = path;
+    } else if (key === 'referrerHost') {
+      const host = cleanReferrerHost(value);
+      if (host) output.referrerHost = host;
     } else if (key === 'quantity') {
       const quantity = cleanInteger(value, 1, 100);
       if (quantity !== undefined) output.quantity = quantity;
@@ -85,7 +116,7 @@ export function sanitizeCommerceProperties(input = {}) {
       if (/^[A-Z]{3}$/.test(currency || '')) output.currency = currency;
     } else {
       const str = cleanString(value);
-      if (str) output[key] = str;
+      if (str && !containsSensitiveValue(str)) output[key] = str;
     }
   }
   return output;
@@ -116,6 +147,16 @@ export function validateCommerceEvent(event) {
     if (PII_KEY_PATTERN.test(key) || !ALLOWED_PROPERTIES.has(key)) errors.push(`unsafe_property:${key}`);
   }
   if (/@/.test(raw)) errors.push('possible_email_value');
+  // Revalidate values as well as keys: callers might supply a forged event
+  // instead of using createCommerceEvent's sanitization.
+  if (!event.properties || typeof event.properties !== 'object' || Array.isArray(event.properties)) {
+    errors.push('invalid_properties');
+  } else {
+    const safe = sanitizeCommerceProperties(event.properties);
+    for (const [key, value] of Object.entries(event.properties)) {
+      if (!Object.hasOwn(safe, key) || safe[key] !== value) errors.push(`unsafe_value:${key}`);
+    }
+  }
   return { ok: errors.length === 0, errors };
 }
 
