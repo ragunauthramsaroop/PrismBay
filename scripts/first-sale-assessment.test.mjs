@@ -16,6 +16,8 @@ test('free page presents the live $79 digital offer transparently',()=>{
  assert.ok(html.includes(GUIDE));
  assert.ok(html.includes(BOARD_AUDIT_URL));
  assert.match(html,/one-time document package/i);
+ assert.match(html,/Request a custom project quotation/);
+ assert.match(html,/mailto:support@prismbayai.com\?subject=Custom%20Board%20Paper%20Quote/);
  assert.doesNotMatch(html,/limited time|guaranteed results|thousands of customers/i);
 });
 test('browser assessment has actual event listeners, scoring and download',()=>{
