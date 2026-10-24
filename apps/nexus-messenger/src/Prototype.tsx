@@ -13,7 +13,7 @@ type Message = { id: string; body: string; mine: boolean; at: string; reaction?:
 type Conversation = { id: string; title: string; initials: string; category: Context; unread: number; group: boolean; messages: Message[] };
 type Task = { id: string; text: string; source: string; done: boolean; category: Context };
 type Space = { id: string; title: string; description: string; members: number; joined: boolean; category: Context };
-type Preferences = { compact: boolean; dark: boolean; quiet: boolean; lowData: boolean };
+type Preferences = { compact: boolean; dark: boolean };
 type Store = { conversations: Conversation[]; tasks: Task[]; spaces: Space[]; preferences: Preferences };
 type Modal = 'chat' | 'task' | 'space' | null;
 
@@ -52,7 +52,7 @@ const seed: Store = {
     { id: 's3', title: 'Product Studio', description: 'Design decisions, files and weekly meetings', members: 24, joined: true, category: 'work' },
     { id: 's4', title: 'Partner Network', description: 'Projects, partnerships and shared planning', members: 47, joined: false, category: 'work' }
   ],
-  preferences: { compact: false, dark: false, quiet: false, lowData: false }
+  preferences: { compact: false, dark: false }
 };
 function newId() { return (typeof crypto !== 'undefined' && 'randomUUID' in crypto) ? crypto.randomUUID() : String(Date.now()) + String(Math.random()); }
 function readStore(): Store {
@@ -88,6 +88,22 @@ export default function Prototype({ onExit }: { onExit: () => void }) {
   const [meetingName, setMeetingName] = useState('Team catch-up');
 
   useEffect(() => { try { localStorage.setItem(STORAGE_KEY, JSON.stringify(store)); } catch { /* browser storage disabled */ } }, [store]);
+  useEffect(() => {
+    if (!modal) return;
+    const previous = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') { event.preventDefault(); setModal(null); return; }
+      if (event.key !== 'Tab') return;
+      const container = document.querySelector('.nxp-modal');
+      const controls = container?.querySelectorAll<HTMLElement>('button:not([disabled]), input:not([disabled])');
+      if (!controls?.length) return;
+      const first = controls[0], last = controls[controls.length - 1];
+      if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last.focus(); }
+      else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus(); }
+    };
+    document.addEventListener('keydown', onKeyDown);
+    return () => { document.removeEventListener('keydown', onKeyDown); previous?.focus(); };
+  }, [modal]);
   const conversations = useMemo(() => store.conversations.filter(c => c.category === context).filter(c => {
     const matchesText = (c.title + ' ' + c.messages.map(m => m.body).join(' ')).toLowerCase().includes(filter.toLowerCase());
     const matchesTab = inboxFilter === 'all' || (inboxFilter === 'unread' ? c.unread > 0 : store.tasks.some(t => !t.done && t.source === c.title));
@@ -193,7 +209,7 @@ export default function Prototype({ onExit }: { onExit: () => void }) {
         </section>}
         {page === 'chats' && chosen && <section className="nxp-chat nxp-page">
           <div className="nxp-chat-head"><button className="nxp-icon-button" aria-label="Back to conversations" type="button" onClick={() => setSelected(null)}><ArrowLeft size={19}/></button><span className="nxp-avatar nxp-av1">{chosen.initials}</span><div className="nxp-chat-identity"><strong>{chosen.title}</strong><small><CircleHelp size={13}/> Local demonstration conversation, no network encryption</small></div><button className="nxp-outline" type="button" onClick={() => showModal('task', 'Follow up with ' + chosen.title)}><ClipboardList size={16}/> Create task</button></div>
-          <div className="nxp-chat-body"><div className="nxp-chat-day">Today · local demo messages</div>{chosen.messages.length === 0 && <div className="nxp-empty">Your conversation starts here.</div>}{chosen.messages.map(m => <div className={'nxp-message-line' + (m.mine ? ' mine' : '')} key={m.id}><div className="nxp-bubble">{m.body}<small>{m.at}{m.mine && <CheckCheck size={12} aria-label="Saved locally"/>}</small></div></div>)}
+          <div className="nxp-chat-body"><div className="nxp-chat-day">Today · local demo messages</div>{chosen.messages.length === 0 && <div className="nxp-empty">Your conversation starts here.</div>}{chosen.messages.map(m => <div className={'nxp-message-line' + (m.mine ? ' mine' : '')} key={m.id}><div className="nxp-bubble">{m.body}<small>{m.at}{m.mine && <Check size={12} aria-label="Saved locally, not delivered"/>}</small></div></div>)}
           <div className="nxp-decision"><span className="nxp-eyebrow"><ClipboardList size={14}/> CONVERSATION ACTIONS</span><strong>Keep outcomes connected to the discussion</strong><p>Create a follow-up task. It will appear in your Flow workspace, linked to this conversation.</p><button type="button" onClick={() => showModal('task', 'Follow up: ' + chosen.title)}><Plus size={16}/> Create follow-up</button></div>
           </div>
           <form className="nxp-composer" onSubmit={e => { e.preventDefault(); sendMessage(); }}><input aria-label="Type a demonstration message" placeholder={'Message ' + chosen.title + ' (local only)'} maxLength={10000} value={draft} onChange={e => setDraft(e.target.value)}/><button disabled={!draft.trim()} className="nxp-send" type="submit" aria-label="Send local demo message"><Send size={19}/></button></form>
@@ -219,9 +235,7 @@ export default function Prototype({ onExit }: { onExit: () => void }) {
           {([
             {key:'dark',label:'Dark appearance',description:'Change the entire interface to the dark theme',Icon:Sparkles},
             {key:'compact',label:'Compact conversations',description:'Show denser conversation and task rows',Icon:Menu},
-            {key:'quiet',label:'Quiet mode',description:'Remember a local notification preference',Icon:Bell},
-            {key:'lowData',label:'Low-data mode',description:'Save a preference for future media settings',Icon:Wifi}
-          ] as const).map(({key,label,description,Icon}) => <div className="nxp-setting" key={key}><span className="nxp-setting-icon"><Icon size={19}/></span><div><strong>{label}</strong><small>{description}</small></div><button type="button" aria-label={label} role="switch" aria-checked={prefs[key]} className={'nxp-toggle' + (prefs[key] ? ' on' : '')} onClick={() => setPref(key)}><span/></button></div>)}
+           ] as const).map(({key,label,description,Icon}) => <div className="nxp-setting" key={key}><span className="nxp-setting-icon"><Icon size={19}/></span><div><strong>{label}</strong><small>{description}</small></div><button type="button" aria-label={label} role="switch" aria-checked={prefs[key]} className={'nxp-toggle' + (prefs[key] ? ' on' : '')} onClick={() => setPref(key)}><span/></button></div>)}
           </div>
           <div className="nxp-panel nxp-settings-panel"><div className="nxp-panel-header"><h2>Your demonstration data</h2><span>Browser only</span></div><div className="nxp-data-actions"><button type="button" className="nxp-outline" onClick={exportData}><Download size={17}/> Export local data</button><button type="button" className="nxp-outline" onClick={resetData}>Reset prototype</button></div><p className="nxp-data-disclaimer"><LockKeyhole size={15}/> This prototype does not verify contacts, back up encryption keys, or connect simulated conversations to the Matrix network.</p></div>
         </section>}

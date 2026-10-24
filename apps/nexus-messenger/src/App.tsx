@@ -3,6 +3,7 @@ import {
   ArrowLeft, ArrowRight, Check, ChevronDown, CircleHelp, Globe2, Hash, Inbox,
   KeyRound, Link2, LoaderCircle, LockKeyhole, LogOut, Menu, MessageCircle,
   Plus, Search, Send, ShieldCheck, Sparkles, UserPlus, Users, Wifi, WifiOff, X,
+  Reply, Heart, ThumbsUp, Trash2, ChevronUp, ExternalLink, Pencil, Copy,
 } from 'lucide-react';
 import * as sdk from 'matrix-js-sdk';
 import type { MatrixClient, MatrixEvent, Room } from 'matrix-js-sdk';
@@ -48,7 +49,7 @@ function roomEvents(room: Room | null): MatrixEvent[] {
   if (!room) return [];
   return room.getLiveTimeline().getEvents().filter((event) =>
     event.getType() === 'm.room.message' || event.getType() === 'm.room.encrypted',
-  ).slice(-120);
+  ).filter((event) => event.getContent()?.['m.relates_to']?.rel_type !== 'm.replace');
 }
 
 function AppLogo({ large = false }: { large?: boolean }) {
@@ -109,6 +110,7 @@ function Login({ onLoggedIn, onPreview }: { onLoggedIn: (session: Session) => vo
           {error && <div className="form-error" role="alert">{error}</div>}
           <button className="btn btn-primary login-submit" type="submit" disabled={working}>{working ? <LoaderCircle size={17} className="spin" /> : <>Connect securely <ArrowRight size={17} /></>}</button>
         </form>
+        <a className="btn btn-outline login-submit" style={{ marginTop: 12, textDecoration: 'none' }} href="https://app.element.io/" target="_blank" rel="noopener noreferrer">New to Matrix? Create an account <ExternalLink size={16}/></a>
         <button className="btn btn-outline login-submit" type="button" onClick={onPreview} style={{ marginTop: 12 }}><Sparkles size={17}/> Explore the new Nexus prototype <ArrowRight size={17}/></button>
         <div className="login-foot"><LockKeyhole size={14} /> Your password is sent to your selected homeserver. Nexus does not store passwords.</div>
       </section>
@@ -131,6 +133,11 @@ export default function App({ onPreview }: { onPreview: () => void }) {
   const [modalBusy, setModalBusy] = useState(false);
   const [draft, setDraft] = useState('');
   const [sending, setSending] = useState(false);
+  const [replyTarget, setReplyTarget] = useState<{ eventId: string; snippet: string } | null>(null);
+  const [editingTarget, setEditingTarget] = useState<string | null>(null);
+  const [historyBusy, setHistoryBusy] = useState(false);
+  const [historyDone, setHistoryDone] = useState(false);
+  const [eventBusy, setEventBusy] = useState<string | null>(null);
   const [mobileSidebar, setMobileSidebar] = useState(false);
   const [, forceRender] = useState(0);
   const bottomRef = useRef<HTMLDivElement | null>(null);
@@ -185,9 +192,29 @@ export default function App({ onPreview }: { onPreview: () => void }) {
   const messages = chosen ? roomEvents(chosen) : [];
   const matches = rooms.filter((room) => (room.name || room.roomId).toLowerCase().includes(filter.toLowerCase()));
   const encryptionEnabled = Boolean(chosen?.currentState.getStateEvents('m.room.encryption', ''));
+  const visibleReactionCounts = useMemo(() => {
+    const result: Record<string, Record<string, number>> = {};
+    if (!chosen) return result;
+    const members = new Set<string>();
+    for (const event of chosen.getLiveTimeline().getEvents()) {
+      if (event.getType() !== 'm.reaction' || event.isRedacted()) continue;
+      const relation = event.getContent()?.['m.relates_to'];
+      if (!relation || relation.rel_type !== 'm.annotation' || typeof relation.event_id !== 'string' || typeof relation.key !== 'string') continue;
+      const sender = event.getSender() || event.getId() || '';
+      const pair = relation.event_id + '|' + relation.key + '|' + sender;
+      if (members.has(pair)) continue;
+      members.add(pair);
+      result[relation.event_id] ??= {};
+      result[relation.event_id][relation.key] = (result[relation.event_id][relation.key] || 0) + 1;
+    }
+    return result;
+  // forceRender changes when SDK timeline objects mutate in place
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [chosen, rooms, messages.length]);
   const isJoined = chosen?.getMyMembership() === 'join';
 
-  useEffect(() => { bottomRef.current?.scrollIntoView({ block: 'end' }); }, [selectedId, messages.length]);
+  useEffect(() => { setReplyTarget(null); setEditingTarget(null); setHistoryDone(false); }, [selectedId]);
+  useEffect(() => { if (!historyBusy) bottomRef.current?.scrollIntoView({ block: 'end' }); }, [selectedId, messages.length]);
 
   async function sendMessage(event?: React.FormEvent) {
     event?.preventDefault();
@@ -197,11 +224,74 @@ export default function App({ onPreview }: { onPreview: () => void }) {
       const body = validateMessage(draft);
       setSending(true);
       setError('');
-      await active.sendTextMessage(chosen.roomId, body);
+      if (editingTarget) {
+        await active.sendEvent(chosen.roomId, sdk.EventType.RoomMessage, {
+          msgtype: sdk.MsgType.Text, body: '* ' + body,
+          'm.new_content': { msgtype: sdk.MsgType.Text, body },
+          'm.relates_to': { rel_type: sdk.RelationType.Replace, event_id: editingTarget },
+        });
+      } else if (replyTarget?.eventId) {
+        await active.sendEvent(chosen.roomId, sdk.EventType.RoomMessage, {
+          msgtype: sdk.MsgType.Text, body,
+          'm.relates_to': { 'm.in_reply_to': { event_id: replyTarget.eventId } },
+        });
+      } else {
+        await active.sendTextMessage(chosen.roomId, body);
+      }
+      setReplyTarget(null);
+      setEditingTarget(null);
       setDraft('');
       refresh(active);
     } catch (cause) { setError(cleanError(cause)); }
     finally { setSending(false); }
+  }
+
+  function editMyMessage(message: MatrixEvent) {
+    if (message.getSender() !== session?.userId || message.isRedacted() || !message.getId()) return;
+    setEditingTarget(message.getId()!);
+    setReplyTarget(null);
+    setDraft(messageText(message));
+  }
+
+  async function copyMessage(text: string) {
+    if (!navigator.clipboard?.writeText) { setError('Clipboard is not available.'); return; }
+    try { await navigator.clipboard.writeText(text); }
+    catch { setError('Clipboard access was denied.'); }
+  }
+
+  async function sendReaction(eventId: string, emoji: string) {
+    const active = clientRef.current;
+    if (!active || !chosen || !isJoined || !eventId || eventBusy) return;
+    setEventBusy(eventId);
+    try {
+      await active.sendEvent(chosen.roomId, sdk.EventType.Reaction, {
+        'm.relates_to': { rel_type: sdk.RelationType.Annotation, event_id: eventId, key: emoji },
+      });
+      refresh(active);
+    } catch (cause) { setError(cleanError(cause)); }
+    finally { setEventBusy(null); }
+  }
+
+  async function removeMyMessage(eventId: string) {
+    const active = clientRef.current;
+    if (!active || !chosen || !isJoined || !eventId || eventBusy) return;
+    if (!window.confirm('Remove this message for everyone? This action cannot be undone.')) return;
+    setEventBusy(eventId);
+    try { await active.redactEvent(chosen.roomId, eventId); refresh(active); }
+    catch (cause) { setError(cleanError(cause)); }
+    finally { setEventBusy(null); }
+  }
+
+  async function loadOlderMessages() {
+    const active = clientRef.current;
+    if (!active || !chosen || historyBusy || historyDone || status !== 'online') return;
+    setHistoryBusy(true);
+    try {
+      await active.scrollback(chosen, 40);
+      if (chosen.oldState.paginationToken === null) setHistoryDone(true);
+      refresh(active);
+    } catch (cause) { setError(cleanError(cause)); }
+    finally { setHistoryBusy(false); }
   }
 
   function showModal(next: Exclude<Modal, null>) {
@@ -302,15 +392,20 @@ export default function App({ onPreview }: { onPreview: () => void }) {
         <div className="room-toolbar"><span>{chosen.roomId}</span><button title="Copy room ID" className="toolbar-copy" onClick={() => { if (!navigator.clipboard?.writeText) { setError('Clipboard access is unavailable in this browser.'); return; } void navigator.clipboard.writeText(chosen.roomId).catch(() => setError('Clipboard access was denied.')); }}><Link2 size={14} /> Copy ID</button></div>
         {chosen.getMyMembership() === 'invite' ? <div className="invitation"><div className="invite-icon"><Users size={29} /></div><h2>You've been invited</h2><p>Join <strong>{chosen.name}</strong> to start messaging.</p><button className="btn btn-primary" onClick={acceptInvite}><Check size={16} /> Accept invitation</button></div> : <>
           <div className="messages" aria-label="Room messages">
+            <div className="history-actions"><button className="btn btn-outline" type="button" onClick={() => void loadOlderMessages()} disabled={historyBusy || historyDone || status !== 'online'}><ChevronUp size={15}/>{historyBusy ? 'Loading older messages…' : historyDone ? 'Beginning of available history' : 'Load older messages'}</button></div>
             <div className="conversation-opening"><Avatar name={chosen.name || chosen.roomId} size="large" /><h2>{chosen.name}</h2><p>This is the beginning of this room's loaded history.</p>{encryptionEnabled ? <span><LockKeyhole size={13} /> Encryption enabled. Verify devices before trusting identities.</span> : <span className="unencrypted"><CircleHelp size={13} /> This room is not end-to-end encrypted.</span>}</div>
             {messages.map((message, index) => {
               const own = message.getSender() === session.userId;
               const sender = message.getSender() || 'Unknown sender';
-              return <div className={`message-row ${own ? 'message-own' : ''}`} key={message.getId() || `event-${index}`}><Avatar name={sender} size="small" /><div className="message-body"><div className="message-meta"><strong>{own ? 'You' : sender.split(':')[0]}</strong><Clock timestamp={message.getTs()} /></div><div className="message-bubble">{messageText(message)}</div></div></div>;
+              const eventId = message.getId();
+              const replyToId = message.getContent()?.['m.relates_to']?.['m.in_reply_to']?.event_id;
+              const replyTo = typeof replyToId === 'string' ? messages.find(e => e.getId() === replyToId) : undefined;
+              const counts = eventId ? visibleReactionCounts[eventId] : undefined;
+              return <div className={`message-row ${own ? 'message-own' : ''}`} key={eventId || `event-${index}`}><Avatar name={sender} size="small" /><div className="message-body"><div className="message-meta"><strong>{own ? 'You' : sender.split(':')[0]}</strong><Clock timestamp={message.getTs()} /></div><div className="message-bubble">{replyToId && <div className="message-reply-cite">↳ {replyTo ? messageText(replyTo).slice(0, 95) : 'Reply to an earlier message'}</div>}{message.isRedacted() ? 'Message removed' : messageText(message)}</div>{counts && <div className="reaction-list">{Object.entries(counts).map(([key,value])=><span className="reaction-pill" key={key}>{key} {value}</span>)}</div>}{!message.isRedacted() && eventId && <div className="message-actions"><button type="button" title="Reply to message" aria-label="Reply to message" onClick={() => { setReplyTarget({eventId, snippet: messageText(message).slice(0, 90)}); setEditingTarget(null); setDraft(''); }}><Reply size={14}/></button><button type="button" title="Copy message" aria-label="Copy message" onClick={() => void copyMessage(messageText(message))}><Copy size={14}/></button><button type="button" title="React with thumbs up" aria-label="React with thumbs up" disabled={eventBusy === eventId} onClick={() => void sendReaction(eventId, '👍')}><ThumbsUp size={14}/></button><button type="button" title="React with heart" aria-label="React with heart" disabled={eventBusy === eventId} onClick={() => void sendReaction(eventId, '❤️')}><Heart size={14}/></button>{own && <button type="button" title="Edit message" aria-label="Edit message" onClick={() => editMyMessage(message)}><Pencil size={14}/></button>}{own && <button type="button" title="Remove message for everyone" aria-label="Remove message for everyone" disabled={eventBusy === eventId} onClick={() => void removeMyMessage(eventId)}><Trash2 size={14}/></button>}</div>}</div></div>;
             })}
             <div ref={bottomRef} />
           </div>
-          <div className="composer-area"><form className="composer" onSubmit={sendMessage}><textarea aria-label="Write a message" disabled={sending} value={draft} onChange={(e) => setDraft(e.target.value)} onKeyDown={(e) => { if (e.key === 'Enter' && !e.shiftKey && !e.nativeEvent.isComposing) { e.preventDefault(); void sendMessage(); } }} placeholder={`Message ${chosen.name || 'this room'}…`} rows={2} maxLength={10000} /><button type="submit" disabled={!draft.trim() || !client || sending} aria-label="Send message" className="send-button">{sending ? <LoaderCircle className="spin" size={19} /> : <Send size={18} />}</button></form><div className="composer-note"><span>Enter to send <span className="note-dot">·</span> Shift + Enter for a new line</span><span>{encryptionEnabled ? <><LockKeyhole size={12} /> E2EE enabled</> : 'Unencrypted room'}</span></div></div>
+          <div className="composer-area">{editingTarget && <div className="reply-preview"><span><Pencil size={15}/> Editing your message</span><button type="button" aria-label="Cancel editing" onClick={() => { setEditingTarget(null); setDraft(''); }}><X size={16}/></button></div>}{replyTarget && <div className="reply-preview"><span><Reply size={15}/> Replying to: {replyTarget.snippet}</span><button type="button" aria-label="Cancel reply" onClick={() => setReplyTarget(null)}><X size={16}/></button></div>}<form className="composer" onSubmit={sendMessage}><textarea aria-label="Write a message" disabled={sending} value={draft} onChange={(e) => setDraft(e.target.value)} onKeyDown={(e) => { if (e.key === 'Enter' && !e.shiftKey && !e.nativeEvent.isComposing) { e.preventDefault(); void sendMessage(); } }} placeholder={`Message ${chosen.name || 'this room'}…`} rows={2} maxLength={10000} /><button type="submit" disabled={!draft.trim() || !client || sending} aria-label="Send message" className="send-button">{sending ? <LoaderCircle className="spin" size={19} /> : <Send size={18} />}</button></form><div className="composer-note"><span>Enter to send <span className="note-dot">·</span> Shift + Enter for a new line</span><span>{encryptionEnabled ? <><LockKeyhole size={12} /> E2EE enabled</> : 'Unencrypted room'}</span></div></div>
         </>}
       </>}
     </section>
