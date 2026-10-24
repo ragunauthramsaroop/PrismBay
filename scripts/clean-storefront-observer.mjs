@@ -32,14 +32,33 @@ function sameOriginReference(html, path) {
 
 const isHtml = response => response.ok && /text\/html/i.test(response.type);
 
+// Commercial rights for third-party supplier media are not yet documented.
+// Check actual media-bearing HTML attributes, not incidental text or hyperlinks.
+function hasUnverifiedSupplierMedia(html) {
+  const tags = html.match(/<(?:img|source|video|meta)\b[^>]*>/gi) || [];
+  return tags.some(tag => {
+    const refs = [...tag.matchAll(/\b(?:src|poster|content)\s*=\s*["']([^"']+)["']/gi)];
+    return refs.some(([, ref]) => {
+      try {
+        const url = new URL(ref, ORIGIN);
+        return /(?:^|\.)cjdropshipping\.com$/i.test(url.hostname);
+      } catch {
+        return false;
+      }
+    });
+  });
+}
+
 export async function observeStorefront(fetcher = fetch) {
   const checks = [];
   const home = await probe(ORIGIN + '/', fetcher);
+  const homeSupplierMedia = isHtml(home) && hasUnverifiedSupplierMedia(home.text);
   checks.push({
     resource: '/',
     ok: isHtml(home) && /PrismBay\s*(?:<[^>]+>\s*)?Clean/i.test(home.text) &&
-      home.text.includes(BUYER_PATH) && home.text.includes(POLICY_PATH),
-    status: home.status
+      home.text.includes(BUYER_PATH) && home.text.includes(POLICY_PATH) && !homeSupplierMedia,
+    status: home.status,
+    reason: homeSupplierMedia ? 'supplier_media_rights_unverified' : undefined
   });
 
   const inlineStyle = home.text.match(/<style(?:\s[^>]*)?>([\s\S]*?)<\/style>/i);
@@ -50,13 +69,15 @@ export async function observeStorefront(fetcher = fetch) {
   });
 
   const buyer = await probe(ORIGIN + BUYER_PATH, fetcher);
+  const buyerSupplierMedia = isHtml(buyer) && hasUnverifiedSupplierMedia(buyer.text);
   checks.push({
     resource: BUYER_PATH,
     ok: isHtml(buyer) && /<h1[^>]*>\s*Portable Garment Steamer\s*<\/h1>/i.test(buyer.text) &&
       /Request shipping review/i.test(buyer.text) &&
       /No payment during ZIP check/i.test(buyer.text) &&
-      !/https:\/\/(?:buy|checkout)\.stripe\.com\//i.test(buyer.text),
-    status: buyer.status
+      !/https:\/\/(?:buy|checkout)\.stripe\.com\//i.test(buyer.text) && !buyerSupplierMedia,
+    status: buyer.status,
+    reason: buyerSupplierMedia ? 'supplier_media_rights_unverified' : undefined
   });
 
   const policy = await probe(ORIGIN + POLICY_PATH, fetcher);
@@ -90,7 +111,7 @@ export async function observeStorefront(fetcher = fetch) {
     origin: ORIGIN,
     healthy: checks.every(check => check.ok),
     checks,
-    scope: 'Canonical homepage and inline styles, steamer inquiry, physical shipping-policy consistency and same-origin policy stylesheet only. Browser rendering, TLS trust, remote inquiry handling, checkout, supplier fulfillment, worker execution and sales are not verified.'
+    scope: 'Canonical homepage, known unlicensed supplier-media references in HTML, inline styles, steamer inquiry, physical shipping-policy consistency and same-origin policy stylesheet only. Other media rights, browser rendering, TLS trust, remote inquiry handling, checkout, supplier fulfillment, worker execution and sales are not verified.'
   };
 }
 
