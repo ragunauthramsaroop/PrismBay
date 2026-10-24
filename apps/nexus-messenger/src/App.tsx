@@ -3,7 +3,7 @@ import {
   ArrowLeft, ArrowRight, Check, ChevronDown, CircleHelp, Globe2, Hash, Inbox,
   KeyRound, Link2, LoaderCircle, LockKeyhole, LogOut, Menu, MessageCircle,
   Plus, Search, Send, ShieldCheck, Sparkles, UserPlus, Users, Wifi, WifiOff, X,
-  Reply, Heart, ThumbsUp, Trash2, ChevronUp, ExternalLink, Pencil, Copy,
+  Reply, Heart, ThumbsUp, Trash2, ChevronUp, ExternalLink, Pencil, Copy, Bell,
 } from 'lucide-react';
 import * as sdk from 'matrix-js-sdk';
 import type { MatrixClient, MatrixEvent, Room } from 'matrix-js-sdk';
@@ -128,6 +128,8 @@ export default function App({ onPreview }: { onPreview: () => void }) {
   const [status, setStatus] = useState<'connecting' | 'online' | 'offline'>('connecting');
   const [error, setError] = useState('');
   const [filter, setFilter] = useState('');
+  const notificationsArmed = useRef(false);
+  const [notifyAllowed, setNotifyAllowed] = useState(false);
   const [modal, setModal] = useState<Modal>(null);
   const [modalValue, setModalValue] = useState('');
   const [modalBusy, setModalBusy] = useState(false);
@@ -153,17 +155,32 @@ export default function App({ onPreview }: { onPreview: () => void }) {
   useEffect(() => {
     if (!session) return;
     let closed = false;
+    let syncedOnce = false;
+    const notifiedEvents = new Set<string>();
     const active = createSessionClient(session);
     clientRef.current = active;
     setStatus('connecting');
     const onSync = (syncState: string) => {
       if (closed) return;
+      if (syncState === 'PREPARED') syncedOnce = true;
       setStatus(syncState === 'ERROR' || syncState === 'STOPPED' ? 'offline' : syncState === 'SYNCING' || syncState === 'PREPARED' ? 'online' : 'connecting');
       refresh(active);
     };
-    const onTimeline = (event: MatrixEvent) => {
+    const onTimeline = (event: MatrixEvent, _room?: Room, toStartOfTimeline?: boolean) => {
       if (closed) return;
       event.on(sdk.MatrixEventEvent.Decrypted, () => { if (!closed) refresh(active); });
+      if (syncedOnce && !toStartOfTimeline && notificationsArmed.current &&
+          document.hidden && typeof Notification !== 'undefined' && Notification.permission === 'granted' &&
+          event.getType() === 'm.room.message' && event.getSender() !== session.userId &&
+          event.getTs() > Date.now() - 120_000) {
+        const eventId = event.getId();
+        if (eventId && !notifiedEvents.has(eventId)) {
+          notifiedEvents.add(eventId);
+          // No sender name, room name or decrypted message body in OS notifications.
+          try { new Notification('New Nexus message', { body: 'Open Nexus to see your conversation.', tag: 'nexus-' + eventId }); }
+          catch { /* permission and platform restrictions */ }
+        }
+      }
       refresh(active);
     };
     active.on(sdk.ClientEvent.Sync, onSync);
@@ -190,7 +207,12 @@ export default function App({ onPreview }: { onPreview: () => void }) {
 
   const chosen = useMemo(() => rooms.find((room) => room.roomId === selectedId) || null, [rooms, selectedId]);
   const messages = chosen ? roomEvents(chosen) : [];
-  const matches = rooms.filter((room) => (room.name || room.roomId).toLowerCase().includes(filter.toLowerCase()));
+  const matches = rooms.filter((room) => {
+    const needle = filter.trim().toLowerCase();
+    if (!needle) return true;
+    return (room.name || room.roomId).toLowerCase().includes(needle) ||
+      roomEvents(room).some(event => messageText(event).toLowerCase().includes(needle));
+  });
   const encryptionEnabled = Boolean(chosen?.currentState.getStateEvents('m.room.encryption', ''));
   const visibleReactionCounts = useMemo(() => {
     const result: Record<string, Record<string, number>> = {};
@@ -337,9 +359,26 @@ export default function App({ onPreview }: { onPreview: () => void }) {
     catch (cause) { setError(cleanError(cause)); }
   }
 
+  async function enableForegroundNotifications() {
+    if (!('Notification' in window)) { setError('Desktop notification permission is unavailable on this browser.'); return; }
+    try {
+      const permission = await Notification.requestPermission();
+      if (permission !== 'granted') { setError('Notifications were not authorized in your browser settings.'); return; }
+      notificationsArmed.current = true;
+      setNotifyAllowed(true);
+    } catch { setError('Your browser did not permit notification access.'); }
+  }
+
+  function disableForegroundNotifications() {
+    notificationsArmed.current = false;
+    setNotifyAllowed(false);
+  }
+
   async function signOut() {
     const active = clientRef.current;
     forgetSession();
+    notificationsArmed.current = false;
+    setNotifyAllowed(false);
     setSession(null);
     setClient(null);
     setRooms([]);
@@ -382,6 +421,7 @@ export default function App({ onPreview }: { onPreview: () => void }) {
       <header className="chat-header">
         <div className="header-left"><button className="icon-button mobile-menu" onClick={() => setMobileSidebar(true)} aria-label="Open sidebar"><Menu size={21} /></button>{chosen ? <><Avatar name={chosen.name || chosen.roomId} size="small" /><span className="header-title"><strong>{chosen.name || 'Unnamed room'}</strong><small>{encryptionEnabled ? 'Encrypted conversation' : 'Encryption not enabled for this room'}</small></span></> : <span className="header-title"><strong>Welcome to Nexus</strong><small>Your communication space</small></span>}</div>
         <div className="header-actions">
+          <button type="button" className="notify-button" onClick={() => { if (notifyAllowed) disableForegroundNotifications(); else void enableForegroundNotifications(); }} title={notifyAllowed ? 'Disable in-page message alerts' : 'Enable alerts while the messenger is open'} aria-label={notifyAllowed ? 'Disable in-page message alerts' : 'Enable in-page message alerts'}><Bell size={16}/><span>{notifyAllowed ? 'Alerts on' : 'Alerts off'}</span></button>
           <span className={`connection-indicator ${status}`}>{status === 'offline' ? <WifiOff size={14} /> : <Wifi size={14} />}{status === 'online' ? 'Connected' : status === 'offline' ? 'Offline' : 'Connecting'}</span>
           {chosen && isJoined && <button className="icon-button" onClick={() => showModal('invite')} title="Invite user" aria-label="Invite to room"><UserPlus size={19} /></button>}
           {chosen && isJoined && <button className="btn btn-outline room-leave" onClick={leaveRoom}>Leave room</button>}
