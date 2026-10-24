@@ -66,6 +66,7 @@ test('allowed analytics fields never leak embedded contact data or Stripe custom
     source: 'call +592 608 4735',
     stage: '127.0.0.1',
     orderRef: 'cus_1234567890',
+    correlationId: '5926084735',
     sku: 'CJYD245844002BY',
     referrerHost: 'https://www.tiktok.com/click?email=person%40example.com'
   });
