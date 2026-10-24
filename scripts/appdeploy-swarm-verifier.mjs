@@ -25,6 +25,14 @@ export function verifySwarmStatus(payload, { now = Date.now(), maxAgeMinutes = 1
   if (payload?.mode !== 'backend-swarm-24x7') reasons.push('mode_mismatch');
   if (Number(payload?.workerCount) !== REQUIRED_WORKERS.length) reasons.push('worker_count_mismatch');
   if (!Array.isArray(payload?.workers)) reasons.push('workers_missing');
+  else {
+    // A claimed workerCount must agree with the actual unique worker receipts.
+    // Duplicate/extra rows are not evidence of independent worker execution.
+    if (payload.workers.length !== REQUIRED_WORKERS.length) reasons.push('worker_rows_count_mismatch');
+    const ids = payload.workers.map(worker => worker?.id);
+    if (new Set(ids).size !== ids.length) reasons.push('duplicate_worker_ids');
+    if (ids.some(id => !REQUIRED_WORKERS.includes(id))) reasons.push('unexpected_worker_id');
+  }
 
   const overallAge = ageMinutes(payload?.lastUpdatedAt, now);
   if (overallAge === null || overallAge < 0 || overallAge > maxAgeMinutes) reasons.push('swarm_state_stale');
@@ -41,8 +49,9 @@ export function verifySwarmStatus(payload, { now = Date.now(), maxAgeMinutes = 1
     seen.add(id);
     const runAgeMinutes = ageMinutes(row.lastRunAt, now);
     const fresh = runAgeMinutes !== null && runAgeMinutes >= 0 && runAgeMinutes <= maxAgeMinutes;
-    const hasRuns = Number(row.runs) > 0;
-    const hasEvidence = Number(row.lastInspectionCount) > 0 || Number(row.lastActionCount) > 0;
+    const hasRuns = Number.isSafeInteger(row.runs) && row.runs > 0;
+    const hasEvidence = (Number.isSafeInteger(row.lastInspectionCount) && row.lastInspectionCount > 0)
+      || (Number.isSafeInteger(row.lastActionCount) && row.lastActionCount > 0);
     const statusHealthy = row.status === 'ok';
     if (!fresh) reasons.push(`worker_stale:${id}`);
     if (!hasRuns) reasons.push(`worker_never_ran:${id}`);
@@ -81,7 +90,11 @@ export function verifySwarmStatus(payload, { now = Date.now(), maxAgeMinutes = 1
     observedWorkers: seen.size,
     activeWorkerCount: Number(payload?.activeWorkerCount || 0),
     totalRuns: Number(payload?.totalRuns || 0),
-    verifiedSales: Number(payload?.verifiedSales || 0),
+    // Backend self-report is not authenticated live Stripe payment evidence.
+    // The first-sale verifier, backed by live paid transactions, owns sales claims.
+    verifiedSales: null,
+    backendReportedSalesUnverified: Number.isSafeInteger(payload?.verifiedSales) && payload.verifiedSales >= 0
+      ? payload.verifiedSales : null,
     controllerFocus: payload?.controllerFocus || null,
     lastUpdatedAt: payload?.lastUpdatedAt || null,
     stateAgeMinutes: overallAge,
