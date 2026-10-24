@@ -14,6 +14,10 @@ on:
       - 'scripts/ci-freellmapi-bootstrap.sh'
       - 'scripts/ci-freellmapi-bootstrap.test.mjs'
       - 'scripts/owned-sales-page-worker.mjs'
+      - 'scripts/first-sale-assessment.mjs'
+      - 'scripts/first-sale-assessment.test.mjs'
+      - 'scripts/revenue-evidence-gates.mjs'
+      - 'scripts/revenue-evidence-gates.test.mjs'
       - 'scripts/owned-sales-page-worker.test.mjs'
       - 'scripts/sales-sitemap-sync.mjs'
       - 'scripts/sales-sitemap-sync.test.mjs'
@@ -32,6 +36,10 @@ on:
       - 'scripts/ci-freellmapi-bootstrap.sh'
       - 'scripts/ci-freellmapi-bootstrap.test.mjs'
       - 'scripts/owned-sales-page-worker.mjs'
+      - 'scripts/first-sale-assessment.mjs'
+      - 'scripts/first-sale-assessment.test.mjs'
+      - 'scripts/revenue-evidence-gates.mjs'
+      - 'scripts/revenue-evidence-gates.test.mjs'
       - 'scripts/owned-sales-page-worker.test.mjs'
       - 'scripts/sales-sitemap-sync.mjs'
       - 'scripts/sales-sitemap-sync.test.mjs'
@@ -59,7 +67,7 @@ jobs:
           node-version: '22'
 
       - name: Verify conversion worker safeguards
-        run: node --test scripts/digital-conversion-campaign.test.mjs scripts/buyer-acquisition-worker.test.mjs scripts/freellm-sales-worker.test.mjs scripts/ci-freellmapi-bootstrap.test.mjs scripts/owned-sales-page-worker.test.mjs scripts/sales-sitemap-sync.test.mjs scripts/indexnow-submit.test.mjs
+        run: node --test scripts/digital-conversion-campaign.test.mjs scripts/buyer-acquisition-worker.test.mjs scripts/freellm-sales-worker.test.mjs scripts/ci-freellmapi-bootstrap.test.mjs scripts/owned-sales-page-worker.test.mjs scripts/first-sale-assessment.test.mjs scripts/revenue-evidence-gates.test.mjs scripts/sales-sitemap-sync.test.mjs scripts/indexnow-submit.test.mjs
 
       - name: Build current buyer-to-checkout campaign from live offer
         run: node scripts/buyer-acquisition-worker.mjs
@@ -154,7 +162,10 @@ jobs:
               `**Checkout health:** ${h.checkoutHealthy ? 'PASS' : 'FAIL'}${h.checkoutHttpStatus ? ' (' + h.checkoutHttpStatus + ')' : ''}`,
               `**Demand miner:** ${h.demandMinerReady ? 'READY' : 'NOT READY'}`,
               `**Conversion writer:** ${h.conversionWriterReady ? 'READY' : 'NOT READY'}`,
-              `**Sales acquisition loop:** ${h.loopHealthy ? 'HEALTHY' : 'BLOCKED'}`,
+              `**Technical content and link checks:** ${h.loopHealthy ? 'PASS' : 'FAIL'}`,
+              `**External buyer traffic:** ${s.commercialEvidence?.trafficStatus ?? 'UNMEASURED'}`,
+              `**Paid order feed:** ${s.commercialEvidence?.paymentStatus ?? 'STRIPE_DATA_NOT_CONNECTED'}`,
+              `**Order-specific delivery:** ${s.commercialEvidence?.deliveryStatus ?? 'NOT_VERIFIED'}`,
               '',
               `**Guide:** ${o.guideUrl ?? 'unavailable'}`,
               `**Checkout:** ${o.checkoutUrl ?? 'unavailable'}`,
@@ -163,7 +174,7 @@ jobs:
               '',
               '## Commercial truth',
               '',
-              'A GitHub acquisition run is not a sale. Revenue is reported only after a real paid Stripe event is observed.',
+              'A GitHub link check is not a sale. This code does not ingest actual Stripe payments or external visitor events. Do not infer revenue, delivery or buyer traffic from successful actions.',
               'Cold email, fake urgency, deceptive claims, paid-ad spend and unauthorized social posting remain disabled.'
             ].join('\n');
             const {owner, repo} = context.repo;
@@ -192,7 +203,7 @@ jobs:
           echo '## PrismBay Revenue Acquisition Loop' >> "$GITHUB_STEP_SUMMARY"
           echo 'Priority: convert qualified organic buyers into existing Stripe checkout visits.' >> "$GITHUB_STEP_SUMMARY"
           echo 'Cadence: every 30 minutes.' >> "$GITHUB_STEP_SUMMARY"
-          echo 'Each production run validates checkout health, refreshes acquisition intelligence, publishes owned buyer pages when needed, updates revenue-control state, and notifies search engines only when buyer content changes.' >> "$GITHUB_STEP_SUMMARY"
+          echo 'Technical checks are not sales. Buyer counts, paid Stripe orders, and order-bound delivery require independently verified evidence.' >> "$GITHUB_STEP_SUMMARY"
           echo "FreeLLMAPI mode: ${FREELLMAPI_CI_MODE:-deterministic-fallback}" >> "$GITHUB_STEP_SUMMARY"
           echo 'Revenue is never claimed without a paid Stripe transaction.' >> "$GITHUB_STEP_SUMMARY"
           echo 'No cold email, paid advertising, deceptive claims, or automatic social posting is performed.' >> "$GITHUB_STEP_SUMMARY"
