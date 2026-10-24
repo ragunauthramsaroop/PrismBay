@@ -17,3 +17,8 @@ function Root() {
 }
 
 createRoot(document.getElementById('root')!).render(<Root />);
+
+// Cache only versioned public application assets. The worker never caches Matrix API traffic.
+if ('serviceWorker' in navigator && (location.protocol === 'https:' || location.hostname === 'localhost')) {
+  window.addEventListener('load', () => { void navigator.serviceWorker.register('/sw.js').catch(() => { /* optional offline shell */ }); });
+}
