@@ -171,7 +171,7 @@ export default function App({ onPreview }: { onPreview: () => void }) {
       event.on(sdk.MatrixEventEvent.Decrypted, () => { if (!closed) refresh(active); });
       if (syncedOnce && !toStartOfTimeline && notificationsArmed.current &&
           document.hidden && typeof Notification !== 'undefined' && Notification.permission === 'granted' &&
-          event.getType() === 'm.room.message' && event.getSender() !== session.userId &&
+          (event.getWireType() === 'm.room.message' || event.getWireType() === 'm.room.encrypted') && event.getSender() !== session.userId &&
           event.getTs() > Date.now() - 120_000) {
         const eventId = event.getId();
         if (eventId && !notifiedEvents.has(eventId)) {
@@ -399,7 +399,7 @@ export default function App({ onPreview }: { onPreview: () => void }) {
       </div>
       <div className="sidebar-divider" />
       <div className="conversation-bar"><span>CONVERSATIONS</span><button className="icon-button" onClick={() => showModal('create')} title="New encrypted room" aria-label="New encrypted room"><Plus size={19} /></button></div>
-      <label className="search-box"><Search size={16} /><input aria-label="Search rooms" placeholder="Search conversations" value={filter} onChange={(e) => setFilter(e.target.value)} /></label>
+      <label className="search-box"><Search size={16} /><input aria-label="Search rooms" placeholder="Search rooms and loaded messages" value={filter} onChange={(e) => setFilter(e.target.value)} /></label>
       <div className="room-list">
         {matches.length === 0 ? <div className="room-empty"><Inbox size={20} /><span>{filter ? 'No matching rooms' : 'No conversations yet'}</span></div> : matches.map((room) => {
           const latest = roomEvents(room).at(-1);
