@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="PrismBay AI's free, offline 30-day AI pilot scorecard: separate capacity from verified cash savings, calculate payback, and apply quality and control gates.">
+<title>30-Day AI Pilot Scorecard | PrismBay AI</title>
+<style>
+:root{color-scheme:dark;--bg:#081222;--panel:#101e32;--line:#30415a;--text:#edf3fc;--muted:#b3c1d4;--accent:#6bd7db;--warn:#ffca80;--good:#87e2b2}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:16px/1.5 system-ui,-apple-system,Segoe UI,Arial,sans-serif}main{max-width:1150px;margin:auto;padding:30px 18px 80px}
+header{border-bottom:1px solid var(--line);padding-bottom:22px;margin-bottom:24px}.eyebrow{color:var(--accent);font-weight:750;letter-spacing:.12em;font-size:.78rem}h1{font-size:clamp(2rem,4.5vw,3.2rem);line-height:1.1;margin:12px 0}h2{font-size:1.2rem;margin:0 0 14px}p{color:var(--muted)}.intro{max-width:820px}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}.panel{border:1px solid var(--line);background:var(--panel);border-radius:15px;padding:22px}.fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.field label{display:block;color:var(--muted);font-size:.9rem;margin-bottom:6px}.field input,.field select{width:100%;background:#071526;color:var(--text);border:1px solid #4d617d;border-radius:8px;padding:11px;font:inherit}.field input:focus,.field select:focus{outline:2px solid var(--accent);outline-offset:1px}.help{font-size:.78rem;margin:5px 0 0}.metrics{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}.metric{padding:17px;background:#0b192b;border:1px solid var(--line);border-radius:11px}.metric .value{font-size:1.7rem;font-weight:800;color:var(--accent);overflow-wrap:anywhere}.metric .name{font-size:.84rem;color:var(--muted)}.metric .note{font-size:.75rem;color:var(--muted);margin-top:6px}.full{grid-column:1/-1}.pill{display:inline-block;border-radius:100px;padding:5px 12px;font-weight:700;background:#263d4c;color:var(--accent)}.danger{background:#472a2d;color:#ffc3c3}.caution{background:#453722;color:var(--warn)}.good{background:#234039;color:var(--good)}.actions{display:flex;gap:10px;flex-wrap:wrap;margin:18px 0}.btn{background:var(--accent);border:0;border-radius:8px;padding:11px 16px;color:#08212c;font-weight:800;cursor:pointer}.btn.secondary{background:#24364c;color:var(--text);border:1px solid var(--line)}table{width:100%;border-collapse:collapse}th,td{border-bottom:1px solid var(--line);text-align:left;padding:10px 6px}th{color:var(--muted);font-size:.85rem}a{color:#8ee8ed}footer{margin-top:26px;border-top:1px solid var(--line);padding-top:16px;color:var(--muted);font-size:.88rem}.small{font-size:.86rem}.highlight{color:var(--text);font-weight:700}@media(max-width:760px){.grid,.metrics,.fields{grid-template-columns:1fr}main{padding:20px 12px 50px}.panel{padding:17px}}
+@media print{body{background:white;color:black}.panel,.metric{background:white;color:black;border-color:#aaa}p,.metric .name,.metric .note,footer,.field label{color:#333}.actions{display:none}.metric .value{color:black}input,select{color:black!important;background:white!important;border:1px solid #aaa!important}main{max-width:none;padding:0}}
+</style>
+</head>
+<body><main>
+<header><div class="eyebrow">PRISMBAY AI / FREE WORKFLOW TOOL / VERSION 1.0</div><h1>The 30-Day AI Pilot Scorecard</h1><p class="intro">Measure what an AI workflow changes. Keep released capacity separate from verified cash effects. Evaluate service quality and authorization controls before expanding access. All starting figures are hypothetical and editable.</p></header>
+<div class="grid">
+<section class="panel"><h2>1. Workflow baseline</h2><div class="fields">
+<div class="field"><label for="cases">Monthly cases processed</label><input id="cases" type="number" min="0" step="1" value="1000"></div>
+<div class="field"><label for="before">Minutes per case, baseline</label><input id="before" type="number" min="0" step=".1" value="12"></div>
+<div class="field"><label for="after">Minutes per case, pilot</label><input id="after" type="number" min="0" step=".1" value="8"></div>
+<div class="field"><label for="hourly">Fully loaded hourly labor cost ($)</label><input id="hourly" type="number" min="0" step=".01" value="35"></div>
+</div><p class="small">Use representative samples and actual average handling times. Labor cost estimates capacity value, not a cash receipt.</p></section>
+<section class="panel"><h2>2. Verified cash ledger</h2><div class="fields">
+<div class="field"><label for="overtime">Documented overtime hours avoided per month</label><input id="overtime" type="number" min="0" step=".1" value="30"></div>
+<div class="field"><label for="rate">Verified cash cost per overtime hour ($)</label><input id="rate" type="number" min="0" step=".01" value="35"></div>
+<div class="field"><label for="software">Software and model usage ($/month)</label><input id="software" type="number" min="0" step=".01" value="420"></div>
+<div class="field"><label for="integration">Maintenance and integration ($/month)</label><input id="integration" type="number" min="0" step=".01" value="300"></div>
+<div class="field"><label for="review">Incremental review and monitoring ($/month)</label><input id="review" type="number" min="0" step=".01" value="240"></div>
+<div class="field"><label for="setup">One-time setup cost ($)</label><input id="setup" type="number" min="0" step=".01" value="1500"></div>
+</div><p class="small">Only enter overtime reductions supported by payroll or invoices. Do not count released capacity again as cash saved.</p></section>
+<section class="panel"><h2>3. Quality and authorization gates</h2><div class="fields">
+<div class="field"><label for="errorBefore">Baseline rework/error rate (%)</label><input id="errorBefore" type="number" min="0" max="100" step=".1" value="2"></div>
+<div class="field"><label for="errorAfter">Pilot rework/error rate (%)</label><input id="errorAfter" type="number" min="0" max="100" step=".1" value="1.5"></div>
+<div class="field"><label for="incidents">Critical confidentiality or safety incidents</label><input id="incidents" type="number" min="0" step="1" value="0"></div>
+<div class="field"><label for="unauthorized">Unauthorized actions or approval bypasses</label><input id="unauthorized" type="number" min="0" step="1" value="0"></div>
+<div class="field full"><label for="controls">Independent approval and logging tests</label><select id="controls"><option value="pass">Passed with evidence</option><option value="pending">Pending / not verified</option><option value="fail">Failed</option></select></div>
+</div><p class="small">A positive financial result never overrides a failed control. This decision aid is not an audit or certification.</p></section>
+<section class="panel"><h2>4. Management decision</h2><p id="decision" class="pill" aria-live="polite">Calculating...</p><p id="reason" class="highlight" aria-live="polite"></p><p class="small">SCALE CANDIDATE means investigate a controlled extension, not automatic deployment. MODIFY means improve the business case or gather evidence. STOP means suspend expansion pending remediation.</p><p class="small">Accountable owner: ____________________<br>Finance evidence reference: ____________________<br>Review date: ____________________</p></section>
+<section class="panel full"><h2>5. Four separate result categories</h2><div class="metrics">
+<div class="metric"><div class="name">Capacity released</div><div id="capacity" class="value">0 h</div><div class="note">Not payroll savings</div></div>
+<div class="metric"><div class="name">Indicative capacity value</div><div id="capacityValue" class="value">$0</div><div class="note">Never add to cash ledger</div></div>
+<div class="metric"><div class="name">Verified monthly cash avoided</div><div id="avoided" class="value">$0</div><div class="note">Requires source documents</div></div>
+<div class="metric"><div class="name">Monthly recurring cost</div><div id="cost" class="value">$0</div><div class="note">Usage, maintenance, oversight</div></div>
+<div class="metric"><div class="name">Monthly net cash effect</div><div id="net" class="value">$0</div><div class="note">Verified cash minus recurring cost</div></div>
+<div class="metric"><div class="name">Simple setup payback</div><div id="payback" class="value">N/A</div><div class="note">Excludes financing and discounting</div></div>
+</div><p id="consistency" class="small" aria-live="polite"></p></section>
+<section class="panel full"><h2>6. Overtime sensitivity, not a forecast</h2><table><thead><tr><th>Scenario</th><th>Overtime hours avoided</th><th>Monthly net cash</th></tr></thead><tbody id="scenarios"></tbody></table><p class="small">Scenarios apply 50%, 100%, and 150% of your entered overtime hours. Verify operational feasibility before relying on any scenario.</p></section>
+</div>
+<div class="actions"><button class="btn" id="export" type="button">Export scorecard CSV</button><button class="btn secondary" id="print" type="button">Print / Save PDF</button><button class="btn secondary" id="reset" type="button">Reset example</button></div>
+<footer>PrismBay AI helps founders, operators, and executives implement practical AI business systems. This offline tool sends no data to a server. Figures are illustrative until independently evidenced. For governance context, see the <a href="https://airc.nist.gov/airmf-resources/airmf/5-sec-core/" target="_blank" rel="noopener noreferrer">NIST AI Risk Management Framework</a>. PrismBay's decision categories are an educational framework, not a NIST endorsement.</footer>
+</main>
+<script>
+"use strict";
+const ids=["cases","before","after","hourly","overtime","rate","software","integration","review","setup","errorBefore","errorAfter","incidents","unauthorized"];
+const defaults=Object.fromEntries(ids.map(id=>[id,document.getElementById(id).value]));
+const el=id=>document.getElementById(id);
+const number=id=>{const x=Number(el(id).value);return Number.isFinite(x)?Math.max(0,x):0};
+const dollars=n=>new Intl.NumberFormat("en-US",{style:"currency",currency:"USD",maximumFractionDigits:2}).format(n);
+const fmt=n=>new Intl.NumberFormat("en-US",{maximumFractionDigits:1}).format(n);
+let last={};
+function compute(){
+ const x=Object.fromEntries(ids.map(id=>[id,number(id)]));
+ const capacity=x.cases*(x.before-x.after)/60;
+ const capacityValue=capacity*x.hourly;
+ const avoided=x.overtime*x.rate;
+ const cost=x.software+x.integration+x.review;
+ const net=avoided-cost;
+ const payback=net>0?x.setup/net:null;
+ const errorsWorse=x.errorAfter>x.errorBefore;
+ const controls=el("controls").value;
+ const critical=x.incidents>0||x.unauthorized>0||controls==="fail";
+ const unknown=controls==="pending";
+ let decision,reason,cls;
+ if(critical){decision="STOP";reason="Critical incident, unauthorized action, or failed control. Suspend expansion and remediate.";cls="danger"}
+ else if(unknown){decision="MODIFY";reason="Independent approval and logging evidence is incomplete.";cls="caution"}
+ else if(errorsWorse){decision="MODIFY";reason="Rework or error rate increased. Investigate quality before scaling.";cls="caution"}
+ else if(net<=0){decision="MODIFY";reason="Verified monthly cash does not exceed recurring costs. Evaluate independently measured service benefits.";cls="caution"}
+ else {decision="SCALE CANDIDATE";reason="Cash and stated quality/control gates pass. Confirm sample size, sustained performance, and accountable approval.";cls="good"}
+ el("capacity").textContent=fmt(capacity)+" h";
+ el("capacityValue").textContent=dollars(capacityValue);
+ el("avoided").textContent=dollars(avoided);
+ el("cost").textContent=dollars(cost);
+ el("net").textContent=dollars(net);
+ el("payback").textContent=payback===null?"No positive payback":fmt(payback)+" months";
+ el("decision").textContent=decision;el("decision").className="pill "+cls;el("reason").textContent=reason;
+ const consistency=[];
+ if(capacity<0)consistency.push("Pilot handling time exceeds baseline. Capacity released is negative.");
+ if(x.overtime>Math.max(0,capacity))consistency.push("Overtime avoided exceeds calculated released capacity. Verify the scope and evidence.");
+ if(x.errorBefore>100||x.errorAfter>100)consistency.push("Error percentages must not exceed 100.");
+ el("consistency").textContent=consistency.length?"Review inputs: "+consistency.join(" "):"Evidence gate: preserve baseline samples, payroll proof, review logs, and exception records.";
+ const tbody=el("scenarios");tbody.textContent="";
+ [["Downside",.5],["Entered case",1],["Upside",1.5]].forEach(([label,m])=>{
+  const tr=document.createElement("tr");[label,fmt(x.overtime*m)+" h",dollars(x.overtime*m*x.rate-cost)].forEach(t=>{const td=document.createElement("td");td.textContent=t;tr.appendChild(td)});tbody.appendChild(tr)
+ });
+ last={...x,capacity,capacityValue,avoided,cost,net,payback,decision,controls,reason};
+}
+function csvEscape(v){const s=String(v===null?"N/A":v);return '"'+s.replaceAll('"','""')+'"'}
+el("export").addEventListener("click",()=>{
+ const rows=[["PrismBay AI","30-Day AI Pilot Scorecard"],["Status","Illustrative until evidenced"],...Object.entries(last).map(([k,v])=>[k,v])];
+ const csv=rows.map(r=>r.map(csvEscape).join(",")).join("\r\n");
+ const blob=new Blob([csv],{type:"text/csv;charset=utf-8"});const url=URL.createObjectURL(blob);const a=document.createElement("a");a.href=url;a.download="PrismBay_AI_30_Day_Pilot_Scorecard.csv";document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),5000)
+});
+el("print").addEventListener("click",()=>window.print());
+el("reset").addEventListener("click",()=>{ids.forEach(id=>el(id).value=defaults[id]);el("controls").value="pass";compute()});
+document.querySelectorAll("input,select").forEach(node=>node.addEventListener("input",compute));
+compute();
+</script></body></html>
