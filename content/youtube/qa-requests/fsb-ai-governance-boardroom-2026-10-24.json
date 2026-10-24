@@ -6,5 +6,6 @@
   "source": "GitHub Actions zero-cost Piper/FFmpeg renderer with original boardroom_v3 visual system",
   "technicalQa": true,
   "manualReviewRequired": true,
-  "publicationAuthorized": false
+  "publicationAuthorized": false,
+  "qaRetry": "2026-10-24_audio_mastering_retry_after_peak_0dB"
 }
