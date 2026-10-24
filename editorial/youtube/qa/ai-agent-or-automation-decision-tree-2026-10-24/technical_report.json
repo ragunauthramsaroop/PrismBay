@@ -1,0 +1,34 @@
+{
+  "slug": "ai-agent-or-automation-decision-tree-2026-10-24",
+  "channelId": "UCw2hs85TzIpdKwJtG-BSxzQ",
+  "durationSeconds": 53.230408,
+  "videoCodec": "h264",
+  "audioCodec": "aac",
+  "width": 1080,
+  "height": 1920,
+  "audioMeanDb": -18.1,
+  "audioPeakDb": -0.0,
+  "ttsEngines": [
+    "piper"
+  ],
+  "originalVisualsDeclared": true,
+  "previewFrames": [
+    "editorial/youtube/qa/ai-agent-or-automation-decision-tree-2026-10-24/preview_01.jpg",
+    "editorial/youtube/qa/ai-agent-or-automation-decision-tree-2026-10-24/preview_02.jpg",
+    "editorial/youtube/qa/ai-agent-or-automation-decision-tree-2026-10-24/preview_03.jpg",
+    "editorial/youtube/qa/ai-agent-or-automation-decision-tree-2026-10-24/preview_04.jpg"
+  ],
+  "technicalChecks": {
+    "duration": true,
+    "dimensions": true,
+    "codecs": true,
+    "piperVoice": true,
+    "noDigitalClipping": false,
+    "soleChannel": true
+  },
+  "technicalPass": false,
+  "manualVisualReview": "PENDING",
+  "manualNarrationReview": "PENDING",
+  "publicationApproved": false,
+  "paidSpendUSD": 0
+}
