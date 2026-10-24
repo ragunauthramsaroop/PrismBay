@@ -1,0 +1,50 @@
+name: Nexus installable messaging validation
+on:
+  push:
+    branches:
+      - feature/nexus-offline-and-notification-foundation
+    paths:
+      - 'apps/nexus-messenger/**'
+      - '.github/workflows/nexus-offline-foundation-ci.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    defaults:
+      run:
+        working-directory: apps/nexus-messenger
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install
+        run: npm install --no-fund
+      - name: Unit tests
+        run: npm test
+      - name: Typecheck, icons, bundle and service worker
+        run: npm run build
+      - name: Install Chromium
+        run: npx playwright install --with-deps chromium
+      - name: Browser e2e on production assets (desktop/mobile)
+        run: npm run test:e2e
+      - name: Audit production dependencies
+        run: npm audit --omit=dev --audit-level=high
+      - name: Upload static website
+        uses: actions/upload-artifact@v4
+        with:
+          name: nexus-installable-web
+          path: apps/nexus-messenger/dist/
+          if-no-files-found: error
+      - name: Upload browser traces if failed
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nexus-installable-qa-traces
+          path: |
+            apps/nexus-messenger/test-results/
+            apps/nexus-messenger/playwright-report/
+          if-no-files-found: ignore
