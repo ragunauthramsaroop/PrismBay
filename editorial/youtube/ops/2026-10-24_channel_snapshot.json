@@ -1,0 +1,59 @@
+{
+  "checked_at": "2026-10-24T12:46:00-04:00",
+  "channel_id": "UCw2hs85TzIpdKwJtG-BSxzQ",
+  "handle": "@PrismBayAI",
+  "metricool_brand_id": 6945443,
+  "channel_match_verified": true,
+  "analytics": {
+    "source": "Metricool YouTube evolution",
+    "from": "2026-09-19",
+    "to": "2026-10-24 12:45 America/Guyana",
+    "subscribers": 7,
+    "views_in_reported_days": 496,
+    "days_with_view_data": 24,
+    "days_in_response": 36,
+    "qualified_watch_hours": null,
+    "qualified_shorts_views": null,
+    "notes": "Reported daily views are not necessarily equivalent to YPP-qualified views. Metricool published-video and all-video metrics returned no rows. Do not infer retention, video ranking, or watch hours."
+  },
+  "publication": {
+    "pending_count": 1,
+    "post_id": 404772290,
+    "post_uuid": "-7046766363549152145",
+    "scheduled_at": "2026-10-24T16:00:00-04:00",
+    "title": "AI Agent or Simple Automation? Use This 3-Way Decision Rule | PrismBay AI",
+    "type": "short",
+    "auto_publish": true,
+    "status": "PENDING",
+    "public_upload_confirmed_this_check": false,
+    "duplicate_scheduled": false
+  },
+  "production": {
+    "descript_project_id": "3de30d73-71c8-4e9d-9ccf-72faf3fb5d11",
+    "descript_active_jobs": 0,
+    "short_awaiting_listening_QA": "editorial/youtube/PB-AGENT-ACCESS-001-S2_2026-10-24_production.md",
+    "timely_longform_unrendered": "editorial/youtube/PB-MONITOR-001_2026-10-24_editorial_package.md",
+    "evergreen_longform_unrendered": "editorial/youtube/PB-ROI-030_longform_script.md",
+    "local_video_unavailable_in_this_runtime": true
+  },
+  "allocation": {
+    "priority_1": "Do not duplicate the already-scheduled 16:00 Short; check post status after publish time.",
+    "priority_2": "Quality review and render PB-MONITOR-001 as a source-attributed original long-form while October 20 report is timely.",
+    "priority_3": "Listen to and repair synthetic narration in PB-AGENT-ACCESS-001-S2 before considering a future slot spaced >=4 hours.",
+    "priority_4": "Render PB-ROI-030 as an evergreen long-form watch-time asset, prioritizing custom charts and human-verifiable arithmetic."
+  },
+  "tool_state": {
+    "opera": "requires interactive user input, unavailable unattended",
+    "exa": "free search credits exhausted (402); use public web sources",
+    "metricool": "connected and read access functioning",
+    "descript": "connected; no active jobs; do not duplicate",
+    "github": "connected"
+  },
+  "monetization": {
+    "ypp_guyana_availability_risk": "Official country list excludes Guyana, Studio Earn country status unverified",
+    "official_availability": "https://support.google.com/youtube/answer/7101720",
+    "official_2027_terms": "https://support.google.com/youtube/answer/12843009",
+    "no_paid_spend": true
+  },
+  "notification_event": false
+}
