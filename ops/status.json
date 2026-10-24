@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "checkedAt": "2026-10-24T23:13:00.870Z",
+  "checkedAt": "2026-10-24T23:13:22.554Z",
   "source": "GitHub Actions accountability evidence",
   "refreshPolicy": "Best-effort GitHub schedules. Static snapshot; refresh does not run agents.",
   "summary": {
@@ -56,14 +56,14 @@
       "workflow": "ceo-autonomous-recovery.yml",
       "status": "fail",
       "reason": "worker_stale",
-      "consequence": "probation",
-      "failureStreak": 2,
+      "consequence": "replace_route",
+      "failureStreak": 3,
       "runId": 40135203600,
       "runUrl": "https://github.com/ragunauthramsaroop/PrismBay/actions/runs/40135203600",
-      "runAgeMinutes": 93,
+      "runAgeMinutes": 94,
       "artifactName": null,
       "artifactBytes": null,
-      "remediation": null
+      "remediation": "reassigned_to_currently_operational_buyer_acquisition"
     },
     {
       "id": "paperclip-revenue",
