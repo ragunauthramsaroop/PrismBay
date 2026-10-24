@@ -135,6 +135,33 @@ export function buildDailyBrief({window,stripe,pages,workflow}){
  lines.push('','Source: GitHub Actions daily scheduled check. Financial figures appear only if the live Stripe API returned complete verified data.');
  return lines.join('\n')+'\n';
 }
+/** Public repo: publish only categorical evidence, no Stripe revenue, IDs or customer information. */
+export function buildPublicBrief({window,stripe,pages,workflow}){
+ const paid=stripe.state==='VERIFIED'?(stripe.successfulCharges>0?'PAID_ACTIVITY_DETECTED':'NO_PAID_ACTIVITY_IN_PERIOD'):'NOT_VERIFIED';
+ const links=Object.entries(pages).map(([url,p])=>'- '+url+': '+p.state+(p.httpStatus?' (HTTP '+p.httpStatus+')':''));
+ return [
+  '<!-- prismbay-daily:'+window.day+' -->',
+  '# PrismBay Daily Sales Status: '+window.day,
+  '',
+  'Public-safe operational report; confidential payment amounts and buyer records are never placed in this issue.',
+  '',
+  '- Live Stripe verification: **'+stripe.state+'**',
+  '- Paid activity during the reporting period: **'+paid+'**',
+  '- Buyer-acquisition workflow: **'+workflow.state+'**',
+  '- Independent human traffic measurement: **NOT_CONNECTED**',
+  '- Order-bound delivery verification: **NOT_VERIFIED**',
+  '',
+  '## Public buyer pages',
+  ...links,
+  '',
+  '## Next step',
+  stripe.state==='NOT_CONNECTED'?'Configure a restricted Stripe live read key as the repository secret PRISMBAY_STRIPE_REPORTING_KEY. Without the secret, payment status is unknown.':
+   paid==='PAID_ACTIVITY_DETECTED'?'Review the private Stripe dashboard, validate refunds and verify secure order-specific delivery.':'Improve qualified educational distribution and measure real buyer traffic without paid spend.',
+  '',
+  'Dashboard run details: https://github.com/'+REPO+'/actions/workflows/prismbay-daily-sales-brief.yml',
+  'A successful workflow is not evidence of sales. This public issue intentionally omits financial totals.'
+ ].join('\n')+'\n';
+}
 export async function run({now=new Date(),env=process.env,fetchImpl=fetch}={}){
  const window=previousGuyanaDay(now);
  const stripe=await readStripe(window,{apiKey:env.PRISMBAY_STRIPE_REPORTING_KEY,fetchImpl});
@@ -144,6 +171,7 @@ export async function run({now=new Date(),env=process.env,fetchImpl=fetch}={}){
  const markdown=buildDailyBrief({window,stripe,pages,workflow});
  await fs.mkdir('growth-reports',{recursive:true});
  await fs.writeFile('growth-reports/daily-revenue-brief.md',markdown);
+ await fs.writeFile('growth-reports/daily-revenue-public.md',buildPublicBrief({window,stripe,pages,workflow}));
  await fs.writeFile('growth-reports/daily-revenue-brief.json',JSON.stringify({
   day:window.day,period:{start:window.start,end:window.end},stripe,pages,workflow
  },null,2)+'\n');
