@@ -1,0 +1,44 @@
+{
+  "slug": "fsb-ai-governance-boardroom-2026-10-24",
+  "channelId": "UCw2hs85TzIpdKwJtG-BSxzQ",
+  "durationSeconds": 55.529206,
+  "videoCodec": "h264",
+  "audioCodec": "aac",
+  "width": 1080,
+  "height": 1920,
+  "audioMeanDb": -18.8,
+  "audioPeakDb": -0.0,
+  "ttsEngines": [
+    "piper"
+  ],
+  "originalVisualsDeclared": true,
+  "previewFrames": [
+    "editorial/youtube/qa/fsb-ai-governance-boardroom-2026-10-24/preview_01.jpg",
+    "editorial/youtube/qa/fsb-ai-governance-boardroom-2026-10-24/preview_02.jpg",
+    "editorial/youtube/qa/fsb-ai-governance-boardroom-2026-10-24/preview_03.jpg",
+    "editorial/youtube/qa/fsb-ai-governance-boardroom-2026-10-24/preview_04.jpg"
+  ],
+  "technicalChecks": {
+    "duration": true,
+    "dimensions": true,
+    "codecs": true,
+    "piperVoice": true,
+    "noDigitalClipping": false,
+    "soleChannel": true
+  },
+  "technicalPass": false,
+  "manualVisualReview": "PENDING",
+  "manualNarrationReview": "PENDING",
+  "publicationApproved": false,
+  "paidSpendUSD": 0,
+  "machineNarrationReview": {
+    "completed": true,
+    "model": "faster-whisper tiny.en CPU",
+    "scriptWordCount": 124,
+    "transcribedWordCount": 123,
+    "wordSequenceSimilarity": 0.955,
+    "intelligibilityProxyPass": true,
+    "transcript": "On October 15, the Financial Stability Board published 12 sound practices for responsible AI in financial institutions, their guidance, not a new law, here are three executive checks. First, identify the accountable owner who approves consequential actions. An AI agent's technical access is not business authorization, second, demand evidence, test performance before launch, track failures after launch, and document decisions. A confident answer is not proof of control. Third, test intervention. Can your team pause the workflow, revoke access, and recover when a vendor or agent fails. Pick one real AI workflow. Find its named owner, performance record, and tested stock procedure. Missing answers become management actions. Those are prism-based three checks inspired by the FSB guidance. Subscribe for practical AI business systems.",
+    "humanListeningReview": "NOT PERFORMED"
+  }
+}
