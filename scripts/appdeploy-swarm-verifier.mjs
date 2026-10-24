@@ -77,7 +77,9 @@ export function verifySwarmStatus(payload, { now = Date.now(), maxAgeMinutes = 1
     });
   }
 
-  const executionVerified = workers.length === REQUIRED_WORKERS.length
+  const uniqueExpectedReceipts = !reasons.some(reason =>
+    ['worker_rows_count_mismatch', 'duplicate_worker_ids', 'unexpected_worker_id'].includes(reason));
+  const executionVerified = uniqueExpectedReceipts && workers.length === REQUIRED_WORKERS.length
     && workers.every(worker => worker.present && worker.fresh && worker.runs > 0 && worker.executionEvidence);
   const healthy = executionVerified && reasons.length === 0;
 
