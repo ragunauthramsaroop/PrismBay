@@ -106,7 +106,7 @@ test('fails closed on supplier Open Graph image without blocking unrelated links
 const researchBuyer = buyer.replace(
   '<h1>Portable Garment Steamer</h1>',
   '<h1>Garment Care Device Under Review</h1><p>Research estimate only, not an offer to sell. No physical checkout.</p><p>Steaming function, electrical specifications and fabric suitability have not been independently verified.</p>'
-);
+).replace('<html>', '<html><body>').replace('</html>', '</body></html>');
 
 test('accepts the truthful research-stage buyer title only with visible non-offer disclosures', async () => {
   const report = await observeStorefront(fetcher({
@@ -133,6 +133,17 @@ test('fails closed when a research-stage buyer page implies a sellable offer', a
 test('research-stage title never permits direct Stripe checkout', async () => {
   const report = await observeStorefront(fetcher({
     [ORIGIN + '/garment-steamer/']: { body: researchBuyer + '<a href="https://checkout.stripe.com/test">Pay now</a>', type: 'text/html' }
+  }));
+  assert.equal(report.checks[2].ok, false);
+});
+
+test('research disclaimers in metadata alone never count as visible buyer disclosures', async () => {
+  const noVisibleDisclosures = researchBuyer
+    .replace(/<p>Research estimate only[^<]*<\/p>/i, '')
+    .replace(/<p>Steaming function[^<]*<\/p>/i, '')
+    .replace('<body>', '<head><meta name="description" content="Research estimate only, not an offer to sell. Steaming function, electrical specifications and fabric suitability have not been independently verified."></head><body>');
+  const report = await observeStorefront(fetcher({
+    [ORIGIN + '/garment-steamer/']: { body: noVisibleDisclosures, type: 'text/html' }
   }));
   assert.equal(report.checks[2].ok, false);
 });
