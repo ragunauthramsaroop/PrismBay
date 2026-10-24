@@ -52,7 +52,7 @@ test('reports buyer-route outage without losing other observations', async () =>
   }));
   assert.equal(report.healthy, false);
   assert.equal(report.checks[2].status, null);
-  assert.equal(report.checks.length, 4);
+  assert.equal(report.checks.length, 5);
 });
 
 test('HTML fallback cannot masquerade as CSS', async () => {
