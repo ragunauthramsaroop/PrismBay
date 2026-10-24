@@ -7,7 +7,7 @@ import StudioWorkbench from '~/components/creative-studio/StudioWorkbench';
 import { makePack } from '~/lib/creative-offer';
 import type { Brief, Pack } from '~/lib/creative-offer';
 import { addDraft, newDraft, parseDrafts, STORAGE_KEY, STARTER_TEMPLATES } from '~/lib/creative-workspace';
-import type { Palette, StarterTemplate, StudioDraft, StudioTool } from '~/lib/creative-workspace';
+import type { Palette as StudioPalette, StarterTemplate, StudioDraft, StudioTool } from '~/lib/creative-workspace';
 
 export const Route = createFileRoute('/creative-studio')({
  head:()=>({
@@ -83,7 +83,7 @@ function CreativeStudio(){
  const [pack,setPack]=useState<Pack|null>(null);
  const [drafts,setDrafts]=useState<StudioDraft[]>([]);
  const [current,setCurrent]=useState<StudioDraft|null>(null);
- const [palette,setPalette]=useState<Palette>('ocean');
+ const [palette,setPalette]=useState<StudioPalette>('ocean');
  const [hydrated,setHydrated]=useState(false);
  const [storageError,setStorageError]=useState(false);
  const [error,setError]=useState('');
