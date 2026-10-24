@@ -1,0 +1,35 @@
+1
+00:00:00,000 --> 00:00:03,900
+Your AI agent changed a supplier bank account without approval.
+
+2
+00:00:04,000 --> 00:00:06,450
+Do not ask the same agent to fix it.
+
+3
+00:00:06,460 --> 00:00:10,050
+First, suspend the agent's ability to write to the vendor system.
+
+4
+00:00:10,060 --> 00:00:16,180
+Next, preserve the action log, the original request, and the before-and-after record.
+
+5
+00:00:16,190 --> 00:00:23,150
+Ask the finance owner to verify the bank details independently and hold affected payments.
+
+6
+00:00:23,160 --> 00:00:29,150
+An agent's explanation is not proof. Check the actual system records.
+
+7
+00:00:29,160 --> 00:00:35,300
+This is a fictional example. Stop changes, preserve evidence,
+
+8
+00:00:35,310 --> 00:00:39,420
+and let accountable people decide the recovery.
+
+9
+00:00:39,430 --> 00:00:42,340
+PrismBay AI helps business leaders build practical AI systems.

@@ -1,0 +1,31 @@
+{
+  "target_channel": "UCw2hs85TzIpdKwJtG-BSxzQ",
+  "status": "RENDERED_FOR_QA_NOT_PUBLISHED",
+  "narration_source": "HeyGen free speech synthesis",
+  "originality": "custom drawn diagrams",
+  "voice_duration_seconds": 42.344469,
+  "ffprobe": {
+    "programs": [],
+    "streams": [
+      {
+        "codec_name": "h264",
+        "width": 1080,
+        "height": 1920
+      },
+      {
+        "codec_name": "aac"
+      }
+    ],
+    "format": {
+      "duration": "42.333333",
+      "size": "1439742"
+    }
+  },
+  "required_manual_checks": [
+    "listen for natural pronunciation and clipping",
+    "check captions and safe zones",
+    "check factual and visual originality",
+    "verify no copyrighted content",
+    "confirm channel schedule before publishing"
+  ]
+}
