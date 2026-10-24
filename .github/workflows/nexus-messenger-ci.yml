@@ -1,8 +1,9 @@
-name: Nexus Messenger isolated checks
+name: Nexus Messenger release gates
 on:
   push:
     branches:
       - feature/nexus-messenger-standalone-source
+      - ci/nexus-full-release-gates
     paths:
       - 'apps/nexus-messenger/**'
       - '.github/workflows/nexus-messenger-ci.yml'
@@ -10,9 +11,9 @@ on:
 permissions:
   contents: read
 jobs:
-  messenger-build:
+  release-validation:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 25
     defaults:
       run:
         working-directory: apps/nexus-messenger
@@ -24,11 +25,17 @@ jobs:
         with:
           node-version: '22'
       - name: Install
-        run: npm install --no-audit --no-fund
+        run: npm install --no-fund
       - name: Unit tests
         run: npm test
-      - name: Typecheck and bundle
+      - name: Typecheck and production build
         run: npm run build
+      - name: Install browser test dependencies
+        run: npx playwright install --with-deps chromium
+      - name: Desktop and mobile browser tests
+        run: npm run test:e2e
+      - name: Audit production dependencies
+        run: npm audit --omit=dev --audit-level=high
       - name: Upload compiled web app
         uses: actions/upload-artifact@v4
         with:
@@ -36,3 +43,12 @@ jobs:
           path: apps/nexus-messenger/dist/
           if-no-files-found: error
           retention-days: 14
+      - name: Save browser diagnostics on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nexus-messenger-browser-diagnostics
+          path: |
+            apps/nexus-messenger/test-results/
+            apps/nexus-messenger/playwright-report/
+          if-no-files-found: ignore
