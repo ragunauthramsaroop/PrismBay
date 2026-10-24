@@ -1,0 +1,34 @@
+name: Nexus premium prototype checks
+on:
+  push:
+    branches:
+      - feature/nexus-messenger-premium-prototype
+    paths:
+      - 'apps/nexus-messenger/**'
+      - '.github/workflows/nexus-premium-prototype-ci.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    defaults:
+      run:
+        working-directory: apps/nexus-messenger
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install
+        run: npm install --no-audit --no-fund
+      - name: Test
+        run: npm test
+      - name: Typecheck and build
+        run: npm run build
+      - uses: actions/upload-artifact@v4
+        with:
+          name: nexus-premium-prototype-dist
+          path: apps/nexus-messenger/dist/
+          if-no-files-found: error
