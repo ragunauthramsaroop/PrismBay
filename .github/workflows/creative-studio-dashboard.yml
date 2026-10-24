@@ -8,6 +8,7 @@ on:
       - "src/routes/creative-studio.tsx"
       - "scripts/test-creative-*.mjs"
       - ".github/workflows/creative-studio-dashboard.yml"
+      - "tsconfig.creative-studio.json"
   push:
     paths:
       - "src/components/creative-studio/**"
@@ -40,4 +41,4 @@ jobs:
       - name: Verify full PrismBay build
         run: bun run build
       - name: Type-check sources
-        run: bunx tsc --noEmit
+        run: bunx tsc --project tsconfig.creative-studio.json --noEmit
