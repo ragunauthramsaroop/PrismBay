@@ -1,0 +1,15 @@
+{
+  "extends": "./tsconfig.json",
+  "include": [
+    "src/lib/creative-offer.ts",
+    "src/lib/creative-workspace.ts",
+    "src/components/creative-studio/**/*.tsx"
+  ],
+  "exclude": [
+    "node_modules",
+    "src/routes"
+  ],
+  "compilerOptions": {
+    "noEmit": true
+  }
+}
