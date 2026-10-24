@@ -59,3 +59,48 @@ test('privacy notice states analytics is disabled by default', () => {
   assert.equal(notice.liveAnalytics, false);
   assert.equal(notice.customerPiiAllowed, false);
 });
+
+test('allowed analytics fields never leak embedded contact data or Stripe customer references', () => {
+  const safe = sanitizeCommerceProperties({
+    path: '/orders/person%40example.com',
+    source: 'call +592 608 4735',
+    stage: '127.0.0.1',
+    orderRef: 'cus_1234567890',
+    sku: 'CJYD245844002BY',
+    referrerHost: 'https://www.tiktok.com/click?email=person%40example.com'
+  });
+  assert.deepEqual(safe, { sku: 'CJYD245844002BY', referrerHost: 'www.tiktok.com' });
+});
+
+test('referrer host excludes URL paths, credentials and raw IPs', () => {
+  assert.deepEqual(sanitizeCommerceProperties({
+    referrerHost: 'https://tiktok.com/landing?customer=secret'
+  }), { referrerHost: 'tiktok.com' });
+  assert.deepEqual(sanitizeCommerceProperties({ referrerHost: 'https://user:secret@example.com/path' }), {});
+  assert.deepEqual(sanitizeCommerceProperties({ referrerHost: 'https://192.0.2.1/landing' }), {});
+});
+
+test('forged event with sensitive values in permitted fields fails validation', () => {
+  const event = createCommerceEvent('commerce_checkout_started', { sku: 'sku-1', path: '/products/brush' });
+  event.properties.path = '/orders/person%40example.com';
+  event.properties.source = 'contact +592 608 4735';
+  const result = validateCommerceEvent(event);
+  assert.equal(result.ok, false);
+  assert.ok(result.errors.includes('unsafe_value:path'));
+  assert.ok(result.errors.includes('unsafe_value:source'));
+});
+
+test('enabled adapter drops sensitive allowed-field values before capture', async () => {
+  let captured;
+  const adapter = createPostHogLikeAdapter({ enabled: true, captureFn: async event => { captured = event; } });
+  await adapter.capture('commerce_product_viewed', {
+    sku: 'CJYD245844002BY',
+    path: '/products/brush?email=person%40example.com',
+    source: 'person@example.com',
+    referrerHost: 'https://tiktok.com/path?phone=1234567890'
+  });
+  assert.equal(captured.properties.path, '/products/brush');
+  assert.equal(captured.properties.referrerHost, 'tiktok.com');
+  assert.equal('source' in captured.properties, false);
+  assert.equal(JSON.stringify(captured).includes('person'), false);
+});
