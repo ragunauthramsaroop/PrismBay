@@ -1,0 +1,77 @@
+name: PrismBay YouTube Originality QA
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'content/youtube/qa-requests/*.json'
+      - '.github/workflows/youtube-originality-qa.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: prismbay-youtube-qa-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  audit:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Audit video and generate preview evidence
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          import glob, json, subprocess, re
+          from pathlib import Path
+          for req in sorted(glob.glob('content/youtube/qa-requests/*.json')):
+              spec=json.loads(Path(req).read_text())
+              slug=spec['slug']
+              src=Path('public/youtube')/(slug+'.mp4')
+              meta=Path('public/youtube')/(slug+'.json')
+              dest=Path('editorial/youtube/qa')/slug
+              if (dest/'technical_report.json').exists():
+                  print('Preserving completed QA',slug)
+                  continue
+              if not src.exists() or not meta.exists():
+                  print('Awaiting media',slug)
+                  continue
+              dest.mkdir(parents=True,exist_ok=True)
+              info=json.loads(subprocess.check_output(['ffprobe','-v','error','-show_streams','-show_format','-of','json',str(src)],text=True))
+              streams=info['streams']
+              video=next((s for s in streams if s['codec_type']=='video'),{})
+              audio=next((s for s in streams if s['codec_type']=='audio'),{})
+              dur=float(info['format'].get('duration',0))
+              md=json.loads(meta.read_text())
+              frames=[]
+              for i,pct in enumerate((0.12,0.35,0.62,0.88),1):
+                  target=dest/f'preview_{i:02d}.jpg'
+                  subprocess.run(['ffmpeg','-hide_banner','-loglevel','error','-y','-ss',str(round(dur*pct,3)),'-i',str(src),'-frames:v','1','-vf','scale=360:640','-q:v','3',str(target)],check=True)
+                  frames.append(str(target))
+              v=subprocess.run(['ffmpeg','-hide_banner','-i',str(src),'-af','volumedetect','-vn','-f','null','-'],capture_output=True,text=True)
+              mean=re.search(r'mean_volume:\\s*(-?[0-9.]+) dB',v.stderr)
+              peak=re.search(r'max_volume:\\s*(-?[0-9.]+) dB',v.stderr)
+              duration_ok=18<=dur<=60
+              dimensions_ok=video.get('width')==1080 and video.get('height')==1920
+              codec_ok=video.get('codec_name')=='h264' and audio.get('codec_name')=='aac'
+              piper_only=md.get('ttsEngines')==['piper']
+              peak_db=float(peak.group(1)) if peak else None
+              no_clipping=peak_db is not None and peak_db<=-0.1
+              report={'slug':slug,'channelId':md.get('channelId'),'durationSeconds':dur,'videoCodec':video.get('codec_name'),'audioCodec':audio.get('codec_name'),'width':video.get('width'),'height':video.get('height'),'audioMeanDb':float(mean.group(1)) if mean else None,'audioPeakDb':peak_db,'ttsEngines':md.get('ttsEngines'),'originalVisualsDeclared':md.get('originalProgrammaticVisuals'),'previewFrames':frames,'technicalChecks':{'duration':duration_ok,'dimensions':dimensions_ok,'codecs':codec_ok,'piperVoice':piper_only,'noDigitalClipping':no_clipping,'soleChannel':md.get('channelId')=='UCw2hs85TzIpdKwJtG-BSxzQ'},'technicalPass':all((duration_ok,dimensions_ok,codec_ok,piper_only,no_clipping,md.get('channelId')=='UCw2hs85TzIpdKwJtG-BSxzQ')),'manualVisualReview':'PENDING','manualNarrationReview':'PENDING','publicationApproved':False,'paidSpendUSD':0}
+              (dest/'technical_report.json').write_text(json.dumps(report,indent=2)+'\\n')
+              print(json.dumps(report,indent=2))
+          PY
+      - name: Commit technical QA artifacts
+        run: |
+          git config user.name prismbay-ai-qa-bot
+          git config user.email actions@users.noreply.github.com
+          git add editorial/youtube/qa/
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m 'Record PrismBay YouTube media technical QA evidence'
+          git push origin HEAD:main
