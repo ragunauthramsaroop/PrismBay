@@ -210,7 +210,9 @@ def main():
         used = synthesize(spoken, wav, voice, voice_dir) if engine == 'piper' else synthesize(spoken, wav, '__missing__', voice_dir)
         used_engines.add(used)
         duration = max(1.0, wav_duration(wav) + 0.18)
-        frame = (render_frame_decision(segment, i, len(segments), spec.get('sourceAttribution', ''))\n                 if spec.get('visualStyle') == 'decision_tree_v2'\n                 else render_frame(segment, i, len(segments), spec.get('sourceAttribution', '')))
+        frame = (render_frame_decision(segment, i, len(segments), spec.get('sourceAttribution', ''))
+                 if spec.get('visualStyle') == 'decision_tree_v2'
+                 else render_frame(segment, i, len(segments), spec.get('sourceAttribution', '')))
         frame.save(png, optimize=True)
         fade_out = max(0.1, duration - 0.16)
         vf = (
