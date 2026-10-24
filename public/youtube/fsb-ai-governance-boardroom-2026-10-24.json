@@ -1,7 +1,7 @@
 {
   "slug": "fsb-ai-governance-boardroom-2026-10-24",
   "title": "New AI Governance Guidance: 3 Board Tests Before Deploying Agents | PrismBay AI",
-  "sha256": "1e327ee0d0ec9319752744f5b35d811422554483597e0525ed7df4038c4c5018",
+  "sha256": "8354e78e5e2652a8f7ca64c4ffc147ca6669199e96d6057d360488ed470df234",
   "ttsEngines": [
     "piper"
   ],
@@ -10,5 +10,6 @@
   "sourceAttribution": "Financial Stability Board, 15 October 2026, Sound Practices for Responsible Adoption of Artificial Intelligence. PrismBay's three checks are original interpretation, not FSB legal mandates.",
   "originalProgrammaticVisuals": true,
   "paidSpend": 0,
-  "channelId": "UCw2hs85TzIpdKwJtG-BSxzQ"
+  "channelId": "UCw2hs85TzIpdKwJtG-BSxzQ",
+  "audioMastering": "-3dB attenuation after near-clipping QA detection"
 }
