@@ -4,7 +4,7 @@
   "handle": "@PrismBayAI",
   "metricoolBrandId": 6945443,
   "createdAt": "2026-10-24",
-  "status": "RENDER_QUEUED_NOT_PUBLISHED",
+  "status": "SCHEDULED_NOT_PUBLISHED",
   "assetSlug": "ai-agent-or-automation-decision-tree-2026-10-24",
   "renderRequest": "content/youtube/requests/ai-agent-or-automation-decision-tree-2026-10-24.json",
   "expectedMedia": "public/youtube/ai-agent-or-automation-decision-tree-2026-10-24.mp4",
@@ -48,10 +48,32 @@
     "Confirm no matching scheduled/published post before creating schedule"
   ],
   "publishing": {
-    "scheduled": false,
+    "scheduled": true,
     "published": false,
-    "metricoolPostId": null,
-    "publicUrl": null
+    "metricoolPostId": 404772290,
+    "metricoolUuid": "-7046766363549152145",
+    "scheduledAt": "2026-10-24T16:00:00-04:00",
+    "plannerUrl": "https://app.metricool.com/planner/calendar?blogId=6945443&openWithPostUuid=-7046766363549152145",
+    "status": "PENDING",
+    "publicUrl": null,
+    "readbackVerified": true
   },
-  "costUsd": 0
+  "costUsd": 0,
+  "mediaSha256": "8ea56195e6f5cf685c7ecf9a59a6eb3ffe329ac3d271e152d751c22d770f9c78",
+  "actualMediaUrl": "https://static.metricool.com/planner/202610/6945443-file-14729393411961423069.mp4",
+  "qa": {
+    "technicalPass": true,
+    "visualSamplePass": true,
+    "asrSimilarity": 0.97,
+    "audioPeakDb": -3,
+    "publicationApproved": true,
+    "humanListeningReview": "not performed",
+    "reportPath": "editorial/youtube/qa/ai-agent-or-automation-decision-tree-2026-10-24/technical_report.json"
+  },
+  "reviewAt": {
+    "sixHours": "2026-10-24T22:00:00-04:00",
+    "twentyFourHours": "2026-10-25T16:00:00-04:00",
+    "seventyTwoHours": "2026-10-27T16:00:00-04:00",
+    "sevenDays": "2026-10-31T16:00:00-04:00"
+  }
 }
