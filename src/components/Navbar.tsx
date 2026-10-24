@@ -7,6 +7,7 @@ const NAV_LINKS = [
   { to: "/bundles", label: "Bundles" },
   { to: "/compare", label: "Compare" },
   { to: "/demo", label: "Demos" },
+  { to: "/creative-studio", label: "Creative Studio" },
   { to: "/watch", label: "Watch" },
   { to: "/resources", label: "Resources" },
   { to: "/pricing", label: "Pricing" },
@@ -61,6 +62,7 @@ export default function Navbar() {
           >
             Demos
           </Link>
+          <Link to="/creative-studio" className="text-sm font-semibold text-indigo-700 transition-colors hover:text-indigo-900">Creative Studio</Link>
           <Link to="/watch" className="text-sm font-medium text-neutral-600 transition-colors hover:text-neutral-900">Watch</Link>
           <Link
             to="/resources"
