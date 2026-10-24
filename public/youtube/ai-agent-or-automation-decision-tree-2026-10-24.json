@@ -1,7 +1,7 @@
 {
   "slug": "ai-agent-or-automation-decision-tree-2026-10-24",
   "title": "AI Agent or Simple Automation? Use This 3-Way Decision Rule | PrismBay AI",
-  "sha256": "f567bb6f239ff1185e571eb08c1bb3c4e039294135ace7b741eab223ffba48f3",
+  "sha256": "8ea56195e6f5cf685c7ecf9a59a6eb3ffe329ac3d271e152d751c22d770f9c78",
   "ttsEngines": [
     "piper"
   ],
@@ -10,5 +10,6 @@
   "sourceAttribution": "Original PrismBay decision framework; NIST AI RMF governance context: https://airc.nist.gov/airmf-resources/airmf/5-sec-core/",
   "originalProgrammaticVisuals": true,
   "paidSpend": 0,
-  "channelId": "UCw2hs85TzIpdKwJtG-BSxzQ"
+  "channelId": "UCw2hs85TzIpdKwJtG-BSxzQ",
+  "audioMastering": "-3dB attenuation after near-clipping QA detection"
 }

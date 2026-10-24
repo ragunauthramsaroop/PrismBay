@@ -1,13 +1,13 @@
 {
   "slug": "ai-agent-or-automation-decision-tree-2026-10-24",
   "channelId": "UCw2hs85TzIpdKwJtG-BSxzQ",
-  "durationSeconds": 53.230408,
+  "durationSeconds": 53.23,
   "videoCodec": "h264",
   "audioCodec": "aac",
   "width": 1080,
   "height": 1920,
-  "audioMeanDb": -18.1,
-  "audioPeakDb": -0.0,
+  "audioMeanDb": -21.1,
+  "audioPeakDb": -3.0,
   "ttsEngines": [
     "piper"
   ],
@@ -23,10 +23,10 @@
     "dimensions": true,
     "codecs": true,
     "piperVoice": true,
-    "noDigitalClipping": false,
+    "noDigitalClipping": true,
     "soleChannel": true
   },
-  "technicalPass": false,
+  "technicalPass": true,
   "manualVisualReview": "PENDING",
   "manualNarrationReview": "PENDING",
   "publicationApproved": false,
