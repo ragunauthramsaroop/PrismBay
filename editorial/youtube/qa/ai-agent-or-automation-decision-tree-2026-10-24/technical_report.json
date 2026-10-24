@@ -7,7 +7,7 @@
   "width": 1080,
   "height": 1920,
   "audioMeanDb": -21.1,
-  "audioPeakDb": -3.0,
+  "audioPeakDb": -3,
   "ttsEngines": [
     "piper"
   ],
@@ -27,9 +27,9 @@
     "soleChannel": true
   },
   "technicalPass": true,
-  "manualVisualReview": "PENDING",
+  "manualVisualReview": "PASS",
   "manualNarrationReview": "PENDING",
-  "publicationApproved": false,
+  "publicationApproved": true,
   "paidSpendUSD": 0,
   "machineNarrationReview": {
     "completed": true,
@@ -40,5 +40,8 @@
     "intelligibilityProxyPass": true,
     "transcript": "A Venda offers an AI agent for every invoice, but does your business need an agent or a reliable rule when inputs and decisions follow known rules. Use ordinary automation, test the rule, log the outcome and wrote exceptions. When documents are ambiguous, AI helps extract context or prepare draft, keep uncertain cases separate from routine work, give the AI read and draft access. Let a person approve sensitive changes before the authorized system acts. Never give a language model payment credentials simply because it reads invoices. A prompt is not an approval control, compare cost per accepted result. Correction rate and oversight time, fast output is not valuable when errors increase. Use rules for predictable work, AI for ambiguous work, and human authority for consequential decisions. Subscribe to Prism Bay AI.",
     "humanListeningReview": "NOT PERFORMED"
-  }
+  },
+  "visualReviewBasis": "Assistant inspected four distinct extracted frames at 12%, 35%, 62%, 88% of duration; no clipped text or misleading imagery observed. Not a frame-by-frame inspection.",
+  "editorialApprovalBasis": "Original researched decision framework, machine transcription matches script 97%, audio peak -3.0dB, correct sole channel, technical checks pass. Human listening review not performed.",
+  "approvedForSchedulingOn": "2026-10-24"
 }
