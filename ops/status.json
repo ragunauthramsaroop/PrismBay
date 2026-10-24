@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "checkedAt": "2026-10-24T02:27:57.943Z",
+  "checkedAt": "2026-10-24T03:17:40.355Z",
   "source": "GitHub Actions accountability evidence",
   "refreshPolicy": "Best-effort GitHub schedules. Static snapshot; refresh does not run agents.",
   "summary": {
@@ -24,7 +24,7 @@
       "failureStreak": 0,
       "runId": 40051917283,
       "runUrl": "https://github.com/ragunauthramsaroop/PrismBay/actions/runs/40051917283",
-      "runAgeMinutes": 33,
+      "runAgeMinutes": 83,
       "artifactName": "buyer-acquisition-40051917283",
       "artifactBytes": 16844,
       "remediation": null
@@ -42,7 +42,7 @@
       "failureStreak": 0,
       "runId": 40024168268,
       "runUrl": "https://github.com/ragunauthramsaroop/PrismBay/actions/runs/40024168268",
-      "runAgeMinutes": 323,
+      "runAgeMinutes": 372,
       "artifactName": "prismbay-external-traffic-40024168268",
       "artifactBytes": 799888,
       "remediation": null
@@ -60,7 +60,7 @@
       "failureStreak": 0,
       "runId": 40051835251,
       "runUrl": "https://github.com/ragunauthramsaroop/PrismBay/actions/runs/40051835251",
-      "runAgeMinutes": 34,
+      "runAgeMinutes": 84,
       "artifactName": "prismbay-ceo-recovery-40051835251",
       "artifactBytes": 57674,
       "remediation": null
@@ -78,7 +78,7 @@
       "failureStreak": 0,
       "runId": 40046640436,
       "runUrl": "https://github.com/ragunauthramsaroop/PrismBay/actions/runs/40046640436",
-      "runAgeMinutes": 101,
+      "runAgeMinutes": 151,
       "artifactName": "prismbay-paperclip-revenue-40046640436",
       "artifactBytes": 5870,
       "remediation": null
@@ -94,8 +94,8 @@
       "reason": "operational_run_in_progress",
       "consequence": "none",
       "failureStreak": 0,
-      "runId": 40054277242,
-      "runUrl": "https://github.com/ragunauthramsaroop/PrismBay/actions/runs/40054277242",
+      "runId": 40057711736,
+      "runUrl": "https://github.com/ragunauthramsaroop/PrismBay/actions/runs/40057711736",
       "runAgeMinutes": 0,
       "artifactName": null,
       "artifactBytes": null,
