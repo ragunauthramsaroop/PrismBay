@@ -58,7 +58,7 @@ function AppLogo({ large = false }: { large?: boolean }) {
   </div>;
 }
 
-function Login({ onLoggedIn }: { onLoggedIn: (session: Session) => void }) {
+function Login({ onLoggedIn, onPreview }: { onLoggedIn: (session: Session) => void; onPreview: () => void }) {
   const [homeserver, setHomeserver] = useState(getPreferredHomeserver);
   const [userId, setUserId] = useState('');
   const [password, setPassword] = useState('');
@@ -109,6 +109,7 @@ function Login({ onLoggedIn }: { onLoggedIn: (session: Session) => void }) {
           {error && <div className="form-error" role="alert">{error}</div>}
           <button className="btn btn-primary login-submit" type="submit" disabled={working}>{working ? <LoaderCircle size={17} className="spin" /> : <>Connect securely <ArrowRight size={17} /></>}</button>
         </form>
+        <button className="btn btn-outline login-submit" type="button" onClick={onPreview} style={{ marginTop: 12 }}><Sparkles size={17}/> Explore the new Nexus prototype <ArrowRight size={17}/></button>
         <div className="login-foot"><LockKeyhole size={14} /> Your password is sent to your selected homeserver. Nexus does not store passwords.</div>
       </section>
     </div>
@@ -116,7 +117,7 @@ function Login({ onLoggedIn }: { onLoggedIn: (session: Session) => void }) {
   </main>;
 }
 
-export default function App() {
+export default function App({ onPreview }: { onPreview: () => void }) {
   const [session, setSession] = useState<Session | null>(getStoredSession);
   const [client, setClient] = useState<MatrixClient | null>(null);
   const clientRef = useRef<MatrixClient | null>(null);
@@ -257,7 +258,7 @@ export default function App() {
     if (active) { try { await active.logout(); } catch { /* local session already cleared */ } active.stopClient(); }
   }
 
-  if (!session) return <Login onLoggedIn={(data) => { setError(''); setSession(data); }} />;
+  if (!session) return <Login onPreview={onPreview} onLoggedIn={(data) => { setError(''); setSession(data); }} />;
 
   return <main className="app-shell">
     <aside className={`sidebar ${mobileSidebar ? 'sidebar-open' : ''}`}>
@@ -282,6 +283,7 @@ export default function App() {
         })}
       </div>
       <div className="sidebar-bottom">
+        <button className="signout-btn" type="button" onClick={onPreview}><Sparkles size={16}/> Explore next-gen prototype</button>
         <div className="side-account"><Avatar name={session.userId} size="small" /><span><strong>{session.userId.split(':')[0]}</strong><small>{new URL(session.homeserver).host}</small></span><span className={`status-dot ${status}`} title={status} /></div>
         <button className="signout-btn" type="button" onClick={signOut}><LogOut size={16} /> Sign out</button>
       </div>

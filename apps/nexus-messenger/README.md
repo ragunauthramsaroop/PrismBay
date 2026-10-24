@@ -65,3 +65,17 @@ This application's code is independent and uses Matrix via its public SDK depend
 ## GitHub automation
 
 See `docs/GITHUB_IMPORT.md` for repository import and automatic CI/Dependabot configuration.
+
+## Next-generation interactive prototype
+
+Use the **Explore the new Nexus prototype** button on the login page, or navigate to `/#prototype` on the deployed site. This is a self-contained and mobile-responsive product demonstration with five sections:
+
+- **Chats**: search and filter locally seeded conversations; create a conversation; send a local demo message; convert the conversation into a local follow-up task.
+- **Flow**: add tasks, mark actions complete or incomplete, and track pending work by personal and work context.
+- **Spaces**: create a demonstration community and join or leave example spaces.
+- **Calls**: generate a unique link to Jitsi Meet. The live meeting is hosted by Jitsi, not by Nexus, and opens in a separate tab.
+- **You**: switch dark/bright appearance, compact density, quiet/low-data preferences, export JSON demo data, or reset the local workspace.
+
+Personal/Work modes separate local sample conversations and tasks. State is persisted in `localStorage` under `nexus-next-prototype-v1` and remains on the same browser. **Demo messages do not reach real users or the Matrix network.** Demo settings do not alter the Matrix client's actual cryptographic or notification policy.
+
+The existing Matrix sign-in and authenticated chat application remain operational through the ordinary root route; entering/leaving prototype mode mounts/unmounts the Matrix client cleanly. This preview is intended for UX validation and testing before backend integration. It is not a security-audited messenger or a production mobile app. Do not share private information in the external Jitsi meeting unless you accept that provider's privacy and security terms.
