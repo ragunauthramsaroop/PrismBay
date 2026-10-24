@@ -103,7 +103,7 @@ jobs:
           python3 -m venv .qa-venv
           .qa-venv/bin/pip install -q --disable-pip-version-check faster-whisper
           .qa-venv/bin/python - <<'PY'
-          import glob, json, re, difflib
+          import glob, json, re, difflib, subprocess, numpy as np
           from pathlib import Path
           from faster_whisper import WhisperModel
           model=WhisperModel('tiny.en',device='cpu',compute_type='int8')
@@ -121,7 +121,8 @@ jobs:
                   continue
               approved=json.loads(script.read_text())
               expected=' '.join(x['spoken'] for x in approved['segments'])
-              segments,info=model.transcribe(str(src),language='en',beam_size=5,vad_filter=True)
+              pcm=subprocess.check_output(['ffmpeg','-hide_banner','-loglevel','error','-i',str(src),'-vn','-f','f32le','-ac','1','-ar','16000','-'])
+              segments,info=model.transcribe(np.frombuffer(pcm,dtype=np.float32),language='en',beam_size=5,vad_filter=True)
               heard=' '.join(x.text.strip() for x in segments)
               score=difflib.SequenceMatcher(None,norm(expected),norm(heard)).ratio()
               q['machineNarrationReview']={'completed':True,'model':'faster-whisper tiny.en CPU','scriptWordCount':len(norm(expected)),'transcribedWordCount':len(norm(heard)),'wordSequenceSimilarity':round(score,3),'intelligibilityProxyPass':score>=0.72,'transcript':heard,'humanListeningReview':'NOT PERFORMED'}
