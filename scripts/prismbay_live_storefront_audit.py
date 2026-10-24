@@ -80,6 +80,13 @@ async def audit(strict=True):
     # no customer data, CJ supplier calls, payment or database writes.
     try:
       live_page=await page.goto(LIVE+'/quote',wait_until='domcontentloaded',timeout=30000)
+      # Floot serves a React SPA: document DOMContentLoaded can happen before
+      # the customer form renders. Wait for both product copy and CTA.
+      await page.wait_for_function("""() => {
+        const body = (document.body?.innerText || '').toLowerCase();
+        return body.includes('portable garment steamer') &&
+          body.includes('request manual review');
+      }""", timeout=20000)
       live_text=(await page.locator('body').inner_text()).lower()
       live_service['buyerPageStatus']=live_page.status if live_page else 0
       live_service['buyerPageHasProduct']='portable garment steamer' in live_text
