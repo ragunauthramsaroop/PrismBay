@@ -84,3 +84,46 @@ test('accepts a JSON endpoint only after validating the worker receipts inside i
   assert.equal(report.executionVerified, true);
   assert.equal(report.healthy, true);
 });
+
+test('rejects duplicate or unexpected worker receipts even when the claimed count is six', () => {
+  const duplicate = healthyPayload();
+  duplicate.workers.push({ ...duplicate.workers[0] });
+  const duplicateReport = verifySwarmStatus(duplicate, { now });
+  assert.equal(duplicateReport.executionVerified, false);
+  assert.equal(duplicateReport.healthy, false);
+  assert.ok(duplicateReport.reasons.includes('duplicate_worker_ids'));
+  assert.ok(duplicateReport.reasons.includes('worker_rows_count_mismatch'));
+
+  const unknown = healthyPayload();
+  unknown.workers[5].id = 'unrecognized-worker';
+  const unknownReport = verifySwarmStatus(unknown, { now });
+  assert.equal(unknownReport.executionVerified, false);
+  assert.ok(unknownReport.reasons.includes('unexpected_worker_id'));
+  assert.ok(unknownReport.reasons.includes('worker_missing:analytics-experiment'));
+
+  const miscount = healthyPayload();
+  miscount.workerCount = 99;
+  const miscountReport = verifySwarmStatus(miscount, { now });
+  assert.equal(miscountReport.executionVerified, false);
+  assert.ok(miscountReport.reasons.includes('worker_count_mismatch'));
+});
+
+test('requires typed positive integer run and inspection receipts', () => {
+  const payload = healthyPayload();
+  payload.workers[0].runs = '8';
+  payload.workers[1].lastInspectionCount = '3';
+  payload.workers[1].lastActionCount = '2';
+  const report = verifySwarmStatus(payload, { now });
+  assert.equal(report.executionVerified, false);
+  assert.ok(report.reasons.includes('worker_never_ran:commerce-controller'));
+  assert.ok(report.reasons.includes('worker_no_output_evidence:product-scout'));
+});
+
+test('backend sales claims are not counted as live Stripe paid transactions', () => {
+  const payload = healthyPayload();
+  payload.verifiedSales = 500;
+  const report = verifySwarmStatus(payload, { now });
+  assert.equal(report.verifiedSales, null);
+  assert.equal(report.backendReportedSalesUnverified, 500);
+  assert.equal(report.executionVerified, true);
+});
