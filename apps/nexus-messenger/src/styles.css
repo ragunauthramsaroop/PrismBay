@@ -26,3 +26,9 @@
 .reply-preview span{display:flex;align-items:center;gap:7px;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .reply-preview button{background:transparent;border:0;color:#c8c3f6;cursor:pointer;padding:4px}
 @media(max-width:760px){.message-actions button{width:34px;height:34px}.reply-preview{margin-bottom:7px}.history-actions{padding-top:10px}}
+
+/* Foreground desktop alerts: optional, never show message content in OS notices. */
+.notify-button{display:inline-flex;align-items:center;gap:6px;border:1px solid #3a4058;background:transparent;color:#abaad8;border-radius:8px;padding:8px 10px;font-size:11px;cursor:pointer;min-height:35px}
+.notify-button:hover{color:#fff;background:#252c40}
+.notify-button:focus-visible{outline:3px solid #a3a0ee;outline-offset:3px}
+@media(max-width:760px){.notify-button{width:36px;height:36px;justify-content:center;padding:0}.notify-button span{display:none}}
