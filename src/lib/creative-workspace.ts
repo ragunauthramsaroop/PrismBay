@@ -1,4 +1,4 @@
-import { escapeHtml, makePack } from './creative-offer';
+import { escapeHtml, makePack } from './creative-offer.ts';
 import type { Brief, Channel } from './creative-offer';
 
 /** Local-only user drafts; no account sync or server persistence. */
