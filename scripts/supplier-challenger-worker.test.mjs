@@ -44,3 +44,18 @@ test('three independent economics-passing routes eliminate concentration deficit
  assert.equal(result.supplierConcentrationRisk,'low');
  assert.equal(result.replacementSourcingRequired,false);
 });
+
+
+test('country-level freight screening never becomes buyer-ZIP or promotion approval',()=>{
+ const route={productId:'supplier',variantId:'variant',productCostUsd:2,screeningFreightUsd:3,screenedLandedUsd:5,stockVerified:true,freightVerified:true};
+ const result=compareMappedToChallengers({candidate:{slug:'steamer'},retailPriceUsd:20,mapped:route,challengers:[{...route,productId:'alternative'}]});
+ assert.equal(result.screeningQualifiedRouteCount,2);
+ assert.equal(result.commerciallyApprovedRouteCount,0);
+ assert.equal(result.commercialPromotionAllowed,false);
+ assert.equal(result.routePromotionCandidatesResearchOnly,true);
+ assert.equal(result.mapped.freightScreeningVerified,true);
+ for(const candidate of [result.mapped,...result.verifiedRoutes,...result.routePromotionCandidates]){
+  assert.equal(candidate.exactDestinationFreightVerified,false);
+  assert.equal(candidate.commercialPromotionAllowed,false);
+ }
+});
