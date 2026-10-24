@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "checkedAt": "2026-10-24T16:12:07.555Z",
+  "checkedAt": "2026-10-24T16:54:43.709Z",
   "priority": "paid_sales_from_verified_existing_offers",
   "activeOffer": {
     "slug": "whitepaper",
@@ -10,6 +10,16 @@
     "checkoutUrl": "https://buy.stripe.com/bJe7sMgq25hNcCe6SAgnK0s?client_reference_id=owned_content_whitepaper"
   },
   "positioning": "baseline",
+  "commercialEvidence": {
+    "technicalPathHealthy": true,
+    "trafficStatus": "UNMEASURED",
+    "paymentStatus": "STRIPE_DATA_NOT_CONNECTED",
+    "deliveryStatus": "NOT_VERIFIED",
+    "revenueVerified": false,
+    "firstSaleVerified": false,
+    "nextAction": "MEASURE_EXTERNAL_BUYER_TRAFFIC",
+    "note": "GitHub link checks and generated content are not evidence of buyers, actual Stripe payments or delivered orders."
+  },
   "freeLLM": {
     "status": "not_configured",
     "workerMode": "deterministic_fallback",
@@ -35,5 +45,5 @@
     "revenueClaimed": false,
     "note": "This GitHub control plane can verify acquisition and checkout readiness, but a real paid Stripe event is required before a sale or revenue is reported."
   },
-  "nextAction": "Keep the 30-minute acquisition loop active, refresh owned buyer pages when strategy changes, and drive qualified organic traffic to the verified Stripe checkout."
+  "nextAction": "Technical buyer path is online. Measure genuine external visits and actual Stripe paid events, verify order-bound delivery, then distribute the free buyer tool through approved channels."
 }
