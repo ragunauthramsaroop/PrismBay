@@ -78,3 +78,27 @@ test('homepage outage does not fabricate healthy storefront', async () => {
   assert.equal(report.healthy, false);
   assert.ok(report.checks.every(check => !check.ok));
 });
+
+test('fails closed when canonical homepage embeds unlicensed supplier imagery', async () => {
+  const supplierHome = home.replace('</body>', '<img src="https://oss-cf.cjdropshipping.com/product/example.jpg" alt="supplier"></body>');
+  const report = await observeStorefront(fetcher({
+    [ORIGIN + '/']: { body: supplierHome, type: 'text/html' }
+  }));
+  assert.equal(report.healthy, false);
+  assert.equal(report.checks[0].reason, 'supplier_media_rights_unverified');
+  assert.equal(report.checks[2].ok, true);
+});
+
+test('fails closed on supplier Open Graph image without blocking unrelated links', async () => {
+  const supplierBuyer = buyer.replace('</html>', '<meta property="og:image" content="https://oss-cf.cjdropshipping.com/media/example.jpg"></html>');
+  const report = await observeStorefront(fetcher({
+    [ORIGIN + '/garment-steamer/']: { body: supplierBuyer, type: 'text/html' }
+  }));
+  assert.equal(report.checks[2].ok, false);
+  assert.equal(report.checks[2].reason, 'supplier_media_rights_unverified');
+  const harmless = buyer.replace('</html>', '<a href="https://www.cjdropshipping.com/">Supplier</a></html>');
+  const noMedia = await observeStorefront(fetcher({
+    [ORIGIN + '/garment-steamer/']: { body: harmless, type: 'text/html' }
+  }));
+  assert.equal(noMedia.healthy, true);
+});
