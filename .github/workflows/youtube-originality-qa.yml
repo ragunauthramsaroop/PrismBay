@@ -55,8 +55,8 @@ jobs:
                   subprocess.run(['ffmpeg','-hide_banner','-loglevel','error','-y','-ss',str(round(dur*pct,3)),'-i',str(src),'-frames:v','1','-vf','scale=360:640','-q:v','3',str(target)],check=True)
                   frames.append(str(target))
               v=subprocess.run(['ffmpeg','-hide_banner','-i',str(src),'-af','volumedetect','-vn','-f','null','-'],capture_output=True,text=True)
-              mean=re.search(r'mean_volume:\\s*(-?[0-9.]+) dB',v.stderr)
-              peak=re.search(r'max_volume:\\s*(-?[0-9.]+) dB',v.stderr)
+              mean=re.search(r'mean_volume:\s*(-?[0-9.]+) dB',v.stderr)
+              peak=re.search(r'max_volume:\s*(-?[0-9.]+) dB',v.stderr)
               duration_ok=18<=dur<=60
               dimensions_ok=video.get('width')==1080 and video.get('height')==1920
               codec_ok=video.get('codec_name')=='h264' and audio.get('codec_name')=='aac'
@@ -64,7 +64,7 @@ jobs:
               peak_db=float(peak.group(1)) if peak else None
               no_clipping=peak_db is not None and peak_db<=-0.1
               report={'slug':slug,'channelId':md.get('channelId'),'durationSeconds':dur,'videoCodec':video.get('codec_name'),'audioCodec':audio.get('codec_name'),'width':video.get('width'),'height':video.get('height'),'audioMeanDb':float(mean.group(1)) if mean else None,'audioPeakDb':peak_db,'ttsEngines':md.get('ttsEngines'),'originalVisualsDeclared':md.get('originalProgrammaticVisuals'),'previewFrames':frames,'technicalChecks':{'duration':duration_ok,'dimensions':dimensions_ok,'codecs':codec_ok,'piperVoice':piper_only,'noDigitalClipping':no_clipping,'soleChannel':md.get('channelId')=='UCw2hs85TzIpdKwJtG-BSxzQ'},'technicalPass':all((duration_ok,dimensions_ok,codec_ok,piper_only,no_clipping,md.get('channelId')=='UCw2hs85TzIpdKwJtG-BSxzQ')),'manualVisualReview':'PENDING','manualNarrationReview':'PENDING','publicationApproved':False,'paidSpendUSD':0}
-              (dest/'technical_report.json').write_text(json.dumps(report,indent=2)+'\\n')
+              (dest/'technical_report.json').write_text(json.dumps(report,indent=2)+'\n')
               print(json.dumps(report,indent=2))
           PY
       - name: Commit technical QA artifacts
