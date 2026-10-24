@@ -108,6 +108,71 @@ def render_frame(segment, index, total, source):
     return img
 
 
+
+def render_frame_decision(segment, index, total, source):
+    """Original diagram-led editorial visual system, distinct from the legacy card template."""
+    img = Image.new('RGB', (WIDTH, HEIGHT), (7, 14, 28))
+    d = ImageDraw.Draw(img)
+    cyan, lime, amber, red = (86, 225, 239), (180, 244, 156), (255, 195, 95), (255, 112, 115)
+    white, pale = (246, 250, 255), (181, 197, 215)
+    for yy in range(0, HEIGHT, 80):
+        d.line((0, yy, WIDTH, yy), fill=(16, 30, 48), width=1)
+    for xx in range(0, WIDTH, 80):
+        d.line((xx, 0, xx, HEIGHT), fill=(16, 30, 48), width=1)
+    d.rectangle((0, 0, WIDTH, 22), fill=cyan)
+    d.text((80, 82), 'PRISMBAY  /  AI SYSTEMS', font=font(33, True), fill=cyan)
+    d.text((80, 151), 'ARCHITECTURE DECISION  •  FIELD GUIDE', font=font(22, True), fill=pale)
+    d.line((80, 218, 1000, 218), fill=(70, 94, 119), width=2)
+    headline = wrap(segment.get('headline', ''), 22)
+    d.multiline_text((80, 290), headline, font=font(65, True), fill=white, spacing=14)
+    scene = segment.get('scene', 'decision')
+    def card(x1, y1, x2, y2, label, border, fill=(15, 32, 51), fsize=43):
+        d.rounded_rectangle((x1, y1, x2, y2), radius=30, fill=fill, outline=border, width=5)
+        box = d.textbbox((0, 0), label, font=font(fsize, True))
+        tw, th = box[2]-box[0], box[3]-box[1]
+        d.text(((x1+x2-tw)/2, (y1+y2-th)/2-6), label, font=font(fsize, True), fill=white)
+    if scene == 'hook':
+        card(78, 690, 500, 1030, 'RULES', cyan, fsize=63)
+        card(580, 690, 1002, 1030, 'AI AGENT', amber, fsize=53)
+        d.text((510, 825), 'OR', font=font(36, True), fill=pale)
+        card(135, 1110, 945, 1250, 'MATCH THE TOOL TO THE TASK', lime, fsize=32)
+    elif scene == 'rules':
+        for y, label in [(630, 'KNOWN INPUT'), (855, 'TESTABLE RULE'), (1080, 'AUTOMATIC ROUTE')]:
+            card(160, y, 920, y+148, label, cyan, fsize=46)
+        d.line((540, 782, 540, 855), fill=lime, width=10)
+        d.line((540, 1007, 540, 1080), fill=lime, width=10)
+    elif scene == 'split':
+        card(80, 650, 1000, 855, 'ROUTINE CASE  →  RULES', lime, fsize=44)
+        card(80, 950, 1000, 1155, 'AMBIGUOUS CASE  →  AI DRAFT', amber, fsize=38)
+        d.text((180, 1230), 'Different inputs. Different controls.', font=font(33), fill=pale)
+    elif scene == 'draft':
+        card(95, 690, 460, 900, 'READ', cyan, fsize=49)
+        card(620, 690, 985, 900, 'DRAFT', amber, fsize=49)
+        d.line((470, 800, 610, 800), fill=lime, width=10)
+        card(180, 1030, 900, 1225, 'HUMAN REVIEWS', lime, fsize=50)
+    elif scene == 'risk':
+        card(125, 660, 955, 915, 'AI ASSISTANT', cyan, fsize=58)
+        d.line((540, 922, 540, 1105), fill=red, width=13)
+        d.line((340, 1015, 740, 1015), fill=red, width=20)
+        card(185, 1110, 895, 1285, 'PAYMENT BLOCKED', red, fsize=45)
+    elif scene == 'score':
+        for y, label, col in [(610, 'COST PER ACCEPTED RESULT', cyan), (835, 'ERRORS AND REWORK', amber), (1060, 'HUMAN ACCOUNTABILITY', lime)]:
+            card(90, y, 990, y+155, label, col, fsize=34)
+    elif scene == 'close':
+        card(100, 640, 980, 845, 'RULES FIRST', cyan, fsize=69)
+        card(100, 915, 980, 1120, 'AI FOR EXCEPTIONS', amber, fsize=52)
+        d.text((235, 1240), 'Keep authority with people.', font=font(37, True), fill=lime)
+    else:
+        card(100, 690, 980, 1100, 'BUILD THE SIMPLEST SAFE FLOW', cyan, fsize=35)
+    body = wrap(segment.get('body', ''), 37)
+    if body:
+        d.multiline_text((86, 1445), body, font=font(34), fill=pale, spacing=15)
+    d.line((80, 1735, 1000, 1735), fill=(65, 88, 112), width=2)
+    d.rounded_rectangle((80, 1773, 1000, 1789), radius=8, fill=(36, 56, 76))
+    d.rounded_rectangle((80, 1773, 80+int(920*(index+1)/total), 1789), radius=8, fill=cyan)
+    d.text((80, 1820), 'PRISMBAY AI  •  PRACTICAL AI BUSINESS SYSTEMS', font=font(24, True), fill=pale)
+    return img
+
 def main():
     if len(sys.argv) != 2:
         raise SystemExit('Usage: render-youtube-short.py SPEC.json')
@@ -145,7 +210,7 @@ def main():
         used = synthesize(spoken, wav, voice, voice_dir) if engine == 'piper' else synthesize(spoken, wav, '__missing__', voice_dir)
         used_engines.add(used)
         duration = max(1.0, wav_duration(wav) + 0.18)
-        frame = render_frame(segment, i, len(segments), spec.get('sourceAttribution', ''))
+        frame = (render_frame_decision(segment, i, len(segments), spec.get('sourceAttribution', ''))\n                 if spec.get('visualStyle') == 'decision_tree_v2'\n                 else render_frame(segment, i, len(segments), spec.get('sourceAttribution', '')))
         frame.save(png, optimize=True)
         fade_out = max(0.1, duration - 0.16)
         vf = (
