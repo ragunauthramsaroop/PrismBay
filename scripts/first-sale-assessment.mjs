@@ -3,6 +3,7 @@ import path from 'node:path';
 import {pathToFileURL} from 'node:url';
 export const PAGE='board-briefing-readiness-checklist.html';
 export const URL='https://clean.prismbayai.com/learn/'+PAGE;
+export const BOARD_AUDIT_URL=URL;
 export const GUIDE='https://clean.prismbayai.com/board-briefing-white-paper-template.html';
 export const CHECKOUT='https://buy.stripe.com/bJe7sMgq25hNcCe6SAgnK0s?client_reference_id=free_board_audit';
 export const CRITERIA=Object.freeze([
