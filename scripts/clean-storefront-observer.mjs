@@ -70,9 +70,17 @@ export async function observeStorefront(fetcher = fetch) {
 
   const buyer = await probe(ORIGIN + BUYER_PATH, fetcher);
   const buyerSupplierMedia = isHtml(buyer) && hasUnverifiedSupplierMedia(buyer.text);
+  // The reviewed research-stage page uses a truthful title rather than an
+  // unverified product identity. Accept it only with visible, explicit
+  // non-offer and unverified-functionality disclosures.
+  const legacyTitle = /<h1[^>]*>\s*Portable Garment Steamer\s*<\/h1>/i.test(buyer.text);
+  const researchTitle = /<h1[^>]*>\s*Garment Care Device Under Review\s*<\/h1>/i.test(buyer.text);
+  const buyerBody = buyer.text.match(/<body\b[^>]*>([\s\S]*?)<\/body>/i)?.[1] || '';
+  const researchDisclosures = /Research estimate only, not an offer to sell/i.test(buyerBody) &&
+    /Steaming function[^<]{0,200}have not been independently verified/i.test(buyerBody);
   checks.push({
     resource: BUYER_PATH,
-    ok: isHtml(buyer) && /<h1[^>]*>\s*Portable Garment Steamer\s*<\/h1>/i.test(buyer.text) &&
+    ok: isHtml(buyer) && (legacyTitle || (researchTitle && researchDisclosures)) &&
       /Request shipping review/i.test(buyer.text) &&
       /No payment during ZIP check/i.test(buyer.text) &&
       !/https:\/\/(?:buy|checkout)\.stripe\.com\//i.test(buyer.text) && !buyerSupplierMedia,
