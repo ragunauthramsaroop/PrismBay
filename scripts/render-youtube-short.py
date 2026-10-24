@@ -173,6 +173,76 @@ def render_frame_decision(segment, index, total, source):
     d.text((80, 1820), 'PRISMBAY AI  •  PRACTICAL AI BUSINESS SYSTEMS', font=font(24, True), fill=pale)
     return img
 
+
+def render_frame_boardroom(segment, index, total, source):
+    """PrismBay original light editorial briefing system for FSB 2026 explainer."""
+    img = Image.new('RGB', (WIDTH, HEIGHT), (244, 247, 250))
+    d = ImageDraw.Draw(img)
+    ink, slate, orange, teal, red = (21, 36, 53), (84, 103, 123), (235, 110, 59), (0, 135, 144), (195, 53, 58)
+    d.rectangle((0, 0, WIDTH, 30), fill=ink)
+    d.rectangle((0, 30, 23, HEIGHT), fill=orange)
+    d.text((82, 91), 'PRISMBAY  /  EXECUTIVE BRIEF', font=font(35, True), fill=ink)
+    d.text((83, 157), 'AI GOVERNANCE  |  OCTOBER 2026', font=font(26, True), fill=slate)
+    d.line((83, 218, 995, 218), fill=(198, 207, 216), width=3)
+    headline = wrap(segment.get('headline', ''), 19)
+    d.multiline_text((83, 286), headline, font=font(69, True), fill=ink, spacing=17)
+    scene = segment.get('scene', 'board')
+    def centered(label, box, size, color=ink, bold=True):
+        x1,y1,x2,y2=box
+        ft=font(size,bold)
+        bounds=d.textbbox((0,0),label,font=ft)
+        w=bounds[2]-bounds[0]
+        h=bounds[3]-bounds[1]
+        d.text((x1+(x2-x1-w)/2,y1+(y2-y1-h)/2-6),label,font=ft,fill=color)
+    def tile(box,label,stroke=teal,fill=(255,255,255),size=40):
+        d.rounded_rectangle(box,radius=23,fill=fill,outline=stroke,width=5)
+        centered(label,box,size,ink)
+    if scene == 'opening':
+        d.rounded_rectangle((86, 680, 993, 1125), radius=28, fill=ink)
+        centered('12 SOUND PRACTICES',(90, 715, 989, 870),53,(255,255,255))
+        centered('3 BOARD TESTS',(90, 880, 989, 1075),75,(255,187,125))
+        d.text((124, 1195),'FSB guidance for financial institutions',font=font(32,True),fill=slate)
+    elif scene == 'owner':
+        tile((90, 670, 990, 830),'BOARD / SENIOR MANAGEMENT',orange,size=39)
+        d.line((540,830,540,915),fill=orange,width=11)
+        tile((140, 920, 940, 1100),'NAMED PROCESS OWNER',teal,size=46)
+        d.line((540,1100,540,1185),fill=teal,width=11)
+        tile((205, 1190, 875, 1350),'APPROVAL BOUNDARY',red,size=40)
+    elif scene == 'evidence':
+        d.line((155, 1220, 940, 1220),fill=slate,width=6)
+        d.line((155, 760, 155, 1220),fill=slate,width=6)
+        for x,h,col in [(245,220,slate),(430,310,teal),(615,165,orange),(800,350,teal)]:
+            d.rounded_rectangle((x,1220-h,x+112,1220),radius=12,fill=col)
+        d.text((165, 1290),'TEST  >  MONITOR  >  RECORD',font=font(42,True),fill=ink)
+    elif scene == 'stop':
+        tile((110, 710, 425, 900),'RUN',teal,size=63)
+        tile((650, 710, 970, 900),'PAUSE',orange,size=59)
+        d.line((432, 807, 640, 807),fill=ink,width=12)
+        tile((230, 1050, 850, 1245),'REVOKE ACCESS',red,size=53)
+        d.line((540, 905, 540, 1042),fill=red,width=13)
+        d.text((192, 1320),'Test intervention before launch.',font=font(35,True),fill=slate)
+    elif scene == 'test':
+        for j,(label,col) in enumerate([('01  ACCOUNTABLE OWNER',orange),('02  PERFORMANCE EVIDENCE',teal),('03  TESTED STOP ROUTE',red)]):
+            y=675+j*235
+            d.rounded_rectangle((105,y,975,y+168),radius=20,fill=(255,255,255),outline=col,width=5)
+            d.rectangle((125,y+43,190,y+108),outline=col,width=7)
+            d.text((220,y+51),label,font=font(37,True),fill=ink)
+    elif scene == 'close':
+        d.rounded_rectangle((112, 725, 968, 1150),radius=38,fill=ink)
+        centered('GOVERN BEFORE',(120,765,960,920),66,(255,255,255))
+        centered('YOU DEPLOY',(120,945,960,1090),77,(255,183,119))
+        d.text((182,1245),'PRISMBAY AI  |  PRACTICAL SYSTEMS',font=font(31,True),fill=teal)
+    else:
+        tile((130,730,950,1100),'MEASURE  |  CONTROL  |  LEARN',teal,size=33)
+    body=wrap(segment.get('body',''),35)
+    if body:
+        d.multiline_text((105, 1490),body,font=font(35),fill=slate,spacing=16)
+    d.line((83, 1733, 992, 1733),fill=(194,207,218),width=3)
+    d.rounded_rectangle((83, 1780, 993, 1798),radius=8,fill=(218,227,232))
+    d.rounded_rectangle((83, 1780, 83+int(910*(index+1)/total), 1798),radius=8,fill=orange)
+    d.text((83, 1840),f'PRISMBAY AI   /   {index+1:02d} OF {total:02d}',font=font(28,True),fill=ink)
+    return img
+
 def main():
     if len(sys.argv) != 2:
         raise SystemExit('Usage: render-youtube-short.py SPEC.json')
@@ -212,6 +282,8 @@ def main():
         duration = max(1.0, wav_duration(wav) + 0.18)
         frame = (render_frame_decision(segment, i, len(segments), spec.get('sourceAttribution', ''))
                  if spec.get('visualStyle') == 'decision_tree_v2'
+                 else render_frame_boardroom(segment, i, len(segments), spec.get('sourceAttribution', ''))
+                 if spec.get('visualStyle') == 'boardroom_v3'
                  else render_frame(segment, i, len(segments), spec.get('sourceAttribution', '')))
         frame.save(png, optimize=True)
         fade_out = max(0.1, duration - 0.16)
