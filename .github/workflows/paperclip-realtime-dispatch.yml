@@ -1,16 +1,15 @@
 name: PrismBay Paperclip Real-Time Dispatcher
 
+# The commerce control plane already runs every 15 minutes.
+# Allow only manual requests and ONE trusted success event to request
+# an extra run. Owner/bot issue comments and PR changes previously
+# generated cascades of redundant queued/cancelled Actions.
 on:
-  issue_comment:
-    types: [created]
+  workflow_dispatch:
   workflow_run:
     workflows:
       - 'Claude Free GitHub Cloud Agent'
-      - 'Copilot Anthropic Claude Council'
     types: [completed]
-  pull_request_target:
-    types: [opened, synchronize, reopened, closed]
-  workflow_dispatch:
 
 permissions:
   contents: read
@@ -24,34 +23,44 @@ jobs:
   dispatch:
     if: >-
       github.event_name == 'workflow_dispatch' ||
-      github.event_name == 'workflow_run' ||
       (
-        github.event_name == 'pull_request_target' &&
-        github.event.pull_request.head.repo.full_name == github.repository
-      ) ||
-      (
-        github.event_name == 'issue_comment' &&
-        (github.event.comment.user.login == github.repository_owner || github.event.comment.user.login == 'github-actions[bot]') &&
-        (
-          github.event.issue.number == 210 ||
-          github.event.issue.number == 211 ||
-          github.event.issue.number == 212 ||
-          github.event.issue.number == 220 ||
-          github.event.issue.number == 221 ||
-          github.event.issue.number == 222
-        )
+        github.event_name == 'workflow_run' &&
+        github.event.workflow_run.conclusion == 'success' &&
+        github.event.workflow_run.head_branch == 'main'
       )
     runs-on: ubuntu-latest
     timeout-minutes: 3
     steps:
-      - name: Dispatch Paperclip Commerce Group immediately
+      - name: Dispatch only when commerce needs a run
         uses: actions/github-script@v7
         with:
           script: |
+            const workflow_id = 'paperclip-commerce-group.yml';
+            const manual = context.eventName === 'workflow_dispatch';
+            const result = await github.rest.actions.listWorkflowRuns({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              workflow_id,
+              branch: 'main',
+              per_page: 25
+            });
+            const operational = result.data.workflow_runs.filter(run =>
+              ['schedule','workflow_dispatch','push'].includes(run.event)
+            );
+            const latest = operational[0];
+            const age = latest ? Date.now() - Date.parse(latest.created_at) : Infinity;
+            if (!manual && latest && (
+              latest.status !== 'completed' || age < 15 * 60 * 1000
+            )) {
+              core.notice('Commerce worker is active or ran within 15 minutes; skipped redundant dispatch.');
+              return;
+            }
             await github.rest.actions.createWorkflowDispatch({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              workflow_id: 'paperclip-commerce-group.yml',
+              workflow_id,
               ref: 'main'
             });
-            core.notice('Dispatched PrismBay Paperclip Commerce Group from a revenue-worker event.');
+            core.notice(manual
+              ? 'Owner-requested commerce audit dispatched.'
+              : 'Trusted upstream work completed; commerce audit dispatched after cooldown.');

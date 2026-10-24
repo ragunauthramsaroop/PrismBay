@@ -12,10 +12,27 @@ const VALID_EVENTS = new Set(['schedule', 'workflow_dispatch', 'push', 'workflow
 const TIMEOUT_MINUTES = 35;
 const MAX_WORKER_HISTORY = 50;
 
+// Actions may cancel a pending duplicate when a newer run is queued. A
+// cancelled redundant request must not mask an already completed operational
+// run with retained output. Real failures, missing proof, and stale successes
+// always remain visible. Limit this exception to 10 minutes.
+export function selectEvidenceRun(runs = []) {
+  const list = runs.filter(r => VALID_EVENTS.has(r.event)).slice(0,MAX_WORKER_HISTORY);
+  const latest = list[0];
+  if (!latest) return null;
+  if (latest.status !== 'completed' || latest.conclusion !== 'cancelled' ||
+    !['workflow_run','workflow_dispatch'].includes(latest.event)) return latest;
+  const recent = list.slice(1).find(r => {
+    const gap = Date.parse(latest.created_at) - Date.parse(r.created_at);
+    return r.status === 'completed' && r.conclusion === 'success' &&
+      Number.isFinite(gap) && gap >= 0 && gap <= 10*60*1000;
+  });
+  return recent || latest;
+}
+
 export function checkWorker({ worker, runs = [], artifacts = [], fetchError = null, nowMs = Date.now() }) {
   if (fetchError) return { id: worker.id, status: 'fail', reason: 'workflow_api_unavailable', evidence: fetchError.slice(0,100) };
-  const selected = runs.filter(r => VALID_EVENTS.has(r.event)).slice(0, MAX_WORKER_HISTORY);
-  const latest = selected[0];
+  const latest = selectEvidenceRun(runs);
   if (!latest) return { id: worker.id, status: 'fail', reason: 'no_operational_runs', evidence: 'no scheduled/manual/production runs found' };
   const started = Date.parse(latest.created_at);
   const ageMinutes = Number.isFinite(started) ? Math.max(0,(nowMs-started)/60000) : Infinity;
