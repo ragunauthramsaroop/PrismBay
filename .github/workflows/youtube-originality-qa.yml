@@ -50,7 +50,7 @@ jobs:
               md=json.loads(meta.read_text())
               md['sha256']=hashlib.sha256(src.read_bytes()).hexdigest()
               md['audioMastering']='-3dB attenuation after near-clipping QA detection'
-              meta.write_text(json.dumps(md,indent=2)+'\\n')
+              meta.write_text(json.dumps(md,indent=2)+'\n')
               report.unlink()
               print('Mastered and queued for renewed QA:',slug)
           PY
