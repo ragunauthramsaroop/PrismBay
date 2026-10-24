@@ -35,7 +35,9 @@ GitHub CI workflow: .github/workflows/creative-studio-dashboard.yml
 
 - Node 22: node --experimental-strip-types --test scripts/test-creative-offer.mjs scripts/test-creative-workspace.mjs
 - Bun: bun install --no-save && bun run build
-- TypeScript: bunx tsc --noEmit
+- Focused TypeScript: bunx tsc --project tsconfig.creative-studio.json --noEmit
+
+The wider repository still reports pre-existing TypeScript errors in unrelated modules. The new Studio component tree receives its own strict TypeScript gate, while the entire application receives a complete production build.
 
 The repository's package.json and bun.lock were already out of synchronization before this branch. The CI workflow uses bun install --no-save to avoid mutating the lockfile. This does not resolve the underlying drift; the lockfile should be aligned in a separate controlled maintenance task.
 
