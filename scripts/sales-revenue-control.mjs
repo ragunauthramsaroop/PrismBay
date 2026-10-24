@@ -1,4 +1,5 @@
 import fs from 'node:fs/promises';
+import { classifyRevenueEvidence } from './revenue-evidence-gates.mjs';
 
 async function readJson(path) {
   try { return JSON.parse(await fs.readFile(path, 'utf8')); }
@@ -15,6 +16,7 @@ const checkoutHealthy = checkoutStatus >= 200 && checkoutStatus < 400;
 const conversionReady = sales?.workers?.conversionWriter?.state === 'ready';
 const demandReady = sales?.workers?.demandMiner?.state === 'ready';
 const loopHealthy = Boolean(guideHealthy && checkoutHealthy && conversionReady && demandReady);
+const evidence = classifyRevenueEvidence({guideHealthy,checkoutHealthy});
 
 const state = {
   schemaVersion: 1,
@@ -28,6 +30,7 @@ const state = {
     checkoutUrl: sales?.offer?.checkoutUrl ?? buyer?.campaign?.checkoutUrl ?? null,
   },
   positioning: sales?.freeLLM?.strategy ?? 'baseline',
+  commercialEvidence: evidence,
   freeLLM: {
     status: sales?.freeLLM?.status ?? 'unknown',
     workerMode: sales?.freeLLM?.workerMode ?? null,
@@ -54,7 +57,7 @@ const state = {
     note: 'This GitHub control plane can verify acquisition and checkout readiness, but a real paid Stripe event is required before a sale or revenue is reported.'
   },
   nextAction: loopHealthy
-    ? 'Keep the 30-minute acquisition loop active, refresh owned buyer pages when strategy changes, and drive qualified organic traffic to the verified Stripe checkout.'
+    ? 'Technical buyer path is online. Measure genuine external visits, confirm actual Stripe paid events, verify order-bound delivery, and distribute one helpful buyer tool through approved channels.'
     : 'Repair the buyer path immediately before increasing distribution. Do not claim or promote a broken checkout path.'
 };
 
@@ -66,7 +69,10 @@ console.log(JSON.stringify({
   strategy: state.positioning,
   guide: state.funnelHealth.guideHttpStatus,
   checkout: state.funnelHealth.checkoutHttpStatus,
-  loopHealthy
+  loopHealthy,
+  commercialStatus: evidence.paymentStatus,
+  buyerTrafficStatus: evidence.trafficStatus,
+  fulfillmentStatus: evidence.deliveryStatus
 }));
 
 if (!loopHealthy) process.exitCode = 1;
