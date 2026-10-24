@@ -14,6 +14,8 @@ on:
       - 'scripts/ci-freellmapi-bootstrap.sh'
       - 'scripts/ci-freellmapi-bootstrap.test.mjs'
       - 'scripts/owned-sales-page-worker.mjs'
+      - 'scripts/first-sale-assessment.mjs'
+      - 'scripts/first-sale-assessment.test.mjs'
       - 'scripts/owned-sales-page-worker.test.mjs'
       - 'scripts/sales-sitemap-sync.mjs'
       - 'scripts/sales-sitemap-sync.test.mjs'
@@ -59,7 +61,7 @@ jobs:
           node-version: '22'
 
       - name: Verify conversion worker safeguards
-        run: node --test scripts/digital-conversion-campaign.test.mjs scripts/buyer-acquisition-worker.test.mjs scripts/freellm-sales-worker.test.mjs scripts/ci-freellmapi-bootstrap.test.mjs scripts/owned-sales-page-worker.test.mjs scripts/sales-sitemap-sync.test.mjs scripts/indexnow-submit.test.mjs
+        run: node --test scripts/digital-conversion-campaign.test.mjs scripts/buyer-acquisition-worker.test.mjs scripts/freellm-sales-worker.test.mjs scripts/ci-freellmapi-bootstrap.test.mjs scripts/owned-sales-page-worker.test.mjs scripts/first-sale-assessment.test.mjs scripts/sales-sitemap-sync.test.mjs scripts/indexnow-submit.test.mjs
 
       - name: Build current buyer-to-checkout campaign from live offer
         run: node scripts/buyer-acquisition-worker.mjs
