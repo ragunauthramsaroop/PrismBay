@@ -1,0 +1,43 @@
+name: Creative Studio dashboard checks
+on:
+  pull_request:
+    paths:
+      - "src/components/creative-studio/**"
+      - "src/lib/creative-offer.ts"
+      - "src/lib/creative-workspace.ts"
+      - "src/routes/creative-studio.tsx"
+      - "scripts/test-creative-*.mjs"
+      - ".github/workflows/creative-studio-dashboard.yml"
+  push:
+    paths:
+      - "src/components/creative-studio/**"
+      - "src/lib/creative-offer.ts"
+      - "src/lib/creative-workspace.ts"
+      - "src/routes/creative-studio.tsx"
+      - "scripts/test-creative-*.mjs"
+      - ".github/workflows/creative-studio-dashboard.yml"
+permissions:
+  contents: read
+jobs:
+  unit-tests:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Test creative pack and local workspace
+        run: node --experimental-strip-types --test scripts/test-creative-offer.mjs scripts/test-creative-workspace.mjs
+  site-build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+      - name: Install existing project dependencies
+        run: bun install --no-save
+      - name: Verify full PrismBay build
+        run: bun run build
+      - name: Type-check sources
+        run: bunx tsc --noEmit
