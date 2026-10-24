@@ -42,18 +42,12 @@ export async function observeStorefront(fetcher = fetch) {
     status: home.status
   });
 
-  const stylesheet = sameOriginReference(home.text, STYLE_PATH);
-  if (!stylesheet) {
-    checks.push({ resource: STYLE_PATH, ok: false, status: null, reason: 'missing_same_origin_reference' });
-  } else {
-    const style = await probe(stylesheet, fetcher);
-    checks.push({
-      resource: STYLE_PATH,
-      ok: style.ok && /text\/css/i.test(style.type) && style.text.trim().length > 0,
-      status: style.status,
-      url: stylesheet
-    });
-  }
+  const inlineStyle = home.text.match(/<style(?:\\s[^>]*)?>([\\s\\S]*?)<\\/style>/i);
+  checks.push({
+    resource: 'homepage_inline_style',
+    ok: isHtml(home) && Boolean(inlineStyle && inlineStyle[1].trim().length > 50),
+    status: home.status
+  });
 
   const buyer = await probe(ORIGIN + BUYER_PATH, fetcher);
   checks.push({
@@ -77,13 +71,26 @@ export async function observeStorefront(fetcher = fetch) {
       ? 'physical_policy_not_prepayment_gated' : undefined
   });
 
+  const stylesheet = sameOriginReference(policy.text, STYLE_PATH);
+  if (!stylesheet) {
+    checks.push({ resource: STYLE_PATH, ok: false, status: null, reason: 'missing_same_origin_reference' });
+  } else {
+    const style = await probe(stylesheet, fetcher);
+    checks.push({
+      resource: STYLE_PATH,
+      ok: style.ok && /text\\/css/i.test(style.type) && style.text.trim().length > 0,
+      status: style.status,
+      url: stylesheet
+    });
+  }
+
   return {
     schemaVersion: 2,
     checkedAt: new Date().toISOString(),
     origin: ORIGIN,
     healthy: checks.every(check => check.ok),
     checks,
-    scope: 'Canonical homepage, same-origin stylesheet, steamer inquiry and physical shipping-policy consistency only. Browser rendering, TLS trust, remote inquiry handling, checkout, supplier fulfillment, worker execution and sales are not verified.'
+    scope: 'Canonical homepage and inline styles, steamer inquiry, physical shipping-policy consistency and same-origin policy stylesheet only. Browser rendering, TLS trust, remote inquiry handling, checkout, supplier fulfillment, worker execution and sales are not verified.'
   };
 }
 
