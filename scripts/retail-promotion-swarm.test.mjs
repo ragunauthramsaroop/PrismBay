@@ -262,3 +262,44 @@ test('prototype property names never resolve to a verified preflight route', () 
     assert.ok(item.missing.some(g => g.field === 'verifiedPreflightRoute'));
   }
 });
+
+test('schema v3 retail promotion requires authenticated current-cycle supplier observations', () => {
+  const now = Date.parse('2026-10-24T01:00:00.000Z');
+  const checkedAt = '2026-10-24T00:59:00.000Z';
+  const candidate = {
+    slug: 'garment-steamer',
+    liveStoreProduct: true,
+    observedVariantSku: 'CJYD245844002BY',
+    observedAt: checkedAt,
+    independentIdentityMatch: true,
+    variantStockVerified: true,
+    freightEstimateVerified: true,
+    finalZipFreightVerified: true,
+    mediaRightsVerified: true,
+    checkoutInfrastructureVerified: true,
+    checkoutAllowed: true,
+    fulfillmentRouteVerified: true,
+    automaticPromotionAllowed: true,
+  };
+  const review = { schemaVersion: 3, checkedAt, authenticationVerified: true,
+    saleReadyCount: 1, candidates: [candidate] };
+  const current = buildRetailPromotionSwarm({ now, review });
+  assert.equal(current.promotionEligibleCount, 1);
+
+  for (const observedAt of ['2026-10-23T23:59:00.000Z', null, '2026-10-24T01:10:00.000Z']) {
+    const stale = buildRetailPromotionSwarm({ now, review: {
+      ...review, candidates: [{ ...candidate, observedAt }],
+    } });
+    assert.equal(stale.promotionEligibleCount, 0);
+    assert.equal(stale.trackedOffers.length, 0);
+    assert.equal(stale.nearReady[0].directCheckoutEligible, false);
+    assert.ok(stale.nearReady[0].missing.some(g => g.field === 'currentSupplierObservation'));
+  }
+
+  const unauthenticated = buildRetailPromotionSwarm({ now, review: {
+    ...review, authenticationVerified: false,
+  } });
+  assert.equal(unauthenticated.promotionEligibleCount, 0);
+  assert.equal(unauthenticated.trackedOffers.length, 0);
+  assert.ok(unauthenticated.nearReady[0].missing.some(g => g.field === 'supplierAuthenticationVerified'));
+});
