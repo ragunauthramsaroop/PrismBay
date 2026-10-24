@@ -1,0 +1,57 @@
+{
+  "experimentId": "PB-ARCH-021-S1",
+  "channelId": "UCw2hs85TzIpdKwJtG-BSxzQ",
+  "handle": "@PrismBayAI",
+  "metricoolBrandId": 6945443,
+  "createdAt": "2026-10-24",
+  "status": "RENDER_QUEUED_NOT_PUBLISHED",
+  "assetSlug": "ai-agent-or-automation-decision-tree-2026-10-24",
+  "renderRequest": "content/youtube/requests/ai-agent-or-automation-decision-tree-2026-10-24.json",
+  "expectedMedia": "public/youtube/ai-agent-or-automation-decision-tree-2026-10-24.mp4",
+  "hypothesis": "An original decision-tree explainer about choosing simple automation versus AI assistance will earn stronger qualified audience engagement than generic AI tool roundups.",
+  "targetAudience": [
+    "founders",
+    "COOs",
+    "CFOs",
+    "procurement managers",
+    "operations leaders"
+  ],
+  "format": "vertical short",
+  "durationTargetSeconds": [
+    38,
+    59
+  ],
+  "hookType": "binary architecture decision",
+  "title": "AI Agent or Simple Automation? Use This 3-Way Decision Rule | PrismBay AI",
+  "thumbnailConcept": "Original decision tree showing RULES / AI ASSISTANCE / HUMAN APPROVAL, no stock imagery",
+  "cta": "PrismBay AI helps operators implement practical AI business systems.",
+  "publishTimeCandidate": "2026-10-24T16:00:00-04:00",
+  "publishTimeEvidence": "Metricool best-time heatmap favors Saturday 16:00 America/Guyana; channel-specific audience validity unverified.",
+  "successThresholds": {
+    "sixHours": "Check audio, captions, no copyright claim, exact channel, no duplicate.",
+    "twentyFourHours": "Compare viewed-versus-swiped, average percentage viewed and subscriber conversions when available.",
+    "seventyTwoHours": "SCALE if median-adjusted watch time and subscriber conversion exceed baseline by >=30% with sufficient observations. Otherwise RETEST/MODIFY.",
+    "sevenDays": "Assess qualified subscriber conversion and retention versus channel median. STOP if originality, safety or claims fail."
+  },
+  "decisionStates": [
+    "SCALE",
+    "RETEST",
+    "MODIFY",
+    "STOP"
+  ],
+  "qualityGates": [
+    "Voice must be Piper natural quality, not eSpeak fallback",
+    "Inspect all frames for overflow and diagram clarity",
+    "Distinct from existing repetitive Shorts template",
+    "No deceptive claims or unverified numerical outcomes",
+    "Media SHA256 and license review",
+    "Confirm no matching scheduled/published post before creating schedule"
+  ],
+  "publishing": {
+    "scheduled": false,
+    "published": false,
+    "metricoolPostId": null,
+    "publicUrl": null
+  },
+  "costUsd": 0
+}
