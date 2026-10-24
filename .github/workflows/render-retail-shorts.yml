@@ -7,6 +7,7 @@ on:
       - 'config/legacy-live-catalog.json'
       - 'config/retail-promotions.json'
       - 'scripts/render-retail-shorts.py'
+      - 'scripts/test_render_retail_shorts.py'
       - '.github/workflows/render-retail-shorts.yml'
   push:
     branches: [main]
@@ -45,34 +46,25 @@ jobs:
       - name: Compile-check renderer
         run: python -m py_compile scripts/render-retail-shorts.py
 
-      - name: Render four 9x16 retail shorts
+      - name: Test legacy media and commercial gates
+        run: python -m unittest discover -s scripts -p 'test_render_retail_shorts.py'
+
+      - name: Render only independently cleared retail shorts
         run: python scripts/render-retail-shorts.py
 
-      - name: Verify output dimensions, duration and promotion integrity
+      - name: Verify legacy candidates produced no product ads
         shell: bash
         run: |
           python - <<'PY'
           import json
           from pathlib import Path
-          m=json.loads(Path('build/retail-shorts/manifest.json').read_text())
-          assert len(m['products']) == 4, m
-          promotions=json.loads(Path('config/retail-promotions.json').read_text()).get('promotions', [])
-          if not promotions:
-              assert all(p['saleActive'] is False for p in m['products'])
-          expected={'legacy-crevice-brush-001':12.95,'legacy-garment-steamer-001':29.95,'legacy-spin-scrubber-001':29.95,'legacy-pet-hair-remover-001':14.95}
-          assert {p['sku']:p['priceUsd'] for p in m['products']} == expected
-          print('Manifest price and sale gates verified')
+          m = json.loads(Path('build/retail-shorts/manifest.json').read_text())
+          assert m['products'] == [], 'Unverified legacy products must not render'
+          assert m['blockedUnverifiedCount'] == 4, m
+          assert not list(Path('build/retail-shorts').rglob('*.mp4')), 'Unverified product video emitted'
+          assert not list(Path('build/retail-shorts').rglob('*.png')), 'Unverified product card emitted'
+          print('Four legacy products blocked; no unverified product creative produced')
           PY
-          for f in build/retail-shorts/videos/*.mp4; do
-            dims=$(ffprobe -v error -select_streams v:0 -show_entries stream=width,height -of csv=s=x:p=0 "$f")
-            duration=$(ffprobe -v error -show_entries format=duration -of default=nw=1:nk=1 "$f")
-            test "$dims" = "1080x1920"
-            python - "$duration" <<'PY'
-          import sys
-          d=float(sys.argv[1])
-          assert 11.5 <= d <= 12.5, d
-          PY
-          done
 
       - name: Upload retail short package
         uses: actions/upload-artifact@v4
