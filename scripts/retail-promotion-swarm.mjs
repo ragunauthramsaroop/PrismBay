@@ -58,6 +58,7 @@ export function candidateReadiness(candidate = {}) {
     variantSku: variantSku || null,
     liveStoreProduct: candidate.liveStoreProduct === true,
     status: candidate.status || 'unknown',
+    observedAt: typeof candidate.observedAt === 'string' ? candidate.observedAt : null,
     passedGates: passed,
     totalGates: preflightTotal,
     readinessPct: Math.round((passed / preflightTotal) * 100),
@@ -95,6 +96,18 @@ export function buildRetailPromotionSwarm({ review, workerBoard = null, reports 
     if (a.liveStoreProduct !== b.liveStoreProduct) return a.liveStoreProduct ? -1 : 1;
     return String(a.slug).localeCompare(String(b.slug));
   }).map(item => {
+    // A newly generated board must not reauthorize a carried-forward supplier
+    // observation or a report lacking authenticated supplier evidence.
+    // Schema v3 supplies per-candidate observedAt and authenticationVerified.
+    const evidenceGaps = [];
+    if (review?.schemaVersion >= 3) {
+      if (review.authenticationVerified !== true) {
+        evidenceGaps.push({ field: 'supplierAuthenticationVerified', label: 'authenticated current supplier review' });
+      }
+      if (item.observedAt !== checkedAt) {
+        evidenceGaps.push({ field: 'currentSupplierObservation', label: 'supplier observation from current verification cycle' });
+      }
+    }
     const duplicates = [];
     if (item.variantSku && variantCounts.get(item.variantSku) > 1) {
       duplicates.push({ field: 'uniqueVariantSku', label: 'unambiguous supplier variant identity' });
@@ -102,14 +115,15 @@ export function buildRetailPromotionSwarm({ review, workerBoard = null, reports 
     if (item.slug && slugCounts.get(item.slug) > 1) {
       duplicates.push({ field: 'uniqueProductSlug', label: 'unambiguous live-store product identity' });
     }
-    if (duplicates.length) {
+    const disqualifiers = [...evidenceGaps, ...duplicates];
+    if (disqualifiers.length) {
       return {
         ...item,
         promotionEligible: false,
         directCheckoutEligible: false,
-        missing: [...item.missing, ...duplicates],
-        missingPreflight: [...item.missingPreflight, ...duplicates],
-        missingDirectCheckout: [...item.missingDirectCheckout, ...duplicates],
+        missing: [...item.missing, ...disqualifiers],
+        missingPreflight: [...item.missingPreflight, ...disqualifiers],
+        missingDirectCheckout: [...item.missingDirectCheckout, ...disqualifiers],
       };
     }
     if (!item.promotionEligible) return item;
