@@ -162,3 +162,19 @@ test('Paperclip rejects unmatched, ambiguous or unverified retail SKU approvals'
  assert.deepEqual(dashboard.productsApprovedForPromotion,[]);
  assert.ok(dashboard.productsAwaitingCommercialGateClosure.includes('verified-physical-item'));
 });
+
+test('versioned supplier and promotion evidence must be authenticated and fresh',()=>{
+ const checkedAt=new Date().toISOString();
+ const candidate={...fullyCleared,observedAt:checkedAt};
+ const supplier={schemaVersion:3,checkedAt,authenticationVerified:true,saleReadyCount:1,candidates:[candidate]};
+ const promotion={...promotionEvidence,schemaVersion:2,reviewFresh:true,generatedAt:checkedAt};
+ assert.equal(verifiedPromotionReadyCount(supplier,promotion),1);
+ assert.equal(verifiedPromotionReadyCount({...supplier,authenticationVerified:false},promotion),0);
+ assert.equal(verifiedPromotionReadyCount({...supplier,checkedAt:'2026-01-01T00:00:00.000Z'},promotion),0);
+ assert.equal(verifiedPromotionReadyCount({...supplier,checkedAt:'not-a-date'},promotion),0);
+ assert.equal(verifiedPromotionReadyCount({...supplier,candidates:[{...candidate,observedAt:'2026-01-01T00:00:00.000Z'}]},promotion),0);
+ assert.equal(verifiedPromotionReadyCount(supplier,{...promotion,reviewFresh:false}),0);
+ assert.equal(verifiedPromotionReadyCount(supplier,{...promotion,generatedAt:'2026-01-01T00:00:00.000Z'}),0);
+ assert.equal(verifiedPromotionReadyCount(supplier,{...promotion,generatedAt:'not-a-date'}),0);
+ assert.equal(verifiedPromotionReadyCount(supplier,{...promotion,generatedAt:new Date(Date.now()+60_000).toISOString()}),0);
+});
