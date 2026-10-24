@@ -5,7 +5,7 @@ from pathlib import Path
 from playwright.async_api import async_playwright
 
 BASE='https://clean.prismbayai.com'
-LIVE='https://browser-worker-production-f5b4.up.railway.app'
+LIVE='https://prismbay-clean-global.floot.app'
 PATHS=['/','/garment-steamer/','/shipping.html','/returns.html','/privacy.html','/terms.html','/about.html','/contact.html']
 VIEWPORTS={
   'desktop': {'width':1440,'height':1000},
@@ -65,36 +65,50 @@ async def audit(strict=True):
           if path in {'/','/garment-steamer/'} and data['stripeLinks']:
             errors.append(f'{path} {name}: direct Stripe link exposed before buyer-specific verification')
           if path=='/' and name=='desktop':
-            if not any(h.startswith(LIVE+'/garment-steamer/') or h.startswith(BASE+'/garment-steamer/') for h in data['hrefs']):
+            if not any(h.startswith(BASE+'/garment-steamer/') for h in data['hrefs']):
               errors.append('/: no guarded garment-steamer preflight CTA found')
           if path=='/garment-steamer/' and name=='desktop':
-            if not any(h.startswith(LIVE+'/garment-steamer/') for h in data['hrefs']):
-              errors.append('/garment-steamer/: direct Railway fallback missing')
+            if not any(h.startswith(LIVE+'/quote') for h in data['hrefs']):
+              errors.append('/garment-steamer/: Floot shipping inquiry link missing')
+            if any('browser-worker-production-f5b4.up.railway.app' in h for h in data['hrefs']):
+              errors.append('/garment-steamer/: retired Railway link still present')
         except Exception as exc:
           errors.append(f'{path} {name}: {type(exc).__name__}: {exc}')
       results.append(row)
 
+    # Current independent Floot service. Keep this QA read-only:
+    # no customer data, CJ supplier calls, payment or database writes.
     try:
-      health=await context.request.get(LIVE+'/health',timeout=30000)
-      health_body=await health.json()
-      live_service['healthStatus']=health.status
-      live_service['ready']=health_body.get('ready') is True
-      live_service['product']=health_body.get('product')
-      live_service['automaticSupplierOrdering']=health_body.get('automaticSupplierOrdering')
-      if health.status != 200: errors.append(f'Railway health HTTP {health.status}')
-      if health_body.get('ready') is not True: errors.append('Railway quote service is not primed/ready')
-      if health_body.get('product') != 'garment-steamer': errors.append('Railway quote service product mismatch')
-      if health_body.get('automaticSupplierOrdering') is not False: errors.append('Railway automatic supplier ordering guard missing')
-
-      live_page=await page.goto(LIVE+'/garment-steamer/',wait_until='domcontentloaded',timeout=30000)
+      live_page=await page.goto(LIVE+'/quote',wait_until='domcontentloaded',timeout=30000)
       live_text=(await page.locator('body').inner_text()).lower()
       live_service['buyerPageStatus']=live_page.status if live_page else 0
-      live_service['buyerPageHasProduct']= 'portable garment steamer' in live_text
-      if not live_page or live_page.status != 200: errors.append('Railway buyer page is not HTTP 200')
-      if 'portable garment steamer' not in live_text: errors.append('Railway buyer page product content missing')
-      if 'check availability' not in live_text: errors.append('Railway buyer page live availability CTA missing')
+      live_service['buyerPageHasProduct']='portable garment steamer' in live_text
+      if not live_page or live_page.status != 200: errors.append('Floot shipping inquiry page is not HTTP 200')
+      if 'portable garment steamer' not in live_text: errors.append('Floot inquiry product description missing')
+      if 'request manual review' not in live_text: errors.append('Floot inquiry form CTA missing')
+      if 'no payment' not in live_text and 'no purchase or charge' not in live_text:
+        errors.append('Floot inquiry no-payment disclosure missing')
+
+      # Customer records must never be available without authentication.
+      private=await context.request.get(LIVE+'/_api/quote-inbox',timeout=20000)
+      live_service['privateInboxHttpStatus']=private.status
+      if private.status not in (401,403):
+        errors.append(f'Floot private inquiry queue unexpectedly responds HTTP {private.status}')
+
+      # Foreign origin must be denied before any supplier work.
+      rejected=await context.request.post(LIVE+'/_api/supplier-preview',
+        data='{"json":{"zip":"12"}}',
+        headers={'Content-Type':'application/json','Origin':'https://untrusted.example'},
+        timeout=20000)
+      live_service['foreignOriginHttpStatus']=rejected.status
+      if rejected.status != 403:
+        errors.append(f'Floot supplier preview accepted foreign Origin (HTTP {rejected.status})')
+
+      live_service['ready']=live_service['buyerPageStatus']==200 and private.status in (401,403) and rejected.status==403
+      live_service['product']='garment-steamer'
+      live_service['checkoutAuthorizedByAudit']=False
     except Exception as exc:
-      errors.append(f'Railway live service audit: {type(exc).__name__}: {exc}')
+      errors.append(f'Floot buyer-service audit: {type(exc).__name__}: {exc}')
 
     await context.close(); await browser.close()
   report={'base':BASE,'liveService':LIVE,'summary':{'pages':len(PATHS),'viewports':list(VIEWPORTS),'errors':len(errors),'warnings':len(warnings)},'liveServiceEvidence':live_service,'errors':errors,'warnings':warnings,'results':results}
