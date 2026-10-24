@@ -9,6 +9,9 @@ on:
       - 'scripts/owned-sales-page-worker.mjs'
       - 'scripts/first-sale-assessment.mjs'
       - 'scripts/first-sale-assessment.test.mjs'
+      - 'scripts/revenue-evidence-gates.mjs'
+      - 'scripts/revenue-evidence-gates.test.mjs'
+      - 'scripts/sales-revenue-control.mjs'
       - 'scripts/owned-sales-page-worker.test.mjs'
       - 'scripts/freellm-sales-worker.mjs'
       - 'scripts/freellm-sales-worker.test.mjs'
@@ -46,7 +49,7 @@ jobs:
         with:
           node-version: '22'
       - name: Run digital revenue tests
-        run: node --test scripts/digital-conversion-campaign.test.mjs scripts/buyer-acquisition-worker.test.mjs scripts/freellm-sales-worker.test.mjs scripts/owned-sales-page-worker.test.mjs scripts/first-sale-assessment.test.mjs scripts/sales-sitemap-sync.test.mjs scripts/revenue-health-check.test.mjs
+        run: node --test scripts/digital-conversion-campaign.test.mjs scripts/buyer-acquisition-worker.test.mjs scripts/freellm-sales-worker.test.mjs scripts/owned-sales-page-worker.test.mjs scripts/first-sale-assessment.test.mjs scripts/revenue-evidence-gates.test.mjs scripts/sales-sitemap-sync.test.mjs scripts/revenue-health-check.test.mjs
       - name: Generate owned-search offer pages
         run: node scripts/owned-sales-page-worker.mjs "$RUNNER_TEMP/owned-sales-pages"
       - name: Verify bundle output
