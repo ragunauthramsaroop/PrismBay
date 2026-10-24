@@ -1,0 +1,37 @@
+name: Nexus real messaging feature CI
+on:
+  push:
+    branches:
+      - feature/nexus-real-messaging-upgrades
+    paths:
+      - 'apps/nexus-messenger/**'
+      - '.github/workflows/nexus-real-messaging-ci.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  build-and-audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    defaults:
+      run:
+        working-directory: apps/nexus-messenger
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install locked dependencies
+        run: npm install --no-fund
+      - name: Unit tests
+        run: npm test
+      - name: TypeScript validation and production bundle
+        run: npm run build
+      - name: Production dependency audit
+        run: npm audit --omit=dev --audit-level=high
+      - uses: actions/upload-artifact@v4
+        with:
+          name: nexus-real-messaging-build
+          path: apps/nexus-messenger/dist/
+          if-no-files-found: error
+          retention-days: 14
