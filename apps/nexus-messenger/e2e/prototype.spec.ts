@@ -17,10 +17,10 @@ test('conversation creation, local message and reload persistence', async ({ pag
   await expect(page.getByText('QA Visitor', { exact: true })).toBeVisible();
   await page.getByRole('textbox', { name: /Type a demonstration message/i }).fill('Automated QA hello');
   await page.getByRole('button', { name: /Send local demo message/i }).click();
-  await expect(page.getByText('Automated QA hello', { exact: true })).toBeVisible();
+  await expect(page.locator('.nxp-bubble').filter({ hasText: 'Automated QA hello' })).toBeVisible();
   await page.reload();
   await page.getByRole('button', { name: /QA Visitor/i }).click();
-  await expect(page.getByText('Automated QA hello', { exact: true })).toBeVisible();
+  await expect(page.locator('.nxp-bubble').filter({ hasText: 'Automated QA hello' })).toBeVisible();
 });
 
 test('tasks are interactive and persist after reload', async ({ page }) => {
