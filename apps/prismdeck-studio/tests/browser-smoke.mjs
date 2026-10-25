@@ -28,6 +28,8 @@ try{
   await page.locator(".slide-surface.theme-cobalt").waitFor();
   await page.reload({waitUntil:"domcontentloaded"});
   await page.locator(".slide-surface.theme-cobalt").waitFor();
+  assert.match(await page.locator("#prompt").inputValue(),/International clean energy/);
+  assert.equal(await page.locator("[data-audience]").inputValue(),"Investors");
   await page.locator('[data-action="select"][data-index="4"]').click();
   assert.equal((await page.locator(".stat-value").first().textContent()).trim(),"26%","local edits should survive refresh");
   const downloadStarted=page.waitForEvent("download",{timeout:60000});
