@@ -1,0 +1,80 @@
+name: PrismBay Professional Retail Film Studio
+
+on:
+  pull_request:
+    paths:
+      - 'scripts/render-retail-film-first.py'
+      - 'scripts/test_render_retail_film_first.py'
+      - '.github/workflows/prismbay-professional-retail-film.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/render-retail-film-first.py'
+      - 'scripts/test_render_retail_film_first.py'
+      - '.github/workflows/prismbay-professional-retail-film.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: prismbay-professional-film-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  render-real-film:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install open-source FFmpeg and quality review dependencies
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m pip install --disable-pip-version-check pillow
+          if ! command -v ffmpeg >/dev/null 2>&1; then
+            sudo apt-get update -qq
+            sudo apt-get install -y -qq ffmpeg
+          fi
+      - name: Enforce static ad ban and source-license requirements
+        run: python -m unittest discover -s scripts -p test_render_retail_film_first.py -v
+      - name: Download licensed filmed footage and render original motion edits
+        run: python scripts/render-retail-film-first.py
+      - name: Check media quality, source receipts and publishing lock
+        shell: bash
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          d=json.loads(Path('build/retail-film-studio/review-manifest.json').read_text())
+          assert d['publishedOnTikTok'] is False
+          assert d['autoPostingAllowed'] is False
+          assert len(d['videos']) == 2
+          assert all(v['notActualSKUFootage'] is True for v in d['videos'])
+          assert all(v['bytes']>250000 for v in d['videos'])
+          assert all(all(x>0 for x in item['motionDifferences']) for item in d['sourceReceipts'].values())
+          assert json.loads(Path('config/tiktok-publish-lock.json').read_text())['locked'] is True
+          assert json.loads(Path('config/tiktok-approved-autopost.json').read_text())['enabled'] is False
+          print('PASS: authentic filmed footage; publishing disabled')
+          PY
+      - name: Upload original drafts and source receipts for review
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: prismbay-film-first-editorial-review-${{ github.run_id }}
+          path: |
+            build/retail-film-studio/*professional-draft.mp4
+            build/retail-film-studio/review-manifest.json
+            build/retail-film-studio/source-receipts.json
+          if-no-files-found: warn
+          retention-days: 14
+      - name: Add explicit status note
+        if: always()
+        run: |
+          echo '### Professional filmed retail video production' >> "$GITHUB_STEP_SUMMARY"
+          echo 'Real footage from documented commercial-use sources, original soundtrack, original edit.' >> "$GITHUB_STEP_SUMMARY"
+          echo 'These clips are NOT actual hardware SKU demonstrations and cannot imply identifiable people endorse PrismBay.' >> "$GITHUB_STEP_SUMMARY"
+          echo 'Publishing and checkout promotions remain STOPPED after the owner rejected prior creative.' >> "$GITHUB_STEP_SUMMARY"
