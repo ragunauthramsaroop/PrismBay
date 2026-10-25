@@ -10,9 +10,11 @@ function load(){
   try {const x=localStorage.getItem(STORAGE_KEY);return x?sanitizeDeck(JSON.parse(x)):starterDeck();}
   catch {return starterDeck();}
 }
-const state={deck:load(),selected:0,prompt:"The future of clean industrial energy",count:8,audience:"Executive board",importOpen:false,helpOpen:false,exporting:false};
+function loadUI(){try{return JSON.parse(localStorage.getItem(STORAGE_KEY+"-ui")||"{}");}catch{return {};}}
+const savedUI=loadUI(),initialDeck=load();
+const state={deck:initialDeck,selected:Number(savedUI.selected)||0,prompt:savedUI.prompt||(initialDeck.id==="prismdeck-demo"?"The future of clean industrial energy":initialDeck.title),count:Number(savedUI.count)||8,audience:savedUI.audience||initialDeck.audience,importOpen:false,helpOpen:false,exporting:false};
 const current=()=>state.deck.slides[Math.min(state.selected,state.deck.slides.length-1)];
-function save(){try{localStorage.setItem(STORAGE_KEY,JSON.stringify(state.deck));}catch{}}
+function save(){try{localStorage.setItem(STORAGE_KEY,JSON.stringify(state.deck));localStorage.setItem(STORAGE_KEY+"-ui",JSON.stringify({selected:state.selected,prompt:state.prompt,count:state.count,audience:state.audience}));}catch{}}
 function options(values,chosen){return values.map(v=>'<option value="'+escapeHtml(v)+'" '+(v===chosen?'selected':'')+'>'+escapeHtml(v)+'</option>').join("");}
 function toast(message,bad=false) {
   let target=document.getElementById("toasts");
@@ -169,7 +171,7 @@ app.addEventListener("click",(event)=>{
 });
 app.addEventListener("input",(event)=>{
   const x=event.target;
-  if(x.dataset.prompt!==undefined){state.prompt=x.value;return;}
+  if(x.dataset.prompt!==undefined){state.prompt=x.value;save();return;}
   if(x.dataset.deckField==="title"){state.deck.title=x.value.slice(0,140);save();return;}
   if(x.dataset.slideField!==undefined&&x.dataset.slideField!=="layout"){
     current()[x.dataset.slideField]=x.value;save();redrawSlide();return;
@@ -184,8 +186,8 @@ app.addEventListener("input",(event)=>{
 });
 app.addEventListener("change",(event)=>{
   const x=event.target;
-  if(x.dataset.audience!==undefined){state.audience=x.value;return;}
-  if(x.dataset.count!==undefined){state.count=Number(x.value);return;}
+  if(x.dataset.audience!==undefined){state.audience=x.value;save();return;}
+  if(x.dataset.count!==undefined){state.count=Number(x.value);save();return;}
   if(x.dataset.slideField==="layout"){current().layout=x.value;render();return;}
   if(x.id==="fileImport")importFile(x.files?.[0]);
 });
