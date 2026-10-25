@@ -10,6 +10,9 @@ on:
       - 'public/digital/free-pricing-calculator.html'
       - '.github/workflows/digital-product-factory.yml'
   workflow_dispatch:
+  schedule:
+    # Mondays 09:00 Guyana (UTC-4). Build review artifacts, never auto-publish.
+    - cron: '0 13 * * 1'
 
 permissions:
   contents: read
