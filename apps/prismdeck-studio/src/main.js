@@ -5,6 +5,8 @@ import {buildSourceDeck} from "./source-deck.js";
 import {ingestFiles,SOURCE_ACCEPT,isServerFormat} from "./ingest.js";
 import {parseBrief} from "./brief.js";
 import {renderSimple} from "./simple-ui.js";
+import {renderAgent} from "./agent-ui.js";
+import {prepareAgentPrompt,decodeAgentDeck} from "./agent-core.js";
 
 const app=document.querySelector("#app");
 const escapeHtml=(value)=>String(value??"").replace(/[&<>"']/g,(c)=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
@@ -16,7 +18,7 @@ function load(){
 }
 function loadUI(){try{return JSON.parse(localStorage.getItem(STORAGE_KEY+"-ui")||"{}");}catch{return {};}}
 const savedUI=loadUI(),initialDeck=load();
-const state={deck:initialDeck,selected:Number(savedUI.selected)||0,prompt:savedUI.prompt||(initialDeck.id==="prismdeck-demo"?"The future of clean industrial energy":initialDeck.title),count:Number(savedUI.count)||8,audience:savedUI.audience||initialDeck.audience,importOpen:false,helpOpen:false,exporting:false,importing:false,documents:[],importErrors:[],simpleMode:location.hash!=="#editor",simpleFiles:[],simpleInstructions:"",simpleStatus:"",simpleError:"",simpleBusy:false,simpleThemes:Object.fromEntries(Object.entries(THEMES).map(([k,t])=>[k,t.name]))};
+const state={deck:initialDeck,selected:Number(savedUI.selected)||0,prompt:savedUI.prompt||(initialDeck.id==="prismdeck-demo"?"The future of clean industrial energy":initialDeck.title),count:Number(savedUI.count)||8,audience:savedUI.audience||initialDeck.audience,importOpen:false,helpOpen:false,exporting:false,importing:false,documents:[],importErrors:[],agentMode:location.hash!=="#editor"&&location.hash!=="#simple",agentAi:true,agentConsent:false,agentDraft:"",agentFiles:[],agentDocs:[],agentBusy:false,agentStatus:"",agentError:"",agentHasDeck:initialDeck.id!=="prismdeck-demo",agentMessages:[],simpleMode:location.hash==="#simple",simpleFiles:[],simpleInstructions:"",simpleStatus:"",simpleError:"",simpleBusy:false,simpleThemes:Object.fromEntries(Object.entries(THEMES).map(([k,t])=>[k,t.name]))};
 const current=()=>state.deck.slides[Math.min(state.selected,state.deck.slides.length-1)];
 function save(){try{localStorage.setItem(STORAGE_KEY,JSON.stringify(state.deck));localStorage.setItem(STORAGE_KEY+"-ui",JSON.stringify({selected:state.selected,prompt:state.prompt,count:state.count,audience:state.audience}));}catch{}}
 function options(values,chosen){return values.map(v=>'<option value="'+escapeHtml(v)+'" '+(v===chosen?'selected':'')+'>'+escapeHtml(v)+'</option>').join("");}
@@ -84,6 +86,7 @@ function editor(){
     '<div class="inspector-actions"><button data-action="duplicate" class="ghost-control">⊞ Duplicate</button><button data-action="delete" class="ghost-control danger-text">⌫ Delete</button></div></section>';
 }
 function render(){
+  if(state.agentMode){app.innerHTML=renderAgent(state,state.agentHasDeck?renderSlide(current()):"");save();return;}
   if(state.simpleMode){app.innerHTML=renderSimple(state);return;}
   state.selected=Math.min(state.selected,state.deck.slides.length-1);
   app.innerHTML=
@@ -91,7 +94,7 @@ function render(){
   '<aside class="brand-rail"><div class="brand-mark">P<span>.</span></div><div class="rail-line"></div><div class="rail-name">STUDIO</div><div class="rail-bottom">PD<br>26</div></aside>'+
   '<div class="workspace">'+
     '<header class="topbar"><div class="breadcrumb"><span class="breadcrumb-home">Workspace</span><span class="chev">/</span><span>Presentation editor</span></div>'+
-      '<div class="top-actions"><button class="top-secondary" data-action="simple-home">Simple upload</button><span class="privacy-dot"></span><span class="private-label">LOCAL-FIRST WORKSPACE</span>'+
+      '<div class="top-actions"><button class="top-secondary" data-action="agent-home">AI agent</button><button class="top-secondary" data-action="simple-home">Simple upload</button><span class="privacy-dot"></span><span class="private-label">LOCAL-FIRST WORKSPACE</span>'+
       '<button class="top-secondary" data-action="help" title="Keyboard and feature help">Help</button>'+
       '<button class="top-secondary" data-action="download-json">Save project</button>'+
       '<button class="primary-button export-btn" data-action="pptx">Export PPTX <span>↗</span></button></div></header>'+
@@ -207,13 +210,98 @@ async function generateFromSimple(){
   state.simpleBusy=false;
  }
 }
+
+function agentRefresh(){render();const el=document.getElementById("agent-chat");if(el)el.scrollTop=el.scrollHeight;}
+function agentSetFiles(files){
+ const incoming=Array.from(files||[]);
+ if(!incoming.length)return;
+ state.agentFiles=[...state.agentFiles,...incoming].filter((f,i,list)=>list.findIndex(x=>x.name===f.name&&x.size===f.size&&x.lastModified===f.lastModified)===i).slice(0,20);
+ state.agentError="";agentRefresh();
+}
+function connectPuter(){
+ if(window.puter?.ai?.chat)return Promise.resolve(window.puter);
+ return new Promise((resolve,reject)=>{
+  let script=document.getElementById("puter-sdk");
+  if(!script){script=document.createElement("script");script.id="puter-sdk";script.src="https://js.puter.com/v2/";script.async=true;document.head.appendChild(script);}
+  if(window.puter?.ai?.chat){resolve(window.puter);return;}
+  script.addEventListener("load",()=>window.puter?.ai?.chat?resolve(window.puter):reject(Error("AI SDK loaded without an AI client.")),{once:true});
+  script.addEventListener("error",()=>reject(Error("Cannot load Puter AI. Check connectivity or use offline mode.")),{once:true});
+ });
+}
+async function agentSend(){
+ if(state.agentBusy)return;
+ const instruction=state.agentDraft.trim();
+ if(instruction.length<5){state.agentError="Describe what the presentation should contain.";agentRefresh();return;}
+ if(state.agentAi&&!state.agentConsent){state.agentError="Please authorize sharing extracted content with Puter AI, or choose Offline draft.";agentRefresh();return;}
+ const unsupported=state.agentFiles.filter(f=>isServerFormat(f.name)&&!/\. (mp3|wav|m4a)$/i.test(f.name));
+ // Video and old Office files remain unsupported without the private converter.
+ const unhandled=state.agentFiles.filter(f=>isServerFormat(f.name)&&!/\.(mp3|wav|m4a)$/i.test(f.name));
+ if(unhandled.length){state.agentError="These files require conversion: "+unhandled.map(f=>f.name).join(", ")+". For video, upload captions (.srt/.vtt) or a transcript.";agentRefresh();return;}
+ const spec=parseBrief(instruction,{count:state.agentHasDeck?state.deck.slides.length:8,audience:state.deck.audience,theme:state.deck.theme});
+ state.agentBusy=true;state.agentError="";state.agentStatus="Reading the uploaded sources";state.agentMessages.push({role:"user",text:instruction});agentRefresh();
+ try{
+  let aiClient=null;
+  if(state.agentAi){state.agentStatus="Connecting to Puter AI";agentRefresh();aiClient=await connectPuter();}
+  const newFiles=state.agentFiles.filter(f=>!state.agentDocs.some(d=>d.name===f.name&&d.bytes===f.size));
+  if(newFiles.length){
+   const audio=newFiles.filter(f=>/\.(mp3|wav|m4a)$/i.test(f.name));
+   const normal=newFiles.filter(f=>!/\.(mp3|wav|m4a)$/i.test(f.name));
+   let docs=[];
+   if(normal.length){
+    const result=await ingestFiles(normal,{},({index,total,name})=>{
+     const status=document.querySelector(".a-thinking");
+     if(status)status.textContent="Reading "+index+" of "+total+": "+name;
+    });
+    if(result.errors.length)throw Error("Unable to extract: "+result.errors.map(x=>x.name+" ("+x.error+")").join("; "));
+    docs=result.documents;
+   }
+   for(const f of audio){
+    if(!aiClient?.ai?.speech2txt)throw Error("Audio requires Puter AI speech transcription. Enable AI mode.");
+    state.agentStatus="Transcribing "+f.name;agentRefresh();
+    const answer=await aiClient.ai.speech2txt(f);
+    const transcription=typeof answer==="string"?answer:answer?.text;
+    if(!transcription?.trim())throw Error("No transcription returned for "+f.name);
+    docs.push({name:f.name,kind:"transcript",text:transcription,bytes:f.size});
+   }
+   state.agentDocs=[...state.agentDocs,...docs].slice(0,20);
+  }
+  const prev=state.agentHasDeck?state.deck:null;
+  state.agentStatus=state.agentAi?"AI is writing the slides":"Creating a structured offline draft";agentRefresh();
+  let output;
+  if(state.agentAi){
+    const prompt=prepareAgentPrompt({instruction,documents:state.agentDocs,deck:prev,count:spec.count,audience:spec.audience,theme:spec.theme});
+    const response=await aiClient.ai.chat(prompt,{model:"gpt-5.4",normalize:true,max_tokens:6500});
+    output=decodeAgentDeck(response,{documents:state.agentDocs,fallbackTheme:spec.theme,fallbackAudience:spec.audience});
+  }else if(state.agentDocs.length){
+    output=buildSourceDeck(state.agentDocs,spec);
+  }else output=generateDeck(instruction,spec);
+  state.deck=output;state.agentHasDeck=true;state.selected=0;
+  state.agentMessages.push({role:"assistant",text:(state.agentAi?"AI completed":"Offline draft completed")+" "+output.slides.length+" editable slides. Preview the result, download PowerPoint, or send another instruction to revise."});
+  state.agentDraft="";state.agentFiles=[];save();agentRefresh();
+ }catch(err){
+  state.agentError=String(err?.message||"Unable to generate your presentation.");
+  state.agentMessages.push({role:"assistant",text:"I could not complete this request: "+state.agentError});
+  agentRefresh();
+ }finally{state.agentBusy=false;state.agentStatus="";agentRefresh();}
+}
+
 async function action(name,target){
   const slide=current();
   switch(name){
+  case "agent-home":
+    state.agentMode=true;state.simpleMode=false;history.replaceState(null,"",location.pathname+location.search);render();break;
+  case "agent-remove":state.agentFiles.splice(Number(target.dataset.index),1);state.agentError="";render();break;
+  case "agent-new":
+    state.agentHasDeck=false;state.agentFiles=[];state.agentDocs=[];state.agentMessages=[];state.agentDraft="";state.agentError="";state.deck=starterDeck();state.selected=0;render();break;
+  case "agent-send":await agentSend();break;
+  case "agent-prev":state.selected=Math.max(0,state.selected-1);render();break;
+  case "agent-next":state.selected=Math.min(state.deck.slides.length-1,state.selected+1);render();break;
+  case "agent-slide":state.selected=Number(target.dataset.index);render();break;
+  case "agent-export":await action("pptx",target);break;
   case "open-advanced":
-    state.simpleMode=false;history.replaceState(null,"",location.pathname+location.search+"#editor");render();break;
+    state.agentMode=false;state.simpleMode=false;history.replaceState(null,"",location.pathname+location.search+"#editor");render();break;
   case "simple-home":
-    state.simpleMode=true;history.replaceState(null,"",location.pathname+location.search);render();break;
+    state.agentMode=false;state.simpleMode=true;history.replaceState(null,"",location.pathname+location.search+"#simple");render();break;
   case "choose-simple-files":document.getElementById("simple-upload")?.click();break;
   case "simple-remove":
     state.simpleFiles.splice(Number(target.dataset.index),1);state.simpleError="";render();break;
@@ -260,6 +348,7 @@ app.addEventListener("click",(event)=>{
 });
 app.addEventListener("input",(event)=>{
   const x=event.target;
+  if(x.id==="agent-prompt"){state.agentDraft=x.value;return;}
   if(x.id==="simple-instructions"){state.simpleInstructions=x.value;return;}
   if(x.dataset.prompt!==undefined){state.prompt=x.value;save();return;}
   if(x.dataset.deckField==="title"){state.deck.title=x.value.slice(0,140);save();return;}
@@ -276,6 +365,9 @@ app.addEventListener("input",(event)=>{
 });
 app.addEventListener("change",(event)=>{
   const x=event.target;
+  if(x.id==="agent-upload"){agentSetFiles(x.files);return;}
+  if(x.id==="agent-consent"){state.agentConsent=x.checked;state.agentError="";return;}
+  if(x.id==="agent-engine"){state.agentAi=x.value==="ai";state.agentError="";render();return;}
   if(x.id==="simple-upload"){acceptSimpleFiles(x.files);return;}
   if(x.dataset.simpleTheme!==undefined){state.deck.theme=x.value;save();return;}
   if(x.dataset.audience!==undefined){state.audience=x.value;save();return;}
@@ -283,8 +375,9 @@ app.addEventListener("change",(event)=>{
   if(x.dataset.slideField==="layout"){current().layout=x.value;render();return;}
   if(x.id==="fileImport")importSourceFiles(x.files);
 });
-app.addEventListener("dragover",(event)=>{if((state.importOpen&&event.target.closest("#dropArea"))||(state.simpleMode&&event.target.closest("#simple-dropzone"))){event.preventDefault();event.dataTransfer.dropEffect="copy";}});
-app.addEventListener("drop",(event)=>{if(state.simpleMode&&event.target.closest("#simple-dropzone")){event.preventDefault();acceptSimpleFiles(event.dataTransfer.files);}else if(state.importOpen&&event.target.closest("#dropArea")){event.preventDefault();importSourceFiles(event.dataTransfer.files);}});
+app.addEventListener("dragover",(event)=>{if((state.importOpen&&event.target.closest("#dropArea"))||(state.simpleMode&&event.target.closest("#simple-dropzone"))||(state.agentMode&&event.target.closest("#agent-drop"))){event.preventDefault();event.dataTransfer.dropEffect="copy";}});
+app.addEventListener("drop",(event)=>{if(state.agentMode&&event.target.closest("#agent-drop")){event.preventDefault();agentSetFiles(event.dataTransfer.files);}else if(state.simpleMode&&event.target.closest("#simple-dropzone")){event.preventDefault();acceptSimpleFiles(event.dataTransfer.files);}else if(state.importOpen&&event.target.closest("#dropArea")){event.preventDefault();importSourceFiles(event.dataTransfer.files);}});
+app.addEventListener("keydown",(event)=>{if(event.target.id==="agent-prompt"&&event.key==="Enter"&&!event.shiftKey){event.preventDefault();action("agent-send",{});}});
 window.addEventListener("keydown",(event)=>{
   if((event.ctrlKey||event.metaKey)&&event.key.toLowerCase()==="s"){event.preventDefault();action("download-json",{});}
   if((event.ctrlKey||event.metaKey)&&event.key.toLowerCase()==="e"){event.preventDefault();action("pptx",{});}
