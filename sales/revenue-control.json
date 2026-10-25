@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "checkedAt": "2026-10-25T12:30:40.021Z",
+  "checkedAt": "2026-10-25T13:23:33.512Z",
   "priority": "paid_sales_from_verified_existing_offers",
   "activeOffer": {
     "slug": "whitepaper",
@@ -18,7 +18,7 @@
     "revenueVerified": false,
     "firstSaleVerified": false,
     "nextAction": "MEASURE_EXTERNAL_BUYER_TRAFFIC",
-    "note": "GitHub link checks and generated content are not evidence of buyers, actual Stripe payments or delivered orders."
+    "note": "Only a complete authenticated live Stripe charge read establishes payment activity; first-sale credit also requires positive after-refunds revenue. Generated content, checkout links and numeric paidOrders claims do not."
   },
   "freeLLM": {
     "status": "not_configured",
