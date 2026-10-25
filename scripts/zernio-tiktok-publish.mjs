@@ -3,12 +3,15 @@ import crypto from 'node:crypto';
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
+import { buildRetailPromotionSwarm } from './retail-promotion-swarm.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const DEFAULT_API_BASE = 'https://zernio.com/api';
 const CONFIG_PATH = path.join(ROOT, 'config', 'tiktok-publish.json');
 const CATALOG_PATH = path.join(ROOT, 'config', 'legacy-live-catalog.json');
 const PROMOTIONS_PATH = path.join(ROOT, 'config', 'retail-promotions.json');
+const LOCK_PATH = path.join(ROOT, 'config', 'tiktok-publish-lock.json');
+const SUPPLIER_REVIEW_PATH = path.join(ROOT, 'growth-reports', 'cj-worker-review.json');
 const RECEIPT_PATH = path.join(ROOT, 'build', 'tiktok-publish', 'receipt.json');
 const CONFIRMATION = 'PUBLISH_PRISMBAY_TIKTOK';
 
@@ -66,6 +69,24 @@ export function validatePublishRequest(request, config, product) {
     accountId: request.accountId,
     videoUrl: request.videoUrl
   };
+}
+
+// The legacy catalog is a migration inventory, not permission to promote.
+// Reuse the existing retail swarm's authenticated, fresh supplier/checkout/
+// fulfillment decision instead of inventing a second approval mechanism.
+export function requireCurrentPhysicalPromotionEvidence(product, review, now = Date.now()) {
+  if (product?.legacyLive === true || typeof product?.supplierSlug !== 'string' ||
+      typeof product?.supplierVariantSku !== 'string') {
+    fail('legacy_physical_product_not_qualified_for_promotion');
+  }
+  const plan = buildRetailPromotionSwarm({ review, now });
+  const matching = plan.promotionEligible.filter(row =>
+    row.slug === product.supplierSlug && row.variantSku === product.supplierVariantSku &&
+    row.liveStoreProduct === true && row.promotionEligible === true);
+  if (matching.length !== 1 || plan.saleReadyCount < 1) {
+    fail('current_physical_commercial_evidence_required');
+  }
+  return matching[0];
 }
 
 export function findExistingPublishRequest(value, requestId) {
@@ -278,12 +299,18 @@ function parseArgs(argv) {
 }
 
 export async function run({ publish = false, requestPath = null, env = process.env } = {}) {
-  const [config, catalog, promotions] = await Promise.all([
+  const [config, catalog, promotions, lock, supplierReview] = await Promise.all([
     readJson(CONFIG_PATH),
     readJson(CATALOG_PATH),
-    readJson(PROMOTIONS_PATH)
+    readJson(PROMOTIONS_PATH),
+    readJson(LOCK_PATH),
+    readJson(SUPPLIER_REVIEW_PATH).catch(() => null)
   ]);
+  // Apply the shared publication lock even when this script is invoked outside
+  // the GitHub workflow. No provider call is allowed for a locked account.
+  if (lock?.locked !== false) fail('tiktok_publishing_locked');
   const { product, activePromotion } = validateStaticConfig(config, catalog, promotions);
+  requireCurrentPhysicalPromotionEvidence(product, supplierReview);
 
   let request = null;
   let publishRequestId = null;
