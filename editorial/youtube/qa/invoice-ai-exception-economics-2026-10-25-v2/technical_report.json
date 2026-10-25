@@ -1,0 +1,44 @@
+{
+  "slug": "invoice-ai-exception-economics-2026-10-25-v2",
+  "channelId": "UCw2hs85TzIpdKwJtG-BSxzQ",
+  "durationSeconds": 48.225873,
+  "videoCodec": "h264",
+  "audioCodec": "aac",
+  "width": 1080,
+  "height": 1920,
+  "audioMeanDb": -18.8,
+  "audioPeakDb": -0.0,
+  "ttsEngines": [
+    "piper"
+  ],
+  "originalVisualsDeclared": true,
+  "previewFrames": [
+    "editorial/youtube/qa/invoice-ai-exception-economics-2026-10-25-v2/preview_01.jpg",
+    "editorial/youtube/qa/invoice-ai-exception-economics-2026-10-25-v2/preview_02.jpg",
+    "editorial/youtube/qa/invoice-ai-exception-economics-2026-10-25-v2/preview_03.jpg",
+    "editorial/youtube/qa/invoice-ai-exception-economics-2026-10-25-v2/preview_04.jpg"
+  ],
+  "technicalChecks": {
+    "duration": true,
+    "dimensions": true,
+    "codecs": true,
+    "piperVoice": true,
+    "noDigitalClipping": false,
+    "soleChannel": true
+  },
+  "technicalPass": false,
+  "manualVisualReview": "PENDING",
+  "manualNarrationReview": "PENDING",
+  "publicationApproved": false,
+  "paidSpendUSD": 0,
+  "machineNarrationReview": {
+    "completed": true,
+    "model": "faster-whisper tiny.en CPU",
+    "scriptWordCount": 112,
+    "transcribedWordCount": 116,
+    "wordSequenceSimilarity": 0.956,
+    "intelligibilityProxyPass": true,
+    "transcript": "A software provider claims 85% invoice automation, does that mean 85% savings, not necessarily. Price the exceptions. Example of 1000 invoices. Manual processing costs $1.20 each monthly baseline $1,200. AI software costs $400, 150 exceptions need review at $3 each of $450. 20 post acceptance errors cost $10 each to fix $200. Total AI workflow costs $1,050. The difference is $150 per month before setup. Quality still needs independent testing, measure accepted results, exception rate, reworked and customer impact. Prism Bay AI helps operators build practical AI business systems.",
+    "humanListeningReview": "NOT PERFORMED"
+  }
+}
