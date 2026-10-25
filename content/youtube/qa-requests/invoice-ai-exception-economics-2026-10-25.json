@@ -13,5 +13,6 @@
     "noDuplicatePublishing": true,
     "noPaidSpend": true
   },
-  "publicationApproval": false
+  "publicationApproval": false,
+  "remasterRequest": "2026-10-25: QA detected audio peak -0.0 dB. Run existing -3dB attenuation and regenerate technical report; keep publicationApproval false until manual audio and visual review."
 }
