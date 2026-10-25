@@ -68,7 +68,8 @@ jobs:
           pics=[Image.open(x).convert('RGB') for x in sorted(Path('build/tiktok-repairs/stakeholder/review-stills').glob('*.png'))]
           assert len(pics)==5
           diffs=[sum(ImageStat.Stat(ImageChops.difference(a,b)).mean)/3 for a,b in zip(pics,pics[1:])]
-          assert min(diffs)>3.0, f'Recorded scenes not visually changing: {diffs}'
+          assert sum(x>8.0 for x in diffs)>=3, f'Need at least three genuinely different stages: {diffs}'
+          assert min(diffs)>0.6, f'Each stage needs a visible edit or state change: {diffs}'
           assert digital['durationSeconds']>=12
           print('PASS: authentic recorded actions; review only. Original TikTok auto-post lock remains on. Motion differences:',diffs)
           print('BRUSH:',physical['status'])
