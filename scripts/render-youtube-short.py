@@ -11,6 +11,7 @@ import textwrap
 import wave
 
 from PIL import Image, ImageDraw, ImageFont
+from youtube_visual_ledger import render_frame_ledger
 
 WIDTH, HEIGHT = 1080, 1920
 BG = (8, 12, 20)
@@ -280,7 +281,9 @@ def main():
         used = synthesize(spoken, wav, voice, voice_dir) if engine == 'piper' else synthesize(spoken, wav, '__missing__', voice_dir)
         used_engines.add(used)
         duration = max(1.0, wav_duration(wav) + 0.18)
-        frame = (render_frame_decision(segment, i, len(segments), spec.get('sourceAttribution', ''))
+        frame = (render_frame_ledger(segment, i, len(segments), spec.get('sourceAttribution', ''))
+                 if spec.get('visualStyle') == 'ledger_v1'
+                 else render_frame_decision(segment, i, len(segments), spec.get('sourceAttribution', ''))
                  if spec.get('visualStyle') == 'decision_tree_v2'
                  else render_frame_boardroom(segment, i, len(segments), spec.get('sourceAttribution', ''))
                  if spec.get('visualStyle') == 'boardroom_v3'
