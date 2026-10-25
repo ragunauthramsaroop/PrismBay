@@ -155,3 +155,12 @@ test('one provider request requires durable exact reservation, uses idempotency 
   const fail=await providerPublish(plan,led,{env:{ZERNIO_API_KEY:'fixture-key'},fetchImpl:async()=>{throw Error('network timeout')}});
   assert.equal(fail.result,'uncertain_manual_reconciliation');
 });
+
+// Daily audit must never trigger a provider submission.
+test('daily audit is not an automatic publish event', async () => {
+  const workflow=await fs.readFile('.github/workflows/prismbay-tiktok-autopost.yml','utf8');
+  assert.ok(workflow.includes("cron: '45 13 * * *'"));
+  assert.ok(workflow.includes("cron: '13 14 * * 1,3,5'"));
+  assert.ok(workflow.includes("github.event_name == 'schedule' && github.event.schedule == '13 14 * * 1,3,5'"));
+  assert.ok(!workflow.includes("github.event_name == 'schedule' ||"));
+});

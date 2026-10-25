@@ -2,7 +2,10 @@ name: PrismBay TikTok Approved Autoposter
 
 on:
   schedule:
-    # Monday, Wednesday, Friday 10:13 AM Guyana (UTC-4), one approved creative per run.
+    # Daily 09:45 Guyana: read-only approval, identity and content-queue audit.
+    # This schedule must never submit a TikTok post.
+    - cron: '45 13 * * *'
+    # Monday, Wednesday, Friday 10:13 AM Guyana: one exact approved creative per run.
     - cron: '13 14 * * 1,3,5'
   workflow_dispatch:
     inputs:
@@ -62,7 +65,7 @@ jobs:
   publish-one-approved:
     needs: security-and-approval-tests
     if: >-
-      github.ref == 'refs/heads/main' && (github.event_name == 'schedule' || (github.event_name == 'workflow_dispatch' && inputs.mode == 'publish-approved') || (github.event_name == 'push' && startsWith(github.event.head_commit.message, 'release(tiktok): authorized-20261025')))
+      github.ref == 'refs/heads/main' && ((github.event_name == 'schedule' && github.event.schedule == '13 14 * * 1,3,5') || (github.event_name == 'workflow_dispatch' && inputs.mode == 'publish-approved') || (github.event_name == 'push' && startsWith(github.event.head_commit.message, 'release(tiktok): authorized-20261025')))
     runs-on: ubuntu-latest
     timeout-minutes: 35
     permissions:
