@@ -47,6 +47,10 @@ jobs:
         run: |
           python3 -m venv /tmp/prismbay-digital-video-env
           /tmp/prismbay-digital-video-env/bin/python -m pip install --disable-pip-version-check --no-input pillow
+          if ! command -v ffmpeg >/dev/null 2>&1 || ! command -v ffprobe >/dev/null 2>&1; then
+            sudo apt-get update -qq
+            sudo apt-get install -y -qq ffmpeg fonts-dejavu-core
+          fi
           ffmpeg -version | head -n 1
           ffprobe -version | head -n 1
       - name: Render three original 24-second product previews
