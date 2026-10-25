@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "checkedAt": "2026-10-25T19:20:25.702Z",
+  "checkedAt": "2026-10-25T19:20:44.579Z",
   "source": "GitHub Actions accountability evidence",
   "refreshPolicy": "Best-effort GitHub schedules. Static snapshot; refresh does not run agents.",
   "summary": {
@@ -42,7 +42,7 @@
       "failureStreak": 0,
       "runId": 40209753982,
       "runUrl": "https://github.com/ragunauthramsaroop/PrismBay/actions/runs/40209753982",
-      "runAgeMinutes": 198,
+      "runAgeMinutes": 199,
       "artifactName": "prismbay-external-traffic-40209753982",
       "artifactBytes": 799888,
       "remediation": null
@@ -60,7 +60,7 @@
       "failureStreak": 0,
       "runId": 40225294654,
       "runUrl": "https://github.com/ragunauthramsaroop/PrismBay/actions/runs/40225294654",
-      "runAgeMinutes": 3,
+      "runAgeMinutes": 4,
       "artifactName": "prismbay-ceo-recovery-40225294654",
       "artifactBytes": 55742,
       "remediation": null
