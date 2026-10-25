@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "checkedAt": "2026-10-25T17:13:04.889Z",
+  "checkedAt": "2026-10-25T17:13:24.518Z",
   "source": "GitHub Actions accountability evidence",
   "refreshPolicy": "Best-effort GitHub schedules. Static snapshot; refresh does not run agents.",
   "summary": {
