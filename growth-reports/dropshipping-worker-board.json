@@ -1,10 +1,10 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-10-25T12:04:16.087Z",
+  "generatedAt": "2026-10-25T16:20:00.205Z",
   "researchCandidates": 12,
   "publishedResearchSignals": 12,
   "verifiedCJStatus": {
-    "checkedAt": "2026-10-25T11:29:55.203Z",
+    "checkedAt": "2026-10-25T16:19:58.528Z",
     "validSupplierMatches": 3,
     "variantStock": 1,
     "freightEstimates": 1,
@@ -28,6 +28,27 @@
       "candidateCount": 12,
       "blockers": [
         {
+          "slug": "mini-mop",
+          "status": "supplier_search_needed",
+          "sku": null,
+          "shippingDiagnostic": null,
+          "zeroPricedMethods": 0
+        },
+        {
+          "slug": "drain-catcher",
+          "status": "supplier_search_needed",
+          "sku": null,
+          "shippingDiagnostic": null,
+          "zeroPricedMethods": 0
+        },
+        {
+          "slug": "home-caddy",
+          "status": "supplier_search_needed",
+          "sku": null,
+          "shippingDiagnostic": null,
+          "zeroPricedMethods": 0
+        },
+        {
           "slug": "pressure-washer",
           "status": "supplier_search_needed",
           "sku": null,
@@ -43,7 +64,7 @@
         },
         {
           "slug": "garment-steamer",
-          "status": "final_zip_freight_required",
+          "status": "fresh_commercial_evidence_required",
           "sku": "CJYD245844002BY",
           "shippingDiagnostic": "priced_estimate_available",
           "zeroPricedMethods": 0
@@ -89,27 +110,6 @@
           "sku": null,
           "shippingDiagnostic": null,
           "zeroPricedMethods": 0
-        },
-        {
-          "slug": "mini-mop",
-          "status": "supplier_search_needed",
-          "sku": null,
-          "shippingDiagnostic": null,
-          "zeroPricedMethods": 0
-        },
-        {
-          "slug": "drain-catcher",
-          "status": "supplier_search_needed",
-          "sku": null,
-          "shippingDiagnostic": null,
-          "zeroPricedMethods": 0
-        },
-        {
-          "slug": "home-caddy",
-          "status": "supplier_search_needed",
-          "sku": null,
-          "shippingDiagnostic": null,
-          "zeroPricedMethods": 0
         }
       ]
     },
@@ -129,7 +129,7 @@
       "executionMode": "existing_cloud_script",
       "reportAvailable": true,
       "storefrontStatus": 200,
-      "missingProductSchema": false
+      "missingProductSchema": true
     },
     {
       "worker": "Hook/Creative Writer",
