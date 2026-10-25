@@ -4,11 +4,17 @@ on:
   pull_request:
     paths:
       - 'public/digital/**'
+      - 'scripts/digital-growth-pages.mjs'
+      - 'scripts/digital-organic-campaign.mjs'
+      - 'scripts/digital-organic-campaign.test.mjs'
       - '.github/workflows/publish-digital-offers.yml'
   push:
     branches: [main]
     paths:
       - 'public/digital/**'
+      - 'scripts/digital-growth-pages.mjs'
+      - 'scripts/digital-organic-campaign.mjs'
+      - 'scripts/digital-organic-campaign.test.mjs'
       - '.github/workflows/publish-digital-offers.yml'
   workflow_dispatch:
 
@@ -28,6 +34,14 @@ jobs:
         with:
           fetch-depth: 0
           persist-credentials: true
+
+      - name: Test organic marketing content and generate four free guide pages
+        shell: bash
+        run: |
+          node --test scripts/digital-organic-campaign.test.mjs
+          node scripts/digital-growth-pages.mjs
+          node scripts/digital-organic-campaign.mjs
+          test "$(find public/digital/guides -maxdepth 1 -name '*.html' | wc -l)" -eq 4
 
       - name: Validate verified offer copy, buyer guides and Stripe destinations
         shell: bash
@@ -108,10 +122,24 @@ jobs:
                   raise SystemExit('sitemap closing tag missing')
               xml = xml.replace('</urlset>', entry + '</urlset>')
               sitemap.write_text(xml)
+          for relative in [
+              '/digital/free-pricing-calculator.html',
+              '/digital/guides/stakeholder-commitments-checklist.html',
+              '/digital/guides/esg-monthly-reporting-checklist.html',
+              '/digital/guides/board-briefing-evidence-checklist.html',
+              '/digital/guides/consultant-service-pricing-guide.html',
+          ]:
+              target_url = 'https://clean.prismbayai.com' + relative
+              if '<loc>' + target_url + '</loc>' not in xml:
+                  entry = '  <url><loc>' + target_url + '</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>\n'
+                  xml = xml.replace('</urlset>', entry + '</urlset>')
+          sitemap.write_text(xml)
           PY
 
           grep -q 'href="/digital/"' "$target/index.html"
           grep -q 'https://clean.prismbayai.com/digital/' "$target/sitemap.xml"
+          grep -q 'https://clean.prismbayai.com/digital/guides/esg-monthly-reporting-checklist.html' "$target/sitemap.xml"
+          test "$(find "$target/digital/guides" -maxdepth 1 -name '*.html' | wc -l)" -eq 4
           git -C "$target" add digital index.html sitemap.xml
           if git -C "$target" diff --cached --quiet; then
             echo 'Digital funnel unchanged'
