@@ -24,6 +24,22 @@ export function buildSurfaceRemediation(audit={}) {
   if(Array.isArray(audit.robots?.issues)&&audit.robots.issues.length){
     tasks.push({id:'robots-repair',priority:1,owner:'storefront-conversion',title:'Repair robots discoverability defects',evidence:audit.robots.issues,definitionOfDone:'robots.valid = true, site is not blanket-blocked and sitemap reference is present',safeImplementation:'Preserve any intentional sensitive-path restrictions.'});
   }
+  if(audit.legacyExposure?.safe===false){
+    tasks.push({
+      id:'legacy-storefront-commercial-exposure',
+      priority:0,
+      owner:'storefront-trust',
+      title:'Suspend legacy physical checkout and unsupported product-feed claims',
+      evidence:{
+        checkoutLinks:audit.legacyExposure.directCheckoutLinkCount??null,
+        saleSchemaPages:audit.legacyExposure.saleSchemaPageCount??null,
+        inStockFeedRows:audit.legacyExposure.inStockFeedRowCount??null,
+        issues:audit.legacyExposure.issues||[]
+      },
+      definitionOfDone:'Owner deactivates legacy physical payment links in the correct Stripe merchant and retires or corrects the legacy AppDeploy storefront, then read-only audit confirms no checkout links, unverified Product/Offer schema, unsupported stock claims or unlicensed media.',
+      safeImplementation:'Do not change Stripe, delete the deployed app, publish supplier media or modify paid offers automatically. Preserve unrelated verified digital offers.'
+    });
+  }
   return {
     schemaVersion:1,
     generatedAt:new Date().toISOString(),

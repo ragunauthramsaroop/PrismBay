@@ -32,5 +32,6 @@
     "autonomousPriceChanges": false
   },
   "runtimeAuthority": "AppDeploy cron status and persisted swarm KPI state for prismbay-clean-49izhg",
-  "githubRole": "Independent KPI contract, configuration and public storefront watchdog; GitHub does not invent private AppDeploy runtime measurements."
+  "githubRole": "Independent KPI contract, configuration and public storefront watchdog; GitHub does not invent private AppDeploy runtime measurements.",
+  "legacyStoreOrigin": "https://prismbay-clean-9el7jh.v2.appdeploy.ai"
 }

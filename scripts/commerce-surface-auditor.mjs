@@ -61,6 +61,88 @@ export function auditRobots(text='') {
   return {sitemapReferences:sitemap,issues,valid:issues.length===0};
 }
 
+
+// Read-only legacy storefront inspection. An HTML/merchant feed that loads
+// successfully is not evidence of an approved supplier route or permission to
+// take payment. Only aggregate counts enter the public GitHub report.
+export function auditLegacySnapshot({pages=[],feed={}}={}) {
+  const checkoutLinks=new Set();
+  const saleSchemaPages=[];
+  const thirdPartyMediaPages=[];
+  const unknownPaths=[];
+  for(const page of pages) {
+    if(!page?.ok) {
+      if(![404,410].includes(page?.status)) unknownPaths.push(page?.path||'unknown');
+      continue;
+    }
+    if(!/text\/html/i.test(page.contentType||'')) {
+      unknownPaths.push(page.path||'unknown_content_type');
+      continue;
+    }
+    const html=String(page.text||'');
+    for(const link of html.match(/https:\/\/(?:buy|checkout)\.stripe\.com\/[A-Za-z0-9]+/gi)||[]) checkoutLinks.add(link);
+    const jsonLd=[...html.matchAll(/<script\b[^>]*type\s*=\s*["']application\/ld\+json["'][^>]*>([\s\S]*?)<\/script\s*>/gi)];
+    if(jsonLd.some(([,value])=>/"@type"\s*:\s*"(?:Product|Offer|AggregateOffer)"/i.test(value))) saleSchemaPages.push(page.path);
+    if(/<(?:img|source|meta)\b[^>]*(?:shopifyfile\.oss-us-west-1\.aliyuncs\.com|oss-cf\.cjdropshipping\.com|cc-west-usa\.oss-us-west-1\.aliyuncs\.com)/i.test(html)) thirdPartyMediaPages.push(page.path);
+  }
+  let inStockRows=0;
+  let thirdPartyFeedImageRows=0;
+  if(feed?.ok) {
+    const lines=String(feed.text||'').trim().split(/\r?\n/);
+    const header=(lines.shift()||'').split('\t').map(x=>x.trim().toLowerCase());
+    const availabilityColumn=header.indexOf('availability');
+    const imageColumn=header.indexOf('image_link');
+    if(availabilityColumn<0) unknownPaths.push('/merchant-feed.tsv:availability_column_missing');
+    for(const line of lines) {
+      if(!line.trim()) continue;
+      const cells=line.split('\t');
+      if(availabilityColumn>=0&&/^(?:in_stock|in stock)$/i.test((cells[availabilityColumn]||'').trim())) inStockRows++;
+      if(imageColumn>=0&&/(?:aliyuncs\.com|cjdropshipping\.com)/i.test(cells[imageColumn]||'')) thirdPartyFeedImageRows++;
+    }
+  } else if(![404,410].includes(feed?.status)) {
+    unknownPaths.push('/merchant-feed.tsv');
+  }
+  const issues=[];
+  if(checkoutLinks.size) issues.push('legacy_direct_physical_checkout_exposed');
+  if(saleSchemaPages.length) issues.push('legacy_unverified_product_offer_schema');
+  if(inStockRows) issues.push('legacy_unsupported_in_stock_feed_claims');
+  if(thirdPartyMediaPages.length||thirdPartyFeedImageRows) issues.push('legacy_third_party_media_rights_unverified');
+  if(unknownPaths.length) issues.push('legacy_surface_inspection_incomplete');
+  return {
+    safe:issues.length===0,
+    decommissioned:pages.every(p=>[404,410].includes(p.status))&&[404,410].includes(feed?.status),
+    directCheckoutLinkCount:checkoutLinks.size,
+    saleSchemaPageCount:saleSchemaPages.length,
+    thirdPartyMediaPageCount:thirdPartyMediaPages.length,
+    inStockFeedRowCount:inStockRows,
+    thirdPartyFeedImageRowCount:thirdPartyFeedImageRows,
+    unknownPathCount:unknownPaths.length,
+    issues,
+    rule:'No Stripe changes, external publication, supplier ordering, or claims of live commercial approval. A clean audit does not authorize physical checkout.'
+  };
+}
+
+export async function auditLegacyStorefront(origin,fetcher=fetch) {
+  const paths=['/','/scrubber.html','/pethair.html','/crevice.html','/merchant-feed.tsv'];
+  const responses=await Promise.all(paths.map(async path=>{
+    try {
+      const response=await fetcher(origin+path,{
+        redirect:'error',signal:AbortSignal.timeout(15000),
+        headers:{'user-agent':'PrismBay-Commerce-Surface-Auditor/1.0'}
+      });
+      return {path,ok:response.ok,status:response.status,
+        contentType:response.headers.get('content-type')||'',text:await response.text()};
+    } catch {
+      return {path,ok:false,status:null,contentType:'',text:''};
+    }
+  }));
+  return {
+    origin,checkedAt:new Date().toISOString(),
+    ...auditLegacySnapshot({pages:responses.filter(x=>x.path!=='/merchant-feed.tsv'),
+      feed:responses.find(x=>x.path==='/merchant-feed.tsv')})
+  };
+}
+
 async function fetchText(origin,path){
   const response=await fetch(origin+path,{redirect:'follow',signal:AbortSignal.timeout(15000),headers:{'user-agent':'PrismBay-Commerce-Surface-Auditor/1.0'}});
   const text=await response.text();
@@ -95,9 +177,12 @@ export async function auditCommerceSurfaces(origin){
 export async function main(){
   const manifest=JSON.parse(await fs.readFile('config/store-backend-swarm.json','utf8'));
   const report=await auditCommerceSurfaces(manifest.storeOrigin);
+  report.legacyExposure=manifest.legacyStoreOrigin
+    ? await auditLegacyStorefront(manifest.legacyStoreOrigin)
+    : {safe:false,issues:['legacy_origin_not_configured']};
   await fs.mkdir('growth-reports',{recursive:true});
   await fs.writeFile('growth-reports/commerce-surface-audit.json',JSON.stringify(report,null,2)+'\n');
-  console.log(JSON.stringify({technicalSurfaceReady:report.technicalSurfaceReady,productCount:report.products.productCount,merchantItems:report.merchant.itemCount,sitemapUrls:report.sitemap.urlCount,issueCount:report.issueCount},null,2));
+  console.log(JSON.stringify({technicalSurfaceReady:report.technicalSurfaceReady,productCount:report.products.productCount,merchantItems:report.merchant.itemCount,sitemapUrls:report.sitemap.urlCount,issueCount:report.issueCount,legacyCheckoutLinks:report.legacyExposure.directCheckoutLinkCount??null,legacyInStockRows:report.legacyExposure.inStockFeedRowCount??null,legacySafe:report.legacyExposure.safe},null,2));
   return report;
 }
 
