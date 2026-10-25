@@ -23,7 +23,7 @@ permissions:
   contents: read
 
 concurrency:
-  group: prismbay-digital-organic-marketing-\${{ github.ref }}
+  group: prismbay-digital-organic-marketing-${{ github.ref }}
   cancel-in-progress: false
 
 jobs:
@@ -53,7 +53,7 @@ jobs:
       - name: Upload marketing editorial calendar and captions
         uses: actions/upload-artifact@v4
         with:
-          name: prismbay-digital-organic-content-\${{ github.run_id }}
+          name: prismbay-digital-organic-content-${{ github.run_id }}
           path: growth-reports/digital-organic-marketing/
           retention-days: 14
           if-no-files-found: error
