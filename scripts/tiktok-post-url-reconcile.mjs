@@ -14,8 +14,11 @@ export function publicTikTokUrl(value, username='prismbayclean'){
     const u=new URL(value);
     if(u.protocol!=='https:'||!['www.tiktok.com','tiktok.com'].includes(u.hostname))return null;
     const base='/@'+username+'/video/';
-    if(!u.pathname.startsWith(base)||!/^\\d+$/.test(u.pathname.slice(base.length).replace(/\\/$/,'')))return null;
-    return 'https://www.tiktok.com'+u.pathname.replace(/\\/$/,'');
+    if(!u.pathname.startsWith(base))return null;
+    const segment=u.pathname.slice(base.length);
+    const id=segment.endsWith('/')?segment.slice(0,-1):segment;
+    if(!/^[0-9]+$/.test(id))return null;
+    return 'https://www.tiktok.com'+base+id;
   }catch{return null;}
 }
 export function eligibleEntries(ledger){
