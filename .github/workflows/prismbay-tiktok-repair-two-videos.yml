@@ -1,0 +1,95 @@
+name: PrismBay Two Rejected TikTok Videos Repair
+
+on:
+  pull_request:
+    paths:
+      - 'scripts/render-stakeholder-active-demo.py'
+      - 'scripts/render-crevice-brush-real-filmed-demo.py'
+      - 'scripts/test_tiktok_two_video_repair.py'
+      - 'marketing/tiktok/**'
+      - '.github/workflows/prismbay-tiktok-repair-two-videos.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/render-stakeholder-active-demo.py'
+      - 'scripts/render-crevice-brush-real-filmed-demo.py'
+      - 'scripts/test_tiktok_two_video_repair.py'
+      - 'marketing/tiktok/**'
+      - '.github/workflows/prismbay-tiktok-repair-two-videos.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: prismbay-tiktok-repair-two-videos-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  make-review-drafts:
+    runs-on: ubuntu-latest
+    timeout-minutes: 26
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install genuine Chromium screen recording and professional FFmpeg tools
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m pip install --disable-pip-version-check --no-input pillow playwright
+          python -m playwright install --with-deps chromium
+          if ! command -v ffmpeg >/dev/null 2>&1; then
+            sudo apt-get update -qq
+            sudo apt-get install -y -qq ffmpeg
+          fi
+      - name: Check two video audits, creative locks and exact-product rights requirements
+        run: python -m unittest discover -s scripts -p test_tiktok_two_video_repair.py -v
+      - name: Record a real interactive digital example (no static product-page footage)
+        run: python scripts/render-stakeholder-active-demo.py
+      - name: Check physical brush demo source and render only with real licensed exact SKU footage
+        run: python scripts/render-crevice-brush-real-filmed-demo.py
+      - name: Assert complete TikTok publication freeze and meaningful action sequence
+        shell: bash
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          from PIL import Image, ImageChops, ImageStat
+          locked=json.loads(Path('config/tiktok-publish-lock.json').read_text())
+          queue=json.loads(Path('config/tiktok-approved-autopost.json').read_text())
+          digital=json.loads(Path('build/tiktok-repairs/stakeholder/render-report.json').read_text())
+          physical=json.loads(Path('build/tiktok-repairs/crevice-brush/report.json').read_text())
+          assert locked['locked'] and not queue['enabled']
+          assert digital['tiktokPublishAuthorized'] is False
+          assert len(digital['actions']) >= 5
+          assert physical['published'] is False
+          pics=[Image.open(x).convert('RGB') for x in sorted(Path('build/tiktok-repairs/stakeholder/review-stills').glob('*.png'))]
+          assert len(pics)==5
+          diffs=[sum(ImageStat.Stat(ImageChops.difference(a,b)).mean)/3 for a,b in zip(pics,pics[1:])]
+          assert min(diffs)>3.0, f'Recorded scenes not visually changing: {diffs}'
+          assert digital['durationSeconds']>=12
+          print('PASS: authentic recorded actions; review only. Original TikTok auto-post lock remains on. Motion differences:',diffs)
+          print('BRUSH:',physical['status'])
+          PY
+      - name: Preserve draft video, actual interaction stages and truthful brush block report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: prismbay-tiktok-two-video-repair-${{ github.run_id }}
+          path: |
+            build/tiktok-repairs/stakeholder/*.mp4
+            build/tiktok-repairs/stakeholder/render-report.json
+            build/tiktok-repairs/stakeholder/review-stills/*.png
+            build/tiktok-repairs/crevice-brush/*.mp4
+            build/tiktok-repairs/crevice-brush/report.json
+          if-no-files-found: warn
+          retention-days: 14
+      - name: Summarize release constraints
+        if: always()
+        run: |
+          echo '## Rejected-video remediation' >> "$GITHUB_STEP_SUMMARY"
+          echo 'Stakeholder video uses actual keyboard and browser interactions for an illustrative spreadsheet process; no claim that paid XLSX itself is shown.' >> "$GITHUB_STEP_SUMMARY"
+          echo 'Physical crevice brush requires exact model operating footage plus written licensed commercial use, no static photo replacement.' >> "$GITHUB_STEP_SUMMARY"
+          echo 'Both remain **UNPUBLISHED**. Previous TikTok creative consent is revoked and autopost is disabled.' >> "$GITHUB_STEP_SUMMARY"
