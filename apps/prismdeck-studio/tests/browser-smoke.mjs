@@ -9,7 +9,7 @@ try{
   const context=await browser.newContext({viewport:{width:1512,height:982},acceptDownloads:true});
   const page=await context.newPage();
   page.on("pageerror",err=>errors.push(err.message));
-  await page.goto(address,{waitUntil:"domcontentloaded",timeout:30000});
+  await page.goto(address.replace(/#.*$/,"")+"#editor",{waitUntil:"domcontentloaded",timeout:30000});
   await page.locator(".slide-surface").waitFor();
   assert.equal(await page.locator(".thumb").count(),8,"starter deck should have eight layouts");
   const first=await page.locator(".slide-surface").boundingBox();

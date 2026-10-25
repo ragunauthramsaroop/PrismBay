@@ -2,7 +2,9 @@ import "./styles.css";
 import {THEMES,LAYOUTS,AUDIENCES,STORAGE_KEY,starterDeck,generateDeck,parseOutline,sanitizeDeck,makeSlide,bulletLines,markdownExport,safeFileName} from "./core.js";
 import {exportPowerpoint} from "./pptx.js";
 import {buildSourceDeck} from "./source-deck.js";
-import {ingestFiles,SOURCE_ACCEPT} from "./ingest.js";
+import {ingestFiles,SOURCE_ACCEPT,isServerFormat} from "./ingest.js";
+import {parseBrief} from "./brief.js";
+import {renderSimple} from "./simple-ui.js";
 
 const app=document.querySelector("#app");
 const escapeHtml=(value)=>String(value??"").replace(/[&<>"']/g,(c)=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
@@ -14,7 +16,7 @@ function load(){
 }
 function loadUI(){try{return JSON.parse(localStorage.getItem(STORAGE_KEY+"-ui")||"{}");}catch{return {};}}
 const savedUI=loadUI(),initialDeck=load();
-const state={deck:initialDeck,selected:Number(savedUI.selected)||0,prompt:savedUI.prompt||(initialDeck.id==="prismdeck-demo"?"The future of clean industrial energy":initialDeck.title),count:Number(savedUI.count)||8,audience:savedUI.audience||initialDeck.audience,importOpen:false,helpOpen:false,exporting:false,importing:false,documents:[],importErrors:[]};
+const state={deck:initialDeck,selected:Number(savedUI.selected)||0,prompt:savedUI.prompt||(initialDeck.id==="prismdeck-demo"?"The future of clean industrial energy":initialDeck.title),count:Number(savedUI.count)||8,audience:savedUI.audience||initialDeck.audience,importOpen:false,helpOpen:false,exporting:false,importing:false,documents:[],importErrors:[],simpleMode:location.hash!=="#editor",simpleFiles:[],simpleInstructions:"",simpleStatus:"",simpleError:"",simpleBusy:false,simpleThemes:Object.fromEntries(Object.entries(THEMES).map(([k,t])=>[k,t.name]))};
 const current=()=>state.deck.slides[Math.min(state.selected,state.deck.slides.length-1)];
 function save(){try{localStorage.setItem(STORAGE_KEY,JSON.stringify(state.deck));localStorage.setItem(STORAGE_KEY+"-ui",JSON.stringify({selected:state.selected,prompt:state.prompt,count:state.count,audience:state.audience}));}catch{}}
 function options(values,chosen){return values.map(v=>'<option value="'+escapeHtml(v)+'" '+(v===chosen?'selected':'')+'>'+escapeHtml(v)+'</option>').join("");}
@@ -82,13 +84,14 @@ function editor(){
     '<div class="inspector-actions"><button data-action="duplicate" class="ghost-control">⊞ Duplicate</button><button data-action="delete" class="ghost-control danger-text">⌫ Delete</button></div></section>';
 }
 function render(){
+  if(state.simpleMode){app.innerHTML=renderSimple(state);return;}
   state.selected=Math.min(state.selected,state.deck.slides.length-1);
   app.innerHTML=
   '<div class="shell">'+
   '<aside class="brand-rail"><div class="brand-mark">P<span>.</span></div><div class="rail-line"></div><div class="rail-name">STUDIO</div><div class="rail-bottom">PD<br>26</div></aside>'+
   '<div class="workspace">'+
     '<header class="topbar"><div class="breadcrumb"><span class="breadcrumb-home">Workspace</span><span class="chev">/</span><span>Presentation editor</span></div>'+
-      '<div class="top-actions"><span class="privacy-dot"></span><span class="private-label">LOCAL-FIRST WORKSPACE</span>'+
+      '<div class="top-actions"><button class="top-secondary" data-action="simple-home">Simple upload</button><span class="privacy-dot"></span><span class="private-label">LOCAL-FIRST WORKSPACE</span>'+
       '<button class="top-secondary" data-action="help" title="Keyboard and feature help">Help</button>'+
       '<button class="top-secondary" data-action="download-json">Save project</button>'+
       '<button class="primary-button export-btn" data-action="pptx">Export PPTX <span>↗</span></button></div></header>'+
@@ -148,9 +151,73 @@ function importPastedArticle(value){
   state.deck=buildSourceDeck([{name:"Pasted article",kind:"article",text}],{count:state.count,theme:state.deck.theme,audience:state.audience,title:state.prompt.length>6?state.prompt:undefined});
   state.documents=[{name:"Pasted article",kind:"article",chars:text.length}];state.selected=0;state.importOpen=false;render();toast("Source-based presentation generated.");
 }
+function acceptSimpleFiles(list){
+ const incoming=Array.from(list||[]);
+ if(!incoming.length)return;
+ state.simpleFiles=[...state.simpleFiles,...incoming].filter((f,i,all)=>all.findIndex(x=>x.name===f.name&&x.size===f.size&&x.lastModified===f.lastModified)===i).slice(0,20);
+ state.simpleError="";
+ state.simpleStatus=state.simpleFiles.length+" file(s) selected. Add your instructions and generate.";
+ render();
+}
+async function generateFromSimple(){
+ if(state.simpleBusy)return;
+ const instructions=state.simpleInstructions.trim();
+ const files=state.simpleFiles;
+ if(!files.length&&instructions.length<5){
+  state.simpleError="Add a source file or describe your presentation in the instructions box.";
+  render();return;
+ }
+ const unavailable=files.filter(x=>isServerFormat(x.name));
+ if(unavailable.length){
+  state.simpleError="A private converter is required for "+unavailable.map(f=>f.name).join(", ")+". Upload a transcript (.srt/.vtt) or convert the file to .docx/.pptx first.";
+  render();return;
+ }
+ const spec=parseBrief(instructions,{count:state.count,audience:state.audience,theme:state.deck.theme});
+ state.simpleBusy=true;state.simpleError="";state.simpleStatus="Analyzing uploaded material in your browser...";
+ render();
+ try {
+  let created;
+  if(files.length){
+   const result=await ingestFiles(files,{},({index,total,name})=>{
+    const el=document.getElementById("simple-progress");
+    if(el)el.textContent="Reading "+index+" of "+total+": "+name;
+   });
+   if(result.errors.length){
+    throw new Error("Some files were not processed: "+result.errors.map(e=>e.name+" ("+e.error+")").join(" | "));
+   }
+   if(!result.documents.length)throw new Error("No readable source data found.");
+   created=buildSourceDeck(result.documents,spec);
+   state.documents=result.documents.map(x=>({name:x.name,kind:x.kind,chars:x.text.length}));
+  }else {
+   created=generateDeck(spec.title||instructions.slice(0,140),spec);
+   created.slides[0].notes="Presentation instructions: "+instructions.slice(0,700)+"\nGenerated as a draft framework. Add verified source material before distributing.";
+   state.documents=[];
+  }
+  state.deck=created;
+  state.count=spec.count;state.audience=spec.audience;
+  state.selected=0;state.simpleMode=false;
+  history.replaceState(null,"",location.pathname+location.search+"#editor");
+  render();
+  toast("Editable "+created.slides.length+"-slide presentation ready. Review the content and export PowerPoint.");
+ }catch(err){
+  state.simpleError=String(err.message||"Unable to process the files.");
+  state.simpleStatus="Review the error, update your files, then try again.";
+  render();
+ }finally{
+  state.simpleBusy=false;
+ }
+}
 async function action(name,target){
   const slide=current();
   switch(name){
+  case "open-advanced":
+    state.simpleMode=false;history.replaceState(null,"",location.pathname+location.search+"#editor");render();break;
+  case "simple-home":
+    state.simpleMode=true;history.replaceState(null,"",location.pathname+location.search);render();break;
+  case "choose-simple-files":document.getElementById("simple-upload")?.click();break;
+  case "simple-remove":
+    state.simpleFiles.splice(Number(target.dataset.index),1);state.simpleError="";render();break;
+  case "simple-generate":await generateFromSimple();break;
   case "select":state.selected=Number(target.dataset.index);render();break;
   case "generate":
     try{state.deck=generateDeck(state.prompt,{count:state.count,audience:state.audience,theme:state.deck.theme});state.selected=0;render();toast("Outline generated. Review and personalize each slide.");}
@@ -193,6 +260,7 @@ app.addEventListener("click",(event)=>{
 });
 app.addEventListener("input",(event)=>{
   const x=event.target;
+  if(x.id==="simple-instructions"){state.simpleInstructions=x.value;return;}
   if(x.dataset.prompt!==undefined){state.prompt=x.value;save();return;}
   if(x.dataset.deckField==="title"){state.deck.title=x.value.slice(0,140);save();return;}
   if(x.dataset.slideField!==undefined&&x.dataset.slideField!=="layout"){
@@ -208,13 +276,15 @@ app.addEventListener("input",(event)=>{
 });
 app.addEventListener("change",(event)=>{
   const x=event.target;
+  if(x.id==="simple-upload"){acceptSimpleFiles(x.files);return;}
+  if(x.dataset.simpleTheme!==undefined){state.deck.theme=x.value;save();return;}
   if(x.dataset.audience!==undefined){state.audience=x.value;save();return;}
   if(x.dataset.count!==undefined){state.count=Number(x.value);save();return;}
   if(x.dataset.slideField==="layout"){current().layout=x.value;render();return;}
   if(x.id==="fileImport")importSourceFiles(x.files);
 });
-app.addEventListener("dragover",(event)=>{if(state.importOpen&&event.target.closest("#dropArea")){event.preventDefault();event.dataTransfer.dropEffect="copy";}});
-app.addEventListener("drop",(event)=>{if(state.importOpen&&event.target.closest("#dropArea")){event.preventDefault();importSourceFiles(event.dataTransfer.files);}});
+app.addEventListener("dragover",(event)=>{if((state.importOpen&&event.target.closest("#dropArea"))||(state.simpleMode&&event.target.closest("#simple-dropzone"))){event.preventDefault();event.dataTransfer.dropEffect="copy";}});
+app.addEventListener("drop",(event)=>{if(state.simpleMode&&event.target.closest("#simple-dropzone")){event.preventDefault();acceptSimpleFiles(event.dataTransfer.files);}else if(state.importOpen&&event.target.closest("#dropArea")){event.preventDefault();importSourceFiles(event.dataTransfer.files);}});
 window.addEventListener("keydown",(event)=>{
   if((event.ctrlKey||event.metaKey)&&event.key.toLowerCase()==="s"){event.preventDefault();action("download-json",{});}
   if((event.ctrlKey||event.metaKey)&&event.key.toLowerCase()==="e"){event.preventDefault();action("pptx",{});}

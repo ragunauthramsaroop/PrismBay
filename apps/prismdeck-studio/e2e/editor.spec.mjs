@@ -2,7 +2,7 @@ import {test,expect} from "@playwright/test";
 import JSZip from "jszip";
 import fs from "node:fs/promises";
 test("the premium workspace generates, edits and downloads native PowerPoint",async({page})=>{
- await page.goto("/");
+ await page.goto("/#editor");
  await expect(page.getByText("From idea to")).toBeVisible();
  await expect(page.locator(".slide-surface")).toBeVisible();
  await page.locator("#prompt").fill("Industrial energy investment strategy and governance");
@@ -21,7 +21,7 @@ test("the premium workspace generates, edits and downloads native PowerPoint",as
  expect(Object.keys(zip.files).filter(x=>/^ppt\/slides\/slide\d+\.xml$/.test(x)).length).toBe(8);
 });
 test("uploading an article becomes a sourced, editable deck",async({page})=>{
- await page.goto("/");
+ await page.goto("/#editor");
  await page.getByRole("button",{name:/Upload source files or article/}).click();
  const upload=page.locator("#fileImport");
  await upload.setInputFiles({name:"renewable-project.txt",mimeType:"text/plain",
@@ -31,7 +31,7 @@ test("uploading an article becomes a sourced, editable deck",async({page})=>{
  await expect(page.locator('.thumb[data-action="select"]')).toHaveCount(8);
 });
 test("all source families are advertised and an article can be pasted",async({page})=>{
- await page.goto("/");
+ await page.goto("/#editor");
  await page.getByRole("button",{name:/Upload source files or article/}).click();
  await expect(page.getByText(/DOC \/ DOCX/)).toBeVisible();
  await page.locator("#importText").fill("The organization seeks to expand solar capacity across its facilities. Recent investments improved reliability of site electricity supply. Leadership has scheduled governance reviews of the investment programme. Data remains subject to internal validation before public release.");
