@@ -37,3 +37,20 @@ jobs:
         run: npm run build
       - name: Verify bundled index
         run: test -s dist/index.html
+      - name: Install test browser
+        run: npx playwright install --with-deps chromium
+      - name: Exercise live editor and download a PowerPoint
+        run: |
+          npm run dev -- --host 127.0.0.1 > /tmp/prismdeck-vite.log 2>&1 &
+          for i in $(seq 1 40); do
+            if curl -sf http://127.0.0.1:5173/ >/dev/null; then break; fi
+            sleep 1
+          done
+          node tests/browser-smoke.mjs
+      - name: Upload visual QA evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: prismdeck-browser-preview
+          path: apps/prismdeck-studio/test-artifacts/
+          if-no-files-found: ignore
