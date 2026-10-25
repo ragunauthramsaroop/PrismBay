@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {auditProductsPayload,auditMerchantXml,auditSitemapXml,auditRobots} from './commerce-surface-auditor.mjs';
+import {auditProductsPayload,auditMerchantXml,auditSitemapXml,auditRobots,auditLegacySnapshot} from './commerce-surface-auditor.mjs';
 
 test('valid product feed requires identity title and positive price',()=>{
  const audit=auditProductsPayload({products:[{id:'p1',title:'Brush',price:12.99,link:'https://example.com/p1',availability:'in_stock'}]});
@@ -29,4 +29,38 @@ test('sitemap and robots fail closed on discoverability defects',()=>{
  const robots=auditRobots('User-agent: *\nDisallow: /\n');
  assert.equal(robots.valid,false);
  assert.ok(robots.issues.includes('robots_blocks_entire_site'));
+});
+
+test('legacy storefront audit flags direct checkout, sale schema, supplier imagery and unsupported stock feed',()=>{
+ const html='<html><img src="https://shopifyfile.oss-us-west-1.aliyuncs.com/unsafe.jpg"><a href="https://buy.stripe.com/abc123">Pay</a><script type="application/ld+json">{"@type":"Product","offers":{"@type":"Offer"}}</script></html>';
+ const result=auditLegacySnapshot({
+  pages:[{path:'/',ok:true,status:200,contentType:'text/html',text:html}],
+  feed:{ok:true,status:200,text:'id\tavailability\timage_link\nsku1\tin_stock\thttps://shopifyfile.oss-us-west-1.aliyuncs.com/a.jpg'}
+ });
+ assert.equal(result.safe,false);
+ assert.equal(result.directCheckoutLinkCount,1);
+ assert.equal(result.saleSchemaPageCount,1);
+ assert.equal(result.inStockFeedRowCount,1);
+ assert.equal(result.thirdPartyFeedImageRowCount,1);
+ assert.ok(result.issues.includes('legacy_direct_physical_checkout_exposed'));
+ assert.ok(result.issues.includes('legacy_unsupported_in_stock_feed_claims'));
+});
+
+test('legacy audit accepts explicit 404 or 410 decommissioning without inventing checkout clearance',()=>{
+ const result=auditLegacySnapshot({
+  pages:[{path:'/',ok:false,status:410},{path:'/scrubber.html',ok:false,status:404}],
+  feed:{ok:false,status:404}
+ });
+ assert.equal(result.safe,true);
+ assert.equal(result.decommissioned,true);
+ assert.equal(result.directCheckoutLinkCount,0);
+});
+
+test('legacy audit treats network errors and unreadable media feed as unknown, not safe',()=>{
+ const result=auditLegacySnapshot({
+  pages:[{path:'/',ok:false,status:null}],
+  feed:{ok:false,status:null}
+ });
+ assert.equal(result.safe,false);
+ assert.ok(result.issues.includes('legacy_surface_inspection_incomplete'));
 });
