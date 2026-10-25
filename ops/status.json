@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "checkedAt": "2026-10-25T11:19:40.108Z",
+  "checkedAt": "2026-10-25T11:20:06.838Z",
   "source": "GitHub Actions accountability evidence",
   "refreshPolicy": "Best-effort GitHub schedules. Static snapshot; refresh does not run agents.",
   "summary": {
@@ -57,7 +57,7 @@
       "status": "fail",
       "reason": "worker_stale",
       "consequence": "replace_route",
-      "failureStreak": 7,
+      "failureStreak": 8,
       "runId": 40170795932,
       "runUrl": "https://github.com/ragunauthramsaroop/PrismBay/actions/runs/40170795932",
       "runAgeMinutes": 265,
@@ -78,7 +78,7 @@
       "failureStreak": 0,
       "runId": 40182513716,
       "runUrl": "https://github.com/ragunauthramsaroop/PrismBay/actions/runs/40182513716",
-      "runAgeMinutes": 86,
+      "runAgeMinutes": 87,
       "artifactName": "prismbay-paperclip-revenue-40182513716",
       "artifactBytes": 6092,
       "remediation": null
@@ -93,10 +93,10 @@
       "status": "fail",
       "reason": "worker_stale",
       "consequence": "replace_route",
-      "failureStreak": 7,
+      "failureStreak": 8,
       "runId": 40170414252,
       "runUrl": "https://github.com/ragunauthramsaroop/PrismBay/actions/runs/40170414252",
-      "runAgeMinutes": 271,
+      "runAgeMinutes": 272,
       "artifactName": null,
       "artifactBytes": null,
       "remediation": null
