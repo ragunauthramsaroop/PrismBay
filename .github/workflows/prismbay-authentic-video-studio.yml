@@ -5,6 +5,8 @@ on:
     paths:
       - 'scripts/render-authentic-product-demos.py'
       - 'scripts/test_render_authentic_product_demos.py'
+      - 'scripts/tiktok-account-health.mjs'
+      - 'scripts/tiktok-account-health.test.mjs'
       - '.github/workflows/prismbay-authentic-video-studio.yml'
       - 'public/digital/**'
   push:
@@ -45,7 +47,9 @@ jobs:
       - name: Generate original free guide pages from tracked source
         run: node scripts/digital-growth-pages.mjs
       - name: Verify production claims and sources
-        run: python -m unittest discover -s scripts -p test_render_authentic_product_demos.py -v
+        run: |
+          python -m unittest discover -s scripts -p test_render_authentic_product_demos.py -v
+          node --test scripts/tiktok-account-health.test.mjs
       - name: Render three authentic vertical video drafts
         run: python scripts/render-authentic-product-demos.py
       - name: Fail closed if TikTok publish lock or media manifests are bypassed
@@ -82,3 +86,26 @@ jobs:
           echo 'Original, authentic screens recorded from real PrismBay digital products and composited into vertical 1080x1920 shorts with original soundtrack.' >> "$GITHUB_STEP_SUMMARY"
           echo 'This workflow never posts, changes the TikTok lock, purchases advertising, or fabricates sales.' >> "$GITHUB_STEP_SUMMARY"
           echo 'Existing Zernio TikTok direct publisher remains a separate owner approval and account authorization gate.' >> "$GITHUB_STEP_SUMMARY"
+
+  read-only-tiktok-connection:
+    if: ${{ github.event_name != 'pull_request' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Test account identity and publication lock
+        run: node --test scripts/tiktok-account-health.test.mjs
+      - name: Verify existing Zernio TikTok account with GET only
+        env:
+          ZERNIO_API_KEY: ${{ secrets.ZERNIO_API_KEY }}
+        run: node scripts/tiktok-account-health.mjs
+      - name: Upload sanitized account health receipt
+        uses: actions/upload-artifact@v4
+        with:
+          name: prismbay-tiktok-readonly-health-${{ github.run_id }}
+          path: build/tiktok-account-health.json
+          retention-days: 14
+          if-no-files-found: error
