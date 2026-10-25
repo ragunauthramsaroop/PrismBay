@@ -113,8 +113,8 @@ def main():
          "-c:a","aac","-b:a","96k","-movflags","+faststart","-t","15.6",str(dest)])
     quality=json.loads(cmd(["ffprobe","-v","error","-show_format","-show_streams","-of","json",str(dest)]))
     stream=next((x for x in quality["streams"] if x.get("codec_type")=="video"),{})
-    if stream.get("width")!=1080 or stream.get("height")!=1920 or
-      not 15<=float(quality["format"]["duration"])<=16.5:
+    if (stream.get("width")!=1080 or stream.get("height")!=1920 or
+        not 15<=float(quality["format"]["duration"])<=16.5):
         raise ValueError("render_not_usable")
     manifest.update(status="rendered_editorial_draft_only",outputVideo=dest.name,
       sourceMotionScores=motion,sha256=hashlib.sha256(dest.read_bytes()).hexdigest())
