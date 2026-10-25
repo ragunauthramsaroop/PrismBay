@@ -133,3 +133,34 @@ test("Start action is visible and usable on a phone without scrolling",async({pa
  await start.click();
  await expect(page.locator(".a-review-banner")).toBeVisible();
 });
+
+test("Start immediately explains missing permission beside the button, then works once granted",async({page})=>{
+ await page.setViewportSize({width:1440,height:900});
+ await page.goto("/");
+ const start=page.getByRole("button",{name:"Start building presentation"});
+ await page.locator("#agent-upload").setInputFiles({name:"agm-environment.txt",mimeType:"text/plain",buffer:Buffer.from("Biodiversity monitoring activities were carried out in multiple areas. The report documents wildlife protection protocols. Staff training continued throughout the review period. Management is assessing additional monitoring measures.")});
+ await page.locator("#agent-prompt").fill("Prepare 10 premium slides on the organization's biodiversity programme.");
+ await start.click();
+ const visibleAlert=page.locator(".a-intro [role=alert]");
+ await expect(visibleAlert).toBeVisible();
+ await expect(visibleAlert).toBeInViewport();
+ await expect(visibleAlert).toContainText("authorize sharing");
+ await expect(page.locator("#agent-consent-top")).toBeInViewport();
+ await page.locator("#agent-consent-top").check();
+ await expect(visibleAlert).toHaveCount(0);
+ await page.locator("#agent-engine").selectOption("offline");
+ await start.click();
+ await expect(page.locator(".a-review-banner")).toBeVisible();
+ await expect(page.locator(".a-mini-list button")).toHaveCount(10);
+});
+test("AI build error is shown beside Start without leaving the viewport",async({page})=>{
+ await page.addInitScript(()=>{window.puter={ai:{chat:async()=>{throw Error("Account login is required.");}}};});
+ await page.setViewportSize({width:1440,height:900});
+ await page.goto("/");
+ await page.locator("#agent-prompt").fill("Prepare ten slides for the corporate management team.");
+ await page.locator("#agent-consent-top").check();
+ await page.getByRole("button",{name:"Start building presentation"}).click();
+ const error=page.locator(".a-intro [role=alert]");
+ await expect(error).toContainText("Account login is required");
+ await expect(error).toBeInViewport();
+});

@@ -226,11 +226,24 @@ function agentSetFiles(files){
 function connectPuter(){
  if(window.puter?.ai?.chat)return Promise.resolve(window.puter);
  return new Promise((resolve,reject)=>{
+  let settled=false;
+  const done=(error,client)=>{
+   if(settled)return;
+   settled=true;clearTimeout(watchdog);
+   if(error)reject(error);else resolve(client);
+  };
+  const watchdog=setTimeout(()=>done(new Error("Puter AI did not connect within 20 seconds. Check login or network access, then retry; or select Offline source outline.")),20000);
   let script=document.getElementById("puter-sdk");
-  if(!script){script=document.createElement("script");script.id="puter-sdk";script.src="https://js.puter.com/v2/";script.async=true;document.head.appendChild(script);}
-  if(window.puter?.ai?.chat){resolve(window.puter);return;}
-  script.addEventListener("load",()=>window.puter?.ai?.chat?resolve(window.puter):reject(Error("AI SDK loaded without an AI client.")),{once:true});
-  script.addEventListener("error",()=>reject(Error("Cannot load Puter AI. Check connectivity or use offline mode.")),{once:true});
+  if(!script){
+    script=document.createElement("script");script.id="puter-sdk";script.src="https://js.puter.com/v2/";script.async=true;document.head.appendChild(script);
+  }
+  const ready=()=>{
+    if(window.puter?.ai?.chat)done(null,window.puter);
+    else done(new Error("Puter AI is not available in this browser. Check browser extensions or try Offline source outline."));
+  };
+  script.addEventListener("load",ready,{once:true});
+  script.addEventListener("error",()=>done(new Error("Could not load Puter AI. Check internet access or choose Offline source outline.")),{once:true});
+  if(window.puter?.ai?.chat)ready();
  });
 }
 async function agentSend(){
@@ -429,7 +442,7 @@ app.addEventListener("input",(event)=>{
 app.addEventListener("change",(event)=>{
   const x=event.target;
   if(x.id==="agent-upload"){agentSetFiles(x.files);return;}
-  if(x.id==="agent-consent"){state.agentConsent=x.checked;state.agentError="";return;}
+  if(x.id==="agent-consent"||x.id==="agent-consent-top"){state.agentConsent=x.checked;state.agentError="";render();return;}
   if(x.id==="agent-engine"){state.agentAi=x.value==="ai";state.agentError="";render();return;}
   if(x.id==="simple-upload"){acceptSimpleFiles(x.files);return;}
   if(x.dataset.simpleTheme!==undefined){state.deck.theme=x.value;save();return;}
