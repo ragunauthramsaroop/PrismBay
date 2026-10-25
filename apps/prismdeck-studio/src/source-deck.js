@@ -20,7 +20,7 @@ export function sourceSummary(doc,max=7){
   return result;
 }
 export function extractQuantifiedFacts(doc,max=3){
-  const re=/((?:USD|US\$|GYD|€|£|\$)\s*[\d,.]+(?:\s?(?:million|billion|m|bn))?|\b[\d,.]+\s?(?:%|percent|MWp?|MWh|kWh|tonnes|tons|litres|liters|employees|participants|years|months|km|oz)\b)/i;
+  const re=/((?:USD|US\$|GYD|€|£|\$)\s*[\d,.]+(?:\s?(?:million|billion|m|bn))?|\b[\d,.]+\s?(?:(?:thousand|million|billion)\s?)?(?:%|percent|MWp?|MWh|kWh|tonnes|tons|litres|liters|employees|participants|years|months|km|oz)\b)/i;
   return sourceSummary(doc,70).filter(x=>re.test(x)).slice(0,max).map(x=>({
     value:short(x.match(re)?.[0]||"Source data",22),
     label:short(x.replace(re,"").replace(/^[\s:.,-]+/,"").trim()||"Verified source context",64),
