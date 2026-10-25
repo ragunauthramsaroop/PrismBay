@@ -15,56 +15,14 @@
     "integrityBreachForcesCritical": true
   },
   "workers": [
-    {
-      "id": "commerce-controller",
-      "minute": 0,
-      "cadence": "hourly",
-      "minimumInspectionsPerRun": 2,
-      "minimumActionsPerRun": 2
-    },
-    {
-      "id": "product-scout",
-      "minute": 10,
-      "cadence": "hourly",
-      "minimumInspectionsPerRun": 2,
-      "minimumActionsPerRun": 3
-    },
-    {
-      "id": "site-auditor",
-      "minute": 20,
-      "cadence": "hourly",
-      "minimumInspectionsPerRun": 3,
-      "minimumActionsPerRun": 2
-    },
-    {
-      "id": "seo-cro",
-      "minute": 30,
-      "cadence": "hourly",
-      "minimumInspectionsPerRun": 2,
-      "minimumActionsPerRun": 3
-    },
-    {
-      "id": "offer-creative",
-      "minute": 40,
-      "cadence": "hourly",
-      "minimumInspectionsPerRun": 1,
-      "minimumActionsPerRun": 3
-    },
-    {
-      "id": "analytics-experiment",
-      "minute": 50,
-      "cadence": "hourly",
-      "minimumInspectionsPerRun": 1,
-      "minimumActionsPerRun": 2
-    }
+    { "id": "commerce-controller", "minute": 0, "cadence": "hourly", "minimumInspectionsPerRun": 2, "minimumActionsPerRun": 2 },
+    { "id": "product-scout", "minute": 10, "cadence": "hourly", "minimumInspectionsPerRun": 2, "minimumActionsPerRun": 3 },
+    { "id": "site-auditor", "minute": 20, "cadence": "hourly", "minimumInspectionsPerRun": 3, "minimumActionsPerRun": 2 },
+    { "id": "seo-cro", "minute": 30, "cadence": "hourly", "minimumInspectionsPerRun": 2, "minimumActionsPerRun": 3 },
+    { "id": "offer-creative", "minute": 40, "cadence": "hourly", "minimumInspectionsPerRun": 1, "minimumActionsPerRun": 3 },
+    { "id": "analytics-experiment", "minute": 50, "cadence": "hourly", "minimumInspectionsPerRun": 1, "minimumActionsPerRun": 2 }
   ],
-  "publicHealthPaths": [
-    "/",
-    "/products.json",
-    "/merchant-feed.xml",
-    "/sitemap.xml",
-    "/robots.txt"
-  ],
+  "publicHealthPaths": ["/", "/products.json", "/merchant-feed.xml", "/sitemap.xml", "/robots.txt"],
   "boundaries": {
     "fakeTraffic": false,
     "paidSpend": false,
