@@ -4,7 +4,7 @@ Prepared 2026-10-24. Related: #210 #212 #213 #214 #215 #216 #217 #219.
 
 ## Release state
 
-All 30 concepts are **DRAFT / NOT PUBLISHED**. They are original, generic buyer-education concepts, not advertisements for any unverified physical product. No SKU, price, availability, steaming function, delivery date, customer review, performance claim, discount or purchase invitation is authorized. The dedicated retail TikTok account is not connected to the approved Metricool scheduler. The separate daily retail task is inactive. Do not send these clips to the educational PrismBay AI YouTube channel.
+All 30 concepts are **DRAFT / NOT PUBLISHED**. They are original, generic buyer-education concepts, not advertisements for any unverified physical product. No SKU, price, availability, steaming function, delivery date, customer review, performance claim, discount or purchase invitation is authorized. Metricool brand 6945443 has only the educational YouTube connection. Separately, the existing GitHub Actions Zernio read-only connection check passed for retail TikTok @prismbayclean on 2026-10-25 (run 40159396599). This is evidence of a connected account in Zernio, not Metricool scheduling or permission to publish. The separate daily retail task's execution state is not independently established here. Do not send these clips to the educational PrismBay AI YouTube channel.
 
 ## Brand and media contract
 
@@ -58,9 +58,16 @@ The current AppDeploy stored source snapshot `prismbay-clean-49izhg` (`179103561
 
 RELEASE BLOCKER: Before publishing even generic buyer-education clips linking to `clean.prismbayai.com`, confirm actual destination routing and HTTPS in a browser, verify that no physical-product direct-payment CTA is reachable, remove misleading `Product`/`Offer` schema, unverified supplier imagery and sale-ready language across the AppDeploy/GitHub Pages surfaces, correct unsupported native-shop branding, and verify checkout-disabled behavior. Use the existing AppDeploy change/review and storefront QA paths with owner deployment authorization. Do not edit Stripe links, prices, live payments, or the public deployment from this documentation PR. Keep all posts DRAFT until independently verified.
 
+## Verified provider and creative boundary (2026-10-25)
+
+- GitHub Actions [run 40159396599](https://github.com/ragunauthramsaroop/PrismBay/actions/runs/40159396599) completed `read-only-tiktok-connection` and `render-and-review` successfully, retaining review artifacts. Provider check and render success do not establish a public TikTok post, a valid checkout, delivery or revenue.
+- The connected Zernio account is `@prismbayclean` according to issue #457. Three generated clips concern a pricing calculator, stakeholder toolkit and ESG pack. These professional products are not home-cleaning product demonstrations. They require separate audience-fit, rights, pricing, destination and explicit hash-specific approval. Do not send them to the educational YouTube channel.
+- Existing `config/tiktok-publish-lock.json` is locked, and `config/tiktok-publish.json` still references the legacy spin scrubber. Keep both fail-closed. Do not replace the provider, enable publishing, or change payment links from this draft.
+- The 27 physical/bundle payment links reported in prior Stripe reconciliation remain a commercial exposure pending owner review. Independently recheck the live links before making a deactivation decision. Preserve verified digital offers.
+
 ## Operational gate before any publication
 
-1. Confirm a distinct, authenticated PrismBay Clean retail TikTok account is connected to the approved scheduler with platform publish scope. Never substitute the educational YouTube connection.
+1. Confirm the existing Zernio publisher targets authenticated retail TikTok @prismbayclean, has platform publish scope, and is the owner-approved publishing route. GitHub Actions run 40159396599 passed a read-only connection check, but no publication occurred. Metricool currently shows the educational YouTube connection only. Never substitute the YouTube channel.
 2. Review each exact video and caption for current factual accuracy, rights provenance, brand match, accessibility, duplicated posts, platform disclosure requirements and buyer clarity.
 3. Confirm the destination's HTTPS and public policy pages are functioning in actual browsers. If the storefront is unhealthy, hold publication even for generic educational content.
 4. Obtain explicit owner publishing approval through the existing control path. A draft in GitHub or a rendered MP4 does not grant permission to publish.
@@ -73,4 +80,4 @@ Use existing analytics/attribution contracts. For each post retain `concept_day`
 
 ## Next action
 
-Review this queue against the current public storefront and existing rendered retail assets. Produce a first original non-product buyer-check clip as a review artifact through the existing renderer. Hold publishing until the authenticated retail channel, HTTPS destination, creative rights and owner approval gates pass.
+Review this queue against the current public storefront and existing rendered retail assets. The separate GitHub Actions run 40159396599 produced three business-tool screen-capture videos, not physical-cleaning demonstrations. Do not relabel those B2B assets as Clean retail product footage. Produce an original non-product buyer-check clip through the existing retail renderer for review. Keep the existing `config/tiktok-publish-lock.json` locked. The current `config/tiktok-publish.json` selects unverified `legacy-spin-scrubber-001`; never publish this configuration. Hold all publication until account/channel fit, HTTPS destination, creative rights, exact creative approval and checkout/fulfillment gates pass.
