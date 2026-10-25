@@ -249,9 +249,16 @@ async function main(){
   const plan=await loadPlan();
   ensure(plan.status==='ready','no_approved_plan');
   // Re-evaluate current lock and manifest. Stale state or approvals must never publish.
-  const fresh=createPlan(queue,lock,base,state);
-  ensure(fresh.status==='ready' && fresh.documentHash===plan.documentHash && fresh.ledgerEntryId===plan.ledgerEntryId,
-    'approval_drift_or_stale_ledger');
+  const current=validateQueue(queue,lock,base);
+  const currentCandidate=queue.items.find(item=>item.id===plan.ledgerEntryId);
+  ensure(current.status==='candidate' && currentCandidate &&
+    current.checks.find(c=>c.id===plan.ledgerEntryId)?.approved===true &&
+    documentHash(currentCandidate)===plan.documentHash &&
+    plan.expectedMediaSha256===currentCandidate.expectedSha256,
+    'approval_drift_or_publication_lock');
+  if(mode==='preflight'||mode==='reserve'){
+    ensure(!Object.hasOwn(state.entries,plan.ledgerEntryId),'already_reserved_or_published');
+  }
   if(mode==='preflight'){
     const result=await remotePreflight(plan);
     await save('preflight.json',result);
