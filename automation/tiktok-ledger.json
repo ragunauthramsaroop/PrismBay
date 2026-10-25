@@ -1,0 +1,5 @@
+{
+  "schemaVersion": 1,
+  "purpose": "Durable, fail-closed, one-creative-one-attempt ledger for GitHub Actions Zernio TikTok publishing",
+  "entries": {}
+}
