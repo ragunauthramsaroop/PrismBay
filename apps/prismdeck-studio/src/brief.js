@@ -34,7 +34,7 @@ export function parseBrief(instructions="", defaults={}){
   title,
   focus,
   concise:/\b(concise|short\s+(?:bullets?|slides?|text)|minimal\s+text|few\s+words|brief\s+bullets?)\b/i.test(raw),
-  omitCharts:/\b(?:no|without|exclude|avoid)\s+(?:any\s+)?(?:charts?|graphs?)\b/i.test(raw)
+  omitCharts:/\b(?:no|without|exclude|avoid|do\s+not\s+(?:use|include))\s+(?:any\s+)?(?:charts?|graphs?)\b/i.test(raw)
  };
 }
 export function keywordsOf(focus=[]){
