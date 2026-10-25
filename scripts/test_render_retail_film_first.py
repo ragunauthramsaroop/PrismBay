@@ -12,7 +12,7 @@ class FilmFirstQualityTests(unittest.TestCase):
         self.assertGreaterEqual(len(module.SRC),2)
         for name,source in module.SRC.items():
             self.assertEqual(len(source["hooks"]),4)
-            self.assertIn("NOT",source["disclosure"])
+            self.assertIn("ILLUSTRATIVE",source["disclosure"])
             self.assertTrue(source["licensePage"].startswith("https://"))
             self.assertTrue(source["sourcePage"].startswith("https://"))
             self.assertFalse(source["url"].startswith("https://buy.stripe.com/"))
@@ -20,7 +20,7 @@ class FilmFirstQualityTests(unittest.TestCase):
         for name,source in module.SRC.items():
             story=module.storyboard(name,source)
             self.assertIn("not footage of",story["rights"].replace("Commercial license applies to editorial background footage only.","not footage of a precise SKU"))
-            self.assertIn("NOT",story["disclosure"])
+            self.assertIn("ILLUSTRATIVE",story["disclosure"])
             self.assertNotIn("guaranteed",story["promise"].lower().replace("no guaranteed",""))
     def test_no_product_pages_used_as_motion_footage(self):
         for info in module.SRC.values():
