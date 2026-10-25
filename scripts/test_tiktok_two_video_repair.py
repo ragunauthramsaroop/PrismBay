@@ -36,8 +36,23 @@ class CreativeRepairTests(unittest.TestCase):
         self.assertIn("Never substitute",sku["fallback"])
     def test_existing_live_checkout_product_is_not_falsely_claimed_sale_ready(self):
         supply=json.loads((ROOT/"growth-reports/cj-worker-review.json").read_text())
-        self.assertEqual(supply["mediaRightsVerifiedCount"],0)
-        self.assertEqual(supply["saleReadyCount"],0)
+        self.assertTrue(supply["authenticationVerified"])
+        self.assertEqual(
+            supply["saleReadyCount"],
+            sum(1 for candidate in supply["candidates"] if candidate.get("checkoutAllowed")),
+        )
+        required_gates = (
+            "independentIdentityMatch",
+            "variantStockVerified",
+            "finalZipFreightVerified",
+            "fulfillmentRouteVerified",
+            "checkoutInfrastructureVerified",
+            "mediaRightsVerified",
+        )
+        for candidate in supply["candidates"]:
+            if not all(candidate.get(gate) is True for gate in required_gates):
+                self.assertFalse(candidate.get("checkoutAllowed"), candidate["slug"])
+                self.assertFalse(candidate.get("automaticPromotionAllowed"), candidate["slug"])
         lock=json.loads((ROOT/"config/tiktok-publish-lock.json").read_text())
         queue=json.loads((ROOT/"config/tiktok-approved-autopost.json").read_text())
         self.assertTrue(lock["locked"])
