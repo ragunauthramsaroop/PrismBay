@@ -100,13 +100,16 @@ export function buildRetailPromotionSwarm({ review, workerBoard = null, reports 
     // observation or a report lacking authenticated supplier evidence.
     // Schema v3 supplies per-candidate observedAt and authenticationVerified.
     const evidenceGaps = [];
-    if (review?.schemaVersion >= 3) {
-      if (review.authenticationVerified !== true) {
-        evidenceGaps.push({ field: 'supplierAuthenticationVerified', label: 'authenticated current supplier review' });
-      }
-      if (item.observedAt !== checkedAt) {
-        evidenceGaps.push({ field: 'currentSupplierObservation', label: 'supplier observation from current verification cycle' });
-      }
+    // Missing and legacy schemas must not bypass authenticated supplier
+    // observations, even if every candidate-level approval flag is true.
+    if (!Number.isSafeInteger(review?.schemaVersion) || review.schemaVersion < 3) {
+      evidenceGaps.push({ field: 'supplierEvidenceSchema', label: 'current supplier evidence schema v3 or later' });
+    }
+    if (review?.authenticationVerified !== true) {
+      evidenceGaps.push({ field: 'supplierAuthenticationVerified', label: 'authenticated current supplier review' });
+    }
+    if (item.observedAt !== checkedAt) {
+      evidenceGaps.push({ field: 'currentSupplierObservation', label: 'supplier observation from current verification cycle' });
     }
     const duplicates = [];
     if (item.variantSku && variantCounts.get(item.variantSku) > 1) {
