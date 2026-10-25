@@ -3,7 +3,7 @@ import {clamp,short,AUDIENCES,THEMES} from "./core.js";
 export function parseBrief(instructions="", defaults={}){
  const raw=String(instructions??"").trim().slice(0,4000);
  const text=raw.toLowerCase();
- const nums=raw.match(/\b(\d{1,2})(?:[\s-]+(?:investor|board|executive|presentation|powerpoint|pitch|training|client)){0,3}[\s-]+(?:slides?|pages?)\b/i);
+ const nums=raw.match(/\b(\d{1,2})(?:[\s-]+(?:investor|board|executive|presentation|powerpoint|pitch|training|client|premium|professional|corporate|high-quality)){0,3}[\s-]+(?:slides?|pages?)\b/i);
  const count=nums?clamp(Number(nums[1]),4,14):clamp(defaults.count||8,4,14);
  let audience=defaults.audience||"Executive board";
  if(/\b(investors?|funders?|shareholders?|pitch\s+deck)\b/i.test(raw))audience="Investors";
