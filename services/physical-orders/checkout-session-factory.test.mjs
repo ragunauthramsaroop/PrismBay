@@ -89,10 +89,9 @@ test('rejects unsafe return hosts', () => {
     authorization: approved,
     catalog,
     priceId: resolvePriceForSku(catalog, 'crevice'),
-    quoteRef: 'quote:valid-12345',
     successUrl: 'https://evil.example/success',
     cancelUrl: 'https://clean.prismbayai.com/cancel',
-    quoteRef: 'quote-x'
+    quoteRef: 'quote:valid-12345'
   }), /safe_return_urls_required/);
 });
 
