@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "checkedAt": "2026-10-25T23:14:35.324Z",
+  "checkedAt": "2026-10-25T23:14:58.504Z",
   "source": "GitHub Actions accountability evidence",
   "refreshPolicy": "Best-effort GitHub schedules. Static snapshot; refresh does not run agents.",
   "summary": {
@@ -42,7 +42,7 @@
       "failureStreak": 0,
       "runId": 40209753982,
       "runUrl": "https://github.com/ragunauthramsaroop/PrismBay/actions/runs/40209753982",
-      "runAgeMinutes": 432,
+      "runAgeMinutes": 433,
       "artifactName": "prismbay-external-traffic-40209753982",
       "artifactBytes": 799888,
       "remediation": null
@@ -60,7 +60,7 @@
       "failureStreak": 0,
       "runId": 40237428242,
       "runUrl": "https://github.com/ragunauthramsaroop/PrismBay/actions/runs/40237428242",
-      "runAgeMinutes": 83,
+      "runAgeMinutes": 84,
       "artifactName": "prismbay-ceo-recovery-40237428242",
       "artifactBytes": 57314,
       "remediation": null
@@ -78,7 +78,7 @@
       "failureStreak": 0,
       "runId": 40237505185,
       "runUrl": "https://github.com/ragunauthramsaroop/PrismBay/actions/runs/40237505185",
-      "runAgeMinutes": 82,
+      "runAgeMinutes": 83,
       "artifactName": "prismbay-paperclip-revenue-40237505185",
       "artifactBytes": 6090,
       "remediation": null
@@ -92,11 +92,11 @@
       "workflow": "paperclip-commerce-group.yml",
       "status": "fail",
       "reason": "worker_stale",
-      "consequence": "warning",
-      "failureStreak": 1,
+      "consequence": "probation",
+      "failureStreak": 2,
       "runId": 40235181678,
       "runUrl": "https://github.com/ragunauthramsaroop/PrismBay/actions/runs/40235181678",
-      "runAgeMinutes": 112,
+      "runAgeMinutes": 113,
       "artifactName": null,
       "artifactBytes": null,
       "remediation": null
