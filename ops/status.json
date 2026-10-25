@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "checkedAt": "2026-10-25T13:26:41.564Z",
+  "checkedAt": "2026-10-25T13:27:05.182Z",
   "source": "GitHub Actions accountability evidence",
   "refreshPolicy": "Best-effort GitHub schedules. Static snapshot; refresh does not run agents.",
   "summary": {
@@ -24,7 +24,7 @@
       "failureStreak": 0,
       "runId": 40197377009,
       "runUrl": "https://github.com/ragunauthramsaroop/PrismBay/actions/runs/40197377009",
-      "runAgeMinutes": 3,
+      "runAgeMinutes": 4,
       "artifactName": "buyer-acquisition-40197377009",
       "artifactBytes": 21923,
       "remediation": null
@@ -60,7 +60,7 @@
       "failureStreak": 0,
       "runId": 40192956348,
       "runUrl": "https://github.com/ragunauthramsaroop/PrismBay/actions/runs/40192956348",
-      "runAgeMinutes": 62,
+      "runAgeMinutes": 63,
       "artifactName": "prismbay-ceo-recovery-40192956348",
       "artifactBytes": 55436,
       "remediation": null
