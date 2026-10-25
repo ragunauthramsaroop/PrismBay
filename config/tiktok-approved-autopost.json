@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "enabled": true,
+  "enabled": false,
   "timezone": "America/Guyana",
   "maximumOneSubmissionPerRun": true,
   "account": {
@@ -18,17 +18,19 @@
       "priceUsd": 49,
       "caption": "Ad | PrismBay own-brand. Missed stakeholder commitments? Get our free tracker CSV and explore the optional $49 editable stakeholder toolkit. https://clean.prismbayai.com/digital/guides/stakeholder-commitments-checklist.html?utm_source=tiktok&utm_medium=organic_video&utm_campaign=pb_authentic_202610 #StakeholderManagement #PrismBay #BusinessTools",
       "approval": {
-        "ownerApproved": true,
+        "ownerApproved": false,
         "rightsVerified": true,
         "destinationVerified": true,
         "accountAudienceFitApproved": true,
-        "contentPreviewConfirmed": true,
-        "expressConsentGiven": true,
+        "contentPreviewConfirmed": false,
+        "expressConsentGiven": false,
         "approvedMediaSha256": "82c7cba3e29aa09d12dfa7155aeedf9b3765839dfd7c2946eaeaa676fb33e4b8",
         "approvedCaptionSha256": "670683d6906c7dab978ad41d0c1ea5a6bd16c8dd1be70286dd6daee12b5ffa16",
         "approvalRecordUrl": "https://github.com/ragunauthramsaroop/PrismBay/issues/457",
         "expiresAt": "2026-11-08T13:00:00Z",
-        "approvedAt": "2026-10-25T14:00:00Z"
+        "approvedAt": "2026-10-25T14:00:00Z",
+        "qualityRejected": true,
+        "reviewReason": "Previously approved footage has been explicitly rejected as unacceptable by owner."
       }
     },
     {
@@ -40,17 +42,19 @@
       "priceUsd": 99,
       "caption": "Ad | PrismBay own-brand. Are your ESG KPI sources and approvals traceable? Free reporting checklist and CSV. Optional editable ESG pack $99 one-time. https://clean.prismbayai.com/digital/guides/esg-monthly-reporting-checklist.html?utm_source=tiktok&utm_medium=organic_video&utm_campaign=pb_authentic_202610 #ESG #SustainabilityReporting #PrismBay",
       "approval": {
-        "ownerApproved": true,
+        "ownerApproved": false,
         "rightsVerified": true,
         "destinationVerified": true,
         "accountAudienceFitApproved": true,
-        "contentPreviewConfirmed": true,
-        "expressConsentGiven": true,
+        "contentPreviewConfirmed": false,
+        "expressConsentGiven": false,
         "approvedMediaSha256": "da0d82727b719740261aeb3364368a7cbf1592ac09e4b58027127736e4649a4c",
         "approvedCaptionSha256": "a59b4d5bec6c0b960eb5fe4180f9ab5472275988bd6d06afa2de6c20aa142df6",
         "approvalRecordUrl": "https://github.com/ragunauthramsaroop/PrismBay/issues/457",
         "expiresAt": "2026-11-08T13:00:00Z",
-        "approvedAt": "2026-10-25T14:00:00Z"
+        "approvedAt": "2026-10-25T14:00:00Z",
+        "qualityRejected": true,
+        "reviewReason": "Previously approved footage has been explicitly rejected as unacceptable by owner."
       }
     },
     {
@@ -62,18 +66,21 @@
       "priceUsd": null,
       "caption": "Ad | PrismBay own-brand product demonstration. Free service pricing calculator: estimate costs, contingency and margin. https://clean.prismbayai.com/digital/free-pricing-calculator.html?utm_source=tiktok&utm_medium=organic_video&utm_campaign=pb_authentic_202610 #PrismBay #BusinessTools #FreelanceTips",
       "approval": {
-        "ownerApproved": true,
+        "ownerApproved": false,
         "rightsVerified": true,
         "destinationVerified": true,
         "accountAudienceFitApproved": true,
-        "contentPreviewConfirmed": true,
-        "expressConsentGiven": true,
+        "contentPreviewConfirmed": false,
+        "expressConsentGiven": false,
         "approvedMediaSha256": "91cc071a60d3658cef5473ccf2bfb27076f8252e557fdb36e5410fa5ba1ebcc6",
         "approvedCaptionSha256": "6063c77c129670dddbb0a8ef7386441bb2f0785911690a0e8540664a4a3bd59c",
         "approvalRecordUrl": "https://github.com/ragunauthramsaroop/PrismBay/issues/457",
         "expiresAt": "2026-11-08T13:00:00Z",
-        "approvedAt": "2026-10-25T14:00:00Z"
+        "approvedAt": "2026-10-25T14:00:00Z",
+        "qualityRejected": true,
+        "reviewReason": "Previously approved footage has been explicitly rejected as unacceptable by owner."
       }
     }
-  ]
+  ],
+  "pausedReason": "Customer rejected low-quality screen-based advertisements; full creative reset required before any further TikTok publication (2026-10-25)."
 }
