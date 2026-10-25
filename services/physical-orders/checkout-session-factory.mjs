@@ -42,6 +42,12 @@ export function buildPriceIndex(catalog) {
   if (!catalog || !Array.isArray(catalog.mappings)) throw new Error('valid_physical_catalog_required');
   const singleSku = new Map();
   const fixedBasket = new Map();
+  // Conflicting Stripe Prices for a SKU or basket are never selected by order.
+  // Require explicit catalog reconciliation before any checkout is built.
+  const addUnambiguousPrice = (index, key, priceId) => {
+    if (!index.has(key)) index.set(key, priceId);
+    else if (index.get(key) !== priceId) index.set(key, null);
+  };
 
   for (const row of catalog.mappings) {
     const priceId = safePriceId(row?.stripeId);
@@ -53,8 +59,8 @@ export function buildPriceIndex(catalog) {
     if (items.length !== row.items.length) continue;
 
     const basketKey = items.map((item) => `${item.sku}:${item.quantity}`).join('|');
-    fixedBasket.set(basketKey, priceId);
-    if (items.length === 1 && items[0].quantity === 1 && !singleSku.has(items[0].sku)) singleSku.set(items[0].sku, priceId);
+    addUnambiguousPrice(fixedBasket, basketKey, priceId);
+    if (items.length === 1 && items[0].quantity === 1) addUnambiguousPrice(singleSku, items[0].sku, priceId);
   }
 
   return Object.freeze({ singleSku, fixedBasket });
@@ -93,6 +99,7 @@ export function validateCheckoutAuthorization(authorization = {}) {
 
 export function buildCheckoutSessionParams({
   authorization,
+  catalog,
   priceId,
   successUrl,
   cancelUrl,
@@ -105,6 +112,8 @@ export function buildCheckoutSessionParams({
 
   const price = safePriceId(priceId);
   if (!price) throw new Error('verified_stripe_price_required');
+  if (catalog?.store !== 'PrismBay Clean' || !/^acct_[A-Za-z0-9]+$/.test(catalog?.accountId || '')) throw new Error('verified_physical_catalog_required');
+  if (resolvePriceForSku(catalog, auth.sku) !== price) throw new Error('sku_price_mapping_mismatch');
   const success = safeReturnUrl(successUrl, allowedReturnHosts);
   const cancel = safeReturnUrl(cancelUrl, allowedReturnHosts);
   if (!success || !cancel) throw new Error('safe_return_urls_required');
