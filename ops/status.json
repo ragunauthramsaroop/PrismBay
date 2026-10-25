@@ -1,12 +1,12 @@
 {
   "schemaVersion": 1,
-  "checkedAt": "2026-10-25T06:18:59.161Z",
+  "checkedAt": "2026-10-25T06:19:18.430Z",
   "source": "GitHub Actions accountability evidence",
   "refreshPolicy": "Best-effort GitHub schedules. Static snapshot; refresh does not run agents.",
   "summary": {
     "passing": 2,
-    "running": 0,
-    "attention": 3,
+    "running": 1,
+    "attention": 2,
     "warnings": 3,
     "total": 5
   },
@@ -18,13 +18,13 @@
       "cadence": "Every 30 minutes",
       "purpose": "Produces and publishes digital product buyer pages",
       "workflow": "buyer-acquisition.yml",
-      "status": "fail",
-      "reason": "worker_stale",
+      "status": "running",
+      "reason": "operational_run_in_progress",
       "consequence": "warning",
       "failureStreak": 1,
-      "runId": 40160890405,
-      "runUrl": "https://github.com/ragunauthramsaroop/PrismBay/actions/runs/40160890405",
-      "runAgeMinutes": 129,
+      "runId": 40168660401,
+      "runUrl": "https://github.com/ragunauthramsaroop/PrismBay/actions/runs/40168660401",
+      "runAgeMinutes": 0,
       "artifactName": null,
       "artifactBytes": null,
       "remediation": null
@@ -57,13 +57,13 @@
       "status": "fail",
       "reason": "worker_stale",
       "consequence": "replace_route",
-      "failureStreak": 12,
+      "failureStreak": 13,
       "runId": 40151591546,
       "runUrl": "https://github.com/ragunauthramsaroop/PrismBay/actions/runs/40151591546",
       "runAgeMinutes": 278,
       "artifactName": null,
       "artifactBytes": null,
-      "remediation": "dispatched_safe_digital_buyer_acquisition_fallback"
+      "remediation": null
     },
     {
       "id": "paperclip-revenue",
@@ -93,13 +93,13 @@
       "status": "fail",
       "reason": "worker_stale",
       "consequence": "replace_route",
-      "failureStreak": 3,
+      "failureStreak": 4,
       "runId": 40157700375,
       "runUrl": "https://github.com/ragunauthramsaroop/PrismBay/actions/runs/40157700375",
       "runAgeMinutes": 181,
       "artifactName": null,
       "artifactBytes": null,
-      "remediation": "fallback_request_queued_for_next_watchdog_cycle"
+      "remediation": "reassigned_to_currently_operational_buyer_acquisition"
     }
   ],
   "commercial": {
