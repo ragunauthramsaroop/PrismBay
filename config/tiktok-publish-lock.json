@@ -1,5 +1,6 @@
 {
-  "locked": true,
-  "reason": "Creative reset requested after quality review. No new TikTok posts until premium replacements are explicitly approved.",
-  "lockedAt": "2026-10-06T03:36:00Z"
+  "locked": false,
+  "reason": "Owner expressly approved all three exact PrismBay media creatives and authorized public TikTok publication on 2026-10-25. Maintain exact SHA256, price, brand and credential checks; any new creatives still need separate approval.",
+  "unlockedAt": "2026-10-25T14:00:00Z",
+  "approvalReference": "https://github.com/ragunauthramsaroop/PrismBay/issues/457"
 }

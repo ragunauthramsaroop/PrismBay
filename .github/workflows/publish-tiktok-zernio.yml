@@ -94,6 +94,12 @@ jobs:
           set -euo pipefail
           node -e "const l=require('./config/tiktok-publish-lock.json'); if(l.locked){console.error('TikTok publishing is locked: '+l.reason); process.exit(1)}"
 
+      - name: Block legacy physical-product publisher during approved digital campaign
+        shell: bash
+        run: |
+          set -euo pipefail
+          node -e "const q=require('./config/tiktok-approved-autopost.json'); if(q.enabled){console.error('Legacy physical product publisher requires distinct SKU, rights, stock and checkout signoff; digital creative approval cannot authorize it.'); process.exit(1)}"
+
       - name: Require explicit publish confirmation
         if: "${{ inputs.mode == 'publish' }}"
         env:
@@ -163,6 +169,12 @@ jobs:
         run: |
           set -euo pipefail
           node -e "const l=require('./config/tiktok-publish-lock.json'); if(l.locked){console.error('TikTok publishing is locked: '+l.reason); process.exit(1)}"
+
+      - name: Block legacy physical-product publisher during approved digital campaign
+        shell: bash
+        run: |
+          set -euo pipefail
+          node -e "const q=require('./config/tiktok-approved-autopost.json'); if(q.enabled){console.error('Legacy physical product publisher requires distinct SKU, rights, stock and checkout signoff; digital creative approval cannot authorize it.'); process.exit(1)}"
 
       - name: Resolve and validate publish request path
         env:

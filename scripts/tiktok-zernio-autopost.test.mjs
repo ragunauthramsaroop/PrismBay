@@ -11,7 +11,7 @@ const state=()=>({schemaVersion:1,entries:{}});
 const copy=x=>JSON.parse(JSON.stringify(x));
 const paths={queue:'config/tiktok-approved-autopost.json',lock:'config/tiktok-publish-lock.json'};
 const queue=JSON.parse(await fs.readFile(paths.queue,'utf8'));
-const lock=JSON.parse(await fs.readFile(paths.lock,'utf8'));
+const lock={locked:true}; // Locked fixture; real activation may legitimately unlock main.
 const base={account};
 const t=new Date('2026-10-25T10:00:00Z');
 function enabled(){
@@ -28,11 +28,12 @@ function enabled(){
 }
 const unlocked={locked:false};
 
-test('real queue and lock are disabled and no video eligible for auto-posting',()=>{
-  assert.equal(queue.enabled,false);
+test('disabled queue and locked policy always block posting',()=>{
+  const disabled=copy(queue); disabled.enabled=false;
   assert.equal(lock.locked,true);
-  assert.equal(validateQueue(queue,lock,base,t).reason,'existing_creative_publication_lock');
-  assert.equal(createPlan(queue,lock,base,state(),t).status,'blocked');
+  assert.equal(validateQueue(disabled,lock,base,t).reason,'existing_creative_publication_lock');
+  assert.equal(createPlan(disabled,lock,base,state(),t).status,'blocked');
+  assert.equal(createPlan(disabled,unlocked,base,state(),t).status,'blocked');
 });
 test('lock cannot be overridden by queue enabled and owner flags',()=>{
   const q=enabled();
