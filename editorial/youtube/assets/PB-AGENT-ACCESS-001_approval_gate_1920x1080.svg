@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080" role="img" aria-label="PrismBay AI independent agent approval gate and audit workflow">
+<rect width="1920" height="1080" fill="#f4f7fa"/>
+<rect x="0" y="0" width="1920" height="24" fill="#0e9b91"/>
+<text x="112" y="118" font-family="Arial,sans-serif" font-size="30" letter-spacing="3" font-weight="bold" fill="#08796f">PRISMBAY AI  /  APPROVAL ENGINEERING</text>
+<text x="112" y="222" font-family="Arial,sans-serif" font-size="67" font-weight="bold" fill="#102d41">An AI recommendation is not authorization.</text>
+<text x="112" y="290" font-family="Arial,sans-serif" font-size="32" fill="#4b6475">Five independent steps protect high-impact actions.</text>
+<g font-family="Arial,sans-serif">
+<rect x="100" y="390" width="318" height="230" rx="20" fill="#e2f3f0" stroke="#14978e" stroke-width="3"/>
+<rect x="450" y="390" width="318" height="230" rx="20" fill="#e8eef6" stroke="#416c9c" stroke-width="3"/>
+<rect x="800" y="390" width="318" height="230" rx="20" fill="#fff0d8" stroke="#b97d24" stroke-width="3"/>
+<rect x="1150" y="390" width="318" height="230" rx="20" fill="#e8f2e7" stroke="#4a8a52" stroke-width="3"/>
+<rect x="1500" y="390" width="318" height="230" rx="20" fill="#edf0f4" stroke="#5e7180" stroke-width="3"/>
+<g fill="#163144" font-size="35" font-weight="bold" text-anchor="middle">
+<text x="259" y="472">1. PROPOSE</text><text x="609" y="472">2. APPROVE</text><text x="959" y="472">3. VALIDATE</text><text x="1309" y="472">4. EXECUTE</text><text x="1659" y="472">5. LOG</text>
+</g>
+<g fill="#405c6b" font-size="25" text-anchor="middle">
+<text x="259" y="535">Exact proposed change</text><text x="259" y="568">and evidence</text>
+<text x="609" y="535">Independent person</text><text x="609" y="568">with proper role</text>
+<text x="959" y="535">Backend checks scope</text><text x="959" y="568">and current values</text>
+<text x="1309" y="535">Narrow tool rights</text><text x="1309" y="568">and recovery path</text>
+<text x="1659" y="535">Record who, what,</text><text x="1659" y="568">when, and outcome</text>
+</g></g>
+<g stroke="#335468" stroke-width="8" stroke-linecap="round" fill="none"><path d="M420 504 H443 m-12 -11 l12 11 -12 11"/><path d="M770 504 H793 m-12 -11 l12 11 -12 11"/><path d="M1120 504 H1143 m-12 -11 l12 11 -12 11"/><path d="M1470 504 H1493 m-12 -11 l12 11 -12 11"/></g>
+<rect x="112" y="700" width="1696" height="200" rx="25" fill="#17384b"/>
+<text x="157" y="767" font-family="Arial,sans-serif" font-size="37" font-weight="bold" fill="#ffffff">STOP if the approver lacks authority, details changed, or a check fails.</text>
+<text x="157" y="825" font-family="Arial,sans-serif" font-size="29" fill="#c5dae6">A model's instruction to “be careful” does not replace access controls.</text>
+<text x="112" y="1009" font-family="Arial,sans-serif" font-size="25" fill="#637b89">Illustrative control design, not a claim about any real organization's deployment.  |  @PrismBayAI</text>
+</svg>
