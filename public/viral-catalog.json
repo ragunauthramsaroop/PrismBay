@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-25T12:03:20.527Z",
+  "updatedAt": "2026-10-25T16:50:38.582Z",
   "market": "US",
   "methodology": "Public-news attention, freshness, and short-form demonstration fit. This is not PrismBay sales data and is not a TikTok, Amazon, Google, or Bing product ranking.",
   "refreshTargetHours": 6,
@@ -155,7 +155,7 @@
       "signalScore": 72.5,
       "signalLabel": "high-attention",
       "evidence": {
-        "publicMentions": 31,
+        "publicMentions": 30,
         "mentionsLast7Days": 0,
         "mentionsLast30Days": 4,
         "sourcesAvailable": [
@@ -165,16 +165,16 @@
       },
       "sampleSignals": [
         {
-          "title": "Say Goodbye to Wrinkled Clothing with an Easy-to-Use Clothes Steamer — Prices Start at $31 - People.com",
-          "source": "Google News",
-          "publishedAt": "2026-05-06T07:00:00.000Z",
-          "url": "https://news.google.com/rss/articles/CBMiXEFVX3lxTE9HWkFheEdZLU5KN28wQmVlLVZWVFJZSUZpcFlSTmJLSFJJc3lacVNuUTNycF9SN0tnRmM4QnZ1SXNwcDFid3kya1RUU2J0cjEyQUxOY1N6YXI0UHI3?oc=5"
-        },
-        {
           "title": "Best travel steamers 2026: tested and reviewed for wrinkle-free packing - CN Traveller",
           "source": "Google News",
           "publishedAt": "2026-07-30T07:00:00.000Z",
           "url": "https://news.google.com/rss/articles/CBMiZkFVX3lxTE1ZRDlxanVrQ3JSeXhtdXBjS3JmVTdkQnV2LURHdldCN1BidHU0ZjhselZXRVZWLVhJUEpwaUMwTEgweU5mLVRmZnozS3dJUTk5TGZTZHctbHpmZHkySDktbE1hZ0Zsdw?oc=5"
+        },
+        {
+          "title": "Amazon slashes travel clothes steamer by 40% ahead of summer trips (aff) - NationalWorld",
+          "source": "Google News",
+          "publishedAt": "2026-06-01T07:00:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMi0AFBVV95cUxPLTl5aFAxV1ZnN1N6bjcwdkF6b1FjSGJRUzFwVUF1SVhmVi1pTmVhemhPS3ZNVTNpTXNLaDJ4SGthRUtvY0trYTFvbmJmbjN1bGVFYm83YTYxNTRzYUdSYkNaNU00dE0zU095d1B6VG5SNkdCcnpTZnREX1EwQkdaZWcyRHVvZUNoQmpOZ204RFBBbmNjdm45VTBUN1hLQjNsMUJ5UVA5MGVrQlVadUVVOXVBa1gzRXBxR0QyUmltcW5GcWJSUHhnWUZNX21POHFH?oc=5"
         },
         {
           "title": "10 of the best handheld steamers on the market - Vogue Australia",
