@@ -76,4 +76,16 @@ jobs:
             exit 0
           fi
           git commit -m 'Render PrismBay AI zero-cost YouTube media'
-          git push origin HEAD:${{ github.ref_name }}
+          # Other independent PrismBay workers may update main during rendering.
+          # Rebase only our new media commit and retry on non-fast-forward.
+          for attempt in 1 2 3 4; do
+            git fetch origin "${{ github.ref_name }}"
+            git rebase "origin/${{ github.ref_name }}"
+            if git push origin HEAD:${{ github.ref_name }}; then
+              echo "Original media committed on attempt $attempt"
+              exit 0
+            fi
+            sleep $((attempt * 3))
+          done
+          echo 'Could not safely push rendered media after four attempts.'
+          exit 1
