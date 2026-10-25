@@ -32,3 +32,11 @@ Safety: verify Piper output, captions, scene accuracy, source licensing, visual 
 ## QA revision history (2026-10-25)
 V1 rendered at 1080x1920, 46.8 seconds, Piper voice, no advertising expenditure. Technical QA initially detected audio peak at 0.0 dB. The existing QA remaster reduced the peak to -3.0 dB and technical checks passed. Machine transcript flagged ambiguous opening and brand pronunciation; human listening and visual review were not performed. V1 classification: STOP for publication, retain only as an internal QA record.
 V2 request: content/youtube/requests/invoice-ai-exception-economics-2026-10-25-v2.json. Revised the spoken hook and pronounced channel brand as "Prism Bay AI". Re-run numeric-aware ASR and technical QA. Do not schedule until manual audio/visual review and accurate metadata checks pass. Never publish both versions.
+
+## V2 final automated QC result (2026-10-25)
+- Original ledger visual system rendered at 1080 × 1920, H.264/AAC, 48.23 seconds.
+- Piper narration verified by numeric-aware faster-whisper transcript comparison: 0.956 word-sequence similarity.
+- Mastered audio peak: -2.9 dB. Automated technical checks: PASS.
+- Manual visual review: PENDING. Direct listening review: PENDING.
+- Publication approval: FALSE. No Metricool schedule or YouTube upload created for V1 or V2.
+- Keep V1 STOP. V2 may advance only after human perceptual review, original-frame inspection and a fresh duplicate/schedule check.
