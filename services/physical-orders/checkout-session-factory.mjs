@@ -114,12 +114,16 @@ export function buildCheckoutSessionParams({
   if (!price) throw new Error('verified_stripe_price_required');
   if (catalog?.store !== 'PrismBay Clean' || !/^acct_[A-Za-z0-9]+$/.test(catalog?.accountId || '')) throw new Error('verified_physical_catalog_required');
   if (resolvePriceForSku(catalog, auth.sku) !== price) throw new Error('sku_price_mapping_mismatch');
+  // A missing or malformed quote reference must never be hashed as a default.
+  // This is input validation, not proof of a signed or commercially approved quote.
+  const quote = safeCorrelation(quoteRef);
+  if (!quote) throw new Error('valid_quote_reference_required');
   const success = safeReturnUrl(successUrl, allowedReturnHosts);
   const cancel = safeReturnUrl(cancelUrl, allowedReturnHosts);
   if (!success || !cancel) throw new Error('safe_return_urls_required');
 
   const correlation = safeCorrelation(correlationId) || `checkout:${auth.sku}:${digest(`${quoteRef || ''}|${price}`).slice(0, 20)}`;
-  const quoteHash = digest(String(quoteRef || 'missing')).slice(0, 24);
+  const quoteHash = digest(quote).slice(0, 24);
   const idempotencyKey = `prismbay-checkout-${digest(`${auth.sku}|${price}|${quoteHash}|${correlation}`).slice(0, 40)}`;
 
   return {
