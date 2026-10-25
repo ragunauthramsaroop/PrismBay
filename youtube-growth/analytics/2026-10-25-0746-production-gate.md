@@ -11,9 +11,9 @@ Sole channel: UCw2hs85TzIpdKwJtG-BSxzQ (@PrismBayAI). Metricool brand: 6945443.
 
 ## Completed original production assets
 Three original editable 1280x720 SVG thumbnail variants for long-form PB-AGENT-ACCESS-001:
-- [A: Four-level permission ladder](../editorial/youtube/assets/PB-AGENT-ACCESS-001/thumbnail_A_permission_levels.svg)
-- [B: Payment blocked, illustrative invoice](../editorial/youtube/assets/PB-AGENT-ACCESS-001/thumbnail_B_payment_blocked.svg)
-- [C: Action-by-action permission matrix](../editorial/youtube/assets/PB-AGENT-ACCESS-001/thumbnail_C_agent_access.svg)
+- [A: Four-level permission ladder](../../editorial/youtube/assets/PB-AGENT-ACCESS-001/thumbnail_A_permission_levels.svg)
+- [B: Payment blocked, illustrative invoice](../../editorial/youtube/assets/PB-AGENT-ACCESS-001/thumbnail_B_payment_blocked.svg)
+- [C: Action-by-action permission matrix](../../editorial/youtube/assets/PB-AGENT-ACCESS-001/thumbnail_C_agent_access.svg)
 
 Variant A tests permission framework appeal, B tests payment-risk stakes, C tests action inventory. Do not interpret as measured results. Export SVGs to PNG/JPG for YouTube, verify legibility at small size and use native long-form A/B testing only when eligible and uploaded.
 
