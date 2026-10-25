@@ -1,0 +1,82 @@
+name: Digital Product Lab QA and Review Assets
+
+on:
+  pull_request:
+    paths:
+      - 'data/global-digital-products-2026.json'
+      - 'scripts/digital-product-factory.mjs'
+      - 'scripts/digital-product-factory.test.mjs'
+      - 'scripts/render-digital-product-previews.py'
+      - 'public/digital/free-pricing-calculator.html'
+      - '.github/workflows/digital-product-factory.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate-and-package:
+    runs-on: ubuntu-latest
+    timeout-minutes: 18
+    steps:
+      - name: Checkout exact review branch
+        uses: actions/checkout@v4
+      - name: Set up Node 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Run original digital product tests
+        run: node --test scripts/digital-product-factory.test.mjs
+      - name: Build ten original review prototypes
+        run: node scripts/digital-product-factory.mjs
+      - name: Verify publication remains disabled
+        run: |
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          root=Path('growth-reports/digital-prototypes')
+          manifest=json.loads((root/'catalog-manifest.json').read_text())
+          assert manifest['count']==10
+          assert manifest['approvalRequiredBeforeSale'] is True
+          assert manifest['firstSaleVerified'] is False
+          assert manifest['postsPublished'] is False
+          assert all(p['status']=='prototype_not_for_sale' for p in manifest['products'])
+          print('Ten original prototypes; no unauthorized checkout or publishing.')
+          PY
+      - name: Prepare local preview rendering dependencies
+        run: |
+          python3 -m venv /tmp/prismbay-digital-video-env
+          /tmp/prismbay-digital-video-env/bin/python -m pip install --disable-pip-version-check --no-input pillow
+          ffmpeg -version | head -n 1
+          ffprobe -version | head -n 1
+      - name: Render three original 24-second product previews
+        run: /tmp/prismbay-digital-video-env/bin/python scripts/render-digital-product-previews.py
+      - name: Validate rendered media
+        run: |
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          items=sorted(Path('growth-reports/digital-product-videos').glob('*/media-manifest.json'))
+          assert len(items)==3
+          for item in items:
+            report=json.loads(item.read_text())
+            assert report['width']==1080 and report['height']==1920
+            assert 23.5<=report['seconds']<=24.5
+            assert report['publishingAllowed'] is False
+            assert (item.parent/'preview.mp4').stat().st_size>25000
+          print('Three original H264 review videos passed media and publication checks')
+          PY
+      - name: Upload editable product packages for review
+        uses: actions/upload-artifact@v4
+        with:
+          name: prismbay-ten-original-starter-prototypes
+          path: growth-reports/digital-prototypes/
+          retention-days: 14
+          if-no-files-found: error
+      - name: Upload unpublished vertical videos for review
+        uses: actions/upload-artifact@v4
+        with:
+          name: prismbay-three-digital-product-preview-videos
+          path: growth-reports/digital-product-videos/
+          retention-days: 14
+          if-no-files-found: error
