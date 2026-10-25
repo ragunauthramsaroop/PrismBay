@@ -156,11 +156,11 @@ test('one provider request requires durable exact reservation, uses idempotency 
   assert.equal(fail.result,'uncertain_manual_reconciliation');
 });
 
-// An additional daily audit schedule must not silently authorize daily posting.
-test('daily approval audit schedule cannot enter the provider POST job',async()=>{
+// Daily audit must never trigger a provider submission.
+test('daily audit is not an automatic publish event', async () => {
   const workflow=await fs.readFile('.github/workflows/prismbay-tiktok-autopost.yml','utf8');
-  assert.match(workflow,/cron: '45 13 \\* \\* \\*'/);
-  assert.match(workflow,/cron: '13 14 \\* \\* 1,3,5'/);
-  assert.match(workflow,/github\\.event\\.name == 'schedule' && github\\.event\\.schedule == '13 14 \\* \\* 1,3,5'/);
-  assert.doesNotMatch(workflow,/github\\.event_name == 'schedule' \\|\\|/);
+  assert.ok(workflow.includes("cron: '45 13 * * *'"));
+  assert.ok(workflow.includes("cron: '13 14 * * 1,3,5'"));
+  assert.ok(workflow.includes("github.event_name == 'schedule' && github.event.schedule == '13 14 * * 1,3,5'"));
+  assert.ok(!workflow.includes("github.event_name == 'schedule' ||"));
 });
