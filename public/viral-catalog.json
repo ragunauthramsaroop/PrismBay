@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-25T16:50:38.582Z",
+  "updatedAt": "2026-10-25T21:15:45.157Z",
   "market": "US",
   "methodology": "Public-news attention, freshness, and short-form demonstration fit. This is not PrismBay sales data and is not a TikTok, Amazon, Google, or Bing product ranking.",
   "refreshTargetHours": 6,
@@ -59,7 +59,7 @@
       "signalScore": 77.5,
       "signalLabel": "high-attention",
       "evidence": {
-        "publicMentions": 93,
+        "publicMentions": 95,
         "mentionsLast7Days": 0,
         "mentionsLast30Days": 5,
         "sourcesAvailable": [
@@ -171,12 +171,6 @@
           "url": "https://news.google.com/rss/articles/CBMiZkFVX3lxTE1ZRDlxanVrQ3JSeXhtdXBjS3JmVTdkQnV2LURHdldCN1BidHU0ZjhselZXRVZWLVhJUEpwaUMwTEgweU5mLVRmZnozS3dJUTk5TGZTZHctbHpmZHkySDktbE1hZ0Zsdw?oc=5"
         },
         {
-          "title": "Amazon slashes travel clothes steamer by 40% ahead of summer trips (aff) - NationalWorld",
-          "source": "Google News",
-          "publishedAt": "2026-06-01T07:00:00.000Z",
-          "url": "https://news.google.com/rss/articles/CBMi0AFBVV95cUxPLTl5aFAxV1ZnN1N6bjcwdkF6b1FjSGJRUzFwVUF1SVhmVi1pTmVhemhPS3ZNVTNpTXNLaDJ4SGthRUtvY0trYTFvbmJmbjN1bGVFYm83YTYxNTRzYUdSYkNaNU00dE0zU095d1B6VG5SNkdCcnpTZnREX1EwQkdaZWcyRHVvZUNoQmpOZ204RFBBbmNjdm45VTBUN1hLQjNsMUJ5UVA5MGVrQlVadUVVOXVBa1gzRXBxR0QyUmltcW5GcWJSUHhnWUZNX21POHFH?oc=5"
-        },
-        {
           "title": "10 of the best handheld steamers on the market - Vogue Australia",
           "source": "Google News",
           "publishedAt": "2026-01-08T08:00:00.000Z",
@@ -193,6 +187,12 @@
           "source": "Google News",
           "publishedAt": "2022-11-16T17:08:14.000Z",
           "url": "https://news.google.com/rss/articles/CBMibkFVX3lxTE9Wd0NtOV9wTS1JUl9UUG5oQzV0UnEwVG93X29YS0NvZTlqVXAxeWh1bFhyeEhZenNwY25sUEZMNWdhaHh4M1hqSXJtMWdGcVNXTUx3N29tNXliOGZqb1QzVldUSEtYZktoRnNRbWJR?oc=5"
+        },
+        {
+          "title": "Amazon Prime Day 2023: Get a Portable Garment Steamer With 65,000+ 5-Star Amazon Reviews for Just $28 - E! News",
+          "source": "Google News",
+          "publishedAt": "2023-07-12T07:00:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMi0gFBVV95cUxOdDk2RDdCUE1xN09MdVBTQ1VhbTY3X1BFZkhYT090cWF1Y0s0b0Z0S2hPODlUb0dYUFBaeHRxRVduMHh0STVtSXNZOVRINTNhd0d6VE9HTHduY29xTHRYbVpaN0p1RTNEOEU4eHFERksybmpyUmRMNUd6ZnZYaEtZSUZzN04zd2JJd3ZfRk9YYm82ZUFBS0NOcGZmVzFxeEg1bjFYYTBxaGdoN0RZd3lwYW5OSTk2ZkdOUlhkSkJfbDh5aHVETDktMEYtOFJ6R3pTWmc?oc=5"
         }
       ],
       "rank": 4
@@ -200,11 +200,11 @@
     {
       "slug": "pethair",
       "name": "Reusable Pet Hair Remover",
-      "signalScore": 50,
-      "signalLabel": "active",
+      "signalScore": 47,
+      "signalLabel": "watch",
       "evidence": {
         "publicMentions": 11,
-        "mentionsLast7Days": 2,
+        "mentionsLast7Days": 1,
         "mentionsLast30Days": 3,
         "sourcesAvailable": [
           "Google News",
