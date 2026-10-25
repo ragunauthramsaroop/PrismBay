@@ -4,9 +4,9 @@
 
 PrismBay's publishing path is **GitHub Actions → exact approved original MP4 → PrismBay GitHub Pages → authenticated Zernio → TikTok @prismbayclean**. No personal laptop, unofficial browser bot, account scraping, paid ad campaign, or automatic publication of unapproved creative.
 
-**Scheduled cadence:** Monday, Wednesday and Friday at 10:13 a.m. Guyana time (14:13 UTC), maximum **one distinct approved video per run**. Github scheduler is best-effort and may be delayed. Runs are serialized by GitHub Actions concurrency. Do not expect hourly or precisely timed publication.
+**Scheduled cadence:** A daily **read-only** queue, identity and safety audit runs at 9:45 a.m. Guyana time (13:45 UTC). Approved publication remains Monday, Wednesday and Friday at 10:13 a.m. Guyana time (14:13 UTC), maximum **one distinct approved video per run**. The daily audit does not publish or authorize new creatives. GitHub scheduling is best-effort and may be delayed. Runs are serialized by GitHub Actions concurrency.
 
-**Current status:** OFF. `config/tiktok-publish-lock.json` remains locked. `config/tiktok-approved-autopost.json` is disabled and all three entries have `ownerApproved:false`. This automation's creation does not authorize or execute a TikTok post.
+**Current status (October 25, 2026):** Owner-approved exact original digital-tool videos are enabled for @prismbayclean in `config/tiktok-approved-autopost.json`; the earlier creative-reset lock has been released for this approved queue. The first stakeholder-toolkit video received a Zernio provider response of `published` in [Actions run #40208721003](https://github.com/ragunauthramsaroop/PrismBay/actions/runs/40208721003), but the provider had not returned a verified public TikTok video URL as of the [read-only reconciliation run #40209222959](https://github.com/ragunauthramsaroop/PrismBay/actions/runs/40209222959). Its ledger status is `submitted_unverified`, and it must not be reposted. The ESG and free-pricing-calculator creatives remain individually approved and unsubmitted. Future creatives require their own exact media and caption authorization. The three approved clips demonstrate digital business tools, not physical cleaning products; never imply otherwise.
 
 ## Evidence
 
