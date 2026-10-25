@@ -229,6 +229,7 @@ def main():
         try:asset_manifest[name]=acquire(name,spec,assets)
         except Exception as e:issues.append({"source":name,"error":str(e)[:1300]})
     (OUT/"source-receipts.json").write_text(json.dumps({"sources":asset_manifest,"failures":issues},indent=2)+"\n")
+    print(json.dumps({"sourceProbe":{"loaded":list(asset_manifest),"failures":issues}}))
     if args.probe_only:
         print(json.dumps({"status":"SOURCES_OK" if len(asset_manifest)==len(SRC) else "INCOMPLETE",
                           "sources":list(asset_manifest),"failures":issues}))
