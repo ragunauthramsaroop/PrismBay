@@ -307,7 +307,7 @@ def main():
     output = out_dir / f'{slug}.mp4'
     run([
         'ffmpeg', '-hide_banner', '-loglevel', 'error', '-y', '-f', 'concat', '-safe', '0', '-i', str(concat),
-        '-c:v', 'libx264', '-preset', 'medium', '-crf', '20', '-c:a', 'aac', '-b:a', '160k',
+        '-c:v', 'libx264', '-preset', 'medium', '-crf', '20', '-af', 'volume=-3dB', '-c:a', 'aac', '-b:a', '160k',
         '-movflags', '+faststart', '-pix_fmt', 'yuv420p', str(output)
     ])
 
