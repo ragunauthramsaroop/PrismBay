@@ -6,8 +6,8 @@
   "audioCodec": "aac",
   "width": 1080,
   "height": 1920,
-  "audioMeanDb": -18.6,
-  "audioPeakDb": -0.0,
+  "audioMeanDb": -21.6,
+  "audioPeakDb": -3.0,
   "ttsEngines": [
     "piper"
   ],
@@ -23,10 +23,10 @@
     "dimensions": true,
     "codecs": true,
     "piperVoice": true,
-    "noDigitalClipping": false,
+    "noDigitalClipping": true,
     "soleChannel": true
   },
-  "technicalPass": false,
+  "technicalPass": true,
   "manualVisualReview": "PENDING",
   "manualNarrationReview": "PENDING",
   "publicationApproved": false,
@@ -35,10 +35,10 @@
     "completed": true,
     "model": "faster-whisper tiny.en CPU",
     "scriptWordCount": 107,
-    "transcribedWordCount": 85,
-    "wordSequenceSimilarity": 0.667,
+    "transcribedWordCount": 87,
+    "wordSequenceSimilarity": 0.649,
     "intelligibilityProxyPass": false,
-    "transcript": "Evander promises 85% invoice automation. Does that mean 85% savings? Yell. Price the exceptions. Example 1,000 invoices. Manual processing costs $1.20 each monthly baseline $1,200. AI software costs $400. 150 exceptions need review at $3 each of $450. 20 post acceptance errors cost $10 each to fix $200. Total AI workflow cost $1,050. The difference is $150 per month before setup. Quality still needs independent testing. Measure accepted results. Exception rate, rework and customer impact. Prism Bay AI helps operators build practical AI business systems.",
+    "transcript": "of ender promises 85% invoice automation. Does that mean 85% savings? Yell. Price the exceptions. Example of 1,000 invoices. Manual processing costs $1.20 each monthly baseline $1,200. AI software costs $400. 150 exceptions need review at $3 each of $450. 20 post acceptance errors cost $10 each to fix $200. Total AI workflow costs $1,050. The difference is $150 per month before setup. Quality still needs independent testing. Measure accepted results. Exception rate, rework and customer impact. Present bait, AI helps operators build practical AI business systems.",
     "humanListeningReview": "NOT PERFORMED"
   }
 }
