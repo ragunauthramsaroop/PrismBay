@@ -144,3 +144,20 @@ test('checkout factory rejects a valid Stripe Price belonging to another SKU', (
     successUrl: 'https://clean.prismbayai.com/success', cancelUrl: 'https://clean.prismbayai.com/cancel', quoteRef: 'quote-abc'
   }), /verified_physical_catalog_required/);
 });
+
+test('rejects missing or malformed quote references even when authorization flags are true', () => {
+  const base = {
+    authorization: approved,
+    catalog,
+    priceId: resolvePriceForSku(catalog, 'crevice'),
+    successUrl: 'https://clean.prismbayai.com/success',
+    cancelUrl: 'https://clean.prismbayai.com/cancel'
+  };
+  for (const quoteRef of [undefined, '', ' ', 'bad@ref', 'short', 'a'.repeat(121)]) {
+    assert.throws(() => buildCheckoutSessionParams({ ...base, quoteRef }), /valid_quote_reference_required/);
+  }
+  const accepted = buildCheckoutSessionParams({ ...base, quoteRef: 'quote:valid-12345' });
+  assert.match(accepted.params.metadata.quote_ref_hash, /^[a-f0-9]{24}$/);
+  assert.equal(accepted.liveStripeCallPerformed, false);
+  assert.equal(accepted.supplierOrderingEnabled, false);
+});
