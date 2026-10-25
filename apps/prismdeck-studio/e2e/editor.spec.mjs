@@ -26,7 +26,7 @@ test("uploading an article becomes a sourced, editable deck",async({page})=>{
  const upload=page.locator("#fileImport");
  await upload.setInputFiles({name:"renewable-project.txt",mimeType:"text/plain",
   buffer:Buffer.from("The renewable energy project installed 35 MW of solar capacity. The project director reported that operations reduced diesel demand during the review period. Training sessions involved employees in safety and maintenance tasks. Management will review the implementation milestones at the next governance meeting.")});
- await expect(page.locator(".slide-surface")).toContainText("renewable-project", {timeout:20000});
+ await expect(page.locator(".slide-surface")).toContainText("renewable project", {timeout:20000});
  await expect(page.getByText(/source\(s\) processed into this deck/)).toBeVisible();
  await expect(page.locator('.thumb[data-action="select"]')).toHaveCount(8);
 });
