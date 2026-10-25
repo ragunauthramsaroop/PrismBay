@@ -4,15 +4,16 @@
   "entries": {
     "pb-stakeholder-toolkit-202610": {
       "id": "pb-stakeholder-toolkit-202610",
-      "status": "reserved_before_provider_call",
+      "status": "submitted_unverified",
       "reservedAt": "2026-10-25T15:51:02.944Z",
       "account": "prismbayclean",
       "documentHash": "891eaa47da4338cdcce1af67c6a2a6fb5d922ba503efad3d2f81ea10ea139010",
       "mediaSha256": "82c7cba3e29aa09d12dfa7155aeedf9b3765839dfd7c2946eaeaa676fb33e4b8",
-      "providerPostId": null,
-      "providerStatus": null,
+      "providerPostId": "6ade25692568cd6f5d497b7a",
+      "providerStatus": "published",
       "publicPostUrl": null,
-      "note": "Never automatically retry even if the provider response is lost."
+      "note": "Never automatically retry even if the provider response is lost.",
+      "updatedAt": "2026-10-25T15:51:19.200Z"
     }
   }
 }
