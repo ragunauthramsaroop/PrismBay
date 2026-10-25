@@ -50,7 +50,7 @@ export function auditDeck(candidate,documents=[],expectedCount=0){
   const title=slide.title.toLowerCase().trim();
   if(seen.has(title))issues.push({severity:"review",slide:index,text:label+": repeated title: "+slide.title});
   seen.add(title);
-  if(placeholder.test([slide.title,slide.subtitle,slide.body,...slide.metrics.map(m=>m.value)].join(" ")))
+  if(placeholder.test([slide.title,slide.subtitle,slide.body,...(slide.layout==="stats"?slide.metrics.map(m=>m.value):[])].join(" ")))
    issues.push({severity:"review",slide:index,text:label+": contains placeholder content; replace before publishing."});
   if(src.length&&index>0&&slide.layout!=="closing"&&!sourceNames.some(name=>slide.notes.includes(name))){
    issues.push({severity:"review",slide:index,text:label+": no uploaded filename in speaker notes."});
