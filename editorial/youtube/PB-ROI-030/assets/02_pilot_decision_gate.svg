@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080" role="img" aria-labelledby="title desc">
+<title id="title">Thirty-day AI pilot decision gate</title>
+<desc id="desc">Original PrismBay AI executive scorecard diagram. Financial value, service quality and risk controls each require review before expanding an AI pilot. Example monthly cash effect is 90 dollars, explicitly hypothetical.</desc>
+<defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#081526"/><stop offset="1" stop-color="#11283E"/></linearGradient></defs>
+<rect width="1920" height="1080" fill="url(#bg)"/>
+<rect x="90" y="85" width="10" height="76" rx="5" fill="#55E0CB"/>
+<text x="128" y="141" font-family="DejaVu Sans, sans-serif" font-size="65" font-weight="bold" fill="#F6FAFF">THE 30-DAY PILOT DECISION</text>
+<text x="128" y="207" font-family="DejaVu Sans, sans-serif" font-size="29" fill="#B5CCDE">An AI pilot earns expansion only after all three independent reviews pass.</text>
+<g font-family="DejaVu Sans, sans-serif">
+<rect x="100" y="285" width="540" height="430" rx="30" fill="#152F44" stroke="#3D6986" stroke-width="3"/>
+<rect x="690" y="285" width="540" height="430" rx="30" fill="#152F44" stroke="#3D6986" stroke-width="3"/>
+<rect x="1280" y="285" width="540" height="430" rx="30" fill="#152F44" stroke="#3D6986" stroke-width="3"/>
+<circle cx="165" cy="355" r="26" fill="#55E0CB"/><text x="165" y="365" text-anchor="middle" font-size="26" font-weight="bold" fill="#081526">1</text>
+<circle cx="755" cy="355" r="26" fill="#91BAFF"/><text x="755" y="365" text-anchor="middle" font-size="26" font-weight="bold" fill="#081526">2</text>
+<circle cx="1345" cy="355" r="26" fill="#FFBE73"/><text x="1345" y="365" text-anchor="middle" font-size="26" font-weight="bold" fill="#081526">3</text>
+<text x="142" y="436" font-size="43" font-weight="bold" fill="#F6FAFF">FINANCIAL VALUE</text>
+<text x="732" y="436" font-size="43" font-weight="bold" fill="#F6FAFF">SERVICE QUALITY</text>
+<text x="1322" y="436" font-size="43" font-weight="bold" fill="#F6FAFF">RISK CONTROLS</text>
+<text x="142" y="517" font-size="36" font-weight="bold" fill="#55E0CB">+$90 per month</text>
+<text x="142" y="579" font-size="26" fill="#C4D5E5">Verified cash avoided</text>
+<text x="142" y="621" font-size="26" fill="#C4D5E5">minus full recurring cost</text>
+<text x="732" y="517" font-size="34" font-weight="bold" fill="#91BAFF">No quality decline</text>
+<text x="732" y="579" font-size="26" fill="#C4D5E5">Check corrections, delays,</text>
+<text x="732" y="621" font-size="26" fill="#C4D5E5">and unresolved exceptions</text>
+<text x="1322" y="517" font-size="34" font-weight="bold" fill="#FFBE73">No critical failures</text>
+<text x="1322" y="579" font-size="26" fill="#C4D5E5">Verify approvals, access,</text>
+<text x="1322" y="621" font-size="26" fill="#C4D5E5">data handling, recovery</text>
+<rect x="100" y="777" width="1720" height="119" rx="26" fill="#1C3D50" stroke="#55E0CB" stroke-width="3"/>
+<text x="960" y="824" text-anchor="middle" font-size="37" font-weight="bold" fill="#F6FAFF">EXPAND  /  MODIFY  /  STOP</text>
+<text x="960" y="871" text-anchor="middle" font-size="26" fill="#C8DDEB">Named owner records evidence, decision, and next review date.</text>
+<text x="100" y="965" font-size="28" fill="#D6E6F4">PRISMBAY AI  /  ORIGINAL EXECUTIVE FRAMEWORK</text>
+<text x="1820" y="965" text-anchor="end" font-size="25" fill="#94B0C5">ALL FINANCIAL FIGURES HYPOTHETICAL</text>
+</g></svg>
