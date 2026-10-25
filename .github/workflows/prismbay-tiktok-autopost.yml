@@ -16,6 +16,7 @@ on:
   pull_request:
     paths:
       - 'config/tiktok-approved-autopost.json'
+      - 'docs/tiktok-automated-publishing-github.md'
       - 'scripts/tiktok-zernio-autopost.mjs'
       - 'scripts/tiktok-zernio-autopost.test.mjs'
       - '.github/workflows/prismbay-tiktok-autopost.yml'
@@ -23,6 +24,7 @@ on:
     branches: [main]
     paths:
       - 'config/tiktok-approved-autopost.json'
+      - 'docs/tiktok-automated-publishing-github.md'
       - 'scripts/tiktok-zernio-autopost.mjs'
       - 'scripts/tiktok-zernio-autopost.test.mjs'
       - '.github/workflows/prismbay-tiktok-autopost.yml'
@@ -47,6 +49,8 @@ jobs:
         run: node --test scripts/tiktok-zernio-autopost.test.mjs
       - name: Print only safe, blocked queue summary
         run: node scripts/tiktok-zernio-autopost.mjs test-plan
+      - name: Show exact caption hashes for owner GitHub review
+        run: node scripts/tiktok-zernio-autopost.mjs hashes
       - name: Publish workflow guardrail summary
         if: always()
         run: |
