@@ -1,0 +1,66 @@
+name: PrismBay Digital Organic Marketing Editorial
+
+on:
+  schedule:
+    # Wednesday 09:15 Guyana (UTC-4). Drafts only, never posts.
+    - cron: '15 13 * * 3'
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - 'scripts/digital-growth-pages.mjs'
+      - 'scripts/digital-organic-campaign.mjs'
+      - 'scripts/digital-organic-campaign.test.mjs'
+      - '.github/workflows/digital-organic-editorial.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/digital-growth-pages.mjs'
+      - 'scripts/digital-organic-campaign.mjs'
+      - 'scripts/digital-organic-campaign.test.mjs'
+      - '.github/workflows/digital-organic-editorial.yml'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: prismbay-digital-organic-marketing-\${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  test-and-prepare:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verify original educational pages and responsible social drafts
+        run: node --test scripts/digital-organic-campaign.test.mjs
+      - name: Prepare channel-specific copy and UTM tracking
+        run: node scripts/digital-organic-campaign.mjs
+      - name: Verify editorial review policy
+        run: |
+          node --input-type=module <<'NODE'
+          import fs from 'node:fs';
+          const campaign=JSON.parse(fs.readFileSync('growth-reports/digital-organic-marketing/editorial-queue.json','utf8'));
+          if(campaign.items.length!==32 || !campaign.prototypeProductsExcluded ||
+             campaign.actualPostsPublished!==0 || campaign.actualPaidSalesVerified!==0 ||
+             campaign.items.some(x=>x.socialPostPublished || x.mediaVerified || x.paidAdPurchased))
+            process.exitCode=1;
+          else console.log('Editorial campaign PASS: 32 drafts, no external action or invented results.');
+          NODE
+      - name: Upload marketing editorial calendar and captions
+        uses: actions/upload-artifact@v4
+        with:
+          name: prismbay-digital-organic-content-\${{ github.run_id }}
+          path: growth-reports/digital-organic-marketing/
+          retention-days: 14
+          if-no-files-found: error
+      - name: Report commercial boundary
+        if: always()
+        run: |
+          echo '### Organic campaign production' >> "$GITHUB_STEP_SUMMARY"
+          echo '32 original draft posts for LinkedIn, Facebook, Pinterest and Threads, with UTM-tagged free-resource links.' >> "$GITHUB_STEP_SUMMARY"
+          echo 'Only four existing digital offers are promoted. No new unverified prototypes are sold.' >> "$GITHUB_STEP_SUMMARY"
+          echo 'No unsolicited messages, paid advertisements, automatic posting or sales claims occur in this workflow.' >> "$GITHUB_STEP_SUMMARY"
