@@ -1,0 +1,66 @@
+{
+  "schemaVersion": 1,
+  "createdAt": "2026-10-25",
+  "status": "two_existing_posts_rejected_replace_not_republish",
+  "publishing": {
+    "locked": true,
+    "queueEnabled": false,
+    "requiresFreshOwnerVideoReview": true
+  },
+  "audits": [
+    {
+      "id": "stakeholder",
+      "upload": "v292ffg50001dbf2ar7og65kg26543p0.mp4",
+      "sha256": "7d09cb196e835de62d1ad316f06dc0f7e008cecb621e18956dab7ef9841ec137",
+      "durationSeconds": 18.005,
+      "resolution": "512x910",
+      "observed": "Four mostly static page captures inside a mock phone. A phrase changes about every 4.5 seconds. No real entry, assignment, closing action or actual paid XLSX is shown.",
+      "replaceWith": "Browser-record a user entering, assigning and closing an illustrative stakeholder commitment with real keyboard/mouse interactions. Clearly mark illustrative CSV workflow, not the exact $49 product files.",
+      "sourceRights": "Original locally generated illustrative web app and original audio; no external footage.",
+      "publicationStatus": "review_only"
+    },
+    {
+      "id": "brush",
+      "upload": "export_1792958556000.mp4",
+      "sha256": "a6293eb637f1a17580e715b50428254d379fec2463c763974f944d82d4f74feb",
+      "durationSeconds": 12.002,
+      "resolution": "512x910",
+      "observed": "Unchanging picture of 3-in-1 Crevice Cleaning Brush at $12.95 with 'READY TO ORDER', no real hand-held use, no before/after or SKU matching.",
+      "replaceWith": "Four authentic moving shots: dirty narrow crevice, real hands using the exact approved brush, close-up bristle movement, filmed result on same surface. Original audio/captions. No deceptive before/after.",
+      "sourceRights": "Exact supplier/creator SKU usage license missing. No available authenticated supplier video in repository.",
+      "publicationStatus": "blocked_missing_product_footage_and_commercial_rights"
+    }
+  ],
+  "brushProduction": {
+    "exactSku": "legacy-crevice-brush-001",
+    "sourceVideoFile": "marketing/tiktok/owned-footage/crevice-brush-real-use.mp4",
+    "rightsRecordFile": "marketing/tiktok/owned-footage/crevice-brush-usage-rights.json",
+    "requiredShotList": [
+      {
+        "t": "0-2.0 seconds",
+        "action": "Show a real dirty grout or window-track crevice in the same filming location"
+      },
+      {
+        "t": "2.0-6.0 seconds",
+        "action": "Hands move the exact 3-in-1 brush through the dirty narrow space; visible bristle motion"
+      },
+      {
+        "t": "6.0-11.0 seconds",
+        "action": "Change brush head and show a different legitimate use without inventing capabilities"
+      },
+      {
+        "t": "11.0-17.0 seconds",
+        "action": "Actual cleaned surface filmed in matching light plus honest CTA, only if fulfillment ready"
+      }
+    ],
+    "commercialPrerequisites": [
+      "written supplier/creator license allowing social ads and derivative edits",
+      "exact variant visual match verified",
+      "original source video minimum 12s with genuine live motion",
+      "live stock and final buyer ZIP freight verified",
+      "checkout fulfilment and support verified",
+      "new final rendered MP4 reviewed and explicitly approved by owner"
+    ],
+    "fallback": "Never substitute unlicensed still product photo, AI-fabricated action, or unrelated stock product footage."
+  }
+}
