@@ -1,6 +1,7 @@
 {
-  "locked": false,
-  "reason": "Owner expressly approved all three exact PrismBay media creatives and authorized public TikTok publication on 2026-10-25. Maintain exact SHA256, price, brand and credential checks; any new creatives still need separate approval.",
-  "unlockedAt": "2026-10-25T14:00:00Z",
-  "approvalReference": "https://github.com/ragunauthramsaroop/PrismBay/issues/457"
+  "locked": true,
+  "reason": "Owner explicitly rejected the published video quality on 2026-10-25. NO automated TikTok posts until real licensed footage, new creative, editorial review and new explicit approval. Previous authorization revoked.",
+  "lockedAt": "2026-10-25T19:50:00Z",
+  "supersedes": "2026-10-25 initial approvals",
+  "ownerFeedback": "The published videos were unacceptable. Stop posts."
 }
