@@ -31,25 +31,29 @@ export function classifyRevenueEvidence({
   deliveredOrders = null
 } = {}) {
   const technicalPathHealthy = Boolean(guideHealthy && checkoutHealthy);
-  const trafficStatus = trafficCount === null ? 'UNMEASURED' : trafficCount === 0 ? 'NO_RECORDED_TRAFFIC' : 'MEASURED';
+  // Ignore malformed counters. Only upstream authenticated sources establish paid sales.
+  // Legacy deliveredOrders is untrusted without order-bound fulfillment evidence.
+  const validTrafficCount = Number.isSafeInteger(trafficCount) && trafficCount >= 0 ? trafficCount : null;
+  const trafficStatus = validTrafficCount === null ? 'UNMEASURED' : validTrafficCount === 0 ? 'NO_RECORDED_TRAFFIC' : 'MEASURED';
   // Legacy paidOrders input is intentionally ignored. A numeric claim is not payment evidence.
   const verifiedStripe = verifiedStripeChargeCount(stripeEvidence);
   const paymentStatus = verifiedStripe === null ? 'STRIPE_DATA_NOT_CONNECTED' :
     verifiedStripe.count === 0 ? 'NO_PAID_ORDERS' : 'PAYMENTS_RECORDED';
-  const deliveryStatus = deliveredOrders === null ? 'NOT_VERIFIED' :
-    deliveredOrders === 0 ? 'NO_DELIVERIES_RECORDED' : 'DELIVERIES_RECORDED';
+  // A caller-provided count is not a verified shipment or delivery receipt.
+  // Keep this field fail-closed until an authenticated fulfillment adapter is integrated.
+  const deliveryStatus = 'NOT_VERIFIED';
   const revenueVerified = verifiedStripe !== null && verifiedStripe.count > 0 && verifiedStripe.netMinor > 0;
   const firstSaleVerified = revenueVerified;
   const nextAction = !technicalPathHealthy ? 'REPAIR_BUYER_LINKS' :
-    trafficCount === null ? 'MEASURE_EXTERNAL_BUYER_TRAFFIC' :
-    trafficCount === 0 ? 'DISTRIBUTE_TO_RELEVANT_BUYERS' :
+    validTrafficCount === null ? 'MEASURE_EXTERNAL_BUYER_TRAFFIC' :
+    validTrafficCount === 0 ? 'DISTRIBUTE_TO_RELEVANT_BUYERS' :
     verifiedStripe === null ? 'VERIFY_PAID_STRIPE_EVENTS' :
     verifiedStripe.count === 0 ? 'IMPROVE_OFFER_CONVERSION' :
     verifiedStripe.netMinor === 0 ? 'VERIFY_REFUNDS_AND_NET_REVENUE' :
-    deliveredOrders === null ? 'VERIFY_ORDER_BOUND_FULFILLMENT' : 'MEASURE_MARGIN_AND_REFUNDS';
+    'VERIFY_ORDER_BOUND_FULFILLMENT';
   return {
     technicalPathHealthy, trafficStatus, paymentStatus, deliveryStatus,
     revenueVerified, firstSaleVerified, nextAction,
-    note: 'Only a complete authenticated live Stripe charge read establishes payment activity; first-sale credit also requires positive after-refunds revenue. Generated content, checkout links and numeric paidOrders claims do not.'
+    note: 'Only a complete authenticated live Stripe charge read establishes payment activity; first-sale credit also requires positive after-refunds revenue. Generated content, checkout links, untrusted traffic counters and numeric delivery or paidOrders claims do not.'
   };
 }

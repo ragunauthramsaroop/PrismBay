@@ -88,3 +88,25 @@ test('failed checkout blocks paid promotion readiness', () => {
   assert.equal(state.technicalPathHealthy, false);
   assert.equal(state.nextAction, 'REPAIR_BUYER_LINKS');
 });
+
+test('malformed traffic counters never become measured buyer activity', () => {
+  for (const trafficCount of [-1, 0.5, NaN, Infinity, '17', false, true, {}, []]) {
+    const state = classifyRevenueEvidence({
+      guideHealthy: true, checkoutHealthy: true, trafficCount
+    });
+    assert.equal(state.trafficStatus, 'UNMEASURED');
+    assert.equal(state.nextAction, 'MEASURE_EXTERNAL_BUYER_TRAFFIC');
+  }
+});
+
+test('unverified delivery counters cannot claim delivered orders or completed fulfillment', () => {
+  for (const deliveredOrders of [0, 1, 100, -1, '12', true]) {
+    const state = classifyRevenueEvidence({
+      guideHealthy: true, checkoutHealthy: true,
+      trafficCount: 10, stripeEvidence: liveEvidence(1), deliveredOrders
+    });
+    assert.equal(state.deliveryStatus, 'NOT_VERIFIED');
+    assert.equal(state.firstSaleVerified, true);
+    assert.equal(state.nextAction, 'VERIFY_ORDER_BOUND_FULFILLMENT');
+  }
+});
