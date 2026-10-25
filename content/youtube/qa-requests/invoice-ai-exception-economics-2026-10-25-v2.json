@@ -1,0 +1,12 @@
+{
+  "slug": "invoice-ai-exception-economics-2026-10-25-v2",
+  "targetChannelId": "UCw2hs85TzIpdKwJtG-BSxzQ",
+  "experimentId": "PB-INVOICE-ECON-001-V2",
+  "originalityGate": "ledger_v1 unique scene-specific graphics",
+  "machineNarrationReview": "NUMERIC_AWARE_ASR_REQUIRED",
+  "humanNarrationReview": "PENDING",
+  "manualVisualReview": "PENDING",
+  "publishAllowed": false,
+  "neverPublishVersion": "invoice-ai-exception-economics-2026-10-25",
+  "paidSpendUSD": 0
+}
