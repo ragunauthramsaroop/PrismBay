@@ -8,5 +8,6 @@
   "manualVisualReview": "PENDING",
   "publishAllowed": false,
   "neverPublishVersion": "invoice-ai-exception-economics-2026-10-25",
-  "paidSpendUSD": 0
+  "paidSpendUSD": 0,
+  "remasterRequest": "2026-10-25: reduce 0 dB audio peak by -3 dB using existing QA pipeline; keep publication blocked for human listening and visual inspection."
 }
