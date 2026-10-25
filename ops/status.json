@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "checkedAt": "2026-10-25T09:20:12.100Z",
+  "checkedAt": "2026-10-25T09:52:41.313Z",
   "source": "GitHub Actions accountability evidence",
   "refreshPolicy": "Best-effort GitHub schedules. Static snapshot; refresh does not run agents.",
   "summary": {
@@ -20,11 +20,11 @@
       "workflow": "buyer-acquisition.yml",
       "status": "fail",
       "reason": "worker_stale",
-      "consequence": "probation",
-      "failureStreak": 2,
+      "consequence": "replace_route",
+      "failureStreak": 3,
       "runId": 40170335063,
       "runUrl": "https://github.com/ragunauthramsaroop/PrismBay/actions/runs/40170335063",
-      "runAgeMinutes": 153,
+      "runAgeMinutes": 186,
       "artifactName": null,
       "artifactBytes": null,
       "remediation": null
@@ -42,7 +42,7 @@
       "failureStreak": 0,
       "runId": 40108762514,
       "runUrl": "https://github.com/ragunauthramsaroop/PrismBay/actions/runs/40108762514",
-      "runAgeMinutes": 1050,
+      "runAgeMinutes": 1083,
       "artifactName": "prismbay-external-traffic-40108762514",
       "artifactBytes": 799889,
       "remediation": null
@@ -56,11 +56,11 @@
       "workflow": "ceo-autonomous-recovery.yml",
       "status": "fail",
       "reason": "worker_stale",
-      "consequence": "probation",
-      "failureStreak": 2,
+      "consequence": "replace_route",
+      "failureStreak": 3,
       "runId": 40170795932,
       "runUrl": "https://github.com/ragunauthramsaroop/PrismBay/actions/runs/40170795932",
-      "runAgeMinutes": 146,
+      "runAgeMinutes": 178,
       "artifactName": null,
       "artifactBytes": null,
       "remediation": null
@@ -74,11 +74,11 @@
       "workflow": "paperclip-revenue-ops.yml",
       "status": "fail",
       "reason": "worker_stale",
-      "consequence": "probation",
-      "failureStreak": 2,
+      "consequence": "replace_route",
+      "failureStreak": 3,
       "runId": 40163470103,
       "runUrl": "https://github.com/ragunauthramsaroop/PrismBay/actions/runs/40163470103",
-      "runAgeMinutes": 268,
+      "runAgeMinutes": 300,
       "artifactName": null,
       "artifactBytes": null,
       "remediation": null
@@ -92,14 +92,14 @@
       "workflow": "paperclip-commerce-group.yml",
       "status": "fail",
       "reason": "worker_stale",
-      "consequence": "probation",
-      "failureStreak": 2,
+      "consequence": "replace_route",
+      "failureStreak": 3,
       "runId": 40170414252,
       "runUrl": "https://github.com/ragunauthramsaroop/PrismBay/actions/runs/40170414252",
-      "runAgeMinutes": 152,
+      "runAgeMinutes": 184,
       "artifactName": null,
       "artifactBytes": null,
-      "remediation": null
+      "remediation": "dispatched_safe_digital_buyer_acquisition_fallback"
     }
   ],
   "commercial": {
