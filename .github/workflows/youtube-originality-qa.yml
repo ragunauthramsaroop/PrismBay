@@ -6,6 +6,12 @@ on:
     paths:
       - 'content/youtube/qa-requests/*.json'
       - '.github/workflows/youtube-originality-qa.yml'
+  # A render bot commit made with GITHUB_TOKEN does not fire a new push workflow.
+  # Re-run QA after the zero-cost renderer finishes successfully on main.
+  workflow_run:
+    workflows: ['YouTube Zero-Cost Render']
+    types: [completed]
+    branches: [main]
   workflow_dispatch:
 
 permissions:
@@ -17,7 +23,9 @@ concurrency:
 
 jobs:
   audit:
-    if: github.actor != 'github-actions[bot]'
+    if: >-
+      (github.event_name == 'workflow_run' && github.event.workflow_run.conclusion == 'success') ||
+      (github.event_name != 'workflow_run' && github.actor != 'github-actions[bot]')
     runs-on: ubuntu-latest
     timeout-minutes: 8
     steps:
