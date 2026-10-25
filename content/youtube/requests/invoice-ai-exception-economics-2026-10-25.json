@@ -1,0 +1,59 @@
+{
+  "slug": "invoice-ai-exception-economics-2026-10-25",
+  "title": "85% Invoice Automation Is Not 85% Savings | PrismBay AI",
+  "targetChannelId": "UCw2hs85TzIpdKwJtG-BSxzQ",
+  "visualStyle": "ledger_v1",
+  "voice": "en_US-norman-medium",
+  "voiceLicenseBasis": "Open Piper TTS voice; verify model license and attribution before publication",
+  "sourceAttribution": "Original PrismBay AI illustrative arithmetic. All numbers are hypothetical, not measured company results.",
+  "experimentId": "PB-INVOICE-ECON-001",
+  "hypothesis": "A worked cost breakdown and visible arithmetic outperform generic AI productivity promises on qualified engagement and subscriber conversion.",
+  "targetAudience": "CFOs, procurement directors, operations leaders, founders",
+  "hookType": "quantified misconception and worked counterexample",
+  "format": "short",
+  "durationTargetSeconds": "45-60",
+  "thumbnailConcept": "Custom financial ledger graphic, large 85% versus $150, no stock faces",
+  "cta": "PrismBay AI helps operators build practical AI business systems",
+  "publishTime": "UNSET; do not schedule before QA and duplicate check",
+  "successThreshold": "Review 6h/24h/72h/7d after publication. SCALE only if subscribers per 1000 views or engaged watch time beats comparable median by at least 30% with useful sample; MODIFY weak early retention; STOP if factual, audio or originality checks fail.",
+  "productionStatus": "render_requested_2026-10-25",
+  "paidSpendUSD": 0,
+  "segments": [
+    {
+      "scene": "hook",
+      "headline": "85% AUTOMATION ≠ 85% SAVINGS",
+      "body": "Count the work that still needs people.",
+      "spoken": "A vendor promises eighty-five percent invoice automation. Does that mean eighty-five percent savings? No. Price the exceptions."
+    },
+    {
+      "scene": "baseline",
+      "headline": "START WITH THE BASELINE",
+      "body": "1,000 × $1.20 = $1,200 per month.",
+      "spoken": "Example: one thousand invoices. Manual processing costs one dollar twenty each. Monthly baseline: twelve hundred dollars."
+    },
+    {
+      "scene": "usage",
+      "headline": "AI HAS THREE COST LINES",
+      "body": "$400 software + $450 review + $200 rework.",
+      "spoken": "AI software costs four hundred dollars. One hundred fifty exceptions need review at three dollars each: four hundred fifty dollars."
+    },
+    {
+      "scene": "exceptions",
+      "headline": "EXCEPTIONS CHANGE THE MATH",
+      "body": "Review and correction are different costs.",
+      "spoken": "Twenty post-acceptance errors cost ten dollars each to fix: two hundred dollars. Total AI workflow cost: one thousand fifty dollars."
+    },
+    {
+      "scene": "total",
+      "headline": "NET SAVINGS: $150 / MONTH",
+      "body": "Illustrative. Before setup and transition costs.",
+      "spoken": "The difference is one hundred fifty dollars per month before setup. Quality still needs independent testing."
+    },
+    {
+      "scene": "close",
+      "headline": "TRACK WHAT THE DEMO HIDES",
+      "body": "Accepted results • Exceptions • Rework • Quality",
+      "spoken": "Measure accepted results, exception rate, rework and customer impact. PrismBay AI helps operators build practical AI business systems."
+    }
+  ]
+}
