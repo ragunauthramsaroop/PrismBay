@@ -61,7 +61,8 @@ jobs:
 
   publish-one-approved:
     needs: security-and-approval-tests
-    if: github.ref == 'refs/heads/main' && (github.event_name == 'schedule' || (github.event_name == 'workflow_dispatch' && inputs.mode == 'publish-approved') || (github.event_name == 'push' && startsWith(github.event.head_commit.message, 'release(tiktok): authorized-20261025')))
+    if: >-
+      github.ref == 'refs/heads/main' && (github.event_name == 'schedule' || (github.event_name == 'workflow_dispatch' && inputs.mode == 'publish-approved') || (github.event_name == 'push' && startsWith(github.event.head_commit.message, 'release(tiktok): authorized-20261025')))
     runs-on: ubuntu-latest
     timeout-minutes: 35
     permissions:
