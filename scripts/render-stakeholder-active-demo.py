@@ -95,7 +95,7 @@ input,select{width:100%;border:2px solid #cadaac;border-radius:8px;padding:12px;
 <script>
 const $ = selector => document.querySelector(selector);
 function cue(line,p){ $('#hook').innerHTML=line;$('#fill').style.width=(p*100)+'%'; }
-$('#new').onclick=()=>{$('#form').classList.add('visible');cue('Capture the <em>actual</em> promise.',.20);}
+$('#new').onclick=()=>{$('#form').classList.add('visible');$('table').style.display='none';$('.metric').style.display='none';cue('Capture the <em>actual</em> promise.',.20);}
 $('#save').onclick=()=>{
   if(!$('#action').value.trim()||!$('#owner').value)return;
   $('#saved-action').textContent=$('#action').value;
@@ -103,6 +103,7 @@ $('#save').onclick=()=>{
   $('#saved-due').textContent='Nov 06';
   $('#fresh').style.display='table-row';
   $('#form').classList.remove('visible');
+  $('table').style.display='table';$('.metric').style.display='flex';
   $('#count').textContent='2';$('#open').textContent='2';
   cue('An owner. A date.<br>A visible next action.',.58);
   $('#closure').classList.add('visible');
