@@ -1,0 +1,39 @@
+name: PrismDeck Studio CI
+
+on:
+  push:
+    branches:
+      - feature/prismdeck-premium-studio-20261024
+    paths:
+      - "apps/prismdeck-studio/**"
+      - ".github/workflows/prismdeck-studio-ci.yml"
+  pull_request:
+    paths:
+      - "apps/prismdeck-studio/**"
+      - ".github/workflows/prismdeck-studio-ci.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    name: Test and build PowerPoint studio
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    defaults:
+      run:
+        working-directory: apps/prismdeck-studio
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Install
+        run: npm install --no-audit --no-fund
+      - name: Run model and real PowerPoint export tests
+        run: npm test
+      - name: Production bundle
+        run: npm run build
+      - name: Verify bundled index
+        run: test -s dist/index.html
