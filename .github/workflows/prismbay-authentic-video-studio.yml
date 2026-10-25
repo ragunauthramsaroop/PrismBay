@@ -1,0 +1,84 @@
+name: PrismBay Authentic Short Video Studio
+
+on:
+  pull_request:
+    paths:
+      - 'scripts/render-authentic-product-demos.py'
+      - 'scripts/test_render_authentic_product_demos.py'
+      - '.github/workflows/prismbay-authentic-video-studio.yml'
+      - 'public/digital/**'
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/render-authentic-product-demos.py'
+      - 'scripts/test_render_authentic_product_demos.py'
+      - '.github/workflows/prismbay-authentic-video-studio.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: prismbay-authentic-video-studio-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  render-and-review:
+    runs-on: ubuntu-latest
+    timeout-minutes: 28
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install open-source screen capture and compositing tools
+        run: |
+          python -m pip install --disable-pip-version-check --no-input pillow playwright
+          python -m playwright install --with-deps chromium
+          if ! command -v ffmpeg >/dev/null 2>&1 || ! command -v ffprobe >/dev/null 2>&1; then
+            sudo apt-get update -qq
+            sudo apt-get install -y -qq ffmpeg
+          fi
+      - name: Generate original free guide pages from tracked source
+        run: node scripts/digital-growth-pages.mjs
+      - name: Verify production claims and sources
+        run: python -m unittest discover -s scripts -p test_render_authentic_product_demos.py -v
+      - name: Render three authentic vertical video drafts
+        run: python scripts/render-authentic-product-demos.py
+      - name: Fail closed if TikTok publish lock or media manifests are bypassed
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          lock=json.loads(Path('config/tiktok-publish-lock.json').read_text())
+          manifest=json.loads(Path('build/authentic-demo-videos/media-manifest.json').read_text())
+          assert lock['locked'] is True
+          assert manifest['tiktokPublished'] is False
+          assert manifest['tiktokLockRequired'] is True
+          assert manifest['verifiedPaidSales'] == 0
+          assert len(manifest['videos']) == 3
+          assert all(r['publicationStatus']=='review_only' for r in manifest['videos'])
+          assert all((Path('build/authentic-demo-videos') / r['file']).stat().st_size > 60000 for r in manifest['videos'])
+          print('PASS: 3 original rendered videos; no unauthorized TikTok upload.')
+          PY
+      - name: Upload authentic videos, source captures, captions and QA
+        uses: actions/upload-artifact@v4
+        with:
+          name: prismbay-authentic-tiktok-review-${{ github.run_id }}
+          path: |
+            build/authentic-demo-videos/*.mp4
+            build/authentic-demo-videos/media-manifest.json
+            build/authentic-demo-videos/tiktok-captions.txt
+            build/authentic-demo-videos/captures/*.png
+          if-no-files-found: error
+          retention-days: 14
+      - name: Explain publishing state
+        if: always()
+        run: |
+          echo '## PrismBay Authentic Short Video Studio' >> "$GITHUB_STEP_SUMMARY"
+          echo 'Original, authentic screens recorded from real PrismBay digital products and composited into vertical 1080x1920 shorts with original soundtrack.' >> "$GITHUB_STEP_SUMMARY"
+          echo 'This workflow never posts, changes the TikTok lock, purchases advertising, or fabricates sales.' >> "$GITHUB_STEP_SUMMARY"
+          echo 'Existing Zernio TikTok direct publisher remains a separate owner approval and account authorization gate.' >> "$GITHUB_STEP_SUMMARY"
