@@ -101,14 +101,28 @@ jobs:
         shell: bash
         run: |
           python3 -m venv .qa-venv
-          .qa-venv/bin/pip install -q --disable-pip-version-check faster-whisper
+          .qa-venv/bin/pip install -q --disable-pip-version-check faster-whisper num2words
           .qa-venv/bin/python - <<'PY'
           import glob, json, re, difflib, subprocess, numpy as np
           from pathlib import Path
           from faster_whisper import WhisperModel
+          from num2words import num2words
           model=WhisperModel('tiny.en',device='cpu',compute_type='int8')
           def norm(x):
-              return re.sub(r'[^a-z0-9 ]','',x.lower()).split()
+              x=x.lower()
+              def number_words(v):
+                  return num2words(int(v.replace(',',''))).replace(' and ',' ')
+              def money(m):
+                  v=m.group(1).replace(',','')
+                  if '.' in v:
+                      dollars,cents=v.split('.')
+                      return number_words(dollars)+' dollar '+number_words(str(int(cents)))
+                  return number_words(v)+' dollars'
+              x=re.sub(r'\$(\d[\d,]*(?:\.\d{1,2})?)',money,x)
+              x=re.sub(r'(\d[\d,]*)%',lambda m:number_words(m.group(1))+' percent',x)
+              x=re.sub(r'\b\d[\d,]*\b',lambda m:number_words(m.group(0)),x)
+              x=re.sub(r'[^a-z0-9 ]',' ',x)
+              return [w for w in x.split() if w!='and']
           for req in sorted(glob.glob('content/youtube/qa-requests/*.json')):
               slug=json.loads(Path(req).read_text())['slug']
               src=Path('public/youtube')/(slug+'.mp4')
