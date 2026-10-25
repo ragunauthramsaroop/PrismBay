@@ -26,3 +26,14 @@ test('trusted workflow completions are guarded by main branch, success and 15-mi
   assert.match(dispatch,/15 \* 60 \* 1000/);
   assert.match(dispatch,/latest\.status !== 'completed'/);
 });
+
+const continuity=fs.readFileSync('.github/workflows/revenue-continuity-orchestrator.yml','utf8');
+
+test('existing continuity supervisor recovers stale commerce control without creating a second pipeline',()=>{
+  assert.match(continuity,/'ceo-autonomous-recovery\.yml:35'/);
+  assert.match(continuity,/'paperclip-commerce-group\.yml:105'/);
+  assert.match(continuity,/gh workflow run "\$wf" --repo "\$GITHUB_REPOSITORY" --ref main/);
+  assert.match(continuity,/if \[\[ "\$status" == 'in_progress'/);
+  assert.match(continuity,/if \(\( age_min > max_age \)\)/);
+  assert.doesNotMatch(continuity,/stripe_api_write|cj.*order.*submit/i);
+});
