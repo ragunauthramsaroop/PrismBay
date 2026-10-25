@@ -25,7 +25,10 @@ class FilmFirstQualityTests(unittest.TestCase):
     def test_no_product_pages_used_as_motion_footage(self):
         for info in module.SRC.values():
             for url in info["candidates"]:
-                self.assertIn(".mp4",url)
+                # The source catalog accepts genuine video containers, including
+                # Wikimedia WebM transcodes. Keep the origin and format checks strict.
+                self.assertTrue(url.startswith("https://upload.wikimedia.org/wikipedia/commons/"))
+                self.assertTrue(url.lower().endswith((".webm", ".mp4")))
                 self.assertNotIn("prismbayai.com",url)
                 self.assertNotIn("github.com",url)
     def test_checkout_locked_until_verified_rights_and_fulfillment(self):
