@@ -1,6 +1,8 @@
 import "./styles.css";
 import {THEMES,LAYOUTS,AUDIENCES,STORAGE_KEY,starterDeck,generateDeck,parseOutline,sanitizeDeck,makeSlide,bulletLines,markdownExport,safeFileName} from "./core.js";
 import {exportPowerpoint} from "./pptx.js";
+import {buildSourceDeck} from "./source-deck.js";
+import {ingestFiles,SOURCE_ACCEPT} from "./ingest.js";
 
 const app=document.querySelector("#app");
 const escapeHtml=(value)=>String(value??"").replace(/[&<>"']/g,(c)=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
@@ -12,7 +14,7 @@ function load(){
 }
 function loadUI(){try{return JSON.parse(localStorage.getItem(STORAGE_KEY+"-ui")||"{}");}catch{return {};}}
 const savedUI=loadUI(),initialDeck=load();
-const state={deck:initialDeck,selected:Number(savedUI.selected)||0,prompt:savedUI.prompt||(initialDeck.id==="prismdeck-demo"?"The future of clean industrial energy":initialDeck.title),count:Number(savedUI.count)||8,audience:savedUI.audience||initialDeck.audience,importOpen:false,helpOpen:false,exporting:false};
+const state={deck:initialDeck,selected:Number(savedUI.selected)||0,prompt:savedUI.prompt||(initialDeck.id==="prismdeck-demo"?"The future of clean industrial energy":initialDeck.title),count:Number(savedUI.count)||8,audience:savedUI.audience||initialDeck.audience,importOpen:false,helpOpen:false,exporting:false,importing:false,documents:[],importErrors:[]};
 const current=()=>state.deck.slides[Math.min(state.selected,state.deck.slides.length-1)];
 function save(){try{localStorage.setItem(STORAGE_KEY,JSON.stringify(state.deck));localStorage.setItem(STORAGE_KEY+"-ui",JSON.stringify({selected:state.selected,prompt:state.prompt,count:state.count,audience:state.audience}));}catch{}}
 function options(values,chosen){return values.map(v=>'<option value="'+escapeHtml(v)+'" '+(v===chosen?'selected':'')+'>'+escapeHtml(v)+'</option>').join("");}
@@ -99,8 +101,8 @@ function render(){
        '<div class="setting-row"><label>Audience<select data-audience>'+options(AUDIENCES,state.audience)+'</select></label><label>Slides<select data-count>'+[4,5,6,7,8,10,12,14].map(x=>'<option value="'+x+'" '+(x===state.count?"selected":"")+'>'+x+' slides</option>').join("")+'</select></label></div>'+
        '<button data-action="generate" class="generate-button"><span>✦</span> Generate outline <b>↗</b></button><div class="engine-hint">Structured outline engine · no invented statistics</div></div>'+
        '<div class="theme-section"><div class="section-title">02 <span>CHOOSE THE AESTHETIC</span></div><div class="theme-options">'+Object.entries(THEMES).map(([key,t])=>'<button data-theme="'+key+'" class="theme-swatch '+(key===state.deck.theme?"chosen":"")+'" title="'+t.name+'" aria-label="Use '+t.name+' theme" aria-pressed="'+(key===state.deck.theme)+'"><span class="swatch-inner" style="background:#'+t.canvas+';border-color:#'+t.accent+'"><i style="background:#'+t.accent+'"></i></span><small>'+t.name+'</small></button>').join("")+'</div></div>'+
-       '<div class="divider"></div><div class="section-title">03 <span>IMPORT & REUSE</span></div><div class="import-tools"><button data-action="import" class="import-control">↥ <span>Import outline or JSON</span></button><button data-action="download-markdown" class="import-control">↧ <span>Export Markdown outline</span></button></div>'+
-       '<div class="create-foot"><span class="foot-indicator"></span> Auto-saved on this device</div></div></aside>'+
+       '<div class="divider"></div><div class="section-title">03 <span>IMPORT & REUSE</span></div><div class="import-tools"><button data-action="import" class="import-control">↥ <span>Upload source files or article</span></button><button data-action="download-markdown" class="import-control">↧ <span>Export Markdown outline</span></button></div>'+
+       '<div class="create-foot"><span class="foot-indicator"></span> Auto-saved on this device</div><div class="source-counter">'+(state.documents.length?state.documents.length+" source(s) processed into this deck":"DOC · PPT · PDF · XLS · VIDEO · ARTICLE")+'</div></div></aside>'+
       '<main class="center-panel"><div class="deck-topline"><div><div class="content-overline">CURRENT PRESENTATION</div><input class="deck-title-input" aria-label="Presentation title" data-deck-field="title" value="'+escapeHtml(state.deck.title)+'" /><div class="deck-meta">'+state.deck.slides.length+' slides <span>·</span> '+escapeHtml(state.deck.audience)+' <span>·</span> 16:9 widescreen</div></div>'+
       '<div class="deck-controls"><button data-action="move-left" title="Move current slide left">←</button><button data-action="move-right" title="Move current slide right">→</button><button data-action="add" class="add-slide">＋ Add slide</button></div></div>'+
       '<div class="stage-outer"><div class="stage-grid"><div class="preview-header"><span><span class="pulsing-dot"></span> LIVE CANVAS</span><span>POWERPOINT · 16:9</span></div><div id="previewHost" class="slide-stage">'+renderSlide(current())+'</div><div class="preview-bottom"><span>Slide '+(state.selected+1)+' of '+state.deck.slides.length+'</span><span class="preview-note">Native text, shapes & charts on export</span></div></div></div>'+
@@ -109,8 +111,7 @@ function render(){
       '<aside class="edit-panel"><div class="edit-top"><span>EDITOR</span><span class="status-pill"><i></i> READY</span></div>'+editor()+'<div class="inspector-foot"><div>✦ <strong>DESIGN ASSIST</strong></div><p>Use one message per slide. Replace every demo value with sourced data before sharing.</p></div></aside>'+
     '</div></div></div>'+
     '<div id="toasts" class="toasts" role="status" aria-live="polite"></div>'+
-    (state.importOpen?'<div class="modal-backdrop"><div class="modal" role="dialog" aria-modal="true" aria-labelledby="import-title"><button class="modal-close" data-action="close-import" aria-label="Close">×</button><div class="panel-kicker">IMPORT</div><h2 id="import-title">Bring your outline.</h2><p>Paste Markdown with ## slide headings, or choose a .md, .txt or PrismDeck .json file.</p><textarea id="importText" rows="10" placeholder="## Opening slide&#10;Core message&#10;&#10;## Supporting case&#10;- Evidence one&#10;- Evidence two"></textarea><input id="fileImport" type="file" accept=".md,.txt,.json,application/json,text/plain" hidden /><div class="modal-row"><button data-action="choose-file" class="top-secondary">Choose file</button><button data-action="confirm-import" class="primary-button">Import deck ↗</button></div></div></div>':"")+
-    (state.helpOpen?'<div class="modal-backdrop"><div class="modal help-dialog" role="dialog" aria-modal="true" aria-labelledby="help-title"><button class="modal-close" data-action="close-help" aria-label="Close">×</button><div class="panel-kicker">WORKSPACE GUIDE</div><h2 id="help-title">A better presentation, faster.</h2><p>Describe a topic, select an audience and build an editable framework. Click a slide to refine its headline, body, statistics, and speaker notes.</p><div class="shortcut">Ctrl / ⌘ + S <span>Save .json project</span></div><div class="shortcut">Ctrl / ⌘ + E <span>Export editable PowerPoint</span></div><p class="help-fine">The outline generator is deterministic and offline. Exported charts are editable PowerPoint objects. No payment or cloud account is required.</p></div></div>':"");
+    (state.importOpen?'<div class="modal-backdrop"><div class="modal source-modal" role="dialog" aria-modal="true" aria-labelledby="import-title"><button class="modal-close" data-action="close-import" aria-label="Close">×</button><div class="panel-kicker">SOURCE INTELLIGENCE</div><h2 id="import-title">Turn your material into slides.</h2><p>Upload articles, Word, PDF, PowerPoint, Excel, audio, video or captions. We extract source text, build a slide narrative and preserve citations in speaker notes.</p><div class="supported-formats">ARTICLE · PDF · DOC / DOCX · PPT / PPTX · XLS / XLSX · CSV · VIDEO</div><div class="drop-area" id="dropArea"><span>↥</span><strong>Choose files or drop them here</strong><small>Up to 20 files. PDFs and modern Office files are analyzed in this browser.</small><button class="top-secondary" data-action="choose-file">Choose source files</button></div><input id="fileImport" type="file" accept="'+SOURCE_ACCEPT+'" multiple hidden /><div class="advanced-ingest"><details><summary>Advanced converter for videos and legacy files</summary><p>Video/audio and older .doc/.ppt files require your private converter. Those files are sent to the selected server. Never enter credentials for an untrusted service.</p><label>Converter API endpoint<input id="converterEndpoint" value="/api/ingest" placeholder="https://your-private-server/api/ingest" /></label><label>Converter access token<input id="converterToken" type="password" autocomplete="off" placeholder="Session-only access token" /></label></details></div><div class="import-separator">OR PASTE ARTICLE / OUTLINE</div><textarea id="importText" rows="6" placeholder="Paste article text here or write:\n\n## Executive overview\n- First point\n- Second point"></textarea><div class="modal-row"><button data-action="confirm-import" class="top-secondary">Import Markdown outline</button><button data-action="analyze-paste" class="primary-button">Generate from article ↗</button></div><div id="importStatus" class="import-status" aria-live="polite">Source content stays on your device for supported modern file types.</div></div></div>':"")+(state.helpOpen?'<div class="modal-backdrop"><div class="modal help-dialog" role="dialog" aria-modal="true" aria-labelledby="help-title"><button class="modal-close" data-action="close-help" aria-label="Close">×</button><div class="panel-kicker">WORKSPACE GUIDE</div><h2 id="help-title">A better presentation, faster.</h2><p>Describe a topic, select an audience and build an editable framework. Click a slide to refine its headline, body, statistics, and speaker notes.</p><div class="shortcut">Ctrl / ⌘ + S <span>Save .json project</span></div><div class="shortcut">Ctrl / ⌘ + E <span>Export editable PowerPoint</span></div><p class="help-fine">The outline generator is deterministic and offline. Exported charts are editable PowerPoint objects. No payment or cloud account is required.</p></div></div>':"");
   save();
 }
 function redrawSlide(){
@@ -121,13 +122,31 @@ function move(direction){
   const to=state.selected+direction;if(to<0||to>=state.deck.slides.length)return;
   const all=state.deck.slides;[all[state.selected],all[to]]=[all[to],all[state.selected]];state.selected=to;render();
 }
-async function importFile(file){
-  if(!file)return;
-  if(file.size>2*1024*1024){toast("Import files must be below 2 MB.",true);return;}
-  try {
-    const str=await file.text();const d=file.name.toLowerCase().endsWith(".json")?sanitizeDeck(JSON.parse(str)):parseOutline(str);
-    state.deck=d;state.selected=0;state.importOpen=false;render();toast("Deck imported.");
-  }catch(err){toast(err.message||"File import failed.",true);}
+async function importSourceFiles(files){
+  if(state.importing){toast("Source extraction is already running.");return;}
+  state.importing=true;
+  const endpoint=document.getElementById("converterEndpoint")?.value.trim()||"/api/ingest";
+  const token=document.getElementById("converterToken")?.value.trim()||"";
+  const status=document.getElementById("importStatus");
+  try{
+    const result=await ingestFiles(files,{endpoint,token},({index,total,name})=>{
+      if(status)status.textContent="Reading "+index+" of "+total+": "+name;
+    });
+    state.importErrors=result.errors;
+    if(!result.documents.length)throw new Error(result.errors.map(e=>e.name+": "+e.error).join(" | ")||"No source could be extracted.");
+    state.documents=result.documents.map(d=>({name:d.name,kind:d.kind,chars:d.text.length}));
+    state.deck=buildSourceDeck(result.documents,{theme:state.deck.theme,audience:state.audience,count:state.count});
+    state.selected=0;state.importOpen=false;render();
+    toast("Created "+state.deck.slides.length+" editable slides from "+result.documents.length+" source(s).");
+    if(result.errors.length)toast(result.errors.length+" file(s) need additional conversion: "+result.errors.map(e=>e.name).join(", "),true);
+  }catch(err){toast(err.message||"Source import failed.",true);if(status)status.textContent=err.message||"Import failed.";}
+  finally{state.importing=false;}
+}
+function importPastedArticle(value){
+  const text=String(value||"").trim();
+  if(text.length<40)throw new Error("Paste at least 40 characters of article or source text.");
+  state.deck=buildSourceDeck([{name:"Pasted article",kind:"article",text}],{count:state.count,theme:state.deck.theme,audience:state.audience,title:state.prompt.length>6?state.prompt:undefined});
+  state.documents=[{name:"Pasted article",kind:"article",chars:text.length}];state.selected=0;state.importOpen=false;render();toast("Source-based presentation generated.");
 }
 async function action(name,target){
   const slide=current();
@@ -155,9 +174,12 @@ async function action(name,target){
   case "import":state.importOpen=true;render();document.getElementById("importText")?.focus();break;
   case "close-import":state.importOpen=false;render();break;
   case "confirm-import":{
-    const text=document.getElementById("importText")?.value;
-    try{const d=text.trim().startsWith("{")?sanitizeDeck(JSON.parse(text)):parseOutline(text);state.deck=d;state.selected=0;state.importOpen=false;render();toast("Outline imported.");}
+    const content=document.getElementById("importText")?.value||"";
+    try{const d=content.trim().startsWith("{")?sanitizeDeck(JSON.parse(content)):parseOutline(content);state.deck=d;state.selected=0;state.importOpen=false;render();toast("Editable outline imported.");}
     catch(err){toast(err.message,true);}break;}
+  case "analyze-paste":
+    try{importPastedArticle(document.getElementById("importText")?.value);}
+    catch(err){toast(err.message,true);}break;
   case "choose-file":document.getElementById("fileImport")?.click();break;
   case "help":state.helpOpen=true;render();break;
   case "close-help":state.helpOpen=false;render();break;
@@ -189,8 +211,10 @@ app.addEventListener("change",(event)=>{
   if(x.dataset.audience!==undefined){state.audience=x.value;save();return;}
   if(x.dataset.count!==undefined){state.count=Number(x.value);save();return;}
   if(x.dataset.slideField==="layout"){current().layout=x.value;render();return;}
-  if(x.id==="fileImport")importFile(x.files?.[0]);
+  if(x.id==="fileImport")importSourceFiles(x.files);
 });
+app.addEventListener("dragover",(event)=>{if(state.importOpen&&event.target.closest("#dropArea")){event.preventDefault();event.dataTransfer.dropEffect="copy";}});
+app.addEventListener("drop",(event)=>{if(state.importOpen&&event.target.closest("#dropArea")){event.preventDefault();importSourceFiles(event.dataTransfer.files);}});
 window.addEventListener("keydown",(event)=>{
   if((event.ctrlKey||event.metaKey)&&event.key.toLowerCase()==="s"){event.preventDefault();action("download-json",{});}
   if((event.ctrlKey||event.metaKey)&&event.key.toLowerCase()==="e"){event.preventDefault();action("pptx",{});}
