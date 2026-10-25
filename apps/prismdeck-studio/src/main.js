@@ -7,6 +7,7 @@ import {parseBrief} from "./brief.js";
 import {renderSimple} from "./simple-ui.js";
 import {renderAgent} from "./agent-ui.js";
 import {prepareAgentPrompt,decodeAgentDeck} from "./agent-core.js";
+import {freshTasks,setTask,planDeckJob,auditDeck,approveCandidate,snapshot} from "./agent-workflow.js";
 
 const app=document.querySelector("#app");
 const escapeHtml=(value)=>String(value??"").replace(/[&<>"']/g,(c)=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
@@ -18,9 +19,13 @@ function load(){
 }
 function loadUI(){try{return JSON.parse(localStorage.getItem(STORAGE_KEY+"-ui")||"{}");}catch{return {};}}
 const savedUI=loadUI(),initialDeck=load();
-const state={deck:initialDeck,selected:Number(savedUI.selected)||0,prompt:savedUI.prompt||(initialDeck.id==="prismdeck-demo"?"The future of clean industrial energy":initialDeck.title),count:Number(savedUI.count)||8,audience:savedUI.audience||initialDeck.audience,importOpen:false,helpOpen:false,exporting:false,importing:false,documents:[],importErrors:[],agentMode:location.hash!=="#editor"&&location.hash!=="#simple",agentAi:true,agentConsent:false,agentDraft:"",agentFiles:[],agentDocs:[],agentBusy:false,agentStatus:"",agentError:"",agentHasDeck:initialDeck.id!=="prismdeck-demo",agentMessages:[],simpleMode:location.hash==="#simple",simpleFiles:[],simpleInstructions:"",simpleStatus:"",simpleError:"",simpleBusy:false,simpleThemes:Object.fromEntries(Object.entries(THEMES).map(([k,t])=>[k,t.name]))};
+function loadAgentHistory(){try{
+ const list=JSON.parse(localStorage.getItem(STORAGE_KEY+"-versions")||"[]");
+ return Array.isArray(list)?list.slice(-10).filter(h=>h&&h.deck&&h.label&&Array.isArray(h.deck.slides)).map(h=>({...h,deck:sanitizeDeck(h.deck)})):[];
+}catch{return [];}}
+const state={deck:initialDeck,selected:Number(savedUI.selected)||0,prompt:savedUI.prompt||(initialDeck.id==="prismdeck-demo"?"The future of clean industrial energy":initialDeck.title),count:Number(savedUI.count)||8,audience:savedUI.audience||initialDeck.audience,importOpen:false,helpOpen:false,exporting:false,importing:false,documents:[],importErrors:[],agentMode:location.hash!=="#editor"&&location.hash!=="#simple",agentAi:true,agentConsent:false,agentDraft:"",agentFiles:[],agentDocs:[],agentBusy:false,agentStatus:"",agentError:"",agentHasDeck:initialDeck.id!=="prismdeck-demo",agentMessages:[],agentTasks:[],agentJob:null,agentCandidate:null,agentAudit:null,agentHistory:loadAgentHistory(),simpleMode:location.hash==="#simple",simpleFiles:[],simpleInstructions:"",simpleStatus:"",simpleError:"",simpleBusy:false,simpleThemes:Object.fromEntries(Object.entries(THEMES).map(([k,t])=>[k,t.name]))};
 const current=()=>state.deck.slides[Math.min(state.selected,state.deck.slides.length-1)];
-function save(){try{localStorage.setItem(STORAGE_KEY,JSON.stringify(state.deck));localStorage.setItem(STORAGE_KEY+"-ui",JSON.stringify({selected:state.selected,prompt:state.prompt,count:state.count,audience:state.audience}));}catch{}}
+function save(){try{localStorage.setItem(STORAGE_KEY,JSON.stringify(state.deck));localStorage.setItem(STORAGE_KEY+"-ui",JSON.stringify({selected:state.selected,prompt:state.prompt,count:state.count,audience:state.audience}));localStorage.setItem(STORAGE_KEY+"-versions",JSON.stringify(state.agentHistory.slice(-10)));}catch{}}
 function options(values,chosen){return values.map(v=>'<option value="'+escapeHtml(v)+'" '+(v===chosen?'selected':'')+'>'+escapeHtml(v)+'</option>').join("");}
 function toast(message,bad=false) {
   let target=document.getElementById("toasts");
@@ -86,7 +91,7 @@ function editor(){
     '<div class="inspector-actions"><button data-action="duplicate" class="ghost-control">⊞ Duplicate</button><button data-action="delete" class="ghost-control danger-text">⌫ Delete</button></div></section>';
 }
 function render(){
-  if(state.agentMode){app.innerHTML=renderAgent(state,state.agentHasDeck?renderSlide(current()):"");save();return;}
+  if(state.agentMode){const view=state.agentCandidate||(state.agentHasDeck?state.deck:null);if(view)state.selected=Math.max(0,Math.min(state.selected,view.slides.length-1));app.innerHTML=renderAgent(state,view?renderSlide(view.slides[state.selected]):"");save();return;}
   if(state.simpleMode){app.innerHTML=renderSimple(state);return;}
   state.selected=Math.min(state.selected,state.deck.slides.length-1);
   app.innerHTML=
@@ -229,59 +234,87 @@ function connectPuter(){
  });
 }
 async function agentSend(){
- if(state.agentBusy)return;
+ if(state.agentBusy||state.agentCandidate)return;
  const instruction=state.agentDraft.trim();
- if(instruction.length<5){state.agentError="Describe what the presentation should contain.";agentRefresh();return;}
- if(state.agentAi&&!state.agentConsent){state.agentError="Please authorize sharing extracted content with Puter AI, or choose Offline draft.";agentRefresh();return;}
- const unsupported=state.agentFiles.filter(f=>isServerFormat(f.name)&&!/\. (mp3|wav|m4a)$/i.test(f.name));
- // Video and old Office files remain unsupported without the private converter.
+ if(instruction.length<5){state.agentError="Describe the presentation you want in at least five characters.";agentRefresh();return;}
+ if(state.agentAi&&!state.agentConsent){state.agentError="Please authorize sharing extracted content with Puter AI, or select Offline source outline.";agentRefresh();return;}
  const unhandled=state.agentFiles.filter(f=>isServerFormat(f.name)&&!/\.(mp3|wav|m4a)$/i.test(f.name));
  if(unhandled.length){state.agentError="These files require conversion: "+unhandled.map(f=>f.name).join(", ")+". For video, upload captions (.srt/.vtt) or a transcript.";agentRefresh();return;}
  const spec=parseBrief(instruction,{count:state.agentHasDeck?state.deck.slides.length:8,audience:state.deck.audience,theme:state.deck.theme});
- state.agentBusy=true;state.agentError="";state.agentStatus="Reading the uploaded sources";state.agentMessages.push({role:"user",text:instruction});agentRefresh();
+ state.agentBusy=true;state.agentError="";state.agentStatus="Inspecting inputs";
+ const sourceCount=state.agentFiles.length||state.agentDocs.length;
+ state.agentTasks=freshTasks(sourceCount>0);
+ state.agentJob=planDeckJob(instruction,state.agentFiles,state.agentDocs,{...spec,mode:state.agentAi?"AI":"Offline"});
+ state.agentMessages.push({role:"user",text:instruction});
+ let active="read";
+ const update=(key,status,message)=>{
+  if(status==="active")active=key;
+  state.agentTasks=setTask(state.agentTasks,key,status,message);
+  state.agentStatus=message;
+  agentRefresh();
+ };
  try{
-  let aiClient=null;
-  if(state.agentAi){state.agentStatus="Connecting to Puter AI";agentRefresh();aiClient=await connectPuter();}
-  const newFiles=state.agentFiles.filter(f=>!state.agentDocs.some(d=>d.name===f.name&&d.bytes===f.size));
-  if(newFiles.length){
-   const audio=newFiles.filter(f=>/\.(mp3|wav|m4a)$/i.test(f.name));
-   const normal=newFiles.filter(f=>!/\.(mp3|wav|m4a)$/i.test(f.name));
+  const files=state.agentFiles.filter(f=>!state.agentDocs.some(d=>d.name===f.name&&d.bytes===f.size));
+  if(files.length){
+   update("read","active","Extracting "+files.length+" new file(s)");
+   const audio=files.filter(f=>/\.(mp3|wav|m4a)$/i.test(f.name));
+   const standard=files.filter(f=>!/\.(mp3|wav|m4a)$/i.test(f.name));
    let docs=[];
-   if(normal.length){
-    const result=await ingestFiles(normal,{},({index,total,name})=>{
-     const status=document.querySelector(".a-thinking");
-     if(status)status.textContent="Reading "+index+" of "+total+": "+name;
+   if(standard.length){
+    const result=await ingestFiles(standard,{},({index,total,name})=>{
+     state.agentStatus="Reading "+index+" of "+total+": "+name;
+     const el=document.querySelector(".a-thinking");
+     if(el)el.textContent="✦ "+state.agentStatus;
     });
-    if(result.errors.length)throw Error("Unable to extract: "+result.errors.map(x=>x.name+" ("+x.error+")").join("; "));
+    if(result.errors.length)throw Error("Could not extract: "+result.errors.map(e=>e.name+" ("+e.error+")").join("; "));
     docs=result.documents;
    }
-   for(const f of audio){
-    if(!aiClient?.ai?.speech2txt)throw Error("Audio requires Puter AI speech transcription. Enable AI mode.");
-    state.agentStatus="Transcribing "+f.name;agentRefresh();
-    const answer=await aiClient.ai.speech2txt(f);
-    const transcription=typeof answer==="string"?answer:answer?.text;
-    if(!transcription?.trim())throw Error("No transcription returned for "+f.name);
-    docs.push({name:f.name,kind:"transcript",text:transcription,bytes:f.size});
+   if(audio.length){
+    if(!state.agentAi)throw Error("Audio transcription requires Puter AI. Choose AI mode and authorize it, or upload captions.");
+    update("read","active","Connecting to audio transcription service");
+    const client=await connectPuter();
+    for(const f of audio){
+     state.agentStatus="Transcribing "+f.name;agentRefresh();
+     if(typeof client?.ai?.speech2txt!=="function")throw Error("Speech transcription is not available on this Puter account.");
+     const response=await client.ai.speech2txt(f);
+     const transcript=typeof response==="string"?response:response?.text;
+     if(!transcript?.trim())throw Error("No transcript was produced for "+f.name);
+     docs.push({name:f.name,kind:"transcript",text:transcript,bytes:f.size});
+    }
    }
    state.agentDocs=[...state.agentDocs,...docs].slice(0,20);
+   update("read","complete","Extracted "+docs.length+" new source(s); "+state.agentDocs.length+" total available");
+  }else if(sourceCount){
+   update("read","complete","Reusing "+state.agentDocs.length+" source(s) from this browser session");
   }
-  const prev=state.agentHasDeck?state.deck:null;
-  state.agentStatus=state.agentAi?"AI is writing the slides":"Creating a structured offline draft";agentRefresh();
+  update("plan","active","Interpreting the request and planning the slide story");
+  state.agentJob=planDeckJob(instruction,state.agentFiles,state.agentDocs,{...spec,mode:state.agentAi?"AI":"Offline"});
+  update("plan","complete","Planned "+spec.count+" slides for "+spec.audience);
+  update("compose","active",state.agentAi?"Generating the presentation with Puter AI":"Organizing sourced content into editable slides");
   let output;
   if(state.agentAi){
-    const prompt=prepareAgentPrompt({instruction,documents:state.agentDocs,deck:prev,count:spec.count,audience:spec.audience,theme:spec.theme});
-    const response=await aiClient.ai.chat(prompt,{model:"gpt-5.4",normalize:true,max_tokens:6500});
-    output=decodeAgentDeck(response,{documents:state.agentDocs,fallbackTheme:spec.theme,fallbackAudience:spec.audience});
+   const client=await connectPuter();
+   const prompt=prepareAgentPrompt({instruction,documents:state.agentDocs,deck:state.agentHasDeck?state.deck:null,count:spec.count,audience:spec.audience,theme:spec.theme});
+   const response=await client.ai.chat(prompt,{model:"gpt-6.1-sol",max_tokens:8000,normalize:true});
+   output=decodeAgentDeck(response,{documents:state.agentDocs,fallbackTheme:spec.theme,fallbackAudience:spec.audience});
   }else if(state.agentDocs.length){
-    output=buildSourceDeck(state.agentDocs,spec);
-  }else output=generateDeck(instruction,spec);
-  state.deck=output;state.agentHasDeck=true;state.selected=0;
-  state.agentMessages.push({role:"assistant",text:(state.agentAi?"AI completed":"Offline draft completed")+" "+output.slides.length+" editable slides. Preview the result, download PowerPoint, or send another instruction to revise."});
-  state.agentDraft="";state.agentFiles=[];save();agentRefresh();
+   output=buildSourceDeck(state.agentDocs,spec);
+  }else {
+   output=generateDeck(instruction,spec);
+  }
+  update("compose","complete","Created "+output.slides.length+" editable slides");
+  update("verify","active","Checking structure, source notes and numerical evidence");
+  const audit=auditDeck(output,state.agentDocs,spec.count);
+  update("verify","complete","Checked "+audit.metrics.slides+" slides, with "+audit.metrics.warnings+" review item(s)");
+  state.agentCandidate=output;
+  state.agentAudit=audit;state.selected=0;
+  update("approve","ready","Review the slides and approve or discard this draft");
+  state.agentMessages.push({role:"assistant",text:"Draft ready: "+output.slides.length+" slides, "+state.agentDocs.length+" source files, "+audit.metrics.warnings+" items to review. Preview the deck, then select Approve draft. Nothing has replaced your approved version yet."});
+  state.agentDraft="";state.agentFiles=[];agentRefresh();
  }catch(err){
-  state.agentError=String(err?.message||"Unable to generate your presentation.");
-  state.agentMessages.push({role:"assistant",text:"I could not complete this request: "+state.agentError});
-  agentRefresh();
+  state.agentError=String(err?.message||"The request could not be completed.");
+  update(active,"failed",state.agentError);
+  state.agentMessages.push({role:"assistant",text:"This build stopped at "+active+": "+state.agentError+" Your previously approved presentation was not changed."});
  }finally{state.agentBusy=false;state.agentStatus="";agentRefresh();}
 }
 
@@ -291,11 +324,40 @@ async function action(name,target){
   case "agent-home":
     state.agentMode=true;state.simpleMode=false;history.replaceState(null,"",location.pathname+location.search);render();break;
   case "agent-remove":state.agentFiles.splice(Number(target.dataset.index),1);state.agentError="";render();break;
+  case "agent-approve":{
+    if(!state.agentCandidate){toast("There is no draft to approve.",true);break;}
+    const result=approveCandidate(state.agentHasDeck?state.deck:null,state.agentCandidate,"Before approved revision",state.agentHistory);
+    state.deck=result.deck;state.agentHistory=result.history;
+    state.agentCandidate=null;state.agentAudit=null;state.agentHasDeck=true;state.selected=0;
+    state.agentTasks=setTask(state.agentTasks,"approve","complete","Presentation approved and saved locally");
+    state.agentMessages.push({role:"assistant",text:"Approved and saved "+state.deck.slides.length+" slides. You can export the PowerPoint or request a revision. Your previous version is available under Previous versions."});
+    render();break;
+  }
+  case "agent-reject":
+    if(!state.agentCandidate)break;
+    state.agentCandidate=null;state.agentAudit=null;state.agentSelected=0;state.selected=0;
+    state.agentTasks=setTask(state.agentTasks,"approve","skipped","Draft discarded. Approved presentation unchanged");
+    state.agentMessages.push({role:"assistant",text:"Draft discarded. Your last approved version remains unchanged. Send a new instruction to try again."});
+    render();break;
+  case "agent-issue":state.selected=Math.max(0,Number(target.dataset.index)||0);render();break;
+  case "agent-restore":{
+    if(state.agentCandidate){toast("Approve or discard the draft before restoring a version.",true);break;}
+    const index=Number(target.dataset.index);
+    if(index<0||index>=state.agentHistory.length)return;
+    const chosen=state.agentHistory[index];
+    const previous=state.agentHasDeck?snapshot(state.deck,"Before restoring "+chosen.label):null;
+    state.deck=sanitizeDeck(chosen.deck);state.agentHasDeck=true;
+    state.agentHistory=state.agentHistory.filter((_,i)=>i!==index);
+    if(previous)state.agentHistory.push(previous);
+    state.agentHistory=state.agentHistory.slice(-10);
+    state.selected=0;state.agentMessages.push({role:"assistant",text:"Restored checkpoint: "+chosen.label+". You can still restore your prior presentation under Previous versions."});
+    render();break;
+  }
   case "agent-new":
-    state.agentHasDeck=false;state.agentFiles=[];state.agentDocs=[];state.agentMessages=[];state.agentDraft="";state.agentError="";state.deck=starterDeck();state.selected=0;render();break;
+    state.agentHasDeck=false;state.agentFiles=[];state.agentDocs=[];state.agentMessages=[];state.agentDraft="";state.agentError="";state.agentCandidate=null;state.agentAudit=null;state.agentTasks=[];state.agentJob=null;state.agentHistory=[];state.deck=starterDeck();state.selected=0;render();break;
   case "agent-send":await agentSend();break;
   case "agent-prev":state.selected=Math.max(0,state.selected-1);render();break;
-  case "agent-next":state.selected=Math.min(state.deck.slides.length-1,state.selected+1);render();break;
+  case "agent-next":state.selected=Math.min((state.agentCandidate||state.deck).slides.length-1,state.selected+1);render();break;
   case "agent-slide":state.selected=Number(target.dataset.index);render();break;
   case "agent-export":await action("pptx",target);break;
   case "open-advanced":

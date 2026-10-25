@@ -125,3 +125,32 @@
 .a-privacy{border-top:1px solid #2e4560;margin-top:28px;padding-top:20px}.a-privacy strong{color:#b7e9dd;font-size:12px}.a-privacy p{color:#829bb0;font-size:11px;line-height:1.65}
 @media(max-width:1000px){.a-workspace{grid-template-columns:minmax(350px,45%) minmax(410px,55%)}.a-header-actions .a-github{display:none}.a-right{padding:19px}.a-intro{padding:21px}.a-compose{padding:15px}.a-chat{padding:17px}.a-mini-list{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:780px){.a-header{padding:12px 15px;height:auto;gap:10px}.a-header-actions{gap:7px}.a-header-actions button{padding:9px;font-size:10px}.a-workspace{display:flex;flex-direction:column;height:auto;min-height:0}.a-left{overflow:visible;border-right:0}.a-chat{max-height:360px;overflow-y:auto;min-height:180px}.a-right{min-height:400px;overflow:visible}.a-mini-list{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+/* Plan, validation, draft approval and local checkpoint controls */
+.a-taskboard{margin:0 18px 13px;background:#142537;border:1px solid #315164;border-radius:13px;padding:14px 16px;max-height:260px;overflow:auto}
+.a-taskhead,.a-audit-title{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.a-taskhead strong,.a-audit-title strong{color:#a7d8d4;font-size:10px;letter-spacing:.12em;font-weight:900}
+.a-taskhead span,.a-audit-title span{color:#82e0c9;font-size:10px;letter-spacing:.07em;font-weight:800}
+.a-taskboard ol{list-style:none;padding:0;margin:11px 0 0;display:grid;gap:9px}
+.a-task{display:flex;gap:11px;align-items:flex-start}.a-task-icon{display:grid;place-items:center;width:23px;height:23px;flex:0 0 23px;background:#25364b;border:1px solid #46647a;border-radius:7px;color:#8da3b8;font-weight:800;font-size:13px}
+.a-task.complete .a-task-icon{background:#18493f;color:#85eed1;border-color:#397d68}.a-task.active .a-task-icon{background:#18456e;color:#a4d5ff;border-color:#337cb8}.a-task.ready .a-task-icon{background:#395531;color:#c6f1b8;border-color:#789863}.a-task.failed .a-task-icon{background:#662c3d;color:#ffe0e6;border-color:#ae6072}
+.a-task strong{display:block;color:#dfecf4;font-size:11px;line-height:1.35}.a-task small{display:block;color:#93abbf;font-size:10px;line-height:1.5;margin-top:3px}
+.a-plan-details{margin:9px 0 0;padding:9px 0 0;border-top:1px solid #2c4658;font-size:11px;color:#aac8d4}
+.a-plan-details summary{cursor:pointer;color:#a1e3d4;font-size:10px;font-weight:800}
+.a-plan-details p{margin:5px 0;font-size:10px;color:#a2bac6}
+.a-review-banner{display:flex;gap:10px;align-items:center;justify-content:space-between;background:#193b39;border:1px solid #479b80;border-radius:13px;padding:13px 15px;margin-bottom:17px}
+.a-review-banner strong{font:800 13px Manrope,Arial,sans-serif;color:#d2fff0}.a-review-banner p{font-size:10px;line-height:1.5;color:#a2ded0;margin:5px 0 0}
+.a-review-banner>div:last-child{display:flex;gap:7px;align-items:center}.a-review-banner button{border:1px solid #538a82;background:#20574e;color:#d4f9ed;border-radius:9px;padding:10px;font-size:10px;font-weight:900;white-space:nowrap}
+.a-review-banner .a-approve{background:#8becce;color:#123d32;border-color:#8becce}
+.a-review-banner .a-discard{background:transparent;color:#c2d4d8}
+.a-audit{border:1px solid #2e5660;background:#122a37;border-radius:13px;margin-top:20px;padding:16px}
+.a-kpi{display:flex;flex-wrap:wrap;gap:7px;margin:14px 0}.a-kpi span{font-size:10px;color:#c8e6eb;border:1px solid #3d6170;background:#213d4d;border-radius:7px;padding:7px 9px}
+.a-audit ul{margin:11px 0;padding:0;list-style:none;display:grid;gap:5px}
+.a-audit li button{width:100%;background:#273b46;border:1px solid #5b6b60;border-radius:8px;color:#f4d9a5;padding:9px 10px;text-align:left;font-size:10px;line-height:1.45}
+.a-audit li button:hover{background:#314b54}
+.a-audit-foot,.a-pass{font-size:10px;line-height:1.6;color:#a8bac4}.a-pass{color:#85ddb7}
+.a-versions{margin:20px 0;padding:12px;border:1px solid #354d67;border-radius:11px;background:#16273a}.a-versions summary{font-weight:800;color:#c7e6e8;font-size:11px;cursor:pointer}
+.a-versions>div{display:flex;justify-content:space-between;align-items:center;gap:9px;padding:12px 0;border-bottom:1px solid #2a3f55}
+.a-versions>div:last-child{border:0}.a-versions span{font-size:10px;color:#cbddea;font-weight:800}.a-versions small{display:block;color:#8ea8bf;margin-top:4px;font-weight:500}
+.a-versions button{background:#1e4555;color:#e0f8f4;border:1px solid #376a78;border-radius:7px;padding:9px 11px;font-size:10px}
+@media(max-width:1000px){.a-review-banner{flex-wrap:wrap}.a-taskboard{margin-left:10px;margin-right:10px}}
