@@ -33,7 +33,8 @@ function textFor(g,offer,angle,channel,link) {
   const optional='Optional editable '+offer.name+' package: $'+offer.priceUsd+' USD, one time. ';
   const disclaimer='PrismBay own-brand resource. No guaranteed outcomes.';
   // Keep entire campaign URLs intact. Never truncate UTM parameters for short-form platforms.
-  if(channel==='pinterest') return g.title+'. '+method[0][0]+'. Free CSV: '+link+' Optional editable package 
+  if(channel==='pinterest') return g.title+'. '+method[0][0]+'. Free CSV: '+link+' Optional editable package USD '+offer.priceUsd+'. PrismBay own-brand resource.';
+  if(channel==='threads') return g.h1+' Free CSV and checklist: '+link+' Optional editable package USD '+offer.priceUsd+'. PrismBay own-brand resource.';
   if(channel==='facebook') return examples+'\n\n'+free+'\n\n'+optional+'\n'+disclaimer;
   return examples+'\n\nUseful fields to verify: '+g.columns.slice(0,4).join(', ')+'.\n\n'+free+'\n\n'+optional+disclaimer;
 }
