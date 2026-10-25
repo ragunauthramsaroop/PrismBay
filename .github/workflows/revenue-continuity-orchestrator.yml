@@ -38,6 +38,7 @@ jobs:
           # workflow-file:maximum expected age in minutes
           workflows=(
             'ceo-autonomous-recovery.yml:35'
+            'paperclip-commerce-group.yml:105'
             'ebay-control-plane.yml:100'
             'buyer-acquisition.yml:100'
             'paperclip-revenue-ops.yml:150'
