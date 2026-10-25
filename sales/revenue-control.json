@@ -1,13 +1,13 @@
 {
   "schemaVersion": 1,
-  "checkedAt": "2026-10-25T09:52:56.801Z",
+  "checkedAt": "2026-10-25T12:14:26.199Z",
   "priority": "paid_sales_from_verified_existing_offers",
   "activeOffer": {
-    "slug": "esg",
-    "title": "ESG & Social Performance Operating Pack",
-    "priceUsd": 99,
-    "guideUrl": "https://clean.prismbayai.com/esg-monthly-reporting-template.html?utm_source=github_cloud&utm_medium=owned_educational_content&utm_campaign=organic_esg_83005",
-    "checkoutUrl": "https://buy.stripe.com/4gMeVe8XA5hNfOq2CkgnK0r?client_reference_id=owned_content_esg"
+    "slug": "whitepaper",
+    "title": "Executive White Paper & Board Briefing System",
+    "priceUsd": 79,
+    "guideUrl": "https://clean.prismbayai.com/board-briefing-white-paper-template.html?utm_source=github_cloud&utm_medium=owned_educational_content&utm_campaign=organic_whitepaper_83006",
+    "checkoutUrl": "https://buy.stripe.com/bJe7sMgq25hNcCe6SAgnK0s?client_reference_id=owned_content_whitepaper"
   },
   "positioning": "baseline",
   "commercialEvidence": {
