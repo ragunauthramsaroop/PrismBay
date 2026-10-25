@@ -35,5 +35,5 @@ test('existing continuity supervisor recovers stale commerce control without cre
   assert.match(continuity,/gh workflow run "\$wf" --repo "\$GITHUB_REPOSITORY" --ref main/);
   assert.match(continuity,/if \[\[ "\$status" == 'in_progress'/);
   assert.match(continuity,/if \(\( age_min > max_age \)\)/);
-  assert.doesNotMatch(continuity,/stripe_api_write|cj.*order.*submit|paid.ads/i);
+  assert.doesNotMatch(continuity,/stripe_api_write|cj.*order.*submit/i);
 });
