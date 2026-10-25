@@ -97,6 +97,9 @@ jobs:
           console.log(`- Merchant feed items: ${c.merchant.itemCount || 0}`);
           console.log(`- Sitemap URLs: ${c.sitemap.urlCount || 0}`);
           console.log(`- Technical surface ready: ${c.technicalSurfaceReady}`);
+          console.log(`- Legacy storefront safe: ${c.legacyExposure?.safe ?? 'not checked'}`);
+          console.log(`- Legacy direct checkout links: ${c.legacyExposure?.directCheckoutLinkCount ?? 'not checked'}`);
+          console.log(`- Legacy unsupported in-stock feed rows: ${c.legacyExposure?.inStockFeedRowCount ?? 'not checked'}`);
           console.log(`- Open surface issues: ${c.issueCount}`);
           console.log(`- Persistent repair tasks: ${r.activeTaskCount}`);
           console.log(`- Highest-priority repair: ${r.nextAction}`);
