@@ -24,40 +24,37 @@ OUT=ROOT/"build"/"retail-film-studio"
 W,H,FPS=1080,1920,30
 FONT="/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf"
 SRC={
- "bathroom": {
-   "title":"BATHROOM CLEANING",
-   "description":"Genuine human cleaning bathroom surface; not the PrismBay electric scrubber",
-   "sourcePage":"https://mixkit.co/free-stock-video/man-with-face-mask-cleaning-the-surface-of-a-bathroom-5319/",
-   "licensePage":"https://mixkit.co/license/modal/videoFree/",
-   "license":"Mixkit Stock Video Free License / commercial social ads permitted",
+ "sofa": {
+   "title":"REAL HOME CLEANING",
+   "description":"Genuine filmed person cleaning a sofa; illustrative of household chores, not a demo of any PrismBay SKU",
+   "sourcePage":"https://commons.wikimedia.org/wiki/File:Sofa_cleaning.webm",
+   "licensePage":"https://creativecommons.org/licenses/by-sa/4.0/",
+   "license":"CC BY-SA 4.0 / GolhaMedia / adapted with 4-shot edits, subtitles and original audio / redistribute adapted video under CC BY-SA 4.0",
    "candidates":[
-     "https://assets.mixkit.co/videos/preview/mixkit-man-with-face-mask-cleaning-the-surface-of-a-bathroom-5319-large.mp4",
-     "https://assets.mixkit.co/videos/preview/mixkit-man-with-face-mask-cleaning-the-surface-of-a-bathroom-5319-small.mp4",
+     "https://upload.wikimedia.org/wikipedia/commons/transcoded/0/06/Sofa_cleaning.webm/Sofa_cleaning.webm.720p.vp9.webm",
+     "https://upload.wikimedia.org/wikipedia/commons/transcoded/0/06/Sofa_cleaning.webm/Sofa_cleaning.webm.480p.vp9.webm",
    ],
-   "hooks":["Still scrubbing by hand?","Cleaning the little corners.","Real homes. Real chores.","Explore better cleaning tools."],
-   "card":"PRISMBAY CLEAN  /  BATHROOM TOOLS",
+   "hooks":["Messy sofa?","A little attention goes far.","Care for the everyday.","PrismBay | Home care ideas."],
+   "card":"PRISMBAY CLEAN  /  HOME CARE",
    "url":"https://clean.prismbayai.com/",
-   "disclosure":"ILLUSTRATIVE LIFESTYLE FOOTAGE • NOT A PRODUCT DEMO",
+   "disclosure":"CC BY-SA 4.0 • GOLHAMEDIA • ILLUSTRATIVE ONLY",
  },
  "garments": {
    "title":"GARMENT CARE",
-   "description":"Real person steaming apparel with an unspecified handheld steamer, not our SKU",
-   "sourcePage":"https://www.pexels.com/video/a-person-using-a-steamer-on-a-white-t-shirt-10558368/",
-   "licensePage":"https://www.pexels.com/legal-pages/license/",
-   "license":"Pexels License / free commercial use / people shown do not endorse PrismBay",
+   "description":"Real filmed person ironing cloth; category storytelling, NOT a handheld steamer demonstration",
+   "sourcePage":"https://commons.wikimedia.org/wiki/File:Tailor_21.webm",
+   "licensePage":"https://creativecommons.org/licenses/by-sa/4.0/",
+   "license":"CC BY-SA 4.0 / daSupremo / adapted with editing, captions and original audio / share alike applies",
    "candidates":[
-     "https://videos.pexels.com/video-files/10558368/10558368-hd_1080_1920_25fps.mp4",
-     "https://videos.pexels.com/video-files/10558368/10558368-hd_1920_1080_25fps.mp4",
-     "https://videos.pexels.com/video-files/10558368/10558368-hd_1080_1920_30fps.mp4",
-     "https://videos.pexels.com/video-files/10558368/10558368-hd_1920_1080_30fps.mp4",
-     "https://videos.pexels.com/video-files/10558368/10558368-sd_540_960_25fps.mp4",
+     "https://upload.wikimedia.org/wikipedia/commons/7/7f/Tailor_21.webm",
    ],
-   "hooks":["Got five minutes to get ready?","Refresh your wardrobe routine.","Steaming in real life.","Explore portable garment care."],
+   "hooks":["Your clothes matter.","Real-world garment care.","Small routines. Big difference.","PrismBay | Garment care."],
    "card":"PRISMBAY CLEAN  /  GARMENT CARE",
    "url":"https://clean.prismbayai.com/",
-   "disclosure":"ILLUSTRATIVE LIFESTYLE FOOTAGE • NOT OUR EXACT DEVICE",
+   "disclosure":"CC BY-SA 4.0 • DASUPREMO • ILLUSTRATIVE ONLY",
  }
 }
+
 def command(args,check=True):
     p=subprocess.run(args,capture_output=True,text=True)
     if check and p.returncode:
@@ -73,13 +70,13 @@ def validate_sources():
     for name,s in SRC.items():
         assert all(len(x)<=48 for x in s["hooks"])
         assert len(s["hooks"])==4
-        assert "NOT" in s["disclosure"]
+        assert "ILLUSTRATIVE" in s["disclosure"]
         assert s["url"].startswith("https://clean.prismbayai.com/")
-        assert s["sourcePage"].startswith(("https://mixkit.co/","https://www.pexels.com/"))
-        assert s["licensePage"].startswith(("https://mixkit.co/","https://www.pexels.com/"))
+        assert s["sourcePage"].startswith(("https://commons.wikimedia.org/",))
+        assert s["licensePage"] == "https://creativecommons.org/licenses/by-sa/4.0/"
         for u in s["candidates"]:
-            assert u.startswith(("https://assets.mixkit.co/videos/","https://videos.pexels.com/video-files/"))
-            assert u.endswith(".mp4")
+            assert u.startswith("https://upload.wikimedia.org/wikipedia/commons/")
+            assert u.endswith(".webm")
     return True
 
 def get_video(url,out):
@@ -87,7 +84,7 @@ def get_video(url,out):
                                                   "Accept":"video/mp4,application/octet-stream;q=0.8"})
     with urllib.request.urlopen(request,timeout=25) as resp:
         actual=resp.geturl()
-        if not actual.startswith(("https://assets.mixkit.co/videos/","https://videos.pexels.com/video-files/")):
+        if not actual.startswith("https://upload.wikimedia.org/wikipedia/commons/"):
             raise ValueError("source_redirected_to_unapproved_host")
         typ=resp.headers.get("content-type","").lower()
         if not ("video/" in typ or "octet-stream" in typ):
