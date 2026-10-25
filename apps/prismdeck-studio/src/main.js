@@ -355,6 +355,7 @@ async function action(name,target){
   }
   case "agent-new":
     state.agentHasDeck=false;state.agentFiles=[];state.agentDocs=[];state.agentMessages=[];state.agentDraft="";state.agentError="";state.agentCandidate=null;state.agentAudit=null;state.agentTasks=[];state.agentJob=null;state.agentHistory=[];state.deck=starterDeck();state.selected=0;render();break;
+  case "agent-start":await agentSend();break;
   case "agent-send":await agentSend();break;
   case "agent-prev":state.selected=Math.max(0,state.selected-1);render();break;
   case "agent-next":state.selected=Math.min((state.agentCandidate||state.deck).slides.length-1,state.selected+1);render();break;

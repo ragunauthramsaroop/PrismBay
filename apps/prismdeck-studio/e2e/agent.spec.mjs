@@ -108,3 +108,28 @@ test("AI cannot act without consent even when sources are selected",async({page}
  await expect(page.getByRole("alert")).toContainText("authorize sharing");
  await expect(page.locator(".a-taskboard")).toHaveCount(0);
 });
+
+test("Start action is immediately visible at desktop size and runs the uploaded report",async({page})=>{
+ await page.setViewportSize({width:1440,height:900});
+ await page.goto("/");
+ const start=page.getByRole("button",{name:"Start building presentation"});
+ await expect(start).toBeVisible();
+ await expect(start).toBeInViewport();
+ await page.locator("#agent-upload").setInputFiles({name:"sustainability-report.txt",mimeType:"text/plain",buffer:Buffer.from("Biodiversity surveys took place in the protected corridor. Habitat monitoring was documented by the operations team. Community conservation briefings were scheduled. Management planned a review of environmental findings.")});
+ await page.locator("#agent-engine").selectOption("offline");
+ await page.locator("#agent-prompt").fill("Prepare an 8-slide biodiversity presentation from the uploaded report.");
+ await expect(start).toBeInViewport();
+ await start.click();
+ await expect(page.locator(".a-review-banner")).toContainText("Draft ready for review");
+ await expect(page.locator(".a-mini-list button")).toHaveCount(8);
+});
+test("Start action is visible and usable on a phone without scrolling",async({page})=>{
+ await page.setViewportSize({width:390,height:844});
+ await page.goto("/");
+ const start=page.getByRole("button",{name:"Start building presentation"});
+ await expect(start).toBeInViewport();
+ await page.locator("#agent-engine").selectOption("offline");
+ await page.locator("#agent-prompt").fill("Prepare 6 slides on employee safety awareness.");
+ await start.click();
+ await expect(page.locator(".a-review-banner")).toBeVisible();
+});

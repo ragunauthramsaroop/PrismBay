@@ -154,3 +154,12 @@
 .a-versions>div:last-child{border:0}.a-versions span{font-size:10px;color:#cbddea;font-weight:800}.a-versions small{display:block;color:#8ea8bf;margin-top:4px;font-weight:500}
 .a-versions button{background:#1e4555;color:#e0f8f4;border:1px solid #376a78;border-radius:7px;padding:9px 11px;font-size:10px}
 @media(max-width:1000px){.a-review-banner{flex-wrap:wrap}.a-taskboard{margin-left:10px;margin-right:10px}}
+
+/* Primary Start action kept visible in the agent's top panel */
+.a-quick-start{margin-top:18px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.a-quick-start-button{border:1px solid #9df6d7;background:#79e7c7;color:#0c2530;padding:14px 21px;min-height:50px;border-radius:12px;font:900 13px "DM Sans",Arial,sans-serif;box-shadow:0 5px 19px rgba(83,232,190,.15);cursor:pointer}
+.a-quick-start-button:hover:not(:disabled){background:#aeffdf;box-shadow:0 7px 21px rgba(83,232,190,.25)}
+.a-quick-start-button:focus-visible{outline:3px solid #fff;outline-offset:3px}
+.a-quick-start-button:disabled{background:#36565c;color:#aecbc8;border-color:#517b7b;box-shadow:none;cursor:not-allowed}
+.a-quick-start small{color:#91afbb;font-size:11px;line-height:1.5;max-width:260px}
+@media(max-width:840px){.a-quick-start{gap:8px}.a-quick-start-button{width:100%}.a-quick-start small{max-width:none}}
