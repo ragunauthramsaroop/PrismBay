@@ -58,10 +58,12 @@ function verifiedPromotionReadyCandidates(supplier, promotion) {
     const ageMs = Date.now() - Date.parse(timestamp);
     return Number.isFinite(ageMs) && ageMs >= 0 && ageMs < 30 * 60 * 60 * 1000;
   };
-  if (supplier?.schemaVersion >= 3 &&
-      (supplier.authenticationVerified !== true || !freshWithin30Hours(supplier.checkedAt))) return [];
-  if (promotion?.schemaVersion >= 2 &&
-      (promotion.reviewFresh !== true || !freshWithin30Hours(promotion.generatedAt))) return [];
+  // Reject unversioned or legacy reports. A missing schema must never bypass
+  // authentication and freshness requirements for physical retail promotion.
+  if (!Number.isSafeInteger(supplier?.schemaVersion) || supplier.schemaVersion < 3 ||
+      supplier.authenticationVerified !== true || !freshWithin30Hours(supplier.checkedAt) ||
+      !Number.isSafeInteger(promotion?.schemaVersion) || promotion.schemaVersion < 2 ||
+      promotion.reviewFresh !== true || !freshWithin30Hours(promotion.generatedAt)) return [];
   const supplierCount = supplier?.saleReadyCount;
   const promotionCount = promotion?.promotionEligibleCount;
   if (!Number.isSafeInteger(supplierCount) || supplierCount < 1 ||
@@ -82,7 +84,7 @@ function verifiedPromotionReadyCandidates(supplier, promotion) {
       supplierSlugCounts.set(candidate.slug, (supplierSlugCounts.get(candidate.slug) || 0) + 1);
   }
   const matched = candidates.filter(candidate =>
-    (!(supplier?.schemaVersion >= 3) || candidate.observedAt === supplier.checkedAt) &&
+    candidate.observedAt === supplier.checkedAt &&
     isCommerciallyCleared(candidate) &&
     supplierSlugCounts.get(candidate.slug) === 1 &&
     typeof candidate.observedVariantSku === 'string' &&
