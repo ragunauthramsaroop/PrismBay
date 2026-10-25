@@ -1,13 +1,13 @@
 {
   "slug": "invoice-ai-exception-economics-2026-10-25-v2",
   "channelId": "UCw2hs85TzIpdKwJtG-BSxzQ",
-  "durationSeconds": 48.225873,
+  "durationSeconds": 48.226009,
   "videoCodec": "h264",
   "audioCodec": "aac",
   "width": 1080,
   "height": 1920,
-  "audioMeanDb": -18.8,
-  "audioPeakDb": -0.0,
+  "audioMeanDb": -21.8,
+  "audioPeakDb": -2.9,
   "ttsEngines": [
     "piper"
   ],
@@ -23,10 +23,10 @@
     "dimensions": true,
     "codecs": true,
     "piperVoice": true,
-    "noDigitalClipping": false,
+    "noDigitalClipping": true,
     "soleChannel": true
   },
-  "technicalPass": false,
+  "technicalPass": true,
   "manualVisualReview": "PENDING",
   "manualNarrationReview": "PENDING",
   "publicationApproved": false,
