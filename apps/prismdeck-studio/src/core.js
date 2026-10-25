@@ -11,6 +11,7 @@ export const STORAGE_KEY = "prismdeck-studio-v1";
 export function id() { return "s"+Math.random().toString(36).slice(2,11); }
 export function clamp(n,min,max) { return Math.min(max,Math.max(min,Number.isFinite(Number(n))?Number(n):min)); }
 export function short(s,max=180) { return String(s??"").replace(/[\u0000-\u001F\u007F]/g," ").trim().slice(0,max); }
+export function multiline(s,max=2500) { return String(s??"").replace(/\r\n?/g,"\n").replace(/[\u0000-\u0009\u000B-\u001F\u007F]/g," ").trim().slice(0,max); }
 export function safeTheme(key) { return THEMES[key]?key:"midnight"; }
 export function safeLayout(key) { return LAYOUTS.includes(key)?key:"bullets"; }
 export function makeSlide(layout="bullets", data={}) {
@@ -19,8 +20,8 @@ export function makeSlide(layout="bullets", data={}) {
     eyebrow:short(data.eyebrow??"STRATEGIC BRIEF",65),
     title:short(data.title??"Your slide headline",180),
     subtitle:short(data.subtitle??"",320),
-    body:short(data.body??"",2500),
-    notes:short(data.notes??"",2000),
+    body:multiline(data.body??"",2500),
+    notes:multiline(data.notes??"",2000),
     metrics:Array.isArray(data.metrics)?data.metrics.slice(0,3).map(m=>({value:short(m.value,22),label:short(m.label,64)})):[
       {value:"[Metric]",label:"Performance indicator"},
       {value:"[Metric]",label:"Strategic outcome"},
