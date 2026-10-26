@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "checkedAt": "2026-10-26T05:11:13.121Z",
+  "checkedAt": "2026-10-26T05:11:33.744Z",
   "source": "GitHub Actions accountability evidence",
   "refreshPolicy": "Best-effort GitHub schedules. Static snapshot; refresh does not run agents.",
   "summary": {
@@ -92,8 +92,8 @@
       "workflow": "paperclip-commerce-group.yml",
       "status": "fail",
       "reason": "worker_stale",
-      "consequence": "warning",
-      "failureStreak": 1,
+      "consequence": "probation",
+      "failureStreak": 2,
       "runId": 40263052669,
       "runUrl": "https://github.com/ragunauthramsaroop/PrismBay/actions/runs/40263052669",
       "runAgeMinutes": 117,
