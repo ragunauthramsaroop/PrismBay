@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "checkedAt": "2026-10-26T11:18:03.535Z",
+  "checkedAt": "2026-10-26T11:18:26.842Z",
   "source": "GitHub Actions accountability evidence",
   "refreshPolicy": "Best-effort GitHub schedules. Static snapshot; refresh does not run agents.",
   "summary": {
@@ -60,7 +60,7 @@
       "failureStreak": 0,
       "runId": 40303223585,
       "runUrl": "https://github.com/ragunauthramsaroop/PrismBay/actions/runs/40303223585",
-      "runAgeMinutes": 83,
+      "runAgeMinutes": 84,
       "artifactName": "prismbay-ceo-recovery-40303223585",
       "artifactBytes": 58101,
       "remediation": null
