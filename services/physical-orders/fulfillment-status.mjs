@@ -158,6 +158,16 @@ export function createFulfillmentStatusAutomation({ ledger, contactVault, jobSto
         occurredAt: evidence.occurredAt,
         consent: false,
         deliveryVerified: evidence.type === 'delivery_confirmed'
+      }, {
+        // A paid, manual-fulfillment ledger order is required above. The
+        // authenticated internal status endpoint also validates the allowed
+        // evidence source before projecting a customer message. These sets
+        // never originate from a customer-supplied lifecycle event.
+        verifiedPaidOrderRefs: new Set([evidence.sessionId]),
+        verifiedDeliveredOrderRefs: evidence.type === 'delivery_confirmed' &&
+          DELIVERED_SOURCES.has(evidence.source) ? new Set([evidence.sessionId]) : new Set(),
+        verifiedRefundOrderRefs: evidence.type === 'refund_processed' &&
+          REFUND_SOURCES.has(evidence.source) ? new Set([evidence.sessionId]) : new Set()
       });
       return {
         ok: routed.accepted === true,
