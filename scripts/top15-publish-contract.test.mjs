@@ -18,9 +18,11 @@ test('digital purchase section links to four existing Stripe-hosted checkouts',(
  assert.match(html,/https:\/\/buy\.stripe\.com\/4gMeVe8XA5hNfOq2CkgnK0r/);
  assert.match(html,/https:\/\/buy\.stripe\.com\/eVqfZi5Lo7pV31Ea4MgnK0t/);
 });
-test('unverified physical products are inquiry-only, never purchase CTAs',()=>{
- assert.equal((html.match(/href="mailto:support@prismbayai\.com\?subject=/g)||[]).length,15);
+test('unverified physical products route to a consent-based lead inbox, not payment',()=>{
+ assert.equal((html.match(/https:\/\/prismbay-clean-global\.floot\.app\/quote\?product=/g)||[]).length,15);
  assert.equal((html.match(/class="quote"/g)||[]).length,15);
+ assert.equal((html.match(/href="mailto:support@prismbayai\.com\?subject=/g)||[]).length,0);
+ for(const item of merch.candidates)assert.ok(html.includes('quote?product='+item.slug+'&amp;utm_source=top15'),item.slug);
  assert.match(html,/Physical checkout currently gated/);
  assert.doesNotMatch(html,/World.s lowest price guaranteed|Most sold products in the world/);
 });
