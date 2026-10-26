@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "source": "Read-only CJ evidence. No estimated freight grants a sale.",
-  "supplierReviewCheckedAt": "2026-10-26T22:45:44.516Z",
+  "supplierReviewCheckedAt": "2026-10-26T22:47:44.326Z",
   "candidateCount": 15,
   "supplierScreeningPassedCount": 1,
   "globalPhysicalCheckoutEnabled": false,
@@ -12,7 +12,7 @@
       "slug": "crevice",
       "name": "3-in-1 Crevice Cleaning Brush",
       "priority": "first-wave",
-      "reviewObservedAt": "2026-10-26T22:45:44.516Z",
+      "reviewObservedAt": "2026-10-26T22:47:44.326Z",
       "verifiedChecks": {
         "independentSupplierMatch": false,
         "variantStock": false,
@@ -41,7 +41,7 @@
       "slug": "drain-catcher",
       "name": "Sink Drain Catcher 2-Pack",
       "priority": "first-wave",
-      "reviewObservedAt": "2026-10-26T22:45:44.516Z",
+      "reviewObservedAt": "2026-10-26T22:47:44.326Z",
       "verifiedChecks": {
         "independentSupplierMatch": false,
         "variantStock": false,
@@ -70,7 +70,7 @@
       "slug": "pethair",
       "name": "Reusable Pet Hair Remover",
       "priority": "first-wave",
-      "reviewObservedAt": "2026-10-26T22:45:44.516Z",
+      "reviewObservedAt": "2026-10-26T22:47:44.326Z",
       "verifiedChecks": {
         "independentSupplierMatch": true,
         "variantStock": false,
@@ -97,7 +97,7 @@
       "slug": "home-caddy",
       "name": "Portable Home Caddy",
       "priority": "first-wave",
-      "reviewObservedAt": "2026-10-26T22:45:44.516Z",
+      "reviewObservedAt": "2026-10-26T22:47:44.326Z",
       "verifiedChecks": {
         "independentSupplierMatch": false,
         "variantStock": false,
@@ -126,7 +126,7 @@
       "slug": "mini-mop",
       "name": "Self-Squeeze Mini Mop",
       "priority": "first-wave",
-      "reviewObservedAt": "2026-10-26T22:45:44.516Z",
+      "reviewObservedAt": "2026-10-26T22:47:44.326Z",
       "verifiedChecks": {
         "independentSupplierMatch": false,
         "variantStock": false,
@@ -155,7 +155,7 @@
       "slug": "scrubber",
       "name": "5-in-1 Electric Spin Scrubber",
       "priority": "subsequent",
-      "reviewObservedAt": "2026-10-26T22:45:44.516Z",
+      "reviewObservedAt": "2026-10-26T22:47:44.326Z",
       "verifiedChecks": {
         "independentSupplierMatch": false,
         "variantStock": false,
@@ -184,7 +184,7 @@
       "slug": "garment-steamer",
       "name": "Portable Garment Steamer",
       "priority": "subsequent",
-      "reviewObservedAt": "2026-10-26T22:45:44.516Z",
+      "reviewObservedAt": "2026-10-26T22:47:44.326Z",
       "verifiedChecks": {
         "independentSupplierMatch": true,
         "variantStock": true,
@@ -236,7 +236,7 @@
       "slug": "mattress-vacuum",
       "name": "Mattress Vacuum",
       "priority": "subsequent",
-      "reviewObservedAt": "2026-10-26T22:45:44.516Z",
+      "reviewObservedAt": "2026-10-26T22:47:44.326Z",
       "verifiedChecks": {
         "independentSupplierMatch": false,
         "variantStock": false,
