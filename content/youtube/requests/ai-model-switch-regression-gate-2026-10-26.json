@@ -1,0 +1,65 @@
+{
+  "slug": "ai-model-switch-regression-gate-2026-10-26",
+  "title": "Before You Switch AI Models, Run These 3 Business Tests | PrismBay AI",
+  "targetChannelId": "UCw2hs85TzIpdKwJtG-BSxzQ",
+  "visualStyle": "regression_lab_v1",
+  "voice": "en_US-norman-medium",
+  "voiceLicenseBasis": "Open Piper voice; verify voice model attribution and intelligibility before release",
+  "sourceAttribution": "NIST AI RMF Measure 2.3–2.4, voluntary guidance. PrismBay original three-test framework.",
+  "experimentId": "PB-MODEL-REGRESSION-20261026",
+  "hypothesis": "A concrete three-test model-upgrade procedure with original side-by-side regression visuals improves qualified watch time and subscriber conversion versus generic AI-model news.",
+  "targetAudience": "Founders, operations managers, IT leads, procurement and compliance managers",
+  "hookType": "model upgrade hidden workflow risk",
+  "format": "short",
+  "durationTargetSeconds": "45-60",
+  "thumbnailConcept": "Original side-by-side Model A/Model B results matrix, one red failure, text TEST BEFORE SWITCH",
+  "cta": "PrismBay AI helps leaders build practical AI business systems.",
+  "publishTime": "UNSET. No publication before manual visual and narration QA.",
+  "successThreshold": "Compare 6h/24h/72h/7d after confirmed publication. SCALE only with ≥30% qualified watch-time or subscriber-conversion improvement over comparable channel median, with adequate sample.",
+  "productionStatus": "render_requested; not quality approved, scheduled, or published",
+  "paidSpendUSD": 0,
+  "segments": [
+    {
+      "scene": "hook",
+      "headline": "NEW MODEL. NEW FAILURES?",
+      "body": "A better demo score does not prove workflow reliability.",
+      "spoken": "A new AI model scores better in a demo. Then your supplier workflow starts making mistakes. Before switching models, run three tests."
+    },
+    {
+      "scene": "baseline",
+      "headline": "ONE: SAVE YOUR BASELINE",
+      "body": "Keep representative tasks and accepted outcomes. Use anonymized data.",
+      "spoken": "First, save a baseline. Keep a representative set of anonymized tasks and their accepted outputs. Include routine cases and difficult exceptions."
+    },
+    {
+      "scene": "compare",
+      "headline": "COMPARE BOTH MODELS",
+      "body": "Same tasks. Compare changed answers, not marketing scores.",
+      "spoken": "Run those same cases through both models. Count changed answers, not only average accuracy. Have a process owner review the differences."
+    },
+    {
+      "scene": "edge",
+      "headline": "TWO: TEST EXCEPTIONS",
+      "body": "Missing fields. Conflicting evidence. Ambiguous requests.",
+      "spoken": "Next, test missing fields, conflicting evidence, and ambiguous requests. The right response is often escalation, not confident guessing."
+    },
+    {
+      "scene": "safety",
+      "headline": "THREE: TEST FORBIDDEN ACTIONS",
+      "body": "Server-side tool permissions must block unauthorized changes.",
+      "spoken": "Finally, test forbidden actions. Unapproved emails, payments, or vendor edits must be blocked by tool permissions, regardless of what the model says."
+    },
+    {
+      "scene": "gate",
+      "headline": "PASS QUALITY AND SAFETY GATES",
+      "body": "Keep rollback and post-deployment monitoring.",
+      "spoken": "Switch only after quality and safety gates pass. Keep a rollback path and monitor the new model in production."
+    },
+    {
+      "scene": "close",
+      "headline": "TEST BEFORE YOU SWITCH",
+      "body": "PrismBay AI | Practical AI business systems.",
+      "spoken": "PrismBay AI helps founders and executives build practical AI business systems. Subscribe for tested workflows and clear decision rules."
+    }
+  ]
+}
