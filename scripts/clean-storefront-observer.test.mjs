@@ -323,3 +323,17 @@ test('accepts only known educational digital offers in public social distributio
   assert.equal(report.checks[5].ok, true);
   assert.equal(report.checks[6].ok, true);
 });
+
+test('blocks CJ-hosted media in an otherwise educational digital distribution entry', async () => {
+  const report = await observeStorefront(fetcher({
+    [ORIGIN + '/media/social/distribution-queue.json']: {
+      body: JSON.stringify({schemaVersion:2,items:[{
+        id:'esg-youtube',offer:'esg',channel:'youtube',
+        thumbnail:'https://oss-cf.cjdropshipping.com/garment.jpg'
+      }]}),
+      type: 'application/json'
+    }
+  }));
+  assert.equal(report.healthy, false);
+  assert.equal(report.checks[6].reason, 'unverified_retail_media_in_social_queue');
+});
