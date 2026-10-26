@@ -208,13 +208,6 @@
       "model": null,
       "routedVia": null,
       "routeAttempts": 0
-    },
-    "garment-steamer": {
-      "status": "deterministic_guarded_physical",
-      "strategy": "guarded_physical_preflight",
-      "model": null,
-      "routedVia": null,
-      "routeAttempts": 0
     }
   },
   "media": [
@@ -245,13 +238,6 @@
       "sha256": "185c240a5b872b77d8d5b53384392dfcb87e70cb0e4ee5a96c0dcf4d075085fd",
       "durationSeconds": 20,
       "bytes": 207417
-    },
-    {
-      "slug": "garment-steamer",
-      "file": "/home/runner/work/PrismBay/PrismBay/growth-reports/external-social/garment-steamer/garment-steamer.mp4",
-      "sha256": "05792e7adc0b0405932d38d0e6ad1d2b44952a5a19100d5418762b173afc4306",
-      "durationSeconds": 20,
-      "bytes": 184923
     }
   ],
   "publication": {
@@ -259,7 +245,8 @@
     "authorizedScheduler": "required for platform publication",
     "coldEmail": false,
     "paidAds": false,
-    "physicalPromotion": "garment steamer only; guarded ZIP preflight required before checkout"
+    "physicalPromotion": "disabled_pending_supplier_variant_destination_freight_landed_cost_media_rights_checkout_fulfillment_and_owner_approval",
+    "retailTikTok": "disabled_until_original_or_rights_cleared_media_and_explicit_owner_authorization"
   },
   "blockedPhysicalCount": 2,
   "rule": "No physical-product distribution or educational YouTube Clean retail promotion until independent commercial, media, destination and owner publication authorization. Digital packages remain subject to their own permissions and delivery gates."
