@@ -38,3 +38,15 @@ Metricool YouTube evolution reports 7 subscribers in latest available rows, incl
 Descript project 3de30d73-71c8-4e9d-9ccf-72faf3fb5d11 had no active or recent jobs returned; no duplicate work started.
 Opera browser and Browser tab access unavailable in this run. Ask Studio and native A/B tests not executed.
 Next: await real 6h/24h/72h data; continue long-form original production and distinct Shorts without duplicating uploads. Preserve $0 paid advertising.
+
+
+## Approximately 6–8 hour checkpoint | 2026-10-25 23:40 America/Guyana
+Metricool brand configuration reverified: brand 6945443 maps to the sole authorized channel UCw2hs85TzIpdKwJtG-BSxzQ.
+Scheduled-post inspection (2026-10-25 through 2026-11-09) returned post 405345257 with YouTube provider status PUBLISHED, not a future pending post. No new scheduled post was returned. Do not duplicate the October 25 upload.
+Subscriber evolution: 7 on the October 25 daily row. Metricool video-views field reports 0 for the October 25 daily row, while video-level all-videos analytics returned no rows. Treat this as incomplete or delayed data, not proof of zero audience reach. No reliable 6-hour watch minutes, retention, comments, shares, or subscriber conversion was available. Experiment classification: PENDING DATA, not STOP or SCALE.
+Metricool's best-time data for October 26 to November 1 favors approximately 16:00 America/Guyana on weekdays, especially Wednesday/Thursday. This is a platform score, not verified channel-specific audience activity. Do not schedule without a quality-approved unique video.
+Descript job check returned zero active jobs. A new original Shorts edit attempt failed before job creation because free AI credits are exhausted. No paid upgrade, duplicate job, or external publication was initiated. Existing project and compositions remain intact.
+Opera browser tab access requires interactive user authorization; alternate Browser connection requires originating browser context. Ask Studio and native long-form A/B tests remain unavailable in this non-interactive run.
+The original long-form ROI and agent-permissions editorial packages already exist in the repository. Avoid recreating them or posting unreviewed synthetic narration. Next checkpoint: October 26 at approximately 16:00 local time, using video-specific metrics if they populate.
+Official 2027 policy verified from YouTube's published announcement: https://support.google.com/youtube/blog/451804019/updates-to-the-youtube-partner-program-new-earning-opportunities-changes-to-eligibility . Country eligibility risk already recorded in 2026-10-23-ypp-country-risk.md. No newly identified policy change during this checkpoint.
+Advertising expenditure: $0.
