@@ -5,13 +5,14 @@ name: PrismBay CJ Supplier Verification
 # Read-only: no orders, payments, listing, email or publishing.
 on:
   schedule:
-    - cron: '17 0,6,12,18 * * *' # Four 3-product batches/day: 9 live products + 3 research candidates
+    - cron: '17 0,4,8,12,16,20 * * *' # Six bounded supplier-research batches/day: 9 live candidates + the Top 15 shortlist + research alternates
   workflow_dispatch:
   push:
     branches: [main]
     paths:
       - '.github/workflows/cj-supplier-verification.yml'
       - 'services/physical-orders/live-catalog-candidates.json'
+      - 'config/top15-merchandising.json'
       - 'scripts/cj-match-policy.mjs'
       - 'scripts/cj-match-policy.test.mjs'
       - 'scripts/cj-review-board.mjs'
@@ -142,14 +143,29 @@ jobs:
           
           const researchCatalog = JSON.parse(await fs.readFile('public/viral-candidates.json', 'utf8'));
           const liveCatalog = JSON.parse(await fs.readFile('services/physical-orders/live-catalog-candidates.json', 'utf8'));
+          const shortlist = JSON.parse(await fs.readFile('config/top15-merchandising.json', 'utf8'));
+          if (!Array.isArray(shortlist.candidates) || shortlist.candidates.length !== 15) {
+            throw new Error('Top 15 merchandising candidates must contain exactly 15 reviewed entries');
+          }
           const liveCandidates = Array.isArray(liveCatalog?.candidates) ? liveCatalog.candidates.slice(0, 9) : [];
-          const researchCandidates = Array.isArray(researchCatalog?.candidates) ? researchCatalog.candidates.slice(0, 3) : [];
-          const allCandidates = [...liveCandidates, ...researchCandidates];
-          // Scheduled checks cover all nine live products plus three research candidates each day.
-          // A code push verifies all nine live products immediately so revenue blockers are tested first.
+          const seen = new Set(liveCandidates.map(item => item.slug));
+          const shortlistResearch = shortlist.candidates
+            .filter(item => typeof item.slug === 'string' && !seen.has(item.slug))
+            .map(item => ({ slug:item.slug, name:item.name, query:item.name.toLowerCase(), retailPriceUsd:0, liveStoreProduct:false }));
+          for (const candidate of shortlistResearch) seen.add(candidate.slug);
+          const researchCandidates = (Array.isArray(researchCatalog?.candidates) ? researchCatalog.candidates : [])
+            .filter(item => typeof item.slug === 'string' && !seen.has(item.slug)).slice(0, 2);
+          const allCandidates = [...liveCandidates, ...shortlistResearch, ...researchCandidates];
+          if (new Set(allCandidates.map(item => item.slug)).size !== allCandidates.length) {
+            throw new Error('Duplicate supplier verification slug');
+          }
+          // Six 3-candidate batches/day rotate through 15 storefront picks and two research fallbacks.
+          // A code push still verifies the nine earlier live-catalog products without broadening payments.
           const scheduled = process.env.GITHUB_EVENT_NAME === 'schedule';
-          const slot = scheduled ? Math.floor(new Date().getUTCHours() / 6) : null;
-          const candidates = scheduled ? allCandidates.slice(slot * 3, slot * 3 + 3) : liveCandidates;
+          const slot = scheduled ? Math.floor(new Date().getUTCHours() / 4) : null;
+          const candidates = scheduled
+            ? Array.from({length:Math.min(3, allCandidates.length)}, (_,index)=>allCandidates[(slot * 3 + index) % allCandidates.length])
+            : liveCandidates;
           if (candidates.length === 0) throw new Error('No supplier-verification candidates are available.');
           function flatten(payload) {
             const groups = payload?.data?.content;
