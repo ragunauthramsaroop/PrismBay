@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {auditProductsPayload,auditMerchantXml,auditSitemapXml,auditRobots,auditLegacySnapshot} from './commerce-surface-auditor.mjs';
+import {auditProductsPayload,auditMerchantXml,auditSitemapXml,auditRobots,auditLegacySnapshot,auditCommerceSurfaces} from './commerce-surface-auditor.mjs';
 
 test('valid product feed requires identity title and positive price',()=>{
  const audit=auditProductsPayload({products:[{id:'p1',title:'Brush',price:12.99,link:'https://example.com/p1',availability:'in_stock'}]});
@@ -102,4 +102,45 @@ test('legacy audit does not mistake original local artwork or plain supplier-dom
  });
  assert.equal(audit.thirdPartyMediaPageCount,0);
  assert.equal(audit.safe,true);
+});
+
+test('product feed rejects missing destinations and malformed or negative prices',()=>{
+ const feed=auditProductsPayload([
+  {id:'no-url',title:'Missing URL',price:12.99},
+  {id:'negative',title:'Negative Price',price:'-12.99',link:'https://example.com/negative'},
+  {id:'nonsense',title:'Malformed Price',price:'promo 12.99',link:'https://example.com/nonsense'},
+  {id:'valid',title:'Valid USD Price',price:'USD 12.99',link:'https://example.com/valid'},
+ ]);
+ assert.equal(feed.invalidProductCount,3);
+ assert.ok(feed.products[0].issues.includes('missing_link'));
+ assert.ok(feed.products[1].issues.includes('missing_or_invalid_price'));
+ assert.ok(feed.products[2].issues.includes('missing_or_invalid_price'));
+ assert.equal(feed.products[3].price,12.99);
+ assert.deepEqual(feed.products[3].issues,[]);
+});
+
+test('duplicate product IDs block technical distribution readiness even when rows otherwise validate',async()=>{
+ const originalFetch=globalThis.fetch;
+ const feed={products:[
+  {id:'same',title:'Brush A',price:12,link:'https://example.com/a'},
+  {id:'same',title:'Brush B',price:13,link:'https://example.com/b'},
+ ]};
+ const fixtures={
+  '/products.json':JSON.stringify(feed),
+  '/merchant-feed.xml':'<rss><channel><item><g:title>Brush</g:title><g:price>12 USD</g:price><g:link>https://example.com/a</g:link></item></channel></rss>',
+  '/sitemap.xml':'<urlset><url><loc>https://example.com/a</loc></url></urlset>',
+  '/robots.txt':'User-agent: *\\nAllow: /\\nSitemap: https://example.com/sitemap.xml\\n',
+ };
+ try {
+  globalThis.fetch=async url=>{
+   const path=new URL(url).pathname;
+   return new Response(fixtures[path]??'Not Found',{status:path in fixtures?200:404,headers:{'content-type':'text/plain'}});
+  };
+  const report=await auditCommerceSurfaces('https://example.com');
+  assert.equal(report.products.invalidProductCount,0);
+  assert.deepEqual(report.products.duplicateIds,['same']);
+  assert.ok(report.issues.includes('duplicate_product_ids'));
+  assert.equal(report.technicalSurfaceReady,false);
+  assert.equal(report.freeDistributionReady,false);
+ } finally {globalThis.fetch=originalFetch;}
 });
