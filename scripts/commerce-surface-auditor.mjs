@@ -10,12 +10,17 @@ export function auditProductsPayload(payload) {
     const title=String(p?.title??p?.name??'').trim();
     const link=String(p?.link??p?.url??p?.productUrl??'').trim();
     const rawPrice=p?.price?.value??p?.price??p?.amount;
-    const price=typeof rawPrice==='string'?Number(String(rawPrice).replace(/[^0-9.]/g,'')):Number(rawPrice);
+    // Do not turn negative or malformed text prices into apparently valid offers.
+    const priceText=typeof rawPrice==='string'?rawPrice.trim():null;
+    const price=priceText===null?Number(rawPrice):
+      (/^(?:USD\s*)?\$?(?:\d+|\d{1,3}(?:,\d{3})+)(?:\.\d{1,2})?(?:\s*USD)?$/i.test(priceText)
+        ? Number(priceText.replace(/USD|\$|,/gi,'').trim()) : NaN);
     const availability=String(p?.availability??p?.stockStatus??'').trim();
     const rowIssues=[];
     if(!id) rowIssues.push('missing_id');
     if(!title) rowIssues.push('missing_title');
-    if(link && !/^https:\/\//i.test(link)) rowIssues.push('non_https_link');
+    if(!link) rowIssues.push('missing_link');
+    else if(!/^https:\/\//i.test(link)) rowIssues.push('non_https_link');
     if(!Number.isFinite(price)||price<=0) rowIssues.push('missing_or_invalid_price');
     return {index,id:id||null,title:title||null,link:link||null,price:Number.isFinite(price)?price:null,availability:availability||null,issues:rowIssues};
   });
@@ -173,7 +178,7 @@ export async function auditCommerceSurfaces(origin){
     robots,
     issueCount:issues.length,
     issues,
-    technicalSurfaceReady:products.productCount>0&&products.invalidProductCount===0&&merchant.valid&&sitemap.valid&&robots.valid,
+    technicalSurfaceReady:products.productCount>0&&products.invalidProductCount===0&&products.issues.length===0&&merchant.valid&&sitemap.valid&&robots.valid,
     freeDistributionAccountApprovalKnown:false,
     freeDistributionReady:false,
     rule:'Technical feed readiness does not prove Google, Pinterest, TikTok, eBay or any other platform account approval. External activation remains separately gated.',
