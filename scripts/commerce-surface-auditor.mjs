@@ -70,6 +70,8 @@ export function auditLegacySnapshot({pages=[],feed={}}={}) {
   const saleSchemaPages=[];
   const thirdPartyMediaPages=[];
   const unknownPaths=[];
+  // An empty scan is missing evidence, not proof that the storefront is safe.
+  if(!pages.length) unknownPaths.push('legacy_pages_not_inspected');
   for(const page of pages) {
     if(!page?.ok) {
       if(![404,410].includes(page?.status)) unknownPaths.push(page?.path||'unknown');
@@ -110,7 +112,7 @@ export function auditLegacySnapshot({pages=[],feed={}}={}) {
   if(unknownPaths.length) issues.push('legacy_surface_inspection_incomplete');
   return {
     safe:issues.length===0,
-    decommissioned:pages.every(p=>[404,410].includes(p.status))&&[404,410].includes(feed?.status),
+    decommissioned:pages.length>0&&pages.every(p=>[404,410].includes(p.status))&&[404,410].includes(feed?.status),
     directCheckoutLinkCount:checkoutLinks.size,
     saleSchemaPageCount:saleSchemaPages.length,
     thirdPartyMediaPageCount:thirdPartyMediaPages.length,

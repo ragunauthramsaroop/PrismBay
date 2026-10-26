@@ -7,6 +7,8 @@ on:
       - 'scripts/commerce-event-taxonomy.mjs'
       - 'scripts/commerce-event-adapters.mjs'
       - 'scripts/commerce-event-taxonomy.test.mjs'
+      - 'scripts/commerce-surface-auditor.mjs'
+      - 'scripts/commerce-surface-auditor.test.mjs'
       - 'docs/COMMERCE_EVENT_TAXONOMY.md'
       - '.github/workflows/commerce-analytics-ci.yml'
   push:
@@ -15,6 +17,8 @@ on:
       - 'scripts/commerce-event-taxonomy.mjs'
       - 'scripts/commerce-event-adapters.mjs'
       - 'scripts/commerce-event-taxonomy.test.mjs'
+      - 'scripts/commerce-surface-auditor.mjs'
+      - 'scripts/commerce-surface-auditor.test.mjs'
       - 'docs/COMMERCE_EVENT_TAXONOMY.md'
       - '.github/workflows/commerce-analytics-ci.yml'
   workflow_dispatch:
@@ -32,4 +36,4 @@ jobs:
         with:
           node-version: '22'
       - name: Run commerce analytics tests
-        run: node --test scripts/commerce-event-taxonomy.test.mjs scripts/runtime-commercial-signal-collector.test.mjs services/physical-orders/commercial-signals.test.mjs
+        run: node --test scripts/commerce-event-taxonomy.test.mjs scripts/runtime-commercial-signal-collector.test.mjs services/physical-orders/commercial-signals.test.mjs scripts/commerce-surface-auditor.test.mjs
