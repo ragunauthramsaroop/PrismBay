@@ -59,7 +59,7 @@ jobs:
         if: github.event_name != 'pull_request'
         run: node scripts/external-traffic-worker.mjs --render
       - name: Publish social media files to PrismBay GitHub Pages
-        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+        if: github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/main' && vars.PRISMBAY_EXTERNAL_SOCIAL_ASSET_RELEASE == 'true'
         shell: bash
         run: |
           set -euo pipefail
@@ -69,10 +69,11 @@ jobs:
           git -C "$syncdir" config user.name 'github-actions[bot]'
           git -C "$syncdir" config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           mkdir -p "$syncdir/media/social"
-          for slug in stakeholder esg whitepaper bundle garment-steamer; do
+          for slug in stakeholder esg whitepaper bundle; do
             cp "growth-reports/external-social/$slug/$slug.mp4" "$syncdir/media/social/$slug.mp4"
           done
           cp growth-reports/external-social/distribution-queue.json "$syncdir/media/social/distribution-queue.json"
+          rm -f "$syncdir/media/social/garment-steamer.mp4"
           git -C "$syncdir" add media/social
           if git -C "$syncdir" diff --cached --quiet; then
             echo 'External social media unchanged'
@@ -102,10 +103,10 @@ jobs:
         if: always()
         run: |
           echo '## PrismBay external traffic factory' >> "$GITHUB_STEP_SUMMARY"
-          echo 'FreeLLM selects bounded positioning strategies for the verified digital offers. The garment steamer uses deterministic guarded physical-product copy only.' >> "$GITHUB_STEP_SUMMARY"
+          echo 'FreeLLM selects bounded positioning strategies for the verified digital offers. Physical product advertising is withheld until independently verified supplier, destination freight, media rights, checkout, fulfillment and owner approval.' >> "$GITHUB_STEP_SUMMARY"
           echo 'The worker renders original silent 1080x1920 H264 videos and prepares separate UTM-tagged YouTube and TikTok packages.' >> "$GITHUB_STEP_SUMMARY"
-          echo 'The physical-product package points only to the live U.S. ZIP preflight. It does not expose a direct Stripe URL and does not claim fixed inventory or delivery.' >> "$GITHUB_STEP_SUMMARY"
-          echo 'Media is published to GitHub Pages for the authorized scheduler. No cold email, paid advertising, fabricated reviews, or automatic social posting is performed.' >> "$GITHUB_STEP_SUMMARY"
+          echo 'No physical-product YouTube or TikTok package is generated. Retail TikTok remains separately locked and educational YouTube stays separate from Clean physical commerce.' >> "$GITHUB_STEP_SUMMARY"
+          echo 'Public GitHub Pages asset release requires an explicit main-branch manual dispatch and PRISMBAY_EXTERNAL_SOCIAL_ASSET_RELEASE=true. Scheduled and push runs retain internal artifacts only. No cold email, paid advertising, fabricated reviews or automatic social posting is performed.' >> "$GITHUB_STEP_SUMMARY"
       - name: Stop run-scoped FreeLLMAPI router
         if: always() && github.event_name != 'pull_request'
         shell: bash

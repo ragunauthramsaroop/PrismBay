@@ -9,7 +9,6 @@ import { requestFreeLLM, deterministicSalesPlan } from './freellm-sales-worker.m
 const ROOT=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
 const OUT=path.join(ROOT,'growth-reports','external-social');
 const PUBLIC_ROOT='https://ragunauthramsaroop.github.io/PrismBay/';
-const STEAMER_PREFLIGHT='https://browser-worker-production-f5b4.up.railway.app/garment-steamer/github/';
 const forbidden=/guaranteed|best[- ]?seller|limited stock|only\s+\d+\s+left|thousands of customers|verified customer|proven results|instant results|make money fast|risk[- ]free/i;
 const pageBySlug={
   stakeholder:'learn/stakeholder-mapping-toolkit.html',
@@ -17,15 +16,8 @@ const pageBySlug={
   whitepaper:'learn/board-briefing-white-paper-system.html',
   bundle:'toolkits.html'
 };
-export const VERIFIED_PHYSICAL_OFFERS=[{
-  kind:'physical',
-  slug:'garment-steamer',
-  name:'Portable Garment Steamer',
-  priceUsd:29.95,
-  problem:'Need a compact way to handle everyday clothing wrinkles and travel touch-ups?',
-  actionableTip:'Check your 5-digit U.S. ZIP before payment so current supplier stock and destination shipping are verified first.',
-  destinationUrl:STEAMER_PREFLIGHT
-}];
+// No physical product is commercially cleared. Never infer clearance from a ZIP preflight.
+export const VERIFIED_PHYSICAL_OFFERS=Object.freeze([]);
 const sha256=bytes=>createHash('sha256').update(bytes).digest('hex');
 const isPhysical=offer=>offer?.kind==='physical';
 
@@ -49,32 +41,22 @@ function wrap(s,max=34){
   return out.join('\n');
 }
 function campaignForOffer(offer){
-  if(isPhysical(offer)) return {guideUrl:offer.destinationUrl,checkoutUrl:null};
-  return {
-    guideUrl:PUBLIC_ROOT+pageBySlug[offer.slug],
-    checkoutUrl:offer.checkout
-  };
+  if(isPhysical(offer)) throw new Error('physical_retail_promotion_locked');
+  return {guideUrl:PUBLIC_ROOT+pageBySlug[offer.slug],checkoutUrl:offer.checkout};
 }
 export function trackedUrl(offer,channel,variant='short_01'){
-  const relative=isPhysical(offer)?null:pageBySlug[offer.slug];
-  if(!isPhysical(offer)&&!relative) throw new Error('external_offer_page_missing_'+offer.slug);
-  const u=new URL(isPhysical(offer)?offer.destinationUrl:PUBLIC_ROOT+relative);
-  if(isPhysical(offer)&&['youtube','tiktok'].includes(channel)) u.pathname='/garment-steamer/'+channel+'/';
+  if(isPhysical(offer)) throw new Error('physical_retail_promotion_locked');
+  const relative=pageBySlug[offer.slug];
+  if(!relative) throw new Error('external_offer_page_missing_'+offer.slug);
+  const u=new URL(PUBLIC_ROOT+relative);
   u.searchParams.set('utm_source',channel);
   u.searchParams.set('utm_medium',channel==='youtube'?'shorts':'organic_video');
-  u.searchParams.set('utm_campaign',isPhysical(offer)?'prismbay_clean_steamer_oct2026':'prismbay_external_traffic_oct2026');
+  u.searchParams.set('utm_campaign','prismbay_external_traffic_oct2026');
   u.searchParams.set('utm_content',offer.slug+'_'+variant);
   return u.toString();
 }
 export function scenesForOffer(offer,plan){
-  if(isPhysical(offer)){
-    return [
-      {label:'QUICK FABRIC CARE',title:'Wrinkles before work, travel or an event?',body:'A compact steamer is designed for quick clothing touch-ups.'},
-      {label:'CHECK BEFORE PAYMENT',title:'Enter your 5-digit U.S. ZIP first',body:'Current supplier stock and destination shipping are checked live.'},
-      {label:'LIVE SAFEGUARDS',title:'Payment opens only after a fresh recheck',body:'Stock, freight and order economics must pass before Stripe opens.'},
-      {label:'PRISMBAY CLEAN',title:'Portable Garment Steamer — USD 29.95',body:'Check your ZIP. No card is charged during the availability check.'}
-    ];
-  }
+  if(isPhysical(offer)) throw new Error('physical_retail_promotion_locked');
   const hook=clean(plan?.shortVideoHooks?.[0],130)||clean(offer.problem,130);
   const headline=clean(plan?.landingPageHeadline,130)||offer.name;
   return [
@@ -86,46 +68,42 @@ export function scenesForOffer(offer,plan){
 }
 export function buildQueue({offers,plans,generatedAt=new Date().toISOString()}){
   const items=[];
+  const blockedPhysicalCount=offers.filter(isPhysical).length;
   for(const offer of offers){
-    const plan=plans[offer.slug]||(isPhysical(offer)?{}:deterministicSalesPlan(offer,campaignForOffer(offer)));
+    // Keep digital distribution running while physical supplier gates remain closed.
+    if(isPhysical(offer)) continue;
+    const plan=plans[offer.slug]||deterministicSalesPlan(offer,campaignForOffer(offer));
     const media=PUBLIC_ROOT+'media/social/'+offer.slug+'.mp4';
     for(const channel of ['youtube','tiktok']){
       const destination=trackedUrl(offer,channel);
-      const physical=isPhysical(offer);
-      const title=physical
-        ? 'Portable Garment Steamer: check U.S. ZIP before payment'
-        : (plan.shortVideoHooks?.[0]||offer.problem).replace(/[.!?]+$/,'').slice(0,88);
-      const baseCaption=physical
-        ? ('Portable Garment Steamer — $'+offer.priceUsd.toFixed(2)+' USD. Check your 5-digit U.S. ZIP before payment. '+
-          'PrismBay Clean checks current supplier stock and destination shipping first. Availability varies by ZIP. '+destination).slice(0,1800)
-        : (offer.problem+' '+offer.actionableTip+' Start with the free guide: '+destination+
-          ' Optional editable document toolkit: $'+offer.priceUsd+' USD one time.').slice(0,1800);
+      const title=(plan.shortVideoHooks?.[0]||offer.problem).replace(/[.!?]+$/,'').slice(0,88);
+      const caption=(offer.problem+' '+offer.actionableTip+' Start with the free guide: '+destination+
+        ' Optional editable document toolkit: $'+offer.priceUsd+' USD one time.').slice(0,1800);
       items.push({
         id:offer.slug+'-'+channel,
         offer:offer.slug,
-        offerType:physical?'physical':'digital',
+        offerType:'digital',
         channel,
         status:'ready_for_authorized_scheduler',
         mediaUrl:media,
         destinationUrl:destination,
-        title: channel==='youtube' ? title+' #Shorts' : title,
-        caption:baseCaption,
+        title:channel==='youtube'?title+' #Shorts':title,
+        caption,
         commercialContentOwnBrand:true,
         madeForKids:false,
-        aiAssisted:!physical,
-        strategy:physical?'guarded_physical_preflight':(plan.llmStrategy||'deterministic_fallback'),
+        aiAssisted:true,
+        strategy:plan.llmStrategy||'deterministic_fallback',
         guardrails:{
           noInventedTestimonials:true,
           noGuaranteedResults:true,
           exactPriceUsd:offer.priceUsd,
           originalTypographyVideoOnly:true,
-          paidAds:false,
-          ...(physical?{directStripe:false,zipPreflightRequired:true,availabilityClaim:'live_check_required'}:{})
+          paidAds:false
         }
       });
     }
   }
-  return {schemaVersion:2,generatedAt,priority:'external_traffic_to_verified_guarded_offers',items};
+  return {schemaVersion:2,generatedAt,priority:'external_traffic_to_verified_digital_offers',blockedPhysicalCount,items};
 }
 export function verifyProbe(probe){
   const v=probe.streams?.find(x=>x.codec_type==='video');
@@ -143,6 +121,7 @@ async function copyFonts(){
   await fs.copyFile(bold,path.join(OUT,'bold.ttf'));
 }
 async function renderOffer(offer,plan){
+  if(isPhysical(offer)) throw new Error('physical_retail_promotion_locked');
   const scenes=scenesForOffer(offer,plan);
   const slug=offer.slug;
   const physical=isPhysical(offer);
@@ -195,11 +174,7 @@ export async function main({render=process.argv.includes('--render')}={}){
       routeAttempts:llm.routeAttempts||0
     };
   }
-  for(const offer of VERIFIED_PHYSICAL_OFFERS){
-    plans[offer.slug]={llmStrategy:'guarded_physical_preflight'};
-    intelligence[offer.slug]={status:'deterministic_guarded_physical',strategy:'guarded_physical_preflight',model:null,routedVia:null,routeAttempts:0};
-  }
-  const offers=[...ACTIVE_DIGITAL_OFFERS,...VERIFIED_PHYSICAL_OFFERS];
+  const offers=[...ACTIVE_DIGITAL_OFFERS];
   const queue=buildQueue({offers,plans});
   const media=[];
   if(render){
@@ -213,7 +188,7 @@ export async function main({render=process.argv.includes('--render')}={}){
     authorizedScheduler:'required for platform publication',
     coldEmail:false,
     paidAds:false,
-    physicalPromotion:'garment steamer only; guarded ZIP preflight required before checkout'
+    physicalPromotion:'disabled: no physical product has independently verified commercial and media clearance'
   }};
   await fs.writeFile(path.join(OUT,'distribution-queue.json'),JSON.stringify(report,null,2)+'\n');
   console.log(JSON.stringify({status:'PASS',offers:offers.length,queueItems:queue.items.length,rendered:media.length,freeLLM:Object.values(intelligence).map(x=>x.status)}));
