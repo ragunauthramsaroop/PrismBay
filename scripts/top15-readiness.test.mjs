@@ -30,3 +30,37 @@ test('duplicate and incomplete shortlist fail closed',()=>{
  const dup={candidates:merch.candidates.map((x,i)=>i===1?{...x,slug:merch.candidates[0].slug}:x)};
  assert.throws(()=>assessTop15(dup,{}),/duplicate/);
 });
+
+test('original-only creative rights never imply supplier photo or video permission',()=>{
+ const steamer=merch.candidates.find(x=>x.slug==='garment-steamer');
+ const out=assessTop15(merch,{checkedAt:'2026-10-26T22:00:00Z',candidates:[{
+  slug:steamer.slug, observedProduct:'USB Handheld Garment Steamer',
+  observedSupplierSku:'CJYD2458440',observedVariantSku:'CJYD245844002BY',
+  independentIdentityMatch:true,variantStockVerified:true,freightEstimateVerified:true,
+  mediaRightsVerified:true,promotionMediaPolicy:'original_graphics_and_original_copy_only',
+  finalZipFreightVerified:false,fulfillmentRouteVerified:false,automaticPromotionAllowed:false
+ }]});
+ const row=out.products.find(x=>x.slug===steamer.slug);
+ assert.equal(row.verifiedChecks.mediaRights,true);
+ assert.equal(row.mediaRightsScope,'original_graphics_and_original_copy_only');
+ assert.equal(row.supplierPhotoVideoRightsVerified,false);
+ assert.equal(row.observedSupplierSku,'CJYD2458440');
+ assert.equal(row.observedVariantSku,'CJYD245844002BY');
+ assert.equal(row.checkoutAction,'price_request_only');
+ assert.equal(row.globallySaleReady,false);
+ assert.match(out.revenueProofRequired,/Stripe paid transaction/);
+ assert.match(out.fulfillmentProofRequired,/order-specific/);
+});
+test('unverified rights and mismatched supplier evidence remain visibly blocked',()=>{
+ const out=assessTop15(merch,{candidates:[{
+  slug:'crevice',observedProduct:'4 In 1 Bottle Gap Cleaner Brush',
+  observedSupplierSku:'CJJT1731477',independentIdentityMatch:false,
+  mediaRightsVerified:false,automaticPromotionAllowed:false
+ }]});
+ const row=out.products.find(x=>x.slug==='crevice');
+ assert.equal(row.verifiedChecks.independentSupplierMatch,false);
+ assert.equal(row.mediaRightsScope,'unverified');
+ assert.equal(row.supplierPhotoVideoRightsVerified,false);
+ assert.equal(row.observedSupplierProduct,'4 In 1 Bottle Gap Cleaner Brush');
+ assert.equal(row.globallySaleReady,false);
+});
