@@ -13,6 +13,7 @@ import wave
 from PIL import Image, ImageDraw, ImageFont
 from youtube_visual_ledger import render_frame_ledger
 from youtube_incident_visual import render_frame_incident
+from youtube_visual_trust import render_frame_trust
 
 WIDTH, HEIGHT = 1080, 1920
 BG = (8, 12, 20)
