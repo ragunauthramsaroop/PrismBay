@@ -1,0 +1,388 @@
+{
+  "reportDate": "2026-10-26",
+  "timezone": "America/Guyana",
+  "source": "Metricool getScheduledPosts live connector",
+  "brandId": 6945443,
+  "verifiedYouTubeChannelId": "UCw2hs85TzIpdKwJtG-BSxzQ",
+  "handle": "@PrismBayAI",
+  "scopeLocal": [
+    "2026-09-19",
+    "2026-11-03"
+  ],
+  "totalPosts": 40,
+  "statusCounts": {
+    "PUBLISHED": 24,
+    "PENDING": 6,
+    "ERROR": 3,
+    "NO_YOUTUBE_PROVIDER": 7
+  },
+  "notes": [
+    "PENDING and ERROR entries dated in the past are not proof of publication; do not recycle without explicit editorial and rights review.",
+    "NO_YOUTUBE_PROVIDER entries have no confirmed YouTube provider status; never infer a public upload.",
+    "Only PUBLISHED entries with YouTube video ID count as verified publications.",
+    "No future scheduled posts in this retrieved period.",
+    "This is a snapshot, not a live dashboard."
+  ],
+  "entries": [
+    {
+      "metricoolPostId": 378599947,
+      "scheduledLocal": "2026-09-19T10:50:00",
+      "status": "PUBLISHED",
+      "youtubeVideoId": "xJj0i0Qzl9g",
+      "publicUrl": "https://www.youtube.com/shorts/xJj0i0Qzl9g",
+      "title": "How a 10-Person Company Can Operate Like 100 With AI",
+      "mediaUrl": "https://static.metricool.com/planner/202609/6945443-file-3295964664609296195.mp4"
+    },
+    {
+      "metricoolPostId": 378691076,
+      "scheduledLocal": "2026-09-19T16:25:00",
+      "status": "PUBLISHED",
+      "youtubeVideoId": "ispDyVRW2sY",
+      "publicUrl": "https://www.youtube.com/shorts/ispDyVRW2sY",
+      "title": "3 Useful PrismBay Finds Under $35 | Car, Travel & Desk",
+      "mediaUrl": "https://static.metricool.com/planner/202609/6945443-file-13624993126817896204.mp4"
+    },
+    {
+      "metricoolPostId": 378692722,
+      "scheduledLocal": "2026-09-19T16:30:00",
+      "status": "PUBLISHED",
+      "youtubeVideoId": "h-5F2Ci7yFk",
+      "publicUrl": "https://www.youtube.com/shorts/h-5F2Ci7yFk",
+      "title": "2 Useful PrismBay Finds | Home Comfort + Outdoor Cleaning",
+      "mediaUrl": "https://static.metricool.com/planner/202609/6945443-file-18267574735736174219.mp4"
+    },
+    {
+      "metricoolPostId": 378700623,
+      "scheduledLocal": "2026-09-19T17:10:00",
+      "status": "PUBLISHED",
+      "youtubeVideoId": "ISWE7ONPaIY",
+      "publicUrl": "https://www.youtube.com/shorts/ISWE7ONPaIY",
+      "title": "This $19.95 Tool Makes Windshield Cleaning Easier | PrismBay ClearReach",
+      "mediaUrl": "https://static.metricool.com/planner/202609/6945443-file-837728530873878532.mp4"
+    },
+    {
+      "metricoolPostId": 378709937,
+      "scheduledLocal": "2026-09-19T17:50:00",
+      "status": "PUBLISHED",
+      "youtubeVideoId": "8XcCnLM5N-I",
+      "publicUrl": "https://www.youtube.com/shorts/8XcCnLM5N-I",
+      "title": "Wrinkled Clothes? Try This $31.46 Portable Steamer | PrismBay",
+      "mediaUrl": "https://static.metricool.com/planner/202609/6945443-file-8737014643802454204.mp4"
+    },
+    {
+      "metricoolPostId": 378713134,
+      "scheduledLocal": "2026-09-19T18:08:00",
+      "status": "PUBLISHED",
+      "youtubeVideoId": "gBQ40wqQBRg",
+      "publicUrl": "https://www.youtube.com/watch?v=gBQ40wqQBRg",
+      "title": "5 Practical Products for Car, Travel, Desk & Home | PrismBay Market",
+      "mediaUrl": "https://static.metricool.com/planner/202609/6945443-file-16023743098379221515.mp4"
+    },
+    {
+      "metricoolPostId": 378709948,
+      "scheduledLocal": "2026-09-19T18:30:00",
+      "status": "PUBLISHED",
+      "youtubeVideoId": "ne67nGtIPK0",
+      "publicUrl": "https://www.youtube.com/shorts/ne67nGtIPK0",
+      "title": "Raise Your Laptop Screen for $22.46 | PrismBay FlexDesk",
+      "mediaUrl": "https://static.metricool.com/planner/202609/6945443-file-5149480136134438850.mp4"
+    },
+    {
+      "metricoolPostId": 378727249,
+      "scheduledLocal": "2026-09-19T19:12:00",
+      "status": "PUBLISHED",
+      "youtubeVideoId": "qbj1MYiAUY8",
+      "publicUrl": "https://www.youtube.com/shorts/qbj1MYiAUY8",
+      "title": "Stop Scrubbing by Hand? $29.95 Electric Spin Scrubber | PrismBay Clean",
+      "mediaUrl": "https://static.metricool.com/planner/202609/6945443-file-4260500349600889390.mp4"
+    },
+    {
+      "metricoolPostId": 378721815,
+      "scheduledLocal": "2026-09-19T19:15:00",
+      "status": "PENDING",
+      "youtubeVideoId": null,
+      "publicUrl": null,
+      "title": "A Cozy Home Upgrade for $35.96 | PrismBay CozyCloud",
+      "mediaUrl": "https://static.metricool.com/planner/202609/6945443-file-2774132593519621768.mp4"
+    },
+    {
+      "metricoolPostId": 378721855,
+      "scheduledLocal": "2026-09-19T20:15:00",
+      "status": "PENDING",
+      "youtubeVideoId": null,
+      "publicUrl": null,
+      "title": "Cordless Pressure Washer for $69.95 | PrismBay JetGo",
+      "mediaUrl": "https://static.metricool.com/planner/202609/6945443-file-3055650986312477575.mp4"
+    },
+    {
+      "metricoolPostId": 378747379,
+      "scheduledLocal": "2026-09-19T21:20:00",
+      "status": "ERROR",
+      "youtubeVideoId": null,
+      "publicUrl": null,
+      "title": "Pet Hair Everywhere? Reusable Remover $14.95 | PrismBay Clean",
+      "mediaUrl": "https://static.metricool.com/planner/202609/6945443-file-4062525850195069277.mp4"
+    },
+    {
+      "metricoolPostId": 378769540,
+      "scheduledLocal": "2026-09-19T23:55:00",
+      "status": "ERROR",
+      "youtubeVideoId": null,
+      "publicUrl": null,
+      "title": "Stop Taking Meeting Notes by Hand",
+      "mediaUrl": "https://static.metricool.com/planner/202609/6945443-file-5627210536992359939.mp4"
+    },
+    {
+      "metricoolPostId": 378772477,
+      "scheduledLocal": "2026-09-20T00:07:00",
+      "status": "ERROR",
+      "youtubeVideoId": null,
+      "publicUrl": null,
+      "title": "AI Should Simplify Work | PrismBay",
+      "mediaUrl": "https://static.metricool.com/planner/202609/6945443-file-8044890269247994513.mp4"
+    },
+    {
+      "metricoolPostId": 378752419,
+      "scheduledLocal": "2026-09-20T01:00:00",
+      "status": "PENDING",
+      "youtubeVideoId": null,
+      "publicUrl": null,
+      "title": "2 Cleaning Tools Under $30 | PrismBay Clean",
+      "mediaUrl": "https://static.metricool.com/planner/202609/6945443-file-3681521707747741390.mp4"
+    },
+    {
+      "metricoolPostId": 378752428,
+      "scheduledLocal": "2026-09-20T09:00:00",
+      "status": "PENDING",
+      "youtubeVideoId": null,
+      "publicUrl": null,
+      "title": "Weekend Cleaning Reset | PrismBay Clean",
+      "mediaUrl": "https://static.metricool.com/planner/202609/6945443-file-15207871763313246136.mp4"
+    },
+    {
+      "metricoolPostId": 378921260,
+      "scheduledLocal": "2026-09-20T12:00:00",
+      "status": "NO_YOUTUBE_PROVIDER",
+      "youtubeVideoId": null,
+      "publicUrl": null,
+      "title": null,
+      "mediaUrl": "https://static.metricool.com/planner/202609/6945443-file-18307816943303236075.mp4"
+    },
+    {
+      "metricoolPostId": 378769609,
+      "scheduledLocal": "2026-09-20T16:00:00",
+      "status": "PUBLISHED",
+      "youtubeVideoId": "yY40HABBOJs",
+      "publicUrl": "https://www.youtube.com/shorts/yY40HABBOJs",
+      "title": "3 Tasks You Should Stop Doing Manually",
+      "mediaUrl": "https://static.metricool.com/planner/202609/6945443-file-3858790285242657052.mp4"
+    },
+    {
+      "metricoolPostId": 378769622,
+      "scheduledLocal": "2026-09-21T16:00:00",
+      "status": "PUBLISHED",
+      "youtubeVideoId": "ncFiJbLVkwc",
+      "publicUrl": "https://www.youtube.com/shorts/ncFiJbLVkwc",
+      "title": "The 5-Part AI Prompt Formula",
+      "mediaUrl": "https://static.metricool.com/planner/202609/6945443-file-9687067916168224433.mp4"
+    },
+    {
+      "metricoolPostId": 379103659,
+      "scheduledLocal": "2026-09-21T18:00:00",
+      "status": "NO_YOUTUBE_PROVIDER",
+      "youtubeVideoId": null,
+      "publicUrl": null,
+      "title": null,
+      "mediaUrl": "https://static.metricool.com/planner/202609/6945443-file-13198840759351239297.mp4"
+    },
+    {
+      "metricoolPostId": 378922537,
+      "scheduledLocal": "2026-09-22T18:00:00",
+      "status": "NO_YOUTUBE_PROVIDER",
+      "youtubeVideoId": null,
+      "publicUrl": null,
+      "title": null,
+      "mediaUrl": "https://static.metricool.com/planner/202609/6945443-file-16885796104920261998.mp4"
+    },
+    {
+      "metricoolPostId": 381670715,
+      "scheduledLocal": "2026-09-24T20:00:00",
+      "status": "PUBLISHED",
+      "youtubeVideoId": "kQtXtfCxnE8",
+      "publicUrl": "https://www.youtube.com/shorts/kQtXtfCxnE8",
+      "title": "Before You Buy Another AI Tool: The 3-Number ROI Test | PrismBay AI",
+      "mediaUrl": "https://static.metricool.com/planner/202609/6945443-file-15031288892420787507.mp4"
+    },
+    {
+      "metricoolPostId": 381679527,
+      "scheduledLocal": "2026-09-24T20:20:00",
+      "status": "PENDING",
+      "youtubeVideoId": null,
+      "publicUrl": null,
+      "title": "Before Buying AI: The 3-Number ROI Test #Shorts",
+      "mediaUrl": "https://static.metricool.com/planner/202609/6945443-file-9864838133123229233.mp4"
+    },
+    {
+      "metricoolPostId": 381698301,
+      "scheduledLocal": "2026-09-25T00:15:00",
+      "status": "PUBLISHED",
+      "youtubeVideoId": "Cntz-P3WtJU",
+      "publicUrl": "https://www.youtube.com/shorts/Cntz-P3WtJU",
+      "title": "FREE AI Vendor Risk Matrix: 10 Questions Before You Buy | PrismBay AI",
+      "mediaUrl": "https://static.metricool.com/planner/202609/6945443-file-12359749186074993850.mp4"
+    },
+    {
+      "metricoolPostId": 381706208,
+      "scheduledLocal": "2026-09-25T10:00:00",
+      "status": "PUBLISHED",
+      "youtubeVideoId": "BceaPiJCIog",
+      "publicUrl": "https://www.youtube.com/shorts/BceaPiJCIog",
+      "title": "Executive White Paper Toolkit | PDF, Excel & Word Templates | PrismBay AI",
+      "mediaUrl": "https://static.metricool.com/planner/202609/6945443-file-14653528502077934597.mp4"
+    },
+    {
+      "metricoolPostId": 381706500,
+      "scheduledLocal": "2026-09-25T15:00:00",
+      "status": "PUBLISHED",
+      "youtubeVideoId": "hLMlntrskaY",
+      "publicUrl": "https://www.youtube.com/shorts/hLMlntrskaY",
+      "title": "A Stakeholder Register Is Not an Engagement Plan | 4 Controls + Editable Toolkit",
+      "mediaUrl": "https://static.metricool.com/planner/202609/6945443-file-13788932738925234549.mp4"
+    },
+    {
+      "metricoolPostId": 383065165,
+      "scheduledLocal": "2026-09-27T18:20:00",
+      "status": "PUBLISHED",
+      "youtubeVideoId": "HCdjswa-Q4E",
+      "publicUrl": "https://www.youtube.com/shorts/HCdjswa-Q4E",
+      "title": "Before You Approve Another AI Tool: The 3-Number ROI Test | PrismBay AI",
+      "mediaUrl": "https://static.metricool.com/planner/202609/6945443-file-12006280896791577584.mp4"
+    },
+    {
+      "metricoolPostId": 386131076,
+      "scheduledLocal": "2026-10-01T16:00:00",
+      "status": "PUBLISHED",
+      "youtubeVideoId": "EIliAnySc9s",
+      "publicUrl": "https://www.youtube.com/shorts/EIliAnySc9s",
+      "title": "AI Agents Aren’t the Problem. Orchestration Is. #Shorts",
+      "mediaUrl": "https://static.metricool.com/planner/202610/6945443-file-3760504126571459880.mp4"
+    },
+    {
+      "metricoolPostId": 386131099,
+      "scheduledLocal": "2026-10-01T18:00:00",
+      "status": "NO_YOUTUBE_PROVIDER",
+      "youtubeVideoId": null,
+      "publicUrl": null,
+      "title": null,
+      "mediaUrl": "https://static.metricool.com/planner/202610/6945443-file-3760504126571459880.mp4"
+    },
+    {
+      "metricoolPostId": 386144346,
+      "scheduledLocal": "2026-10-02T10:00:00",
+      "status": "NO_YOUTUBE_PROVIDER",
+      "youtubeVideoId": null,
+      "publicUrl": null,
+      "title": null,
+      "mediaUrl": "https://static.metricool.com/planner/202610/6945443-file-6253654288702540968.mp4"
+    },
+    {
+      "metricoolPostId": 386144320,
+      "scheduledLocal": "2026-10-02T16:00:00",
+      "status": "PUBLISHED",
+      "youtubeVideoId": "WQO0jwYs51E",
+      "publicUrl": "https://www.youtube.com/shorts/WQO0jwYs51E",
+      "title": "Use the free guide first, then review the editable files listed in the toolkit #Shorts",
+      "mediaUrl": "https://static.metricool.com/planner/202610/6945443-file-10793086351483453106.mp4"
+    },
+    {
+      "metricoolPostId": 386144393,
+      "scheduledLocal": "2026-10-03T10:00:00",
+      "status": "NO_YOUTUBE_PROVIDER",
+      "youtubeVideoId": null,
+      "publicUrl": null,
+      "title": null,
+      "mediaUrl": "https://static.metricool.com/planner/202610/6945443-file-133578745996894645.mp4"
+    },
+    {
+      "metricoolPostId": 386144371,
+      "scheduledLocal": "2026-10-03T16:00:00",
+      "status": "PUBLISHED",
+      "youtubeVideoId": "p6s6qKapr6Q",
+      "publicUrl": "https://www.youtube.com/shorts/p6s6qKapr6Q",
+      "title": "A polished sustainability dashboard cannot repair an unverified KPI #Shorts",
+      "mediaUrl": "https://static.metricool.com/planner/202610/6945443-file-15067406120621353668.mp4"
+    },
+    {
+      "metricoolPostId": 386144589,
+      "scheduledLocal": "2026-10-04T10:00:00",
+      "status": "NO_YOUTUBE_PROVIDER",
+      "youtubeVideoId": null,
+      "publicUrl": null,
+      "title": null,
+      "mediaUrl": "https://static.metricool.com/planner/202610/6945443-file-17761547232678950214.mp4"
+    },
+    {
+      "metricoolPostId": 387861519,
+      "scheduledLocal": "2026-10-04T16:00:00",
+      "status": "PENDING",
+      "youtubeVideoId": null,
+      "publicUrl": null,
+      "title": "A convincing report is not the same as a defensible one #Shorts",
+      "mediaUrl": "https://static.metricool.com/planner/202610/6945443-file-7065743798386311835.mp4"
+    },
+    {
+      "metricoolPostId": 390789036,
+      "scheduledLocal": "2026-10-08T16:00:00",
+      "status": "PUBLISHED",
+      "youtubeVideoId": "BgL35I0lNbU",
+      "publicUrl": "https://www.youtube.com/shorts/BgL35I0lNbU",
+      "title": "Mistral Large 4: 3 AI Procurement Decisions for Business",
+      "mediaUrl": "https://static.metricool.com/planner/202610/6945443-file-9804174800041404811.mp4"
+    },
+    {
+      "metricoolPostId": 390866726,
+      "scheduledLocal": "2026-10-08T20:00:00",
+      "status": "PUBLISHED",
+      "youtubeVideoId": "sLdImpjYYHE",
+      "publicUrl": "https://www.youtube.com/shorts/sLdImpjYYHE",
+      "title": "Claude Haiku 5.5: Stop Using One AI Model for Everything",
+      "mediaUrl": "https://static.metricool.com/planner/202610/6945443-file-2012571429953420306.mp4"
+    },
+    {
+      "metricoolPostId": 393047880,
+      "scheduledLocal": "2026-10-11T16:00:00",
+      "status": "PUBLISHED",
+      "youtubeVideoId": "77QZM2PHqKk",
+      "publicUrl": "https://www.youtube.com/shorts/77QZM2PHqKk",
+      "title": "Before You Give an AI Vendor Customer Data, Ask These 3 Questions",
+      "mediaUrl": "https://static.metricool.com/planner/202610/6945443-file-3049137019179059590.mp4"
+    },
+    {
+      "metricoolPostId": 404557988,
+      "scheduledLocal": "2026-10-23T17:15:00",
+      "status": "PUBLISHED",
+      "youtubeVideoId": "PcK3CvQ5QGo",
+      "publicUrl": "https://www.youtube.com/watch?v=PcK3CvQ5QGo",
+      "title": "3 Fields Every Stakeholder Engagement Plan Needs | PrismBay AI",
+      "mediaUrl": "https://static.metricool.com/planner/202610/6945443-file-12039996267337369626.mp4"
+    },
+    {
+      "metricoolPostId": 404772290,
+      "scheduledLocal": "2026-10-24T16:00:00",
+      "status": "PUBLISHED",
+      "youtubeVideoId": "ELv_FwbzIm4",
+      "publicUrl": "https://www.youtube.com/shorts/ELv_FwbzIm4",
+      "title": "AI Agent or Simple Automation? Use This 3-Way Decision Rule | PrismBay AI",
+      "mediaUrl": "https://static.metricool.com/planner/202610/6945443-file-14729393411961423069.mp4"
+    },
+    {
+      "metricoolPostId": 405345257,
+      "scheduledLocal": "2026-10-25T16:00:00",
+      "status": "PUBLISHED",
+      "youtubeVideoId": "-ZTisOPioRU",
+      "publicUrl": "https://www.youtube.com/shorts/-ZTisOPioRU",
+      "title": "New AI Governance Guidance: 3 Board Tests Before Deploying Agents | PrismBay AI",
+      "mediaUrl": "https://static.metricool.com/planner/202610/6945443-file-1972750044105498473.mp4"
+    }
+  ]
+}
