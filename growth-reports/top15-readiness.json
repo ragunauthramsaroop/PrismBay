@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "source": "Read-only CJ evidence. No estimated freight grants a sale.",
-  "supplierReviewCheckedAt": "2026-10-26T23:16:51.693Z",
+  "supplierReviewCheckedAt": "2026-10-26T23:52:36.158Z",
   "candidateCount": 15,
   "supplierScreeningPassedCount": 2,
   "globalPhysicalCheckoutEnabled": false,
@@ -12,7 +12,7 @@
       "slug": "crevice",
       "name": "3-in-1 Crevice Cleaning Brush",
       "priority": "first-wave",
-      "reviewObservedAt": "2026-10-26T23:16:51.693Z",
+      "reviewObservedAt": "2026-10-26T23:52:36.158Z",
       "verifiedChecks": {
         "independentSupplierMatch": false,
         "variantStock": false,
@@ -41,7 +41,7 @@
       "slug": "drain-catcher",
       "name": "Sink Drain Catcher 2-Pack",
       "priority": "first-wave",
-      "reviewObservedAt": "2026-10-26T23:16:51.693Z",
+      "reviewObservedAt": "2026-10-26T23:52:36.158Z",
       "verifiedChecks": {
         "independentSupplierMatch": false,
         "variantStock": false,
@@ -70,7 +70,7 @@
       "slug": "pethair",
       "name": "Reusable Pet Hair Remover",
       "priority": "first-wave",
-      "reviewObservedAt": "2026-10-26T23:16:51.693Z",
+      "reviewObservedAt": "2026-10-26T23:52:36.158Z",
       "verifiedChecks": {
         "independentSupplierMatch": true,
         "variantStock": false,
@@ -97,7 +97,7 @@
       "slug": "home-caddy",
       "name": "Portable Home Caddy",
       "priority": "first-wave",
-      "reviewObservedAt": "2026-10-26T23:16:51.693Z",
+      "reviewObservedAt": "2026-10-26T23:52:36.158Z",
       "verifiedChecks": {
         "independentSupplierMatch": false,
         "variantStock": false,
@@ -126,7 +126,7 @@
       "slug": "mini-mop",
       "name": "Self-Squeeze Mini Mop",
       "priority": "first-wave",
-      "reviewObservedAt": "2026-10-26T23:16:51.693Z",
+      "reviewObservedAt": "2026-10-26T23:52:36.158Z",
       "verifiedChecks": {
         "independentSupplierMatch": false,
         "variantStock": false,
@@ -155,7 +155,7 @@
       "slug": "scrubber",
       "name": "5-in-1 Electric Spin Scrubber",
       "priority": "subsequent",
-      "reviewObservedAt": "2026-10-26T23:16:51.693Z",
+      "reviewObservedAt": "2026-10-26T23:52:36.158Z",
       "verifiedChecks": {
         "independentSupplierMatch": false,
         "variantStock": false,
@@ -184,7 +184,7 @@
       "slug": "garment-steamer",
       "name": "Portable Garment Steamer",
       "priority": "subsequent",
-      "reviewObservedAt": "2026-10-26T23:16:51.693Z",
+      "reviewObservedAt": "2026-10-26T23:52:36.158Z",
       "verifiedChecks": {
         "independentSupplierMatch": true,
         "variantStock": true,
@@ -208,7 +208,7 @@
       "slug": "cordless-handheld-vacuum",
       "name": "Cordless Handheld Vacuum",
       "priority": "subsequent",
-      "reviewObservedAt": "2026-10-26T23:16:51.693Z",
+      "reviewObservedAt": "2026-10-26T23:52:36.158Z",
       "verifiedChecks": {
         "independentSupplierMatch": true,
         "variantStock": false,
@@ -235,7 +235,7 @@
       "slug": "mattress-vacuum",
       "name": "Mattress Vacuum",
       "priority": "subsequent",
-      "reviewObservedAt": "2026-10-26T23:16:51.693Z",
+      "reviewObservedAt": "2026-10-26T23:52:36.158Z",
       "verifiedChecks": {
         "independentSupplierMatch": false,
         "variantStock": false,
@@ -264,7 +264,7 @@
       "slug": "insulated-tumbler",
       "name": "Insulated Tumbler",
       "priority": "subsequent",
-      "reviewObservedAt": "2026-10-26T23:16:51.693Z",
+      "reviewObservedAt": "2026-10-26T23:52:36.158Z",
       "verifiedChecks": {
         "independentSupplierMatch": false,
         "variantStock": false,
@@ -293,7 +293,7 @@
       "slug": "screen-protector",
       "name": "Smartphone Screen Protector",
       "priority": "subsequent",
-      "reviewObservedAt": "2026-10-26T23:16:51.693Z",
+      "reviewObservedAt": "2026-10-26T23:52:36.158Z",
       "verifiedChecks": {
         "independentSupplierMatch": true,
         "variantStock": true,
@@ -318,21 +318,23 @@
       "slug": "multiport-charger",
       "name": "Multi-Port USB-C Charger",
       "priority": "subsequent",
-      "reviewObservedAt": "2026-10-26T23:16:51.693Z",
+      "reviewObservedAt": "2026-10-26T23:52:36.158Z",
       "verifiedChecks": {
-        "independentSupplierMatch": true,
+        "independentSupplierMatch": false,
         "variantStock": false,
         "screeningFreight": false,
         "destinationQuotePerBuyer": false,
-        "mediaRights": true,
+        "mediaRights": false,
         "checkoutInfrastructure": false,
         "fulfillmentRoute": false,
         "commercialPromotionApproval": false
       },
       "missingChecks": [
+        "independentSupplierMatch",
         "variantStock",
         "screeningFreight",
         "destinationQuotePerBuyer",
+        "mediaRights",
         "checkoutInfrastructure",
         "fulfillmentRoute",
         "commercialPromotionApproval"
@@ -345,7 +347,7 @@
       "slug": "motion-sensor-cabinet-lights",
       "name": "Motion-Sensor Cabinet Lights",
       "priority": "subsequent",
-      "reviewObservedAt": "2026-10-26T23:16:51.693Z",
+      "reviewObservedAt": "2026-10-26T23:52:36.158Z",
       "verifiedChecks": {
         "independentSupplierMatch": true,
         "variantStock": false,
@@ -372,7 +374,7 @@
       "slug": "car-phone-mount",
       "name": "Car Phone Mount",
       "priority": "subsequent",
-      "reviewObservedAt": "2026-10-26T23:16:51.693Z",
+      "reviewObservedAt": "2026-10-26T23:52:36.158Z",
       "verifiedChecks": {
         "independentSupplierMatch": true,
         "variantStock": false,
@@ -399,21 +401,23 @@
       "slug": "travel-packing-cubes",
       "name": "Travel Packing Cubes",
       "priority": "subsequent",
-      "reviewObservedAt": "2026-10-26T23:16:51.693Z",
+      "reviewObservedAt": "2026-10-26T23:52:36.158Z",
       "verifiedChecks": {
-        "independentSupplierMatch": true,
+        "independentSupplierMatch": false,
         "variantStock": false,
         "screeningFreight": false,
         "destinationQuotePerBuyer": false,
-        "mediaRights": true,
+        "mediaRights": false,
         "checkoutInfrastructure": false,
         "fulfillmentRoute": false,
         "commercialPromotionApproval": false
       },
       "missingChecks": [
+        "independentSupplierMatch",
         "variantStock",
         "screeningFreight",
         "destinationQuotePerBuyer",
+        "mediaRights",
         "checkoutInfrastructure",
         "fulfillmentRoute",
         "commercialPromotionApproval"
