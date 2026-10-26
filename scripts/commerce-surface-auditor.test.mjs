@@ -72,3 +72,34 @@ test('legacy audit fails closed when no pages were inspected',()=>{
  assert.ok(result.issues.includes('legacy_surface_inspection_incomplete'));
  assert.ok(result.unknownPathCount>0);
 });
+
+
+test('legacy audit blocks supplier URLs in CSS, srcset, lazy attributes, video posters and JSON-LD',()=>{
+ const urls=[
+  '<style>.hero{background-image:url(https://oss-cf.cjdropshipping.com/p.jpg)}</style>',
+  '<img srcset="https://shopifyfile.oss-us-west-1.aliyuncs.com/p.webp 2x">',
+  '<img data-src="https://cc-west-usa.oss-us-west-1.aliyuncs.com/p.jpg">',
+  '<video poster="https://oss-cf.cjdropshipping.com/p.jpg"></video>',
+  '<script type="application/ld+json">{"image":"https:\\\/\\\/oss-cf.cjdropshipping.com/p.jpg"}</script>',
+  '<div style="background:url(//oss-cf.cjdropshipping.com/p.jpg)"></div>'
+ ];
+ for(const html of urls){
+  const audit=auditLegacySnapshot({
+   pages:[{path:'/candidate',ok:true,status:200,contentType:'text/html',text:html}],
+   feed:{ok:false,status:404}
+  });
+  assert.equal(audit.safe,false,html);
+  assert.equal(audit.thirdPartyMediaPageCount,1,html);
+  assert.ok(audit.issues.includes('legacy_third_party_media_rights_unverified'),html);
+ }
+});
+
+test('legacy audit does not mistake original local artwork or plain supplier-domain text for a media URL',()=>{
+ const audit=auditLegacySnapshot({
+  pages:[{path:'/',ok:true,status:200,contentType:'text/html',
+    text:'<img src="/assets/garment-care-original.svg"><p>Supplier host: oss-cf.cjdropshipping.com</p>'}],
+  feed:{ok:false,status:404}
+ });
+ assert.equal(audit.thirdPartyMediaPageCount,0);
+ assert.equal(audit.safe,true);
+});
