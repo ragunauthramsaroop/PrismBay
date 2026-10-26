@@ -26,6 +26,8 @@ jobs:
           node-version: '22'
       - name: Install dependencies
         run: npm install --no-audit --no-fund
+      - name: Enforce research-stage physical checkout and claim safeguards
+        run: node --test tests/physical-prelaunch-copy.test.mjs
       - name: Build premium storefront
         env:
           NEXT_TELEMETRY_DISABLED: '1'
