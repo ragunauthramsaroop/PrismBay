@@ -1,0 +1,105 @@
+name: PrismBay AI Original Long-Form Studio
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/render-youtube-longform.py'
+      - '.github/workflows/prismbay-ai-longform-studio.yml'
+      - 'editorial/youtube/PB-AGENT-ACCESS-001_package.md'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: prismbay-original-longform-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  original-longform-production:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    timeout-minutes: 55
+    steps:
+      - name: Checkout the existing PrismBay channel project
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Install Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install free media production tools
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg fonts-dejavu-core
+          python -m pip install --disable-pip-version-check --no-input pillow piper-tts
+      - name: Render original executive tutorial, captions and three thumbnails
+        run: python scripts/render-youtube-longform.py
+      - name: Confirm exact channel, technical quality and unpublished QA gate
+        shell: bash
+        run: |
+          python - <<'PY'
+          import json,subprocess
+          from pathlib import Path
+          base=Path('public/youtube/longform/PB-AGENT-ACCESS-001')
+          manifest=json.loads((base/'manifest.json').read_text())
+          assert manifest['channelId']=='UCw2hs85TzIpdKwJtG-BSxzQ'
+          assert manifest['paidSpendUSD']==0
+          assert manifest['published'] is False
+          assert manifest['publicationApproved'] is False
+          assert manifest['manualVisualReview']=='PENDING'
+          assert manifest['manualNarrationReview']=='PENDING'
+          assert manifest['slides']>=18
+          assert len(manifest['titleCandidates'])==3
+          assert all((base/f'thumbnail_{v}.png').stat().st_size>5000 for v in 'ABC')
+          info=json.loads(subprocess.check_output(['ffprobe','-v','error','-show_streams','-show_format','-of','json',str(base/'PB-AGENT-ACCESS-001.mp4')],text=True))
+          assert 420<=float(info['format']['duration'])<=900
+          assert any(x.get('width')==1920 and x.get('height')==1080 and x.get('codec_name')=='h264' for x in info['streams'])
+          assert any(x.get('codec_name')=='aac' for x in info['streams'])
+          print('PASS: original long-form production complete. Human review required. No publication.')
+          PY
+      - name: Preserve video and evidence as GitHub Actions artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: prismbay-original-longform-${{ github.run_id }}
+          path: public/youtube/longform/PB-AGENT-ACCESS-001/
+          retention-days: 14
+          if-no-files-found: error
+      - name: Save production files to existing public repository when within GitHub limits
+        shell: bash
+        run: |
+          set -euo pipefail
+          video='public/youtube/longform/PB-AGENT-ACCESS-001/PB-AGENT-ACCESS-001.mp4'
+          bytes=$(stat -c%s "$video")
+          if [ "$bytes" -gt 90000000 ]; then
+            echo 'Video exceeds safe GitHub file limit; Actions artifact preserved. No public media URL claimed.'
+            exit 0
+          fi
+          git config user.name 'prismbay-ai-longform-bot'
+          git config user.email 'actions@users.noreply.github.com'
+          git add public/youtube/longform/PB-AGENT-ACCESS-001/
+          if git diff --cached --quiet; then
+            echo 'Identical media already present; no duplicate commit.'
+            exit 0
+          fi
+          git commit -m 'Render original PrismBay AI long-form episode, subtitles and thumbnail variants'
+          for attempt in 1 2 3 4; do
+            git fetch origin main
+            git rebase origin/main
+            if git push origin HEAD:main; then
+              echo 'Original long-form assets committed. Publication remains blocked pending human QA.'
+              exit 0
+            fi
+            sleep $((attempt*3))
+          done
+          echo 'Artifacts preserved, repository update failed after retries.'
+          exit 1
+      - name: Report publication safeguards
+        if: always()
+        run: |
+          echo '## PrismBay AI Original Long-Form Studio' >> "$GITHUB_STEP_SUMMARY"
+          echo 'Target channel: UCw2hs85TzIpdKwJtG-BSxzQ (@PrismBayAI).' >> "$GITHUB_STEP_SUMMARY"
+          echo 'Original researched script, narrated scenes, 1080p video, SRT captions, and three distinct thumbnail concepts.' >> "$GITHUB_STEP_SUMMARY"
+          echo 'No paid media, no YouTube upload, no automatic publishing. Human narration and visual QA remain mandatory.' >> "$GITHUB_STEP_SUMMARY"
