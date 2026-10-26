@@ -69,6 +69,7 @@ jobs:
           scripts/tiktok-retail-readiness.test.mjs
           scripts/retail-content-brief.test.mjs
           scripts/retail-readiness-closure.test.mjs
+          scripts/first-sale-verifier.test.mjs
           scripts/cj-review-board.test.mjs
           scripts/cj-match-policy.test.mjs
           scripts/cj-freight-policy.test.mjs

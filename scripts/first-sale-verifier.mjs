@@ -59,13 +59,12 @@ export function verifyFirstSale(evidence = null, liveStripePayment = null) {
     Number.isSafeInteger(gross) && gross > 0 &&
     Number.isFinite(order.grossRevenueUsd) && order.grossRevenueUsd > 0 &&
     Math.round(order.grossRevenueUsd * 100) === gross);
-  const financialInputsReady = livePaid &&
-    Number.isFinite(order.productCostUsd) && order.productCostUsd >= 0 &&
-    Number.isFinite(order.freightCostUsd) && order.freightCostUsd >= 0 &&
-    Number.isFinite(order.paymentFeesUsd) && order.paymentFeesUsd >= 0;
-  const netMarginUsd = financialInputsReady
-    ? Number(((gross / 100) - order.productCostUsd - order.freightCostUsd - order.paymentFeesUsd).toFixed(2))
-    : null;
+  // Local order-file costs are unauthenticated estimates, not supplier invoices,
+  // final buyer-destination freight receipts or settled payment-fee evidence.
+  // Never label margin verified until a separate authenticated, order-bound
+  // cost and fee reconciliation adapter exists.
+  const financialInputsReady = false;
+  const netMarginUsd = null;
   return {
     schemaVersion: 2,
     verifiedFirstSale: livePaid,
@@ -83,7 +82,7 @@ export function verifyFirstSale(evidence = null, liveStripePayment = null) {
       shipmentVerified: false,
       marginInputsComplete: financialInputsReady,
     },
-    rule: 'Revenue requires authenticated read-only retrieval of a non-refunded, non-disputed live Stripe paid transaction. Supplier and shipment flags in local evidence are not proof of fulfillment. Fulfillment remains unverified until independent order-bound supplier and carrier receipts exist. Margin is a separate milestone.',
+    rule: 'Revenue requires authenticated read-only retrieval of a non-refunded, non-disputed live Stripe paid transaction. Supplier and shipment flags in local evidence are not proof of fulfillment. Fulfillment remains unverified until independent order-bound supplier and carrier receipts exist. Margin remains unverified without independently authenticated, order-bound product cost, final-destination freight and payment-fee evidence.',
   };
 }
 
