@@ -33,11 +33,12 @@ function sameOriginReference(html, path) {
 const isHtml = response => response.ok && /text\/html/i.test(response.type);
 
 // Commercial rights for third-party supplier media are not yet documented.
+// Include observed CJ-owned image CDN aliases, not unrelated aliyuncs domains.
 // Check actual media-bearing HTML attributes, not incidental text or hyperlinks.
 function isUnverifiedSupplierUrl(raw) {
   try {
     const url = new URL(raw.trim(), ORIGIN);
-    return /(?:^|\.)cjdropshipping\.com$/i.test(url.hostname);
+    return /^(?:oss-cf\.cjdropshipping\.com|shopifyfile\.oss-us-west-1\.aliyuncs\.com|cc-west-usa\.oss-us-west-1\.aliyuncs\.com)$/i.test(url.hostname);
   } catch {
     return false;
   }
@@ -76,7 +77,7 @@ function hasUnverifiedSupplierMedia(html) {
   const jsonLdMedia = [...html.matchAll(/<script\b([^>]*)>([\s\S]*?)<\/script\s*>/gi)]
     .some(([, attributes, body]) =>
       /\btype\s*=\s*(["'])application\/ld\+json\1/i.test(attributes) &&
-      /(?:https?:)?\/\/[^"'\s<>]*cjdropshipping\.com/i.test(body));
+      /(?:https?:)?\/\/(?:oss-cf\.cjdropshipping\.com|shopifyfile\.oss-us-west-1\.aliyuncs\.com|cc-west-usa\.oss-us-west-1\.aliyuncs\.com)(?=[\/?#"'\s]|$)/i.test(body.replace(/\\\//g, '/')));
   return mediaAttribute || inlineCss || styleBlocks || jsonLdMedia;
 }
 
