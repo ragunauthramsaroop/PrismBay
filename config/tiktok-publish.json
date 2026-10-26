@@ -9,19 +9,20 @@
   },
   "product": {
     "sku": "legacy-spin-scrubber-001",
-    "expectedPriceUsd": 29.95,
-    "videoUrl": "https://clean.prismbayai.com/media/retail-shorts/5-in-1-electric-spin-scrubber.mp4",
-    "caption": "Powered help for repetitive bathroom cleaning. 5-in-1 Electric Spin Scrubber — $29.95. Shop at clean.prismbayai.com #PrismBayClean #CleaningTok #BathroomCleaning #CleaningTools"
+    "expectedPriceUsd": null,
+    "videoUrl": "",
+    "caption": ""
   },
   "tiktok": {
-    "privacyLevel": "PUBLIC_TO_EVERYONE",
+    "privacyLevel": "SELF_ONLY",
     "allowComment": true,
     "allowDuet": true,
     "allowStitch": true,
     "videoMadeWithAi": true,
     "commercialContentType": "brand_organic",
-    "contentPreviewConfirmed": true,
-    "expressConsentGiven": true
+    "contentPreviewConfirmed": false,
+    "expressConsentGiven": false,
+    "publicationDisabled": true
   },
   "safety": {
     "requireCatalogPriceMatch": true,
@@ -29,6 +30,10 @@
     "requireHttpsMedia": true,
     "requirePrismBayHostedMedia": true,
     "requireAccountIdentityMatch": true,
-    "preflightBeforePublish": true
-  }
+    "preflightBeforePublish": true,
+    "requireCurrentOwnerApproval": true,
+    "requireCurrentPublicationLockCheck": true
+  },
+  "revokedAt": "2026-10-25T19:50:00Z",
+  "revocationReason": "Owner rejected previous video quality and revoked publication approval. Publication lock takes precedence. This legacy configuration is not an authorization record."
 }
