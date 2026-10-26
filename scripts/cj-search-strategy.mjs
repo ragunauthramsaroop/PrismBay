@@ -56,6 +56,12 @@ const alternates = Object.freeze({
     'plastic cleaning carry caddy handle',
     'household cleaning basket organizer caddy',
   ],
+  'insulated-tumbler':['insulated stainless steel tumbler','vacuum insulated travel tumbler','stainless steel cup tumbler'],
+  'screen-protector':['smartphone tempered glass screen protector','iphone phone screen protector','samsung phone screen protector'],
+  'multiport-charger':['usb c 3 port charger','multiport type c wall charger','usb c charging station 4 ports'],
+  'motion-sensor-cabinet-lights':['motion sensor under cabinet led light','wardrobe motion activated cabinet light','rechargeable closet motion sensor light'],
+  'car-phone-mount':['car dashboard phone mount holder','windshield smartphone holder car','vehicle phone holder'],
+  'travel-packing-cubes':['travel luggage packing cubes set','packing cube luggage organizers','fabric travel packing cubes'],
   'cordless-handheld-vacuum':[
     'cordless portable handheld car vacuum cleaner',
     'mini cordless hand vacuum cleaner',
