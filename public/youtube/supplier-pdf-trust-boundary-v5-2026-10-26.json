@@ -1,0 +1,14 @@
+{
+  "slug": "supplier-pdf-trust-boundary-v5-2026-10-26",
+  "title": "The Hidden Instruction in an Invoice PDF: 3 AI Agent Controls | PrismBay AI",
+  "sha256": "2b5c7ecea1ab54d71d3c6ba0f598fc0f42638da04b6d70b3bb935e694450910d",
+  "ttsEngines": [
+    "piper"
+  ],
+  "voice": "en_US-norman-medium",
+  "voiceLicenseBasis": "Piper open voice, verify license and spoken intelligibility before release",
+  "sourceAttribution": "OWASP GenAI Security Project, LLM01:2025 Prompt Injection, https://genai.owasp.org/llmrisk/llm01-prompt-injection/",
+  "originalProgrammaticVisuals": true,
+  "paidSpend": 0,
+  "channelId": "UCw2hs85TzIpdKwJtG-BSxzQ"
+}
