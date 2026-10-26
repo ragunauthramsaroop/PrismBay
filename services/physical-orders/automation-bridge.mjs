@@ -77,6 +77,10 @@ export function createPhysicalAutomationBridge({ contactVault, jobStore, now = D
         occurredAt: eligible.occurredAt,
         consent: false,
         deliveryVerified: false
+      }, {
+        // The server verifies Stripe's webhook signature and the paid ledger
+        // before this bridge is invoked. Never derive this from event flags alone.
+        verifiedPaidOrderRefs: new Set([eligible.sessionId])
       });
 
       return {

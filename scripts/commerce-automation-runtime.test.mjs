@@ -23,6 +23,14 @@ const baseEvent = Object.freeze({
   deliveryVerified: false
 });
 
+// Fixture-only trust evidence. Production adapters must independently verify
+// Stripe paid orders, carrier delivery and authenticated refund records.
+const verifiedEvidence = {
+  verifiedPaidOrderRefs: new Set(['PB-1001']),
+  verifiedDeliveredOrderRefs: new Set(['PB-1001']),
+  verifiedRefundOrderRefs: new Set(['PB-1001'])
+};
+
 async function storeFor(t) {
   const dir = await fs.mkdtemp(path.join(os.tmpdir(), 'prismbay-auto-'));
   t.after(async () => fs.rm(dir, { recursive: true, force: true }));
@@ -35,8 +43,38 @@ test('abandonment fails closed without consent', () => {
   assert.ok(result.reasons.includes('consent_required_for_abandonment'));
 });
 
+test('untrusted payment and delivery flags never queue lifecycle messages', () => {
+  const payment = routeCommerceEvent({ ...baseEvent, type: 'payment_completed' });
+  assert.equal(payment.accepted, false);
+  assert.ok(payment.reasons.includes('paid_order_not_verified'));
+  assert.equal(payment.jobs.length, 0);
+  const delivery = routeCommerceEvent({ ...baseEvent, type: 'delivery_confirmed', deliveryVerified: true });
+  assert.equal(delivery.accepted, false);
+  assert.ok(delivery.reasons.includes('paid_order_not_verified'));
+  assert.ok(delivery.reasons.includes('verified_delivery_required'));
+  assert.equal(delivery.jobs.length, 0);
+});
+
+test('a paid receipt without independent delivery evidence cannot request reviews', () => {
+  const delivery = routeCommerceEvent(
+    { ...baseEvent, type: 'delivery_confirmed', deliveryVerified: true },
+    { verifiedPaidOrderRefs: verifiedEvidence.verifiedPaidOrderRefs }
+  );
+  assert.equal(delivery.accepted, false);
+  assert.ok(delivery.reasons.includes('verified_delivery_required'));
+});
+
+test('refund messages require independent refund evidence in addition to paid order', () => {
+  const refund = routeCommerceEvent(
+    { ...baseEvent, type: 'refund_processed', refundAmountUsd: 12.95 },
+    { verifiedPaidOrderRefs: verifiedEvidence.verifiedPaidOrderRefs }
+  );
+  assert.equal(refund.accepted, false);
+  assert.ok(refund.reasons.includes('refund_not_verified'));
+});
+
 test('verified delivery creates delivered now and delayed review job', () => {
-  const result = routeCommerceEvent({ ...baseEvent, type: 'delivery_confirmed', deliveryVerified: true });
+  const result = routeCommerceEvent({ ...baseEvent, type: 'delivery_confirmed', deliveryVerified: true }, verifiedEvidence);
   assert.equal(result.accepted, true);
   assert.equal(result.jobs.length, 2);
   const delivered = result.jobs.find((job) => job.operation === 'delivered');
@@ -48,10 +86,10 @@ test('verified delivery creates delivered now and delayed review job', () => {
 
 test('file store persists idempotency across reloads', async (t) => {
   const store = await storeFor(t);
-  const first = await enqueueAutomationEvent(store, { ...baseEvent, type: 'payment_completed' });
+  const first = await enqueueAutomationEvent(store, { ...baseEvent, type: 'payment_completed' }, verifiedEvidence);
   assert.equal(first.enqueued[0].inserted, true);
   const reloaded = await new FileJobStore(store.filePath).load();
-  const duplicate = await enqueueAutomationEvent(reloaded, { ...baseEvent, type: 'payment_completed' });
+  const duplicate = await enqueueAutomationEvent(reloaded, { ...baseEvent, type: 'payment_completed' }, verifiedEvidence);
   assert.equal(duplicate.enqueued[0].inserted, false);
 });
 
@@ -67,7 +105,7 @@ test('file store rejects raw customer email data', async (t) => {
 
 test('processor does nothing when no handler is configured', async (t) => {
   const store = await storeFor(t);
-  const routed = await enqueueAutomationEvent(store, { ...baseEvent, type: 'order_processing' });
+  const routed = await enqueueAutomationEvent(store, { ...baseEvent, type: 'order_processing' }, verifiedEvidence);
   const jobId = routed.jobs[0].id;
   const result = await processDueJobs(store, {}, { nowMs: Date.parse('2026-10-04T03:05:00.000Z') });
   assert.equal(result.results[0].status, 'skipped');
@@ -76,7 +114,7 @@ test('processor does nothing when no handler is configured', async (t) => {
 
 test('successful injected email handler completes the job', async (t) => {
   const store = await storeFor(t);
-  const routed = await enqueueAutomationEvent(store, { ...baseEvent, type: 'order_processing' });
+  const routed = await enqueueAutomationEvent(store, { ...baseEvent, type: 'order_processing' }, verifiedEvidence);
   const jobId = routed.jobs[0].id;
   const result = await processDueJobs(store, { email: async () => ({ ok: true }) }, { nowMs: Date.parse('2026-10-04T03:05:00.000Z') });
   assert.equal(result.results[0].status, 'completed');
@@ -85,7 +123,7 @@ test('successful injected email handler completes the job', async (t) => {
 
 test('transient handler failure is delayed instead of duplicated', async (t) => {
   const store = await storeFor(t);
-  const routed = await enqueueAutomationEvent(store, { ...baseEvent, type: 'shipment_update', trackingRef: 'tracking:PB1001' });
+  const routed = await enqueueAutomationEvent(store, { ...baseEvent, type: 'shipment_update', trackingRef: 'tracking:PB1001' }, verifiedEvidence);
   const jobId = routed.jobs[0].id;
   const result = await processDueJobs(store, { email: async () => ({ ok: false, errorCode: 'temporary_provider_error', httpStatus: 503, outcomeKnown: true }) }, { nowMs: Date.parse('2026-10-04T03:05:00.000Z') });
   assert.equal(result.results[0].status, 'delayed');
@@ -94,7 +132,7 @@ test('transient handler failure is delayed instead of duplicated', async (t) => 
 
 test('manual replay requires explicit approval', async (t) => {
   const store = await storeFor(t);
-  const routed = await enqueueAutomationEvent(store, { ...baseEvent, type: 'refund_processed', refundAmountUsd: 12.95 });
+  const routed = await enqueueAutomationEvent(store, { ...baseEvent, type: 'refund_processed', refundAmountUsd: 12.95 }, verifiedEvidence);
   const job = routed.jobs[0];
   await store.put({ ...job, state: 'dead_letter', nextRunAt: null, deadLetterReason: 'manual_review' });
   assert.deepEqual(await replayDeadLetter(store, job.id, {}), { ok: false, reason: 'explicit_replay_approval_required' });
