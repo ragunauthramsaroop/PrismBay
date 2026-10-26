@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-25T08:44:38.883Z",
+  "updatedAt": "2026-10-26T09:23:35.024Z",
   "market": "US",
   "supplierIntegration": "awaiting-cj-auth",
   "methodology": "Public attention and recency identify candidates. Supplier promotion requires verified US inventory and product-level checks. Freight and checkout creation occur only after supplier validation.",
@@ -9,17 +9,23 @@
       "slug": "cordless-handheld-vacuum",
       "name": "Cordless Handheld Vacuum",
       "query": "cordless handheld vacuum",
-      "attentionScore": 97.6,
+      "attentionScore": 99.5,
       "attentionLabel": "high-attention",
       "evidence": {
-        "publicMentions": 83,
+        "publicMentions": 91,
         "mentionsLast7Days": 3,
-        "mentionsLast30Days": 9,
+        "mentionsLast30Days": 13,
         "sourcesAvailable": [
           "Google News",
           "Bing News"
         ],
         "sampleSignals": [
+          {
+            "title": "Best Shark deal: Save $20 on the Shark UltraCyclone Pet Pro Plus - Mashable",
+            "source": "Google News",
+            "publishedAt": "2026-10-23T10:54:36.000Z",
+            "url": "https://news.google.com/rss/articles/CBMimgFBVV95cUxPUU9hV2VtcnFoNjdZcDBqbGhEeE5WbWpZSjJuUzc1aW5NdUZHakJtTm9YNlBPcE1KY1VqQm10UGJwZS11ejlHRndMU3Fnb1ZaNmx0cXl0RS1RbUZKUHRaUGhrX3Z1Ykg5ZUY4Z243T2YwXy1VMUNlRVZETGFYdXNwM1AzaWJIeTdHT29jcUE3RVB3XzBWUE9ta1BB?oc=5"
+          },
           {
             "title": "Amazon's Choice Shark pet vacuum is 20% off and selling fast - USA Today",
             "source": "Google News",
@@ -27,22 +33,16 @@
             "url": "https://news.google.com/rss/articles/CBMi1gFBVV95cUxQa2N3NUFFQWlpbWN3SEp3aDRJZDUwZE03Ml9JbGlZYTI5dC1WR0FzNDk0M05lenozcHhQQ25ZZ2tsWkZRRWJJUFZUeHl4bFlVcG5fQUFOand1alVuSXptYUhibjJkd1FCMEF5X0wtSzBQakd0MUdwMGZLVWNOVkJPZ1RPMUNpSThib0hpNEs5VDdobnZGaVhWMVkyRGJfMWFXRDJKdjNyQ0hhQkhUd2owRGhvVmFpd0lTQ1pUYnRFaGtNUXZKSjdLYzl1ZFl2NC1YQU45MEVn?oc=5"
           },
           {
-            "title": "Best Shark deal: Save $20 on the Shark UltraCyclone Pet Pro Plus - Mashable",
-            "source": "Google News",
-            "publishedAt": "2026-10-23T10:56:26.000Z",
-            "url": "https://news.google.com/rss/articles/CBMimgFBVV95cUxPUU9hV2VtcnFoNjdZcDBqbGhEeE5WbWpZSjJuUzc1aW5NdUZHakJtTm9YNlBPcE1KY1VqQm10UGJwZS11ejlHRndMU3Fnb1ZaNmx0cXl0RS1RbUZKUHRaUGhrX3Z1Ykg5ZUY4Z243T2YwXy1VMUNlRVZETGFYdXNwM1AzaWJIeTdHT29jcUE3RVB3XzBWUE9ta1BB?oc=5"
-          },
-          {
-            "title": "Black + Decker's handheld vacuum with 47,400+ reviews is on sale for $38— plus more best mini vacuums to shop on Amazon - Yahoo Lifestyle Canada",
-            "source": "Google News",
-            "publishedAt": "2026-07-20T07:00:00.000Z",
-            "url": "https://news.google.com/rss/articles/CBMi6wFBVV95cUxQd0diVGlZVTdZMm9BN1JwaUtxR1NuNTV0UDhyei1uSE5qdndvNmR3WS1IZnBfVk9QRHZwYW1mUnl2RHVSRThTSUV6NC1KZHZ3aGZSZ2wtV2hnbDBzbGpnQkJBZmxDQWpfUm1td1ViOFhMSmxiUkswOW5Eb0lQbXVkQndOWVpncjRDOG5JQ3UxRTZIdkNJYkF0cWFjYzd2dkhSZVJhUmxZZ0xMS1hWS2t6TDFicHV3OUtlTm9JSENsNkE0TklsZGtHeWRCbWkyREdoeXA5V1FPbUs1ODZCYUctVjhRTjYyMVl2LU5R?oc=5"
-          },
-          {
             "title": "Amazon's Choice Shark pet vacuum is 20% off and selling fast - AOL.com",
             "source": "Google News",
             "publishedAt": "2026-10-21T16:00:32.000Z",
             "url": "https://news.google.com/rss/articles/CBMigAFBVV95cUxOT2Z3Tm1wQm1ZRGh0T0MzOEhXa1kydGRaRXRyTS16bnQwS0lValZ6emN0dnVJNDNyQkZKSlBGbmZ3SjBQRmtxLVhVcG9VUTRjdldhTkt5TTh5RDZFSEZqWmpNbnQ4eEYzejFqampfRWlwSEtENkZ0elJGWV9hOHRCbA?oc=5"
+          },
+          {
+            "title": "This Lightweight $80 Cordless Vacuum Is a Prime-Exclusive Deal — and Shoppers Say It’s “Better Than Any Dyson” - People.com",
+            "source": "Google News",
+            "publishedAt": "2026-08-31T07:00:00.000Z",
+            "url": "https://news.google.com/rss/articles/CBMif0FVX3lxTE9CaUxlM1d0cmZyeGdEZkxLSW5iLWUyN3ZZbzQ5LUd5WTR2Sll4LS1HTnlCZW9UQ3I1ODJMYWFVbWZYcXhkbWVDMF91U0VVdm9PQ0RkMjAwTk5zVUt0bXI4cG90U1RyLWhhaEpLWktuU3pYZnllbTBJLTNCdGM2eVk?oc=5"
           }
         ]
       },
@@ -61,12 +61,12 @@
       "slug": "hanging-closet-organizer",
       "name": "Hanging Closet Organizer",
       "query": "hanging closet organizer",
-      "attentionScore": 76.9,
+      "attentionScore": 78.8,
       "attentionLabel": "high-attention",
       "evidence": {
-        "publicMentions": 45,
+        "publicMentions": 44,
         "mentionsLast7Days": 2,
-        "mentionsLast30Days": 3,
+        "mentionsLast30Days": 4,
         "sourcesAvailable": [
           "Google News",
           "Bing News"
@@ -113,28 +113,28 @@
       "slug": "roll-up-dish-rack",
       "name": "Roll-Up Dish Drying Rack",
       "query": "roll up dish drying rack",
-      "attentionScore": 73,
+      "attentionScore": 78.6,
       "attentionLabel": "high-attention",
       "evidence": {
-        "publicMentions": 26,
-        "mentionsLast7Days": 0,
-        "mentionsLast30Days": 4,
+        "publicMentions": 32,
+        "mentionsLast7Days": 1,
+        "mentionsLast30Days": 5,
         "sourcesAvailable": [
           "Google News",
           "Bing News"
         ],
         "sampleSignals": [
           {
+            "title": "Your Dish Rack Is Dirtier Than You Think — Here’s How to Clean It, Plus Our Top-Tested Picks - Food & Wine",
+            "source": "Google News",
+            "publishedAt": "2026-10-23T07:00:00.000Z",
+            "url": "https://news.google.com/rss/articles/CBMiYEFVX3lxTE5TUGNuSC1rX1FtUnpfZkRteUstbTBIalRVdzA3Q2JTX3FKSDNMcVJLUmVfU0Z3Mk1tSFhmbGpxZzMyRnRvYlNCLTRZS0FyNEJvWkdTUktsQU5MMGxKbVViOQ?oc=5"
+          },
+          {
             "title": "I Put a Dish Rack in My Tiny Bathroom, and It Changed Everything - Apartment Therapy",
             "source": "Google News",
             "publishedAt": "2026-10-10T07:00:00.000Z",
             "url": "https://news.google.com/rss/articles/CBMiggFBVV95cUxNX3hDa2V2RHM3N2FBLXg3Y181T3Y2alpkbF9zeHMxS0cwVUhaQjVwNDBiaW5rdWVaUGZaZ1NWU29iSXhxX2xfNG1uMXZLb19Yck1sRi1wUk9HSnhRVmpla3NwTHVlRHdITkJMZXp5MjBIUXZBLVd0U0wydlZPRTBtZF9R?oc=5"
-          },
-          {
-            "title": "Your Sponge Holder Is Harboring ‘Mold or Mildew’ — This Hack Is ‘a Lot More Sanitary’ and ‘Maximizes Space’ - Food & Wine",
-            "source": "Google News",
-            "publishedAt": "2026-10-09T07:00:00.000Z",
-            "url": "https://news.google.com/rss/articles/CBMikAFBVV95cUxPczhnRmZTSThDRlB0SERmaHF5dGJ0WFhPZWhCSVlmU2JHU012UVRlN05OOXl3V2RoUFo4UXR3UU52c25BZVdibFRWV0JKZkFtZGZXakVrazg0V0hfZTgyZGJMbUlMQ3JJMHpud1dRcUVjUUpRV25aYzZ0VDVPMi1XNzVjbk8xckZoa2tfVUJ3amI?oc=5"
           },
           {
             "title": "I Put a Dish Rack in My Tiny Bathroom, and It Changed Everything - AOL.com",
@@ -269,10 +269,10 @@
       "slug": "bottle-brush-set",
       "name": "Bottle Brush Cleaning Set",
       "query": "bottle brush cleaning set",
-      "attentionScore": 31.8,
+      "attentionScore": 33.6,
       "attentionLabel": "low-signal",
       "evidence": {
-        "publicMentions": 6,
+        "publicMentions": 7,
         "mentionsLast7Days": 0,
         "mentionsLast30Days": 0,
         "sourcesAvailable": [
@@ -287,22 +287,22 @@
             "url": "https://news.google.com/rss/articles/CBMieEFVX3lxTE8wVjR3S25uUmxHS180VmRZaHUzN3diM2EtZ29mYW1KTTJKX3BBSWlxOS1MZmtVSExfS1V5S2dCUFdjWDFnZW9FRjAyTTMtc0NKS1R3ZzFySGIzWVhkbll4NGhNV3lCMTg4VUN4YUh4elBKZUwwOUh2YQ?oc=5"
           },
           {
-            "title": "10 best bottle brushes to keep your water bottles squeaky clean - WCBD News 2",
+            "title": "11 Best Baby Bottle Brushes To Remove Bacteria And Germs In 2026 - MomJunction",
+            "source": "Google News",
+            "publishedAt": "2026-02-09T08:00:00.000Z",
+            "url": "https://news.google.com/rss/articles/CBMie0FVX3lxTFBSSnZJWk02YnZ0a196a2FxNGRxV29yeFJscE4tOUxEb1czcXdQREwta0NRNy1kSmNFVklxd2VENmRRSjkzdnQzX1Bob2dScW1pLXF5YzBGSDBDYnJwalZ0bERjOWdyZEZvcmlwN0ZOYjFhRl9UQmxyQklsMA?oc=5"
+          },
+          {
+            "title": "10 best bottle brushes to keep your water bottles squeaky clean - ABC4 Utah",
             "source": "Google News",
             "publishedAt": "2023-03-09T08:00:00.000Z",
-            "url": "https://news.google.com/rss/articles/CBMi2wFBVV95cUxNRUxWeVpmb1lET3lFTGY5WkRaOV9VTHF4TlVnOEVIQXlydXhBZEwtc1VTRU5MVk5zNEJ5T2sxTUE2a2RFSDVJTFRUQWFZWFN0VWoyMDlCQkltMWpPZXBpWWZjOG5sUEZaak01elRSMER1NDYtdVBhLXRVY2dmVFo2Y3ZNNjJOcGxLNVZzN0JYZ3FPZVdJZW9IRElUM1FiQkZQLTJoYzVfVlRKWi1sQmRtTWRhRnBDSnhkbmFDZ1hqaDZwVmhaaG0wakhWek15SUl4WWxjR04tRFhMaTDSAeABQVVfeXFMTUVRQ0N4LThaM3hZOEM1bENKZ0dZZWVPaW1tRlVKdG1zRmxlSHdOVnZabGdqWnlkUlFsVzRyc1pjM3h5Y1pPYW1nV1VkN3pSX2ZPeDVxUmEtTkRERmI3eHczSlIyX0lXdThLOVlnVk1vYlVxdENfT2gwYl9Fc3B1RGVLR2p3dTZQbFR3aHlmZHVHUmpUMWRSRlhhTnRZSmVKUEJzT3pIZGNfQk9PdHpHWW5xOWNhM2lfSHVnR0pMcjM3M0ZzQkdJaUpOZ2tpT2VHM2d4SjRaNFA2eHRRdGdPaWs?oc=5"
+            "url": "https://news.google.com/rss/articles/CBMi1gFBVV95cUxQVUl2UHNvZnUtZmsxM2x1Uy05UnNUNkxKWnVsSmxERGxRV2tXRHg5V2NhblZ6QVVnMmJpRzFPczYtSk1HZ3I3dkxJT1BRZWRudHQyeTlNOXNVbWRlbnR1cEc5MUpSbVBLXzdxdm1aOEZpcHhGeEh3U2g5UG15cVdabDFoQUlSOFhMbVR2bzVEMkxfaEZtb2V0Q2sxTXRmVWpoMEotcTVaYWw0Y2V3ZjZETnVjcWh5czFrV3ZNc294N3g2MG85bURtRFhzRkdPVjBiTnpMWWdn0gHbAUFVX3lxTE91UDZHNEgzd3F5QlpxWUtmSkVfbW5KWnZuVTJJSmxScFNHdFh1QVY1SDd1SEg5OEpJclAwVEZCTjlZcFJfcm1VckZ5cXlkVzE4Q2F5clNKTnFWWGg3X2VyRjRkVTlHUlQwVTVLWi13ZE9OdEdvR1ozanM5amJPX3hpYnU4OXJ6VDJDclplclMwLU03NDVFMHJfazUwSG9qWGlJN0hWdFhKUUdvUTRwM2JxbG12cmp5YVNpYmRZSC1FZXZTajlzdDN0cGFuc2tkdjUzYzZYazk5SThWTQ?oc=5"
           },
           {
             "title": "These 19 Award-Winning Products Will Help Keep Your Baby Nourished and Fed - Parents",
             "source": "Google News",
             "publishedAt": "2026-04-07T07:00:00.000Z",
             "url": "https://news.google.com/rss/articles/CBMif0FVX3lxTE5VVDlIY3NTbzNFWlY3Wm1XNF95cktMX2ZDckhFNlJ0UEdudUEzbDEzSlo4MHpqc0pMUmxYZm9uWU5BNkVBUG1xblhkcm1fMm9jX1ZSeUQ4OFFDUWJHbUNoclBVNDFKRmt2NWFDZ204eWhLQU5FR0xJSFJpZWxwT3M?oc=5"
-          },
-          {
-            "title": "Cool things with near-perfect Amazon reviews that are under-the-radar - mic.com",
-            "source": "Google News",
-            "publishedAt": "2024-05-07T07:00:00.000Z",
-            "url": "https://news.google.com/rss/articles/CBMinwFBVV95cUxQY3l0eWpVTG12TXJMQXJJc1ppYWhONkVRSUlfLVVla2FNaWowYXpUSHF0NkxjRXItZDVCck12emZtLXMwR0tmZEVzT01kVTQ3bnlMWkxOZlptM095TkppNU5wbXNaWlBYQWs5VEgteXRGTjZ4SEhGV1Q4dC10a3dXWldKdmE5V24xWGJNYmIxaXRHZE5uOXNjSzB4WmZIOUk?oc=5"
           }
         ]
       },
