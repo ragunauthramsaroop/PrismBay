@@ -29,7 +29,7 @@ test('eligible post-purchase step is dry-run only', () => {
   const result = evaluateStep({
     journeyName: 'post-purchase-onboarding',
     step: { day: 1, template: 'post-purchase-day-1' },
-    contact: contact(), nowMs
+    contact: contact(), nowMs, verifiedPaidOrderRefs: new Set(['PB-1001'])
   });
   assert.equal(result.eligible, true);
   assert.equal(result.entry.liveSendAttempted, false);
@@ -39,7 +39,7 @@ test('eligible post-purchase step is dry-run only', () => {
 test('duplicate logical message is blocked case-insensitively', () => {
   const sentSet = buildSentSet([{ campaign_name: 'post-purchase-onboarding', recipient_email: 'BUYER@EXAMPLE.INVALID', template_name: 'post-purchase-day-1' }]);
   const result = evaluateStep({
-    journeyName: 'post-purchase-onboarding', step: { day: 1, template: 'post-purchase-day-1' }, contact: contact(), nowMs, sentSet
+    journeyName: 'post-purchase-onboarding', step: { day: 1, template: 'post-purchase-day-1' }, contact: contact(), nowMs, sentSet, verifiedPaidOrderRefs: new Set(['PB-1001'])
   });
   assert.equal(result.eligible, false);
   assert.equal(result.reason, 'duplicate_idempotency');
@@ -69,11 +69,13 @@ test('review request refuses delivered-only and self-reported purchase claims', 
   assert.equal(evaluateStep({ journeyName: 'review-request', step, contact: contact({ orderRef: 'PB-OTHER' }), nowMs, verifiedPaidOrderRefs: new Set(['PB-1001']) }).reason, 'paid_order_not_verified');
 });
 
-test('verified paid order reference and delivery permit review dry-run without sending', () => {
+test('independently verified paid and delivered order permit review dry-run without sending', () => {
   const result = evaluateStep({
     journeyName: 'review-request',
     step: { day: 7, template: 'verified-review-day-7' },
-    contact: contact(), nowMs, verifiedPaidOrderRefs: new Set(['PB-1001'])
+    contact: contact(), nowMs,
+    verifiedPaidOrderRefs: new Set(['PB-1001']),
+    verifiedDeliveredOrderRefs: new Set(['PB-1001'])
   });
   assert.equal(result.eligible, true);
   assert.equal(result.entry.liveSendAttempted, false);
@@ -89,7 +91,7 @@ test('abandonment recovery requires consent evidence', () => {
 
 test('outside time window is blocked', () => {
   const result = evaluateStep({
-    journeyName: 'post-purchase-onboarding', step: { day: 3, template: 'post-purchase-day-3' }, contact: contact(), nowMs
+    journeyName: 'post-purchase-onboarding', step: { day: 3, template: 'post-purchase-day-3' }, contact: contact(), nowMs, verifiedPaidOrderRefs: new Set(['PB-1001'])
   });
   assert.equal(result.reason, 'outside_window');
 });
@@ -101,7 +103,8 @@ test('dry run aggregates without sending or supplier ordering', () => {
       'review-request': [contact()]
     },
     nowMs,
-    verifiedPaidOrderRefs: new Set(['PB-1001'])
+    verifiedPaidOrderRefs: new Set(['PB-1001']),
+    verifiedDeliveredOrderRefs: new Set(['PB-1001'])
   });
   assert.equal(report.mode, 'dry-run');
   assert.equal(report.liveSendAttempted, false);
@@ -116,4 +119,43 @@ test('default lifecycle dry-run blocks review requests without independent Strip
   assert.equal(report.totals.blocked, 1);
   assert.equal(report.journeys.find(j => j.name === 'review-request').results[0].reason, 'paid_order_not_verified');
   assert.equal(report.liveSendAttempted, false);
+});
+
+test('post-purchase onboarding rejects self-reported payment without trusted order evidence', () => {
+  const step = { day: 1, template: 'post-purchase-day-1' };
+  const claimed = contact({ purchaseVerified: true, paymentStatus: 'paid' });
+  assert.equal(evaluateStep({ journeyName: 'post-purchase-onboarding', step, contact: claimed, nowMs }).reason, 'paid_order_not_verified');
+  assert.equal(evaluateStep({ journeyName: 'post-purchase-onboarding', step, contact: claimed, nowMs, verifiedPaidOrderRefs: ['PB-1001'] }).reason, 'paid_order_not_verified');
+  assert.equal(evaluateStep({ journeyName: 'post-purchase-onboarding', step, contact: contact({ orderRef: 'OTHER' }), nowMs, verifiedPaidOrderRefs: new Set(['PB-1001']) }).reason, 'paid_order_not_verified');
+});
+
+test('review requests reject claimed delivery even after verified payment', () => {
+  const step = { day: 7, template: 'verified-review-day-7' };
+  const paid = new Set(['PB-1001']);
+  const claimed = contact({ deliveryVerified: true, trackingStatus: 'delivered' });
+  const base = { journeyName: 'review-request', step, contact: claimed, nowMs, verifiedPaidOrderRefs: paid };
+  assert.equal(evaluateStep(base).reason, 'delivery_not_verified');
+  assert.equal(evaluateStep({ ...base, verifiedDeliveredOrderRefs: ['PB-1001'] }).reason, 'delivery_not_verified');
+  assert.equal(evaluateStep({ ...base, verifiedDeliveredOrderRefs: new Set(['OTHER']) }).reason, 'delivery_not_verified');
+  assert.equal(evaluateStep({ ...base, verifiedDeliveredOrderRefs: new Set(['PB-1001']) }).eligible, true);
+});
+
+test('independent delivery without live paid order still blocks review', () => {
+  const result = evaluateStep({
+    journeyName: 'review-request', step: { day: 7, template: 'verified-review-day-7' },
+    contact: contact(), nowMs, verifiedDeliveredOrderRefs: new Set(['PB-1001'])
+  });
+  assert.equal(result.reason, 'paid_order_not_verified');
+});
+
+test('CLI-style dry run refuses purchase-triggered messages without authenticated adapters', () => {
+  const report = dryRun({
+    contactsByJourney: { 'post-purchase-onboarding': [contact()], 'review-request': [contact()] },
+    nowMs
+  });
+  assert.equal(report.totals.eligible, 0);
+  assert.equal(report.journeys.find(j => j.name === 'post-purchase-onboarding').results[0].reason, 'paid_order_not_verified');
+  assert.equal(report.journeys.find(j => j.name === 'review-request').results[0].reason, 'paid_order_not_verified');
+  assert.equal(report.liveSendAttempted, false);
+  assert.equal(report.supplierOrderingAttempted, false);
 });
