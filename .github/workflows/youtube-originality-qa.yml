@@ -6,6 +6,12 @@ on:
     paths:
       - 'content/youtube/qa-requests/*.json'
       - '.github/workflows/youtube-originality-qa.yml'
+  # A render bot commit made with GITHUB_TOKEN does not fire a new push workflow.
+  # Re-run QA after the zero-cost renderer finishes successfully on main.
+  workflow_run:
+    workflows: ['YouTube Zero-Cost Render']
+    types: [completed]
+    branches: [main]
   workflow_dispatch:
 
 permissions:
@@ -17,7 +23,9 @@ concurrency:
 
 jobs:
   audit:
-    if: github.actor != 'github-actions[bot]'
+    if: >-
+      (github.event_name == 'workflow_run' && github.event.workflow_run.conclusion == 'success') ||
+      (github.event_name != 'workflow_run' && github.actor != 'github-actions[bot]')
     runs-on: ubuntu-latest
     timeout-minutes: 8
     steps:
@@ -101,14 +109,28 @@ jobs:
         shell: bash
         run: |
           python3 -m venv .qa-venv
-          .qa-venv/bin/pip install -q --disable-pip-version-check faster-whisper
+          .qa-venv/bin/pip install -q --disable-pip-version-check faster-whisper num2words
           .qa-venv/bin/python - <<'PY'
           import glob, json, re, difflib, subprocess, numpy as np
           from pathlib import Path
           from faster_whisper import WhisperModel
+          from num2words import num2words
           model=WhisperModel('tiny.en',device='cpu',compute_type='int8')
           def norm(x):
-              return re.sub(r'[^a-z0-9 ]','',x.lower()).split()
+              x=x.lower()
+              def number_words(v):
+                  return num2words(int(v.replace(',',''))).replace(' and ',' ')
+              def money(m):
+                  v=m.group(1).replace(',','')
+                  if '.' in v:
+                      dollars,cents=v.split('.')
+                      return number_words(dollars)+' dollar '+number_words(str(int(cents)))
+                  return number_words(v)+' dollars'
+              x=re.sub(r'\$(\d[\d,]*(?:\.\d{1,2})?)',money,x)
+              x=re.sub(r'(\d[\d,]*)%',lambda m:number_words(m.group(1))+' percent',x)
+              x=re.sub(r'\b\d[\d,]*\b',lambda m:number_words(m.group(0)),x)
+              x=re.sub(r'[^a-z0-9 ]',' ',x)
+              return [w for w in x.split() if w!='and']
           for req in sorted(glob.glob('content/youtube/qa-requests/*.json')):
               slug=json.loads(Path(req).read_text())['slug']
               src=Path('public/youtube')/(slug+'.mp4')
@@ -126,7 +148,7 @@ jobs:
               heard=' '.join(x.text.strip() for x in segments)
               score=difflib.SequenceMatcher(None,norm(expected),norm(heard)).ratio()
               q['machineNarrationReview']={'completed':True,'model':'faster-whisper tiny.en CPU','scriptWordCount':len(norm(expected)),'transcribedWordCount':len(norm(heard)),'wordSequenceSimilarity':round(score,3),'intelligibilityProxyPass':score>=0.72,'transcript':heard,'humanListeningReview':'NOT PERFORMED'}
-              q['publicationApproved']=bool(q.get('technicalPass') and score>=0.72 and q.get('manualVisualReview')=='PASS')
+              q['publicationApproved']=bool(q.get('technicalPass') and score>=0.85 and q.get('manualVisualReview')=='PASS' and q.get('manualNarrationReview')=='PASS')
               report.write_text(json.dumps(q,indent=2)+'\n')
               print(slug,'narration similarity',round(score,3),'pass',score>=0.72)
           PY
@@ -138,4 +160,14 @@ jobs:
           git add editorial/youtube/qa/ public/youtube/
           if git diff --cached --quiet; then exit 0; fi
           git commit -m 'Record PrismBay YouTube media technical QA evidence'
-          git push origin HEAD:main
+          for attempt in 1 2 3 4; do
+            git fetch origin main
+            git rebase origin/main
+            if git push origin HEAD:main; then
+              echo "QA evidence safely committed on attempt $attempt"
+              exit 0
+            fi
+            sleep $((attempt * 3))
+          done
+          echo 'Could not safely push QA evidence after four attempts.'
+          exit 1

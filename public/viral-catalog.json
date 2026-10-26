@@ -1,18 +1,114 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-24T11:39:42.681Z",
+  "updatedAt": "2026-10-26T05:23:44.210Z",
   "market": "US",
   "methodology": "Public-news attention, freshness, and short-form demonstration fit. This is not PrismBay sales data and is not a TikTok, Amazon, Google, or Bing product ranking.",
   "refreshTargetHours": 6,
   "products": [
     {
-      "slug": "mattress-vacuum",
-      "name": "Mattress Vacuum",
-      "signalScore": 80.5,
+      "slug": "pressure-washer",
+      "name": "Cordless Pressure Washer",
+      "signalScore": 78.5,
       "signalLabel": "high-attention",
       "evidence": {
-        "publicMentions": 106,
-        "mentionsLast7Days": 1,
+        "publicMentions": 104,
+        "mentionsLast7Days": 2,
+        "mentionsLast30Days": 2,
+        "sourcesAvailable": [
+          "Google News",
+          "Bing News"
+        ]
+      },
+      "sampleSignals": [
+        {
+          "title": "Blast the Last of Summer's Grime With Our Favorite Tested Pressure Washers - Popular Mechanics",
+          "source": "Google News",
+          "publishedAt": "2026-10-23T13:42:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMinAFBVV95cUxOREhINlhaMWtaU215YXJxZ3pkV3JxeVZoTUxNcUhHN190Snk1V1huVHZuSzNkWlVuNmduNm5aMXRzQlA4Y0tHMGUta29MUGRIR3hRT0RDNGpBUXU2TkRXMUg2X2JfajNiQ3dSQW1QZ2tObnNTR2c1VGpvRWVzS1dUQTFVaERSWlo4bDh3US16VzVrTkctc3RiOWE5V0g?oc=5"
+        },
+        {
+          "title": "EGO’s Newest Pressure Washer is Made for Your Car - Pro Tool Reviews",
+          "source": "Google News",
+          "publishedAt": "2026-10-22T11:00:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMihwFBVV95cUxNRjZKSi00T1NneWpZcjNHb0pkR0l4VHN2RHlyUW84cXB6TmotQk9XTkJKQmdfb1lvdVl0aGZKQ1JaNVNPSFlBbEUxRTJxZ0hWTE1nS1NVcDBiSzhaUndRd3JSVk9FTTRlcURvY09BQ2NWYnIwdkJRNTlCZ0RnSmZ2SEtXb1Boem8?oc=5"
+        },
+        {
+          "title": "Does it work? Hydro X5 cordless pressure washer - KY3",
+          "source": "Google News",
+          "publishedAt": "2026-08-12T07:00:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMihAFBVV95cUxPVUxYNWVJWVFYUWRES0d1Y2plUHV6b0poQ1dfOEpadkNmM3ZSbnpYZ2FiZDNQaXRRRHB1dVg4Q0ljWDJTdnM0WFJGY3dlUTRDU2x5dnptYjktcDByUnd6NDFPX3YwX3dJRDI4b1hrQ1NSU0hoLVlnVzIxTjJsVHktSUU2cHjSAZgBQVVfeXFMT1EzOF9iaGQxYzk4RUdyUGZVb0pjM0xQUGlQU3l3ZjNBSWFyS2pjQXBOOWpLY2xuS2NLSVBFdHRhWDBNdVdOdkgySHJkcHc5NXg2S3laUEdjU1A5QTdWeEJGQVExWE5DdENTaE5QbEhtWWJPdkVza2FUMjd0Qko4Mk1yR2VJeWhfaGZyTVNiUGJ2X2NEOVBYVjY?oc=5"
+        },
+        {
+          "title": "Ego Power+ Cordless Pressure Washer Review: Powerful but Pricey - BobVila.com",
+          "source": "Google News",
+          "publishedAt": "2026-09-12T07:00:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMid0FVX3lxTE1OVkM4ZWhzQmpyUlZ5Z3Jmc3pyel9STTVDZnF1VEdHdERlM21OcUt0UFlUTlVhZG5pUWhyS2hBRTdGZHRNUjhJWGhmQ01EZGZxSXZBcXVPT0Uweno4WXdwbzluUUJYeC1ySUNQTjJXVlE3Umo1YzVN?oc=5"
+        },
+        {
+          "title": "In a Decade of Testing Pressure Washers, These Are the Smallest, Most Powerful Models Yet - The New York Times",
+          "source": "Google News",
+          "publishedAt": "2026-06-05T07:00:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMickFVX3lxTE12V2hOQ2d1Z0xiSU0ySWNYbmpaS0ZaOC1oc3QzazB3WU5oRHcxV1B1RjNhdHFmckxHc0pEdlRFUGQtN2dkUWtoTHZiQWVWSi02ZV9xTElkQ0xTNWw1MjFnakpCT0pkUTliaWh1aGVWN0RUdw?oc=5"
+        }
+      ],
+      "rank": 1
+    },
+    {
+      "slug": "scrubber",
+      "name": "5-in-1 Electric Spin Scrubber",
+      "signalScore": 77.5,
+      "signalLabel": "high-attention",
+      "evidence": {
+        "publicMentions": 93,
+        "mentionsLast7Days": 0,
+        "mentionsLast30Days": 5,
+        "sourcesAvailable": [
+          "Google News",
+          "Bing News"
+        ]
+      },
+      "sampleSignals": [
+        {
+          "title": "Spend Less Time Scrubbing With These Top-Tested Picks - Good Housekeeping",
+          "source": "Google News",
+          "publishedAt": "2026-06-25T07:00:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMijAFBVV95cUxPeHdhUGRKUmlMQy1qT2hYWXZISTJDcExWc1hFVkoxQXQ0cldiWUVGTFlnOWNNVDQxS0kwRjg0MTFZaUp3X3M4WDhFUjNJLVRYT201NjNKZlkxWmNIYVd3T1JfSGs3dDFTMXQyUGNEcmVFdUtmSHJwUTduM015VGNYNHl4MFd4TDlRSnJBbw?oc=5"
+        },
+        {
+          "title": "Back or joint pain? This electric scrubber means no kneeling down to clean — it's usually $150, but it's on sale for $45 ahead of October Prime Day - Yahoo Lifestyle Canada",
+          "source": "Google News",
+          "publishedAt": "2026-09-22T07:00:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMijwJBVV95cUxNcDFRcm1TT183LWtEanVuS2hYRWhqUkhsdlEyeHRZS0hsOUVBRXNKWkc1dE1oakk5TUlkcE1vRFlrWkVFVE5YWFZOcjg5MVp1SkgyZnpqY1NFc1Z5dHBkZ1UtV2ppdmRRTFFEOGx1TUNYYmlfc1d6aFk5ZUhOLTJoZ1R6MldTOUFDUnV5bWo0SWFma0xGMWUwM0F5S0VhbXQ4V3FuLTBySGwxMU9iZzN6OVZGVVUyNnBZUXhYRHJyYUZHMWJZWkg5U0R4RFkydEhDNjJ4M3NBVjlNSzFUWVFBNU5mRFU1RmNCckRMOGM5aE1Sdlo2QjNrRVRRd0NJa2Rra3R1S3dvSFk1T0N2Qmcw?oc=5"
+        },
+        {
+          "title": "These electric spin scrubbers clean grout, tubs, and floors with ease - Business Insider",
+          "source": "Google News",
+          "publishedAt": "2026-04-22T07:00:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMie0FVX3lxTE40c3JDUmdvYnFzQW4wNUE0VUdoWVMzUk1MT1VGOTBMbDdIT0tBcU1IbzMwWmNwME5za1ozalNqUWdkVDNMV1d0WUx5YUpOSU9TRGhWR1VVTzktT3VBOXR0d0pQM0hpQVZpU2hRdFN4M3dXRlpiejRwSUlDMA?oc=5"
+        },
+        {
+          "title": "I Have a Leg Injury, and This Extendable Spin Scrubber Has Been a Lifesaver in Keeping My Bathroom Spotless - Apartment Therapy",
+          "source": "Google News",
+          "publishedAt": "2026-09-11T07:00:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMihgFBVV95cUxPOF92S3dDMlBWc1ptWEpxX0pxNWd5emtEbHdyMXg4NkxhUWxweGVsR1pGMXotcElFNGQtWldFRkNtUzdRWGE5aFdFNFl3NW5NYVdlbzhJVk9YMUpsLUF0Mkp4MGFfVlVXVll1Qmo5Yl9sRnhrdkJwMVpxRjlNc2NFc0E5NmhQZw?oc=5"
+        },
+        {
+          "title": "6 Electric Scrubbers Our Editors Tested and Love for Effortlessly Clean Surfaces - Real Simple",
+          "source": "Google News",
+          "publishedAt": "2026-08-07T07:00:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMiakFVX3lxTE1oaV9ZeXV0ZjBvUS00bTdZQW1MU3JYOU1PMHdBaEYwY2lPV1VPeUxRSV9QVWVqUmIwTUR4WmE5bGF4LV94SDZHWDFTQ1p2S2xJNUVQaE02UVJaZEZ3TEtrRlZKV2dYMGYxYnc?oc=5"
+        }
+      ],
+      "rank": 2
+    },
+    {
+      "slug": "mattress-vacuum",
+      "name": "Mattress Vacuum",
+      "signalScore": 77.5,
+      "signalLabel": "high-attention",
+      "evidence": {
+        "publicMentions": 105,
+        "mentionsLast7Days": 0,
         "mentionsLast30Days": 6,
         "sourcesAvailable": [
           "Google News",
@@ -51,113 +147,17 @@
           "url": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxNbzVTWEJoMDJjVjhXZDI0Y3pidGdOVVpsYmk2b2YwNnBWN21RbnJlMFEzOFFDb0luZUpsZHQ5TEJkR0NLY1I4TE5xbXJWcGVZbjN2UE41b085WmhBNnpKQmhRSGJ3Q3FjdlRjRTR3b2pNWm8taDM1Rjkza0ZqdDlfXzZaWV9TN1dEVDNNZXZqak9oY1FoSUVxaGVXTDJHRTIwYlRiTDBrS1Q5UdIBvgFBVV95cUxQSmFCYUJJckRseEt2Ql8xalZQUHV0VVg0cldzQ0MybUUzMDlES25DWGZ3cjR2cFlPUnBDdi1VMlVyQnRRaEhfeFlfYl9LZW5qX1BEczFxZE1aYV9LZl9yTFF0N2d6ZEpLRG9DODlKdDU4NGtlUUxUc0hmQmhpWnZBeUtoU2k3OFJGOURxcE1nNENjZm43RGJjeWZ6NFN0N0NCaTR0N0VKMkVOSjlFOWJnNnA1dEh1SHIwa3lCdVFn?oc=5"
         }
       ],
-      "rank": 1
-    },
-    {
-      "slug": "scrubber",
-      "name": "5-in-1 Electric Spin Scrubber",
-      "signalScore": 76,
-      "signalLabel": "high-attention",
-      "evidence": {
-        "publicMentions": 92,
-        "mentionsLast7Days": 0,
-        "mentionsLast30Days": 4,
-        "sourcesAvailable": [
-          "Google News",
-          "Bing News"
-        ]
-      },
-      "sampleSignals": [
-        {
-          "title": "Spend Less Time Scrubbing With These Top-Tested Picks - Good Housekeeping",
-          "source": "Google News",
-          "publishedAt": "2026-06-25T07:00:00.000Z",
-          "url": "https://news.google.com/rss/articles/CBMijAFBVV95cUxPeHdhUGRKUmlMQy1qT2hYWXZISTJDcExWc1hFVkoxQXQ0cldiWUVGTFlnOWNNVDQxS0kwRjg0MTFZaUp3X3M4WDhFUjNJLVRYT201NjNKZlkxWmNIYVd3T1JfSGs3dDFTMXQyUGNEcmVFdUtmSHJwUTduM015VGNYNHl4MFd4TDlRSnJBbw?oc=5"
-        },
-        {
-          "title": "I Have a Leg Injury, and This Extendable Spin Scrubber Has Been a Lifesaver in Keeping My Bathroom Spotless - Apartment Therapy",
-          "source": "Google News",
-          "publishedAt": "2026-09-11T07:00:00.000Z",
-          "url": "https://news.google.com/rss/articles/CBMihgFBVV95cUxPOF92S3dDMlBWc1ptWEpxX0pxNWd5emtEbHdyMXg4NkxhUWxweGVsR1pGMXotcElFNGQtWldFRkNtUzdRWGE5aFdFNFl3NW5NYVdlbzhJVk9YMUpsLUF0Mkp4MGFfVlVXVll1Qmo5Yl9sRnhrdkJwMVpxRjlNc2NFc0E5NmhQZw?oc=5"
-        },
-        {
-          "title": "Back or joint pain? This electric scrubber means no kneeling down to clean — it's usually $150, but it's on sale for $45 ahead of October Prime Day - Yahoo Lifestyle Canada",
-          "source": "Google News",
-          "publishedAt": "2026-09-22T07:00:00.000Z",
-          "url": "https://news.google.com/rss/articles/CBMijwJBVV95cUxNcDFRcm1TT183LWtEanVuS2hYRWhqUkhsdlEyeHRZS0hsOUVBRXNKWkc1dE1oakk5TUlkcE1vRFlrWkVFVE5YWFZOcjg5MVp1SkgyZnpqY1NFc1Z5dHBkZ1UtV2ppdmRRTFFEOGx1TUNYYmlfc1d6aFk5ZUhOLTJoZ1R6MldTOUFDUnV5bWo0SWFma0xGMWUwM0F5S0VhbXQ4V3FuLTBySGwxMU9iZzN6OVZGVVUyNnBZUXhYRHJyYUZHMWJZWkg5U0R4RFkydEhDNjJ4M3NBVjlNSzFUWVFBNU5mRFU1RmNCckRMOGM5aE1Sdlo2QjNrRVRRd0NJa2Rra3R1S3dvSFk1T0N2Qmcw?oc=5"
-        },
-        {
-          "title": "These electric spin scrubbers clean grout, tubs, and floors with ease - Business Insider",
-          "source": "Google News",
-          "publishedAt": "2026-04-22T07:00:00.000Z",
-          "url": "https://news.google.com/rss/articles/CBMie0FVX3lxTE40c3JDUmdvYnFzQW4wNUE0VUdoWVMzUk1MT1VGOTBMbDdIT0tBcU1IbzMwWmNwME5za1ozalNqUWdkVDNMV1d0WUx5YUpOSU9TRGhWR1VVTzktT3VBOXR0d0pQM0hpQVZpU2hRdFN4M3dXRlpiejRwSUlDMA?oc=5"
-        },
-        {
-          "title": "6 Electric Scrubbers Our Editors Tested and Love for Effortlessly Clean Surfaces - Real Simple",
-          "source": "Google News",
-          "publishedAt": "2026-08-07T07:00:00.000Z",
-          "url": "https://news.google.com/rss/articles/CBMiakFVX3lxTE1oaV9ZeXV0ZjBvUS00bTdZQW1MU3JYOU1PMHdBaEYwY2lPV1VPeUxRSV9QVWVqUmIwTUR4WmE5bGF4LV94SDZHWDFTQ1p2S2xJNUVQaE02UVJaZEZ3TEtrRlZKV2dYMGYxYnc?oc=5"
-        }
-      ],
-      "rank": 2
-    },
-    {
-      "slug": "pressure-washer",
-      "name": "Cordless Pressure Washer",
-      "signalScore": 74,
-      "signalLabel": "high-attention",
-      "evidence": {
-        "publicMentions": 104,
-        "mentionsLast7Days": 1,
-        "mentionsLast30Days": 1,
-        "sourcesAvailable": [
-          "Google News",
-          "Bing News"
-        ]
-      },
-      "sampleSignals": [
-        {
-          "title": "EGO’s Newest Pressure Washer is Made for Your Car - Pro Tool Reviews",
-          "source": "Google News",
-          "publishedAt": "2026-10-22T11:48:45.000Z",
-          "url": "https://news.google.com/rss/articles/CBMihwFBVV95cUxNRjZKSi00T1NneWpZcjNHb0pkR0l4VHN2RHlyUW84cXB6TmotQk9XTkJKQmdfb1lvdVl0aGZKQ1JaNVNPSFlBbEUxRTJxZ0hWTE1nS1NVcDBiSzhaUndRd3JSVk9FTTRlcURvY09BQ2NWYnIwdkJRNTlCZ0RnSmZ2SEtXb1Boem8?oc=5"
-        },
-        {
-          "title": "If You'd Rather Wash Your Car Than Strip Its Paint, These Cordless Power Washers Are The Tool You Want - Popular Mechanics",
-          "source": "Google News",
-          "publishedAt": "2026-07-24T07:00:00.000Z",
-          "url": "https://news.google.com/rss/articles/CBMiggFBVV95cUxQZzA5TzBxdm5yX1RYc3RkUHpOV0FRdmF2YnV6Vk9ma3cweHFkM0xoTzAxQXo5OThsS3BVZ2hOWTdXOWVlQUZnYTBXaHZfUkRmN1BsMVc5RlR1YngtdVNIdWZfZGJpRmd0dDBuMXNJLXlFRllZREJWYktndWYyWVJJU0Zn?oc=5"
-        },
-        {
-          "title": "Does it work? Hydro X5 cordless pressure washer - KY3",
-          "source": "Google News",
-          "publishedAt": "2026-08-12T07:00:00.000Z",
-          "url": "https://news.google.com/rss/articles/CBMihAFBVV95cUxPVUxYNWVJWVFYUWRES0d1Y2plUHV6b0poQ1dfOEpadkNmM3ZSbnpYZ2FiZDNQaXRRRHB1dVg4Q0ljWDJTdnM0WFJGY3dlUTRDU2x5dnptYjktcDByUnd6NDFPX3YwX3dJRDI4b1hrQ1NSU0hoLVlnVzIxTjJsVHktSUU2cHjSAZgBQVVfeXFMT1EzOF9iaGQxYzk4RUdyUGZVb0pjM0xQUGlQU3l3ZjNBSWFyS2pjQXBOOWpLY2xuS2NLSVBFdHRhWDBNdVdOdkgySHJkcHc5NXg2S3laUEdjU1A5QTdWeEJGQVExWE5DdENTaE5QbEhtWWJPdkVza2FUMjd0Qko4Mk1yR2VJeWhfaGZyTVNiUGJ2X2NEOVBYVjY?oc=5"
-        },
-        {
-          "title": "Ego Power+ Cordless Pressure Washer Review: Powerful but Pricey - BobVila.com",
-          "source": "Google News",
-          "publishedAt": "2026-09-12T07:00:00.000Z",
-          "url": "https://news.google.com/rss/articles/CBMid0FVX3lxTE1OVkM4ZWhzQmpyUlZ5Z3Jmc3pyel9STTVDZnF1VEdHdERlM21OcUt0UFlUTlVhZG5pUWhyS2hBRTdGZHRNUjhJWGhmQ01EZGZxSXZBcXVPT0Uweno4WXdwbzluUUJYeC1ySUNQTjJXVlE3Umo1YzVN?oc=5"
-        },
-        {
-          "title": "In a Decade of Testing Pressure Washers, These Are the Smallest, Most Powerful Models Yet - The New York Times",
-          "source": "Google News",
-          "publishedAt": "2026-06-05T07:00:00.000Z",
-          "url": "https://news.google.com/rss/articles/CBMickFVX3lxTE12V2hOQ2d1Z0xiSU0ySWNYbmpaS0ZaOC1oc3QzazB3WU5oRHcxV1B1RjNhdHFmckxHc0pEdlRFUGQtN2dkUWtoTHZiQWVWSi02ZV9xTElkQ0xTNWw1MjFnakpCT0pkUTliaWh1aGVWN0RUdw?oc=5"
-        }
-      ],
       "rank": 3
     },
     {
       "slug": "garment-steamer",
       "name": "Portable Garment Steamer",
-      "signalScore": 71,
+      "signalScore": 75.5,
       "signalLabel": "high-attention",
       "evidence": {
-        "publicMentions": 31,
-        "mentionsLast7Days": 0,
-        "mentionsLast30Days": 3,
+        "publicMentions": 29,
+        "mentionsLast7Days": 1,
+        "mentionsLast30Days": 5,
         "sourcesAvailable": [
           "Google News",
           "Bing News"
@@ -165,10 +165,10 @@
       },
       "sampleSignals": [
         {
-          "title": "Say Goodbye to Wrinkled Clothing with an Easy-to-Use Clothes Steamer — Prices Start at $31 - People.com",
+          "title": "We Tested 18 Travel Steamers—These 9 Keep Clothes Wrinkle-free - Travel + Leisure",
           "source": "Google News",
-          "publishedAt": "2026-05-06T07:00:00.000Z",
-          "url": "https://news.google.com/rss/articles/CBMiXEFVX3lxTE9HWkFheEdZLU5KN28wQmVlLVZWVFJZSUZpcFlSTmJLSFJJc3lacVNuUTNycF9SN0tnRmM4QnZ1SXNwcDFid3kya1RUU2J0cjEyQUxOY1N6YXI0UHI3?oc=5"
+          "publishedAt": "2026-10-23T07:00:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMibkFVX3lxTE9Wd0NtOV9wTS1JUl9UUG5oQzV0UnEwVG93X29YS0NvZTlqVXAxeWh1bFhyeEhZenNwY25sUEZMNWdhaHh4M1hqSXJtMWdGcVNXTUx3N29tNXliOGZqb1QzVldUSEtYZktoRnNRbWJR?oc=5"
         },
         {
           "title": "Best travel steamers 2026: tested and reviewed for wrinkle-free packing - CN Traveller",
@@ -189,10 +189,10 @@
           "url": "https://news.google.com/rss/articles/CBMiigFBVV95cUxPOEltbERZMDMtemlzdFRPSUdTZGFXLVJDTUJpWWZrMGtSLVVFMDlSWWxHS3YzSXpydFhpWUlyTmd5dTYyMTBaMEtuT1VMazI2SUxzQkhSSVZEV0tqTTdzRGhlYlZxWEw5RVhxSkpsS0xsQjA4cFNkX2Jjb1NYem04OTR0TzNnQlZ1WlE?oc=5"
         },
         {
-          "title": "We Tested 18 Travel Steamers—These 9 Keep Clothes Wrinkle-free - Travel + Leisure",
+          "title": "Amazon Prime Day 2023: Get a Portable Garment Steamer With 65,000+ 5-Star Amazon Reviews for Just $28 - E! News",
           "source": "Google News",
-          "publishedAt": "2022-11-16T17:08:14.000Z",
-          "url": "https://news.google.com/rss/articles/CBMibkFVX3lxTE9Wd0NtOV9wTS1JUl9UUG5oQzV0UnEwVG93X29YS0NvZTlqVXAxeWh1bFhyeEhZenNwY25sUEZMNWdhaHh4M1hqSXJtMWdGcVNXTUx3N29tNXliOGZqb1QzVldUSEtYZktoRnNRbWJR?oc=5"
+          "publishedAt": "2023-07-12T07:00:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMi0gFBVV95cUxOdDk2RDdCUE1xN09MdVBTQ1VhbTY3X1BFZkhYT090cWF1Y0s0b0Z0S2hPODlUb0dYUFBaeHRxRVduMHh0STVtSXNZOVRINTNhd0d6VE9HTHduY29xTHRYbVpaN0p1RTNEOEU4eHFERksybmpyUmRMNUd6ZnZYaEtZSUZzN04zd2JJd3ZfRk9YYm82ZUFBS0NOcGZmVzFxeEg1bjFYYTBxaGdoN0RZd3lwYW5OSTk2ZkdOUlhkSkJfbDh5aHVETDktMEYtOFJ6R3pTWmc?oc=5"
         }
       ],
       "rank": 4
@@ -200,11 +200,11 @@
     {
       "slug": "pethair",
       "name": "Reusable Pet Hair Remover",
-      "signalScore": 50,
-      "signalLabel": "active",
+      "signalScore": 47,
+      "signalLabel": "watch",
       "evidence": {
         "publicMentions": 11,
-        "mentionsLast7Days": 2,
+        "mentionsLast7Days": 1,
         "mentionsLast30Days": 3,
         "sourcesAvailable": [
           "Google News",
@@ -219,16 +219,16 @@
           "url": "https://news.google.com/rss/articles/CBMimAFBVV95cUxNS1JPT1c5cVFpZFV5T25hU0kzenpnaDM4STZzQWo4Qk9aQXZTc2NSZFlTSmtLS1RCNlpodEt6cWZlNVNQS0d1cVlaQmViZVJpUkpXTmcyb3o0OEh3Y3pLVUtQZnJVZ08td2g3NV9YdkRTVmkxWFJvX1lBdXdKSUVKTUNWSTNybXpQMmZEVnMyOUlYV2xIZ3d5dw?oc=5"
         },
         {
-          "title": "10 Best Cat Hair Remover Tools in 2026 - Reviews & Top Picks - Catster",
-          "source": "Google News",
-          "publishedAt": "2026-10-18T19:36:22.000Z",
-          "url": "https://news.google.com/rss/articles/CBMid0FVX3lxTE9TRHBxazJndGdPZkxWeW5xUGRibHc4aGJjUjBRN2tueTdCU1I1dEx2N1RXSGYteThUejc1cWlBcnNiOGhDYmNYSVVRUk0wN1djTE9Ub2VZYzV5VGJYczFLTHo2MHhWdEpXckdnX3V5U0pyOUNTVFpN?oc=5"
-        },
-        {
           "title": "The 10 Best Pet Hair Removers We Tested, Including Laundry Sheets and Lint Rollers - People.com",
           "source": "Google News",
           "publishedAt": "2026-04-29T07:00:00.000Z",
           "url": "https://news.google.com/rss/articles/CBMiW0FVX3lxTE56STN5dFAtRmlSdG04UW8zZWlkemZwOW4wQTJFeUt5ZU9hYmhrYmJGb1Y1a3p3WDFsaVpkWFBLTkNyR2dMZnNzT2N5UjFoQ0pCZnNTc1hUOUQ3ZE0?oc=5"
+        },
+        {
+          "title": "10 Best Cat Hair Remover Tools in 2026 - Reviews & Top Picks - Catster",
+          "source": "Google News",
+          "publishedAt": "2026-10-18T19:36:22.000Z",
+          "url": "https://news.google.com/rss/articles/CBMid0FVX3lxTE9TRHBxazJndGdPZkxWeW5xUGRibHc4aGJjUjBRN2tueTdCU1I1dEx2N1RXSGYteThUejc1cWlBcnNiOGhDYmNYSVVRUk0wN1djTE9Ub2VZYzV5VGJYczFLTHo2MHhWdEpXckdnX3V5U0pyOUNTVFpN?oc=5"
         },
         {
           "title": "Best Prime Big Deal Days Sales on Pet Products - Consumer Reports",
@@ -248,10 +248,10 @@
     {
       "slug": "crevice",
       "name": "3-in-1 Crevice Cleaning Brush",
-      "signalScore": 37.5,
+      "signalScore": 39,
       "signalLabel": "watch",
       "evidence": {
-        "publicMentions": 9,
+        "publicMentions": 10,
         "mentionsLast7Days": 0,
         "mentionsLast30Days": 1,
         "sourcesAvailable": [
@@ -285,55 +285,13 @@
           "url": "https://news.google.com/rss/articles/CBMi1gFBVV95cUxNcEhyRlB4aXZhWUFQLV81OUpVOG9sU2g0eFl5eWhpd216a3UwWE5xekRIeFlqbGJjX3VBMi1UbHhITFlUQVlEM1BWYjBsSW85NWFFZEpFUjRteS16ejRpUVJpclZJZ1dHbTA4UThYX2tOY3prWE81QWktVmtTNTdMc0Z2UnNUcWRtaXU0RGpLMHc2ZGwyNkU2UmZMT3g4cFZJbGI2ZXFCdjk2MnlEaGpRQ200WGhSV0xobENKRFktZ0xuSF9ndUFLZ0ZrUFJsYWpvZ01VMVNB?oc=5"
         },
         {
-          "title": "Amazon Shoppers Bought This $10 Cleaning Tool More Than 2,000 Times Last Month (You'll Use It in Every Room!) - Apartment Therapy",
+          "title": "The $3 Tool That Gets Rid of All the Grime and Leaves Surfaces Spotless - Apartment Therapy",
           "source": "Google News",
-          "publishedAt": "2024-06-04T07:00:00.000Z",
-          "url": "https://news.google.com/rss/articles/CBMigwFBVV95cUxNaEppZ1kxQmNqdm1LbTVfVTdmMmlkTU0zekl1c1BSdVBmSTZUMi1YUTdfRWlxUlR6ZGlRZEZ1Sk9Uc0JvLTJyUDRHc1hNRnNmRllKTjRvbmxyNlUzcmx4SzlzOWdVRXBQbWxyZ25VX2VlbDJrdmMxU3Z0b0hyXzN5SVpXOA?oc=5"
+          "publishedAt": "2023-08-24T07:00:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMijwFBVV95cUxQMEt5emphY3dTem5yN3NXMmN3QWJSU1lSZzExN2oyeVZjUUJ1NjZKaFpXMlNFbEROd21PR3l2VkZMLVdSYmpoWTVlcmZsRldVcDcwSlA4VE1JSmZTWFVxbEJicXQ0NmY4aXdLWF9oSUs0eUhIazdITk0yU1lweTFfTmZLbDd3bTRjdWVxdlQzaw?oc=5"
         }
       ],
       "rank": 6
-    },
-    {
-      "slug": "drain-catcher",
-      "name": "Sink Drain Catcher 2-Pack",
-      "signalScore": 24,
-      "signalLabel": "baseline",
-      "evidence": {
-        "publicMentions": 4,
-        "mentionsLast7Days": 0,
-        "mentionsLast30Days": 0,
-        "sourcesAvailable": [
-          "Google News",
-          "Bing News"
-        ]
-      },
-      "sampleSignals": [
-        {
-          "title": "This drain catcher has the best user ratings of any hair strainer for bathroom sinks, with tens of thousands of five-star reviews. Our Wirecutter testers found that it worked as advertised. https://nyti.ms/4wcvWoi - Facebook",
-          "source": "Google News",
-          "publishedAt": "2026-05-05T07:00:00.000Z",
-          "url": "https://news.google.com/rss/articles/CBMi0wFBVV95cUxQdkdzbFBpZGVfTHo5LTdhTjJlamZNdDJEUTh4NkxESjY5ZERoR1FnbzRrLTJ4WmFwbkxEUmZhZWh0cDM2dkh6Q21YaFA4ME1iY3VhVmxvc2NraEhmT3FQeW9RQ1F0Y1UzLUJjaTJ0Wk1mSlVBQWtiX2d1MHR5ZGlLRWNHTFJianpCWFZNLWdKNEdqWWFPbndEaHdZbjB4ZFBheHdoQjkxUEx2aXg3NDZxb1F5Q2g2My1oNXNGVjJOc1V4bFZtaUt1QjBZRklBYVNUaFJB?oc=5"
-        },
-        {
-          "title": "This drain catcher has the best user ratings of any hair strainer for bathroom sinks, with tens of thousands of five-star reviews. Our Wirecutter testers found that it worked as advertised, and it made their lives a little bit easier and a little less disgusting. https://nyti. - Facebook",
-          "source": "Google News",
-          "publishedAt": "2026-03-18T07:00:00.000Z",
-          "url": "https://news.google.com/rss/articles/CBMi0wFBVV95cUxNVUUxVVhkcXBtZDB2ODQtYk54WmFzbk5jckdQTEJWRGlnOWJZOHY5aVhlWUVqNUNINEJVOHBCVVNlZ0tlM0VwZWYtWW9sbnBBaUxSSGd1T2lCb3piYTMwa056RHhnTVNFV25aT01rOWlSOFFZSC03MlVmZGg2MUFuMkVncDBrXzRwTGhfcG5TT195Z1BzNFhCaVlBUmNZZjlSWU9jYW8xMWRNV0R5UnJhaUdVVDFhMGJ2a3AzNmVoX1l2ODZZTlpXazhRR19XSWtxZ3kw?oc=5"
-        },
-        {
-          "title": "This drain catcher has the best user ratings of any hair strainer for bathroom sinks, with tens of thousands of five-star reviews. Our Wirecutter testers found that it worked as advertised. https://nyti.ms/4814mzC - Facebook",
-          "source": "Google News",
-          "publishedAt": "2026-03-28T07:00:00.000Z",
-          "url": "https://news.google.com/rss/articles/CBMi0wFBVV95cUxQaU93U01HbWpRbVROOVQ3aVhKYWxUSEdKR3Bmbk5sdXotYmZNSG4ta1o5ZWUwOEp4VXBhNnJ2Wmg2NXBnSWxRVkZMNDlrRVk1OGhsR1N1dWdZZ2ZnaHl0M29ONFFvci15Q3BXQW5jOW0tRHREdWRQUFdBbDJEakZqRklkWWx5N2V1c1RkTi14dDh5ZWh4em1YM19qamNjN2ZaQmNPWEEwT2R1SzBPQzdrNXBPQmdjS2pNTlZnY0U5bzBPLU91MnhRS3ZsWVd0bEtZMjlR?oc=5"
-        },
-        {
-          "title": "7 reasons your sink won't drain – plus expert tips to unclog a sink like a pro - Homes and Gardens",
-          "source": "Google News",
-          "publishedAt": "2025-06-25T07:00:00.000Z",
-          "url": "https://news.google.com/rss/articles/CBMigAFBVV95cUxPanpVUU5ldG5La1Ryb1hfRnhOZlFRdFpLbkhDLTNSZnlSa3NVbzdOelJPWVAzNjZ5WVZTcDFQZHNfaWg1UHUwdGZ3MWdncHkteklzMlhvODZ6cXZHNldJQ1hlblFxbks5eUEzU1E2QnNOam8td1RTQ3RRcW5xcTB0VQ?oc=5"
-        }
-      ],
-      "rank": 7
     },
     {
       "slug": "home-caddy",
@@ -361,6 +319,36 @@
           "source": "Google News",
           "publishedAt": "2026-04-30T07:00:00.000Z",
           "url": "https://news.google.com/rss/articles/CBMivwFBVV95cUxQOXNiQWdmazZNR0M4ZTdUMzNJaHhZN2NSMmZHa0tWTmNnYzE3MGltaUcyNjlrMEdfMnlSbk9RY29ycm4tdmd5Y0wtNk9IMktyTzhmN0ZKTzBLTkloRHhvNlgtM0pIcFE4N2NCSUU2WXE0d0NOUy1WS00zWDdzczlBeFk4b3lvQVhCVXNudU5mbG5nNVlNSVJ2MGctMmhPMFNWMFRDUklIZG9tVFZubTVhX3lZeDhXVjBUSTFmMXFtNNIBxAFBVV95cUxPSGJnSkU3ZHNOYURTUThBaXFWbXREOXJlaXR1NVBUMU1vSDBsZlBGRHBPc2xuU3pURkZ5ekhFcy1VaWN0NUhmdU1OdGZsdy1LZTh4X243Vm9SMERCLUJZeUU2LTlKUF81RFY1Q0wxRm03N1EtYndHZmZrczc1am9xTWttWHk5U1diWGhWd3k3VlRfV0ZHRXNHNHB3bkY5MEg5c1U2aDRmN3R3MHZHSUZNYWpLWDNqTzRqZF9qQTlpazlSRWNz?oc=5"
+        }
+      ],
+      "rank": 7
+    },
+    {
+      "slug": "drain-catcher",
+      "name": "Sink Drain Catcher 2-Pack",
+      "signalScore": 21,
+      "signalLabel": "baseline",
+      "evidence": {
+        "publicMentions": 2,
+        "mentionsLast7Days": 0,
+        "mentionsLast30Days": 0,
+        "sourcesAvailable": [
+          "Google News",
+          "Bing News"
+        ]
+      },
+      "sampleSignals": [
+        {
+          "title": "This drain catcher has the best user ratings of any hair strainer for bathroom sinks, with tens of thousands of five-star reviews. Our Wirecutter testers found that it worked as advertised. https://nyti.ms/4814mzC - Facebook",
+          "source": "Google News",
+          "publishedAt": "2026-03-28T07:00:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMi0wFBVV95cUxQaU93U01HbWpRbVROOVQ3aVhKYWxUSEdKR3Bmbk5sdXotYmZNSG4ta1o5ZWUwOEp4VXBhNnJ2Wmg2NXBnSWxRVkZMNDlrRVk1OGhsR1N1dWdZZ2ZnaHl0M29ONFFvci15Q3BXQW5jOW0tRHREdWRQUFdBbDJEakZqRklkWWx5N2V1c1RkTi14dDh5ZWh4em1YM19qamNjN2ZaQmNPWEEwT2R1SzBPQzdrNXBPQmdjS2pNTlZnY0U5bzBPLU91MnhRS3ZsWVd0bEtZMjlR?oc=5"
+        },
+        {
+          "title": "7 reasons your sink won't drain – plus expert tips to unclog a sink like a pro - Homes and Gardens",
+          "source": "Google News",
+          "publishedAt": "2025-06-25T07:00:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMigAFBVV95cUxPanpVUU5ldG5La1Ryb1hfRnhOZlFRdFpLbkhDLTNSZnlSa3NVbzdOelJPWVAzNjZ5WVZTcDFQZHNfaWg1UHUwdGZ3MWdncHkteklzMlhvODZ6cXZHNldJQ1hlblFxbks5eUEzU1E2QnNOam8td1RTQ3RRcW5xcTB0VQ?oc=5"
         }
       ],
       "rank": 8

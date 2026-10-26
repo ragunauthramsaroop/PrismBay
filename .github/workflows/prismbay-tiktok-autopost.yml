@@ -1,0 +1,231 @@
+name: PrismBay TikTok Approved Autoposter
+
+on:
+  schedule:
+    # Daily 09:45 Guyana: read-only approval, identity and content-queue audit.
+    # This schedule must never submit a TikTok post.
+    - cron: '45 13 * * *'
+    # Monday, Wednesday, Friday 10:13 AM Guyana: one exact approved creative per run.
+    - cron: '13 14 * * 1,3,5'
+  workflow_dispatch:
+    inputs:
+      mode:
+        type: choice
+        description: 'Run validation only, or submit one previously approved exact creative'
+        options:
+          - audit
+          - publish-approved
+        default: audit
+  pull_request:
+    paths:
+      - 'config/tiktok-approved-autopost.json'
+      - 'docs/tiktok-automated-publishing-github.md'
+      - 'scripts/tiktok-zernio-autopost.mjs'
+      - 'scripts/tiktok-zernio-autopost.test.mjs'
+      - '.github/workflows/prismbay-tiktok-autopost.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'config/tiktok-publish-lock.json'
+      - 'config/tiktok-approved-autopost.json'
+      - 'docs/tiktok-automated-publishing-github.md'
+      - 'scripts/tiktok-zernio-autopost.mjs'
+      - 'scripts/tiktok-zernio-autopost.test.mjs'
+      - '.github/workflows/prismbay-tiktok-autopost.yml'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: prismbay-tiktok-approved-autopost
+  cancel-in-progress: false
+
+jobs:
+  security-and-approval-tests:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verify exact creative approval, deduplication, and remote API semantics
+        run: node --test scripts/tiktok-zernio-autopost.test.mjs
+      - name: Print only safe, blocked queue summary
+        run: node scripts/tiktok-zernio-autopost.mjs test-plan
+      - name: Show exact caption hashes for owner GitHub review
+        run: node scripts/tiktok-zernio-autopost.mjs hashes
+      - name: Publish workflow guardrail summary
+        if: always()
+        run: |
+          echo '### PrismBay TikTok automatic publishing policy' >> "$GITHUB_STEP_SUMMARY"
+          echo 'Only one exact owner-reviewed creative per eligible run, with media SHA256, caption approval, TikTok business account identity, posting disclosures, and a durable pre-submission ledger.' >> "$GITHUB_STEP_SUMMARY"
+          echo 'The existing creative publishing lock remains authoritative. No preview or PR event sends social posts.' >> "$GITHUB_STEP_SUMMARY"
+
+  publish-one-approved:
+    needs: security-and-approval-tests
+    if: >-
+      github.ref == 'refs/heads/main' && ((github.event_name == 'schedule' && github.event.schedule == '13 14 * * 1,3,5') || (github.event_name == 'workflow_dispatch' && inputs.mode == 'publish-approved') || (github.event_name == 'push' && startsWith(github.event.head_commit.message, 'release(tiktok): authorized-20261025')))
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    permissions:
+      contents: write
+    steps:
+      - name: Check out exact main branch
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Open durable GitHub branch containing all TikTok posting reservations
+        shell: bash
+        run: |
+          set -euo pipefail
+          git fetch origin automation/tiktok-post-ledger
+          state_dir="$RUNNER_TEMP/prismbay-tiktok-ledger"
+          git worktree add --detach "$state_dir" origin/automation/tiktok-post-ledger
+          test -f "$state_dir/automation/tiktok-ledger.json"
+          git -C "$state_dir" config user.name 'github-actions[bot]'
+          git -C "$state_dir" config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          echo "PRISMBAY_LEDGER_WORKTREE=$state_dir" >> "$GITHUB_ENV"
+      - name: Determine exactly one approved, unsubmitted media candidate
+        id: plan
+        run: node scripts/tiktok-zernio-autopost.mjs plan
+
+      - name: Set up Python
+        if: steps.plan.outputs.ready == 'true'
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install OSS renderer and create real product interface recordings
+        if: steps.plan.outputs.ready == 'true'
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m pip install --disable-pip-version-check --no-input pillow playwright
+          python -m playwright install --with-deps chromium
+          if ! command -v ffmpeg >/dev/null 2>&1; then
+            sudo apt-get update -qq
+            sudo apt-get install -y -qq ffmpeg
+          fi
+          node scripts/digital-growth-pages.mjs
+          python scripts/render-authentic-product-demos.py
+
+      - name: Verify exact approved MP4 bytes and locked creative digest
+        if: steps.plan.outputs.ready == 'true'
+        shell: bash
+        run: |
+          python - <<'PY'
+          import json,hashlib
+          from pathlib import Path
+          plan=json.loads(Path('build/tiktok-autopost/plan.json').read_text())
+          item=plan['candidate']
+          video=Path('build/authentic-demo-videos')/item['mediaFilename']
+          assert video.is_file()
+          digest=hashlib.sha256(video.read_bytes()).hexdigest()
+          assert digest==plan['expectedMediaSha256']==item['approval']['approvedMediaSha256'], 'media_mismatch_review_again'
+          manifest=json.loads(Path('build/authentic-demo-videos/media-manifest.json').read_text())
+          assert any(x['id']==item['creativeSlug'] and x['sha256']==digest for x in manifest['videos'])
+          print('PASS: approved original media identity, source and SHA256 match')
+          PY
+
+      - name: Publish only the approved original video to branded GitHub Pages media
+        if: steps.plan.outputs.ready == 'true'
+        shell: bash
+        run: |
+          set -euo pipefail
+          pages="$RUNNER_TEMP/prismbay-tiktok-media"
+          git fetch origin gh-pages
+          git worktree add --detach "$pages" origin/gh-pages
+          git -C "$pages" config user.name 'github-actions[bot]'
+          git -C "$pages" config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          test "$(cat "$pages/CNAME")" = 'clean.prismbayai.com'
+          fname=$(node -e "const p=require('./build/tiktok-autopost/plan.json');process.stdout.write(p.candidate.mediaFilename)")
+          mkdir -p "$pages/media/tiktok/approved"
+          cp "build/authentic-demo-videos/$fname" "$pages/media/tiktok/approved/$fname"
+          git -C "$pages" add "media/tiktok/approved/$fname"
+          if ! git -C "$pages" diff --cached --quiet; then
+            git -C "$pages" commit -m 'media: release approved original PrismBay TikTok creative'
+            for attempt in 1 2 3; do
+              git fetch origin gh-pages
+              if ! git -C "$pages" rebase origin/gh-pages; then
+                git -C "$pages" rebase --abort || true
+                echo 'Concurrent media edit must be reviewed; no TikTok post.' >&2
+                exit 1
+              fi
+              if git -C "$pages" push origin HEAD:gh-pages; then break; fi
+              if [[ "$attempt" = 3 ]]; then exit 1; fi
+              sleep $((attempt * 3))
+            done
+          fi
+
+      - name: Validate published video digest, TikTok account, creator permissions and audience
+        if: steps.plan.outputs.ready == 'true'
+        env:
+          ZERNIO_API_KEY: ${{ secrets.ZERNIO_API_KEY }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          for attempt in $(seq 1 12); do
+            if node scripts/tiktok-zernio-autopost.mjs preflight; then
+              echo 'Public media and creator account preflight passed'
+              exit 0
+            fi
+            if [[ "$attempt" = 12 ]]; then
+              echo 'External preflight did not pass. No TikTok post attempted.' >&2
+              exit 1
+            fi
+            sleep 20
+          done
+
+      - name: Reserve creative ID durably BEFORE any provider posting API request
+        if: steps.plan.outputs.ready == 'true'
+        shell: bash
+        run: |
+          set -euo pipefail
+          node scripts/tiktok-zernio-autopost.mjs reserve
+          git -C "$PRISMBAY_LEDGER_WORKTREE" add automation/tiktok-ledger.json
+          git -C "$PRISMBAY_LEDGER_WORKTREE" commit -m 'reserve: exact TikTok creative before provider POST'
+          git -C "$PRISMBAY_LEDGER_WORKTREE" push origin HEAD:automation/tiktok-post-ledger
+
+      - name: Submit only reserved, approved MP4 to Zernio TikTok Direct Post
+        if: steps.plan.outputs.ready == 'true'
+        env:
+          ZERNIO_API_KEY: ${{ secrets.ZERNIO_API_KEY }}
+        run: node scripts/tiktok-zernio-autopost.mjs publish
+
+      - name: Persist provider receipt and prevent future automatic repost
+        if: steps.plan.outputs.ready == 'true'
+        shell: bash
+        run: |
+          set -euo pipefail
+          node scripts/tiktok-zernio-autopost.mjs settle
+          git -C "$PRISMBAY_LEDGER_WORKTREE" add automation/tiktok-ledger.json
+          git -C "$PRISMBAY_LEDGER_WORKTREE" commit -m 'receipt: mark PrismBay TikTok creative submitted'
+          git -C "$PRISMBAY_LEDGER_WORKTREE" push origin HEAD:automation/tiktok-post-ledger
+
+      - name: Retain audited plan, preflight and sanitized provider receipt
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: prismbay-tiktok-approved-autopost-${{ github.run_id }}
+          path: |
+            build/tiktok-autopost/plan.json
+            build/tiktok-autopost/preflight.json
+            build/tiktok-autopost/receipt.json
+          if-no-files-found: ignore
+          retention-days: 14
+
+      - name: Report whether a TikTok post was actually submitted
+        if: always()
+        shell: bash
+        run: |
+          echo '### TikTok automating publisher' >> "$GITHUB_STEP_SUMMARY"
+          if [[ -f build/tiktok-autopost/receipt.json ]]; then
+            echo 'Provider response saved; published TikTok URL may arrive later. Verify platform status separately.' >> "$GITHUB_STEP_SUMMARY"
+            cat build/tiktok-autopost/receipt.json >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo 'No TikTok provider submission occurred in this run.' >> "$GITHUB_STEP_SUMMARY"
+          fi

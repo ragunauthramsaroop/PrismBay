@@ -1,0 +1,80 @@
+name: PrismBay TikTok Public URL Verification
+
+on:
+  schedule:
+    # Zernio can backfill TikTok public URLs after the initial API publication.
+    - cron: '23 */3 * * *'
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/tiktok-post-url-reconcile.mjs'
+      - 'scripts/tiktok-post-url-reconcile.test.mjs'
+      - '.github/workflows/prismbay-tiktok-post-url-reconcile.yml'
+  pull_request:
+    paths:
+      - 'scripts/tiktok-post-url-reconcile.mjs'
+      - 'scripts/tiktok-post-url-reconcile.test.mjs'
+      - '.github/workflows/prismbay-tiktok-post-url-reconcile.yml'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: prismbay-tiktok-approved-autopost
+  cancel-in-progress: false
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node --test scripts/tiktok-post-url-reconcile.test.mjs
+
+  reconcile-published-links:
+    needs: test
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 7
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Read existing publisher ledger (no new posts)
+        run: |
+          set -euo pipefail
+          git fetch origin automation/tiktok-post-ledger
+          mkdir -p "$RUNNER_TEMP/prismbay"
+          git worktree add --detach "$RUNNER_TEMP/prismbay/tiktok-ledger" origin/automation/tiktok-post-ledger
+          git -C "$RUNNER_TEMP/prismbay/tiktok-ledger" config user.name 'github-actions[bot]'
+          git -C "$RUNNER_TEMP/prismbay/tiktok-ledger" config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          echo "PRISMBAY_LEDGER_WORKTREE=$RUNNER_TEMP/prismbay/tiktok-ledger" >> "$GITHUB_ENV"
+      - name: Ask Zernio whether the published TikTok public URL has resolved
+        env:
+          ZERNIO_API_KEY: ${{ secrets.ZERNIO_API_KEY }}
+        run: node scripts/tiktok-post-url-reconcile.mjs
+      - name: Persist only verified provider-reported TikTok URLs to ledger
+        run: |
+          set -euo pipefail
+          if ! git -C "$PRISMBAY_LEDGER_WORKTREE" diff --quiet; then
+            git -C "$PRISMBAY_LEDGER_WORKTREE" add automation/tiktok-ledger.json
+            git -C "$PRISMBAY_LEDGER_WORKTREE" commit -m 'receipt(tiktok): reconcile public post URL from Zernio'
+            git -C "$PRISMBAY_LEDGER_WORKTREE" push origin HEAD:automation/tiktok-post-ledger
+          fi
+      - name: Upload sanitized status evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: prismbay-tiktok-url-status-${{ github.run_id }}
+          path: build/tiktok-status/receipt.json
+          if-no-files-found: ignore
+          retention-days: 14

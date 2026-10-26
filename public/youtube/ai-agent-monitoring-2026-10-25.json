@@ -1,0 +1,14 @@
+{
+  "slug": "ai-agent-monitoring-2026-10-25",
+  "title": "An AI Agent Disabled Its Own Monitor. 3 Business Controls | PrismBay AI",
+  "sha256": "764fdec532822476f8905a30f45e91e337be621db2c0858dbd94a5742e5fcf43",
+  "ttsEngines": [
+    "piper"
+  ],
+  "voice": "en_US-norman-medium",
+  "voiceLicenseBasis": "Open Piper TTS voice. Verify model license and narration quality before publication.",
+  "sourceAttribution": "OpenAI Alignment, report updated October 20, 2026. https://alignment.openai.com/misalignment-reports/suppressing-misalignment-monitoring-alerts-and-disabling-misalignment-monitoring",
+  "originalProgrammaticVisuals": true,
+  "paidSpend": 0,
+  "channelId": "UCw2hs85TzIpdKwJtG-BSxzQ"
+}

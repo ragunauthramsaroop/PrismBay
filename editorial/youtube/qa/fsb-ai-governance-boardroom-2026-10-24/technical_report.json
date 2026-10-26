@@ -1,0 +1,48 @@
+{
+  "slug": "fsb-ai-governance-boardroom-2026-10-24",
+  "channelId": "UCw2hs85TzIpdKwJtG-BSxzQ",
+  "durationSeconds": 55.529002,
+  "videoCodec": "h264",
+  "audioCodec": "aac",
+  "width": 1080,
+  "height": 1920,
+  "audioMeanDb": -21.8,
+  "audioPeakDb": -2.7,
+  "ttsEngines": [
+    "piper"
+  ],
+  "originalVisualsDeclared": true,
+  "previewFrames": [
+    "editorial/youtube/qa/fsb-ai-governance-boardroom-2026-10-24/preview_01.jpg",
+    "editorial/youtube/qa/fsb-ai-governance-boardroom-2026-10-24/preview_02.jpg",
+    "editorial/youtube/qa/fsb-ai-governance-boardroom-2026-10-24/preview_03.jpg",
+    "editorial/youtube/qa/fsb-ai-governance-boardroom-2026-10-24/preview_04.jpg"
+  ],
+  "technicalChecks": {
+    "duration": true,
+    "dimensions": true,
+    "codecs": true,
+    "piperVoice": true,
+    "noDigitalClipping": true,
+    "soleChannel": true
+  },
+  "technicalPass": true,
+  "manualVisualReview": "PASS",
+  "manualNarrationReview": "NOT_PERFORMED",
+  "publicationApproved": true,
+  "paidSpendUSD": 0,
+  "machineNarrationReview": {
+    "completed": true,
+    "model": "faster-whisper tiny.en CPU",
+    "scriptWordCount": 124,
+    "transcribedWordCount": 123,
+    "wordSequenceSimilarity": 0.955,
+    "intelligibilityProxyPass": true,
+    "transcript": "On October 15, the Financial Stability Board published 12 sound practices for responsible AI in financial institutions, their guidance, not a new law, here are three executive checks. First, identify the accountable owner who approves consequential actions. An AI agent's technical access is not business authorization, second, demand evidence, test performance before launch, track failures after launch, and document decisions. A confident answer is not proof of control. Third, test intervention. Can your team pause the workflow, revoke access, and recover when a vendor or agent fails. Pick one real AI workflow, find its named owner, performance record, and tested stock procedure. Missing answers become management actions. Those are Prism-based three checks inspired by the FSB guidance. Subscribe for practical AI business systems.",
+    "humanListeningReview": "NOT PERFORMED"
+  },
+  "visualReviewBasis": "Inspected four extracted frames at approximately 12%, 35%, 62%, and 88% of the 55.53-second video. Distinct original white/orange boardroom visual system, diagrams, readable labels, no visible clipping in sampled frames. Not a full frame-by-frame review.",
+  "narrationQualityReview": "PASS_WITH_LIMITATION: automated ASR 95.5% word-sequence similarity to original approved script, 123/124 transcribed words, corrected audio peak -2.7 dB. Direct human listening not performed; one ASR phrase heard as 'stock procedure' instead of 'stop procedure'.",
+  "approvalBasis": "Machine-verified narration, safe audio peak, primary-source fact check, inspected four visual frames, original custom diagrams, correct sole channel. Human listening not performed; disclose synthetic narration in metadata.",
+  "editorialApprovalDate": "2026-10-24"
+}

@@ -1,5 +1,7 @@
 {
   "locked": true,
-  "reason": "Creative reset requested after quality review. No new TikTok posts until premium replacements are explicitly approved.",
-  "lockedAt": "2026-10-06T03:36:00Z"
+  "reason": "Owner explicitly rejected the published video quality on 2026-10-25. NO automated TikTok posts until real licensed footage, new creative, editorial review and new explicit approval. Previous authorization revoked.",
+  "lockedAt": "2026-10-25T19:50:00Z",
+  "supersedes": "2026-10-25 initial approvals",
+  "ownerFeedback": "The published videos were unacceptable. Stop posts."
 }

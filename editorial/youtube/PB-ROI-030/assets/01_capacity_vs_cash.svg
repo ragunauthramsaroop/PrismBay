@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080" role="img" aria-labelledby="title desc">
+<title id="title">Capacity released is not cash saved</title>
+<desc id="desc">Original PrismBay AI comparison showing 66.7 hours of released capacity alongside 1050 dollars of verified overtime avoided in a hypothetical AI pilot. These are separate benefit ledgers and must not be added together.</desc>
+<defs>
+<linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#081526"/><stop offset="1" stop-color="#132D43"/></linearGradient>
+<linearGradient id="card" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#142A41"/><stop offset="1" stop-color="#102338"/></linearGradient>
+</defs>
+<rect width="1920" height="1080" fill="url(#bg)"/>
+<rect x="80" y="82" width="10" height="74" rx="5" fill="#55E0CB"/>
+<text x="120" y="136" font-family="DejaVu Sans, sans-serif" font-size="64" font-weight="bold" fill="#F6FAFF">TIME RELEASED ≠ CASH SAVED</text>
+<text x="120" y="205" font-family="DejaVu Sans, sans-serif" font-size="29" fill="#B8CDE1">A finance-ready AI pilot keeps operational capacity and verified cash in separate ledgers.</text>
+<rect x="90" y="277" width="825" height="595" rx="32" fill="url(#card)" stroke="#315574" stroke-width="3"/>
+<rect x="1005" y="277" width="825" height="595" rx="32" fill="url(#card)" stroke="#315574" stroke-width="3"/>
+<rect x="130" y="325" width="220" height="46" rx="23" fill="#1C6D78"/>
+<text x="159" y="358" font-family="DejaVu Sans, sans-serif" font-size="25" font-weight="bold" fill="#E9FFFF">LEDGER A</text>
+<text x="130" y="433" font-family="DejaVu Sans, sans-serif" font-size="43" font-weight="bold" fill="#F5FBFF">Capacity released</text>
+<text x="130" y="568" font-family="DejaVu Sans, sans-serif" font-size="100" font-weight="bold" fill="#55E0CB">66.7 h</text>
+<text x="130" y="643" font-family="DejaVu Sans, sans-serif" font-size="29" fill="#BCD0E1">1,000 requests × 4 minutes faster</text>
+<rect x="130" y="696" width="735" height="3" fill="#315574"/>
+<text x="130" y="757" font-family="DejaVu Sans, sans-serif" font-size="29" fill="#E7F1FA">More capacity for backlog or service.</text>
+<text x="130" y="810" font-family="DejaVu Sans, sans-serif" font-size="27" fill="#9EB9CC">Not a payroll saving by itself.</text>
+<rect x="1045" y="325" width="220" height="46" rx="23" fill="#315A8B"/>
+<text x="1074" y="358" font-family="DejaVu Sans, sans-serif" font-size="25" font-weight="bold" fill="#E9FFFF">LEDGER B</text>
+<text x="1045" y="433" font-family="DejaVu Sans, sans-serif" font-size="43" font-weight="bold" fill="#F5FBFF">Verified cash avoided</text>
+<text x="1045" y="568" font-family="DejaVu Sans, sans-serif" font-size="100" font-weight="bold" fill="#91BAFF">$1,050</text>
+<text x="1045" y="643" font-family="DejaVu Sans, sans-serif" font-size="29" fill="#BCD0E1">30 overtime hours × $35 per hour</text>
+<rect x="1045" y="696" width="735" height="3" fill="#315574"/>
+<text x="1045" y="757" font-family="DejaVu Sans, sans-serif" font-size="29" fill="#E7F1FA">Requires payroll or invoice evidence.</text>
+<text x="1045" y="810" font-family="DejaVu Sans, sans-serif" font-size="27" fill="#9EB9CC">Never double-count overlapping hours.</text>
+<text x="90" y="954" font-family="DejaVu Sans, sans-serif" font-size="28" fill="#D6E6F4">PRISMBAY AI  /  AI PILOT SCORECARD</text>
+<text x="1830" y="954" text-anchor="end" font-family="DejaVu Sans, sans-serif" font-size="26" fill="#94B0C5">HYPOTHETICAL ILLUSTRATION</text>
+</svg>

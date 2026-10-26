@@ -1,0 +1,14 @@
+{
+  "slug": "ai-model-switch-regression-gate-2026-10-26",
+  "targetChannelId": "UCw2hs85TzIpdKwJtG-BSxzQ",
+  "experimentId": "PB-MODEL-REGRESSION-20261026",
+  "sourceUrl": "https://airc.nist.gov/airmf-resources/playbook/measure/",
+  "sourceVerified": "2026-10-26",
+  "originalityGate": "regression_lab_v1 original model comparison matrix and failure gate, distinct from previous invoice, decision tree and boardroom layouts",
+  "machineNarrationReview": "Transcribe and compare with seven original spoken segments",
+  "manualNarrationReview": "PENDING",
+  "manualVisualReview": "PENDING",
+  "publishAllowed": false,
+  "publicationPolicy": "No scheduling or publishing without human listening, visual QA, license verification and duplication check",
+  "paidSpendUSD": 0
+}

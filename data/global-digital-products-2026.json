@@ -1,0 +1,718 @@
+{
+  "version": 1,
+  "updated": "2026-10-24",
+  "currency": "USD",
+  "seller": "PrismBay Digital",
+  "publication": "prototype_only",
+  "description": "Ten original starter prototypes. No new paid listing or payment link is active until pricing, file quality, licensed content and order-bound delivery have been verified.",
+  "products": [
+    {
+      "id": "cashflow-studio",
+      "name": "Small Business Cashflow Studio",
+      "category": "Spreadsheets and budgeting",
+      "priceUsd": 5.99,
+      "audience": "Freelancers and small businesses",
+      "problem": "Not knowing whether next month's revenue covers planned expenses",
+      "benefit": "Track monthly cash in, cash out, and forecast balance",
+      "format": "csv",
+      "headers": [
+        "Month",
+        "Opening Balance",
+        "Client Revenue",
+        "Other Income",
+        "Operating Costs",
+        "Owner Draw",
+        "Net Cash Change",
+        "Closing Balance"
+      ],
+      "rows": [
+        [
+          "January",
+          1000,
+          3200,
+          0,
+          1450,
+          700,
+          "=C2+D2-E2-F2",
+          "=B2+G2"
+        ],
+        [
+          "February",
+          "=H2",
+          3400,
+          0,
+          1500,
+          700,
+          "=C3+D3-E3-F3",
+          "=B3+G3"
+        ],
+        [
+          "March",
+          "=H3",
+          3600,
+          0,
+          1550,
+          700,
+          "=C4+D4-E4-F4",
+          "=B4+G4"
+        ]
+      ],
+      "steps": [
+        "Replace sample figures with your own monthly values.",
+        "Add the upcoming months before changing the timeline.",
+        "Check the closing balance before approving expenses."
+      ],
+      "hook": "Your sales number is not your cash balance.",
+      "claim": "Illustrative, user-editable cashflow model; not financial advice."
+    },
+    {
+      "id": "social-content-planner",
+      "name": "30-Day Social Content Planner",
+      "category": "Social media templates",
+      "priceUsd": 6.99,
+      "audience": "Small businesses and independent creators",
+      "problem": "Not having a reliable publishing calendar",
+      "benefit": "Plan 30 original content ideas across useful post types",
+      "format": "csv",
+      "headers": [
+        "Day",
+        "Audience Problem",
+        "Format",
+        "Hook",
+        "Useful Demonstration",
+        "CTA",
+        "Status"
+      ],
+      "rows": [
+        [
+          1,
+          "A common customer question",
+          "Short video",
+          "Show the first step",
+          "Show original product use or a real interface",
+          "Read the free guide",
+          "Draft"
+        ],
+        [
+          2,
+          "A mistake to avoid",
+          "Carousel",
+          "Compare two options",
+          "Show original product use or a real interface",
+          "Read the free guide",
+          "Draft"
+        ],
+        [
+          3,
+          "Before/after process",
+          "Static post",
+          "Answer the question",
+          "Show original product use or a real interface",
+          "Read the free guide",
+          "Draft"
+        ],
+        [
+          4,
+          "Frequently requested tip",
+          "Short video",
+          "Show the first step",
+          "Show original product use or a real interface",
+          "Read the free guide",
+          "Draft"
+        ],
+        [
+          5,
+          "Practical checklist",
+          "Carousel",
+          "Compare two options",
+          "Show original product use or a real interface",
+          "Read the free guide",
+          "Draft"
+        ],
+        [
+          6,
+          "A common customer question",
+          "Static post",
+          "Answer the question",
+          "Show original product use or a real interface",
+          "Read the free guide",
+          "Draft"
+        ],
+        [
+          7,
+          "A mistake to avoid",
+          "Short video",
+          "Show the first step",
+          "Show original product use or a real interface",
+          "Read the free guide",
+          "Draft"
+        ],
+        [
+          8,
+          "Before/after process",
+          "Carousel",
+          "Compare two options",
+          "Show original product use or a real interface",
+          "Read the free guide",
+          "Draft"
+        ],
+        [
+          9,
+          "Frequently requested tip",
+          "Static post",
+          "Answer the question",
+          "Show original product use or a real interface",
+          "Read the free guide",
+          "Draft"
+        ],
+        [
+          10,
+          "Practical checklist",
+          "Short video",
+          "Show the first step",
+          "Show original product use or a real interface",
+          "Read the free guide",
+          "Draft"
+        ],
+        [
+          11,
+          "A common customer question",
+          "Carousel",
+          "Compare two options",
+          "Show original product use or a real interface",
+          "Read the free guide",
+          "Draft"
+        ],
+        [
+          12,
+          "A mistake to avoid",
+          "Static post",
+          "Answer the question",
+          "Show original product use or a real interface",
+          "Read the free guide",
+          "Draft"
+        ],
+        [
+          13,
+          "Before/after process",
+          "Short video",
+          "Show the first step",
+          "Show original product use or a real interface",
+          "Read the free guide",
+          "Draft"
+        ],
+        [
+          14,
+          "Frequently requested tip",
+          "Carousel",
+          "Compare two options",
+          "Show original product use or a real interface",
+          "Read the free guide",
+          "Draft"
+        ],
+        [
+          15,
+          "Practical checklist",
+          "Static post",
+          "Answer the question",
+          "Show original product use or a real interface",
+          "Read the free guide",
+          "Draft"
+        ],
+        [
+          16,
+          "A common customer question",
+          "Short video",
+          "Show the first step",
+          "Show original product use or a real interface",
+          "Read the free guide",
+          "Draft"
+        ],
+        [
+          17,
+          "A mistake to avoid",
+          "Carousel",
+          "Compare two options",
+          "Show original product use or a real interface",
+          "Read the free guide",
+          "Draft"
+        ],
+        [
+          18,
+          "Before/after process",
+          "Static post",
+          "Answer the question",
+          "Show original product use or a real interface",
+          "Read the free guide",
+          "Draft"
+        ],
+        [
+          19,
+          "Frequently requested tip",
+          "Short video",
+          "Show the first step",
+          "Show original product use or a real interface",
+          "Read the free guide",
+          "Draft"
+        ],
+        [
+          20,
+          "Practical checklist",
+          "Carousel",
+          "Compare two options",
+          "Show original product use or a real interface",
+          "Read the free guide",
+          "Draft"
+        ],
+        [
+          21,
+          "A common customer question",
+          "Static post",
+          "Answer the question",
+          "Show original product use or a real interface",
+          "Read the free guide",
+          "Draft"
+        ],
+        [
+          22,
+          "A mistake to avoid",
+          "Short video",
+          "Show the first step",
+          "Show original product use or a real interface",
+          "Read the free guide",
+          "Draft"
+        ],
+        [
+          23,
+          "Before/after process",
+          "Carousel",
+          "Compare two options",
+          "Show original product use or a real interface",
+          "Read the free guide",
+          "Draft"
+        ],
+        [
+          24,
+          "Frequently requested tip",
+          "Static post",
+          "Answer the question",
+          "Show original product use or a real interface",
+          "Read the free guide",
+          "Draft"
+        ],
+        [
+          25,
+          "Practical checklist",
+          "Short video",
+          "Show the first step",
+          "Show original product use or a real interface",
+          "Read the free guide",
+          "Draft"
+        ],
+        [
+          26,
+          "A common customer question",
+          "Carousel",
+          "Compare two options",
+          "Show original product use or a real interface",
+          "Read the free guide",
+          "Draft"
+        ],
+        [
+          27,
+          "A mistake to avoid",
+          "Static post",
+          "Answer the question",
+          "Show original product use or a real interface",
+          "Read the free guide",
+          "Draft"
+        ],
+        [
+          28,
+          "Before/after process",
+          "Short video",
+          "Show the first step",
+          "Show original product use or a real interface",
+          "Read the free guide",
+          "Draft"
+        ],
+        [
+          29,
+          "Frequently requested tip",
+          "Carousel",
+          "Compare two options",
+          "Show original product use or a real interface",
+          "Read the free guide",
+          "Draft"
+        ],
+        [
+          30,
+          "Practical checklist",
+          "Static post",
+          "Answer the question",
+          "Show original product use or a real interface",
+          "Read the free guide",
+          "Draft"
+        ]
+      ],
+      "steps": [
+        "Replace each example problem with a customer question from your business.",
+        "Use photos and footage you own or are licensed to use.",
+        "Record posting results and revise the next week."
+      ],
+      "hook": "Thirty content slots. One reusable calendar.",
+      "claim": "Editable content-planning system, no guaranteed growth."
+    },
+    {
+      "id": "career-application-kit",
+      "name": "Professional Application Tracker",
+      "category": "Career templates",
+      "priceUsd": 7.99,
+      "audience": "Job seekers worldwide",
+      "problem": "Losing track of applications, role restrictions and follow-ups",
+      "benefit": "Track eligibility, application progress, contact and deadlines",
+      "format": "csv",
+      "headers": [
+        "Company",
+        "Role",
+        "Location Eligibility",
+        "Salary Range",
+        "Application Date",
+        "Stage",
+        "Next Action",
+        "Follow-Up Date"
+      ],
+      "rows": [
+        [
+          "Example Company",
+          "Partnerships Director",
+          "Worldwide remote",
+          "Research",
+          "2026-10-24",
+          "Research",
+          "Check eligibility",
+          "2026-10-28"
+        ]
+      ],
+      "steps": [
+        "Verify location eligibility before investing time in an application.",
+        "Tailor your CV to the role using truthful achievements.",
+        "Review your next-action column each workday."
+      ],
+      "hook": "Your job search needs a pipeline, not 40 browser tabs.",
+      "claim": "Tracker and guidance, not guaranteed employment."
+    },
+    {
+      "id": "weekly-planner",
+      "name": "Weekly Focus Planner",
+      "category": "Digital planners",
+      "priceUsd": 4.99,
+      "audience": "Students and busy professionals",
+      "problem": "Weekly plans without clear priorities",
+      "benefit": "A daily priority and reflection routine",
+      "format": "csv",
+      "headers": [
+        "Day",
+        "Priority 1",
+        "Priority 2",
+        "Priority 3",
+        "Key Appointment",
+        "One Result",
+        "Review"
+      ],
+      "rows": [
+        [
+          "Monday",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "Tuesday",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "Wednesday",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "Thursday",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "Friday",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "Saturday",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "Sunday",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ]
+      ],
+      "steps": [
+        "Choose a maximum of three meaningful priorities each day.",
+        "Reserve time for one critical task first.",
+        "Close the day by recording one completed result."
+      ],
+      "hook": "A smaller daily plan is easier to execute.",
+      "claim": "Printable and editable planning worksheet."
+    },
+    {
+      "id": "ai-workflow-pack",
+      "name": "AI Workflow Quality-Control Kit",
+      "category": "AI workflows",
+      "priceUsd": 9.99,
+      "audience": "Business owners and operations teams",
+      "problem": "Using AI outputs without source or quality checks",
+      "benefit": "Structure prompts, source checks, review and approvals",
+      "format": "csv",
+      "headers": [
+        "Workflow",
+        "Input Source",
+        "Allowed Data",
+        "Prompt Objective",
+        "Human Reviewer",
+        "Acceptance Test",
+        "Release State"
+      ],
+      "rows": [
+        [
+          "Draft product FAQs",
+          "Approved product catalog",
+          "Public facts only",
+          "Draft a concise FAQ based only on supplied facts",
+          "Content owner",
+          "No unsupported features or claims",
+          "Review required"
+        ]
+      ],
+      "steps": [
+        "Define the input data and the limits of AI authority.",
+        "Review evidence, clarity, and permissions before reuse.",
+        "Record every release decision for accountability."
+      ],
+      "hook": "AI output needs a quality gate before publication.",
+      "claim": "Workflow documentation, not a hosted or autonomous AI agent."
+    },
+    {
+      "id": "proposal-toolkit",
+      "name": "Small Business Proposal Toolkit",
+      "category": "Business documents",
+      "priceUsd": 9.99,
+      "audience": "Consultants and service businesses",
+      "problem": "Inconsistent scopes, milestones and change controls",
+      "benefit": "Structure an offer, scope, commercial assumptions and acceptance criteria",
+      "format": "csv",
+      "headers": [
+        "Workstream",
+        "Deliverable",
+        "Client Input",
+        "Timeline",
+        "Acceptance Evidence",
+        "Price",
+        "Status"
+      ],
+      "rows": [
+        [
+          "Discovery",
+          "Requirements brief",
+          "Briefing interview",
+          "Week 1",
+          "Signed scope",
+          "",
+          "Draft"
+        ],
+        [
+          "Delivery",
+          "Agreed output",
+          "Access to approved information",
+          "Week 2",
+          "Client review",
+          "",
+          "Draft"
+        ]
+      ],
+      "steps": [
+        "Define the client problem using their own terms.",
+        "Describe what is included and excluded from the quoted work.",
+        "Agree acceptance evidence before project execution."
+      ],
+      "hook": "A good proposal defines how both sides measure delivery.",
+      "claim": "Operational template, not legal or accounting advice."
+    },
+    {
+      "id": "service-pricing-guide",
+      "name": "Service Pricing Workbook",
+      "category": "Ebooks and workbooks",
+      "priceUsd": 5.99,
+      "audience": "Freelancers and agencies",
+      "problem": "Quoting projects without knowing delivery cost",
+      "benefit": "Estimate effort, direct cost, contingency and proposed price",
+      "format": "csv",
+      "headers": [
+        "Service",
+        "Hours",
+        "Internal Cost Per Hour",
+        "Direct Expenses",
+        "Contingency",
+        "Estimated Cost",
+        "Target Margin",
+        "Suggested Price"
+      ],
+      "rows": [
+        [
+          "Website setup",
+          12,
+          25,
+          50,
+          50,
+          "=B2*C2+D2+E2",
+          0.35,
+          "=F2/(1-G2)"
+        ],
+        [
+          "Monthly support",
+          6,
+          25,
+          20,
+          20,
+          "=B3*C3+D3+E3",
+          0.35,
+          "=F3/(1-G3)"
+        ]
+      ],
+      "steps": [
+        "Replace the cost inputs with verified figures.",
+        "Change target margin and inspect the output.",
+        "Compare your quote with customer value, market context and delivery risk."
+      ],
+      "hook": "Price your work after understanding the cost of delivery.",
+      "claim": "Illustrative pricing worksheet, not a guarantee of profitability."
+    },
+    {
+      "id": "landing-page-starter",
+      "name": "One-Page Business Website Starter",
+      "category": "Website templates",
+      "priceUsd": 14.99,
+      "audience": "Local services and independent businesses",
+      "problem": "A homepage that fails to explain the offer",
+      "benefit": "Start with a fast mobile-responsive service page",
+      "format": "html",
+      "headers": [],
+      "rows": [],
+      "steps": [
+        "Replace the sample business name and services with original facts.",
+        "Check layout on mobile and desktop.",
+        "Set a real contact destination and publish only after testing."
+      ],
+      "hook": "Give visitors one offer and one clear next step.",
+      "claim": "Source template, hosting/domain not included."
+    },
+    {
+      "id": "brand-icon-kit",
+      "name": "Minimal Business Icon Kit",
+      "category": "Creative design assets",
+      "priceUsd": 4.99,
+      "audience": "Small brands and presentation designers",
+      "problem": "Inconsistent icon use across documents",
+      "benefit": "A coordinated set of original editable SVG icons",
+      "format": "svg",
+      "headers": [],
+      "rows": [],
+      "steps": [
+        "Use supplied original SVG icons in consistent sizes.",
+        "Change stroke color to match your brand.",
+        "Review contrast and icon meaning for accessibility."
+      ],
+      "hook": "Cleaner visuals help people understand the next action.",
+      "claim": "Original vector assets, not copied brand symbols."
+    },
+    {
+      "id": "microcourse-builder",
+      "name": "Practical Microcourse Planner",
+      "category": "Microcourses",
+      "priceUsd": 19.99,
+      "audience": "Educators and independent trainers",
+      "problem": "Training materials without measurable learning outcomes",
+      "benefit": "Plan lessons, exercises and knowledge checks",
+      "format": "csv",
+      "headers": [
+        "Lesson",
+        "Learning Outcome",
+        "Instruction",
+        "Practical Exercise",
+        "Assessment",
+        "Review State"
+      ],
+      "rows": [
+        [
+          "1",
+          "Identify the audience's problem",
+          "Use a real scenario",
+          "Write the problem in one sentence",
+          "Review clarity",
+          "Draft"
+        ],
+        [
+          "2",
+          "Explain a repeatable process",
+          "Demonstrate each step",
+          "Complete a sample task",
+          "Check sequence",
+          "Draft"
+        ],
+        [
+          "3",
+          "Apply the method independently",
+          "Give guided practice",
+          "Produce an original output",
+          "Use an acceptance rubric",
+          "Draft"
+        ]
+      ],
+      "steps": [
+        "Write a measurable outcome for each lesson.",
+        "Add worked examples and a learner exercise.",
+        "Pilot the lesson with a learner before claiming training results."
+      ],
+      "hook": "A useful short course starts with one measurable outcome.",
+      "claim": "Course-building starter template, not a prerecorded course."
+    }
+  ]
+}

@@ -2,6 +2,24 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { validateOrganization, selectBottleneck, buildFirstSaleWarRoom, buildDashboard, verifiedPromotionReadyCount } from './paperclip-commerce-group.mjs';
 
+
+// Existing gate-unit fixtures intentionally omit report transport metadata.
+// Wrap them in fresh authenticated reports so their assertions isolate
+// individual SKU, stock, freight, media, checkout and fulfillment gates.
+function readyCountForFixture(supplier, promotion) {
+ const checkedAt = new Date().toISOString();
+ const reviewedSupplier = supplier && {
+  ...supplier, schemaVersion: 3, checkedAt, authenticationVerified: true,
+  candidates: Array.isArray(supplier.candidates)
+   ? supplier.candidates.map(candidate => ({...candidate, observedAt: checkedAt}))
+   : supplier.candidates
+ };
+ const reviewedPromotion = promotion && {
+  ...promotion, schemaVersion: 2, generatedAt: checkedAt, reviewFresh: true
+ };
+ return verifiedPromotionReadyCount(reviewedSupplier, reviewedPromotion);
+}
+
 const rules={
   verifiedPurchasesOnlyCountAsRevenue:true,
   dashboardOnlyFromVerifiedEvidence:true,
@@ -89,11 +107,11 @@ const promotionEvidence={promotionEligibleCount:1,promotionEligible:[fullyEligib
 
 test('physical readiness requires independent supplier and promotion counts plus complete candidate evidence',()=>{
  const supplier={saleReadyCount:1,candidates:[fullyCleared]};
- assert.equal(verifiedPromotionReadyCount(supplier,promotionEvidence),1);
- assert.equal(verifiedPromotionReadyCount({...supplier,saleReadyCount:0},promotionEvidence),0);
- assert.equal(verifiedPromotionReadyCount(supplier,{promotionEligibleCount:0}),0);
- assert.equal(verifiedPromotionReadyCount({candidates:[fullyCleared]},promotionEvidence),0);
- assert.equal(verifiedPromotionReadyCount(null,promotionEvidence),0);
+ assert.equal(readyCountForFixture(supplier,promotionEvidence),1);
+ assert.equal(readyCountForFixture({...supplier,saleReadyCount:0},promotionEvidence),0);
+ assert.equal(readyCountForFixture(supplier,{promotionEligibleCount:0}),0);
+ assert.equal(readyCountForFixture({candidates:[fullyCleared]},promotionEvidence),0);
+ assert.equal(readyCountForFixture(null,promotionEvidence),0);
 });
 
 test('no missing or malformed commercial gate is treated as approval',()=>{
@@ -101,7 +119,7 @@ test('no missing or malformed commercial gate is treated as approval',()=>{
  for(const key of keys){
   for(const value of [false,null,undefined,'true',1]){
    const candidate={...fullyCleared,[key]:value};
-   assert.equal(verifiedPromotionReadyCount({saleReadyCount:1,candidates:[candidate]},promotionEvidence),0,`${key}=${String(value)}`);
+   assert.equal(readyCountForFixture({saleReadyCount:1,candidates:[candidate]},promotionEvidence),0,`${key}=${String(value)}`);
   }
  }
 });
@@ -109,7 +127,7 @@ test('no missing or malformed commercial gate is treated as approval',()=>{
 test('promotion summary cannot manufacture sale-ready products without candidates',()=>{
  const supplier={saleReadyCount:12,candidates:[]};
  const promotion={promotionEligibleCount:12};
- assert.equal(verifiedPromotionReadyCount(supplier,promotion),0);
+ assert.equal(readyCountForFixture(supplier,promotion),0);
  const dashboard=buildDashboard({manifest,supplier,promotion,firstSale:{verifiedFirstSale:false},opportunities:{sourcingQueue:[]},storefront:{result:{activeStorefront:{status:200}}},tiktok:{readyForPublicRetailPublishing:false}});
  assert.equal(dashboard.promotionEligibleCount,0);
  assert.equal(dashboard.firstSaleWarRoom.trafficSourceReadyToActivate,null);
@@ -118,7 +136,7 @@ test('promotion summary cannot manufacture sale-ready products without candidate
 test('a partially cleared candidate stays in supplier verification despite inflated promotion counts',()=>{
  const supplier={saleReadyCount:1,candidates:[{...fullyCleared,finalZipFreightVerified:false,checkoutAllowed:false}]};
  const promotion=promotionEvidence;
- assert.equal(verifiedPromotionReadyCount(supplier,promotion),0);
+ assert.equal(readyCountForFixture(supplier,promotion),0);
  const bottleneck=selectBottleneck({firstSale:{verifiedFirstSale:false},supplier,promotion,opportunities:{sourcingQueue:[]},tiktok:{readyForPublicRetailPublishing:false}});
  assert.equal(bottleneck.stage,'supplier_verification');
  assert.deepEqual(bottleneck.missing.sort(),['checkout','final_zip_freight']);
@@ -129,7 +147,7 @@ test('Paperclip does not approve promotion without independent checkout and fulf
  const promotion={promotionEligibleCount:1};
  for(const gate of ['checkoutInfrastructureVerified','fulfillmentRouteVerified']){
   const supplier={saleReadyCount:1,candidates:[{...fullyCleared,[gate]:false}]};
-  assert.equal(verifiedPromotionReadyCount(supplier,promotion),0);
+  assert.equal(readyCountForFixture(supplier,promotion),0);
   const dashboard=buildDashboard({manifest,supplier,promotion,firstSale:{verifiedFirstSale:false},opportunities:{sourcingQueue:[]},storefront:{result:{activeStorefront:{status:200}}},tiktok:{readyForPublicRetailPublishing:false}});
   assert.equal(dashboard.promotionEligibleCount,0);
   assert.deepEqual(dashboard.productsApprovedForPromotion,[]);
@@ -149,16 +167,50 @@ test('Paperclip approval list requires agreeing supplier and promotion counts',(
 test('Paperclip rejects unmatched, ambiguous or unverified retail SKU approvals',()=>{
  const supplier={saleReadyCount:1,candidates:[fullyCleared]};
  const valid=promotionEvidence;
- assert.equal(verifiedPromotionReadyCount(supplier,valid),1);
- assert.equal(verifiedPromotionReadyCount(supplier,{promotionEligibleCount:1}),0);
- assert.equal(verifiedPromotionReadyCount(supplier,{...valid,promotionEligible:[{...fullyEligible,slug:'other-product'}]}),0);
- assert.equal(verifiedPromotionReadyCount(supplier,{...valid,promotionEligible:[{...fullyEligible,sku:'OTHER-VARIANT'}]}),0);
- assert.equal(verifiedPromotionReadyCount(supplier,{...valid,promotionEligible:[{...fullyEligible,promotionEligible:false}]}),0);
- assert.equal(verifiedPromotionReadyCount(supplier,{...valid,promotionEligible:[{...fullyEligible,directCheckoutEligible:false}]}),0);
- assert.equal(verifiedPromotionReadyCount(supplier,{...valid,promotionEligible:[fullyEligible,fullyEligible]}),0);
- assert.equal(verifiedPromotionReadyCount({saleReadyCount:2,candidates:[fullyCleared,{...fullyCleared,observedVariantSku:'SKU-002'}]},valid),0);
+ assert.equal(readyCountForFixture(supplier,valid),1);
+ assert.equal(readyCountForFixture(supplier,{promotionEligibleCount:1}),0);
+ assert.equal(readyCountForFixture(supplier,{...valid,promotionEligible:[{...fullyEligible,slug:'other-product'}]}),0);
+ assert.equal(readyCountForFixture(supplier,{...valid,promotionEligible:[{...fullyEligible,sku:'OTHER-VARIANT'}]}),0);
+ assert.equal(readyCountForFixture(supplier,{...valid,promotionEligible:[{...fullyEligible,promotionEligible:false}]}),0);
+ assert.equal(readyCountForFixture(supplier,{...valid,promotionEligible:[{...fullyEligible,directCheckoutEligible:false}]}),0);
+ assert.equal(readyCountForFixture(supplier,{...valid,promotionEligible:[fullyEligible,fullyEligible]}),0);
+ assert.equal(readyCountForFixture({saleReadyCount:2,candidates:[fullyCleared,{...fullyCleared,observedVariantSku:'SKU-002'}]},valid),0);
  const dashboard=buildDashboard({manifest,supplier,promotion:{...valid,promotionEligible:[{...fullyEligible,sku:'OTHER-VARIANT'}]},firstSale:{verifiedFirstSale:false},opportunities:{sourcingQueue:[]},storefront:{result:{activeStorefront:{status:200}}},tiktok:{readyForPublicRetailPublishing:false}});
  assert.equal(dashboard.promotionEligibleCount,0);
  assert.deepEqual(dashboard.productsApprovedForPromotion,[]);
  assert.ok(dashboard.productsAwaitingCommercialGateClosure.includes('verified-physical-item'));
+});
+
+test('versioned supplier and promotion evidence must be authenticated and fresh',()=>{
+ const checkedAt=new Date().toISOString();
+ const candidate={...fullyCleared,observedAt:checkedAt};
+ const supplier={schemaVersion:3,checkedAt,authenticationVerified:true,saleReadyCount:1,candidates:[candidate]};
+ const promotion={...promotionEvidence,schemaVersion:2,reviewFresh:true,generatedAt:checkedAt};
+ assert.equal(verifiedPromotionReadyCount(supplier,promotion),1);
+ assert.equal(verifiedPromotionReadyCount({...supplier,authenticationVerified:false},promotion),0);
+ assert.equal(verifiedPromotionReadyCount({...supplier,checkedAt:'2026-01-01T00:00:00.000Z'},promotion),0);
+ assert.equal(verifiedPromotionReadyCount({...supplier,checkedAt:'not-a-date'},promotion),0);
+ assert.equal(verifiedPromotionReadyCount({...supplier,candidates:[{...candidate,observedAt:'2026-01-01T00:00:00.000Z'}]},promotion),0);
+ assert.equal(verifiedPromotionReadyCount(supplier,{...promotion,reviewFresh:false}),0);
+ assert.equal(verifiedPromotionReadyCount(supplier,{...promotion,generatedAt:'2026-01-01T00:00:00.000Z'}),0);
+ assert.equal(verifiedPromotionReadyCount(supplier,{...promotion,generatedAt:'not-a-date'}),0);
+ assert.equal(verifiedPromotionReadyCount(supplier,{...promotion,generatedAt:new Date(Date.now()+60_000).toISOString()}),0);
+});
+
+
+test('unversioned and legacy report formats fail closed even with every SKU gate true',()=>{
+ const checkedAt = new Date().toISOString();
+ const supplier = {schemaVersion:3,checkedAt,authenticationVerified:true,saleReadyCount:1,
+  candidates:[{...fullyCleared,observedAt:checkedAt}]};
+ const promotion = {...promotionEvidence,schemaVersion:2,generatedAt:checkedAt,reviewFresh:true};
+ assert.equal(verifiedPromotionReadyCount(supplier,promotion),1);
+ for(const schemaVersion of [undefined,1,2,'3',null]){
+  assert.equal(verifiedPromotionReadyCount({...supplier,schemaVersion},promotion),0,
+   `supplier schema ${String(schemaVersion)}`);
+ }
+ for(const schemaVersion of [undefined,1,'2',null]){
+  assert.equal(verifiedPromotionReadyCount(supplier,{...promotion,schemaVersion}),0,
+   `promotion schema ${String(schemaVersion)}`);
+ }
+ assert.equal(verifiedPromotionReadyCount({...supplier,candidates:[{...fullyCleared}]},promotion),0);
 });

@@ -1,0 +1,15 @@
+{
+  "slug": "invoice-ai-exception-economics-2026-10-25-v2",
+  "title": "85% Invoice Automation Is Not 85% Savings | PrismBay AI",
+  "sha256": "66893f1fec1952779495322ef5d67fb12305b4ec5c1188a825999cb60b762d3d",
+  "ttsEngines": [
+    "piper"
+  ],
+  "voice": "en_US-norman-medium",
+  "voiceLicenseBasis": "Open Piper TTS voice; verify model license and attribution before publication",
+  "sourceAttribution": "Original PrismBay AI illustrative arithmetic. All numbers are hypothetical, not measured company results.",
+  "originalProgrammaticVisuals": true,
+  "paidSpend": 0,
+  "channelId": "UCw2hs85TzIpdKwJtG-BSxzQ",
+  "audioMastering": "-3dB attenuation after near-clipping QA detection"
+}

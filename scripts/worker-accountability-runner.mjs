@@ -1,5 +1,5 @@
 import fs from 'node:fs/promises';
-import { WORKERS, checkWorker, applyConsequence, shouldDispatchFallback, reportSummary } from './worker-accountability.mjs';
+import { WORKERS, checkWorker, selectEvidenceRun, applyConsequence, shouldDispatchFallback, reportSummary } from './worker-accountability.mjs';
 
 const repository = process.env.GITHUB_REPOSITORY || '';
 const token = process.env.GITHUB_TOKEN || '';
@@ -53,7 +53,7 @@ for (const worker of WORKERS) {
     const route='/repos/'+repository+'/actions/workflows/'+encodeURIComponent(worker.workflow);
     const listing=await github(route+'/runs?branch=main&per_page=50');
     runs=listing.workflow_runs||[];
-    const latest=runs.find(r=>['schedule','workflow_dispatch','push','workflow_run'].includes(r.event));
+    const latest=selectEvidenceRun(runs);
     if(latest?.status==='completed'&&latest?.conclusion==='success'){
       const proof=await github('/repos/'+repository+'/actions/runs/'+latest.id+'/artifacts?per_page=30');
       artifacts=proof.artifacts||[];

@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="index,follow">
+<meta name="description" content="Free offline service pricing calculator. Estimate delivery cost, target gross margin and suggested quotation.">
+<link rel="canonical" href="https://clean.prismbayai.com/digital/free-pricing-calculator.html">
+<title>Free Service Pricing Calculator | PrismBay Digital</title>
+<style>
+:root{--night:#10251f;--green:#1e634c;--mint:#a7edbd;--paper:#f5f8f4;--ink:#112d24;--muted:#5e746a;--line:#dbe7df;--white:#fff;--shadow:0 28px 65px rgba(15,48,31,.08)}
+*{box-sizing:border-box}html{font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}body{margin:0;color:var(--ink);background:var(--paper);line-height:1.55}a{color:inherit}
+nav{background:var(--night);color:#fff}.nav{display:flex;align-items:center;justify-content:space-between;gap:20px;max-width:1170px;margin:auto;padding:18px 26px}.wordmark{font-weight:850;letter-spacing:-.04em;font-size:21px;text-decoration:none}.wordmark span{color:var(--mint)}.nav a.back{font-size:14px;color:#cbe7d9;text-underline-offset:3px}
+.hero{background:linear-gradient(132deg,#10251f 12%,#21533c 100%);color:#fff}.hero-inner{max-width:1170px;margin:auto;padding:64px 26px 75px}.eyebrow{color:var(--mint);letter-spacing:.14em;text-transform:uppercase;font-size:12px;font-weight:850}.hero h1{max-width:800px;font-size:clamp(42px,6vw,74px);line-height:1.01;letter-spacing:-.065em;margin:14px 0 22px}.hero p{color:#d0e2d9;font-size:18px;max-width:660px;margin:0}.trust{display:flex;gap:14px;flex-wrap:wrap;margin-top:27px}.trust span{font-size:12px;border:1px solid #47735c;border-radius:40px;padding:7px 12px}
+.page{max-width:1170px;padding:0 26px 80px;margin:-26px auto 0;position:relative}.tool{display:grid;grid-template-columns:1.05fr .95fr;gap:23px}.panel{background:#fff;border:1px solid var(--line);border-radius:21px;box-shadow:var(--shadow);padding:32px}.panel h2{font-size:24px;margin:0 0 9px;letter-spacing:-.025em}.sub{color:var(--muted);font-size:14px;margin:0 0 30px}.inputs{display:grid;grid-template-columns:1fr 1fr;gap:20px}.field label{font-size:13px;font-weight:750;display:block;margin-bottom:8px}.field input{border:1px solid #bfcfc4;background:#fff;width:100%;border-radius:10px;padding:13px 14px;font:600 16px/1.4 inherit;color:var(--ink);outline-offset:2px}.field input:focus{outline:3px solid #77b992}.help{margin:5px 0 0;font-size:12px;color:var(--muted)}.actions{margin-top:28px;display:flex;flex-wrap:wrap;gap:10px}.button{background:var(--green);border:1px solid var(--green);border-radius:10px;padding:12px 16px;color:#fff;font-weight:800;font-size:13px;cursor:pointer}.button.secondary{background:#fff;color:var(--green)}.button:hover{filter:brightness(.95)}.result{background:var(--night);color:#fff}.result .sub{color:#bdd7c7}.price-label{font-size:12px;color:var(--mint);text-transform:uppercase;letter-spacing:.12em;font-weight:850;margin-top:21px}.price{font-size:clamp(52px,7vw,84px);letter-spacing:-.07em;line-height:1.15;font-weight:900;margin:8px 0 16px;font-variant-numeric:tabular-nums}.highlight{border-bottom:1px solid #456050;padding-bottom:26px}.breakdown{display:grid;grid-template-columns:1fr auto;gap:15px 20px;margin-top:29px;font-size:14px}.breakdown span:nth-child(even){text-align:right;font-weight:750;font-variant-numeric:tabular-nums}.result aside{font-size:12px;color:#c1d9ce;background:#224636;border:1px solid #3f6e55;margin-top:26px;padding:15px;border-radius:10px}.section{margin-top:42px}.section h2{font-size:27px;letter-spacing:-.035em}.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.step{background:#fff;padding:24px;border:1px solid var(--line);border-radius:13px}.step b{font-size:13px;color:var(--green)}.step p{font-size:14px;color:var(--muted)}.footer{border-top:1px solid var(--line);padding:28px 0 10px;margin-top:52px;color:var(--muted);font-size:13px}.promo{background:#e5f1e8;border:1px solid #cbded0;border-radius:17px;padding:22px 26px;display:flex;gap:20px;align-items:center;justify-content:space-between;margin-top:40px}.promo h3{margin:0 0 6px}.promo p{margin:0;font-size:14px;color:#48675b}.promo a{flex-shrink:0;font-size:14px;font-weight:850;text-decoration:underline;text-underline-offset:4px}
+@media(max-width:790px){.tool{grid-template-columns:1fr}.inputs{grid-template-columns:1fr}.steps{grid-template-columns:1fr}.promo{display:block}.promo a{display:block;margin-top:15px}.panel{padding:24px}.hero-inner{padding-top:42px}.nav{align-items:flex-start}}
+</style></head>
+<body>
+<nav><div class="nav"><a class="wordmark" href="/digital/">PrismBay<span>Digital</span></a><a class="back" href="/digital/">All executive digital systems</a></div></nav>
+<header class="hero"><div class="hero-inner"><div class="eyebrow">Free interactive business tool</div>
+<h1>Know your cost.<br>Set your quote.</h1>
+<p>Estimate a starting service price from your time, expenses, contingency and target gross margin. All calculations run in your browser. No login or account required.</p>
+<div class="trust"><span>No account</span><span>No data upload</span><span>Instant CSV export</span><span>Free original resource</span></div>
+</div></header>
+<main class="page">
+<section class="tool" aria-label="Service price calculator">
+<div class="panel"><h2>Enter your project figures</h2><p class="sub">Use real delivery costs. The example values are illustrative.</p>
+<div class="inputs">
+<div class="field"><label for="hours">Estimated hours</label><input id="hours" type="number" inputmode="decimal" min="0" max="100000" step="0.5" value="20"><p class="help">Total hours you expect to spend</p></div>
+<div class="field"><label for="rate">Your internal cost per hour (USD)</label><input id="rate" type="number" inputmode="decimal" min="0" max="1000000" step="1" value="30"><p class="help">Your cost, not your client billing rate</p></div>
+<div class="field"><label for="expenses">Direct expenses (USD)</label><input id="expenses" type="number" inputmode="decimal" min="0" max="100000000" step="1" value="150"><p class="help">Software, suppliers and other project costs</p></div>
+<div class="field"><label for="contingency">Contingency (%)</label><input id="contingency" type="number" inputmode="decimal" min="0" max="100" step="1" value="10"><p class="help">Applied to labor and direct expenses</p></div>
+<div class="field"><label for="margin">Target gross margin (%)</label><input id="margin" type="number" inputmode="decimal" min="0" max="95" step="1" value="35"><p class="help">Margin is based on the selling price</p></div>
+</div><div class="actions"><button class="button" id="export" type="button">Export calculation as CSV</button><button class="button secondary" id="reset" type="button">Reset example</button></div><p id="feedback" role="status" style="color:#436b55;font-size:13px"></p>
+</div>
+<div class="panel result" aria-live="polite"><h2>Your starting quote</h2><p class="sub">Calculated live from your entries</p>
+<div class="highlight"><div class="price-label">Suggested starting price (USD)</div><div class="price" id="price">$1,269.23</div><span id="validity">Before taxes and payment processing fees</span></div>
+<div class="breakdown"><span>Labor cost</span><span id="labor">$600.00</span><span>Direct expenses</span><span id="outExpenses">$150.00</span><span>Contingency</span><span id="buffer">$75.00</span><span>Estimated delivery cost</span><span id="cost">$825.00</span><span>Gross profit at proposed price</span><span id="profit">$444.23</span><span>Target gross margin</span><span id="outMargin">35%</span></div>
+<aside>This is a mathematical starting point, not a market valuation. Compare the quote with demand, scope, competitor positioning and buyer value. Confirm taxes, fees and delivery terms separately.</aside>
+</div></section>
+<section class="section"><h2>How to use this tool</h2><div class="steps"><div class="step"><b>01 / Estimate</b><h3>Enter real costs</h3><p>Estimate delivery hours and internal cost. Include expenses instead of using sales revenue as a substitute.</p></div><div class="step"><b>02 / Stress test</b><h3>Vary the margin</h3><p>Try different margin targets. Check whether the result suits customer value and your capacity.</p></div><div class="step"><b>03 / Review</b><h3>Export and verify</h3><p>Save the CSV with your assumptions. Reconfirm your quote after scope or expense changes.</p></div></div></section>
+<section class="promo"><div><h3>Need structured client proposals and board-ready documents?</h3><p>Explore the existing PrismBay professional document systems. Review their free guides before purchase.</p></div><a href="/digital/">Explore verified existing products</a></section>
+<footer class="footer">© PrismBay Digital. This original educational calculator runs locally in your browser. No personal data is sent to PrismBay. Figures do not include taxes, processing fees or financing costs. Not accounting, tax or financial advice.</footer>
+</main>
+<script>
+(function(){
+"use strict";
+var names=["hours","rate","expenses","contingency","margin"];
+var defaults=[20,30,150,10,35];
+var values={};
+var output={};
+names.forEach(function(n){values[n]=document.getElementById(n);});
+["price","validity","labor","outExpenses","buffer","cost","profit","outMargin"].forEach(function(n){output[n]=document.getElementById(n);});
+var money=new Intl.NumberFormat("en-US",{style:"currency",currency:"USD"});
+var last=null;
+function compute(){
+var v={};
+for(var i=0;i<names.length;i++){var n=names[i];v[n]=Number(values[n].value);
+if(values[n].value.trim()===""||!Number.isFinite(v[n])||v[n]<0||(n==="margin"&&v[n]>=100)||(n==="contingency"&&v[n]>100)){return null;}}
+var labor=v.hours*v.rate;
+var expense=v.expenses;
+var buffer=(labor+expense)*v.contingency/100;
+var cost=labor+expense+buffer;
+var price=cost/(1-v.margin/100);
+var profit=price-cost;
+if(![labor,expense,buffer,cost,price,profit].every(Number.isFinite)||price>1e11)return null;
+return {inputs:v,labor:labor,expenses:expense,buffer:buffer,cost:cost,price:price,profit:profit};
+}
+function render(){
+last=compute();
+if(!last){output.price.textContent="Check entries";output.validity.textContent="Enter nonnegative figures and a margin below 100%";return;}
+output.price.textContent=money.format(last.price);
+output.validity.textContent="Before taxes and payment processing fees";
+["labor","buffer","cost","profit"].forEach(function(n){output[n].textContent=money.format(last[n]);});
+output.outExpenses.textContent=money.format(last.expenses);
+output.outMargin.textContent=String(last.inputs.margin)+"%";
+}
+names.forEach(function(n){values[n].addEventListener("input",render);});
+document.getElementById("reset").addEventListener("click",function(){names.forEach(function(n,i){values[n].value=defaults[i];});render();document.getElementById("feedback").textContent="Example restored.";});
+document.getElementById("export").addEventListener("click",function(){
+if(!last){document.getElementById("feedback").textContent="Correct your entries before exporting.";return;}
+var rows=[["Field","Value"],["Hours",last.inputs.hours],["Internal cost per hour USD",last.inputs.rate],["Direct expenses USD",last.expenses],["Contingency percent",last.inputs.contingency],["Target gross margin percent",last.inputs.margin],["Labor cost USD",last.labor.toFixed(2)],["Contingency USD",last.buffer.toFixed(2)],["Estimated delivery cost USD",last.cost.toFixed(2)],["Suggested price USD",last.price.toFixed(2)],["Estimated gross profit USD",last.profit.toFixed(2)]];
+var csv=rows.map(function(r){return r.map(function(c){return '"'+String(c).replace(/"/g,'""')+'"';}).join(",");}).join("\r\n")+"\r\n";
+var url=URL.createObjectURL(new Blob([csv],{type:"text/csv;charset=utf-8"}));
+var a=document.createElement("a");a.href=url;a.download="prismbay-service-pricing-estimate.csv";document.body.appendChild(a);a.click();a.remove();URL.revokeObjectURL(url);document.getElementById("feedback").textContent="Calculation exported. Review your assumptions before sharing.";
+});render();
+})();
+</script></body></html>

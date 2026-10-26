@@ -1,0 +1,74 @@
+name: PrismBay Daily Sales Brief
+
+on:
+  schedule:
+    - cron: '0 12 * * *' # 8:00 a.m. Guyana (UTC-04)
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - 'scripts/daily-revenue-brief.mjs'
+      - 'scripts/daily-revenue-brief.test.mjs'
+      - '.github/workflows/prismbay-daily-sales-brief.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/daily-revenue-brief.mjs'
+      - 'scripts/daily-revenue-brief.test.mjs'
+      - '.github/workflows/prismbay-daily-sales-brief.yml'
+
+permissions:
+  contents: read
+  issues: write
+
+concurrency:
+  group: prismbay-daily-revenue-brief
+  cancel-in-progress: false
+
+jobs:
+  sales-brief:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verify evidence and privacy contracts
+        run: node --test scripts/daily-revenue-brief.test.mjs
+      - name: Generate previous Guyana day report
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          PRISMBAY_STRIPE_REPORTING_KEY: ${{ secrets.PRISMBAY_STRIPE_REPORTING_KEY }}
+        run: node scripts/daily-revenue-brief.mjs
+      - name: Maintain one public-safe daily sales issue
+        if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          title='PrismBay Daily Sales Brief'
+          report='growth-reports/daily-revenue-public.md'
+          test -s "$report"
+          issue=$(gh issue list -R "$GITHUB_REPOSITORY" --state all --limit 200 --json number,title --jq ".[] | select(.title == \"$title\") | .number" | head -1)
+          if [[ -z "$issue" ]]; then
+            gh issue create -R "$GITHUB_REPOSITORY" --title "$title" --body-file "$report" --assignee "$GITHUB_REPOSITORY_OWNER"
+          else
+            gh issue edit "$issue" -R "$GITHUB_REPOSITORY" --body-file "$report"
+            marker=$(head -n 1 "$report")
+            recent=$(gh issue view "$issue" -R "$GITHUB_REPOSITORY" --json comments --jq '.comments[].body' | grep -F "$marker" | head -1 || true)
+            if [[ -z "$recent" ]]; then
+              gh issue comment "$issue" -R "$GITHUB_REPOSITORY" --body-file "$report"
+            else
+              echo 'Daily issue already has this reporting date. Prevented duplicate notification.'
+            fi
+          fi
+      - name: Non-sensitive summary
+        if: always()
+        shell: bash
+        run: |
+          echo '## Daily sales reporting' >> "$GITHUB_STEP_SUMMARY"
+          echo 'Guyana schedule: 8:00 AM daily. This GitHub Action does not consume a ChatGPT scheduled-task slot.' >> "$GITHUB_STEP_SUMMARY"
+          echo 'Public issues receive only payment activity category, site health and workflow status.' >> "$GITHUB_STEP_SUMMARY"
+          echo 'Private Stripe charge details are never logged, committed, uploaded as artifacts, or copied to public issue comments.' >> "$GITHUB_STEP_SUMMARY"
+          echo 'If the restricted Stripe reporting secret is absent, the report explicitly says payment verification is not connected.' >> "$GITHUB_STEP_SUMMARY"

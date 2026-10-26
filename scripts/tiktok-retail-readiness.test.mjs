@@ -55,3 +55,20 @@ test('invalid or negative sale-ready counts never establish readiness', () => {
     assert.ok(report.missing.includes('sale_ready_product'));
   }
 });
+
+test('legacy retail TikTok publishing configuration is revoked and cannot be mistaken for fresh consent', async () => {
+  const { readFile } = await import('node:fs/promises');
+  const legacy = JSON.parse(await readFile(new URL('../config/tiktok-publish.json', import.meta.url), 'utf8'));
+  const lock = JSON.parse(await readFile(new URL('../config/tiktok-publish-lock.json', import.meta.url), 'utf8'));
+  const auto = JSON.parse(await readFile(new URL('../config/tiktok-approved-autopost.json', import.meta.url), 'utf8'));
+  assert.equal(lock.locked, true);
+  assert.equal(auto.enabled, false);
+  assert.equal(legacy.tiktok.expressConsentGiven, false);
+  assert.equal(legacy.tiktok.contentPreviewConfirmed, false);
+  assert.equal(legacy.tiktok.publicationDisabled, true);
+  assert.equal(legacy.tiktok.privacyLevel, 'SELF_ONLY');
+  assert.equal(legacy.product.videoUrl, '');
+  assert.equal(legacy.product.caption, '');
+  assert.equal(legacy.product.expectedPriceUsd, null);
+  assert.equal(legacy.safety.requireCurrentOwnerApproval, true);
+});

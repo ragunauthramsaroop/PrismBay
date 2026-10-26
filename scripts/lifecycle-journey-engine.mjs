@@ -94,7 +94,7 @@ function stepTargetMs(eventMs, step) {
   return eventMs + Number(step.day || 0) * DAY_MS;
 }
 
-export function evaluateStep({ journeyName, step, contact, nowMs = Date.now(), sentSet = new Set(), suppressions = new Map(), windowHours = 24 }) {
+export function evaluateStep({ journeyName, step, contact, nowMs = Date.now(), sentSet = new Set(), suppressions = new Map(), windowHours = 24, verifiedPaidOrderRefs = new Set() }) {
   const journey = JOURNEYS[journeyName];
   if (!journey) return { eligible: false, reason: 'unknown_journey' };
   if (!isValidEmail(contact?.email)) return { eligible: false, reason: 'invalid_email' };
@@ -103,6 +103,19 @@ export function evaluateStep({ journeyName, step, contact, nowMs = Date.now(), s
   if (suppressions.has(ref)) return { eligible: false, reason: suppressions.get(ref), recipientRef: ref };
   if (journey.consentRequired && contact.consent !== true) return { eligible: false, reason: 'missing_consent_evidence', recipientRef: ref };
   if (journey.deliveryRequired && !contact.deliveredAt) return { eligible: false, reason: 'missing_delivery_evidence', recipientRef: ref };
+
+  // A contact's delivery timestamp or self-reported purchase flag is not proof
+  // of a paid order. Only a trusted, authenticated live Stripe reconciliation
+  // adapter should supply verifiedPaidOrderRefs. The CLI supplies none.
+  if (journeyName === 'review-request') {
+    const orderRef = String(contact?.orderRef || '').trim();
+    if (!/^[A-Za-z0-9._:-]{1,120}$/.test(orderRef)) {
+      return { eligible: false, reason: 'valid_order_reference_required', recipientRef: ref };
+    }
+    if (!(verifiedPaidOrderRefs instanceof Set) || !verifiedPaidOrderRefs.has(orderRef)) {
+      return { eligible: false, reason: 'paid_order_not_verified', recipientRef: ref };
+    }
+  }
 
   const eventMs = parseTime(contact[journey.eventField]);
   if (eventMs === null) return { eligible: false, reason: 'missing_event_time', recipientRef: ref };
@@ -132,7 +145,7 @@ export function evaluateStep({ journeyName, step, contact, nowMs = Date.now(), s
   };
 }
 
-export function dryRun({ contactsByJourney = {}, sentLog = [], suppressions = {}, nowMs = Date.now(), windowHours = 24 } = {}) {
+export function dryRun({ contactsByJourney = {}, sentLog = [], suppressions = {}, nowMs = Date.now(), windowHours = 24, verifiedPaidOrderRefs = new Set() } = {}) {
   const sentSet = buildSentSet(sentLog);
   const suppressionSet = buildSuppressionSet(suppressions);
   const journeys = [];
@@ -144,7 +157,7 @@ export function dryRun({ contactsByJourney = {}, sentLog = [], suppressions = {}
     const results = [];
     for (const contact of contacts) {
       for (const step of journey.steps) {
-        const result = evaluateStep({ journeyName, step, contact, nowMs, sentSet, suppressions: suppressionSet, windowHours });
+        const result = evaluateStep({ journeyName, step, contact, nowMs, sentSet, suppressions: suppressionSet, windowHours, verifiedPaidOrderRefs });
         if (result.eligible) eligible += 1;
         else blocked += 1;
         results.push({ template: step.template, ...result });

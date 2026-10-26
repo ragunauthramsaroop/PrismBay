@@ -51,6 +51,19 @@ function isCommerciallyCleared(candidate) {
 // variants in both independent supplier and retail promotion reports, and
 // reject ambiguous duplicate slugs before any external acquisition route.
 function verifiedPromotionReadyCandidates(supplier, promotion) {
+  // A report generated today is not proof that its supplier observations were
+  // authenticated today. Fail closed for the current versioned evidence formats.
+  const freshWithin30Hours = timestamp => {
+    if (typeof timestamp !== 'string') return false;
+    const ageMs = Date.now() - Date.parse(timestamp);
+    return Number.isFinite(ageMs) && ageMs >= 0 && ageMs < 30 * 60 * 60 * 1000;
+  };
+  // Reject unversioned or legacy reports. A missing schema must never bypass
+  // authentication and freshness requirements for physical retail promotion.
+  if (!Number.isSafeInteger(supplier?.schemaVersion) || supplier.schemaVersion < 3 ||
+      supplier.authenticationVerified !== true || !freshWithin30Hours(supplier.checkedAt) ||
+      !Number.isSafeInteger(promotion?.schemaVersion) || promotion.schemaVersion < 2 ||
+      promotion.reviewFresh !== true || !freshWithin30Hours(promotion.generatedAt)) return [];
   const supplierCount = supplier?.saleReadyCount;
   const promotionCount = promotion?.promotionEligibleCount;
   if (!Number.isSafeInteger(supplierCount) || supplierCount < 1 ||
@@ -71,6 +84,7 @@ function verifiedPromotionReadyCandidates(supplier, promotion) {
       supplierSlugCounts.set(candidate.slug, (supplierSlugCounts.get(candidate.slug) || 0) + 1);
   }
   const matched = candidates.filter(candidate =>
+    candidate.observedAt === supplier.checkedAt &&
     isCommerciallyCleared(candidate) &&
     supplierSlugCounts.get(candidate.slug) === 1 &&
     typeof candidate.observedVariantSku === 'string' &&

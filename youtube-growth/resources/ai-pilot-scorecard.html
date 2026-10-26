@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>30-Day AI Pilot Scorecard | PrismBay AI</title>
+<meta name="description" content="A free, local-first calculator for assessing AI pilot capacity, verified cash outcomes, cost, quality, and controls.">
+<style>
+:root{color-scheme:dark;--bg:#07121d;--panel:#112538;--edge:#29445b;--text:#edf6fb;--muted:#a6becc;--accent:#4cdbb3;--warn:#ffc977}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:16px/1.55 system-ui,-apple-system,Segoe UI,sans-serif}
+main{max-width:1050px;margin:auto;padding:28px 18px 70px}header{border-bottom:1px solid var(--edge);padding-bottom:18px;margin-bottom:25px}
+.brand{color:var(--accent);font-weight:800;letter-spacing:.1em;font-size:13px}h1{font-size:clamp(30px,5vw,48px);line-height:1.1;margin:10px 0}h2{font-size:21px;margin:0 0 12px}p{color:var(--muted)}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:17px}.panel{background:var(--panel);border:1px solid var(--edge);border-radius:15px;padding:22px}
+label{display:block;font-size:14px;margin:13px 0 6px;color:var(--muted)}input{width:100%;border:1px solid #56738b;border-radius:8px;background:#081a29;color:var(--text);font:inherit;padding:11px}input:focus{outline:2px solid var(--accent)}
+.output{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:18px 0}.metric{border:1px solid var(--edge);border-radius:12px;padding:16px;background:#0b1c2b}.metric b{display:block;font-size:clamp(19px,3vw,29px);font-variant-numeric:tabular-nums}.metric small{color:var(--muted)}
+.status{border-left:4px solid var(--warn);padding:12px 16px;background:#142637;margin-top:18px}
+button{border:0;border-radius:9px;background:var(--accent);color:#061b18;font-weight:800;padding:12px 17px;cursor:pointer;margin:12px 8px 0 0}button.secondary{background:#35546b;color:white}
+footer{margin-top:30px;border-top:1px solid var(--edge);padding-top:18px;font-size:13px;color:var(--muted)}
+@media(max-width:700px){.grid{grid-template-columns:1fr}.output{grid-template-columns:1fr 1fr}}@media(max-width:420px){.output{grid-template-columns:1fr}}
+@media print{body{background:white;color:black}.panel,.metric{background:white;color:black;border:1px solid #999}p,label,.metric small{color:#333}button{display:none}input{color:black;background:white}}
+</style></head><body><main>
+<header><div class="brand">PRISMBAY AI / FREE EXECUTIVE TOOL</div><h1>The 30-Day AI Pilot Scorecard</h1>
+<p>Separate released capacity from verified cash savings. Measure risk and quality before expanding an AI workflow. Your entries stay in this browser. No sign-in, tracking, or external services.</p></header>
+<div class="grid">
+<section class="panel"><h2>01 / Workflow baseline</h2>
+<label for="cases">Monthly cases processed</label><input id="cases" type="number" min="0" step="1" value="1000">
+<label for="before">Average manual minutes per case, baseline</label><input id="before" type="number" min="0" step=".1" value="12">
+<label for="after">Average manual minutes per case, pilot</label><input id="after" type="number" min="0" step=".1" value="8">
+<label for="hourly">Fully loaded labor cost per hour (USD, for capacity illustration only)</label><input id="hourly" type="number" min="0" step=".01" value="35">
+</section>
+<section class="panel"><h2>02 / Verified financial effects</h2>
+<label for="overtime">Verified overtime hours eliminated per month</label><input id="overtime" type="number" min="0" step=".1" value="30">
+<label for="other">Other verified monthly cash benefits (USD, non-overlapping)</label><input id="other" type="number" min="0" step=".01" value="0">
+<label for="usage">Monthly model / software costs (USD)</label><input id="usage" type="number" min="0" step=".01" value="420">
+<label for="support">Monthly integration / support costs (USD)</label><input id="support" type="number" min="0" step=".01" value="300">
+<label for="review">Monthly incremental review / monitoring costs (USD)</label><input id="review" type="number" min="0" step=".01" value="240">
+<label for="setup">One-time setup cost (USD)</label><input id="setup" type="number" min="0" step=".01" value="1500">
+</section>
+<section class="panel"><h2>03 / Quality and safety gates</h2>
+<label for="baselineErrors">Baseline correction / error rate (%)</label><input id="baselineErrors" type="number" min="0" max="100" step=".1" value="3">
+<label for="pilotErrors">Pilot correction / error rate (%)</label><input id="pilotErrors" type="number" min="0" max="100" step=".1" value="3">
+<label for="incidents">Unauthorized actions or serious data incidents</label><input id="incidents" type="number" min="0" step="1" value="0">
+<label for="exceptions">Unresolved approval / control exceptions</label><input id="exceptions" type="number" min="0" step="1" value="0">
+<p>Record evidence outside this calculator: representative samples, financial records, reviewer sign-off, and incident logs.</p>
+</section>
+<section class="panel"><h2>04 / Decision rules</h2><p>EXPAND only when measurable benefits meet the pilot's agreed target and quality, security, and approval controls pass.</p>
+<p>MODIFY when the financial case is weak or results require more evidence. STOP and investigate any unauthorized action or serious control failure.</p>
+<p>This calculator does not replace an approved business case, security review, or financial verification.</p>
+<button id="export" type="button">Export CSV scorecard</button><button id="print" class="secondary" type="button">Print / Save PDF</button></section>
+</div>
+<h2 style="margin-top:27px">Pilot result</h2><div class="output" aria-live="polite">
+<div class="metric"><small>Monthly capacity released</small><b id="hours">0 h</b></div>
+<div class="metric"><small>Illustrative capacity value, not cash</small><b id="capacity">$0</b></div>
+<div class="metric"><small>Verified monthly cash benefits</small><b id="benefits">$0</b></div>
+<div class="metric"><small>Monthly operating costs</small><b id="costs">$0</b></div>
+<div class="metric"><small>Monthly net cash effect</small><b id="net">$0</b></div>
+<div class="metric"><small>Simple setup payback</small><b id="payback">N/A</b></div></div>
+<div class="status" id="status" role="status">Enter evidence to evaluate the pilot.</div>
+<footer>PrismBay AI helps founders, operators and executives implement practical AI business systems. Educational tool. Hypothetical default inputs, not observed company results. Avoid double counting capacity value and overtime savings. Currency: USD. Source framework: original PrismBay AI 30-day pilot model. Last reviewed: 24 October 2026.</footer>
+</main><script>
+"use strict";
+const ids=["cases","before","after","hourly","overtime","other","usage","support","review","setup","baselineErrors","pilotErrors","incidents","exceptions"];
+const n=id=>Number(document.getElementById(id).value);
+const usd=x=>new Intl.NumberFormat("en-US",{style:"currency",currency:"USD",maximumFractionDigits:0}).format(x);
+let last={};
+function calculate(){
+ const v=Object.fromEntries(ids.map(id=>[id,n(id)]));
+ const invalid=ids.some(id=>!Number.isFinite(v[id])||v[id]<0)||v.baselineErrors>100||v.pilotErrors>100||!Number.isInteger(v.cases)||!Number.isInteger(v.incidents)||!Number.isInteger(v.exceptions);
+ if(invalid){document.getElementById("status").textContent="Enter nonnegative numbers, valid percentages, and whole-number case and incident counts.";return;}
+ const released=v.cases*(v.before-v.after)/60;
+ const capacity=released*v.hourly;
+ const benefits=v.overtime*v.hourly+v.other;
+ const costs=v.usage+v.support+v.review;
+ const net=benefits-costs;
+ const payback=v.setup===0?"0 months":net>0?(v.setup/net).toFixed(1)+" months":"No positive payback";
+ const risk=v.incidents>0||v.exceptions>0;
+ const quality=v.pilotErrors>v.baselineErrors;
+ const status=risk?"STOP / INVESTIGATE: control incident or unresolved approval exception.":quality?"MODIFY: pilot error rate exceeds baseline.":net<=0?"MODIFY: net verified cash benefit is not positive. Consider separately evidenced service or capacity value.":"REVIEW FOR EXPANSION: positive modeled cash effect and no reported quality/control deterioration. Independent verification is still required.";
+ Object.assign(last,{...v,released,capacity,benefits,costs,net,payback,status});
+ for(const [id,value] of Object.entries({hours:released.toFixed(1)+" h",capacity:usd(capacity),benefits:usd(benefits),costs:usd(costs),net:usd(net),payback}))document.getElementById(id).textContent=value;
+ document.getElementById("status").textContent=status;
+}
+ids.forEach(id=>document.getElementById(id).addEventListener("input",calculate));
+document.getElementById("print").addEventListener("click",()=>window.print());
+document.getElementById("export").addEventListener("click",()=>{
+ const rows=[["PrismBay AI 30-Day Pilot Scorecard","Value"],...Object.entries(last).map(([key,value])=>[key,String(value)])];
+ const csv=rows.map(r=>r.map(s=>'"'+String(s).replace(/"/g,'""')+'"').join(",")).join("\r\n");
+ const blob=new Blob([csv],{type:"text/csv;charset=utf-8"});const url=URL.createObjectURL(blob);
+ const a=document.createElement("a");a.href=url;a.download="PrismBay_30_Day_AI_Pilot_Scorecard.csv";a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);
+});
+calculate();
+</script></body></html>

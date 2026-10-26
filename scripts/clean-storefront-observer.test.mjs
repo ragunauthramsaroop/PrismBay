@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { observeStorefront, ORIGIN } from './clean-storefront-observer.mjs';
 
 const home = '<html><head><style>body{color:#173a2f;background:#f6f8f6;font-family:Arial,sans-serif;min-height:100vh;}</style></head><body><div>PrismBay <b>Clean</b></div><a href="/garment-steamer/">Product</a><a href="/shipping.html">Shipping</a></body></html>';
-const buyer = '<html><h1>Portable Garment Steamer</h1><p>No payment during ZIP check</p><a href="/shipping.html">Request shipping review</a></html>';
+const buyer = '<html><body><h1>Garment Care Device Under Review</h1><p>Research estimate only, not an offer to sell. No physical checkout.</p><p>Steaming function, electrical specifications and fabric suitability have not been independently verified.</p><p>No payment during ZIP check</p><a href="/shipping.html">Request shipping review</a></body></html>';
 const policy = '<html><head><link rel="stylesheet" href="/assets/store.css?v=3"></head><h1>Shipping Policy</h1><p>Physical-product checkout remains unavailable until supplier approval before any physical-product payment.</p></html>';
 
 function fetcher(overrides = {}) {
@@ -103,10 +103,7 @@ test('fails closed on supplier Open Graph image without blocking unrelated links
   assert.equal(noMedia.healthy, true);
 });
 
-const researchBuyer = buyer.replace(
-  '<h1>Portable Garment Steamer</h1>',
-  '<h1>Garment Care Device Under Review</h1><p>Research estimate only, not an offer to sell. No physical checkout.</p><p>Steaming function, electrical specifications and fabric suitability have not been independently verified.</p>'
-).replace('<html>', '<html><body>').replace('</html>', '</body></html>');
+const researchBuyer = buyer;
 
 test('accepts the truthful research-stage buyer title only with visible non-offer disclosures', async () => {
   const report = await observeStorefront(fetcher({
@@ -146,4 +143,46 @@ test('research disclaimers in metadata alone never count as visible buyer disclo
     [ORIGIN + '/garment-steamer/']: { body: noVisibleDisclosures, type: 'text/html' }
   }));
   assert.equal(report.checks[2].ok, false);
+});
+
+test('legacy unverified garment-steamer title is not accepted despite research disclosures', async () => {
+  const legacy = buyer.replace('Garment Care Device Under Review', 'Portable Garment Steamer');
+  const report = await observeStorefront(fetcher({
+    [ORIGIN + '/garment-steamer/']: { body: legacy, type: 'text/html' }
+  }));
+  assert.equal(report.checks[2].ok, false);
+  assert.equal(report.checks[2].reason, 'unverified_product_title');
+});
+
+test('unverified Product and Offer structured data fail closed on research route', async () => {
+  for (const type of ['Product', 'Offer', 'AggregateOffer']) {
+    const withSaleSchema = buyer.replace('</body>', '<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebPage"},{"@type":"' + type + '"}]}</script></body>');
+    const report = await observeStorefront(fetcher({
+      [ORIGIN + '/garment-steamer/']: { body: withSaleSchema, type: 'text/html' }
+    }));
+    assert.equal(report.checks[2].ok, false);
+    assert.equal(report.checks[2].reason, 'unverified_sale_schema');
+  }
+});
+
+test('homepage Product schema blocks retail trust readiness', async () => {
+  const withSaleSchema = home.replace('</body>', '<script type="application/ld+json">{"@type":"Product"}</script></body>');
+  const report = await observeStorefront(fetcher({
+    [ORIGIN + '/']: { body: withSaleSchema, type: 'text/html' }
+  }));
+  assert.equal(report.checks[0].ok, false);
+  assert.equal(report.checks[0].reason, 'unverified_sale_schema');
+});
+
+test('malformed JSON-LD fails closed, neutral WebPage schema remains acceptable', async () => {
+  const malformed = buyer.replace('</body>', '<script type="application/ld+json">{bad</script></body>');
+  const bad = await observeStorefront(fetcher({
+    [ORIGIN + '/garment-steamer/']: { body: malformed, type: 'text/html' }
+  }));
+  assert.equal(bad.checks[2].ok, false);
+  const neutral = buyer.replace('</body>', '<script type="application/ld+json">{"@type":"WebPage"}</script></body>');
+  const good = await observeStorefront(fetcher({
+    [ORIGIN + '/garment-steamer/']: { body: neutral, type: 'text/html' }
+  }));
+  assert.equal(good.checks[2].ok, true);
 });

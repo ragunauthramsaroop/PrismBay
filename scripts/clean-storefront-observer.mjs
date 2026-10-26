@@ -49,16 +49,33 @@ function hasUnverifiedSupplierMedia(html) {
   });
 }
 
+function hasUnverifiedSaleSchema(html) {
+  const scripts = [...html.matchAll(/<script\b([^>]*)>([\s\S]*?)<\/script\s*>/gi)];
+  const containsSaleType = value => {
+    if (!value || typeof value !== 'object') return false;
+    if (Array.isArray(value)) return value.some(containsSaleType);
+    const types = Array.isArray(value['@type']) ? value['@type'] : [value['@type']];
+    if (types.some(type => ['Product', 'Offer', 'AggregateOffer'].includes(type))) return true;
+    return Object.values(value).some(containsSaleType);
+  };
+  return scripts.some(([, attributes, raw]) => {
+    if (!/\btype\s*=\s*(["'])application\/ld\+json\1/i.test(attributes)) return false;
+    try { return containsSaleType(JSON.parse(raw)); }
+    catch { return true; } // Invalid sale metadata must not be treated as trusted.
+  });
+}
+
 export async function observeStorefront(fetcher = fetch) {
   const checks = [];
   const home = await probe(ORIGIN + '/', fetcher);
   const homeSupplierMedia = isHtml(home) && hasUnverifiedSupplierMedia(home.text);
+  const homeSaleSchema = isHtml(home) && hasUnverifiedSaleSchema(home.text);
   checks.push({
     resource: '/',
     ok: isHtml(home) && /PrismBay\s*(?:<[^>]+>\s*)?Clean/i.test(home.text) &&
-      home.text.includes(BUYER_PATH) && home.text.includes(POLICY_PATH) && !homeSupplierMedia,
+      home.text.includes(BUYER_PATH) && home.text.includes(POLICY_PATH) && !homeSupplierMedia && !homeSaleSchema,
     status: home.status,
-    reason: homeSupplierMedia ? 'supplier_media_rights_unverified' : undefined
+    reason: homeSupplierMedia ? 'supplier_media_rights_unverified' : homeSaleSchema ? 'unverified_sale_schema' : undefined
   });
 
   const inlineStyle = home.text.match(/<style(?:\s[^>]*)?>([\s\S]*?)<\/style>/i);
@@ -70,22 +87,22 @@ export async function observeStorefront(fetcher = fetch) {
 
   const buyer = await probe(ORIGIN + BUYER_PATH, fetcher);
   const buyerSupplierMedia = isHtml(buyer) && hasUnverifiedSupplierMedia(buyer.text);
+  const buyerSaleSchema = isHtml(buyer) && hasUnverifiedSaleSchema(buyer.text);
   // The reviewed research-stage page uses a truthful title rather than an
   // unverified product identity. Accept it only with visible, explicit
   // non-offer and unverified-functionality disclosures.
-  const legacyTitle = /<h1[^>]*>\s*Portable Garment Steamer\s*<\/h1>/i.test(buyer.text);
   const researchTitle = /<h1[^>]*>\s*Garment Care Device Under Review\s*<\/h1>/i.test(buyer.text);
   const buyerBody = buyer.text.match(/<body\b[^>]*>([\s\S]*?)<\/body>/i)?.[1] || '';
   const researchDisclosures = /Research estimate only, not an offer to sell/i.test(buyerBody) &&
     /Steaming function[^<]{0,200}have not been independently verified/i.test(buyerBody);
   checks.push({
     resource: BUYER_PATH,
-    ok: isHtml(buyer) && (legacyTitle || (researchTitle && researchDisclosures)) &&
+    ok: isHtml(buyer) && researchTitle && researchDisclosures && !buyerSaleSchema &&
       /Request shipping review/i.test(buyer.text) &&
       /No payment during ZIP check/i.test(buyer.text) &&
       !/https:\/\/(?:buy|checkout)\.stripe\.com\//i.test(buyer.text) && !buyerSupplierMedia,
     status: buyer.status,
-    reason: buyerSupplierMedia ? 'supplier_media_rights_unverified' : undefined
+    reason: buyerSupplierMedia ? 'supplier_media_rights_unverified' : buyerSaleSchema ? 'unverified_sale_schema' : !researchTitle ? 'unverified_product_title' : !researchDisclosures ? 'research_disclosures_missing' : undefined
   });
 
   const policy = await probe(ORIGIN + POLICY_PATH, fetcher);
@@ -119,7 +136,7 @@ export async function observeStorefront(fetcher = fetch) {
     origin: ORIGIN,
     healthy: checks.every(check => check.ok),
     checks,
-    scope: 'Canonical homepage, known unlicensed supplier-media references in HTML, inline styles, steamer inquiry, physical shipping-policy consistency and same-origin policy stylesheet only. Other media rights, browser rendering, TLS trust, remote inquiry handling, checkout, supplier fulfillment, worker execution and sales are not verified.'
+    scope: 'Canonical homepage, unverified Product/Offer JSON-LD and known unlicensed supplier-media references in HTML, inline styles, steamer inquiry, physical shipping-policy consistency and same-origin policy stylesheet only. Other media rights, browser rendering, TLS trust, remote inquiry handling, checkout, supplier fulfillment, worker execution and sales are not verified.'
   };
 }
 

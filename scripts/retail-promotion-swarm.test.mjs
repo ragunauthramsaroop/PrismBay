@@ -2,6 +2,22 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { buildRetailPromotionSwarm, candidateReadiness } from './retail-promotion-swarm.mjs';
 
+
+// Legacy unit fixtures isolate candidate-level gates. Supply authenticated
+// current-cycle transport metadata without changing individual gate values.
+function buildSwarmWithAuthenticatedFixture(args) {
+ const review = args.review;
+ if (!review) return buildRetailPromotionSwarm(args);
+ return buildRetailPromotionSwarm({...args, review: {
+  schemaVersion: 3, authenticationVerified: true, ...review,
+  candidates: Array.isArray(review.candidates)
+   ? review.candidates.map(candidate => ({
+     ...candidate, observedAt: candidate.observedAt ?? review.checkedAt
+   }))
+   : review.candidates
+ }});
+}
+
 test('blocked product without rights or a verified preflight route never becomes promotion eligible', () => {
   const item = candidateReadiness({
     slug: 'crevice',
@@ -54,7 +70,7 @@ test('garment steamer remains research-only without final freight, checkout and 
   ]);
   assert.ok(item.preflightUrl.includes('browser-worker-production-f5b4.up.railway.app/garment-steamer/'));
 
-  const swarm = buildRetailPromotionSwarm({
+  const swarm = buildSwarmWithAuthenticatedFixture({
     now,
     review: {
       checkedAt: '2026-10-09T23:00:00.000Z',
@@ -93,12 +109,12 @@ test('fully verified product requires independent supplier sale-ready declaratio
     automaticPromotionAllowed: true,
   };
   const review = { checkedAt: '2026-10-23T08:59:00.000Z', candidates: [candidate] };
-  const blocked = buildRetailPromotionSwarm({ now, review: { ...review, saleReadyCount: 0 } });
+  const blocked = buildSwarmWithAuthenticatedFixture({ now, review: { ...review, saleReadyCount: 0 } });
   assert.equal(blocked.promotionEligibleCount, 0);
   assert.equal(blocked.trackedOffers.length, 0);
   assert.deepEqual(blocked.nearReady[0].missing.map(x => x.field), ['supplierSaleReadyCount']);
 
-  const cleared = buildRetailPromotionSwarm({ now, review: { ...review, saleReadyCount: 1 } });
+  const cleared = buildSwarmWithAuthenticatedFixture({ now, review: { ...review, saleReadyCount: 1 } });
   assert.equal(cleared.promotionEligibleCount, 1);
   assert.equal(cleared.trackedOffers[0].directCheckoutEligible, true);
   assert.equal(cleared.trackedOffers[0].checkoutMode, 'buyer_zip_guarded_preflight');
@@ -121,7 +137,7 @@ test('supplier-ready products and public TikTok site flags do not authorize reta
     fulfillmentRouteVerified: true,
     automaticPromotionAllowed: true,
   };
-  const swarm = buildRetailPromotionSwarm({
+  const swarm = buildSwarmWithAuthenticatedFixture({
     now,
     review: {
       checkedAt: '2026-10-23T17:59:00.000Z',
@@ -158,7 +174,7 @@ test('supplier sale-ready count never authorizes a candidate missing fulfillment
     checkoutInfrastructureVerified: true, checkoutAllowed: true,
     fulfillmentRouteVerified: false, automaticPromotionAllowed: true,
   };
-  const swarm = buildRetailPromotionSwarm({ now, review: {
+  const swarm = buildSwarmWithAuthenticatedFixture({ now, review: {
     checkedAt: '2026-10-23T08:59:00.000Z', saleReadyCount: 1, candidates: [candidate],
   } });
   assert.equal(swarm.promotionEligibleCount, 0);
@@ -185,7 +201,7 @@ test('even a commercially ready unsupported product is not promoted until a veri
 
 test('stale supplier evidence blocks every product', () => {
   const now = Date.parse('2026-10-11T12:00:00.000Z');
-  const swarm = buildRetailPromotionSwarm({
+  const swarm = buildSwarmWithAuthenticatedFixture({
     now,
     review: {
       checkedAt: '2026-10-09T00:00:00.000Z',
@@ -221,7 +237,7 @@ test('product-level supplier SKU or an unlisted variant never receives retail pr
     { ...complete, liveStoreProduct: false },
     { ...complete, observedVariantSku: '  ' },
   ]) {
-    const swarm = buildRetailPromotionSwarm({ now, review: {
+    const swarm = buildSwarmWithAuthenticatedFixture({ now, review: {
       checkedAt: '2026-10-23T22:59:00.000Z', saleReadyCount: 1, candidates: [candidate],
     } });
     assert.equal(swarm.promotionEligibleCount, 0);
@@ -238,7 +254,7 @@ test('duplicate supplier variants and duplicate storefront identities fail close
     finalZipFreightVerified: true, mediaRightsVerified: true, checkoutInfrastructureVerified: true,
     checkoutAllowed: true, fulfillmentRouteVerified: true, automaticPromotionAllowed: true,
   };
-  const swarm = buildRetailPromotionSwarm({ now, review: {
+  const swarm = buildSwarmWithAuthenticatedFixture({ now, review: {
     checkedAt: '2026-10-23T22:59:00.000Z', saleReadyCount: 2, candidates: [complete, { ...complete }],
   } });
   assert.equal(swarm.promotionEligibleCount, 0);
@@ -302,4 +318,29 @@ test('schema v3 retail promotion requires authenticated current-cycle supplier o
   assert.equal(unauthenticated.promotionEligibleCount, 0);
   assert.equal(unauthenticated.trackedOffers.length, 0);
   assert.ok(unauthenticated.nearReady[0].missing.some(g => g.field === 'supplierAuthenticationVerified'));
+});
+
+
+test('legacy supplier reviews never release products for promotion or direct checkout',()=>{
+ const now=Date.parse('2026-10-24T01:00:00.000Z');
+ const checkedAt='2026-10-24T00:59:00.000Z';
+ const candidate={
+  slug:'garment-steamer',liveStoreProduct:true,observedVariantSku:'CJYD245844002BY',
+  observedAt:checkedAt,independentIdentityMatch:true,variantStockVerified:true,
+  freightEstimateVerified:true,finalZipFreightVerified:true,mediaRightsVerified:true,
+  checkoutInfrastructureVerified:true,checkoutAllowed:true,
+  fulfillmentRouteVerified:true,automaticPromotionAllowed:true
+ };
+ const current={schemaVersion:3,checkedAt,authenticationVerified:true,
+  saleReadyCount:1,candidates:[candidate]};
+ assert.equal(buildRetailPromotionSwarm({now,review:current}).promotionEligibleCount,1);
+ for(const schemaVersion of [undefined,1,2,'3',null]){
+  const blocked=buildRetailPromotionSwarm({now,review:{...current,schemaVersion}});
+  assert.equal(blocked.promotionEligibleCount,0);
+  assert.equal(blocked.trackedOffers.length,0);
+  assert.ok(blocked.nearReady[0].missing.some(g=>g.field==='supplierEvidenceSchema'));
+ }
+ const unauthenticated=buildRetailPromotionSwarm({now,review:{...current,authenticationVerified:false}});
+ assert.equal(unauthenticated.promotionEligibleCount,0);
+ assert.ok(unauthenticated.nearReady[0].missing.some(g=>g.field==='supplierAuthenticationVerified'));
 });

@@ -1,0 +1,14 @@
+{
+  "slug": "ai-model-switch-regression-gate-2026-10-26",
+  "title": "Before You Switch AI Models, Run These 3 Business Tests | PrismBay AI",
+  "sha256": "100ee06eb8a155118a19387e8888c32307d890de848e27014cd5266790acd1c6",
+  "ttsEngines": [
+    "piper"
+  ],
+  "voice": "en_US-norman-medium",
+  "voiceLicenseBasis": "Open Piper voice; verify voice model attribution and intelligibility before release",
+  "sourceAttribution": "NIST AI RMF Measure 2.3\u20132.4, voluntary guidance. PrismBay original three-test framework.",
+  "originalProgrammaticVisuals": true,
+  "paidSpend": 0,
+  "channelId": "UCw2hs85TzIpdKwJtG-BSxzQ"
+}

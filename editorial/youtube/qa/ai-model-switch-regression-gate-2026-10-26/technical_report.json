@@ -1,0 +1,44 @@
+{
+  "slug": "ai-model-switch-regression-gate-2026-10-26",
+  "channelId": "UCw2hs85TzIpdKwJtG-BSxzQ",
+  "durationSeconds": 57.573243,
+  "videoCodec": "h264",
+  "audioCodec": "aac",
+  "width": 1080,
+  "height": 1920,
+  "audioMeanDb": -21.6,
+  "audioPeakDb": -2.9,
+  "ttsEngines": [
+    "piper"
+  ],
+  "originalVisualsDeclared": true,
+  "previewFrames": [
+    "editorial/youtube/qa/ai-model-switch-regression-gate-2026-10-26/preview_01.jpg",
+    "editorial/youtube/qa/ai-model-switch-regression-gate-2026-10-26/preview_02.jpg",
+    "editorial/youtube/qa/ai-model-switch-regression-gate-2026-10-26/preview_03.jpg",
+    "editorial/youtube/qa/ai-model-switch-regression-gate-2026-10-26/preview_04.jpg"
+  ],
+  "technicalChecks": {
+    "duration": true,
+    "dimensions": true,
+    "codecs": true,
+    "piperVoice": true,
+    "noDigitalClipping": true,
+    "soleChannel": true
+  },
+  "technicalPass": true,
+  "manualVisualReview": "PENDING",
+  "manualNarrationReview": "PENDING",
+  "publicationApproved": false,
+  "paidSpendUSD": 0,
+  "machineNarrationReview": {
+    "completed": true,
+    "model": "faster-whisper tiny.en CPU",
+    "scriptWordCount": 135,
+    "transcribedWordCount": 141,
+    "wordSequenceSimilarity": 0.906,
+    "intelligibilityProxyPass": true,
+    "transcript": "A new AI model scores better in a demo than your supplier work flow start making mistakes. Before switching models, run three tests, first, save a baseline, keep a representative set of anonymized tasks, and their accepted outputs include routine cases and difficult exceptions. Run those same cases through both models, count change answers, not only average accuracy, have a process owner review the differences. Next, test missing fields, conflicting evidence and ambiguous requests. The right response is often escalation, not confident, essence, finally, test of a bit in actions. Unapproved emails, payments, or vendor edits must be blocked by two permissions regardless of what the model says. Switch only after quality and safety gates pass. Keep the rollback path in monitor the new model in production. Prism, Bay, AI helps calculators and executives build practical AI business systems. Subscribe for tested workflows and clear decision rules.",
+    "humanListeningReview": "NOT PERFORMED"
+  }
+}

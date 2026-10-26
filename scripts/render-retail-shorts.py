@@ -34,6 +34,8 @@ def load_json(path):
 
 
 def active_promotion(product, promotions, now):
+    if not product_media_release_ready(product):
+        return None
     promo = next((p for p in promotions if p.get('sku') == product.get('sku')), None)
     if not promo:
         return None
@@ -64,6 +66,27 @@ def active_promotion(product, promotions, now):
         'savingsUsd': regular - sale,
         'percentOff': round((regular - sale) / regular * 100),
     }
+
+
+def product_media_release_ready(product):
+    """Legacy listings are not independent proof of commercial or media clearance."""
+    if not isinstance(product, dict) or product.get('legacyLive') is not False:
+        return False
+    if product.get('supplierEvidenceStatus') != 'verified-sale-ready':
+        return False
+    required = (
+        'supplierIdentityVerified', 'exactVariantVerified', 'variantStockVerified',
+        'finalDestinationFreightVerified', 'landedCostVerified', 'checkoutVerified',
+        'fulfillmentVerified', 'mediaRightsVerified', 'ownerPromotionApproved',
+    )
+    if not all(product.get(key) is True for key in required):
+        return False
+    if product.get('mediaSourceType') not in ('original', 'rights-cleared'):
+        return False
+    for key in ('supplierEvidenceRef', 'mediaRightsEvidenceRef', 'ownerApprovalRef'):
+        if not isinstance(product.get(key), str) or not product[key].strip():
+            return False
+    return True
 
 
 def fetch_image(url):
@@ -187,9 +210,11 @@ def main():
     catalog = load_json(args.catalog)
     promo_file = load_json(args.promotions)
     promotions = promo_file.get('promotions', [])
-    products = [p for p in catalog.get('products', []) if p.get('sku') in TARGET_SKUS]
-    if len(products) != 4:
-        raise SystemExit(f'Expected 4 retail products, found {len(products)}')
+    legacy_candidates = [p for p in catalog.get('products', []) if p.get('sku') in TARGET_SKUS]
+    if len(legacy_candidates) != 4:
+        raise SystemExit(f'Expected 4 legacy candidates, found {len(legacy_candidates)}')
+    products = [p for p in legacy_candidates if product_media_release_ready(p)]
+    blocked_count = len(legacy_candidates) - len(products)
 
     out_dir = Path(args.out_dir)
     cards_dir = out_dir / 'cards'
@@ -200,7 +225,8 @@ def main():
     manifest = {
         'schemaVersion': 1,
         'generatedAt': now.isoformat().replace('+00:00', 'Z'),
-        'rule': 'Sale claims render only from the verified retail promotion registry. No promotion evidence means current-price creative only.',
+        'rule': 'Fail closed: legacy listings never authorize product imagery, prices, order CTAs or publication. Only independently evidenced sale-ready and media-cleared products are eligible for rendering. Output is not publishing authorization.',
+        'blockedUnverifiedCount': blocked_count,
         'products': [],
     }
 
@@ -225,7 +251,7 @@ def main():
         })
 
     (out_dir / 'manifest.json').write_text(json.dumps(manifest, indent=2) + '\n', encoding='utf-8')
-    print(json.dumps({'rendered': len(products), 'activeSales': sum(1 for p in manifest['products'] if p['saleActive']), 'outDir': str(out_dir)}, indent=2))
+    print(json.dumps({'rendered': len(products), 'blockedUnverifiedCount': blocked_count, 'activeSales': sum(1 for p in manifest['products'] if p['saleActive']), 'outDir': str(out_dir)}, indent=2))
 
 
 if __name__ == '__main__':

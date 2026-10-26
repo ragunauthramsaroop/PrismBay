@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { WORKERS, checkWorker, applyConsequence, shouldDispatchFallback, reportSummary } from './worker-accountability.mjs';
+import { WORKERS, checkWorker, selectEvidenceRun, applyConsequence, shouldDispatchFallback, reportSummary } from './worker-accountability.mjs';
 
 const now=Date.parse('2026-10-23T21:00:00Z');
 const worker=WORKERS[0];
@@ -57,4 +57,27 @@ test('reports distinguish operational checks from revenue',()=>{
   assert.equal(summary.operationalPass,1);
   assert.equal(summary.replacements,1);
   assert.equal(summary.noRevenueGuarantee,true);
+});
+
+test('redundant cancelled queued dispatch does not mask recent verified success',()=>{
+  const duplicate=run(2,{id:90,event:'workflow_run',conclusion:'cancelled'});
+  const operational=run(3,{id:89,event:'schedule',conclusion:'success'});
+  const effective=selectEvidenceRun([duplicate,operational]);
+  assert.equal(effective.id,89);
+  const result=checkWorker({worker,runs:[duplicate,operational],artifacts:[proof],nowMs:now});
+  assert.equal(result.status,'pass');
+  assert.equal(result.runId,89);
+});
+test('genuine cancellation remains a failure without sufficiently recent completed work',()=>{
+  const duplicate=run(2,{id:91,event:'workflow_run',conclusion:'cancelled'});
+  const old=run(25,{id:80,conclusion:'success'});
+  assert.equal(selectEvidenceRun([duplicate,old]).id,91);
+  const result=checkWorker({worker,runs:[duplicate,old],artifacts:[proof],nowMs:now});
+  assert.equal(result.status,'fail');
+});
+test('a failure is never coalesced, even if a successful run preceded it',()=>{
+  const failed=run(2,{id:91,event:'workflow_run',conclusion:'failure'});
+  const ok=run(3,{id:90,event:'schedule',conclusion:'success'});
+  assert.equal(selectEvidenceRun([failed,ok]).id,91);
+  assert.equal(checkWorker({worker,runs:[failed,ok],artifacts:[proof],nowMs:now}).status,'fail');
 });

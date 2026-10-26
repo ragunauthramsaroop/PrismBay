@@ -133,3 +133,8 @@ NIST AI RMF Playbook: https://www.nist.gov/itl/ai-risk-management-framework/nist
 OWASP GenAI Security Project, Q2 2026 research roundup, prompt injection and excessive agency risk patterns: https://genai.owasp.org/2026/07/08/genai-and-agentic-ai-exploit-roundup-q2-2026/
 OWASP Q1 2026 roundup, risks of autonomous delete/send and inadequate confirmation: https://genai.owasp.org/2026/04/14/owasp-genai-exploit-round-up-report-q1-2026/
 The four-level OBSERVE/DRAFT/PROPOSE/EXECUTE framework and all examples are original PrismBay editorial constructs, not NIST or OWASP endorsements.
+
+
+## Companion implementation worksheet
+
+The original [AI Agent Permission Worksheet](./PB-AGENT-ACCESS-001_permission_worksheet.md) includes a 10-action inventory, technical permission boundaries, independent approval fields, five adversarial tests, and a 30-day pilot scorecard. This is a free companion resource for the existing PrismBay AI channel. Share the link in the video description only after the long-form episode is published and the final video passes quality review.

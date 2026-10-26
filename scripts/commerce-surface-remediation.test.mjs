@@ -15,3 +15,15 @@ test('healthy commerce surfaces generate no repair tasks',()=>{
  assert.equal(board.activeTaskCount,0);
  assert.equal(board.technicalSurfaceReady,true);
 });
+
+test('legacy checkout and merchant-feed exposure becomes priority-zero owner action',()=>{
+ const board=buildSurfaceRemediation({
+  technicalSurfaceReady:true,issueCount:0,
+  products:{products:[]},merchant:{issues:[]},sitemap:{issues:[]},robots:{issues:[]},
+  legacyExposure:{safe:false,directCheckoutLinkCount:3,saleSchemaPageCount:4,inStockFeedRowCount:3,issues:['legacy_direct_physical_checkout_exposed']}
+ });
+ assert.equal(board.activeTaskCount,1);
+ assert.equal(board.tasks[0].id,'legacy-storefront-commercial-exposure');
+ assert.equal(board.tasks[0].priority,0);
+ assert.equal(board.nextAction,board.tasks[0].title);
+});

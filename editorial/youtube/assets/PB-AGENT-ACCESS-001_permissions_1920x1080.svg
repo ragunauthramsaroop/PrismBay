@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080" role="img" aria-label="PrismBay AI four-level agent permission framework">
+<defs><linearGradient id="bg" x2="1" y2="1"><stop stop-color="#071629"/><stop offset="1" stop-color="#12283e"/></linearGradient><filter id="shadow"><feDropShadow dx="0" dy="14" stdDeviation="18" flood-color="#000" flood-opacity=".25"/></filter></defs>
+<rect width="1920" height="1080" fill="url(#bg)"/><path d="M0 830 Q 800 720 1920 950" fill="none" stroke="#27435a" stroke-width="2"/>
+<text x="104" y="105" fill="#6de2d5" font-family="Arial,sans-serif" font-size="30" font-weight="bold" letter-spacing="4">PRISMBAY AI  /  SYSTEMS UNDER CONTROL</text>
+<text x="104" y="196" fill="#ffffff" font-family="Arial,sans-serif" font-size="69" font-weight="bold">What is the agent allowed to do?</text>
+<text x="104" y="254" fill="#b7cad7" font-family="Arial,sans-serif" font-size="30">Permissions belong in the system, not only in the prompt.</text>
+<g font-family="Arial,sans-serif" filter="url(#shadow)">
+<rect x="100" y="320" width="1718" height="139" rx="23" fill="#153b49" stroke="#2f8d96" stroke-width="2"/>
+<rect x="100" y="483" width="1718" height="139" rx="23" fill="#18434e" stroke="#3f9ea7" stroke-width="2"/>
+<rect x="100" y="646" width="1718" height="139" rx="23" fill="#3e3941" stroke="#c99b5a" stroke-width="2"/>
+<rect x="100" y="809" width="1718" height="139" rx="23" fill="#4b303a" stroke="#d37c78" stroke-width="2"/>
+</g>
+<g font-family="Arial,sans-serif" font-size="35" font-weight="bold" fill="#fff">
+<text x="157" y="404">01  OBSERVE</text><text x="157" y="567">02  DRAFT</text><text x="157" y="730">03  PROPOSE</text><text x="157" y="893">04  EXECUTE</text>
+</g>
+<g font-family="Arial,sans-serif" font-size="28" fill="#dce8ef">
+<text x="650" y="403">Read approved information</text><text x="650" y="566">Prepare content in a staging area</text><text x="650" y="729">Recommend a specific action with evidence</text><text x="650" y="892">Perform a narrowly permitted action</text>
+</g>
+<g font-family="Arial,sans-serif" font-size="26" font-weight="bold" text-anchor="end">
+<text x="1750" y="404" fill="#6de2d5">READ ONLY</text><text x="1750" y="567" fill="#6de2d5">NO SEND</text><text x="1750" y="730" fill="#ffcd87">HUMAN APPROVAL</text><text x="1750" y="893" fill="#ffaba7">STRICT CONTROLS</text>
+</g>
+<text x="104" y="1018" fill="#90a8b8" font-family="Arial,sans-serif" font-size="23">Original PrismBay AI teaching framework. Not a regulatory standard.  |  @PrismBayAI</text>
+</svg>

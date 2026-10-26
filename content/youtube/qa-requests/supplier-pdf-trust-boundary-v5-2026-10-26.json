@@ -1,0 +1,14 @@
+{
+  "slug": "supplier-pdf-trust-boundary-v5-2026-10-26",
+  "targetChannelId": "UCw2hs85TzIpdKwJtG-BSxzQ",
+  "experimentId": "PB-PROMPT-TRUST-V5-20261026",
+  "sourceUrl": "https://genai.owasp.org/llmrisk/llm01-prompt-injection/",
+  "sourceVerified": "2026-10-26",
+  "originalityGate": "Must visually confirm original trust_boundary_v5 diagrams, no generic fallback",
+  "machineNarrationReview": "Compare transcribed audio to approved original six segments",
+  "manualNarrationReview": "PENDING",
+  "manualVisualReview": "PENDING",
+  "publishAllowed": false,
+  "publicationPolicy": "Never publish predecessor and successor. Publish only after independent QA and exact-channel verification.",
+  "paidSpendUSD": 0
+}

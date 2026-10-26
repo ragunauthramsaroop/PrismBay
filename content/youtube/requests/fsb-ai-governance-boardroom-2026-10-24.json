@@ -1,0 +1,62 @@
+{
+  "slug": "fsb-ai-governance-boardroom-2026-10-24",
+  "title": "New AI Governance Guidance: 3 Board Tests Before Deploying Agents | PrismBay AI",
+  "voice": "en_US-norman-medium",
+  "voiceLicenseBasis": "Piper en_US-norman-medium public-domain LibriVox source; verify installed model and attribution before publication",
+  "visualStyle": "boardroom_v3",
+  "sourceAttribution": "Financial Stability Board, 15 October 2026, Sound Practices for Responsible Adoption of Artificial Intelligence. PrismBay's three checks are original interpretation, not FSB legal mandates.",
+  "targetChannelId": "UCw2hs85TzIpdKwJtG-BSxzQ",
+  "experimentId": "PB-FSB-001-V3",
+  "segments": [
+    {
+      "scene": "opening",
+      "headline": "NEW AI GUIDANCE. WHAT CHANGES?",
+      "body": "FSB: 12 sound practices. PrismBay: 3 executive checks.",
+      "spoken": "On October fifteenth, the Financial Stability Board published twelve sound practices for responsible AI in financial institutions. They are guidance, not a new law. Here are three executive checks."
+    },
+    {
+      "scene": "owner",
+      "headline": "CHECK ONE: WHO IS ACCOUNTABLE?",
+      "body": "Name the decision owner and independent approval point.",
+      "spoken": "First, identify the accountable owner. Who approves consequential actions? An AI agent's technical access is not business authorization."
+    },
+    {
+      "scene": "evidence",
+      "headline": "CHECK TWO: SHOW THE EVIDENCE",
+      "body": "Test before launch. Track failures and changing risks.",
+      "spoken": "Second, demand evidence. Test performance before launch, track failures after launch, and document decisions. A confident answer is not proof of control."
+    },
+    {
+      "scene": "stop",
+      "headline": "CHECK THREE: PROVE THE STOP",
+      "body": "Pause actions. Revoke access. Restore the process.",
+      "spoken": "Third, test intervention. Can your team pause the workflow, revoke access, and recover when a vendor or agent fails?"
+    },
+    {
+      "scene": "test",
+      "headline": "THE TEN-MINUTE BOARD TEST",
+      "body": "Owner. Evidence. Tested intervention.",
+      "spoken": "Pick one real AI workflow. Find its named owner, performance record, and tested stop procedure. Missing answers become management actions."
+    },
+    {
+      "scene": "close",
+      "headline": "BUILD GOVERNABLE AI SYSTEMS",
+      "body": "Original PrismBay executive interpretation of FSB guidance.",
+      "spoken": "Those are PrismBay's three checks, inspired by the FSB guidance. Subscribe for practical AI business systems."
+    }
+  ],
+  "sources": [
+    "https://www.fsb.org/2026/10/fsb-finalises-sound-practices-for-the-responsible-adoption-of-artificial-intelligence-ai/"
+  ],
+  "hypothesis": "An original three-check visual framework grounded in fresh FSB guidance will attract qualified executive viewers and generate subscriber conversions versus generic AI news.",
+  "targetAudience": "Founders, CFOs, COOs, board members, AI risk leaders",
+  "hookType": "dated primary-source governance news plus immediate actionable board test",
+  "format": "short",
+  "durationTargetSeconds": "45-60",
+  "thumbnailConcept": "Editorial white-board design, bold 12 PRACTICES / 3 CHECKS visual, original typography",
+  "cta": "Subscribe for practical AI business systems",
+  "publishTime": "PENDING QA AND AUTHENTICATED CHANNEL SCHEDULING",
+  "successThreshold": "At 72 hours, SCALE if subscriber conversion and engaged views exceed recent comparable Short median by >=30% with useful sample. MODIFY weak retention. STOP if factual or originality gate fails.",
+  "productionStatus": "render_requested_2026-10-24",
+  "paidSpendUSD": 0
+}

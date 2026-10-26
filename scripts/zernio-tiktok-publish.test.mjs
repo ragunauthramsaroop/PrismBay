@@ -7,7 +7,8 @@ import {
   hasUnverifiedPromotionClaim,
   isPromotionReady,
   sanitizeForReceipt,
-  validatePublishRequest
+  validatePublishRequest,
+  requireCurrentPhysicalPromotionEvidence
 } from './zernio-tiktok-publish.mjs';
 
 const config = {
@@ -136,4 +137,31 @@ test('receipts remove provider credentials and tokens recursively', () => {
     nested: { refresh_token: 'secret2', username: 'prismbayclean' }
   });
   assert.deepEqual(clean, { ok: true, nested: { username: 'prismbayclean' } });
+});
+
+// A previously deployed physical SKU, a configured checkout URL, and stored
+// TikTok consent flags do not constitute a current supplier release.
+test('legacy physical products are rejected before any TikTok provider request', () => {
+  const old = { ...product, legacyLive: true, supplierEvidenceStatus: 'not-migrated-into-new-sale-ready-gate' };
+  assert.throws(() => requireCurrentPhysicalPromotionEvidence(old, {
+    schemaVersion: 3, checkedAt: '2026-10-25T10:00:00Z', authenticationVerified: true,
+    saleReadyCount: 1, candidates: []
+  }, Date.parse('2026-10-25T10:05:00Z')), /legacy_physical_product_not_qualified/);
+});
+
+test('missing supplier SKU mapping and stale evidence block physical TikTok promotion', () => {
+  const noMap = { ...product, legacyLive: false, supplierEvidenceStatus: 'verified_sale_ready' };
+  assert.throws(() => requireCurrentPhysicalPromotionEvidence(noMap, null), /legacy_physical_product_not_qualified/);
+  const mapped = { ...noMap, supplierSlug: 'scrubber', supplierVariantSku: 'CJSKU123' };
+  const stale = { schemaVersion: 3, checkedAt: '2026-10-20T00:00:00Z',
+    authenticationVerified: true, saleReadyCount: 1, candidates: [{
+      slug: 'scrubber', observedVariantSku: 'CJSKU123', liveStoreProduct: true,
+      independentIdentityMatch: true, variantStockVerified: true, freightEstimateVerified: true,
+      finalZipFreightVerified: true, mediaRightsVerified: true,
+      checkoutInfrastructureVerified: true, checkoutAllowed: true,
+      fulfillmentRouteVerified: true, automaticPromotionAllowed: true,
+      observedAt: '2026-10-20T00:00:00Z'
+    }] };
+  assert.throws(() => requireCurrentPhysicalPromotionEvidence(mapped, stale,
+    Date.parse('2026-10-25T10:05:00Z')), /current_physical_commercial_evidence_required/);
 });
