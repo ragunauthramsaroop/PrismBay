@@ -1,0 +1,62 @@
+name: PrismBay Top 15 Automated Readiness Audit
+on:
+  schedule:
+    - cron: '47 */6 * * *'
+  workflow_dispatch:
+  workflow_run:
+    workflows: ['PrismBay CJ Supplier Verification']
+    types: [completed]
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/top15-readiness.mjs'
+      - 'scripts/top15-readiness.test.mjs'
+      - 'config/top15-merchandising.json'
+      - '.github/workflows/top15-readiness-audit.yml'
+permissions:
+  contents: write
+concurrency:
+  group: prismbay-top15-readiness
+  cancel-in-progress: false
+jobs:
+  assess:
+    if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Test strict identity, shortlist and checkout boundaries
+        run: node --test scripts/cj-match-policy.test.mjs scripts/cj-search-strategy.test.mjs scripts/top15-readiness.test.mjs
+      - name: Reconcile current read-only supplier evidence
+        run: node scripts/top15-readiness.mjs
+      - name: Preserve audit report
+        uses: actions/upload-artifact@v4
+        with:
+          name: prismbay-top15-readiness-${{ github.run_id }}
+          path: growth-reports/top15-readiness.json
+          retention-days: 14
+      - name: Publish updated readiness status to main
+        shell: bash
+        run: |
+          set -euo pipefail
+          cp growth-reports/top15-readiness.json "$RUNNER_TEMP/top15-readiness.json"
+          for attempt in 1 2 3; do
+            git fetch origin main
+            git reset --hard origin/main
+            cp "$RUNNER_TEMP/top15-readiness.json" growth-reports/top15-readiness.json
+            git add -f growth-reports/top15-readiness.json
+            if git diff --cached --quiet; then
+              echo 'Readiness unchanged.'
+              exit 0
+            fi
+            git -c user.name='github-actions[bot]' -c user.email='41898282+github-actions[bot]@users.noreply.github.com' commit -m 'chore: refresh fail-closed Top 15 product readiness'
+            if git push origin HEAD:main; then exit 0; fi
+            echo "Concurrent update during attempt $attempt"
+          done
+          echo 'Unable to publish audit after retry' >&2
+          exit 1
