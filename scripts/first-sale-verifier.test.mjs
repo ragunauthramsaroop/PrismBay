@@ -119,3 +119,12 @@ test('locally marked test order never counts against live Stripe',async()=>{
  const live=await withFakeStripe(stripeIntent,()=>retrieveLiveStripePayment(order.paymentId));
  assert.equal(verifyFirstSale({order:{...order,test:true}},live).verifiedFirstSale,false);
 });
+
+test('self-asserted supplier and shipment flags never establish fulfilled status after real payment', async () => {
+  const live = await withFakeStripe(stripeIntent, () => retrieveLiveStripePayment(order.paymentId));
+  const r = verifyFirstSale({ order: { ...order, supplierOrderVerified: true, shipmentVerified: true } }, live);
+  assert.equal(r.verifiedFirstSale, true);
+  assert.equal(r.fulfillmentVerified, false);
+  assert.equal(r.checks.supplierOrderVerified, false);
+  assert.equal(r.checks.shipmentVerified, false);
+});
