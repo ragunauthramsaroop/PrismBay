@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "checkedAt": "2026-10-26T16:13:42.682Z",
+  "checkedAt": "2026-10-26T16:14:06.832Z",
   "source": "GitHub Actions accountability evidence",
   "refreshPolicy": "Best-effort GitHub schedules. Static snapshot; refresh does not run agents.",
   "summary": {
@@ -24,7 +24,7 @@
       "failureStreak": 0,
       "runId": 40356841119,
       "runUrl": "https://github.com/ragunauthramsaroop/PrismBay/actions/runs/40356841119",
-      "runAgeMinutes": 1,
+      "runAgeMinutes": 2,
       "artifactName": "buyer-acquisition-40356841119",
       "artifactBytes": 21946,
       "remediation": null
@@ -42,7 +42,7 @@
       "failureStreak": 0,
       "runId": 40209753982,
       "runUrl": "https://github.com/ragunauthramsaroop/PrismBay/actions/runs/40209753982",
-      "runAgeMinutes": 1451,
+      "runAgeMinutes": 1452,
       "artifactName": "prismbay-external-traffic-40209753982",
       "artifactBytes": 799888,
       "remediation": null
@@ -57,7 +57,7 @@
       "status": "fail",
       "reason": "worker_stale",
       "consequence": "replace_route",
-      "failureStreak": 15,
+      "failureStreak": 16,
       "runId": 40303223585,
       "runUrl": "https://github.com/ragunauthramsaroop/PrismBay/actions/runs/40303223585",
       "runAgeMinutes": 379,
@@ -93,10 +93,10 @@
       "status": "fail",
       "reason": "worker_stale",
       "consequence": "replace_route",
-      "failureStreak": 5,
+      "failureStreak": 6,
       "runId": 40330417673,
       "runUrl": "https://github.com/ragunauthramsaroop/PrismBay/actions/runs/40330417673",
-      "runAgeMinutes": 168,
+      "runAgeMinutes": 169,
       "artifactName": null,
       "artifactBytes": null,
       "remediation": "reassigned_to_currently_operational_buyer_acquisition"
