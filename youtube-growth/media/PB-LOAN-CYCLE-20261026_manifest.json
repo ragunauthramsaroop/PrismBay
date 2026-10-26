@@ -1,0 +1,13 @@
+{
+  "channel_id": "UCw2hs85TzIpdKwJtG-BSxzQ",
+  "handle": "@PrismBayAI",
+  "experiment": "PB-LOAN-CYCLE-20261026",
+  "status": "RENDERED_NOT_PUBLISHED",
+  "source": "Reuters 2026-10-26",
+  "source_url": "https://www.reuters.com/business/finance/ai-cuts-some-deutsche-bank-corporate-loan-decisions-minutes-2026-10-26/",
+  "duration_seconds": 55.0,
+  "format": "1080x1920",
+  "synthetic_realistic_content": false,
+  "quality_gate": "HUMAN_LISTEN_REVIEW_PENDING",
+  "advertising_spend_usd": 0
+}
