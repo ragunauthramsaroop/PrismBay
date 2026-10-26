@@ -241,3 +241,37 @@ test('ordinary supplier links and rights-safe styles do not create false media a
   }));
   assert.equal(report.healthy, true);
 });
+
+test('canonical observer detects CJ supplier CDN aliases across media attributes and styles', async () => {
+  const cases = [
+    '<img src="https://shopifyfile.oss-us-west-1.aliyuncs.com/p.jpg">',
+    '<img srcset="https://cc-west-usa.oss-us-west-1.aliyuncs.com/p.jpg 2x">',
+    '<meta property="og:image" content="https://shopifyfile.oss-us-west-1.aliyuncs.com/p.jpg">',
+    '<style>.hero{background:url(https://cc-west-usa.oss-us-west-1.aliyuncs.com/p.jpg)}</style>',
+    '<script type="application/ld+json">{"@type":"WebPage","image":"https://shopifyfile.oss-us-west-1.aliyuncs.com/p.jpg"}</script>',
+    '<script type="application/ld+json">{"@type":"WebPage","image":"https:\\/\\/cc-west-usa.oss-us-west-1.aliyuncs.com/p.jpg"}</script>'
+  ];
+  for (const fragment of cases) {
+    const report = await observeStorefront(fetcher({
+      [ORIGIN + '/']: { body: home.replace('</body>', fragment + '</body>'), type: 'text/html' }
+    }));
+    assert.equal(report.checks[0].reason, 'supplier_media_rights_unverified', fragment);
+  }
+});
+
+test('canonical observer flags CJ CDN imagery in same-origin CSS but ignores unrelated domains', async () => {
+  const blocked = await observeStorefront(fetcher({
+    [ORIGIN + '/assets/store.css?v=3']: {
+      body: '.hero{background:url(https://shopifyfile.oss-us-west-1.aliyuncs.com/p.jpg)}', type: 'text/css'
+    }
+  }));
+  assert.equal(blocked.checks[4].reason, 'supplier_media_rights_unverified');
+  const safe = await observeStorefront(fetcher({
+    [ORIGIN + '/']: {
+      body: home.replace('</body>',
+        '<a href="https://shopifyfile.oss-us-west-1.aliyuncs.com/p.jpg">Supplier link</a><img src="https://notshopifyfile.oss-us-west-1.aliyuncs.com/p.jpg"></body>'),
+      type: 'text/html'
+    }
+  }));
+  assert.equal(safe.healthy, true);
+});
