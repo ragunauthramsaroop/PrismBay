@@ -199,13 +199,13 @@ jobs:
               searchesAttempted += 1;
               const url = new URL(BASE + '/product/listV2');
               url.searchParams.set('page', '1');
-              url.searchParams.set('size', '20');
+              url.searchParams.set('size', '40');
               url.searchParams.set('keyWord', query);
               url.searchParams.set('countryCode', 'US');
               url.searchParams.set('startWarehouseInventory', '10');
               url.searchParams.set('verifiedWarehouse', '1');
               url.searchParams.set('sort', 'desc');
-              url.searchParams.set('orderBy', '1');
+              url.searchParams.set('orderBy', '0');
               url.searchParams.append('features', 'enable_category');
               let search;
               try {
@@ -230,10 +230,10 @@ jobs:
                 searchesAttempted += 1;
                 const url = new URL(BASE + '/product/listV2');
                 url.searchParams.set('page', '1');
-                url.searchParams.set('size', '20');
+                url.searchParams.set('size', '40');
                 url.searchParams.set('keyWord', query);
                 url.searchParams.set('sort', 'desc');
-                url.searchParams.set('orderBy', '1');
+                url.searchParams.set('orderBy', '0');
                 url.searchParams.append('features', 'enable_category');
                 let search;
                 try {
@@ -277,7 +277,7 @@ jobs:
               const variantsResponse = await jsonFetch(variantsUrl, { headers: headers(token) });
               const variants = Array.isArray(variantsResponse?.data) ? variantsResponse.data : [];
               variantCheck = 'manual_variant_inventory_check_required';
-              for (const choice of variants.slice(0, 5)) {
+              for (const choice of variants.slice(0, 7)) {
                 if (String(choice?.pid || '') !== String(item.id) || !choice?.vid ||
                     positiveNumber(choice?.variantSellPrice) === null) continue;
                 const stockUrl = new URL(BASE + '/product/stock/queryByVid');
