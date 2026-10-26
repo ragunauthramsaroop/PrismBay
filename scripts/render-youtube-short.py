@@ -282,7 +282,9 @@ def main():
         used = synthesize(spoken, wav, voice, voice_dir) if engine == 'piper' else synthesize(spoken, wav, '__missing__', voice_dir)
         used_engines.add(used)
         duration = max(1.0, wav_duration(wav) + 0.18)
-        frame = (render_frame_incident(segment, i, len(segments), spec.get('sourceAttribution', ''))
+        frame = (render_frame_trust(segment, i, len(segments), spec.get('sourceAttribution', ''))
+                 if spec.get('visualStyle') == 'trust_boundary_v5'
+                 else render_frame_incident(segment, i, len(segments), spec.get('sourceAttribution', ''))
                  if spec.get('visualStyle') == 'incident_v4'
                  else render_frame_ledger(segment, i, len(segments), spec.get('sourceAttribution', ''))
                  if spec.get('visualStyle') == 'ledger_v1'
