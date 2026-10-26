@@ -130,7 +130,7 @@ def render_slide(chapter_index, chapter_title, slide_index, total, narration, pa
     diagram_canvas = Image.new("RGB", (W, H), (19, 37, 57))
     diagram(diagram_canvas_draw := ImageDraw.Draw(diagram_canvas), chapter_index, slide_index)
     graphic = diagram_canvas.crop((1150, 255, 1810, 892))
-    sentences = re.split(r"(?<=[.!?])\\s+(?=[A-Z])", narration)
+    sentences = re.split(r"(?<=[.!?])\s+(?=[A-Z])", narration)
     summary = " ".join(sentences[:2])
     chapter_label = chapter_title.upper()
 
