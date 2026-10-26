@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-10-26T01:40:14.023Z",
+  "checkedAt": "2026-10-26T06:57:18.323Z",
   "phase": "WAITING_EBAY_CJ_AUTH",
   "blockers": [
     "ebaySellerAuthenticated"
@@ -9,8 +9,8 @@
   "liveStockVerified": true,
   "dispatchLocationVerified": true,
   "economicsPass": true,
-  "orchestratorCheckedAt": "2026-10-26T00:41:25.397Z",
-  "orchestratorAgeMinutes": 58,
+  "orchestratorCheckedAt": "2026-10-26T05:27:54.422Z",
+  "orchestratorAgeMinutes": 89,
   "orchestratorStale": true,
   "orchestratorNextAction": "Keep CJ/eBay authorization watcher active and keep the zero-cost local authorization runner published. No listing publish until CJ reports the eBay shop authorized.",
   "ticketStatus": "EXPIRED",
