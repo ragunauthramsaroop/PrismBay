@@ -1,0 +1,49 @@
+name: Publish Reviewed PrismBay Top 15 Page
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'storefront/top-15/index.html'
+      - 'scripts/top15-publish-contract.test.mjs'
+      - '.github/workflows/publish-top15-pages.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: prismbay-top15-page-publisher
+  cancel-in-progress: false
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Validate 15 research items, inquiry-only commerce and active digital URLs
+        run: node --test scripts/top15-publish-contract.test.mjs
+      - name: Publish reviewed source to the existing GitHub Pages branch
+        shell: bash
+        run: |
+          set -euo pipefail
+          cp storefront/top-15/index.html "$RUNNER_TEMP/top15-public.html"
+          for attempt in 1 2 3; do
+            git fetch origin gh-pages
+            git checkout --force -B top15-publish origin/gh-pages
+            mkdir -p top-15
+            cp "$RUNNER_TEMP/top15-public.html" top-15/index.html
+            git add top-15/index.html
+            if git diff --cached --quiet; then
+              echo 'Public page already matches maintained source.'
+              exit 0
+            fi
+            git -c user.name='github-actions[bot]' -c user.email='41898282+github-actions[bot]@users.noreply.github.com' commit -m 'chore: publish verified Top 15 storefront source'
+            if git push origin HEAD:gh-pages; then exit 0; fi
+            echo "Page branch updated concurrently, retry $attempt"
+          done
+          echo 'Unable to publish Top 15 page' >&2
+          exit 1
