@@ -1,12 +1,12 @@
 {
   "schemaVersion": 1,
-  "checkedAt": "2026-10-26T09:28:04.201Z",
+  "checkedAt": "2026-10-26T09:28:37.952Z",
   "source": "GitHub Actions accountability evidence",
   "refreshPolicy": "Best-effort GitHub schedules. Static snapshot; refresh does not run agents.",
   "summary": {
     "passing": 3,
-    "running": 0,
-    "attention": 2,
+    "running": 1,
+    "attention": 1,
     "warnings": 2,
     "total": 5
   },
@@ -18,13 +18,13 @@
       "cadence": "Every 30 minutes",
       "purpose": "Produces and publishes digital product buyer pages",
       "workflow": "buyer-acquisition.yml",
-      "status": "fail",
-      "reason": "worker_stale",
-      "consequence": "replace_route",
+      "status": "running",
+      "reason": "operational_run_in_progress",
+      "consequence": "replacement_pending",
       "failureStreak": 3,
-      "runId": 40279667756,
-      "runUrl": "https://github.com/ragunauthramsaroop/PrismBay/actions/runs/40279667756",
-      "runAgeMinutes": 183,
+      "runId": 40299794153,
+      "runUrl": "https://github.com/ragunauthramsaroop/PrismBay/actions/runs/40299794153",
+      "runAgeMinutes": 0,
       "artifactName": null,
       "artifactBytes": null,
       "remediation": null
@@ -57,13 +57,13 @@
       "status": "fail",
       "reason": "worker_stale",
       "consequence": "replace_route",
-      "failureStreak": 9,
+      "failureStreak": 10,
       "runId": 40266327275,
       "runUrl": "https://github.com/ragunauthramsaroop/PrismBay/actions/runs/40266327275",
       "runAgeMinutes": 334,
       "artifactName": null,
       "artifactBytes": null,
-      "remediation": "dispatched_safe_digital_buyer_acquisition_fallback"
+      "remediation": null
     },
     {
       "id": "paperclip-revenue",
