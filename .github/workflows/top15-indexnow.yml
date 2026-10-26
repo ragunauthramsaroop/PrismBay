@@ -1,0 +1,23 @@
+name: PrismBay Organic IndexNow Discovery
+on:
+  schedule:
+    - cron: '23 13 * * 1'
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/top15-indexnow.yml'
+      - 'scripts/top15-indexnow.mjs'
+permissions:
+  contents: read
+jobs:
+  ping-indexnow:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Confirm domain ownership proof and submit updated URLs to IndexNow partners
+        run: node scripts/top15-indexnow.mjs
