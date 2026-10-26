@@ -11,7 +11,7 @@ The engine does not create a new sender or fulfillment pipeline. Existing PrismB
 ## Safety gates
 
 - Abandonment recovery requires explicit consent evidence.
-- Review requests require delivery evidence and consent.
+- Review requests require delivery evidence, consent, an opaque order reference, and membership in a separate `verifiedPaidOrderRefs` Set populated exclusively from authenticated live Stripe paid transactions reconciled to the same order. Contact-supplied purchase flags and delivery timestamps alone never qualify. The default CLI supplies no verified set, so review requests fail closed.
 - Unsubscribed, bounced and complained recipients are suppressed before timing rules are evaluated.
 - Message idempotency is keyed to journey, normalized recipient and template, while output exposes only hashes.
 - No raw email is written to the dry-run report or console summary.
