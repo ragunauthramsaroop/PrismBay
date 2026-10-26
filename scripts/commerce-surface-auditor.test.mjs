@@ -64,3 +64,11 @@ test('legacy audit treats network errors and unreadable media feed as unknown, n
  assert.equal(result.safe,false);
  assert.ok(result.issues.includes('legacy_surface_inspection_incomplete'));
 });
+
+test('legacy audit fails closed when no pages were inspected',()=>{
+ const result=auditLegacySnapshot({pages:[],feed:{ok:false,status:404}});
+ assert.equal(result.safe,false);
+ assert.equal(result.decommissioned,false);
+ assert.ok(result.issues.includes('legacy_surface_inspection_incomplete'));
+ assert.ok(result.unknownPathCount>0);
+});
