@@ -12,6 +12,7 @@ function contact(overrides = {}) {
     subscribedAt: '2026-10-03T12:00:00Z',
     abandonedAt: '2026-10-04T10:00:00Z',
     deliveredAt: '2026-09-27T12:00:00Z',
+    orderRef: 'PB-1001',
     ...overrides
   };
 }
@@ -59,6 +60,26 @@ test('review request requires delivered purchase evidence', () => {
   assert.equal(result.reason, 'missing_delivery_evidence');
 });
 
+test('review request refuses delivered-only and self-reported purchase claims', () => {
+  const step = { day: 7, template: 'verified-review-day-7' };
+  const claimed = contact({ purchaseVerified: true, paymentStatus: 'paid' });
+  assert.equal(evaluateStep({ journeyName: 'review-request', step, contact: claimed, nowMs }).reason, 'paid_order_not_verified');
+  assert.equal(evaluateStep({ journeyName: 'review-request', step, contact: claimed, nowMs, verifiedPaidOrderRefs: ['PB-1001'] }).reason, 'paid_order_not_verified');
+  assert.equal(evaluateStep({ journeyName: 'review-request', step, contact: contact({ orderRef: null }), nowMs, verifiedPaidOrderRefs: new Set(['PB-1001']) }).reason, 'valid_order_reference_required');
+  assert.equal(evaluateStep({ journeyName: 'review-request', step, contact: contact({ orderRef: 'PB-OTHER' }), nowMs, verifiedPaidOrderRefs: new Set(['PB-1001']) }).reason, 'paid_order_not_verified');
+});
+
+test('verified paid order reference and delivery permit review dry-run without sending', () => {
+  const result = evaluateStep({
+    journeyName: 'review-request',
+    step: { day: 7, template: 'verified-review-day-7' },
+    contact: contact(), nowMs, verifiedPaidOrderRefs: new Set(['PB-1001'])
+  });
+  assert.equal(result.eligible, true);
+  assert.equal(result.entry.liveSendAttempted, false);
+  assert.equal(JSON.stringify(result).includes('buyer@example.invalid'), false);
+});
+
 test('abandonment recovery requires consent evidence', () => {
   const result = evaluateStep({
     journeyName: 'abandonment-recovery', step: { day: 0, afterHours: 2, template: 'abandonment-2h' }, contact: contact({ consent: false }), nowMs
@@ -79,11 +100,20 @@ test('dry run aggregates without sending or supplier ordering', () => {
       'post-purchase-onboarding': [contact()],
       'review-request': [contact()]
     },
-    nowMs
+    nowMs,
+    verifiedPaidOrderRefs: new Set(['PB-1001'])
   });
   assert.equal(report.mode, 'dry-run');
   assert.equal(report.liveSendAttempted, false);
   assert.equal(report.supplierOrderingAttempted, false);
   assert.ok(report.totals.eligible >= 2);
   assert.equal(JSON.stringify(report).includes('buyer@example.invalid'), false);
+});
+
+test('default lifecycle dry-run blocks review requests without independent Stripe evidence', () => {
+  const report = dryRun({ contactsByJourney: { 'review-request': [contact({ purchaseVerified: true })] }, nowMs });
+  assert.equal(report.totals.eligible, 0);
+  assert.equal(report.totals.blocked, 1);
+  assert.equal(report.journeys.find(j => j.name === 'review-request').results[0].reason, 'paid_order_not_verified');
+  assert.equal(report.liveSendAttempted, false);
 });
