@@ -1,15 +1,15 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-10-26T23:52:38.911Z",
+  "generatedAt": "2026-10-26T23:57:13.295Z",
   "researchCandidates": 12,
   "publishedResearchSignals": 12,
   "verifiedCJStatus": {
-    "checkedAt": "2026-10-26T23:52:36.158Z",
-    "validSupplierMatches": 7,
-    "variantStock": 3,
-    "freightEstimates": 3,
+    "checkedAt": "2026-10-26T23:57:11.377Z",
+    "validSupplierMatches": 10,
+    "variantStock": 4,
+    "freightEstimates": 4,
     "countryFreightEstimates": 2,
-    "illustrativeZipFreightEstimates": 1,
+    "illustrativeZipFreightEstimates": 2,
     "falseMatches": 0
   },
   "constraints": {
@@ -29,16 +29,16 @@
       "blockers": [
         {
           "slug": "scrubber",
-          "status": "supplier_search_needed",
-          "sku": null,
-          "shippingDiagnostic": null,
+          "status": "variant_stock_required",
+          "sku": "CJYS2455637",
+          "shippingDiagnostic": "variant_stock_unverified",
           "zeroPricedMethods": 0
         },
         {
           "slug": "pethair",
-          "status": "variant_stock_required",
-          "sku": "CJYD2079690",
-          "shippingDiagnostic": "variant_stock_unverified",
+          "status": "final_zip_freight_required",
+          "sku": "CJYD224734802BY",
+          "shippingDiagnostic": "priced_estimate_available",
           "zeroPricedMethods": 0
         },
         {
@@ -65,9 +65,9 @@
         {
           "slug": "garment-steamer",
           "status": "final_zip_freight_required",
-          "sku": "CJYD245844002BY",
-          "shippingDiagnostic": "priced_estimate_available",
-          "zeroPricedMethods": 0
+          "sku": "CJFU231914001AZ",
+          "shippingDiagnostic": "priced_tip_estimate_available",
+          "zeroPricedMethods": 81
         },
         {
           "slug": "mini-mop",
@@ -85,9 +85,9 @@
         },
         {
           "slug": "home-caddy",
-          "status": "supplier_search_needed",
-          "sku": null,
-          "shippingDiagnostic": null,
+          "status": "variant_stock_required",
+          "sku": "CJYD2072140",
+          "shippingDiagnostic": "variant_stock_unverified",
           "zeroPricedMethods": 0
         },
         {
@@ -128,7 +128,7 @@
         {
           "slug": "car-phone-mount",
           "status": "variant_stock_required",
-          "sku": "CJSJSJSJ02737",
+          "sku": "CJSJ2077898",
           "shippingDiagnostic": "variant_stock_unverified",
           "zeroPricedMethods": 0
         },
@@ -148,9 +148,9 @@
         },
         {
           "slug": "roll-up-dish-rack",
-          "status": "supplier_search_needed",
-          "sku": null,
-          "shippingDiagnostic": null,
+          "status": "variant_stock_required",
+          "sku": "CJYD2388315",
+          "shippingDiagnostic": "variant_stock_unverified",
           "zeroPricedMethods": 0
         }
       ]
