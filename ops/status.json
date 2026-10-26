@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "checkedAt": "2026-10-26T22:18:20.698Z",
+  "checkedAt": "2026-10-26T22:18:47.252Z",
   "source": "GitHub Actions accountability evidence",
   "refreshPolicy": "Best-effort GitHub schedules. Static snapshot; refresh does not run agents.",
   "summary": {
@@ -96,7 +96,7 @@
       "failureStreak": 0,
       "runId": 40411246293,
       "runUrl": "https://github.com/ragunauthramsaroop/PrismBay/actions/runs/40411246293",
-      "runAgeMinutes": 1,
+      "runAgeMinutes": 2,
       "artifactName": "prismbay-commerce-group-40411246293",
       "artifactBytes": 36837,
       "remediation": null
