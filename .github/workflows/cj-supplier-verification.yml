@@ -160,12 +160,14 @@ jobs:
             throw new Error('Duplicate supplier verification slug');
           }
           // Six 3-candidate batches/day rotate through 15 storefront picks and two research fallbacks.
-          // A code push still verifies the nine earlier live-catalog products without broadening payments.
+          // Scheduled runs stay rate-limited to three products per window.
+          // Policy/catalog code changes immediately rescreen the whole read-only shortlist
+          // so newly added sourcing categories do not wait for the next rotation.
           const scheduled = process.env.GITHUB_EVENT_NAME === 'schedule';
           const slot = scheduled ? Math.floor(new Date().getUTCHours() / 4) : null;
           const candidates = scheduled
             ? Array.from({length:Math.min(3, allCandidates.length)}, (_,index)=>allCandidates[(slot * 3 + index) % allCandidates.length])
-            : liveCandidates;
+            : allCandidates;
           if (candidates.length === 0) throw new Error('No supplier-verification candidates are available.');
           function flatten(payload) {
             const groups = payload?.data?.content;
