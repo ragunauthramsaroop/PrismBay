@@ -8,6 +8,12 @@ import {
 } from './commerce-job-reliability.mjs';
 
 const REVIEW_DELAY_MS = 7 * 24 * 60 * 60 * 1000;
+// Only trusted payment, delivery and refund adapters should populate these
+// evidence sets. Caller-supplied event flags are not independent verification.
+const PAID_ORDER_EVENTS = new Set([
+  'payment_completed', 'order_processing', 'shipment_update',
+  'delivery_confirmed', 'delivery_exception', 'refund_processed'
+]);
 
 export const AUTOMATION_EVENTS = Object.freeze([
   'payment_completed',
@@ -68,7 +74,7 @@ function buildEmailJob(event, operation, createdAt = event.occurredAt) {
   return job;
 }
 
-export function validateAutomationEvent(input = {}) {
+export function validateAutomationEvent(input = {}, evidence = {}) {
   const eventId = safeToken(input.eventId, 220);
   const type = AUTOMATION_EVENTS.includes(input.type) ? input.type : null;
   const resourceRef = safeToken(input.resourceRef, 220);
@@ -92,7 +98,21 @@ export function validateAutomationEvent(input = {}) {
   if (input.trackingRef && !trackingRef) reasons.push('invalid_tracking_ref');
   if (refundAmountUsd !== null && (!Number.isFinite(refundAmountUsd) || refundAmountUsd < 0 || refundAmountUsd > 100000)) reasons.push('invalid_refund_amount');
   if (type === 'checkout_abandoned' && !consent) reasons.push('consent_required_for_abandonment');
-  if (type === 'delivery_confirmed' && !deliveryVerified) reasons.push('verified_delivery_required');
+  if (PAID_ORDER_EVENTS.has(type)) {
+    if (!orderRef) reasons.push('paid_order_ref_required');
+    else if (!(evidence.verifiedPaidOrderRefs instanceof Set) ||
+        !evidence.verifiedPaidOrderRefs.has(orderRef)) reasons.push('paid_order_not_verified');
+  }
+  if (type === 'delivery_confirmed' &&
+      (!deliveryVerified || !(evidence.verifiedDeliveredOrderRefs instanceof Set) ||
+        !evidence.verifiedDeliveredOrderRefs.has(orderRef))) {
+    reasons.push('verified_delivery_required');
+  }
+  if (type === 'refund_processed' &&
+      (!(evidence.verifiedRefundOrderRefs instanceof Set) ||
+        !evidence.verifiedRefundOrderRefs.has(orderRef))) {
+    reasons.push('refund_not_verified');
+  }
 
   return {
     ok: reasons.length === 0,
@@ -113,8 +133,8 @@ export function validateAutomationEvent(input = {}) {
   };
 }
 
-export function routeCommerceEvent(input = {}) {
-  const validation = validateAutomationEvent(input);
+export function routeCommerceEvent(input = {}, evidence = {}) {
+  const validation = validateAutomationEvent(input, evidence);
   if (!validation.ok) return { accepted: false, reasons: validation.reasons, jobs: [] };
 
   const event = validation.event;
@@ -140,9 +160,9 @@ export function routeCommerceEvent(input = {}) {
   };
 }
 
-export async function enqueueAutomationEvent(store, input = {}) {
+export async function enqueueAutomationEvent(store, input = {}, evidence = {}) {
   if (!store?.enqueue) throw new Error('automation_job_store_required');
-  const routed = routeCommerceEvent(input);
+  const routed = routeCommerceEvent(input, evidence);
   if (!routed.accepted) return routed;
   const enqueued = [];
   for (const job of routed.jobs) enqueued.push(await store.enqueue(job));
