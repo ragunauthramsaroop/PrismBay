@@ -55,6 +55,9 @@ def wav_duration(path):
 
 
 def synthesize(text, out_path, voice, voice_dir):
+    # Separate the brand into pronounceable words for TTS while retaining
+    # PrismBay AI as the official on-screen spelling and metadata.
+    text = text.replace('PrismBay', 'Prism Bay')
     piper_ok = shutil.which('python3') is not None
     if piper_ok:
         try:
