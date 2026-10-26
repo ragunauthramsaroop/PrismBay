@@ -1,0 +1,23 @@
+name: PrismBay Top 15 Public Sales-Funnel Smoke Test
+on:
+  schedule:
+    - cron: '11 */6 * * *'
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/top15-public-smoke.yml'
+      - 'scripts/top15-live-smoke.mjs'
+permissions:
+  contents: read
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verify live catalog, paid digital CTAs, quote capture routes and auth boundaries
+        run: node scripts/top15-live-smoke.mjs
