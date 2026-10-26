@@ -72,16 +72,18 @@ export function verifyFirstSale(evidence = null, liveStripePayment = null) {
     verifiedSaleCount: livePaid ? 1 : 0,
     grossRevenueUsd: livePaid ? gross / 100 : 0,
     verificationStatus: livePaid ? 'live_stripe_paid_verified' : 'live_stripe_paid_unverified',
-    fulfillmentVerified: livePaid && order.supplierOrderVerified === true && order.shipmentVerified === true,
+    // Unauthenticated order-file booleans are not supplier or carrier receipts.
+    // Keep fulfillment unverified until a separately authenticated, order-bound adapter exists.
+    fulfillmentVerified: false,
     marginVerified: financialInputsReady,
     netMarginUsd,
     checks: {
       liveStripePaidVerified: livePaid,
-      supplierOrderVerified: order?.supplierOrderVerified === true,
-      shipmentVerified: order?.shipmentVerified === true,
+      supplierOrderVerified: false,
+      shipmentVerified: false,
       marginInputsComplete: financialInputsReady,
     },
-    rule: 'Revenue requires authenticated read-only retrieval of a non-refunded, non-disputed live Stripe paid transaction. Fulfillment and margin are separate milestones.',
+    rule: 'Revenue requires authenticated read-only retrieval of a non-refunded, non-disputed live Stripe paid transaction. Supplier and shipment flags in local evidence are not proof of fulfillment. Fulfillment remains unverified until independent order-bound supplier and carrier receipts exist. Margin is a separate milestone.',
   };
 }
 
