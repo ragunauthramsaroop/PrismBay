@@ -188,7 +188,7 @@ export async function observeStorefront(fetcher = fetch) {
     socialData.items.every(item => item && typeof item === 'object' &&
       educationalDigitalOffers.has(item.offer) &&
       ['youtube', 'tiktok'].includes(item.channel) &&
-      !/(?:oss-cf\\.cjdropshipping\\.com|shopifyfile\\.oss-us-west-1\\.aliyuncs\\.com|cc-west-usa\\.oss-us-west-1\\.aliyuncs\\.com)/i.test(JSON.stringify(item)));
+      !/(?:oss-cf\.cjdropshipping\.com|shopifyfile\.oss-us-west-1\.aliyuncs\.com|cc-west-usa\.oss-us-west-1\.aliyuncs\.com)/i.test(JSON.stringify(item)));
   checks.push({
     resource: '/media/social/distribution-queue.json',
     ok: Boolean(digitalOnly),
