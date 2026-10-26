@@ -36,8 +36,8 @@ test('read-only live payment establishes sale independently of fulfillment',asyn
  assert.equal(r.verifiedFirstSale,true);
  assert.equal(r.grossRevenueUsd,29.95);
  assert.equal(r.fulfillmentVerified,false);
- assert.equal(r.marginVerified,true);
- assert.equal(r.netMarginUsd,14.75);
+ assert.equal(r.marginVerified,false);
+ assert.equal(r.netMarginUsd,null);
 });
 
 test('absent owner authorization or restricted key blocks live inspection',async()=>{
@@ -127,4 +127,19 @@ test('self-asserted supplier and shipment flags never establish fulfilled status
   assert.equal(r.fulfillmentVerified, false);
   assert.equal(r.checks.supplierOrderVerified, false);
   assert.equal(r.checks.shipmentVerified, false);
+});
+
+test('self-reported product, freight and fee costs never establish verified profit',async()=>{
+ const live=await withFakeStripe(stripeIntent,()=>retrieveLiveStripePayment(order.paymentId));
+ for(const costs of [
+  {productCostUsd:0,freightCostUsd:0,paymentFeesUsd:0},
+  {productCostUsd:5,freightCostUsd:9,paymentFeesUsd:1.2},
+  {productCostUsd:500,freightCostUsd:900,paymentFeesUsd:120}
+ ]){
+  const r=verifyFirstSale({order:{...order,...costs}},live);
+  assert.equal(r.verifiedFirstSale,true);
+  assert.equal(r.marginVerified,false);
+  assert.equal(r.netMarginUsd,null);
+  assert.equal(r.checks.marginInputsComplete,false);
+ }
 });
