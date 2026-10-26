@@ -1,5 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import fs from 'node:fs/promises';
 import { buildTikTokRetailReadiness } from './tiktok-retail-readiness.mjs';
 import { verifyFirstSale } from './first-sale-verifier.mjs';
 
@@ -54,4 +55,15 @@ test('locally asserted profitable order is not a verified Stripe sale', () => {
   assert.equal(report.grossRevenueUsd, 0);
   assert.equal(report.marginVerified, false);
   assert.equal(report.netMarginUsd, null);
+});
+
+// Public repository copy must not outrun authenticated supplier release gates.
+// A later authorized physical launch must deliberately update this test and the evidence.
+test('public README does not market an unverified physical product as a priced offer', async () => {
+  const readme = await fs.readFile(new URL('../README.md', import.meta.url), 'utf8');
+  assert.match(readme, /No physical product is currently approved for checkout or retail promotion/i);
+  assert.match(readme, /final buyer-ZIP freight, landed cost, commercial media rights and fulfillment route/i);
+  assert.doesNotMatch(readme, /Portable Garment Steamer,\s*USD\s*\$?29\.95/i);
+  assert.doesNotMatch(readme, /\[View the Portable Garment Steamer/i);
+  assert.doesNotMatch(readme, /## PrismBay Clean live commerce/i);
 });

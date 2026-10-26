@@ -11,11 +11,11 @@ This read-only dashboard displays the five core revenue worker groups, latest Gi
 Dashboard source: [`ops/worker-dashboard/`](ops/worker-dashboard/) · public status generator: [`scripts/public-ops-snapshot.mjs`](scripts/public-ops-snapshot.mjs).
 
 
-## PrismBay Clean: shop the current offer
+## PrismBay Clean: physical product research
 
-[View the Portable Garment Steamer, USD 29.95](https://clean.prismbayai.com/garment-steamer/?utm_source=github&utm_medium=readme&utm_campaign=clean_steamer) | [Read the buyer guide](https://clean.prismbayai.com/guides/portable-garment-steamer.html?utm_source=github&utm_medium=readme&utm_campaign=clean_buyer_guide) | [Shipping and returns](https://clean.prismbayai.com/shipping.html)
+[Review the garment-care research page](https://clean.prismbayai.com/garment-steamer/) | [Shipping and returns information](https://clean.prismbayai.com/shipping.html)
 
-PrismBay Clean is the STUDYSMARTZ LLC physical-goods storefront serving eligible U.S. destinations. Enter your ZIP to request a supplier-stock and destination-shipping check. Secure checkout opens only after fresh stock, freight and commercial verification. If the automated service is unavailable, the product page offers a manual availability inquiry. No card is charged or order placed by the ZIP check.
+PrismBay Clean is a STUDYSMARTZ LLC physical-products research storefront for potential eligible U.S. destinations. No physical product is currently approved for checkout or retail promotion. The garment-care candidate's exact function, supplier variant, final buyer-ZIP freight, landed cost, commercial media rights and fulfillment route still require independent verification. A buyer may request a manual shipping inquiry. An inquiry never charges a card or places a supplier order.
 
 
 ## Free original resource
@@ -42,28 +42,25 @@ If the resource is useful, you can [support more original free AI education thro
 
 These are paid **professional document systems**, not live AI applications or bespoke consulting. The original free worksheet and assessment remain free. The current digital fulfillment uses opaque, reusable access links, so order-bound delivery hardening and an actual paid end-to-end transaction test remain future safeguards. Follow the [published refund policy](https://www.prismbayai.com/refunds) and [contact support](https://www.prismbayai.com/contact) if a purchase cannot be downloaded.
 
-## PrismBay Clean live commerce
+## PrismBay Clean physical readiness
 
-[PrismBay Clean](https://clean.prismbayai.com/) is the separate physical-products storefront operated by STUDYSMARTZ LLC. The current public physical funnel is deliberately focused on the **Portable Garment Steamer, USD 29.95**.
+[PrismBay Clean](https://clean.prismbayai.com/) is the separate physical-products research storefront operated by STUDYSMARTZ LLC. The garment-care page is an inquiry and research route, not a verified offer. No retail price, supplier media permission, stock commitment or delivery promise has been approved.
 
-- [Check the Portable Garment Steamer for a U.S. ZIP or request a manual quote](https://clean.prismbayai.com/garment-steamer/?utm_source=github&utm_medium=readme&utm_campaign=steamer_checkout)
-- [Portable garment steamer buyer guide](https://clean.prismbayai.com/guides/portable-garment-steamer.html?utm_source=github&utm_medium=readme&utm_campaign=steamer_guide)
-- [Garment steamer vs. iron](https://clean.prismbayai.com/guides/garment-steamer-vs-iron.html?utm_source=github&utm_medium=readme&utm_campaign=steamer_compare)
-- [Travel garment steamer checklist](https://clean.prismbayai.com/guides/travel-garment-steamer-guide.html?utm_source=github&utm_medium=readme&utm_campaign=steamer_travel)
-- [How to use a garment steamer safely](https://clean.prismbayai.com/guides/how-to-use-a-garment-steamer.html?utm_source=github&utm_medium=readme&utm_campaign=steamer_howto)
+- [Garment-care candidate: research and manual inquiry](https://clean.prismbayai.com/garment-steamer/)
+- [Shipping and returns information](https://clean.prismbayai.com/shipping.html)
 
-Physical-product promotion does **not** link directly to Stripe. The buyer first enters a 5-digit U.S. ZIP. When operational, the live quote service rechecks the mapped supplier variant, stock, destination freight and commercial safeguards. When unavailable, the product page offers a customer-initiated shipping inquiry instead. Stripe checkout is released only after a second successful live recheck. Supplier ordering is not automatic.
+Physical checkout and retail promotion remain blocked until authenticated supplier identity, exact variant and current stock, final buyer-destination freight, verified landed cost, commercial media rights, checkout safeguards and fulfillment readiness all pass. The guarded ZIP quote service is a preflight control, not independent evidence of a sale-ready product. Supplier ordering remains disabled.
 
 ## Projects and channels
 
 - [PrismBay AI](https://www.prismbayai.com/) provides business-system blueprint information. Blueprints are documentation, not working software.
 - [PrismBay AI on YouTube](https://www.youtube.com/@PrismBayAI/videos) shares educational videos about AI operations and governance.
-- [PrismBay Clean](https://clean.prismbayai.com/) is a **separate** home-products storefront with live buyer-specific shipping verification before physical checkout.
+- [PrismBay Clean](https://clean.prismbayai.com/) is a **separate** home-products research storefront with physical checkout and retail publication gated pending commercial verification.
 
 ## Engineering and publishing
 
 The `main` branch contains the application, tests, commerce tooling, Railway quote service and content-generation scripts. The `gh-pages` branch publishes the current `clean.prismbayai.com` storefront and its public buyer guides.
 
-The guarded physical checkout service is implemented in `services/railway-clean-quote` and requires a healthy Railway deployment to enable live quotes. The public storefront does not expose the physical Stripe link before live buyer-specific verification passes.
+The guarded physical checkout service is implemented in `services/railway-clean-quote` and requires a healthy Railway deployment to enable live quotes. Neither the service's existence nor a repository change proves the live storefront safe. Physical Payment Links and browser-level HTTPS readiness require independent owner/provider verification.
 
 These educational materials are not vendor ratings or legal, security, procurement or financial advice. Verify relevant facts and obtain appropriate expert review before consequential decisions.
