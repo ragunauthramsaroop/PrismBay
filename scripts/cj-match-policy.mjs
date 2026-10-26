@@ -29,6 +29,12 @@ const policy = Object.freeze({
   'car-trash-can': { required: [/\b(car|auto|vehicle)\b/i, /\b(trash|garbage|waste)\b/i, /\b(can|bin|container)\b/i], excluded: [/\b(kitchen|outdoor wheelie|dumpster)\b/i] },
   'collapsible-microwave-cover': { required: [/\bmicrowave\b/i, /\bcover\b/i, /\b(collapsible|foldable|food|plate)\b/i], excluded: [/\b(replacement part|waveguide|motor|oven appliance)\b/i] },
   'toilet-scrubber-kit': { required: [/\btoilet\b/i, /\b(scrubber|brush|wand)\b/i, /\b(kit|refill|clean\w*|system)\b/i], excluded: [/\b(plunger|auger|snake|bidet|seat cover)\b/i] },
+  'insulated-tumbler': { required: [/\b(tumbler|travel mug)\b/i, /\b(insulated|stainless|thermal|vacuum)\b/i], excluded: [/\b(lid only|replacement|straw only|handle only|blank decal|vinyl sticker)\b/i] },
+  'screen-protector': { required: [/\b(screen|display)\b/i, /\bprotector\b/i, /\b(phone|iphone|samsung|galaxy|smartphone)\b/i], excluded: [/\b(camera lens|watch|tablet|installation kit|replacement adhesive)\b/i] },
+  'multiport-charger': { required: [/\b(usb[ -]?c|type[ -]?c)\b/i, /\b(charger|charging station)\b/i, /\b(multi[ -]?port|[23456][ -]?ports?|multiple ports?)\b/i], excluded: [/\b(cable only|cord only|case|cover|replacement cable)\b/i] },
+  'motion-sensor-cabinet-lights': { required: [/\b(motion[ -]?sensor|motion[ -]?activated|pir)\b/i, /\b(cabinet|closet|wardrobe|under[ -]?cabinet)\b/i, /\b(light|lighting|lamp)\b/i], excluded: [/\b(replacement|bulb only|wiring kit|switch only|sensor only)\b/i] },
+  'car-phone-mount': { required: [/\b(car|vehicle|auto|dashboard|windshield)\b/i, /\b(phone|smartphone|mobile)\b/i, /\b(mount|holder|cradle)\b/i], excluded: [/\b(motorcycle|bicycle|tripod|desk stand|replacement pad)\b/i] },
+  'travel-packing-cubes': { required: [/\b(packing|travel|luggage)\b/i, /\b(cubes?|organizer bags?)\b/i], excluded: [/\b(vacuum sealer|storage boxes|shoe rack|cosmetic case only)\b/i] },
   'mini-bag-sealer': { required: [/\b(bag|plastic|snack)\b/i, /\bseal(?:er|ing)\b/i, /\b(mini|portable|handheld|recharge\w*)\b/i], excluded: [/\b(vacuum sealer machine|industrial|impulse tabletop)\b/i] },
 });
 
