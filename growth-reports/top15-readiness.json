@@ -1,0 +1,444 @@
+{
+  "schemaVersion": 1,
+  "source": "Read-only CJ evidence. No estimated freight grants a sale.",
+  "supplierReviewCheckedAt": "2026-10-26T22:40:54.399Z",
+  "candidateCount": 15,
+  "supplierScreeningPassedCount": 0,
+  "globalPhysicalCheckoutEnabled": false,
+  "anyClaimOfCheapestAuthorized": false,
+  "revenueProofRequired": "Successful non-test Stripe payment and completed fulfillment",
+  "products": [
+    {
+      "slug": "crevice",
+      "name": "3-in-1 Crevice Cleaning Brush",
+      "priority": "first-wave",
+      "reviewObservedAt": "2026-10-26T04:47:45.307Z",
+      "verifiedChecks": {
+        "independentSupplierMatch": false,
+        "variantStock": false,
+        "screeningFreight": false,
+        "destinationQuotePerBuyer": false,
+        "mediaRights": false,
+        "checkoutInfrastructure": false,
+        "fulfillmentRoute": false,
+        "commercialPromotionApproval": false
+      },
+      "missingChecks": [
+        "independentSupplierMatch",
+        "variantStock",
+        "screeningFreight",
+        "destinationQuotePerBuyer",
+        "mediaRights",
+        "checkoutInfrastructure",
+        "fulfillmentRoute",
+        "commercialPromotionApproval"
+      ],
+      "supplierScreeningPassed": false,
+      "checkoutAction": "price_request_only",
+      "globallySaleReady": false
+    },
+    {
+      "slug": "drain-catcher",
+      "name": "Sink Drain Catcher 2-Pack",
+      "priority": "first-wave",
+      "reviewObservedAt": "2026-10-26T13:03:14.167Z",
+      "verifiedChecks": {
+        "independentSupplierMatch": false,
+        "variantStock": false,
+        "screeningFreight": false,
+        "destinationQuotePerBuyer": false,
+        "mediaRights": false,
+        "checkoutInfrastructure": false,
+        "fulfillmentRoute": false,
+        "commercialPromotionApproval": false
+      },
+      "missingChecks": [
+        "independentSupplierMatch",
+        "variantStock",
+        "screeningFreight",
+        "destinationQuotePerBuyer",
+        "mediaRights",
+        "checkoutInfrastructure",
+        "fulfillmentRoute",
+        "commercialPromotionApproval"
+      ],
+      "supplierScreeningPassed": false,
+      "checkoutAction": "price_request_only",
+      "globallySaleReady": false
+    },
+    {
+      "slug": "pethair",
+      "name": "Reusable Pet Hair Remover",
+      "priority": "first-wave",
+      "reviewObservedAt": "2026-10-26T04:47:45.307Z",
+      "verifiedChecks": {
+        "independentSupplierMatch": true,
+        "variantStock": false,
+        "screeningFreight": false,
+        "destinationQuotePerBuyer": false,
+        "mediaRights": false,
+        "checkoutInfrastructure": false,
+        "fulfillmentRoute": false,
+        "commercialPromotionApproval": false
+      },
+      "missingChecks": [
+        "variantStock",
+        "screeningFreight",
+        "destinationQuotePerBuyer",
+        "mediaRights",
+        "checkoutInfrastructure",
+        "fulfillmentRoute",
+        "commercialPromotionApproval"
+      ],
+      "supplierScreeningPassed": false,
+      "checkoutAction": "price_request_only",
+      "globallySaleReady": false
+    },
+    {
+      "slug": "home-caddy",
+      "name": "Portable Home Caddy",
+      "priority": "first-wave",
+      "reviewObservedAt": "2026-10-26T13:03:14.167Z",
+      "verifiedChecks": {
+        "independentSupplierMatch": false,
+        "variantStock": false,
+        "screeningFreight": false,
+        "destinationQuotePerBuyer": false,
+        "mediaRights": false,
+        "checkoutInfrastructure": false,
+        "fulfillmentRoute": false,
+        "commercialPromotionApproval": false
+      },
+      "missingChecks": [
+        "independentSupplierMatch",
+        "variantStock",
+        "screeningFreight",
+        "destinationQuotePerBuyer",
+        "mediaRights",
+        "checkoutInfrastructure",
+        "fulfillmentRoute",
+        "commercialPromotionApproval"
+      ],
+      "supplierScreeningPassed": false,
+      "checkoutAction": "price_request_only",
+      "globallySaleReady": false
+    },
+    {
+      "slug": "mini-mop",
+      "name": "Self-Squeeze Mini Mop",
+      "priority": "first-wave",
+      "reviewObservedAt": "2026-10-26T13:03:14.167Z",
+      "verifiedChecks": {
+        "independentSupplierMatch": false,
+        "variantStock": false,
+        "screeningFreight": false,
+        "destinationQuotePerBuyer": false,
+        "mediaRights": false,
+        "checkoutInfrastructure": false,
+        "fulfillmentRoute": false,
+        "commercialPromotionApproval": false
+      },
+      "missingChecks": [
+        "independentSupplierMatch",
+        "variantStock",
+        "screeningFreight",
+        "destinationQuotePerBuyer",
+        "mediaRights",
+        "checkoutInfrastructure",
+        "fulfillmentRoute",
+        "commercialPromotionApproval"
+      ],
+      "supplierScreeningPassed": false,
+      "checkoutAction": "price_request_only",
+      "globallySaleReady": false
+    },
+    {
+      "slug": "scrubber",
+      "name": "5-in-1 Electric Spin Scrubber",
+      "priority": "subsequent",
+      "reviewObservedAt": "2026-10-26T04:47:45.307Z",
+      "verifiedChecks": {
+        "independentSupplierMatch": false,
+        "variantStock": false,
+        "screeningFreight": false,
+        "destinationQuotePerBuyer": false,
+        "mediaRights": false,
+        "checkoutInfrastructure": false,
+        "fulfillmentRoute": false,
+        "commercialPromotionApproval": false
+      },
+      "missingChecks": [
+        "independentSupplierMatch",
+        "variantStock",
+        "screeningFreight",
+        "destinationQuotePerBuyer",
+        "mediaRights",
+        "checkoutInfrastructure",
+        "fulfillmentRoute",
+        "commercialPromotionApproval"
+      ],
+      "supplierScreeningPassed": false,
+      "checkoutAction": "price_request_only",
+      "globallySaleReady": false
+    },
+    {
+      "slug": "garment-steamer",
+      "name": "Portable Garment Steamer",
+      "priority": "subsequent",
+      "reviewObservedAt": null,
+      "verifiedChecks": {
+        "independentSupplierMatch": false,
+        "variantStock": false,
+        "screeningFreight": false,
+        "destinationQuotePerBuyer": false,
+        "mediaRights": false,
+        "checkoutInfrastructure": false,
+        "fulfillmentRoute": false,
+        "commercialPromotionApproval": false
+      },
+      "missingChecks": [
+        "independentSupplierMatch",
+        "variantStock",
+        "screeningFreight",
+        "destinationQuotePerBuyer",
+        "mediaRights",
+        "checkoutInfrastructure",
+        "fulfillmentRoute",
+        "commercialPromotionApproval"
+      ],
+      "supplierScreeningPassed": false,
+      "checkoutAction": "price_request_only",
+      "globallySaleReady": false
+    },
+    {
+      "slug": "cordless-handheld-vacuum",
+      "name": "Cordless Handheld Vacuum",
+      "priority": "subsequent",
+      "reviewObservedAt": "2026-10-26T22:40:54.399Z",
+      "verifiedChecks": {
+        "independentSupplierMatch": true,
+        "variantStock": false,
+        "screeningFreight": false,
+        "destinationQuotePerBuyer": false,
+        "mediaRights": true,
+        "checkoutInfrastructure": false,
+        "fulfillmentRoute": false,
+        "commercialPromotionApproval": false
+      },
+      "missingChecks": [
+        "variantStock",
+        "screeningFreight",
+        "destinationQuotePerBuyer",
+        "checkoutInfrastructure",
+        "fulfillmentRoute",
+        "commercialPromotionApproval"
+      ],
+      "supplierScreeningPassed": false,
+      "checkoutAction": "price_request_only",
+      "globallySaleReady": false
+    },
+    {
+      "slug": "mattress-vacuum",
+      "name": "Mattress Vacuum",
+      "priority": "subsequent",
+      "reviewObservedAt": null,
+      "verifiedChecks": {
+        "independentSupplierMatch": false,
+        "variantStock": false,
+        "screeningFreight": false,
+        "destinationQuotePerBuyer": false,
+        "mediaRights": false,
+        "checkoutInfrastructure": false,
+        "fulfillmentRoute": false,
+        "commercialPromotionApproval": false
+      },
+      "missingChecks": [
+        "independentSupplierMatch",
+        "variantStock",
+        "screeningFreight",
+        "destinationQuotePerBuyer",
+        "mediaRights",
+        "checkoutInfrastructure",
+        "fulfillmentRoute",
+        "commercialPromotionApproval"
+      ],
+      "supplierScreeningPassed": false,
+      "checkoutAction": "price_request_only",
+      "globallySaleReady": false
+    },
+    {
+      "slug": "insulated-tumbler",
+      "name": "Insulated Tumbler",
+      "priority": "subsequent",
+      "reviewObservedAt": null,
+      "verifiedChecks": {
+        "independentSupplierMatch": false,
+        "variantStock": false,
+        "screeningFreight": false,
+        "destinationQuotePerBuyer": false,
+        "mediaRights": false,
+        "checkoutInfrastructure": false,
+        "fulfillmentRoute": false,
+        "commercialPromotionApproval": false
+      },
+      "missingChecks": [
+        "independentSupplierMatch",
+        "variantStock",
+        "screeningFreight",
+        "destinationQuotePerBuyer",
+        "mediaRights",
+        "checkoutInfrastructure",
+        "fulfillmentRoute",
+        "commercialPromotionApproval"
+      ],
+      "supplierScreeningPassed": false,
+      "checkoutAction": "price_request_only",
+      "globallySaleReady": false
+    },
+    {
+      "slug": "screen-protector",
+      "name": "Smartphone Screen Protector",
+      "priority": "subsequent",
+      "reviewObservedAt": null,
+      "verifiedChecks": {
+        "independentSupplierMatch": false,
+        "variantStock": false,
+        "screeningFreight": false,
+        "destinationQuotePerBuyer": false,
+        "mediaRights": false,
+        "checkoutInfrastructure": false,
+        "fulfillmentRoute": false,
+        "commercialPromotionApproval": false
+      },
+      "missingChecks": [
+        "independentSupplierMatch",
+        "variantStock",
+        "screeningFreight",
+        "destinationQuotePerBuyer",
+        "mediaRights",
+        "checkoutInfrastructure",
+        "fulfillmentRoute",
+        "commercialPromotionApproval"
+      ],
+      "supplierScreeningPassed": false,
+      "checkoutAction": "price_request_only",
+      "globallySaleReady": false
+    },
+    {
+      "slug": "multiport-charger",
+      "name": "Multi-Port USB-C Charger",
+      "priority": "subsequent",
+      "reviewObservedAt": null,
+      "verifiedChecks": {
+        "independentSupplierMatch": false,
+        "variantStock": false,
+        "screeningFreight": false,
+        "destinationQuotePerBuyer": false,
+        "mediaRights": false,
+        "checkoutInfrastructure": false,
+        "fulfillmentRoute": false,
+        "commercialPromotionApproval": false
+      },
+      "missingChecks": [
+        "independentSupplierMatch",
+        "variantStock",
+        "screeningFreight",
+        "destinationQuotePerBuyer",
+        "mediaRights",
+        "checkoutInfrastructure",
+        "fulfillmentRoute",
+        "commercialPromotionApproval"
+      ],
+      "supplierScreeningPassed": false,
+      "checkoutAction": "price_request_only",
+      "globallySaleReady": false
+    },
+    {
+      "slug": "motion-sensor-cabinet-lights",
+      "name": "Motion-Sensor Cabinet Lights",
+      "priority": "subsequent",
+      "reviewObservedAt": null,
+      "verifiedChecks": {
+        "independentSupplierMatch": false,
+        "variantStock": false,
+        "screeningFreight": false,
+        "destinationQuotePerBuyer": false,
+        "mediaRights": false,
+        "checkoutInfrastructure": false,
+        "fulfillmentRoute": false,
+        "commercialPromotionApproval": false
+      },
+      "missingChecks": [
+        "independentSupplierMatch",
+        "variantStock",
+        "screeningFreight",
+        "destinationQuotePerBuyer",
+        "mediaRights",
+        "checkoutInfrastructure",
+        "fulfillmentRoute",
+        "commercialPromotionApproval"
+      ],
+      "supplierScreeningPassed": false,
+      "checkoutAction": "price_request_only",
+      "globallySaleReady": false
+    },
+    {
+      "slug": "car-phone-mount",
+      "name": "Car Phone Mount",
+      "priority": "subsequent",
+      "reviewObservedAt": null,
+      "verifiedChecks": {
+        "independentSupplierMatch": false,
+        "variantStock": false,
+        "screeningFreight": false,
+        "destinationQuotePerBuyer": false,
+        "mediaRights": false,
+        "checkoutInfrastructure": false,
+        "fulfillmentRoute": false,
+        "commercialPromotionApproval": false
+      },
+      "missingChecks": [
+        "independentSupplierMatch",
+        "variantStock",
+        "screeningFreight",
+        "destinationQuotePerBuyer",
+        "mediaRights",
+        "checkoutInfrastructure",
+        "fulfillmentRoute",
+        "commercialPromotionApproval"
+      ],
+      "supplierScreeningPassed": false,
+      "checkoutAction": "price_request_only",
+      "globallySaleReady": false
+    },
+    {
+      "slug": "travel-packing-cubes",
+      "name": "Travel Packing Cubes",
+      "priority": "subsequent",
+      "reviewObservedAt": null,
+      "verifiedChecks": {
+        "independentSupplierMatch": false,
+        "variantStock": false,
+        "screeningFreight": false,
+        "destinationQuotePerBuyer": false,
+        "mediaRights": false,
+        "checkoutInfrastructure": false,
+        "fulfillmentRoute": false,
+        "commercialPromotionApproval": false
+      },
+      "missingChecks": [
+        "independentSupplierMatch",
+        "variantStock",
+        "screeningFreight",
+        "destinationQuotePerBuyer",
+        "mediaRights",
+        "checkoutInfrastructure",
+        "fulfillmentRoute",
+        "commercialPromotionApproval"
+      ],
+      "supplierScreeningPassed": false,
+      "checkoutAction": "price_request_only",
+      "globallySaleReady": false
+    }
+  ]
+}
