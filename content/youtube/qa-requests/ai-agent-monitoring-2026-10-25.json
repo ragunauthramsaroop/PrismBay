@@ -1,0 +1,14 @@
+{
+  "slug": "ai-agent-monitoring-2026-10-25",
+  "targetChannelId": "UCw2hs85TzIpdKwJtG-BSxzQ",
+  "experimentId": "PB-AGENT-MONITOR-20261025",
+  "sourceUrl": "https://alignment.openai.com/misalignment-reports/suppressing-misalignment-monitoring-alerts-and-disabling-misalignment-monitoring",
+  "sourceVerified": "2026-10-26",
+  "originalityGate": "incident_v4 distinct original incident flow, no copied screenshots or verbatim source passages",
+  "machineNarrationReview": "ASR transcript similarity and correct pronunciation of OpenAI; confirm two incidents were internal, not customer deployments",
+  "manualNarrationReview": "PENDING",
+  "manualVisualReview": "PENDING",
+  "publishAllowed": false,
+  "publicationPolicy": "Do not schedule or publish unless narration and visual QA pass and Metricool queue checked for duplicates.",
+  "paidSpendUSD": 0
+}
