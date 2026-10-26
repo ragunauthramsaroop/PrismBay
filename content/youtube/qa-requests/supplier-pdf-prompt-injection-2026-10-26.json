@@ -1,0 +1,14 @@
+{
+  "slug": "supplier-pdf-prompt-injection-2026-10-26",
+  "targetChannelId": "UCw2hs85TzIpdKwJtG-BSxzQ",
+  "experimentId": "PB-PROMPT-TRUST-20261026",
+  "sourceUrl": "https://genai.owasp.org/llmrisk/llm01-prompt-injection/",
+  "sourceVerified": "2026-10-26",
+  "originalityGate": "trust_boundary_v5 original invoice and permission diagram, not copied visuals",
+  "machineNarrationReview": "Transcribe and compare with six original spoken segments",
+  "manualNarrationReview": "PENDING",
+  "manualVisualReview": "PENDING",
+  "publishAllowed": false,
+  "publicationPolicy": "Do not schedule or publish without human visual/listening QA and duplicate check",
+  "paidSpendUSD": 0
+}
