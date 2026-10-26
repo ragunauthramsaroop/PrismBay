@@ -72,7 +72,9 @@ export function verifySwarmStatus(payload, { now = Date.now(), maxAgeMinutes = 1
       interventionRequired: row.interventionRequired === true,
       roleRewriteRequired: row.roleRewriteRequired === true,
       fresh,
-      executionEvidence: hasRuns && hasEvidence,
+      // A cooldown/error receipt may preserve earlier inspection counts while
+      // advancing lastRunAt and runs. Only a successful worker run proves execution.
+      executionEvidence: hasRuns && hasEvidence && statusHealthy,
       healthy: fresh && hasRuns && hasEvidence && statusHealthy,
     });
   }
