@@ -163,13 +163,47 @@ export async function observeStorefront(fetcher = fetch) {
     });
   }
 
+  // A clean homepage is insufficient if public media manifests still advertise
+  // uncleared physical products or queue retail videos for the educational channel.
+  // These files are served by the same Pages release and are read-only evidence.
+  const retailManifest = await probe(ORIGIN + '/media/retail-shorts/manifest.json', fetcher);
+  let retailData = null;
+  try { if (retailManifest.ok && /json/i.test(retailManifest.type)) retailData = JSON.parse(retailManifest.text); }
+  catch { /* Malformed or substituted JSON fails closed. */ }
+  checks.push({
+    resource: '/media/retail-shorts/manifest.json',
+    ok: retailData?.schemaVersion === 1 && Array.isArray(retailData.products) &&
+      retailData.products.length === 0,
+    status: retailManifest.status,
+    reason: retailData?.products?.length > 0 ? 'unverified_physical_media_offers' :
+      !retailData ? 'retail_media_manifest_unavailable_or_invalid' : undefined
+  });
+
+  const socialQueue = await probe(ORIGIN + '/media/social/distribution-queue.json', fetcher);
+  let socialData = null;
+  try { if (socialQueue.ok && /json/i.test(socialQueue.type)) socialData = JSON.parse(socialQueue.text); }
+  catch { /* Malformed or substituted JSON fails closed. */ }
+  const educationalDigitalOffers = new Set(['stakeholder', 'esg', 'whitepaper', 'bundle']);
+  const digitalOnly = socialData?.schemaVersion === 2 && Array.isArray(socialData.items) &&
+    socialData.items.every(item => item && typeof item === 'object' &&
+      educationalDigitalOffers.has(item.offer) &&
+      ['youtube', 'tiktok'].includes(item.channel) &&
+      !/(?:oss-cf\.cjdropshipping\.com|shopifyfile\.oss-us-west-1\.aliyuncs\.com|cc-west-usa\.oss-us-west-1\.aliyuncs\.com)/i.test(JSON.stringify(item)));
+  checks.push({
+    resource: '/media/social/distribution-queue.json',
+    ok: Boolean(digitalOnly),
+    status: socialQueue.status,
+    reason: !socialData ? 'social_distribution_queue_unavailable_or_invalid' :
+      !digitalOnly ? 'unverified_retail_media_in_social_queue' : undefined
+  });
+
   return {
     schemaVersion: 2,
     checkedAt: new Date().toISOString(),
     origin: ORIGIN,
     healthy: checks.every(check => check.ok),
     checks,
-    scope: 'Canonical homepage, unverified Product/Offer JSON-LD and supplier media in HTML, responsive/lazy sources, JSON-LD and CSS, steamer inquiry, physical shipping-policy consistency and same-origin policy stylesheet only. Other media rights, browser rendering, TLS trust, remote inquiry handling, checkout, supplier fulfillment, worker execution and sales are not verified.'
+    scope: 'Canonical homepage, unverified Product/Offer JSON-LD and supplier media in HTML, responsive/lazy sources, JSON-LD and CSS, steamer inquiry, shipping-policy consistency, same-origin stylesheet, legacy retail media manifest and social distribution queue. Does not prove rights to digital media, absence of directly cached MP4 files, browser rendering, TLS trust, inquiry handling, checkout, supplier fulfillment, worker execution or sales.'
   };
 }
 

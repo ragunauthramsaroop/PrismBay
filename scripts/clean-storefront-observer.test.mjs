@@ -11,6 +11,8 @@ function fetcher(overrides = {}) {
     [ORIGIN + '/']: { body: home, type: 'text/html' },
     [ORIGIN + '/assets/store.css?v=3']: { body: 'body{color:green}', type: 'text/css' },
     [ORIGIN + '/garment-steamer/']: { body: buyer, type: 'text/html' },
+    [ORIGIN + '/media/retail-shorts/manifest.json']: { body: '{"schemaVersion":1,"products":[]}', type: 'application/json' },
+    [ORIGIN + '/media/social/distribution-queue.json']: { body: '{"schemaVersion":2,"items":[{"id":"esg-youtube","offer":"esg","channel":"youtube"}]}', type: 'application/json' },
     [ORIGIN + '/shipping.html']: { body: policy, type: 'text/html' },
     ...overrides
   };
@@ -26,7 +28,7 @@ test('verifies the current canonical buyer journey and versioned stylesheet', as
   const report = await observeStorefront(fetcher());
   assert.equal(report.healthy, true);
   assert.equal(report.schemaVersion, 2);
-  assert.equal(report.checks.length, 5);
+  assert.equal(report.checks.length, 7);
   assert.equal(report.checks[1].resource, 'homepage_inline_style');
   assert.equal(report.checks[4].url, ORIGIN + '/assets/store.css?v=3');
 });
@@ -52,7 +54,7 @@ test('reports buyer-route outage without losing other observations', async () =>
   }));
   assert.equal(report.healthy, false);
   assert.equal(report.checks[2].status, null);
-  assert.equal(report.checks.length, 5);
+  assert.equal(report.checks.length, 7);
 });
 
 test('HTML fallback cannot masquerade as CSS', async () => {
@@ -70,7 +72,7 @@ test('foreign stylesheet URLs are never fetched', async () => {
   assert.equal(report.healthy, false);
   assert.equal(report.checks[4].reason, 'missing_same_origin_reference');
   assert.ok(seen.every(url => url.startsWith(ORIGIN + '/')));
-  assert.equal(seen.length, 3);
+  assert.equal(seen.length, 5);
 });
 
 test('homepage outage does not fabricate healthy storefront', async () => {
@@ -274,4 +276,64 @@ test('canonical observer flags CJ CDN imagery in same-origin CSS but ignores unr
     }
   }));
   assert.equal(safe.healthy, true);
+});
+
+
+test('rejects public legacy physical offers despite an otherwise clean homepage', async () => {
+  const report = await observeStorefront(fetcher({
+    [ORIGIN + '/media/retail-shorts/manifest.json']: {
+      body: '{"schemaVersion":1,"products":[{"sku":"legacy-steamer","checkoutUrl":"https://buy.stripe.com/example"}]}',
+      type: 'application/json'
+    }
+  }));
+  assert.equal(report.healthy, false);
+  assert.equal(report.checks[5].reason, 'unverified_physical_media_offers');
+});
+
+test('blocks a retail TikTok or educational YouTube package in the public social queue', async () => {
+  for (const channel of ['youtube', 'tiktok']) {
+    const report = await observeStorefront(fetcher({
+      [ORIGIN + '/media/social/distribution-queue.json']: {
+        body: JSON.stringify({schemaVersion:2,items:[{id:'garment-steamer-'+channel,offer:'garment-steamer',channel}]}),
+        type: 'application/json'
+      }
+    }));
+    assert.equal(report.healthy, false);
+    assert.equal(report.checks[6].reason, 'unverified_retail_media_in_social_queue');
+  }
+});
+
+test('fails closed on missing, malformed or HTML-substituted public media manifests', async () => {
+  for (const page of [
+    {body: '{bad', type: 'application/json'},
+    {body: '<html>fallback</html>', type: 'text/html'},
+    {throw: true}
+  ]) {
+    const report = await observeStorefront(fetcher({
+      [ORIGIN + '/media/retail-shorts/manifest.json']: page
+    }));
+    assert.equal(report.healthy, false);
+    assert.equal(report.checks[5].reason, 'retail_media_manifest_unavailable_or_invalid');
+  }
+});
+
+test('accepts only known educational digital offers in public social distribution', async () => {
+  const report = await observeStorefront(fetcher());
+  assert.equal(report.healthy, true);
+  assert.equal(report.checks[5].ok, true);
+  assert.equal(report.checks[6].ok, true);
+});
+
+test('blocks CJ-hosted media in an otherwise educational digital distribution entry', async () => {
+  const report = await observeStorefront(fetcher({
+    [ORIGIN + '/media/social/distribution-queue.json']: {
+      body: JSON.stringify({schemaVersion:2,items:[{
+        id:'esg-youtube',offer:'esg',channel:'youtube',
+        thumbnail:'https://oss-cf.cjdropshipping.com/garment.jpg'
+      }]}),
+      type: 'application/json'
+    }
+  }));
+  assert.equal(report.healthy, false);
+  assert.equal(report.checks[6].reason, 'unverified_retail_media_in_social_queue');
 });
