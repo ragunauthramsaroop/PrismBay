@@ -13,8 +13,8 @@ export function auditProductsPayload(payload) {
     // Do not turn negative or malformed text prices into apparently valid offers.
     const priceText=typeof rawPrice==='string'?rawPrice.trim():null;
     const price=priceText===null?Number(rawPrice):
-      (/^(?:USD\\s*)?\\$?(?:\\d+|\\d{1,3}(?:,\\d{3})+)(?:\\.\\d{1,2})?(?:\\s*USD)?$/i.test(priceText)
-        ? Number(priceText.replace(/USD|\\$|,/gi,'').trim()) : NaN);
+      (/^(?:USD\s*)?\$?(?:\d+|\d{1,3}(?:,\d{3})+)(?:\.\d{1,2})?(?:\s*USD)?$/i.test(priceText)
+        ? Number(priceText.replace(/USD|\$|,/gi,'').trim()) : NaN);
     const availability=String(p?.availability??p?.stockStatus??'').trim();
     const rowIssues=[];
     if(!id) rowIssues.push('missing_id');
