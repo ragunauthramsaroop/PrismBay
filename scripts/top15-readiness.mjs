@@ -28,11 +28,22 @@ export function assessTop15(shortlist, supplierReview = {}) {
       fulfillmentRoute:row.fulfillmentRouteVerified===true,
       commercialPromotionApproval:row.automaticPromotionAllowed===true
     };
+    // Rights to publish original graphics are not rights to republish supplier
+    // product photography or videos. Preserve the exact authorization scope.
+    const mediaRightsScope = checks.mediaRights && typeof row.promotionMediaPolicy === 'string'
+      ? row.promotionMediaPolicy : 'unverified';
+    const supplierPhotoVideoRightsVerified = checks.mediaRights &&
+      mediaRightsScope !== 'original_graphics_and_original_copy_only' &&
+      row.supplierPhotoVideoRightsVerified === true;
     // No global physical checkout. Destination quote and final price must
     // be independently verified for each buyer, even after a supplier pass.
     return {
       slug:item.slug,name:item.name,priority:item.priority,
       reviewObservedAt:row.observedAt||null,
+      observedSupplierProduct:typeof row.observedProduct==='string'?row.observedProduct:null,
+      observedSupplierSku:typeof row.observedSupplierSku==='string'?row.observedSupplierSku:null,
+      observedVariantSku:typeof row.observedVariantSku==='string'?row.observedVariantSku:null,
+      mediaRightsScope,supplierPhotoVideoRightsVerified,
       verifiedChecks:checks,
       missingChecks:Object.entries(checks).filter(([,pass])=>!pass).map(([name])=>name),
       supplierScreeningPassed:checks.independentSupplierMatch&&checks.variantStock&&checks.screeningFreight,
@@ -47,7 +58,8 @@ export function assessTop15(shortlist, supplierReview = {}) {
     supplierScreeningPassedCount:rows.filter(x=>x.supplierScreeningPassed).length,
     globalPhysicalCheckoutEnabled:false,
     anyClaimOfCheapestAuthorized:false,
-    revenueProofRequired:'Successful non-test Stripe payment and completed fulfillment',
+    revenueProofRequired:'Verified live non-test Stripe paid transaction. Fulfillment is a separate evidence gate.',
+    fulfillmentProofRequired:'Independent order-specific dispatch, tracking and delivery evidence',
     products:rows
   };
 }
