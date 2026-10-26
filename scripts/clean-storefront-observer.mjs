@@ -34,19 +34,50 @@ const isHtml = response => response.ok && /text\/html/i.test(response.type);
 
 // Commercial rights for third-party supplier media are not yet documented.
 // Check actual media-bearing HTML attributes, not incidental text or hyperlinks.
+function isUnverifiedSupplierUrl(raw) {
+  try {
+    const url = new URL(raw.trim(), ORIGIN);
+    return /(?:^|\.)cjdropshipping\.com$/i.test(url.hostname);
+  } catch {
+    return false;
+  }
+}
+
+function hasSupplierCssUrl(css) {
+  const urls = css.matchAll(/url\(\s*(?:"([^"]+)"|'([^']+)'|([^)\s]+))\s*\)/gi);
+  return [...urls].some(([, doubleQuoted, singleQuoted, bare]) =>
+    isUnverifiedSupplierUrl(doubleQuoted || singleQuoted || bare || ''));
+}
+
+// Inspect media-bearing attributes, responsive/lazy sources, inline CSS,
+// external stylesheet CSS and JSON-LD. Ordinary supplier hyperlinks are not media.
 function hasUnverifiedSupplierMedia(html) {
-  const tags = html.match(/<(?:img|source|video|meta)\b[^>]*>/gi) || [];
-  return tags.some(tag => {
-    const refs = [...tag.matchAll(/\b(?:src|poster|content)\s*=\s*["']([^"']+)["']/gi)];
-    return refs.some(([, ref]) => {
-      try {
-        const url = new URL(ref, ORIGIN);
-        return /(?:^|\.)cjdropshipping\.com$/i.test(url.hostname);
-      } catch {
-        return false;
-      }
+  const tags = html.match(/<(?:img|source|video|meta|link)\b[^>]*>/gi) || [];
+  const mediaAttribute = tags.some(tag => {
+    const kind = tag.match(/^<([a-z]+)/i)?.[1]?.toLowerCase();
+    if (kind === 'link' && !/\b(?:as\s*=\s*["']image["']|rel\s*=\s*["'](?:preload|prefetch)["'])/i.test(tag)) return false;
+    const attributes = [...tag.matchAll(/\b([a-z][\w-]*)\s*=\s*(["'])(.*?)\2/gi)];
+    return attributes.some(([, name, , value]) => {
+      const key = name.toLowerCase();
+      if (key === 'style') return hasSupplierCssUrl(value);
+      if (key === 'href' && kind !== 'link') return false;
+      if (key === 'content' && kind !== 'meta') return false;
+      if (!['src', 'data-src', 'data-original', 'data-lazy-src', 'srcset',
+        'data-srcset', 'imagesrcset', 'poster', 'data-poster', 'content', 'href'].includes(key)) return false;
+      if (key.endsWith('srcset')) return value.split(',').some(candidate =>
+        isUnverifiedSupplierUrl(candidate.trim().split(/\s+/)[0]));
+      return isUnverifiedSupplierUrl(value);
     });
   });
+  const inlineCss = [...html.matchAll(/\bstyle\s*=\s*(["'])(.*?)\1/gi)]
+    .some(([, , css]) => hasSupplierCssUrl(css));
+  const styleBlocks = [...html.matchAll(/<style\b[^>]*>([\s\S]*?)<\/style\s*>/gi)]
+    .some(([, css]) => hasSupplierCssUrl(css));
+  const jsonLdMedia = [...html.matchAll(/<script\b([^>]*)>([\s\S]*?)<\/script\s*>/gi)]
+    .some(([, attributes, body]) =>
+      /\btype\s*=\s*(["'])application\/ld\+json\1/i.test(attributes) &&
+      /(?:https?:)?\/\/[^"'\s<>]*cjdropshipping\.com/i.test(body));
+  return mediaAttribute || inlineCss || styleBlocks || jsonLdMedia;
 }
 
 function hasUnverifiedSaleSchema(html) {
@@ -124,9 +155,10 @@ export async function observeStorefront(fetcher = fetch) {
     const style = await probe(stylesheet, fetcher);
     checks.push({
       resource: STYLE_PATH,
-      ok: style.ok && /text\/css/i.test(style.type) && style.text.trim().length > 0,
+      ok: style.ok && /text\/css/i.test(style.type) && style.text.trim().length > 0 && !hasSupplierCssUrl(style.text),
       status: style.status,
-      url: stylesheet
+      url: stylesheet,
+      reason: hasSupplierCssUrl(style.text) ? 'supplier_media_rights_unverified' : undefined
     });
   }
 
@@ -136,7 +168,7 @@ export async function observeStorefront(fetcher = fetch) {
     origin: ORIGIN,
     healthy: checks.every(check => check.ok),
     checks,
-    scope: 'Canonical homepage, unverified Product/Offer JSON-LD and known unlicensed supplier-media references in HTML, inline styles, steamer inquiry, physical shipping-policy consistency and same-origin policy stylesheet only. Other media rights, browser rendering, TLS trust, remote inquiry handling, checkout, supplier fulfillment, worker execution and sales are not verified.'
+    scope: 'Canonical homepage, unverified Product/Offer JSON-LD and supplier media in HTML, responsive/lazy sources, JSON-LD and CSS, steamer inquiry, physical shipping-policy consistency and same-origin policy stylesheet only. Other media rights, browser rendering, TLS trust, remote inquiry handling, checkout, supplier fulfillment, worker execution and sales are not verified.'
   };
 }
 

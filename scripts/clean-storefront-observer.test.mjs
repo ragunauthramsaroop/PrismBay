@@ -186,3 +186,58 @@ test('malformed JSON-LD fails closed, neutral WebPage schema remains acceptable'
   }));
   assert.equal(good.checks[2].ok, true);
 });
+
+
+test('responsive and lazy-loaded supplier images block storefront readiness', async () => {
+  for (const fragment of [
+    '<img srcset="https://oss-cf.cjdropshipping.com/sku.jpg 2x, /safe.jpg 1x">',
+    '<img data-src="https://oss-cf.cjdropshipping.com/sku.jpg">',
+    '<picture><source data-srcset="https://oss-cf.cjdropshipping.com/sku.jpg 800w"></picture>',
+    '<link rel="preload" as="image" href="https://oss-cf.cjdropshipping.com/sku.jpg">'
+  ]) {
+    const report = await observeStorefront(fetcher({
+      [ORIGIN + '/']: { body: home.replace('</body>', fragment + '</body>'), type: 'text/html' }
+    }));
+    assert.equal(report.checks[0].reason, 'supplier_media_rights_unverified', fragment);
+  }
+});
+
+test('supplier imagery in CSS backgrounds and style attributes blocks readiness', async () => {
+  for (const fragment of [
+    '<style>.hero{background-image:url("https://oss-cf.cjdropshipping.com/sku.jpg")}</style>',
+    '<div style="background:url(https://oss-cf.cjdropshipping.com/sku.jpg)"></div>'
+  ]) {
+    const report = await observeStorefront(fetcher({
+      [ORIGIN + '/']: { body: home.replace('</body>', fragment + '</body>'), type: 'text/html' }
+    }));
+    assert.equal(report.checks[0].reason, 'supplier_media_rights_unverified', fragment);
+  }
+});
+
+test('supplier image references in neutral JSON-LD block readiness', async () => {
+  const withImage = home.replace('</body>',
+    '<script type="application/ld+json">{"@type":"WebPage","image":"https://oss-cf.cjdropshipping.com/sku.jpg"}</script></body>');
+  const report = await observeStorefront(fetcher({
+    [ORIGIN + '/']: { body: withImage, type: 'text/html' }
+  }));
+  assert.equal(report.checks[0].reason, 'supplier_media_rights_unverified');
+});
+
+test('supplier imagery in the fetched policy stylesheet blocks readiness', async () => {
+  const report = await observeStorefront(fetcher({
+    [ORIGIN + '/assets/store.css?v=3']: {
+      body: '.hero{background-image:url(https://oss-cf.cjdropshipping.com/sku.jpg)}', type: 'text/css'
+    }
+  }));
+  assert.equal(report.checks[4].ok, false);
+  assert.equal(report.checks[4].reason, 'supplier_media_rights_unverified');
+});
+
+test('ordinary supplier links and rights-safe styles do not create false media alarms', async () => {
+  const harmless = home.replace('</body>',
+    '<a href="https://www.cjdropshipping.com/">Supplier site</a><div style="background:url(/assets/original.svg)"></div></body>');
+  const report = await observeStorefront(fetcher({
+    [ORIGIN + '/']: { body: harmless, type: 'text/html' }
+  }));
+  assert.equal(report.healthy, true);
+});
