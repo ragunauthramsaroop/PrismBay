@@ -1,14 +1,14 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-10-26T23:10:30.460Z",
+  "generatedAt": "2026-10-26T23:16:53.160Z",
   "researchCandidates": 12,
   "publishedResearchSignals": 12,
   "verifiedCJStatus": {
-    "checkedAt": "2026-10-26T23:10:28.908Z",
-    "validSupplierMatches": 4,
-    "variantStock": 2,
-    "freightEstimates": 2,
-    "countryFreightEstimates": 1,
+    "checkedAt": "2026-10-26T23:16:51.693Z",
+    "validSupplierMatches": 9,
+    "variantStock": 3,
+    "freightEstimates": 3,
+    "countryFreightEstimates": 2,
     "illustrativeZipFreightEstimates": 1,
     "falseMatches": 0
   },
@@ -25,7 +25,7 @@
       "action": "Investigate specific catalog SKUs, incorrect product matches and incomplete stock evidence.",
       "state": "review_required",
       "executionMode": "scheduled_cj_and_manual_review",
-      "candidateCount": 12,
+      "candidateCount": 18,
       "blockers": [
         {
           "slug": "scrubber",
@@ -92,14 +92,56 @@
         },
         {
           "slug": "cordless-handheld-vacuum",
-          "status": "fresh_commercial_evidence_required",
+          "status": "variant_stock_required",
           "sku": "CJXC1113517",
           "shippingDiagnostic": "variant_stock_unverified",
           "zeroPricedMethods": 0
         },
         {
+          "slug": "insulated-tumbler",
+          "status": "supplier_search_needed",
+          "sku": null,
+          "shippingDiagnostic": null,
+          "zeroPricedMethods": 0
+        },
+        {
+          "slug": "screen-protector",
+          "status": "final_zip_freight_required",
+          "sku": "CJPB237729905EV",
+          "shippingDiagnostic": "priced_estimate_available",
+          "zeroPricedMethods": 0
+        },
+        {
+          "slug": "multiport-charger",
+          "status": "variant_stock_required",
+          "sku": "CJCD3110798",
+          "shippingDiagnostic": "variant_stock_unverified",
+          "zeroPricedMethods": 0
+        },
+        {
+          "slug": "motion-sensor-cabinet-lights",
+          "status": "variant_stock_required",
+          "sku": "CJYD2030514",
+          "shippingDiagnostic": "variant_stock_unverified",
+          "zeroPricedMethods": 0
+        },
+        {
+          "slug": "car-phone-mount",
+          "status": "variant_stock_required",
+          "sku": "CJSJSJSJ02737",
+          "shippingDiagnostic": "variant_stock_unverified",
+          "zeroPricedMethods": 0
+        },
+        {
+          "slug": "travel-packing-cubes",
+          "status": "variant_stock_required",
+          "sku": "CJSM1849178",
+          "shippingDiagnostic": "variant_stock_unverified",
+          "zeroPricedMethods": 0
+        },
+        {
           "slug": "hanging-closet-organizer",
-          "status": "fresh_commercial_evidence_required",
+          "status": "final_zip_freight_required",
           "sku": "CJJT254150701AZ",
           "shippingDiagnostic": "priced_tip_estimate_available",
           "zeroPricedMethods": 11
