@@ -1,7 +1,7 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-10-26T18:38:50.763Z",
-  "priority": "external_traffic_to_verified_guarded_offers",
+  "generatedAt": "2026-10-26T20:26:41.354Z",
+  "priority": "external_traffic_to_verified_digital_offers",
   "items": [
     {
       "id": "stakeholder-youtube",
@@ -178,56 +178,6 @@
         "originalTypographyVideoOnly": true,
         "paidAds": false
       }
-    },
-    {
-      "id": "garment-steamer-youtube",
-      "offer": "garment-steamer",
-      "offerType": "physical",
-      "channel": "youtube",
-      "status": "ready_for_authorized_scheduler",
-      "mediaUrl": "https://ragunauthramsaroop.github.io/PrismBay/media/social/garment-steamer.mp4",
-      "destinationUrl": "https://browser-worker-production-f5b4.up.railway.app/garment-steamer/youtube/?utm_source=youtube&utm_medium=shorts&utm_campaign=prismbay_clean_steamer_oct2026&utm_content=garment-steamer_short_01",
-      "title": "Portable Garment Steamer: check U.S. ZIP before payment #Shorts",
-      "caption": "Portable Garment Steamer — $29.95 USD. Check your 5-digit U.S. ZIP before payment. PrismBay Clean checks current supplier stock and destination shipping first. Availability varies by ZIP. https://browser-worker-production-f5b4.up.railway.app/garment-steamer/youtube/?utm_source=youtube&utm_medium=shorts&utm_campaign=prismbay_clean_steamer_oct2026&utm_content=garment-steamer_short_01",
-      "commercialContentOwnBrand": true,
-      "madeForKids": false,
-      "aiAssisted": false,
-      "strategy": "guarded_physical_preflight",
-      "guardrails": {
-        "noInventedTestimonials": true,
-        "noGuaranteedResults": true,
-        "exactPriceUsd": 29.95,
-        "originalTypographyVideoOnly": true,
-        "paidAds": false,
-        "directStripe": false,
-        "zipPreflightRequired": true,
-        "availabilityClaim": "live_check_required"
-      }
-    },
-    {
-      "id": "garment-steamer-tiktok",
-      "offer": "garment-steamer",
-      "offerType": "physical",
-      "channel": "tiktok",
-      "status": "ready_for_authorized_scheduler",
-      "mediaUrl": "https://ragunauthramsaroop.github.io/PrismBay/media/social/garment-steamer.mp4",
-      "destinationUrl": "https://browser-worker-production-f5b4.up.railway.app/garment-steamer/tiktok/?utm_source=tiktok&utm_medium=organic_video&utm_campaign=prismbay_clean_steamer_oct2026&utm_content=garment-steamer_short_01",
-      "title": "Portable Garment Steamer: check U.S. ZIP before payment",
-      "caption": "Portable Garment Steamer — $29.95 USD. Check your 5-digit U.S. ZIP before payment. PrismBay Clean checks current supplier stock and destination shipping first. Availability varies by ZIP. https://browser-worker-production-f5b4.up.railway.app/garment-steamer/tiktok/?utm_source=tiktok&utm_medium=organic_video&utm_campaign=prismbay_clean_steamer_oct2026&utm_content=garment-steamer_short_01",
-      "commercialContentOwnBrand": true,
-      "madeForKids": false,
-      "aiAssisted": false,
-      "strategy": "guarded_physical_preflight",
-      "guardrails": {
-        "noInventedTestimonials": true,
-        "noGuaranteedResults": true,
-        "exactPriceUsd": 29.95,
-        "originalTypographyVideoOnly": true,
-        "paidAds": false,
-        "directStripe": false,
-        "zipPreflightRequired": true,
-        "availabilityClaim": "live_check_required"
-      }
     }
   ],
   "freeLLM": {
@@ -310,5 +260,7 @@
     "coldEmail": false,
     "paidAds": false,
     "physicalPromotion": "garment steamer only; guarded ZIP preflight required before checkout"
-  }
+  },
+  "blockedPhysicalCount": 2,
+  "rule": "No physical-product distribution or educational YouTube Clean retail promotion until independent commercial, media, destination and owner publication authorization. Digital packages remain subject to their own permissions and delivery gates."
 }
