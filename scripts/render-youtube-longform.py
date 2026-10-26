@@ -102,23 +102,95 @@ def diagram(d, chapter, slide):
             box(d, (1210, 395+j*112, 1740, 485+j*112), lab, [CYAN, GREEN, AMBER, RED][j], 28)
 
 def render_slide(chapter_index, chapter_title, slide_index, total, narration, path):
-    img = Image.new("RGB", (W, H), INK)
+    """Six meaningful editorial layouts, with a chapter-specific original diagram.
+
+    The scene structure changes, not merely the palette or title. This keeps
+    long-form explanations legible and avoids repeated template footage.
+    """
+    mode = slide_index % 6
+    backgrounds = [
+        (10, 20, 36), (15, 35, 46), (27, 25, 43),
+        (16, 34, 32), (31, 25, 35), (13, 30, 48),
+    ]
+    accents = [CYAN, GREEN, AMBER, GREEN, RED, CYAN]
+    bg, accent = backgrounds[mode], accents[mode]
+    img = Image.new("RGB", (W, H), bg)
     d = ImageDraw.Draw(img)
-    d.rectangle((0, 0, W, 17), fill=CYAN)
-    d.rectangle((0, 0, 28, H), fill=(26, 68, 79))
-    for i in range(0, W, 90):
-        d.line((i, 0, i, H), fill=(17, 31, 47), width=1)
-    d.text((93, 64), "PRISMBAY AI", font=ft(42, True), fill=CYAN)
-    d.text((96, 130), "AI SYSTEMS UNDER CONTROL  /  EXECUTIVE FIELD GUIDE", font=ft(25, True), fill=(175, 197, 217))
-    d.line((96, 197, 1810, 197), fill=(71, 100, 126), width=2)
-    d.text((96, 266), lines(chapter_title.upper(), 24, 3), font=ft(56, True), fill=WHITE, spacing=16)
-    teaser = re.split(r"(?<=[.!?])\s+(?=[A-Z])", narration)
-    summary = " ".join(teaser[:2])
-    d.multiline_text((100, 560), lines(summary, 39, 5), font=ft(35), fill=(207, 221, 236), spacing=17)
-    diagram(d, chapter_index, slide_index)
-    d.line((100, 950, 1810, 950), fill=(60, 83, 105), width=2)
-    d.text((100, 982), "ORIGINAL PRISMBAY FRAMEWORK  |  EXAMPLES ARE HYPOTHETICAL", font=ft(22, True), fill=(165, 186, 206))
-    d.text((1610, 982), f"{slide_index+1:02d} / {total:02d}", font=ft(24, True), fill=CYAN)
+    d.rectangle((0, 0, W, 15), fill=accent)
+    d.rectangle((0, 0, 22, H), fill=accent)
+    for x in range(80, W, 150):
+        d.line((x, 20, x, 940), fill=tuple(min(255, c+8) for c in bg), width=1)
+    d.text((93, 53), "PRISMBAY AI", font=ft(39, True), fill=accent)
+    d.text((96, 116), "AI SYSTEMS UNDER CONTROL  /  EXECUTIVE FIELD GUIDE",
+           font=ft(23, True), fill=(175, 197, 217))
+    d.line((96, 183, 1810, 183), fill=(70, 100, 124), width=2)
+
+    # Draw the actual chapter diagram once and place it at a different
+    # editorial position depending on the scene. No stock footage is used.
+    diagram_canvas = Image.new("RGB", (W, H), (19, 37, 57))
+    diagram(diagram_canvas_draw := ImageDraw.Draw(diagram_canvas), chapter_index, slide_index)
+    graphic = diagram_canvas.crop((1150, 255, 1810, 892))
+    sentences = re.split(r"(?<=[.!?])\\s+(?=[A-Z])", narration)
+    summary = " ".join(sentences[:2])
+    chapter_label = chapter_title.upper()
+
+    if mode == 0:
+        d.text((100, 258), lines(chapter_label, 25, 3),
+               font=ft(53, True), fill=WHITE, spacing=14)
+        d.multiline_text((100, 548), lines(summary, 39, 6),
+                         font=ft(34), fill=(207, 221, 236), spacing=15)
+        img.paste(graphic, (1150, 255))
+    elif mode == 1:
+        d.text((98, 230), lines(chapter_label, 42, 2),
+               font=ft(50, True), fill=WHITE, spacing=12)
+        d.rounded_rectangle((94, 397, 826, 911), radius=25,
+                            fill=(23, 46, 61), outline=accent, width=4)
+        img.paste(graphic.resize((560, 500)), (180, 403))
+        d.multiline_text((925, 470), lines(summary, 40, 7),
+                         font=ft(36), fill=WHITE, spacing=17)
+        d.rectangle((926, 420, 1340, 428), fill=accent)
+    elif mode == 2:
+        d.rounded_rectangle((89, 235, 1045, 900), radius=28,
+                            fill=(38, 37, 56), outline=accent, width=3)
+        d.text((135, 275), lines(chapter_label, 28, 3),
+               font=ft(51, True), fill=WHITE, spacing=12)
+        d.multiline_text((135, 575), lines(summary, 44, 6),
+                         font=ft(31), fill=(218, 229, 239), spacing=15)
+        img.paste(graphic.resize((620, 602)), (1150, 286))
+        d.text((1125, 225), "CONTROL MODEL", font=ft(26, True), fill=accent)
+    elif mode == 3:
+        d.rounded_rectangle((98, 234, 1810, 445), radius=24,
+                            fill=(22, 51, 47), outline=accent, width=3)
+        d.text((142, 278), lines(chapter_label, 46, 2),
+               font=ft(51, True), fill=WHITE, spacing=12)
+        d.multiline_text((115, 520), lines(summary, 40, 7),
+                         font=ft(33), fill=(217, 233, 225), spacing=16)
+        img.paste(graphic.resize((565, 480)), (1215, 463))
+        d.text((115, 855), "EVIDENCE  /  APPROVAL  /  ACCOUNTABILITY",
+               font=ft(24, True), fill=accent)
+    elif mode == 4:
+        img.paste(graphic.resize((680, 638)), (104, 252))
+        d.rounded_rectangle((855, 249, 1810, 900), radius=30,
+                            fill=(43, 32, 44), outline=accent, width=3)
+        d.text((903, 302), lines(chapter_label, 27, 3),
+               font=ft(50, True), fill=WHITE, spacing=14)
+        d.multiline_text((903, 601), lines(summary, 42, 6),
+                         font=ft(30), fill=(240, 223, 232), spacing=15)
+    else:
+        d.text((96, 238), lines(chapter_label, 41, 2),
+               font=ft(52, True), fill=WHITE, spacing=12)
+        d.rectangle((96, 398, 1805, 411), fill=accent)
+        d.rounded_rectangle((90, 466, 1015, 895), radius=28,
+                            fill=(25, 46, 65), outline=accent, width=3)
+        d.multiline_text((132, 528), lines(summary, 44, 7),
+                         font=ft(34), fill=WHITE, spacing=16)
+        img.paste(graphic.resize((650, 535)), (1130, 430))
+
+    d.line((100, 951, 1810, 951), fill=(70, 100, 126), width=2)
+    d.text((100, 984), "ORIGINAL PRISMBAY FRAMEWORK  |  EXAMPLES ARE HYPOTHETICAL",
+           font=ft(21, True), fill=(175, 195, 212))
+    d.text((1620, 984), f"{slide_index+1:02d} / {total:02d}",
+           font=ft(24, True), fill=accent)
     img.save(path, optimize=True)
 
 def wav_seconds(path):
