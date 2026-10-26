@@ -1,6 +1,6 @@
 {
   "schemaVersion": 3,
-  "checkedAt": "2026-10-26T22:47:44.326Z",
+  "checkedAt": "2026-10-26T23:10:28.908Z",
   "market": "US",
   "authenticationVerified": true,
   "sourceCandidateCount": 12,
@@ -47,7 +47,7 @@
       "checkoutAllowed": false,
       "promotionPolicyAuthorized": true,
       "automaticPromotionAllowed": false,
-      "observedAt": "2026-10-26T22:47:44.326Z"
+      "observedAt": "2026-10-26T23:10:28.908Z"
     },
     {
       "slug": "pethair",
@@ -75,7 +75,7 @@
       "checkoutAllowed": false,
       "promotionPolicyAuthorized": true,
       "automaticPromotionAllowed": false,
-      "observedAt": "2026-10-26T22:47:44.326Z"
+      "observedAt": "2026-10-26T23:10:28.908Z"
     },
     {
       "slug": "crevice",
@@ -103,7 +103,7 @@
       "checkoutAllowed": false,
       "promotionPolicyAuthorized": true,
       "automaticPromotionAllowed": false,
-      "observedAt": "2026-10-26T22:47:44.326Z"
+      "observedAt": "2026-10-26T23:10:28.908Z"
     },
     {
       "slug": "pressure-washer",
@@ -131,7 +131,7 @@
       "checkoutAllowed": false,
       "promotionPolicyAuthorized": true,
       "automaticPromotionAllowed": false,
-      "observedAt": "2026-10-26T22:47:44.326Z"
+      "observedAt": "2026-10-26T23:10:28.908Z"
     },
     {
       "slug": "mattress-vacuum",
@@ -159,7 +159,7 @@
       "checkoutAllowed": false,
       "promotionPolicyAuthorized": true,
       "automaticPromotionAllowed": false,
-      "observedAt": "2026-10-26T22:47:44.326Z"
+      "observedAt": "2026-10-26T23:10:28.908Z"
     },
     {
       "slug": "garment-steamer",
@@ -187,7 +187,7 @@
       "checkoutAllowed": false,
       "promotionPolicyAuthorized": true,
       "automaticPromotionAllowed": false,
-      "observedAt": "2026-10-26T22:47:44.326Z"
+      "observedAt": "2026-10-26T23:10:28.908Z"
     },
     {
       "slug": "mini-mop",
@@ -215,7 +215,7 @@
       "checkoutAllowed": false,
       "promotionPolicyAuthorized": true,
       "automaticPromotionAllowed": false,
-      "observedAt": "2026-10-26T22:47:44.326Z"
+      "observedAt": "2026-10-26T23:10:28.908Z"
     },
     {
       "slug": "drain-catcher",
@@ -243,7 +243,7 @@
       "checkoutAllowed": false,
       "promotionPolicyAuthorized": true,
       "automaticPromotionAllowed": false,
-      "observedAt": "2026-10-26T22:47:44.326Z"
+      "observedAt": "2026-10-26T23:10:28.908Z"
     },
     {
       "slug": "home-caddy",
@@ -271,7 +271,7 @@
       "checkoutAllowed": false,
       "promotionPolicyAuthorized": true,
       "automaticPromotionAllowed": false,
-      "observedAt": "2026-10-26T22:47:44.326Z"
+      "observedAt": "2026-10-26T23:10:28.908Z"
     },
     {
       "slug": "cordless-handheld-vacuum",
