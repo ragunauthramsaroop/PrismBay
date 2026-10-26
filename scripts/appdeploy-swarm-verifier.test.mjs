@@ -127,3 +127,29 @@ test('backend sales claims are not counted as live Stripe paid transactions', ()
   assert.equal(report.backendReportedSalesUnverified, 500);
   assert.equal(report.executionVerified, true);
 });
+
+test('cooldown receipts with retained old output do not count as verified execution', () => {
+  const payload = healthyPayload();
+  // The live backend advances run timestamps and counters during cooldown
+  // while retaining inspection/action counts from the preceding successful run.
+  payload.workers[1].status = 'cooldown';
+  payload.workers[1].runs += 1;
+  payload.workers[1].lastRunAt = '2026-10-04T21:39:00Z';
+  payload.workers[1].cooldownUntil = '2026-10-04T22:39:00Z';
+  const result = verifySwarmStatus(payload, { now });
+  assert.equal(result.executionVerified, false);
+  assert.equal(result.healthy, false);
+  assert.equal(result.workers.find(row => row.id === 'product-scout').executionEvidence, false);
+  assert.ok(result.reasons.includes('worker_status_cooldown:product-scout'));
+});
+
+test('failed worker receipts never inherit verified execution from prior output', () => {
+  const payload = healthyPayload();
+  payload.workers[0].status = 'error';
+  payload.workers[0].lastRunAt = '2026-10-04T21:39:00Z';
+  const result = verifySwarmStatus(payload, { now });
+  assert.equal(result.executionVerified, false);
+  assert.equal(result.healthy, false);
+  assert.equal(result.workers.find(row => row.id === 'commerce-controller').executionEvidence, false);
+  assert.ok(result.reasons.includes('worker_status_error:commerce-controller'));
+});
