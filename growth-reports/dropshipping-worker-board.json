@@ -1,11 +1,11 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-10-26T23:16:53.160Z",
+  "generatedAt": "2026-10-26T23:52:38.911Z",
   "researchCandidates": 12,
   "publishedResearchSignals": 12,
   "verifiedCJStatus": {
-    "checkedAt": "2026-10-26T23:16:51.693Z",
-    "validSupplierMatches": 9,
+    "checkedAt": "2026-10-26T23:52:36.158Z",
+    "validSupplierMatches": 7,
     "variantStock": 3,
     "freightEstimates": 3,
     "countryFreightEstimates": 2,
@@ -113,9 +113,9 @@
         },
         {
           "slug": "multiport-charger",
-          "status": "variant_stock_required",
-          "sku": "CJCD3110798",
-          "shippingDiagnostic": "variant_stock_unverified",
+          "status": "supplier_search_needed",
+          "sku": null,
+          "shippingDiagnostic": null,
           "zeroPricedMethods": 0
         },
         {
@@ -134,9 +134,9 @@
         },
         {
           "slug": "travel-packing-cubes",
-          "status": "variant_stock_required",
-          "sku": "CJSM1849178",
-          "shippingDiagnostic": "variant_stock_unverified",
+          "status": "supplier_search_needed",
+          "sku": null,
+          "shippingDiagnostic": null,
           "zeroPricedMethods": 0
         },
         {

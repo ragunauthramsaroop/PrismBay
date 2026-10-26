@@ -1,18 +1,18 @@
 {
   "schemaVersion": 3,
-  "checkedAt": "2026-10-26T23:16:51.693Z",
+  "checkedAt": "2026-10-26T23:52:36.158Z",
   "market": "US",
   "authenticationVerified": true,
   "sourceCandidateCount": 18,
   "liveStoreCandidateCount": 9,
-  "independentProductMatches": 9,
+  "independentProductMatches": 7,
   "rejectedFalseMatches": 0,
   "verifiedVariantCount": 3,
   "freightEstimateCount": 3,
   "countryFreightEstimateCount": 2,
   "illustrativeZipFreightEstimateCount": 1,
   "finalZipFreightCount": 0,
-  "mediaRightsVerifiedCount": 9,
+  "mediaRightsVerifiedCount": 7,
   "checkoutInfrastructureVerifiedCount": 1,
   "promotionAuthorizedCount": 0,
   "saleReadyCount": 0,
@@ -47,7 +47,7 @@
       "checkoutAllowed": false,
       "promotionPolicyAuthorized": true,
       "automaticPromotionAllowed": false,
-      "observedAt": "2026-10-26T23:16:51.693Z"
+      "observedAt": "2026-10-26T23:52:36.158Z"
     },
     {
       "slug": "pethair",
@@ -75,7 +75,7 @@
       "checkoutAllowed": false,
       "promotionPolicyAuthorized": true,
       "automaticPromotionAllowed": false,
-      "observedAt": "2026-10-26T23:16:51.693Z"
+      "observedAt": "2026-10-26T23:52:36.158Z"
     },
     {
       "slug": "crevice",
@@ -103,7 +103,7 @@
       "checkoutAllowed": false,
       "promotionPolicyAuthorized": true,
       "automaticPromotionAllowed": false,
-      "observedAt": "2026-10-26T23:16:51.693Z"
+      "observedAt": "2026-10-26T23:52:36.158Z"
     },
     {
       "slug": "pressure-washer",
@@ -131,7 +131,7 @@
       "checkoutAllowed": false,
       "promotionPolicyAuthorized": true,
       "automaticPromotionAllowed": false,
-      "observedAt": "2026-10-26T23:16:51.693Z"
+      "observedAt": "2026-10-26T23:52:36.158Z"
     },
     {
       "slug": "mattress-vacuum",
@@ -159,7 +159,7 @@
       "checkoutAllowed": false,
       "promotionPolicyAuthorized": true,
       "automaticPromotionAllowed": false,
-      "observedAt": "2026-10-26T23:16:51.693Z"
+      "observedAt": "2026-10-26T23:52:36.158Z"
     },
     {
       "slug": "garment-steamer",
@@ -187,7 +187,7 @@
       "checkoutAllowed": false,
       "promotionPolicyAuthorized": true,
       "automaticPromotionAllowed": false,
-      "observedAt": "2026-10-26T23:16:51.693Z"
+      "observedAt": "2026-10-26T23:52:36.158Z"
     },
     {
       "slug": "mini-mop",
@@ -215,7 +215,7 @@
       "checkoutAllowed": false,
       "promotionPolicyAuthorized": true,
       "automaticPromotionAllowed": false,
-      "observedAt": "2026-10-26T23:16:51.693Z"
+      "observedAt": "2026-10-26T23:52:36.158Z"
     },
     {
       "slug": "drain-catcher",
@@ -243,7 +243,7 @@
       "checkoutAllowed": false,
       "promotionPolicyAuthorized": true,
       "automaticPromotionAllowed": false,
-      "observedAt": "2026-10-26T23:16:51.693Z"
+      "observedAt": "2026-10-26T23:52:36.158Z"
     },
     {
       "slug": "home-caddy",
@@ -271,7 +271,7 @@
       "checkoutAllowed": false,
       "promotionPolicyAuthorized": true,
       "automaticPromotionAllowed": false,
-      "observedAt": "2026-10-26T23:16:51.693Z"
+      "observedAt": "2026-10-26T23:52:36.158Z"
     },
     {
       "slug": "cordless-handheld-vacuum",
@@ -299,7 +299,7 @@
       "checkoutAllowed": false,
       "promotionPolicyAuthorized": true,
       "automaticPromotionAllowed": false,
-      "observedAt": "2026-10-26T23:16:51.693Z"
+      "observedAt": "2026-10-26T23:52:36.158Z"
     },
     {
       "slug": "insulated-tumbler",
@@ -327,7 +327,7 @@
       "checkoutAllowed": false,
       "promotionPolicyAuthorized": true,
       "automaticPromotionAllowed": false,
-      "observedAt": "2026-10-26T23:16:51.693Z"
+      "observedAt": "2026-10-26T23:52:36.158Z"
     },
     {
       "slug": "screen-protector",
@@ -355,35 +355,35 @@
       "checkoutAllowed": false,
       "promotionPolicyAuthorized": true,
       "automaticPromotionAllowed": false,
-      "observedAt": "2026-10-26T23:16:51.693Z"
+      "observedAt": "2026-10-26T23:52:36.158Z"
     },
     {
       "slug": "multiport-charger",
       "candidate": "Multi-Port USB-C Charger",
-      "observedProduct": "KP-C105 Best-selling Multi-port Car Charger USB Type-C With Super-fast Charging And MP3 Player Function In Stock",
+      "observedProduct": null,
       "liveStoreProduct": false,
       "retailPriceUsd": 0,
-      "observedSupplierSku": "CJCD3110798",
+      "observedSupplierSku": null,
       "observedVariantSku": null,
-      "freightDiagnostic": "variant_stock_unverified",
+      "freightDiagnostic": null,
       "freightQuoteScope": null,
       "zeroPricedMethodCount": 0,
-      "supplierClaimedMatch": true,
-      "independentIdentityMatch": true,
-      "status": "variant_stock_required",
+      "supplierClaimedMatch": false,
+      "independentIdentityMatch": false,
+      "status": "supplier_search_needed",
       "variantStockVerified": false,
       "freightEstimateVerified": false,
       "countryFreightEstimated": false,
       "illustrativeZipFreightEstimated": false,
       "finalZipFreightVerified": false,
       "fulfillmentRouteVerified": false,
-      "mediaRightsVerified": true,
-      "promotionMediaPolicy": "original_graphics_and_original_copy_only",
+      "mediaRightsVerified": false,
+      "promotionMediaPolicy": null,
       "checkoutInfrastructureVerified": false,
       "checkoutAllowed": false,
       "promotionPolicyAuthorized": true,
       "automaticPromotionAllowed": false,
-      "observedAt": "2026-10-26T23:16:51.693Z"
+      "observedAt": "2026-10-26T23:52:36.158Z"
     },
     {
       "slug": "motion-sensor-cabinet-lights",
@@ -411,7 +411,7 @@
       "checkoutAllowed": false,
       "promotionPolicyAuthorized": true,
       "automaticPromotionAllowed": false,
-      "observedAt": "2026-10-26T23:16:51.693Z"
+      "observedAt": "2026-10-26T23:52:36.158Z"
     },
     {
       "slug": "car-phone-mount",
@@ -439,35 +439,35 @@
       "checkoutAllowed": false,
       "promotionPolicyAuthorized": true,
       "automaticPromotionAllowed": false,
-      "observedAt": "2026-10-26T23:16:51.693Z"
+      "observedAt": "2026-10-26T23:52:36.158Z"
     },
     {
       "slug": "travel-packing-cubes",
       "candidate": "Travel Packing Cubes",
-      "observedProduct": "Electronics Organizer Travel Cable Organizer Bag Waterproof Portable Digital Storage Bag Electronic Accessories Case Cable Charger Organizer Case",
+      "observedProduct": null,
       "liveStoreProduct": false,
       "retailPriceUsd": 0,
-      "observedSupplierSku": "CJSM1849178",
+      "observedSupplierSku": null,
       "observedVariantSku": null,
-      "freightDiagnostic": "variant_stock_unverified",
+      "freightDiagnostic": null,
       "freightQuoteScope": null,
       "zeroPricedMethodCount": 0,
-      "supplierClaimedMatch": true,
-      "independentIdentityMatch": true,
-      "status": "variant_stock_required",
+      "supplierClaimedMatch": false,
+      "independentIdentityMatch": false,
+      "status": "supplier_search_needed",
       "variantStockVerified": false,
       "freightEstimateVerified": false,
       "countryFreightEstimated": false,
       "illustrativeZipFreightEstimated": false,
       "finalZipFreightVerified": false,
       "fulfillmentRouteVerified": false,
-      "mediaRightsVerified": true,
-      "promotionMediaPolicy": "original_graphics_and_original_copy_only",
+      "mediaRightsVerified": false,
+      "promotionMediaPolicy": null,
       "checkoutInfrastructureVerified": false,
       "checkoutAllowed": false,
       "promotionPolicyAuthorized": true,
       "automaticPromotionAllowed": false,
-      "observedAt": "2026-10-26T23:16:51.693Z"
+      "observedAt": "2026-10-26T23:52:36.158Z"
     },
     {
       "slug": "hanging-closet-organizer",
@@ -495,7 +495,7 @@
       "checkoutAllowed": false,
       "promotionPolicyAuthorized": true,
       "automaticPromotionAllowed": false,
-      "observedAt": "2026-10-26T23:16:51.693Z"
+      "observedAt": "2026-10-26T23:52:36.158Z"
     },
     {
       "slug": "roll-up-dish-rack",
@@ -523,7 +523,7 @@
       "checkoutAllowed": false,
       "promotionPolicyAuthorized": true,
       "automaticPromotionAllowed": false,
-      "observedAt": "2026-10-26T23:16:51.693Z"
+      "observedAt": "2026-10-26T23:52:36.158Z"
     }
   ],
   "latestBatchCandidateCount": 18
