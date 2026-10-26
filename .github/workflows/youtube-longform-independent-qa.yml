@@ -1,0 +1,189 @@
+name: PrismBay AI Long-Form Independent QA
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/youtube-longform-independent-qa.yml'
+      - 'public/youtube/longform/PB-AGENT-ACCESS-001/**'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: prismbay-longform-qa-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  review:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install zero-cost independent QA dependencies
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg
+          python -m pip install --disable-pip-version-check --no-input pillow faster-whisper
+      - name: Audit existing video without changing or publishing it
+        shell: bash
+        run: |
+          python - <<'PY'
+          import json, subprocess, re, hashlib, difflib, os
+          from pathlib import Path
+          from PIL import Image, ImageDraw, ImageFont
+
+          root=Path('public/youtube/longform/PB-AGENT-ACCESS-001')
+          out=Path('editorial/youtube/qa/PB-AGENT-ACCESS-001')
+          out.mkdir(parents=True,exist_ok=True)
+          video=root/'PB-AGENT-ACCESS-001.mp4'
+          srt=root/'PB-AGENT-ACCESS-001.srt'
+          manifest=json.loads((root/'manifest.json').read_text())
+          assert manifest['channelId']=='UCw2hs85TzIpdKwJtG-BSxzQ'
+          assert manifest['paidSpendUSD']==0
+          assert manifest['published'] is False
+          assert manifest['publicationApproved'] is False
+
+          def command(args):
+              return subprocess.run(args,check=True,capture_output=True,text=True)
+          info=json.loads(command(['ffprobe','-v','error','-show_streams','-show_format','-of','json',str(video)]).stdout)
+          duration=float(info['format']['duration'])
+          v=next((x for x in info['streams'] if x['codec_type']=='video'),{})
+          a=next((x for x in info['streams'] if x['codec_type']=='audio'),{})
+          checks={
+              'soleChannel':manifest['channelId']=='UCw2hs85TzIpdKwJtG-BSxzQ',
+              'videoDuration':360<=duration<=900,
+              'resolution':v.get('width')==1920 and v.get('height')==1080,
+              'videoCodec':v.get('codec_name')=='h264',
+              'audioCodec':a.get('codec_name')=='aac',
+              'noPaidSpend':manifest['paidSpendUSD']==0,
+              'notPreviouslyPublished':not manifest['published'],
+              'srtExists':srt.exists() and srt.stat().st_size>1000,
+          }
+
+          volume=subprocess.run(['ffmpeg','-hide_banner','-i',str(video),'-af','volumedetect','-vn','-f','null','-'],capture_output=True,text=True)
+          peak=re.search(r'max_volume:\s*(-?[0-9.]+) dB',volume.stderr)
+          mean=re.search(r'mean_volume:\s*(-?[0-9.]+) dB',volume.stderr)
+          peak_db=float(peak.group(1)) if peak else None
+          mean_db=float(mean.group(1)) if mean else None
+          checks['noDigitalClipping']=peak_db is not None and peak_db<=-0.1
+
+          cues=[]
+          for block in re.split(r'\n\s*\n',srt.read_text(encoding='utf-8-sig').strip()):
+              lines=block.strip().splitlines()
+              if len(lines)<3 or '-->' not in lines[1]: continue
+              times=lines[1].split(' --> ')
+              def secs(s):
+                  h,m,rest=s.replace(',','.').split(':')
+                  return int(h)*3600+int(m)*60+float(rest)
+              start,end=map(secs,times)
+              cues.append((start,end,' '.join(lines[2:])))
+          checks['captionTiming']=len(cues)>80 and all(
+              0<=start<end<=duration+0.75 and
+              (i==0 or start>=cues[i-1][1]-0.25)
+              for i,(start,end,_) in enumerate(cues))
+          expected=' '.join(x[2] for x in cues)
+
+          def dhash(im):
+              im=im.convert('L').resize((9,8))
+              pix=list(im.getdata())
+              bits=0
+              for y in range(8):
+                  for x in range(8):
+                      bits=(bits<<1)|int(pix[y*9+x]>pix[y*9+x+1])
+              return bits
+          thumbs=[]; hashes=[]
+          for i in range(12):
+              sec=duration*(0.045+0.91*i/11)
+              target=out/f'preview_{i+1:02d}.jpg'
+              command(['ffmpeg','-hide_banner','-loglevel','error','-y','-ss',f'{sec:.3f}',
+                       '-i',str(video),'-frames:v','1','-vf','scale=640:360',
+                       '-q:v','3',str(target)])
+              im=Image.open(target).convert('RGB')
+              thumbs.append(im)
+              hashes.append(dhash(im))
+          distinct=[]
+          for h in hashes:
+              if all((h^old).bit_count()>=7 for old in distinct):
+                  distinct.append(h)
+          checks['visuallyDistinctSampledScenes']=len(distinct)>=6
+          sheet=Image.new('RGB',(640*3,390*4),'#101725')
+          d=ImageDraw.Draw(sheet)
+          for i,im in enumerate(thumbs):
+              x=(i%3)*640; y=(i//3)*390
+              sheet.paste(im,(x,y))
+              d.text((x+16,y+363),f'Frame {i+1:02d} | {duration*(0.045+0.91*i/11):.1f}s',fill='white')
+          sheet.save(out/'contact_sheet.jpg',quality=88,optimize=True)
+
+          asr={'status':'UNAVAILABLE','wordSequenceSimilarity':None,'humanListeningReview':'NOT PERFORMED'}
+          try:
+              from faster_whisper import WhisperModel
+              audio=out/'speech_16k.wav'
+              command(['ffmpeg','-hide_banner','-loglevel','error','-y','-i',str(video),
+                       '-vn','-ar','16000','-ac','1',str(audio)])
+              model=WhisperModel('tiny.en',device='cpu',compute_type='int8')
+              segs,_=model.transcribe(str(audio),language='en',beam_size=3,vad_filter=True)
+              heard=' '.join(x.text.strip() for x in segs)
+              def norm(t):
+                  return re.findall(r'[a-z0-9]+',t.lower())
+              ratio=difflib.SequenceMatcher(None,norm(expected),norm(heard)).ratio()
+              asr={'status':'COMPLETE','model':'faster-whisper tiny.en CPU',
+                   'wordSequenceSimilarity':round(ratio,3),'transcript':heard,
+                   'captionWordCount':len(norm(expected)),
+                   'transcriptWordCount':len(norm(heard)),
+                   'humanListeningReview':'NOT PERFORMED'}
+              checks['machineNarrationProxy']=ratio>=0.72
+              audio.unlink(missing_ok=True)
+          except Exception as e:
+              asr['error']=str(e)[:300]
+              checks['machineNarrationProxy']=False
+
+          report={
+              'channelId':manifest['channelId'],'asset':'PB-AGENT-ACCESS-001',
+              'sourceSha256':hashlib.sha256(video.read_bytes()).hexdigest(),
+              'durationSeconds':round(duration,3),'slideCountDeclared':manifest.get('slides'),
+              'audioPeakDb':peak_db,'audioMeanDb':mean_db,
+              'captionCueCount':len(cues),'sampledDistinctScenes':len(distinct),
+              'checks':checks,'technicalPass':all(checks.values()),
+              'machineNarrationReview':asr,
+              'manualVisualReview':'PENDING','manualNarrationReview':'PENDING',
+              'publicationApproved':False,'published':False,'paidSpendUSD':0,
+              'note':'Machine checks are proxies only. Do not schedule until independent human listening and visual review are completed.'
+          }
+          (out/'independent_report.json').write_text(json.dumps(report,indent=2)+'\n')
+          print(json.dumps({k:v for k,v in report.items() if k not in ('machineNarrationReview',)},indent=2))
+          PY
+      - name: Preserve machine QA evidence on existing PrismBay repository
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name prismbay-ai-longform-qa-bot
+          git config user.email actions@users.noreply.github.com
+          git add editorial/youtube/qa/PB-AGENT-ACCESS-001/
+          if git diff --cached --quiet; then
+            echo 'No QA changes to commit.'
+            exit 0
+          fi
+          git commit -m 'Add independent PrismBay long-form audio, caption and visual QA'
+          for attempt in 1 2 3 4; do
+            git fetch origin main
+            git rebase origin/main
+            if git push origin HEAD:main; then exit 0; fi
+            sleep $((attempt*3))
+          done
+          echo 'QA report generated but repository push failed after retries.'
+          exit 1
+      - name: Explain strict publication gate
+        if: always()
+        run: |
+          echo '## PrismBay AI Long-Form Independent QA' >> "$GITHUB_STEP_SUMMARY"
+          echo 'Sole channel: UCw2hs85TzIpdKwJtG-BSxzQ.' >> "$GITHUB_STEP_SUMMARY"
+          echo 'Evidence: technical checks, caption timing, audio levels, scene diversity, ASR proxy, contact sheet.' >> "$GITHUB_STEP_SUMMARY"
+          echo 'No publication, no paid advertising, no human review claimed. Publication approval remains false.' >> "$GITHUB_STEP_SUMMARY"
