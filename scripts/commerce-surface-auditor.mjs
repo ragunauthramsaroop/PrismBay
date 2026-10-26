@@ -85,7 +85,11 @@ export function auditLegacySnapshot({pages=[],feed={}}={}) {
     for(const link of html.match(/https:\/\/(?:buy|checkout)\.stripe\.com\/[A-Za-z0-9]+/gi)||[]) checkoutLinks.add(link);
     const jsonLd=[...html.matchAll(/<script\b[^>]*type\s*=\s*["']application\/ld\+json["'][^>]*>([\s\S]*?)<\/script\s*>/gi)];
     if(jsonLd.some(([,value])=>/"@type"\s*:\s*"(?:Product|Offer|AggregateOffer)"/i.test(value))) saleSchemaPages.push(page.path);
-    if(/<(?:img|source|meta)\b[^>]*(?:shopifyfile\.oss-us-west-1\.aliyuncs\.com|oss-cf\.cjdropshipping\.com|cc-west-usa\.oss-us-west-1\.aliyuncs\.com)/i.test(html)) thirdPartyMediaPages.push(page.path);
+    // Supplier images also appear in CSS backgrounds, srcset, lazy-load attributes,
+    // video posters and escaped JSON-LD, not only img/source/meta elements.
+    // An observed supplier-media URL is a rights-review blocker, never permission.
+    const mediaRefs = html.replace(/\\\//g, '/');
+    if (/(?:https?:)?\/\/(?:shopifyfile\.oss-us-west-1\.aliyuncs\.com|oss-cf\.cjdropshipping\.com|cc-west-usa\.oss-us-west-1\.aliyuncs\.com)(?=[\/?#"'\s]|$)/i.test(mediaRefs)) thirdPartyMediaPages.push(page.path);
   }
   let inStockRows=0;
   let thirdPartyFeedImageRows=0;
