@@ -11,6 +11,12 @@ This read-only dashboard displays the five core revenue worker groups, latest Gi
 Dashboard source: [`ops/worker-dashboard/`](ops/worker-dashboard/) · public status generator: [`scripts/public-ops-snapshot.mjs`](scripts/public-ops-snapshot.mjs).
 
 
+## Top 15 demand-led product shortlist
+
+[View the public Top 15 page](https://clean.prismbayai.com/top-15/) | [Maintained static source](storefront/top-15/index.html)
+
+The fifteen items are category-demand-informed research candidates, not a ranked list of the world's fifteen highest-volume SKUs. There is no physical checkout on this page until exact supplier variant, destination shipping, product rights, fulfillment, and price economics are verified. Each card offers a buyer-initiated email quote inquiry. The page also links to PrismBay's existing paid digital toolkits, which have separate live Stripe checkout. Update the maintained source and the `gh-pages` publication together when editing this page. Never claim a global lowest price, supplier approval, delivery time, popularity rank, savings or customer orders without evidence.
+
 ## PrismBay Clean: physical product research
 
 [Review the garment-care research page](https://clean.prismbayai.com/garment-steamer/) | [Shipping and returns information](https://clean.prismbayai.com/shipping.html)
