@@ -1,0 +1,55 @@
+1
+00:00:00,200 --> 00:00:01,600
+Weeks to minutes.
+
+2
+00:00:01,700 --> 00:00:04,300
+Reuters reports AI at Deutsche Bank.
+
+3
+00:00:04,400 --> 00:00:07,300
+Some smaller business-loan decisions are faster.
+
+4
+00:00:07,400 --> 00:00:11,900
+Faster decisions do not prove financial returns.
+
+5
+00:00:12,000 --> 00:00:15,300
+Track three numbers.
+
+6
+00:00:15,400 --> 00:00:20,200
+One: time to an authorized decision.
+
+7
+00:00:20,400 --> 00:00:25,700
+Two: verified cash effect, after all costs.
+
+8
+00:00:25,900 --> 00:00:31,100
+Three: exception rate and human corrections.
+
+9
+00:00:31,500 --> 00:00:35,000
+Fictional example: 200 cases each month.
+
+10
+00:00:35,000 --> 00:00:39,500
+Twenty minutes saved equals 67 hours.
+
+11
+00:00:39,700 --> 00:00:44,500
+Unless costs fall, revenue grows or service improves,
+
+12
+00:00:44,700 --> 00:00:47,300
+hours saved are not automatically cash savings.
+
+13
+00:00:47,500 --> 00:00:50,000
+Measure business outcomes, not only the demo.
+
+14
+00:00:50,200 --> 00:00:54,900
+PrismBay AI: practical AI business systems.
