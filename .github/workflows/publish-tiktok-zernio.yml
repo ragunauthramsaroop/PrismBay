@@ -69,6 +69,12 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
+          # A revoked, locked legacy post has no media to verify. Treat this as
+          # a safe no-publication state, not a failed media request or approval.
+          if node -e "const c=require('./config/tiktok-publish.json'); const l=require('./config/tiktok-publish-lock.json'); process.exit(l.locked === true && c.tiktok.publicationDisabled === true && c.tiktok.expressConsentGiven === false && c.tiktok.contentPreviewConfirmed === false && !c.product.videoUrl ? 0 : 1)"; then
+            echo 'Legacy TikTok publication revoked and locked; no media check or publication.'
+            exit 0
+          fi
           video_url=$(node -e "const c=require('./config/tiktok-publish.json'); process.stdout.write(c.product.videoUrl)")
           status=$(curl --location --silent --show-error --output /dev/null --write-out '%{http_code}' --range 0-0 "$video_url")
           test "$status" = '200' -o "$status" = '206'
