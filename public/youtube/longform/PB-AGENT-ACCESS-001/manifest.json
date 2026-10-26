@@ -7,7 +7,7 @@
     "Would You Let an AI Agent Approve a Payment? Build This Control First",
     "Before You Deploy AI Agents, Map These 10 Business Actions"
   ],
-  "durationSeconds": 442.37,
+  "durationSeconds": 442.46,
   "chapters": [
     {
       "index": 0,
@@ -16,42 +16,42 @@
     },
     {
       "index": 1,
-      "startSeconds": 43.73,
+      "startSeconds": 43.98,
       "title": "The four permission levels"
     },
     {
       "index": 2,
-      "startSeconds": 108.35,
+      "startSeconds": 108.07,
       "title": "Build the action inventory before the prompt"
     },
     {
       "index": 3,
-      "startSeconds": 159.92,
+      "startSeconds": 160.31,
       "title": "A practical procurement example"
     },
     {
       "index": 4,
-      "startSeconds": 222.12,
+      "startSeconds": 222.31,
       "title": "The approval gate needs real engineering"
     },
     {
       "index": 5,
-      "startSeconds": 276.75,
+      "startSeconds": 276.97,
       "title": "Measure business value without hiding risk"
     },
     {
       "index": 6,
-      "startSeconds": 335.67,
+      "startSeconds": 336.56,
       "title": "Five tests before expanding permissions"
     },
     {
       "index": 7,
-      "startSeconds": 386.11,
+      "startSeconds": 387.32,
       "title": "The executive decision rule and closing"
     }
   ],
   "slides": 31,
-  "videoSha256": "8c2af1f4c080509b0bc8af10b94c5b649e36fd755ebba36170e03b72b6368eae",
+  "videoSha256": "9153c2584142e4b5e1ef6d663650bcffa11604196052475dfe41298f875bf96a",
   "voice": "Piper en_US-norman-medium",
   "voiceModelCard": "https://huggingface.co/rhasspy/piper-voices/blob/main/en/en_US/norman/medium/MODEL_CARD",
   "voiceDatasetLicense": "LibriVox public domain per upstream model card",
