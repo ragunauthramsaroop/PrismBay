@@ -105,3 +105,37 @@ test('enabled adapter drops sensitive allowed-field values before capture', asyn
   assert.equal('source' in captured.properties, false);
   assert.equal(JSON.stringify(captured).includes('person'), false);
 });
+
+test('Stripe payment and order identifiers never enter analytics allowed fields', () => {
+  const ids = [
+    'pi_1234567890ABCDEF', 'ch_1234567890ABCDEF',
+    'plink_1234567890ABCDEF', 'seti_1234567890ABCDEF',
+    'in_1234567890ABCDEF', 'sub_1234567890ABCDEF',
+    'evt_1234567890ABCDEF', 'acct_1234567890ABCDEF',
+    'src_1234567890ABCDEF'
+  ];
+  for (const id of ids) {
+    const safe = sanitizeCommerceProperties({
+      sku: 'CJYD245844002BY',
+      source: id,
+      orderRef: `order-${id}`,
+      correlationId: `trace:${id}`,
+      path: `/orders/${encodeURIComponent(id)}`
+    });
+    assert.deepEqual(safe, { sku: 'CJYD245844002BY' }, `leaked ${id.split('_')[0]} identifier`);
+
+    const forged = createCommerceEvent('commerce_checkout_started', { sku: 'CJYD245844002BY' });
+    forged.properties.orderRef = id;
+    const validation = validateCommerceEvent(forged);
+    assert.equal(validation.ok, false, `forged ${id.split('_')[0]} identifier accepted`);
+    assert.ok(validation.errors.includes('unsafe_value:orderRef'));
+  }
+});
+
+test('percent-encoded Stripe identifiers in URL paths are rejected', () => {
+  const safe = sanitizeCommerceProperties({
+    path: '/checkout/pi%5F1234567890ABCDEF',
+    sku: 'CJYD245844002BY'
+  });
+  assert.deepEqual(safe, { sku: 'CJYD245844002BY' });
+});
