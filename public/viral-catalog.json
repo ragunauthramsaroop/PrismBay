@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-25T21:15:45.157Z",
+  "updatedAt": "2026-10-26T05:23:44.210Z",
   "market": "US",
   "methodology": "Public-news attention, freshness, and short-form demonstration fit. This is not PrismBay sales data and is not a TikTok, Amazon, Google, or Bing product ranking.",
   "refreshTargetHours": 6,
@@ -29,7 +29,7 @@
         {
           "title": "EGO’s Newest Pressure Washer is Made for Your Car - Pro Tool Reviews",
           "source": "Google News",
-          "publishedAt": "2026-10-22T11:48:45.000Z",
+          "publishedAt": "2026-10-22T11:00:00.000Z",
           "url": "https://news.google.com/rss/articles/CBMihwFBVV95cUxNRjZKSi00T1NneWpZcjNHb0pkR0l4VHN2RHlyUW84cXB6TmotQk9XTkJKQmdfb1lvdVl0aGZKQ1JaNVNPSFlBbEUxRTJxZ0hWTE1nS1NVcDBiSzhaUndRd3JSVk9FTTRlcURvY09BQ2NWYnIwdkJRNTlCZ0RnSmZ2SEtXb1Boem8?oc=5"
         },
         {
@@ -59,7 +59,7 @@
       "signalScore": 77.5,
       "signalLabel": "high-attention",
       "evidence": {
-        "publicMentions": 95,
+        "publicMentions": 93,
         "mentionsLast7Days": 0,
         "mentionsLast30Days": 5,
         "sourcesAvailable": [
@@ -75,12 +75,6 @@
           "url": "https://news.google.com/rss/articles/CBMijAFBVV95cUxPeHdhUGRKUmlMQy1qT2hYWXZISTJDcExWc1hFVkoxQXQ0cldiWUVGTFlnOWNNVDQxS0kwRjg0MTFZaUp3X3M4WDhFUjNJLVRYT201NjNKZlkxWmNIYVd3T1JfSGs3dDFTMXQyUGNEcmVFdUtmSHJwUTduM015VGNYNHl4MFd4TDlRSnJBbw?oc=5"
         },
         {
-          "title": "I Have a Leg Injury, and This Extendable Spin Scrubber Has Been a Lifesaver in Keeping My Bathroom Spotless - Apartment Therapy",
-          "source": "Google News",
-          "publishedAt": "2026-09-11T07:00:00.000Z",
-          "url": "https://news.google.com/rss/articles/CBMihgFBVV95cUxPOF92S3dDMlBWc1ptWEpxX0pxNWd5emtEbHdyMXg4NkxhUWxweGVsR1pGMXotcElFNGQtWldFRkNtUzdRWGE5aFdFNFl3NW5NYVdlbzhJVk9YMUpsLUF0Mkp4MGFfVlVXVll1Qmo5Yl9sRnhrdkJwMVpxRjlNc2NFc0E5NmhQZw?oc=5"
-        },
-        {
           "title": "Back or joint pain? This electric scrubber means no kneeling down to clean — it's usually $150, but it's on sale for $45 ahead of October Prime Day - Yahoo Lifestyle Canada",
           "source": "Google News",
           "publishedAt": "2026-09-22T07:00:00.000Z",
@@ -91,6 +85,12 @@
           "source": "Google News",
           "publishedAt": "2026-04-22T07:00:00.000Z",
           "url": "https://news.google.com/rss/articles/CBMie0FVX3lxTE40c3JDUmdvYnFzQW4wNUE0VUdoWVMzUk1MT1VGOTBMbDdIT0tBcU1IbzMwWmNwME5za1ozalNqUWdkVDNMV1d0WUx5YUpOSU9TRGhWR1VVTzktT3VBOXR0d0pQM0hpQVZpU2hRdFN4M3dXRlpiejRwSUlDMA?oc=5"
+        },
+        {
+          "title": "I Have a Leg Injury, and This Extendable Spin Scrubber Has Been a Lifesaver in Keeping My Bathroom Spotless - Apartment Therapy",
+          "source": "Google News",
+          "publishedAt": "2026-09-11T07:00:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMihgFBVV95cUxPOF92S3dDMlBWc1ptWEpxX0pxNWd5emtEbHdyMXg4NkxhUWxweGVsR1pGMXotcElFNGQtWldFRkNtUzdRWGE5aFdFNFl3NW5NYVdlbzhJVk9YMUpsLUF0Mkp4MGFfVlVXVll1Qmo5Yl9sRnhrdkJwMVpxRjlNc2NFc0E5NmhQZw?oc=5"
         },
         {
           "title": "6 Electric Scrubbers Our Editors Tested and Love for Effortlessly Clean Surfaces - Real Simple",
@@ -107,7 +107,7 @@
       "signalScore": 77.5,
       "signalLabel": "high-attention",
       "evidence": {
-        "publicMentions": 106,
+        "publicMentions": 105,
         "mentionsLast7Days": 0,
         "mentionsLast30Days": 6,
         "sourcesAvailable": [
@@ -152,18 +152,24 @@
     {
       "slug": "garment-steamer",
       "name": "Portable Garment Steamer",
-      "signalScore": 72.5,
+      "signalScore": 75.5,
       "signalLabel": "high-attention",
       "evidence": {
-        "publicMentions": 30,
-        "mentionsLast7Days": 0,
-        "mentionsLast30Days": 4,
+        "publicMentions": 29,
+        "mentionsLast7Days": 1,
+        "mentionsLast30Days": 5,
         "sourcesAvailable": [
           "Google News",
           "Bing News"
         ]
       },
       "sampleSignals": [
+        {
+          "title": "We Tested 18 Travel Steamers—These 9 Keep Clothes Wrinkle-free - Travel + Leisure",
+          "source": "Google News",
+          "publishedAt": "2026-10-23T07:00:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMibkFVX3lxTE9Wd0NtOV9wTS1JUl9UUG5oQzV0UnEwVG93X29YS0NvZTlqVXAxeWh1bFhyeEhZenNwY25sUEZMNWdhaHh4M1hqSXJtMWdGcVNXTUx3N29tNXliOGZqb1QzVldUSEtYZktoRnNRbWJR?oc=5"
+        },
         {
           "title": "Best travel steamers 2026: tested and reviewed for wrinkle-free packing - CN Traveller",
           "source": "Google News",
@@ -181,12 +187,6 @@
           "source": "Google News",
           "publishedAt": "2024-09-13T07:00:00.000Z",
           "url": "https://news.google.com/rss/articles/CBMiigFBVV95cUxPOEltbERZMDMtemlzdFRPSUdTZGFXLVJDTUJpWWZrMGtSLVVFMDlSWWxHS3YzSXpydFhpWUlyTmd5dTYyMTBaMEtuT1VMazI2SUxzQkhSSVZEV0tqTTdzRGhlYlZxWEw5RVhxSkpsS0xsQjA4cFNkX2Jjb1NYem04OTR0TzNnQlZ1WlE?oc=5"
-        },
-        {
-          "title": "We Tested 18 Travel Steamers—These 9 Keep Clothes Wrinkle-free - Travel + Leisure",
-          "source": "Google News",
-          "publishedAt": "2022-11-16T17:08:14.000Z",
-          "url": "https://news.google.com/rss/articles/CBMibkFVX3lxTE9Wd0NtOV9wTS1JUl9UUG5oQzV0UnEwVG93X29YS0NvZTlqVXAxeWh1bFhyeEhZenNwY25sUEZMNWdhaHh4M1hqSXJtMWdGcVNXTUx3N29tNXliOGZqb1QzVldUSEtYZktoRnNRbWJR?oc=5"
         },
         {
           "title": "Amazon Prime Day 2023: Get a Portable Garment Steamer With 65,000+ 5-Star Amazon Reviews for Just $28 - E! News",
