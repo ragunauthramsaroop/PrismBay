@@ -20,7 +20,6 @@ on:
       - 'scripts/viral-product-engine.mjs'
       - 'scripts/retail-content-brief.mjs'
       - 'scripts/retail-content-brief.test.mjs'
-      - 'scripts/retail-readiness-closure.test.mjs'
       - 'README.md'
       - 'scripts/tiktok-retail-readiness.mjs'
       - 'scripts/first-sale-verifier.mjs'
