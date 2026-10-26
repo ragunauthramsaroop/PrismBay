@@ -78,9 +78,9 @@ export default function GarmentSteamer() {
 
   return <>
     <Head>
-      <title>Portable Garment Steamer | PrismBay Clean</title>
-      <meta name='description' content='Check live U.S. destination shipping for the PrismBay Clean Portable Garment Steamer before payment.' />
-      <meta name='robots' content='index,follow,max-image-preview:large' />
+      <title>Garment Care Device Under Review | PrismBay Clean</title>
+      <meta name='description' content='Research-stage garment-care device. Request destination shipping review. No physical checkout is currently approved.' />
+      <meta name='robots' content='noindex,follow' />
     </Head>
     <main style={{maxWidth:1080,margin:'0 auto',padding:'48px 24px 80px',fontFamily:'Arial, sans-serif',color:'#173a2f'}}>
       <a href='/' style={{color:'#174b38',textDecoration:'none'}}>← PrismBay Clean</a>
@@ -90,24 +90,24 @@ export default function GarmentSteamer() {
         </div>
         <div>
           <div style={{fontSize:13,fontWeight:700,letterSpacing:1.4,color:'#527467'}}>FABRIC CARE</div>
-          <h1 style={{fontSize:48,lineHeight:1.02,margin:'12px 0'}}>Portable Garment Steamer</h1>
-          <div style={{fontSize:30,fontWeight:700,marginBottom:18}}>USD 29.95</div>
-          <p style={{fontSize:18,lineHeight:1.6,color:'#476158'}}>Handheld steam care for clothing, travel and everyday household fabric touch-ups.</p>
+          <h1 style={{fontSize:48,lineHeight:1.02,margin:'12px 0'}}>Garment Care Device Under Review</h1>
+          <div style={{fontSize:20,fontWeight:700,marginBottom:18}}>Price pending verification</div>
+          <p style={{fontSize:18,lineHeight:1.6,color:'#476158'}}>Research estimate only, not an offer to sell. Steaming function, electrical specifications, plug compatibility and fabric suitability have not been independently verified.</p>
           <div style={{display:'grid',gap:12,margin:'28px 0'}}>
-            <span style={{display:'flex',gap:10,alignItems:'center'}}><PackageCheck size={20}/> Supplier stock checked before checkout</span>
-            <span style={{display:'flex',gap:10,alignItems:'center'}}><Truck size={20}/> Destination freight checked for your ZIP</span>
-            <span style={{display:'flex',gap:10,alignItems:'center'}}><LockKeyhole size={20}/> Payment link released only after a final live recheck</span>
+            <span style={{display:'flex',gap:10,alignItems:'center'}}><PackageCheck size={20}/> Exact supplier variant and stock require verification</span>
+            <span style={{display:'flex',gap:10,alignItems:'center'}}><Truck size={20}/> Destination freight requires buyer-ZIP verification</span>
+            <span style={{display:'flex',gap:10,alignItems:'center'}}><LockKeyhole size={20}/> Checkout requires separate commercial authorization</span>
           </div>
           <form onSubmit={submit} style={{border:'1px solid #d8e1dc',borderRadius:20,padding:22,background:'#fff'}}>
-            <label htmlFor='zip' style={{display:'block',fontWeight:700,marginBottom:8}}>Check shipping to your U.S. ZIP</label>
+            <label htmlFor='zip' style={{display:'block',fontWeight:700,marginBottom:8}}>Request destination shipping review for your U.S. ZIP</label>
             <div style={{display:'flex',gap:10,flexWrap:'wrap'}}>
               <div style={{position:'relative',flex:'1 1 180px'}}>
                 <MapPin size={18} style={{position:'absolute',left:14,top:15,color:'#527467'}} />
                 <input id='zip' inputMode='numeric' autoComplete='postal-code' maxLength={5} value={zip} onChange={e=>setZip(e.target.value.replace(/\D/g,'').slice(0,5))} placeholder='e.g. 10001' style={{width:'100%',boxSizing:'border-box',padding:'14px 14px 14px 42px',border:'1px solid #b9c9c0',borderRadius:12,fontSize:16}} />
               </div>
-              <button type='submit' disabled={loading || authorizing || zip.length !== 5} style={{border:0,borderRadius:12,padding:'14px 20px',fontWeight:700,background:'#174b38',color:'#fff',cursor:'pointer',minWidth:170}}>{loading ? <span style={{display:'inline-flex',gap:8,alignItems:'center'}}><Loader2 size={18}/> Checking</span> : 'Check availability'}</button>
+              <button type='submit' disabled={loading || authorizing || zip.length !== 5} style={{border:0,borderRadius:12,padding:'14px 20px',fontWeight:700,background:'#174b38',color:'#fff',cursor:'pointer',minWidth:170}}>{loading ? <span style={{display:'inline-flex',gap:8,alignItems:'center'}}><Loader2 size={18}/> Checking</span> : 'Request shipping review'}</button>
             </div>
-            <p style={{fontSize:13,color:'#667d74',marginBottom:0}}>No payment is taken during this check.</p>
+            <p style={{fontSize:13,color:'#667d74',marginBottom:0}}>No payment is taken during this inquiry. Physical checkout remains closed until all commercial gates pass.</p>
           </form>
           {quote?.ok && quote.stage === 'quoted' ? <div style={{marginTop:18,padding:20,borderRadius:16,background:'#edf7f1',border:'1px solid #b8ddc7'}}>
             <div style={{display:'flex',gap:8,alignItems:'center',fontWeight:700}}><CheckCircle2 size={20}/> Destination route approved</div>
