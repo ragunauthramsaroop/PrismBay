@@ -38,6 +38,8 @@ function cleanString(value, max = 160) {
 
 // Keys alone are not a privacy boundary. URLs and allowed string fields can
 // contain encoded emails, phone numbers, IP addresses or Stripe identifiers.
+// PaymentIntent, Charge, Payment Link, invoice and subscription IDs are
+// sensitive order references even when embedded in otherwise allowed fields.
 function containsSensitiveValue(value) {
   let text = String(value);
   for (let i = 0; i < 2; i++) {
@@ -48,7 +50,7 @@ function containsSensitiveValue(value) {
     } catch { break; }
   }
   if (/@/.test(text) || /\b(?:\d{1,3}\.){3}\d{1,3}\b/.test(text)) return true;
-  if (/(?:^|[^A-Za-z0-9])(?:cus|cs|pm|tok|sk|rk)_[A-Za-z0-9]{8,}/i.test(text)) return true;
+  if (/(?:^|[^A-Za-z0-9])(?:cus|cs|pm|tok|sk|rk|pi|ch|plink|seti|sub|in|evt|acct|src)_[A-Za-z0-9]{8,}/i.test(text)) return true;
   return /(?:^|[^\w])\+?\d(?:[\s().-]*\d){8,}(?:$|[^\w])/.test(text);
 }
 
