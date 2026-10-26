@@ -49,3 +49,8 @@ Status: SCRIPTED / PACKAGED / AWAITING HIGH-QUALITY RENDER. Not published.
 9 Portfolio Allocator: HOLD existing winners/losers classification, test the fresh ROI case when quality-approved, preserve hybrid Shorts plus long-form strategy.
 
 Next safe action: produce a clean narrated render through a legitimate free-capacity route, review audio/facts/visuals, then schedule at an empirically supported slot after checking the planner again.
+
+## Zero-cost local production progress
+- Generated seven original 1080x1920 visual scenes and a 55-second MP4 storyboard preview with FFmpeg/Pillow. Original flow diagram, ROI contrast, three-metric display, hypothetical arithmetic, outcome checks and closing frame. Visual QC contact sheet reviewed.
+- Local files: /mnt/data/prismbay_production/PB-LOAN-CYCLE-20261026/PB-LOAN-CYCLE-20261026_visual_preview_NO_AUDIO.mp4; contact_sheet.png; narration.txt; captions_draft.srt.
+- Preview contains **NO AUDIO** and is explicitly **NOT PUBLICATION READY**. Do not upload or schedule this silent preview. Final production requires natural narration, accurate captions synchronized to audio, and a last QC pass.
