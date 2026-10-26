@@ -13,7 +13,7 @@
   "dailyRetailVideoAuthorized": true,
   "promotion": {
     "automaticPromotionAllowedAfterAllOtherGates": true,
-    "automaticRetailTikTokPublishingAuthorized": true,
+    "automaticRetailTikTokPublishingAuthorized": false,
     "allowedChannels": [
       "owned-search",
       "owner-approved-creator",
@@ -46,7 +46,7 @@
     "checkoutAllowedOnlyAfterFinalZipFreight": true
   },
   "automationBoundaries": {
-    "dailyTikTokPublishing": "authorized only after TikTok is connected to the approved scheduler and the selected product/media passes all gates",
+    "dailyTikTokPublishing": "Paused by owner following creative-quality review; drafts may be produced, but no automatic TikTok publishing without new explicit approval, verified SKU/commercial readiness and media rights.",
     "reviewRequests": "authorized only after a real delivered purchase and through a permissioned customer communication channel",
     "abandonmentRecovery": "design and dry-run authorized; outbound recovery must use permissioned, platform-compliant channels and consent evidence",
     "supplierOrdering": "not authorized; build and test the order payload/state machine only until separate spend authorization is recorded"
@@ -60,6 +60,7 @@
     "services/physical-orders/catalog.prismbay-live.json maps the Crevice Brush to its verified live Stripe objects",
     "Live Stripe account verification on 2026-10-03 confirmed Portable Garment Steamer product prod_UyYquVYNft8ncj with active one-time USD 29.95 price price_1UHk2iKDLFBMHojQws9eXthB and active payment-link checkout infrastructure",
     "Garment Steamer checkout infrastructure evidence does not authorize checkout release before exact buyer-destination freight, current stock and commercial economics pass",
-    "Read-only live Stripe re-verification on 2026-10-08: payment link plink_1UHk4GKDLFBMHojQ71RMLPTa is active at https://buy.stripe.com/bJe4gA8XAdOjeKmb8QgnK05 with exactly one Portable Garment Steamer, price price_1UHk2iKDLFBMHojQws9eXthB, product prod_VIKilhfyZniXZy, USD 29.95, quantity 1, no adjustable quantity, US shipping only. This corrects the earlier product identifier and supplies the missing quote-handoff URL; it is not supplier, freight, fulfillment or sale approval."
+    "Read-only live Stripe re-verification on 2026-10-08: payment link plink_1UHk4GKDLFBMHojQ71RMLPTa is active at https://buy.stripe.com/bJe4gA8XAdOjeKmb8QgnK05 with exactly one Portable Garment Steamer, price price_1UHk2iKDLFBMHojQws9eXthB, product prod_VIKilhfyZniXZy, USD 29.95, quantity 1, no adjustable quantity, US shipping only. This corrects the earlier product identifier and supplies the missing quote-handoff URL; it is not supplier, freight, fulfillment or sale approval.",
+    "2026-10-24 to 2026-10-25: owner withdrew approval for automatically published low-quality retail TikTok videos and requested quality control; original supplier-readiness and no-spend policies remain intact."
   ]
 }
