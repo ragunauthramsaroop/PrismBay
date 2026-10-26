@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "checkedAt": "2026-10-26T10:19:37.360Z",
+  "checkedAt": "2026-10-26T10:20:10.429Z",
   "source": "GitHub Actions accountability evidence",
   "refreshPolicy": "Best-effort GitHub schedules. Static snapshot; refresh does not run agents.",
   "summary": {
@@ -24,7 +24,7 @@
       "failureStreak": 0,
       "runId": 40299794153,
       "runUrl": "https://github.com/ragunauthramsaroop/PrismBay/actions/runs/40299794153",
-      "runAgeMinutes": 51,
+      "runAgeMinutes": 52,
       "artifactName": "buyer-acquisition-40299794153",
       "artifactBytes": 21981,
       "remediation": null
@@ -42,7 +42,7 @@
       "failureStreak": 0,
       "runId": 40209753982,
       "runUrl": "https://github.com/ragunauthramsaroop/PrismBay/actions/runs/40209753982",
-      "runAgeMinutes": 1097,
+      "runAgeMinutes": 1098,
       "artifactName": "prismbay-external-traffic-40209753982",
       "artifactBytes": 799888,
       "remediation": null
@@ -60,7 +60,7 @@
       "failureStreak": 0,
       "runId": 40303223585,
       "runUrl": "https://github.com/ragunauthramsaroop/PrismBay/actions/runs/40303223585",
-      "runAgeMinutes": 25,
+      "runAgeMinutes": 26,
       "artifactName": "prismbay-ceo-recovery-40303223585",
       "artifactBytes": 58101,
       "remediation": null
@@ -78,7 +78,7 @@
       "failureStreak": 0,
       "runId": 40279414814,
       "runUrl": "https://github.com/ragunauthramsaroop/PrismBay/actions/runs/40279414814",
-      "runAgeMinutes": 237,
+      "runAgeMinutes": 238,
       "artifactName": "prismbay-paperclip-revenue-40279414814",
       "artifactBytes": 6100,
       "remediation": null
@@ -93,10 +93,10 @@
       "status": "fail",
       "reason": "worker_stale",
       "consequence": "replace_route",
-      "failureStreak": 3,
+      "failureStreak": 4,
       "runId": 40292731597,
       "runUrl": "https://github.com/ragunauthramsaroop/PrismBay/actions/runs/40292731597",
-      "runAgeMinutes": 109,
+      "runAgeMinutes": 110,
       "artifactName": null,
       "artifactBytes": null,
       "remediation": null
