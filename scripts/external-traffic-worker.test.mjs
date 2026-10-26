@@ -22,7 +22,7 @@ test('external traffic queue contains only digital offers and excludes injected 
   for(const item of q.items){
     assert.equal(item.offerType,'digital');
     assert.equal(item.status,'ready_for_authorized_scheduler');
-    assert.match(item.mediaUrl,/ragunauthramsaroop\\.github\\.io\\/PrismBay\\/media\\/social\\/.+\\.mp4$/);
+    assert.match(item.mediaUrl,/ragunauthramsaroop\.github\.io\/PrismBay\/media\/social\/.+\.mp4$/);
     assert.doesNotMatch(JSON.stringify(item),/garment-steamer|prismbay_clean_steamer|buyer.zip/i);
     assert.ok(!/guaranteed|best seller|limited stock|verified customer/i.test(item.caption));
     assert.doesNotMatch(item.destinationUrl,/undefined/);
@@ -54,7 +54,7 @@ test('bundle traffic maps to the existing digital comparison page',()=>{
   const bundle=ACTIVE_DIGITAL_OFFERS.find(x=>x.slug==='bundle');
   assert.ok(bundle);
   const u=new URL(trackedUrl(bundle,'youtube'));
-  assert.match(u.pathname,/\\/PrismBay\\/toolkits\\.html$/);
+  assert.match(u.pathname,/\/PrismBay\/toolkits\.html$/);
 });
 
 test('digital video scenes use exact offer price and educational copy',()=>{
@@ -62,7 +62,7 @@ test('digital video scenes use exact offer price and educational copy',()=>{
   const plan=deterministicSalesPlan(offer,{guideUrl:offer.guide,checkoutUrl:offer.checkout});
   const scenes=scenesForOffer(offer,plan);
   assert.equal(scenes.length,4);
-  assert.match(JSON.stringify(scenes),/\\$99 USD one time/);
+  assert.match(JSON.stringify(scenes),/\$99 USD one time/);
   assert.doesNotMatch(JSON.stringify(scenes),/guaranteed|customer testimonial|limited time/i);
 });
 
