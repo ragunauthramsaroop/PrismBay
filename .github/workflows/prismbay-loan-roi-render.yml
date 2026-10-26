@@ -1,0 +1,63 @@
+name: PrismBay AI original loan ROI Short render
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - .github/workflows/prismbay-loan-roi-render.yml
+
+permissions:
+  contents: write
+
+concurrency:
+  group: prismbay-loan-roi-render
+  cancel-in-progress: false
+
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install zero-cost rendering dependencies
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg fonts-dejavu-core
+          python -m pip install --disable-pip-version-check pillow
+      - name: Verify and unpack original rendering source
+        run: |
+          mkdir -p /tmp/prismbay-render
+          base64 -d youtube-growth/renderers/PB-LOAN-CYCLE-20261026.py.gz.b64 | gzip -d > /tmp/prismbay-render/renderer.py
+          echo "60f2189d3bd9c7c05cb700d7eb545ed233ea3d2da9204605292eddb3dae65a6e  /tmp/prismbay-render/renderer.py" | sha256sum -c -
+      - name: Download narration generated with free HeyGen capacity
+        env:
+          AUDIO_URL: https://resource2.heygen.ai/text_to_speech/2d8fe758daa343dd962c722f1ef8c64f/5a3cff20eddd491ca1196ffd1a868fdb/id=2602f8f0-7785-4a66-86b5-77702fab7f0f.wav
+        run: |
+          curl --fail --location --silent --show-error --retry 2 --max-time 120 "$AUDIO_URL" -o /tmp/prismbay-render/narration.wav
+          test "$(stat -c%s /tmp/prismbay-render/narration.wav)" -gt 100000
+          ffprobe -v error -select_streams a:0 -show_entries stream=codec_name -of default=nw=1 /tmp/prismbay-render/narration.wav
+      - name: Render original 1080x1920 visual story and synchronized captions
+        run: |
+          python /tmp/prismbay-render/renderer.py --audio /tmp/prismbay-render/narration.wav --output /tmp/prismbay-render/uncaptioned.mp4
+          mkdir -p youtube-growth/media
+          ffmpeg -hide_banner -loglevel error -y -i /tmp/prismbay-render/uncaptioned.mp4 -vf "subtitles=youtube-growth/renderers/PB-LOAN-CYCLE-20261026.srt:force_style='FontName=DejaVu Sans,FontSize=16,PrimaryColour=&H00FFFFFF,OutlineColour=&H000C1325,BorderStyle=1,Outline=3,Shadow=1,MarginV=160'" -c:v libx264 -preset veryfast -crf 22 -c:a copy -movflags +faststart youtube-growth/media/PB-LOAN-CYCLE-20261026_final.mp4
+          python - <<'PY'
+          import json,subprocess,os
+          p='youtube-growth/media/PB-LOAN-CYCLE-20261026_final.mp4'
+          j=json.loads(subprocess.check_output(['ffprobe','-v','error','-show_format','-show_streams','-of','json',p]))
+          duration=float(j['format']['duration'])
+          assert 54 <= duration <= 56,duration
+          assert any(s['codec_type']=='video' and s['width']==1080 and s['height']==1920 for s in j['streams'])
+          assert any(s['codec_type']=='audio' for s in j['streams'])
+          assert os.path.getsize(p)>400000
+          with open('youtube-growth/media/PB-LOAN-CYCLE-20261026_manifest.json','w') as f:
+            json.dump({'channel_id':'UCw2hs85TzIpdKwJtG-BSxzQ','handle':'@PrismBayAI','experiment':'PB-LOAN-CYCLE-20261026','status':'RENDERED_NOT_PUBLISHED','source':'Reuters 2026-10-26','source_url':'https://www.reuters.com/business/finance/ai-cuts-some-deutsche-bank-corporate-loan-decisions-minutes-2026-10-26/','duration_seconds':duration,'format':'1080x1920','synthetic_realistic_content':False,'quality_gate':'HUMAN_LISTEN_REVIEW_PENDING','advertising_spend_usd':0},f,indent=2)
+          PY
+      - name: Store output for publisher and quality review
+        run: |
+          git config user.name "PrismBay Growth Swarm"
+          git config user.email "actions@users.noreply.github.com"
+          git add youtube-growth/media/PB-LOAN-CYCLE-20261026_final.mp4 youtube-growth/media/PB-LOAN-CYCLE-20261026_manifest.json
+          if ! git diff --cached --quiet; then
+            git commit -m "Render original narrated PrismBay loan ROI Short, pending listening QC"
+            git push
+          fi
