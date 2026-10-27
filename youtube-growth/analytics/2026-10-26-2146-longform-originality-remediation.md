@@ -28,6 +28,8 @@ Updated `scripts/render-youtube-longform.py` on the existing main branch:
 Commits: `b66269f510993667ecc1ba1bb85100f4a8b3c967` and `59856999a163b493f3e9d7f9a12126328dc340fa`.
 Existing GitHub Actions workflow `PrismBay AI Original Long-Form Studio` was triggered by the renderer update. A rebuild was running/queued when this audit was recorded. Its output and independent QA must be checked again before any publication decision. Do not claim a passing score before the completed report.
 
+Follow-up resilience fix: updated `.github/workflows/youtube-longform-independent-qa.yml` to trigger after a successful `PrismBay AI Original Long-Form Studio` workflow run, including media committed with `GITHUB_TOKEN`. The earlier push-only QA trigger would not reliably execute for renderer-bot commits. Commit `2ab362eb9362acf4d22e528d6fb6d8055f3a7f37`. The independent QA still keeps `publicationApproved=false` and does not publish.
+
 ## Portfolio allocation and gates
 - Trend Scout / Audience Scout: maintain evidence-led AI security and financial-control topics for operators, founders and executives; do not duplicate the already scheduled loan-ROI Short.
 - Hook, Script and Packaging: preserve the existing three long-form title candidates and three distinct thumbnail designs. No native A/B test until a qualified long-form upload exists.
