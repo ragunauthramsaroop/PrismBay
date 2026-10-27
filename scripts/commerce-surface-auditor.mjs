@@ -209,11 +209,15 @@ export function auditCanonicalRetailSnapshot({pages=[],manifest=null,queue=null,
    item?.targetChannel,item?.channelId,item?.destinationUrl];
   return destinations.some(value=>{
    const route=String(value??'').trim().toLowerCase();
-   return /^youtube(?:[\\s_/-]+(?:shorts|channel))?$/.test(route)||
-    route==='yt'||route==='youtube.com'||route==='www.youtube.com'||
-    route==='youtu.be'||route==='@prismbayai'||
-    route==='ucw2hs85tzipdkwjtg-bsxzq'||
-    /^https?:\\/\\/(?:www\\.)?(?:youtube\\.com|youtu\\.be)(?:[\\/?#]|$)/.test(route);
+   const alias=route.replaceAll('_','-').replaceAll(' ','-').replaceAll('/','-');
+   if(['youtube','youtube-shorts','youtube-channel','yt','youtube.com',
+    'www.youtube.com','youtu.be','@prismbayai',
+    'ucw2hs85tzipdkwjtg-bsxzq'].includes(alias))return true;
+   try{
+    const url=new URL(route);
+    return ['http:','https:'].includes(url.protocol)&&
+     ['youtube.com','www.youtube.com','youtu.be'].includes(url.hostname);
+   }catch{return false;}
   });
  };
  if(queue?.items?.some(educationalYoutubeRoute))issues.push('canonical_educational_youtube_retail_contamination');
