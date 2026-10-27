@@ -3,7 +3,7 @@
   "source": "Read-only CJ evidence. No estimated freight grants a sale.",
   "supplierReviewCheckedAt": "2026-10-26T23:57:11.377Z",
   "candidateCount": 15,
-  "supplierScreeningPassedCount": 3,
+  "supplierScreeningPassedCount": 1,
   "globalPhysicalCheckoutEnabled": false,
   "anyClaimOfCheapestAuthorized": false,
   "revenueProofRequired": "Verified live non-test Stripe paid transaction. Fulfillment is a separate evidence gate.",
@@ -88,7 +88,7 @@
       "mediaRightsScope": "original_graphics_and_original_copy_only",
       "supplierPhotoVideoRightsVerified": false,
       "verifiedChecks": {
-        "independentSupplierMatch": true,
+        "independentSupplierMatch": false,
         "variantStock": true,
         "screeningFreight": true,
         "destinationQuotePerBuyer": false,
@@ -98,12 +98,13 @@
         "commercialPromotionApproval": false
       },
       "missingChecks": [
+        "independentSupplierMatch",
         "destinationQuotePerBuyer",
         "checkoutInfrastructure",
         "fulfillmentRoute",
         "commercialPromotionApproval"
       ],
-      "supplierScreeningPassed": true,
+      "supplierScreeningPassed": false,
       "checkoutAction": "price_request_only",
       "globallySaleReady": false
     },
@@ -118,7 +119,7 @@
       "mediaRightsScope": "original_graphics_and_original_copy_only",
       "supplierPhotoVideoRightsVerified": false,
       "verifiedChecks": {
-        "independentSupplierMatch": true,
+        "independentSupplierMatch": false,
         "variantStock": false,
         "screeningFreight": false,
         "destinationQuotePerBuyer": false,
@@ -128,6 +129,7 @@
         "commercialPromotionApproval": false
       },
       "missingChecks": [
+        "independentSupplierMatch",
         "variantStock",
         "screeningFreight",
         "destinationQuotePerBuyer",
@@ -184,7 +186,7 @@
       "mediaRightsScope": "original_graphics_and_original_copy_only",
       "supplierPhotoVideoRightsVerified": false,
       "verifiedChecks": {
-        "independentSupplierMatch": true,
+        "independentSupplierMatch": false,
         "variantStock": false,
         "screeningFreight": false,
         "destinationQuotePerBuyer": false,
@@ -194,6 +196,7 @@
         "commercialPromotionApproval": false
       },
       "missingChecks": [
+        "independentSupplierMatch",
         "variantStock",
         "screeningFreight",
         "destinationQuotePerBuyer",
@@ -216,7 +219,7 @@
       "mediaRightsScope": "original_graphics_and_original_copy_only",
       "supplierPhotoVideoRightsVerified": false,
       "verifiedChecks": {
-        "independentSupplierMatch": true,
+        "independentSupplierMatch": false,
         "variantStock": true,
         "screeningFreight": true,
         "destinationQuotePerBuyer": false,
@@ -226,11 +229,12 @@
         "commercialPromotionApproval": false
       },
       "missingChecks": [
+        "independentSupplierMatch",
         "destinationQuotePerBuyer",
         "fulfillmentRoute",
         "commercialPromotionApproval"
       ],
-      "supplierScreeningPassed": true,
+      "supplierScreeningPassed": false,
       "checkoutAction": "price_request_only",
       "globallySaleReady": false
     },
@@ -245,7 +249,7 @@
       "mediaRightsScope": "original_graphics_and_original_copy_only",
       "supplierPhotoVideoRightsVerified": false,
       "verifiedChecks": {
-        "independentSupplierMatch": true,
+        "independentSupplierMatch": false,
         "variantStock": false,
         "screeningFreight": false,
         "destinationQuotePerBuyer": false,
@@ -255,6 +259,7 @@
         "commercialPromotionApproval": false
       },
       "missingChecks": [
+        "independentSupplierMatch",
         "variantStock",
         "screeningFreight",
         "destinationQuotePerBuyer",
