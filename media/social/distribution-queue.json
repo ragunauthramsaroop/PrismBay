@@ -8,7 +8,7 @@
       "offer": "stakeholder",
       "offerType": "digital",
       "channel": "tiktok",
-      "status": "ready_for_authorized_scheduler",
+      "status": "draft",
       "mediaUrl": "https://ragunauthramsaroop.github.io/PrismBay/media/social/stakeholder.mp4",
       "destinationUrl": "https://ragunauthramsaroop.github.io/PrismBay/learn/stakeholder-mapping-toolkit.html?utm_source=tiktok&utm_medium=organic_video&utm_campaign=prismbay_external_traffic_oct2026&utm_content=stakeholder_short_01",
       "title": "A contact list is not a follow-through plan",
@@ -23,14 +23,16 @@
         "exactPriceUsd": 49,
         "originalTypographyVideoOnly": true,
         "paidAds": false
-      }
+      },
+      "publishAllowed": false,
+      "holdReason": "Retail TikTok authorization, creative/media review, owner release approval and verified payment-linked digital delivery are outstanding."
     },
     {
       "id": "esg-tiktok",
       "offer": "esg",
       "offerType": "digital",
       "channel": "tiktok",
-      "status": "ready_for_authorized_scheduler",
+      "status": "draft",
       "mediaUrl": "https://ragunauthramsaroop.github.io/PrismBay/media/social/esg.mp4",
       "destinationUrl": "https://ragunauthramsaroop.github.io/PrismBay/learn/esg-reporting-toolkit.html?utm_source=tiktok&utm_medium=organic_video&utm_campaign=prismbay_external_traffic_oct2026&utm_content=esg_short_01",
       "title": "A polished sustainability dashboard cannot repair an unverified KPI",
@@ -45,14 +47,16 @@
         "exactPriceUsd": 99,
         "originalTypographyVideoOnly": true,
         "paidAds": false
-      }
+      },
+      "publishAllowed": false,
+      "holdReason": "Retail TikTok authorization, creative/media review, owner release approval and verified payment-linked digital delivery are outstanding."
     },
     {
       "id": "whitepaper-tiktok",
       "offer": "whitepaper",
       "offerType": "digital",
       "channel": "tiktok",
-      "status": "ready_for_authorized_scheduler",
+      "status": "draft",
       "mediaUrl": "https://ragunauthramsaroop.github.io/PrismBay/media/social/whitepaper.mp4",
       "destinationUrl": "https://ragunauthramsaroop.github.io/PrismBay/learn/board-briefing-white-paper-system.html?utm_source=tiktok&utm_medium=organic_video&utm_campaign=prismbay_external_traffic_oct2026&utm_content=whitepaper_short_01",
       "title": "A convincing report is not the same as a defensible one",
@@ -67,14 +71,16 @@
         "exactPriceUsd": 79,
         "originalTypographyVideoOnly": true,
         "paidAds": false
-      }
+      },
+      "publishAllowed": false,
+      "holdReason": "Retail TikTok authorization, creative/media review, owner release approval and verified payment-linked digital delivery are outstanding."
     },
     {
       "id": "bundle-tiktok",
       "offer": "bundle",
       "offerType": "digital",
       "channel": "tiktok",
-      "status": "ready_for_authorized_scheduler",
+      "status": "draft",
       "mediaUrl": "https://ragunauthramsaroop.github.io/PrismBay/media/social/bundle.mp4",
       "destinationUrl": "https://ragunauthramsaroop.github.io/PrismBay/toolkits.html?utm_source=tiktok&utm_medium=organic_video&utm_campaign=prismbay_external_traffic_oct2026&utm_content=bundle_short_01",
       "title": "Executive work slows down when stakeholder, ESG and board-reporting processes live in di",
@@ -89,7 +95,9 @@
         "exactPriceUsd": 179,
         "originalTypographyVideoOnly": true,
         "paidAds": false
-      }
+      },
+      "publishAllowed": false,
+      "holdReason": "Retail TikTok authorization, creative/media review, owner release approval and verified payment-linked digital delivery are outstanding."
     }
   ],
   "freeLLM": {
@@ -161,5 +169,6 @@
     "retailTikTok": "disabled_until_original_or_rights_cleared_media_and_explicit_owner_authorization"
   },
   "blockedPhysicalCount": 2,
-  "rule": "Educational PrismBay AI YouTube is never a destination for PrismBay Clean commercial distribution, including paid digital offers. Physical-product distribution is withheld until independently verified supplier, variant, destination freight, landed cost, media rights, checkout, fulfillment and explicit owner approval. Retail TikTok publication stays disabled until account, branding, media and owner authorization are verified."
+  "rule": "Educational PrismBay AI YouTube is never a destination for PrismBay Clean commercial distribution, including paid digital offers. Physical-product distribution is withheld until independently verified supplier, variant, destination freight, landed cost, media rights, checkout, fulfillment and explicit owner approval. Retail TikTok publication stays disabled until account, branding, media and owner authorization are verified.",
+  "releaseStatus": "WITHHELD_PENDING_TIKTOK_AND_DIGITAL_DELIVERY_GATES"
 }
