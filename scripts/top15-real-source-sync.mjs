@@ -6,7 +6,7 @@ import {matchesIntendedProduct} from "./cj-match-policy.mjs";
 // actual observed CJ title, not speculative earlier marketing promises.
 // Media is intentionally omitted until written re-use rights are secured.
 export const publicRules=[
- {slug:"garment-steamer",name:"USB Handheld Garment Steamer",category:"Fabric care",sourceRegex:/\b(?:portable|handheld|travel)\b[\s\S]*\bgarment\s+steamer\b|\bgarment\s+steamer\b[\s\S]*\b(?:portable|handheld|travel)\b/i,desc:"Supplier-listed USB handheld garment steamer. Actual steam function, voltage, power and fabric compatibility require independent verification.",spec:"Confirm genuine steam output, safety documentation, exact variant, buyer ZIP freight and returns before accepting payment."},
+ {slug:"garment-steamer",name:"USB Handheld Garment Steamer",category:"Fabric care",sourceRegex:/\bgarment\s+steamer\b/i,desc:"Supplier-listed USB handheld garment steamer. Actual steam function, voltage, power and fabric compatibility require independent verification.",spec:"Confirm genuine steam output, safety documentation, exact variant, buyer ZIP freight and returns before accepting payment."},
  {slug:"screen-protector",name:"Tempered-Glass Phone Screen Protector",category:"Tech",sourceRegex:/\bmobile phone tempered glass screen protector\b/i,desc:"Supplier-listed tempered-glass screen protector; its compatibility depends on the exact phone model and selected variant.",spec:"The buyer must confirm the supported phone model and pack contents before any final quote."}
 ];
 
