@@ -69,8 +69,9 @@ export function buildCJReview(report, authorization = null) {
     const slug = typeof row.slug === 'string' ? row.slug : null;
     const identity = slug ? matchesIntendedProduct({slug}, productName) : null;
     const freightScope = row.freightQuoteScope || null;
-    const variantStockVerified = Boolean(identity === true && row.variantInventoryVerified);
-    const freightEstimateVerified = Boolean(identity === true && row.variantInventoryVerified && row.freightVerified);
+    const verifiedIdentity = authenticationVerified ? identity : null;
+    const variantStockVerified = Boolean(authenticationVerified && identity === true && row.variantInventoryVerified);
+    const freightEstimateVerified = Boolean(variantStockVerified && row.freightVerified);
     // A country estimate or illustrative ZIP is never the buyer's final freight.
     // The verified flag must be paired with an explicit buyer-destination scope.
     const finalZipFreightVerified = Boolean(freightEstimateVerified &&
@@ -83,7 +84,9 @@ export function buildCJReview(report, authorization = null) {
       finalZipFreightVerified && fulfillmentRouteVerified;
     const commercial = authorizationFor(authorization, slug, finalZipFreightVerified, supplierGatesVerified);
     let status = 'supplier_search_needed';
-    if (row.supplierVerified) {
+    if (!authenticationVerified) {
+      status = 'supplier_authentication_required';
+    } else if (row.supplierVerified) {
       status = identity === false ? 'identity_rejected' :
         identity === null ? 'manual_identity_check_required' :
         !row.variantInventoryVerified ? 'variant_stock_required' :
@@ -108,7 +111,7 @@ export function buildCJReview(report, authorization = null) {
       freightQuoteScope: freightScope,
       zeroPricedMethodCount: Number.isInteger(row.zeroPriceQuoteCount) ? row.zeroPriceQuoteCount : 0,
       supplierClaimedMatch: Boolean(row.supplierVerified),
-      independentIdentityMatch: identity, status,
+      independentIdentityMatch: verifiedIdentity, status,
       variantStockVerified,
       freightEstimateVerified,
       countryFreightEstimated: Boolean(freightEstimateVerified && freightScope === 'country_estimate'),
