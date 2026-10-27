@@ -49,7 +49,17 @@ test('delivery and refund evidence sources fail closed', () => {
   assert.equal(validateFulfillmentEvidence(evidence('delivery_confirmed', { source: 'supplier_api' })).ok, false);
   assert.equal(validateFulfillmentEvidence(evidence('refund_processed', { source: 'carrier_api' })).ok, false);
   assert.equal(validateFulfillmentEvidence(evidence('shipment_update', { trackingUrl: 'http://carrier.example/x' })).ok, false);
+  assert.equal(validateFulfillmentEvidence(evidence('shipment_update', { source: 'stripe_webhook' })).ok, false);
   assert.equal(validateFulfillmentEvidence(evidence('refund_processed', { refundAmountUsd: -1 })).ok, false);
+});
+
+test('untrusted shipment evidence source is rejected before updating the paid-order ledger', async (t) => {
+  const { automation, ledger, jobStore } = await fixture(t);
+  const result = await automation.record(evidence('shipment_update', { source: 'stripe_webhook' }));
+  assert.equal(result.ok, false);
+  assert.equal(result.error, 'verified_shipment_source_required');
+  assert.equal(ledger.snapshot().orders.pi_test_order.fulfillment, undefined);
+  assert.equal(jobStore.list().length, 0);
 });
 
 test('processing, shipped and delivered states project notification jobs', async (t) => {
