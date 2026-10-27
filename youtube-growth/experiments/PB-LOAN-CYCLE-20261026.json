@@ -1,6 +1,6 @@
 {
   "experimentId": "PB-LOAN-CYCLE-20261026",
-  "lastCheckedAt": "2026-10-27T16:46:13-04:00",
+  "lastCheckedAt": "2026-10-27T17:47:46-04:00",
   "soleChannelId": "UCw2hs85TzIpdKwJtG-BSxzQ",
   "handle": "@PrismBayAI",
   "metricoolBrandId": 6945443,
@@ -58,10 +58,10 @@
       "stop": "Source error, misleading claims, duplication, policy concern or clear underperformance with adequate observations."
     },
     "currentClassification": "INSUFFICIENT_DATA",
-    "classificationReason": "Metricool returned no video-level metrics or traffic-source rows within 46 minutes of the scheduled release. No scale or stop decision is supported."
+    "classificationReason": "At 17:47:46 Guyana, approximately 1h48 after the scheduled 16:00 release, Metricool confirmed PUBLISHED but returned no per-video analytics for the October 27 date window or all-videos October 20-27 window. Early missing observations are not zero; no 6-hour checkpoint has elapsed."
   },
   "channelAnalyticsSnapshot": {
-    "asOf": "2026-10-27T16:46:13-04:00",
+    "asOf": "2026-10-27T17:47:46-04:00",
     "latestReportedSubscribers": 7,
     "latestSubscriberObservation": "2026-10-27",
     "reportedDailyViewRows": 25,
@@ -69,15 +69,15 @@
     "daysInRequestedRange": 39,
     "viewDataNullDays": 14,
     "latestNonNullViewDate": "2026-10-24",
-    "note": "Metricool evolution query for October 20-27 reports 7 subscribers and one dated 83-view observation on October 24. Most daily view fields are null, not zero. New Short video-level and traffic-source metric queries returned empty rows, so early performance is unknown."
+    "note": "Metricool evolution for October 20-27 still shows 7 subscribers on all returned dates; October 24 has 83 views, while other daily view fields in this narrow window are null. October 27 published-in-range and all-videos metric queries returned no rows. Do not infer new video performance from the missing data."
   },
   "releaseSafety": {
     "noNewChannel": true,
     "noPaidAds": true,
     "noEngagementExchange": true,
-    "duplicateCalendarCheck": "2026-10-26 through 2026-11-03 America/Guyana: Metricool returned the same post 407245436 as PUBLISHED, no other YouTube scheduled entries returned.",
+    "duplicateCalendarCheck": "2026-10-27 through 2026-11-03 America/Guyana: Metricool returned only post 407245436, provider PUBLISHED, YouTube id i7v6wfwd5-I; no other scheduled entries returned.",
     "publicUploadConfirmed": true,
-    "nextAction": "Collect 6h, 24h, 72h and 7d video-level data. The scheduled 16:00 local time is provisional anchor until YouTube actual published timestamp is independently confirmed. Do not publish duplicate or scale without evidence.",
+    "nextAction": "First scheduled 6-hour performance check is October 27 22:00 Guyana, pending exact YouTube publish timestamp. Wait for video-level views, watch minutes, AVD, comments, shares and subscriber conversion before changing portfolio allocation. Keep both QA-held videos unpublished.",
     "confirmationSource": "Metricool published provider status and public YouTube Shorts URL at 2026-10-27T16:46:13-04:00"
   },
   "reviewScheduleLocal": {
@@ -92,12 +92,26 @@
     "source": "Metricool best-time-to-post YouTube calendar for brand 6945443, 2026-10-27 through 2026-11-02",
     "tuesday16LocalScore": 10353,
     "interpretation": "Tuesday 16:00 was the highest suggested Tuesday hour in the returned calendar. Scores are recommendation signals, not proof of channel-specific conversion or a guarantee of performance.",
-    "scheduleChanged": false
+    "scheduleChanged": false,
+    "nextWindowRecommendation": "Metricool calendar suggests Wednesday October 28 at 16:00 local (score 12033), Thursday October 29 at 16:00 (11979), and Friday October 30 at 16:00 (10698); recommendation scores are not measured channel conversion. No new post scheduled without completed QA."
   },
   "publicWatchUrl": "https://www.youtube.com/shorts/i7v6wfwd5-I",
   "youtubeVideoId": "i7v6wfwd5-I",
   "youtubeProviderStatus": "PUBLISHED",
   "youtubeDetailedStatus": "Published",
   "publicVisibilityReported": "public",
-  "publicationEvidence": "Metricool getScheduledPosts for brand 6945443, requested 2026-10-26 to 2026-11-03, returned post 407245436 with YouTube provider status PUBLISHED and publicUrl. YouTube webpage could not be independently fetched. 16:00 is the scheduled publication time, not an independently verified exact live timestamp."
+  "publicationEvidence": "Metricool getScheduledPosts for brand 6945443, requested 2026-10-26 to 2026-11-03, returned post 407245436 with YouTube provider status PUBLISHED and publicUrl. YouTube webpage could not be independently fetched. 16:00 is the scheduled publication time, not an independently verified exact live timestamp.",
+  "earlyAnalyticsChecks": [
+    {
+      "checkedAt": "2026-10-27T17:47:46-04:00",
+      "elapsedSinceScheduledReleaseMinutes": 108,
+      "source": "Metricool brand 6945443",
+      "providerStatus": "PUBLISHED",
+      "videoRows": 0,
+      "allVideoRows": 0,
+      "subscribers": 7,
+      "classification": "INSUFFICIENT_DATA",
+      "scheduledReleaseTimeNotVerifiedAsActualPublishTime": true
+    }
+  ]
 }
