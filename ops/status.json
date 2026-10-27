@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "checkedAt": "2026-10-27T16:17:49.624Z",
+  "checkedAt": "2026-10-27T16:18:41.084Z",
   "source": "GitHub Actions accountability evidence",
   "refreshPolicy": "Best-effort GitHub schedules. Static snapshot; refresh does not run agents.",
   "summary": {
@@ -24,7 +24,7 @@
       "failureStreak": 0,
       "runId": 40526173869,
       "runUrl": "https://github.com/ragunauthramsaroop/PrismBay/actions/runs/40526173869",
-      "runAgeMinutes": 80,
+      "runAgeMinutes": 81,
       "artifactName": "buyer-acquisition-40526173869",
       "artifactBytes": 21946,
       "remediation": null
@@ -42,7 +42,7 @@
       "failureStreak": 0,
       "runId": 40395849132,
       "runUrl": "https://github.com/ragunauthramsaroop/PrismBay/actions/runs/40395849132",
-      "runAgeMinutes": 1190,
+      "runAgeMinutes": 1191,
       "artifactName": "prismbay-external-traffic-40395849132",
       "artifactBytes": 659918,
       "remediation": null
@@ -60,7 +60,7 @@
       "failureStreak": 0,
       "runId": 40537080793,
       "runUrl": "https://github.com/ragunauthramsaroop/PrismBay/actions/runs/40537080793",
-      "runAgeMinutes": 15,
+      "runAgeMinutes": 16,
       "artifactName": "prismbay-ceo-recovery-40537080793",
       "artifactBytes": 52516,
       "remediation": null
@@ -78,7 +78,7 @@
       "failureStreak": 0,
       "runId": 40511024666,
       "runUrl": "https://github.com/ragunauthramsaroop/PrismBay/actions/runs/40511024666",
-      "runAgeMinutes": 178,
+      "runAgeMinutes": 179,
       "artifactName": "prismbay-paperclip-revenue-40511024666",
       "artifactBytes": 6108,
       "remediation": null
@@ -92,11 +92,11 @@
       "workflow": "paperclip-commerce-group.yml",
       "status": "fail",
       "reason": "worker_stale",
-      "consequence": "probation",
-      "failureStreak": 2,
+      "consequence": "replace_route",
+      "failureStreak": 3,
       "runId": 40513340595,
       "runUrl": "https://github.com/ragunauthramsaroop/PrismBay/actions/runs/40513340595",
-      "runAgeMinutes": 162,
+      "runAgeMinutes": 163,
       "artifactName": null,
       "artifactBytes": null,
       "remediation": null
