@@ -1,6 +1,6 @@
 {
   "experimentId": "PB-LOAN-CYCLE-20261026",
-  "lastCheckedAt": "2026-10-27T05:48:27-04:00",
+  "lastCheckedAt": "2026-10-27T08:46:46-04:00",
   "soleChannelId": "UCw2hs85TzIpdKwJtG-BSxzQ",
   "handle": "@PrismBayAI",
   "metricoolBrandId": 6945443,
@@ -59,21 +59,21 @@
     }
   },
   "channelAnalyticsSnapshot": {
-    "asOf": "2026-10-27T05:48:27-04:00",
+    "asOf": "2026-10-27T08:46:46-04:00",
     "latestReportedSubscribers": 7,
-    "latestSubscriberObservation": "2026-10-26",
-    "reportedDailyViewRows": 24,
-    "dailyViewSumForNonNullRows": 496,
+    "latestSubscriberObservation": "2026-10-27",
+    "reportedDailyViewRows": 25,
+    "dailyViewSumForNonNullRows": 579,
     "daysInRequestedRange": 39,
-    "viewDataNullDays": 15,
-    "latestNonNullViewDate": "2026-10-17",
-    "note": "Fresh Metricool evolution returned seven subscribers through 2026-10-26. The partial 2026-10-27 row has zero video views and no subscriber observation; do not infer an audience trend from an incomplete day. All-videos and videos-published-in-range metric queries returned empty rows. Earlier 496 view sum represents 24 non-null observations only, not a full-period total."
+    "viewDataNullDays": 14,
+    "latestNonNullViewDate": "2026-10-24",
+    "note": "Fresh Metricool query for 2026-09-19 through 2026-10-27 returned 39 calendar rows, 25 non-null daily view counts totaling 579 and 14 null view days. October 24 newly reports 83 views, not proof of a breakout or a trend. Do not treat null observations as zero or 579 as a complete-period total. Seven subscribers reported through October 27. Video-level analytics unavailable."
   },
   "releaseSafety": {
     "noNewChannel": true,
     "noPaidAds": true,
     "noEngagementExchange": true,
-    "duplicateCalendarCheck": "2026-10-27 00:00 through 2026-11-05 23:59 America/Guyana: exactly one pending YouTube post (407245436), no duplicate.",
+    "duplicateCalendarCheck": "2026-10-26 through 2026-11-04 America/Guyana: exactly one pending YouTube post (407245436) scheduled for October 27 at 16:00, no duplicate.",
     "publicUploadConfirmed": false,
     "nextAction": "At or after 2026-10-27 16:00 America/Guyana verify the publication status and public watch URL. Do not classify this video before observed video-level data."
   },
