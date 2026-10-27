@@ -1,6 +1,6 @@
 import fs from 'node:fs/promises';
 import {pathToFileURL} from 'node:url';
-import {hasApprovedProductClass} from './cj-match-policy.mjs';
+import {hasApprovedProductClass,matchesIntendedProduct} from './cj-match-policy.mjs';
 
 export function assessTop15(shortlist, supplierReview = {}) {
   const products=shortlist?.candidates;
@@ -19,7 +19,7 @@ export function assessTop15(shortlist, supplierReview = {}) {
     if(!hasApprovedProductClass(item.slug)) throw Error('Missing strict supplier identity rule for '+item.slug);
     const row=reviews.get(item.slug)||{};
     const checks={
-      independentSupplierMatch:row.independentIdentityMatch===true,
+      independentSupplierMatch:row.independentIdentityMatch===true && matchesIntendedProduct(item,row.observedProduct),
       variantStock:row.variantStockVerified===true,
       screeningFreight:row.freightEstimateVerified===true,
       destinationQuotePerBuyer:row.finalZipFreightVerified===true,
