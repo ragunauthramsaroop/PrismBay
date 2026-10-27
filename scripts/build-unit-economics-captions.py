@@ -82,7 +82,9 @@ def generate(spec, video):
     for i, segment in enumerate(segments):
         start, end = boundaries[i:i+2]
         text_parts = pieces(segment["spoken"])
-        weights = [syllables(p) for p in text_parts]
+        # Character-proportional allocation is a readability proxy, not speech alignment.
+        # Syllable-only allocation previously produced three >20 CPS captions.
+        weights = [max(1, len(p)) for p in text_parts]
         available = end - start - 0.18
         cursor = start + 0.05
         for part, weight in zip(text_parts, weights):
@@ -95,9 +97,18 @@ def generate(spec, video):
         raise ValueError("Caption overlap")
     if min(b-a for a,b,_ in cues) < 0.75:
         raise ValueError("Caption shorter than 0.75 seconds")
+    # Readability diagnostics are provisional, never an automatic editorial signoff.
+    cps = [len(line) / (b - a) for a, b, line in cues]
+    max_cps = round(max(cps), 2)
+    over_20 = sum(rate > 20 for rate in cps)
+    under_one_second = sum((b - a) < 1 for a, b, _ in cues)
     srt = "\n\n".join(f"{i}\n{timestamp(a)} --> {timestamp(b)}\n{line}"
                        for i,(a,b,line) in enumerate(cues,1)) + "\n"
-    return srt, {"cueCount":len(cues), "sceneBoundariesSeconds":boundaries,
+    return srt, {"cueCount":len(cues), "maxCharactersPerSecond":max_cps,
+                 "cuesOver20CharactersPerSecond":over_20,
+                 "cuesUnderOneSecond":under_one_second,
+                 "legibilityStatus":"PROVISIONAL_REQUIRES_MANUAL_REVIEW",
+                 "sceneBoundariesSeconds":boundaries,
                  "sceneBoundarySource":"renderer_manifest" if video.with_suffix('.json').exists() and json.loads(video.with_suffix('.json').read_text()).get('sceneBoundariesSeconds') else "visual_detector",
                  "timingStatus":"PROVISIONAL_REQUIRES_FULL_AUDIO_LISTENING",
                  "publicationApproved":False, "channelId":CHANNEL}
