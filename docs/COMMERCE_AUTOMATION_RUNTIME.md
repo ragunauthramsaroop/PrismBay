@@ -16,7 +16,7 @@ The router accepts canonical commerce events and creates deterministic backgroun
 
 The router stores only de-identified recipient references. Raw customer email addresses are rejected by the durable file job store.
 
-The runtime fails closed unless a trusted adapter supplies `verifiedConsentRecipientRefs` for abandonment. A caller's `consent: true` flag alone is insufficient. Shipment notifications require `verifiedPaidOrderRefs` plus `verifiedShipmentRefs`, keyed by `JSON.stringify([orderRef, trackingRef])`. These evidence sets must originate from authenticated consent, payment and carrier/order integrations, never from event payload flags. The default runtime provides no such evidence and sends no messages.
+The runtime fails closed unless a trusted adapter supplies `verifiedConsentRecipientRefs` for abandonment. A caller's `consent: true` flag alone is insufficient. Shipment notifications require `verifiedPaidOrderRefs` plus `verifiedShipmentRefs`, keyed by `JSON.stringify([orderRef, trackingRef])`. These evidence sets must originate from authenticated consent, payment and carrier/order integrations, never from event payload flags. The existing physical fulfillment-status adapter projects shipment proof only after validating the paid-order ledger, an authenticated supplier/carrier/operator evidence source, an HTTPS tracking URL and the recorded evidence reference. A Stripe webhook is not accepted as shipment-status evidence. The default runtime provides no such evidence and sends no messages.
 
 ## Durable zero-cost queue
 
