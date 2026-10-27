@@ -101,6 +101,24 @@ def diagram(d, chapter, slide):
         for j, lab in enumerate(["OBSERVE  :  READ", "DRAFT  :  STAGE", "PROPOSE  :  APPROVE", "EXECUTE  :  LIMIT"]):
             box(d, (1210, 395+j*112, 1740, 485+j*112), lab, [CYAN, GREEN, AMBER, RED][j], 28)
 
+def concise_summary(chapter_index, narration):
+    """Use a complete, legible sentence rather than clipped narration."""
+    first = re.split(r"(?<=[.!?])\\s+(?=[A-Z])", narration.strip(), maxsplit=1)[0].strip()
+    if len(first) <= 145:
+        return first
+    fallbacks = {
+        0: "An AI assistant should summarize invoices, not authorize payments.",
+        1: "Four permission levels define what an AI agent is allowed to do.",
+        2: "Inventory each business action before assigning tool permissions.",
+        3: "Start with low-risk supplier workflows and independent review.",
+        4: "Approvals require identity, transaction scope and audit evidence.",
+        5: "Measure released capacity, verified cash effects and exceptions.",
+        6: "Test hostile inputs, bank changes, stale approvals, errors and denials.",
+        7: "Expand execution only after technical controls and recovery tests."
+    }
+    return fallbacks[chapter_index]
+
+
 def render_executive_scene(chapter_index, chapter_title, slide_index, total, narration, path, mode):
     """Three diagram-first, compositionally distinct original visual scenes.
 
@@ -108,7 +126,7 @@ def render_executive_scene(chapter_index, chapter_title, slide_index, total, nar
     slides: a light action ledger, a dark 2x2 permission map, and a five-step
     evidence flow. Every slide is original and tied to its chapter.
     """
-    summary = " ".join(re.split(r"(?<=[.!?])\s+(?=[A-Z])", narration)[:2])
+    summary = concise_summary(chapter_index, narration)
     if mode == 2:
         img = Image.new("RGB", (W, H), (238, 245, 249))
         d = ImageDraw.Draw(img)
@@ -116,8 +134,11 @@ def render_executive_scene(chapter_index, chapter_title, slide_index, total, nar
         d.text((84, 47), "PRISMBAY AI   /   ACTION INVENTORY", font=ft(43, True), fill=CYAN)
         d.text((86, 186), lines(chapter_title.upper(), 42, 2),
                font=ft(49, True), fill=INK, spacing=10)
-        headers = [("BUSINESS ACTION", 110), ("AGENT ACCESS", 660),
-                   ("APPROVAL", 1140), ("EVIDENCE", 1530)]
+        headers = ([("TEST SCENARIO", 110), ("RISK", 660),
+                    ("REQUIRED CONTROL", 1140), ("EVIDENCE", 1530)]
+                   if chapter_index == 6 else
+                   [("BUSINESS ACTION", 110), ("AGENT ACCESS", 660),
+                    ("APPROVAL", 1140), ("EVIDENCE", 1530)])
         d.rounded_rectangle((86, 373, 1830, 462), radius=14, fill=(22, 49, 72))
         for label, x in headers:
             d.text((x, 400), label, font=ft(25, True), fill=WHITE)
@@ -146,53 +167,79 @@ def render_executive_scene(chapter_index, chapter_title, slide_index, total, nar
                 ("Cash avoided", "VERIFY", "Finance", "$500"),
                 ("Operating cost", "COUNT", "Finance", "$400"),
                 ("Net effect", "REVIEW", "Finance", "$100")],
-            6: [("Hostile document", "TEST", "N/A", "Denied"),
-                ("Bank change", "TEST", "Required", "Blocked"),
-                ("Stale approval", "TEST", "Expired", "Stopped"),
-                ("Tool failure", "TEST", "N/A", "Recovered")],
+            6: [("Untrusted doc", "INJECTION", "Ignore commands", "Test log"),
+                ("Bank change", "FRAUD", "Verify externally", "Denial log"),
+                ("Changed approval", "STALE", "Stop execution", "Version check"),
+                ("Tool error", "RETRY", "Prevent duplicate", "Retry record"),
+                ("Reviewer denies", "DENIAL", "Stop and record", "Decision log")],
             7: [("Observe", "READ", "No", "Read log"),
                 ("Draft", "STAGE", "Review", "Draft record"),
                 ("Propose", "REVIEW", "Required", "Decision"),
                 ("Execute", "LIMIT", "By risk", "Action log")]
         }
         for j, row in enumerate(chapter_rows[chapter_index]):
-            y = 477 + j * 105
-            d.rounded_rectangle((86, y, 1830, y+92), radius=12,
+            y = 477 + j * (88 if chapter_index == 6 else 105)
+            height = 75 if chapter_index == 6 else 92
+            d.rounded_rectangle((86, y, 1830, y+height), radius=12,
                                 fill=(255, 255, 255) if j % 2 == 0 else (218, 233, 241),
                                 outline=(184, 205, 220), width=2)
             for k, (cell, x) in enumerate(zip(row, (110, 660, 1140, 1530))):
                 col = (165, 38, 52) if cell == "BLOCKED" else INK
-                d.text((x, y+29), cell, font=ft(26, k==0), fill=col)
+                d.text((x, y+(22 if chapter_index == 6 else 29)), cell, font=ft(26, k==0), fill=col)
         d.text((92, 949), "FICTIONAL WORKFLOW  /  CONTROLS REQUIRE INDEPENDENT TESTING",
                font=ft(23, True), fill=INK)
     elif mode == 4:
         img = Image.new("RGB", (W, H), (13, 26, 43))
         d = ImageDraw.Draw(img)
         d.rectangle((0, 0, W, 19), fill=RED)
-        d.text((92, 58), "PRISMBAY AI  /  PERMISSION DECISION MAP",
-               font=ft(38, True), fill=CYAN)
-        d.text((94, 153), lines(chapter_title.upper(), 49, 2),
-               font=ft(46, True), fill=WHITE, spacing=8)
-        quadrants = [
-            ("01  OBSERVE", "Read approved records", CYAN),
-            ("02  DRAFT", "Prepare, never send", GREEN),
-            ("03  PROPOSE", "Named reviewer approves", AMBER),
-            ("04  EXECUTE", "Technical limit + audit", RED),
-        ]
-        for j, (heading, detail, color) in enumerate(quadrants):
-            col, row = j % 2, j // 2
-            x, y = 93 + col*890, 352 + row*263
-            selected = j == (slide_index % 4)
-            d.rounded_rectangle((x, y, x+830, y+224), radius=25,
-                                fill=(35, 62, 78) if selected else (22, 39, 58),
-                                outline=color, width=8 if selected else 3)
-            d.text((x+37, y+32), heading, font=ft(43, True), fill=color)
-            d.text((x+37, y+112), detail, font=ft(32), fill=WHITE)
-            if selected:
-                d.rounded_rectangle((x+610, y+28, x+791, y+77), radius=12, fill=color)
-                d.text((x+635, y+36), "FOCUS", font=ft(24, True), fill=INK)
-        d.text((94, 931), "PROMPTS ARE NOT AUTHORIZATION CONTROLS",
-               font=ft(27, True), fill=(188, 209, 225))
+        if chapter_index == 6:
+            d.text((92, 58), "PRISMBAY AI  /  FIVE SANDBOX TESTS",
+                   font=ft(38, True), fill=CYAN)
+            d.text((94, 153), "FIVE TESTS BEFORE EXPANDING PERMISSIONS",
+                   font=ft(43, True), fill=WHITE)
+            scenarios = [
+                ("01  UNTRUSTED DOC", "Ignore injected commands", CYAN),
+                ("02  BANK CHANGE", "Require separate verification", GREEN),
+                ("03  STALE APPROVAL", "Stop changed transactions", AMBER),
+                ("04  TOOL FAILURE", "Prevent duplicate execution", RED),
+                ("05  REVIEWER DENIAL", "Stop action and log denial", CYAN),
+            ]
+            for j, (heading, detail, color) in enumerate(scenarios):
+                row, col = (0, j) if j < 3 else (1, j-3)
+                x = (95 + col*605) if row == 0 else (397 + col*605)
+                y = 347 + row*277
+                d.rounded_rectangle((x, y, x+535, y+227), radius=23,
+                                    fill=(25, 45, 64), outline=color, width=4)
+                d.text((x+24, y+37), heading, font=ft(28, True), fill=color)
+                d.multiline_text((x+24, y+115), lines(detail, 27, 2),
+                                 font=ft(27), fill=WHITE, spacing=9)
+            d.text((95, 937), "ILLUSTRATIVE FAIL -> FIX -> RETEST. NO REAL-WORLD RESULTS CLAIMED.",
+                   font=ft(24, True), fill=(188, 209, 225))
+        else:
+            d.text((92, 58), "PRISMBAY AI  /  PERMISSION DECISION MAP",
+                   font=ft(38, True), fill=CYAN)
+            d.text((94, 153), lines(chapter_title.upper(), 49, 2),
+                   font=ft(46, True), fill=WHITE, spacing=8)
+            quadrants = [
+                ("01  OBSERVE", "Read approved records", CYAN),
+                ("02  DRAFT", "Prepare, never send", GREEN),
+                ("03  PROPOSE", "Named reviewer approves", AMBER),
+                ("04  EXECUTE", "Technical limit + audit", RED),
+            ]
+            for j, (heading, detail, color) in enumerate(quadrants):
+                col, row = j % 2, j // 2
+                x, y = 93 + col*890, 352 + row*263
+                selected = j == (slide_index % 4)
+                d.rounded_rectangle((x, y, x+830, y+224), radius=25,
+                                    fill=(35, 62, 78) if selected else (22, 39, 58),
+                                    outline=color, width=8 if selected else 3)
+                d.text((x+37, y+32), heading, font=ft(43, True), fill=color)
+                d.text((x+37, y+112), detail, font=ft(32), fill=WHITE)
+                if selected:
+                    d.rounded_rectangle((x+610, y+28, x+791, y+77), radius=12, fill=color)
+                    d.text((x+635, y+36), "FOCUS", font=ft(24, True), fill=INK)
+            d.text((94, 931), "PROMPTS ARE NOT AUTHORIZATION CONTROLS",
+                   font=ft(27, True), fill=(188, 209, 225))
     else:
         img = Image.new("RGB", (W, H), (35, 25, 49))
         d = ImageDraw.Draw(img)
@@ -203,7 +250,7 @@ def render_executive_scene(chapter_index, chapter_title, slide_index, total, nar
                font=ft(49, True), fill=WHITE, spacing=10)
         phases = {
             0: ["RECEIVE", "READ", "VERIFY", "BLOCK PAY", "RECORD"],
-            1: ["OBSERVE", "DRAFT", "PROPOSE", "LIMIT", "REVIEW"],
+            1: ["OBSERVE", "DRAFT", "PROPOSE", "EXECUTE"],
             2: ["LIST VERBS", "ASSESS RISK", "SET OWNER", "DENY BY DEFAULT", "TEST"],
             3: ["REQUEST", "CHECK", "DRAFT", "BUYER REVIEW", "LOG"],
             4: ["PROPOSE", "APPROVE", "VALIDATE", "EXECUTE", "AUDIT"],
@@ -213,19 +260,26 @@ def render_executive_scene(chapter_index, chapter_title, slide_index, total, nar
         }[chapter_index]
         colors = [CYAN, GREEN, AMBER, RED, CYAN]
         for j, (label, color) in enumerate(zip(phases, colors)):
-            x = 90 + j*352
-            d.rounded_rectangle((x, 386, x+310, 621), radius=28,
+            four_levels = len(phases) == 4
+            step = 440 if four_levels else 352
+            card_width = 380 if four_levels else 310
+            x = 90 + j*step
+            d.rounded_rectangle((x, 386, x+card_width, 621), radius=28,
                                 fill=(24, 44, 62), outline=color, width=5)
-            d.ellipse((x+110, 412, x+192, 494), fill=color)
-            d.text((x+139, 430), str(j+1), font=ft(34, True), fill=INK)
+            center = (card_width-82)//2
+            d.ellipse((x+center, 412, x+center+82, 494), fill=color)
+            d.text((x+center+29, 430), str(j+1), font=ft(34, True), fill=INK)
             d.multiline_text((x+24, 537), lines(label, 13, 2),
                              font=ft(28, True), fill=WHITE, spacing=7)
-            if j < 4:
-                d.line((x+311, 505, x+347, 505), fill=WHITE, width=6)
+            if j < len(phases)-1:
+                d.line((x+card_width+1, 505, x+step-5, 505), fill=WHITE, width=6)
         d.rounded_rectangle((90, 697, 1817, 889), radius=25,
                             fill=(60, 44, 69), outline=AMBER, width=3)
         d.multiline_text((129, 725), lines(summary, 84, 3),
                          font=ft(31), fill=WHITE, spacing=14)
+        if chapter_index == 1:
+            d.text((129, 849), "INDEPENDENT APPROVAL IS A SEPARATE CONTROL",
+                   font=ft(25, True), fill=AMBER)
         d.text((94, 949), "SOURCE, OWNER, PERMISSION AND EVIDENCE AT EVERY STEP",
                font=ft(25, True), fill=AMBER)
     d.text((1620, 1001), f"{slide_index+1:02d} / {total:02d}",
@@ -264,7 +318,7 @@ def render_slide(chapter_index, chapter_title, slide_index, total, narration, pa
     diagram(diagram_canvas_draw := ImageDraw.Draw(diagram_canvas), chapter_index, slide_index)
     graphic = diagram_canvas.crop((1150, 255, 1810, 892))
     sentences = re.split(r"(?<=[.!?])\s+(?=[A-Z])", narration)
-    summary = " ".join(sentences[:2])
+    summary = concise_summary(chapter_index, narration)
     chapter_label = chapter_title.upper()
 
     if mode == 0:
