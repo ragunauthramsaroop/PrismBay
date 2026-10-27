@@ -8,6 +8,9 @@ on:
     paths:
       - '.github/workflows/top15-real-source-sync.yml'
       - 'scripts/top15-real-source-sync.mjs'
+      - 'config/alternate-supplier-evidence.json'
+      - 'scripts/alternate-supplier-readiness.mjs'
+      - 'scripts/alternate-supplier-readiness.test.mjs'
 permissions:
   contents: write
 concurrency:
@@ -25,7 +28,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - name: Remove any CJ item without current exact supplier and variant evidence
+      - name: Remove any item without current exact supplier, photo rights and variant evidence
         shell: bash
         run: |
           set -euo pipefail
@@ -34,6 +37,7 @@ jobs:
           for attempt in 1 2 3; do
             git fetch origin main
             git reset --hard origin/main
+            node --test scripts/alternate-supplier-readiness.test.mjs
             node scripts/top15-real-source-sync.mjs
             node --test scripts/top15-publish-contract.test.mjs
             git add storefront/top-15/index.html
