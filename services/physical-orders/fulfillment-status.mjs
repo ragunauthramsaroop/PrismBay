@@ -17,6 +17,7 @@ const TRANSITIONS = Object.freeze({
   refunded: new Set()
 });
 const SOURCES = new Set(['supplier_api', 'carrier_api', 'stripe_webhook', 'operator_verified']);
+const SHIPMENT_SOURCES = new Set(['supplier_api', 'carrier_api', 'operator_verified']);
 const DELIVERED_SOURCES = new Set(['carrier_api', 'operator_verified']);
 const REFUND_SOURCES = new Set(['stripe_webhook', 'operator_verified']);
 
@@ -67,6 +68,7 @@ export function validateFulfillmentEvidence(input = {}) {
   if (!evidenceRef) reasons.push('evidence_reference_required');
   if (!occurredAt) reasons.push('valid_occurred_at_required');
   if (['shipment_update', 'delivery_exception'].includes(type) && !trackingUrl) reasons.push('https_tracking_url_required');
+  if (type === 'shipment_update' && !SHIPMENT_SOURCES.has(source)) reasons.push('verified_shipment_source_required');
   if (type === 'delivery_confirmed' && !DELIVERED_SOURCES.has(source)) reasons.push('verified_delivery_source_required');
   if (type === 'refund_processed' && !REFUND_SOURCES.has(source)) reasons.push('verified_refund_source_required');
   if (type === 'refund_processed' && (!Number.isFinite(refundAmountUsd) || refundAmountUsd < 0 || refundAmountUsd > 100000)) reasons.push('verified_refund_amount_required');
@@ -164,6 +166,11 @@ export function createFulfillmentStatusAutomation({ ledger, contactVault, jobSto
         // evidence source before projecting a customer message. These sets
         // never originate from a customer-supplied lifecycle event.
         verifiedPaidOrderRefs: new Set([evidence.sessionId]),
+        // Authenticated fulfillment evidence binds this exact shipment notice
+        // to the paid checkout and its recorded supplier/carrier evidence ref.
+        verifiedShipmentRefs: evidence.type === 'shipment_update' &&
+          SHIPMENT_SOURCES.has(evidence.source) && evidence.trackingUrl
+          ? new Set([JSON.stringify([evidence.sessionId, evidence.evidenceRef])]) : new Set(),
         verifiedDeliveredOrderRefs: evidence.type === 'delivery_confirmed' &&
           DELIVERED_SOURCES.has(evidence.source) ? new Set([evidence.sessionId]) : new Set(),
         verifiedRefundOrderRefs: evidence.type === 'refund_processed' &&
