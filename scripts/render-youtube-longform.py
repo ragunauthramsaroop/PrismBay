@@ -433,8 +433,9 @@ def main():
         call([sys.executable, "-m", "piper", "-m", VOICE, "--data-dir", str(voice_dir), "-f", str(wav), "--", spoken])
         duration = wav_seconds(wav)+0.28
         render_slide(ci, title, i, len(slides), spoken, png)
-        fade_out = max(0.1, duration-0.24)
-        call(["ffmpeg","-hide_banner","-loglevel","error","-y","-loop","1","-framerate","24","-i",str(png),"-i",str(wav),"-t",f"{duration:.3f}","-vf",f"fade=t=in:st=0:d=0.18,fade=t=out:st={fade_out:.3f}:d=0.18,format=yuv420p","-c:v","libx264","-preset","veryfast","-crf","29","-r","24","-c:a","aac","-b:a","112k","-af","apad=pad_dur=0.28,volume=-3dB","-movflags","+faststart",str(mp4)])
+        # Keep the opening hook and every scene transition visible. Per-scene
+        # fades produced black frames in earlier Shorts and reduce retention.
+        call(["ffmpeg","-hide_banner","-loglevel","error","-y","-loop","1","-framerate","24","-i",str(png),"-i",str(wav),"-t",f"{duration:.3f}","-vf","format=yuv420p","-c:v","libx264","-preset","veryfast","-crf","29","-r","24","-c:a","aac","-b:a","112k","-af","apad=pad_dur=0.28,volume=-3dB","-movflags","+faststart",str(mp4)])
         chunks.append(mp4)
         sentences = [s.strip() for s in re.split(r"(?<=[.!?])\s+(?=[A-Z])", spoken) if s.strip()]
         count = sum(len(s.split()) for s in sentences)
