@@ -202,8 +202,9 @@ export function auditCanonicalRetailSnapshot({pages=[],manifest=null,queue=null,
  else if(!physicalApproved&&manifest.products.length>0)issues.push('canonical_unapproved_physical_media_manifest');
  if(!queue||!Array.isArray(queue.items))issues.push('canonical_social_queue_uninspected');
  else if(!physicalApproved&&queue.items.some(item=>item?.offerType==='physical'&&/ready|publish|schedule/i.test(String(item.status||''))))issues.push('canonical_unapproved_physical_social_queue');
- // Educational YouTube is not a PrismBay Clean sales channel, including digital offers.
- if(queue?.items?.some(item=>item?.channel==='youtube'&&(item?.offerType==='physical'||item?.offerType==='digital'||item?.commercialContentOwnBrand===true)))issues.push('canonical_educational_youtube_retail_contamination');
+ // The retail distribution queue must never route ANY entry to educational YouTube.
+ // Ignore missing commercial tags and case/spacing tricks. Fail closed on channel routing.
+ if(queue?.items?.some(item=>String(item?.channel??'').trim().toLowerCase()==='youtube'))issues.push('canonical_educational_youtube_retail_contamination');
  return {safe:issues.length===0,issues,physicalManifestCount:Array.isArray(manifest?.products)?manifest.products.length:null,physicalQueuedCount:Array.isArray(queue?.items)?queue.items.filter(x=>x?.offerType==='physical').length:null,rule:'Read-only evidence check. A passing audit does not authorize physical checkout, supplier orders, media use, or publication.'};
 }
 
