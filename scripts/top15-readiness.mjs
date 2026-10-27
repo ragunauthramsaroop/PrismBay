@@ -2,7 +2,13 @@ import fs from 'node:fs/promises';
 import {pathToFileURL} from 'node:url';
 import {hasApprovedProductClass,matchesIntendedProduct} from './cj-match-policy.mjs';
 
-export function assessTop15(shortlist, supplierReview = {}) {
+export function assessTop15(shortlist, supplierReview = {}, nowMs = Date.now()) {
+  // Only authenticated, timely supplier observations support a positive
+  // screening status. A refreshed report never refreshes older stock evidence.
+  const reportMs = Date.parse(supplierReview.checkedAt || '');
+  const reportFresh = supplierReview.authenticationVerified === true &&
+    Number.isFinite(reportMs) && Number.isFinite(nowMs) &&
+    reportMs <= nowMs + 5 * 60_000 && nowMs - reportMs <= 36 * 3_600_000;
   const products=shortlist?.candidates;
   if (!Array.isArray(products) || products.length !== 15) throw Error('Exactly 15 product candidates are required');
   const ids=new Set(); const reviews=new Map();
@@ -18,15 +24,22 @@ export function assessTop15(shortlist, supplierReview = {}) {
     ids.add(item.slug);
     if(!hasApprovedProductClass(item.slug)) throw Error('Missing strict supplier identity rule for '+item.slug);
     const row=reviews.get(item.slug)||{};
+    const observedMs = Date.parse(row.observedAt || '');
+    const evidenceFresh = reportFresh && Number.isFinite(observedMs) &&
+      observedMs <= reportMs + 5 * 60_000 &&
+      observedMs <= nowMs + 5 * 60_000 &&
+      nowMs - observedMs <= 30 * 3_600_000;
+    const supplierSkuValid = /^CJ[A-Z0-9]{6,35}$/.test(String(row.observedSupplierSku || ''));
+    const variantSkuValid = /^CJ[A-Z0-9]{6,35}$/.test(String(row.observedVariantSku || ''));
     const checks={
-      independentSupplierMatch:row.independentIdentityMatch===true && matchesIntendedProduct(item,row.observedProduct),
-      variantStock:row.variantStockVerified===true,
-      screeningFreight:row.freightEstimateVerified===true,
-      destinationQuotePerBuyer:row.finalZipFreightVerified===true,
-      mediaRights:row.mediaRightsVerified===true,
-      checkoutInfrastructure:row.checkoutInfrastructureVerified===true,
-      fulfillmentRoute:row.fulfillmentRouteVerified===true,
-      commercialPromotionApproval:row.automaticPromotionAllowed===true
+      independentSupplierMatch:evidenceFresh && supplierSkuValid && row.independentIdentityMatch===true && matchesIntendedProduct(item,row.observedProduct),
+      variantStock:evidenceFresh && variantSkuValid && row.variantStockVerified===true,
+      screeningFreight:evidenceFresh && row.freightEstimateVerified===true,
+      destinationQuotePerBuyer:evidenceFresh && row.finalZipFreightVerified===true,
+      mediaRights:evidenceFresh && row.mediaRightsVerified===true,
+      checkoutInfrastructure:evidenceFresh && row.checkoutInfrastructureVerified===true,
+      fulfillmentRoute:evidenceFresh && row.fulfillmentRouteVerified===true,
+      commercialPromotionApproval:evidenceFresh && row.automaticPromotionAllowed===true
     };
     // Rights to publish original graphics are not rights to republish supplier
     // product photography or videos. Preserve the exact authorization scope.
@@ -39,6 +52,7 @@ export function assessTop15(shortlist, supplierReview = {}) {
     // be independently verified for each buyer, even after a supplier pass.
     return {
       slug:item.slug,name:item.name,priority:item.priority,
+      supplierEvidenceFresh:evidenceFresh,
       reviewObservedAt:row.observedAt||null,
       observedSupplierProduct:typeof row.observedProduct==='string'?row.observedProduct:null,
       observedSupplierSku:typeof row.observedSupplierSku==='string'?row.observedSupplierSku:null,
@@ -54,6 +68,7 @@ export function assessTop15(shortlist, supplierReview = {}) {
   return {
     schemaVersion:1,source:'Read-only CJ evidence. No estimated freight grants a sale.',
     supplierReviewCheckedAt:supplierReview.checkedAt||null,
+    supplierReportAuthenticatedAndFresh:reportFresh,
     candidateCount:rows.length,
     supplierScreeningPassedCount:rows.filter(x=>x.supplierScreeningPassed).length,
     globalPhysicalCheckoutEnabled:false,
