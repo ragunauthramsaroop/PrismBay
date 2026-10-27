@@ -18,6 +18,20 @@ def duration(path):
          "-of", "default=nw=1:nk=1", str(path)], text=True).strip())
 
 def cuts(video):
+    # Use the renderer's exact seven clip durations. Similar-looking A/B cards
+    # can hide a transition from ffmpeg's visual scene detector.
+    manifest_path = video.with_suffix('.json')
+    if manifest_path.exists():
+        manifest = json.loads(manifest_path.read_text(encoding='utf-8'))
+        boundaries = manifest.get('sceneBoundariesSeconds')
+        if boundaries is not None:
+            boundaries = [float(value) for value in boundaries]
+            if (len(boundaries) != 8 or abs(boundaries[0]) > 0.001
+                    or any(right <= left for left, right in zip(boundaries, boundaries[1:]))
+                    or abs(boundaries[-1] - duration(video)) > 0.5):
+                raise ValueError(f'Invalid renderer scene boundaries: {boundaries}')
+            return boundaries
+    # Legacy fallback only. New production renders must include scene metadata.
     result = subprocess.run(
         ["ffmpeg", "-hide_banner", "-i", str(video), "-vf",
          "select='gt(scene,0.09)',showinfo", "-an", "-f", "null", "-"],
@@ -84,6 +98,7 @@ def generate(spec, video):
     srt = "\n\n".join(f"{i}\n{timestamp(a)} --> {timestamp(b)}\n{line}"
                        for i,(a,b,line) in enumerate(cues,1)) + "\n"
     return srt, {"cueCount":len(cues), "sceneBoundariesSeconds":boundaries,
+                 "sceneBoundarySource":"renderer_manifest" if video.with_suffix('.json').exists() and json.loads(video.with_suffix('.json').read_text()).get('sceneBoundariesSeconds') else "visual_detector",
                  "timingStatus":"PROVISIONAL_REQUIRES_FULL_AUDIO_LISTENING",
                  "publicationApproved":False, "channelId":CHANNEL}
 

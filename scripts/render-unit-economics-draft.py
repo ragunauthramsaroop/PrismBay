@@ -58,6 +58,7 @@ def main():
     except (subprocess.CalledProcessError, OSError):
         pass
     clips = []
+    clip_seconds = []
     engines = set()
     for i, segment in enumerate(segments):
         png = work / f'{i:02}.png'
@@ -76,16 +77,31 @@ def main():
              '-preset','fast','-crf','21','-c:a','aac','-b:a','160k',
              '-ar','44100','-shortest',str(mp4)])
         clips.append(mp4)
+        clip_seconds.append(float(run(['ffprobe','-v','error','-show_entries',
+                                       'format=duration','-of','default=nw=1:nk=1',
+                                       str(mp4)]).stdout.strip()))
     concat = work / 'concat.txt'
     concat.write_text(''.join(f"file '{p.resolve().as_posix()}'\n" for p in clips))
     output = out / (SLUG + '.mp4')
     run(['ffmpeg','-hide_banner','-loglevel','error','-y','-f','concat','-safe','0',
          '-i',str(concat),'-c','copy','-movflags','+faststart',str(output)])
+    boundaries = [0.0]
+    for clip_length in clip_seconds:
+        boundaries.append(round(boundaries[-1] + clip_length, 3))
+    output_length = float(run(['ffprobe','-v','error','-show_entries',
+                               'format=duration','-of','default=nw=1:nk=1',
+                               str(output)]).stdout.strip())
+    if abs(boundaries[-1] - output_length) > 0.5:
+        raise RuntimeError('Scene-boundary duration mismatch: '
+                           f'{boundaries[-1]} versus {output_length}')
+    boundaries[-1] = round(output_length, 3)
     digest = hashlib.sha256(output.read_bytes()).hexdigest()
     manifest = {'slug':SLUG,'channelId':CHANNEL,'sha256':digest,
                 'ttsEngines':sorted(engines),'publicationApproved':False,
                 'paidSpendUSD':0,'qualityGate':'CLOSED_PENDING_FULL_AUDIO_VISUAL_CAPTION_QA',
-                'sourceAttribution':spec.get('sourceAttribution','')}
+                'sourceAttribution':spec.get('sourceAttribution',''),
+                'sceneBoundariesSeconds':boundaries,
+                'sceneBoundarySource':'rendered_clip_durations'}
     (out / (SLUG + '.json')).write_text(json.dumps(manifest,indent=2)+'\n')
     print(json.dumps(manifest,indent=2))
 
