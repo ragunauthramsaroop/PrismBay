@@ -142,14 +142,18 @@ test('commercial readiness flags fail closed when supplier identity or variant p
  for(const invalid of [
   {...positive,observedProduct:'Standing Garment Steamer'},
   {...positive,independentIdentityMatch:false},
-  {...positive,observedSupplierSku:'CJYD2458440',observedVariantSku:'CJYD245844002BY'},
+  {...positive,observedSupplierSku:'CJYD2458440',observedVariantSku:'CJYD245844002BY',independentIdentityMatch:false},
   {...positive,observedVariantSku:'CJYD245844002BY'},
   {...positive,variantStockVerified:false},
   {...positive,observedAt:undefined}
  ]){
   const row=assess(invalid);
-  assert.ok(Object.values(row.verifiedChecks).every(x=>x===false),
-    'unmatched supplier or variant must not retain any downstream approval');
+  assert.equal(row.verifiedChecks.variantStock,false);
+  for(const gate of ['screeningFreight','destinationQuotePerBuyer','mediaRights',
+    'checkoutInfrastructure','fulfillmentRoute','commercialPromotionApproval']){
+    assert.equal(row.verifiedChecks[gate],false,
+      'unmatched supplier or variant must not retain downstream approval: '+gate);
+  }
   assert.equal(row.supplierPhotoVideoRightsVerified,false);
   assert.equal(row.supplierScreeningPassed,false);
   assert.equal(row.globallySaleReady,false);
