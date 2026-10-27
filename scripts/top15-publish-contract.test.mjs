@@ -6,21 +6,22 @@ import {currentPublicProducts,refresh,publicRules} from "./top15-real-source-syn
 const html=fs.readFileSync(new URL("../storefront/top-15/index.html",import.meta.url),"utf8");
 const review=JSON.parse(fs.readFileSync(new URL("../growth-reports/cj-worker-review.json",import.meta.url),"utf8"));
 const research=JSON.parse(fs.readFileSync(new URL("../config/top15-merchandising.json",import.meta.url),"utf8"));
-const real=currentPublicProducts(review);
+const alternative=JSON.parse(fs.readFileSync(new URL("../config/alternate-supplier-evidence.json",import.meta.url),"utf8"));
+const real=currentPublicProducts(review,alternative,research);
 const count=(html.match(/<article class="product" data-category=/g)||[]).length;
 
 test("public page is synchronized to authenticated CJ inventory, not a product-idea board",()=>{
  assert.equal(research.candidates.length,15,"The unreleased 15-item research set may remain internal");
  assert.equal(count,real.length,"Never publish a product without direct supplier variant evidence");
- assert.ok(count<=publicRules.length);
- assert.equal(html,refresh(html,review).html,"New supplier evidence must not silently leave stale listings on the public page");
+ assert.ok(count<=publicRules.length+alternative.candidates.length);
+ assert.equal(html,refresh(html,review,alternative,research).html,"New supplier evidence must not silently leave stale listings on the public page");
  assert.doesNotMatch(html,/Illustrative symbol|<div class="product-art"|class="art-[1-5]"/);
  assert.doesNotMatch(html,/See all 15 picks|Showing 15 products|Explore the Top 15 picks/);
  assert.match(html,/No physical-product orders or payments are accepted on this page/);
  assert.match(html,/Supplier screening last recorded:/);
  assert.match(html,/Product photographs are intentionally omitted until legitimate rights/i);
 });
-test("every visible physical item has an authentic CJ variant and its true supplier description",()=>{
+test("every visible physical item has an authentic supplier variant and its true source description",()=>{
  for(const item of real){
   assert.ok(html.includes(item.name),item.slug+" is missing");
   assert.ok(html.includes(item.sku),item.slug+" has no authentic supplier SKU");
