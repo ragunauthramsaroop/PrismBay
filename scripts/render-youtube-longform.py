@@ -150,7 +150,7 @@ def render_executive_scene(chapter_index, chapter_title, slide_index, total, nar
             1: [("Inspect record", "OBSERVE", "No", "Read log"),
                 ("Prepare text", "DRAFT", "Review", "Draft record"),
                 ("Suggest change", "PROPOSE", "Required", "Proposal"),
-                ("Execute change", "LIMITED", "By risk", "Action log")],
+                ("Execute change", "EXECUTE", "By risk", "Action log")],
             2: [("Read", "OBSERVE", "No", "Read log"),
                 ("Send", "BLOCKED", "Required", "Send request"),
                 ("Pay", "BLOCKED", "Required", "Payment log"),
@@ -162,7 +162,7 @@ def render_executive_scene(chapter_index, chapter_title, slide_index, total, nar
             4: [("Submit change", "PROPOSE", "Required", "Exact diff"),
                 ("Verify owner", "CHECK", "Independent", "Identity"),
                 ("Apply policy", "CHECK", "Independent", "Policy log"),
-                ("Execute & log", "LIMITED", "By risk", "Receipt")],
+                ("Execute & log", "EXECUTE", "By risk", "Receipt")],
             5: [("Time released", "MEASURE", "N/A", "40 hours"),
                 ("Cash avoided", "VERIFY", "Finance", "$500"),
                 ("Operating cost", "COUNT", "Finance", "$400"),
@@ -175,7 +175,7 @@ def render_executive_scene(chapter_index, chapter_title, slide_index, total, nar
             7: [("Observe", "READ", "No", "Read log"),
                 ("Draft", "STAGE", "Review", "Draft record"),
                 ("Propose", "REVIEW", "Required", "Decision"),
-                ("Execute", "LIMIT", "By risk", "Action log")]
+                ("Execute", "EXECUTE", "By risk", "Action log")]
         }
         for j, row in enumerate(chapter_rows[chapter_index]):
             y = 477 + j * (88 if chapter_index == 6 else 105)
