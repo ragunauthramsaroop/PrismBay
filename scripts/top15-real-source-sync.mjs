@@ -1,12 +1,12 @@
 import fs from "node:fs/promises";
+import {matchesIntendedProduct} from "./cj-match-policy.mjs";
 
 // Only genuine, exact source-matched supplier SKUs appear in the public
 // physical catalog. Descriptions and labels deliberately reflect the
 // actual observed CJ title, not speculative earlier marketing promises.
 // Media is intentionally omitted until written re-use rights are secured.
 export const publicRules=[
- {slug:"pethair",name:"Pet Grooming & Hair-Removal Comb",category:"Pet",sourceRegex:/\b(pet|pets|cat|dog)\b.*\b(comb|brush)\b.*\bhair\b/i,desc:"Supplier-listed pet grooming comb. Designed for brushing loose hair from pets; not a fabric lint-roller or upholstery scraper.",spec:"Confirm animal suitability and exact grooming-comb size before accepting an order."},
- {slug:"garment-steamer",name:"Standing Garment Steamer",category:"Travel",sourceRegex:/\bstanding\s+garment\s+steamer\b/i,desc:"Supplier-listed standing garment steamer. This is a standing appliance, not a pocket-sized travel steamer.",spec:"Verify voltage, plug type, safety documentation and buyer-specific delivery before payment."},
+ {slug:"garment-steamer",name:"USB Handheld Garment Steamer",category:"Fabric care",sourceRegex:/\b(?:portable|handheld|travel)\b[\s\S]*\bgarment\s+steamer\b|\bgarment\s+steamer\b[\s\S]*\b(?:portable|handheld|travel)\b/i,desc:"Supplier-listed USB handheld garment steamer. Actual steam function, voltage, power and fabric compatibility require independent verification.",spec:"Confirm genuine steam output, safety documentation, exact variant, buyer ZIP freight and returns before accepting payment."},
  {slug:"screen-protector",name:"Tempered-Glass Phone Screen Protector",category:"Tech",sourceRegex:/\bmobile phone tempered glass screen protector\b/i,desc:"Supplier-listed tempered-glass screen protector; its compatibility depends on the exact phone model and selected variant.",spec:"The buyer must confirm the supported phone model and pack contents before any final quote."}
 ];
 
@@ -19,6 +19,7 @@ export function currentPublicProducts(review){
   const p=review.candidates?.find(row=>row.slug===rule.slug);
   if(!p||p.independentIdentityMatch!==true||p.variantStockVerified!==true||
      p.freightEstimateVerified!==true||!rule.sourceRegex.test(String(p.observedProduct||""))||
+     !matchesIntendedProduct({slug:rule.slug},p.observedProduct)||
      !/^CJ[A-Z0-9]{6,35}$/.test(p.observedSupplierSku||"")||
      !/^CJ[A-Z0-9]{6,35}$/.test(p.observedVariantSku||""))return [];
   const observed=Date.parse(p.observedAt||review.checkedAt);
