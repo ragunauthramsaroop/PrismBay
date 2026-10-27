@@ -30,7 +30,9 @@ export function assessTop15(shortlist, supplierReview = {}, nowMs = Date.now()) 
       observedMs <= nowMs + 5 * 60_000 &&
       nowMs - observedMs <= 30 * 3_600_000;
     const supplierSkuValid = /^CJ[A-Z0-9]{6,35}$/.test(String(row.observedSupplierSku || ''));
-    const variantSkuValid = /^CJ[A-Z0-9]{6,35}$/.test(String(row.observedVariantSku || ''));
+    // A valid-looking variant from another supplier product is not stock proof.
+    const variantSkuValid = /^CJ[A-Z0-9]{6,35}$/.test(String(row.observedVariantSku || '')) &&
+      supplierSkuValid && String(row.observedVariantSku).startsWith(String(row.observedSupplierSku));
     const checks={
       independentSupplierMatch:evidenceFresh && supplierSkuValid && row.independentIdentityMatch===true && matchesIntendedProduct(item,row.observedProduct),
       variantStock:evidenceFresh && variantSkuValid && row.variantStockVerified===true,
