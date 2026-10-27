@@ -33,15 +33,22 @@ export function assessTop15(shortlist, supplierReview = {}, nowMs = Date.now()) 
     // A valid-looking variant from another supplier product is not stock proof.
     const variantSkuValid = /^CJ[A-Z0-9]{6,35}$/.test(String(row.observedVariantSku || '')) &&
       supplierSkuValid && String(row.observedVariantSku).startsWith(String(row.observedSupplierSku));
+    // Downstream approvals are not meaningful without an exact intended-product
+    // match and a stock-verified variant belonging to that supplier product.
+    // An unrelated product's freight, rights or checkout flags must not pass.
+    const identityVerified = evidenceFresh && supplierSkuValid &&
+      row.independentIdentityMatch === true && matchesIntendedProduct(item,row.observedProduct);
+    const variantVerified = identityVerified && variantSkuValid &&
+      row.variantStockVerified === true;
     const checks={
-      independentSupplierMatch:evidenceFresh && supplierSkuValid && row.independentIdentityMatch===true && matchesIntendedProduct(item,row.observedProduct),
-      variantStock:evidenceFresh && variantSkuValid && row.variantStockVerified===true,
-      screeningFreight:evidenceFresh && row.freightEstimateVerified===true,
-      destinationQuotePerBuyer:evidenceFresh && row.finalZipFreightVerified===true,
-      mediaRights:evidenceFresh && row.mediaRightsVerified===true,
-      checkoutInfrastructure:evidenceFresh && row.checkoutInfrastructureVerified===true,
-      fulfillmentRoute:evidenceFresh && row.fulfillmentRouteVerified===true,
-      commercialPromotionApproval:evidenceFresh && row.automaticPromotionAllowed===true
+      independentSupplierMatch:identityVerified,
+      variantStock:variantVerified,
+      screeningFreight:variantVerified && row.freightEstimateVerified===true,
+      destinationQuotePerBuyer:variantVerified && row.finalZipFreightVerified===true,
+      mediaRights:variantVerified && row.mediaRightsVerified===true,
+      checkoutInfrastructure:variantVerified && row.checkoutInfrastructureVerified===true,
+      fulfillmentRoute:variantVerified && row.fulfillmentRouteVerified===true,
+      commercialPromotionApproval:variantVerified && row.automaticPromotionAllowed===true
     };
     // Rights to publish original graphics are not rights to republish supplier
     // product photography or videos. Preserve the exact authorization scope.
