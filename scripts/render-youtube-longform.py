@@ -101,6 +101,137 @@ def diagram(d, chapter, slide):
         for j, lab in enumerate(["OBSERVE  :  READ", "DRAFT  :  STAGE", "PROPOSE  :  APPROVE", "EXECUTE  :  LIMIT"]):
             box(d, (1210, 395+j*112, 1740, 485+j*112), lab, [CYAN, GREEN, AMBER, RED][j], 28)
 
+def render_executive_scene(chapter_index, chapter_title, slide_index, total, narration, path, mode):
+    """Three diagram-first, compositionally distinct original visual scenes.
+
+    These scenes are intentionally different from the conventional title/diagram
+    slides: a light action ledger, a dark 2x2 permission map, and a five-step
+    evidence flow. Every slide is original and tied to its chapter.
+    """
+    summary = " ".join(re.split(r"(?<=[.!?])\\s+(?=[A-Z])", narration)[:2])
+    if mode == 2:
+        img = Image.new("RGB", (W, H), (238, 245, 249))
+        d = ImageDraw.Draw(img)
+        d.rectangle((0, 0, W, 148), fill=INK)
+        d.text((84, 47), "PRISMBAY AI   /   ACTION INVENTORY", font=ft(43, True), fill=CYAN)
+        d.text((86, 186), lines(chapter_title.upper(), 42, 2),
+               font=ft(49, True), fill=INK, spacing=10)
+        headers = [("BUSINESS ACTION", 110), ("AGENT ACCESS", 660),
+                   ("APPROVAL", 1140), ("EVIDENCE", 1530)]
+        d.rounded_rectangle((86, 373, 1830, 462), radius=14, fill=(22, 49, 72))
+        for label, x in headers:
+            d.text((x, 400), label, font=ft(25, True), fill=WHITE)
+        chapter_rows = {
+            0: [("Read invoice", "OBSERVE", "No", "Source log"),
+                ("Draft response", "DRAFT", "Review", "Draft record"),
+                ("Change bank", "BLOCKED", "Required", "Deny event"),
+                ("Release funds", "BLOCKED", "Required", "Audit trail")],
+            1: [("Inspect record", "OBSERVE", "No", "Read log"),
+                ("Prepare text", "DRAFT", "Review", "Draft record"),
+                ("Suggest change", "PROPOSE", "Required", "Proposal"),
+                ("Execute change", "LIMITED", "By risk", "Action log")],
+            2: [("Read", "OBSERVE", "No", "Read log"),
+                ("Send", "BLOCKED", "Required", "Send request"),
+                ("Pay", "BLOCKED", "Required", "Payment log"),
+                ("Delete", "BLOCKED", "Required", "Delete log")],
+            3: [("Review request", "OBSERVE", "No", "Source record"),
+                ("Draft reply", "DRAFT", "Review", "Draft record"),
+                ("Correct order", "PROPOSE", "Required", "Change diff"),
+                ("Pay supplier", "BLOCKED", "Required", "Bank control")],
+            4: [("Submit change", "PROPOSE", "Required", "Exact diff"),
+                ("Verify owner", "CHECK", "Independent", "Identity"),
+                ("Apply policy", "CHECK", "Independent", "Policy log"),
+                ("Execute & log", "LIMITED", "By risk", "Receipt")],
+            5: [("Time released", "MEASURE", "N/A", "40 hours"),
+                ("Cash avoided", "VERIFY", "Finance", "$500"),
+                ("Operating cost", "COUNT", "Finance", "$400"),
+                ("Net effect", "REVIEW", "Finance", "$100")],
+            6: [("Hostile document", "TEST", "N/A", "Denied"),
+                ("Bank change", "TEST", "Required", "Blocked"),
+                ("Stale approval", "TEST", "Expired", "Stopped"),
+                ("Tool failure", "TEST", "N/A", "Recovered")],
+            7: [("Observe", "READ", "No", "Read log"),
+                ("Draft", "STAGE", "Review", "Draft record"),
+                ("Propose", "REVIEW", "Required", "Decision"),
+                ("Execute", "LIMIT", "By risk", "Action log")]
+        }
+        for j, row in enumerate(chapter_rows[chapter_index]):
+            y = 477 + j * 105
+            d.rounded_rectangle((86, y, 1830, y+92), radius=12,
+                                fill=(255, 255, 255) if j % 2 == 0 else (218, 233, 241),
+                                outline=(184, 205, 220), width=2)
+            for k, (cell, x) in enumerate(zip(row, (110, 660, 1140, 1530))):
+                col = (165, 38, 52) if cell == "BLOCKED" else INK
+                d.text((x, y+29), cell, font=ft(26, k==0), fill=col)
+        d.text((92, 949), "FICTIONAL WORKFLOW  /  CONTROLS REQUIRE INDEPENDENT TESTING",
+               font=ft(23, True), fill=INK)
+    elif mode == 4:
+        img = Image.new("RGB", (W, H), (13, 26, 43))
+        d = ImageDraw.Draw(img)
+        d.rectangle((0, 0, W, 19), fill=RED)
+        d.text((92, 58), "PRISMBAY AI  /  PERMISSION DECISION MAP",
+               font=ft(38, True), fill=CYAN)
+        d.text((94, 153), lines(chapter_title.upper(), 49, 2),
+               font=ft(46, True), fill=WHITE, spacing=8)
+        quadrants = [
+            ("01  OBSERVE", "Read approved records", CYAN),
+            ("02  DRAFT", "Prepare, never send", GREEN),
+            ("03  PROPOSE", "Named reviewer approves", AMBER),
+            ("04  EXECUTE", "Technical limit + audit", RED),
+        ]
+        for j, (heading, detail, color) in enumerate(quadrants):
+            col, row = j % 2, j // 2
+            x, y = 93 + col*890, 352 + row*263
+            selected = j == (slide_index % 4)
+            d.rounded_rectangle((x, y, x+830, y+224), radius=25,
+                                fill=(35, 62, 78) if selected else (22, 39, 58),
+                                outline=color, width=8 if selected else 3)
+            d.text((x+37, y+32), heading, font=ft(43, True), fill=color)
+            d.text((x+37, y+112), detail, font=ft(32), fill=WHITE)
+            if selected:
+                d.rounded_rectangle((x+610, y+28, x+791, y+77), radius=12, fill=color)
+                d.text((x+635, y+36), "FOCUS", font=ft(24, True), fill=INK)
+        d.text((94, 931), "PROMPTS ARE NOT AUTHORIZATION CONTROLS",
+               font=ft(27, True), fill=(188, 209, 225))
+    else:
+        img = Image.new("RGB", (W, H), (35, 25, 49))
+        d = ImageDraw.Draw(img)
+        d.rectangle((0, 0, 35, H), fill=AMBER)
+        d.text((92, 52), "PRISMBAY AI  /  EVIDENCE FLOW",
+               font=ft(41, True), fill=AMBER)
+        d.text((95, 145), lines(chapter_title.upper(), 48, 2),
+               font=ft(49, True), fill=WHITE, spacing=10)
+        phases = {
+            0: ["RECEIVE", "READ", "VERIFY", "BLOCK PAY", "RECORD"],
+            1: ["OBSERVE", "DRAFT", "PROPOSE", "LIMIT", "REVIEW"],
+            2: ["LIST VERBS", "ASSESS RISK", "SET OWNER", "DENY BY DEFAULT", "TEST"],
+            3: ["REQUEST", "CHECK", "DRAFT", "BUYER REVIEW", "LOG"],
+            4: ["PROPOSE", "APPROVE", "VALIDATE", "EXECUTE", "AUDIT"],
+            5: ["BASELINE", "TIME", "CASH", "EXCEPTIONS", "DECIDE"],
+            6: ["INJECT", "RESTRICT", "DENY", "RECOVER", "RECORD"],
+            7: ["MAP", "ASSIGN", "TEST", "MEASURE", "EXPAND"]
+        }[chapter_index]
+        colors = [CYAN, GREEN, AMBER, RED, CYAN]
+        for j, (label, color) in enumerate(zip(phases, colors)):
+            x = 90 + j*352
+            d.rounded_rectangle((x, 386, x+310, 621), radius=28,
+                                fill=(24, 44, 62), outline=color, width=5)
+            d.ellipse((x+110, 412, x+192, 494), fill=color)
+            d.text((x+139, 430), str(j+1), font=ft(34, True), fill=INK)
+            d.multiline_text((x+24, 537), lines(label, 13, 2),
+                             font=ft(28, True), fill=WHITE, spacing=7)
+            if j < 4:
+                d.line((x+311, 505, x+347, 505), fill=WHITE, width=6)
+        d.rounded_rectangle((90, 697, 1817, 889), radius=25,
+                            fill=(60, 44, 69), outline=AMBER, width=3)
+        d.multiline_text((129, 725), lines(summary, 84, 3),
+                         font=ft(31), fill=WHITE, spacing=14)
+        d.text((94, 949), "SOURCE, OWNER, PERMISSION AND EVIDENCE AT EVERY STEP",
+               font=ft(25, True), fill=AMBER)
+    d.text((1620, 1001), f"{slide_index+1:02d} / {total:02d}",
+           font=ft(25, True), fill=INK if mode==2 else WHITE)
+    img.save(path, optimize=True)
+
 def render_slide(chapter_index, chapter_title, slide_index, total, narration, path):
     """Six meaningful editorial layouts, with a chapter-specific original diagram.
 
@@ -108,6 +239,8 @@ def render_slide(chapter_index, chapter_title, slide_index, total, narration, pa
     long-form explanations legible and avoids repeated template footage.
     """
     mode = slide_index % 6
+    if mode in (2, 4, 5):
+        return render_executive_scene(chapter_index, chapter_title, slide_index, total, narration, path, mode)
     backgrounds = [
         (10, 20, 36), (15, 35, 46), (27, 25, 43),
         (16, 34, 32), (31, 25, 35), (13, 30, 48),
