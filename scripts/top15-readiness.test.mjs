@@ -13,7 +13,7 @@ test('all fifteen unique shortlisted categories use explicit strict identity pol
 });
 test('status report never confuses supplier estimates with purchasable inventory',()=>{
  const out=assessTop15(merch,{checkedAt:'2026-10-26T12:00:00Z',candidates:merch.candidates.map((x)=>({
-  slug:x.slug, independentIdentityMatch:true,variantStockVerified:true,freightEstimateVerified:true,
+  slug:x.slug, observedProduct:x.slug==='home-caddy'?'Portable Cleaning Supply Caddy':x.slug==='motion-sensor-cabinet-lights'?'Motion Sensor Cabinet Light':x.name, independentIdentityMatch:true,variantStockVerified:true,freightEstimateVerified:true,
   finalZipFreightVerified:false,mediaRightsVerified:false,checkoutInfrastructureVerified:true,
   fulfillmentRouteVerified:false,automaticPromotionAllowed:false
  }))});
@@ -63,4 +63,21 @@ test('unverified rights and mismatched supplier evidence remain visibly blocked'
  assert.equal(row.supplierPhotoVideoRightsVerified,false);
  assert.equal(row.observedSupplierProduct,'4 In 1 Bottle Gap Cleaner Brush');
  assert.equal(row.globallySaleReady,false);
+});
+
+test('stale supplier report cannot bypass the current exact-product identity policy',()=>{
+ const out=assessTop15(merch,{checkedAt:'2026-10-26T23:57:11Z',candidates:[
+  {slug:'pethair',observedProduct:'Pets Comb Brush Massage Cleaning Remove Hair Comb Pet Products',independentIdentityMatch:true,variantStockVerified:true,freightEstimateVerified:true,mediaRightsVerified:true},
+  {slug:'garment-steamer',observedProduct:'Standing Garment Steamer',independentIdentityMatch:true,variantStockVerified:true,freightEstimateVerified:true,mediaRightsVerified:true},
+  {slug:'screen-protector',observedProduct:'Mobile Phone Tempered Glass Screen Protector',independentIdentityMatch:true,variantStockVerified:true,freightEstimateVerified:true,mediaRightsVerified:true}
+ ]});
+ assert.equal(out.supplierScreeningPassedCount,1);
+ for(const slug of ['pethair','garment-steamer']){
+  const row=out.products.find(x=>x.slug===slug);
+  assert.equal(row.verifiedChecks.independentSupplierMatch,false,slug);
+  assert.equal(row.supplierScreeningPassed,false,slug);
+  assert.equal(row.globallySaleReady,false,slug);
+  assert.equal(row.checkoutAction,'price_request_only',slug);
+ }
+ assert.equal(out.products.find(x=>x.slug==='screen-protector').supplierScreeningPassed,true);
 });
