@@ -172,21 +172,39 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
+          qa_dir='editorial/youtube/qa/PB-AGENT-ACCESS-001'
+          video='public/youtube/longform/PB-AGENT-ACCESS-001/PB-AGENT-ACCESS-001.mp4'
+          expected_hash=$(python -c "import json; print(json.load(open('$qa_dir/independent_report.json'))['sourceSha256'])")
+          saved_dir="$RUNNER_TEMP/prismbay-longform-qa-evidence"
+          mkdir -p "$saved_dir"
+          cp -a "$qa_dir/." "$saved_dir/"
           git config user.name prismbay-ai-longform-qa-bot
           git config user.email actions@users.noreply.github.com
-          git add editorial/youtube/qa/PB-AGENT-ACCESS-001/
-          if git diff --cached --quiet; then
-            echo 'No QA changes to commit.'
-            exit 0
-          fi
-          git commit -m 'Add independent PrismBay long-form audio, caption and visual QA'
           for attempt in 1 2 3 4; do
             git fetch origin main
-            git rebase origin/main
-            if git push origin HEAD:main; then exit 0; fi
+            # Never attach an old QA report to a newer video.
+            # Resetting the checkout avoids rebase conflicts on binary preview images.
+            git reset --hard origin/main
+            current_hash=$(sha256sum "$video" | cut -d' ' -f1)
+            if [ "$current_hash" != "$expected_hash" ]; then
+              echo 'Newer video detected. Preserve local QA evidence; skip stale report commit.'
+              exit 0
+            fi
+            mkdir -p "$qa_dir"
+            cp -a "$saved_dir/." "$qa_dir/"
+            git add "$qa_dir/"
+            if git diff --cached --quiet; then
+              echo 'Identical QA evidence already present; no duplicate commit.'
+              exit 0
+            fi
+            git commit -m 'Add independent PrismBay long-form audio, caption and visual QA'
+            if git push origin HEAD:main; then
+              echo 'QA evidence committed for the exact reviewed video hash.'
+              exit 0
+            fi
             sleep $((attempt*3))
           done
-          echo 'QA report generated but repository push failed after retries.'
+          echo 'QA evidence preserved; repository update failed after retries.'
           exit 1
       - name: Explain strict publication gate
         if: always()
