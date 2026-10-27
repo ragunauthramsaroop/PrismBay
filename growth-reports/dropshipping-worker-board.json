@@ -1,15 +1,15 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-10-26T23:57:13.295Z",
+  "generatedAt": "2026-10-27T00:18:51.678Z",
   "researchCandidates": 12,
   "publishedResearchSignals": 12,
   "verifiedCJStatus": {
-    "checkedAt": "2026-10-26T23:57:11.377Z",
-    "validSupplierMatches": 10,
-    "variantStock": 4,
-    "freightEstimates": 4,
+    "checkedAt": "2026-10-27T00:18:49.101Z",
+    "validSupplierMatches": 6,
+    "variantStock": 2,
+    "freightEstimates": 2,
     "countryFreightEstimates": 2,
-    "illustrativeZipFreightEstimates": 2,
+    "illustrativeZipFreightEstimates": 0,
     "falseMatches": 0
   },
   "constraints": {
@@ -29,16 +29,16 @@
       "blockers": [
         {
           "slug": "scrubber",
-          "status": "variant_stock_required",
-          "sku": "CJYS2455637",
-          "shippingDiagnostic": "variant_stock_unverified",
+          "status": "supplier_search_needed",
+          "sku": null,
+          "shippingDiagnostic": null,
           "zeroPricedMethods": 0
         },
         {
           "slug": "pethair",
-          "status": "final_zip_freight_required",
-          "sku": "CJYD224734802BY",
-          "shippingDiagnostic": "priced_estimate_available",
+          "status": "variant_stock_required",
+          "sku": "CJYD2079690",
+          "shippingDiagnostic": "variant_stock_unverified",
           "zeroPricedMethods": 0
         },
         {
@@ -65,9 +65,9 @@
         {
           "slug": "garment-steamer",
           "status": "final_zip_freight_required",
-          "sku": "CJFU231914001AZ",
-          "shippingDiagnostic": "priced_tip_estimate_available",
-          "zeroPricedMethods": 81
+          "sku": "CJYD245844002BY",
+          "shippingDiagnostic": "priced_estimate_available",
+          "zeroPricedMethods": 0
         },
         {
           "slug": "mini-mop",
@@ -85,16 +85,16 @@
         },
         {
           "slug": "home-caddy",
-          "status": "variant_stock_required",
-          "sku": "CJYD2072140",
-          "shippingDiagnostic": "variant_stock_unverified",
+          "status": "supplier_search_needed",
+          "sku": null,
+          "shippingDiagnostic": null,
           "zeroPricedMethods": 0
         },
         {
           "slug": "cordless-handheld-vacuum",
-          "status": "variant_stock_required",
-          "sku": "CJXC1113517",
-          "shippingDiagnostic": "variant_stock_unverified",
+          "status": "supplier_search_needed",
+          "sku": null,
+          "shippingDiagnostic": null,
           "zeroPricedMethods": 0
         },
         {
@@ -141,15 +141,15 @@
         },
         {
           "slug": "hanging-closet-organizer",
-          "status": "final_zip_freight_required",
-          "sku": "CJJT254150701AZ",
-          "shippingDiagnostic": "priced_tip_estimate_available",
-          "zeroPricedMethods": 11
+          "status": "supplier_search_needed",
+          "sku": null,
+          "shippingDiagnostic": null,
+          "zeroPricedMethods": 0
         },
         {
           "slug": "roll-up-dish-rack",
           "status": "variant_stock_required",
-          "sku": "CJYD2388315",
+          "sku": "CJYD2092759",
           "shippingDiagnostic": "variant_stock_unverified",
           "zeroPricedMethods": 0
         }
