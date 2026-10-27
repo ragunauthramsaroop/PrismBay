@@ -1,47 +1,42 @@
-import test from 'node:test';
-import assert from 'node:assert/strict';
-import fs from 'node:fs';
+import test from "node:test";
+import assert from "node:assert/strict";
+import fs from "node:fs";
+import {currentPublicProducts,refresh,publicRules} from "./top15-real-source-sync.mjs";
 
-const html=fs.readFileSync(new URL('../storefront/top-15/index.html',import.meta.url),'utf8');
-const merch=JSON.parse(fs.readFileSync(new URL('../config/top15-merchandising.json',import.meta.url),'utf8'));
-const permitted=new Map([
- ['pethair',{title:'Pet Grooming & Hair-Removal Comb',product:/\b(pet|pets|cat|dog)\b.*\b(comb|brush)\b.*\bhair\b/i}],
- ['garment-steamer',{title:'Standing Garment Steamer',product:/\bstanding\s+garment\s+steamer\b/i}],
- ['screen-protector',{title:'Tempered-Glass Phone Screen Protector',product:/\bmobile phone tempered glass screen protector\b/i}],
-]);
-const review=JSON.parse(fs.readFileSync(new URL('../growth-reports/cj-worker-review.json',import.meta.url),'utf8'));
-const cards=[...html.matchAll(/<article class="product" data-category=/g)];
+const html=fs.readFileSync(new URL("../storefront/top-15/index.html",import.meta.url),"utf8");
+const review=JSON.parse(fs.readFileSync(new URL("../growth-reports/cj-worker-review.json",import.meta.url),"utf8"));
+const research=JSON.parse(fs.readFileSync(new URL("../config/top15-merchandising.json",import.meta.url),"utf8"));
+const real=currentPublicProducts(review);
+const count=(html.match(/<article class="product" data-category=/g)||[]).length;
 
-test('physical catalog excludes all speculative products and illustrative media',()=>{
- assert.equal(merch.candidates.length,15,'Private research shortlist may continue to hold 15 candidates');
- assert.equal(cards.length,3,'Only the three separately reviewed exact real CJ products may appear');
- assert.doesNotMatch(html,/Illustrative symbol|<div class="product-art"|class="art-[1-5]"/,'Fake/placeholder imagery is not acceptable');
+test("public page is synchronized to authenticated CJ inventory, not a product-idea board",()=>{
+ assert.equal(research.candidates.length,15,"The unreleased 15-item research set may remain internal");
+ assert.equal(count,real.length,"Never publish a product without direct supplier variant evidence");
+ assert.ok(count<=publicRules.length);
+ assert.equal(html,refresh(html,review).html,"New supplier evidence must not silently leave stale listings on the public page");
+ assert.doesNotMatch(html,/Illustrative symbol|<div class="product-art"|class="art-[1-5]"/);
  assert.doesNotMatch(html,/See all 15 picks|Showing 15 products|Explore the Top 15 picks/);
  assert.match(html,/No physical-product orders or payments are accepted on this page/);
  assert.match(html,/Supplier screening last recorded:/);
- assert.match(html,/Photographs are intentionally omitted|photographs are intentionally omitted/i);
- assert.equal((html.match(/class="ready-buy"/g)||[]).length,4,'Four real digital purchase links preserved');
+ assert.match(html,/Product photographs are intentionally omitted until legitimate rights/i);
 });
-test('every public physical record must match real physically stocked CJ supplier variants',()=>{
- const seen=new Set();
- for(const [slug,rule] of permitted){
-  const p=review.candidates.find(item=>item.slug===slug);
-  assert.ok(p && p.independentIdentityMatch===true && p.variantStockVerified===true && p.freightEstimateVerified===true,slug+' lacks authentic supplier evidence');
-  assert.match(p.observedProduct,rule.product,slug+' wrong type');
-  assert.match(p.observedSupplierSku,/^CJ[A-Z0-9]{6,35}$/);
-  assert.match(p.observedVariantSku,/^CJ[A-Z0-9]{6,35}$/);
-  assert.ok(html.includes(rule.title),slug+' marketing title missing');
-  assert.ok(html.includes(p.observedSupplierSku),slug+' exact supplier ID missing');
-  assert.ok(html.includes(p.observedVariantSku),slug+' exact stock-verified variant missing');
-  assert.ok(html.includes('quote?product='+slug+'&amp;utm_source=verified-catalog'),slug+' buyer routing missing');
-  seen.add(slug);
+test("every visible physical item has an authentic CJ variant and its true supplier description",()=>{
+ for(const item of real){
+  assert.ok(html.includes(item.name),item.slug+" is missing");
+  assert.ok(html.includes(item.sku),item.slug+" has no authentic supplier SKU");
+  assert.ok(html.includes(item.variant),item.slug+" has no physically stocked variant SKU");
+  assert.ok(html.includes(item.originalName.replace(/&/g,"&amp;")),item.slug+" supplier listing missing");
+  assert.ok(html.includes("quote?product="+item.slug+"&amp;utm_source=verified-catalog"),item.slug+" does not open the correct inquiry");
  }
- assert.equal(seen.size,cards.length,'No additional undocumented public products permitted');
- assert.equal((html.match(/class="quote"/g)||[]).length,cards.length);
+ assert.equal((html.match(/class="quote"/g)||[]).length,count);
+ assert.equal((html.match(/quote\?product=/g)||[]).length,count);
 });
-test('no unapproved physical checkout; existing digital payments preserved',()=>{
+test("unapproved physical purchases are impossible through the catalog; four digital payments stay live",()=>{
+ assert.equal((html.match(/class="ready-buy"/g)||[]).length,4);
  assert.equal((html.match(/href="https:\/\/buy\.stripe\.com\//g)||[]).length,4);
- for(const link of ['4gM8wQ1v8dOj45Ib8QgnK0q','bJe7sMgq25hNcCe6SAgnK0s','4gMeVe8XA5hNfOq2CkgnK0r','eVqfZi5Lo7pV31Ea4MgnK0t'])assert.ok(html.includes(link));
- assert.equal((html.match(/quote\?product=/g)||[]).length,3);
+ for(const link of [
+  "4gM8wQ1v8dOj45Ib8QgnK0q","bJe7sMgq25hNcCe6SAgnK0s",
+  "4gMeVe8XA5hNfOq2CkgnK0r","eVqfZi5Lo7pV31Ea4MgnK0t"
+ ])assert.ok(html.includes(link));
  assert.doesNotMatch(html,/World.s lowest price guaranteed|Most sold products in the world/);
 });
