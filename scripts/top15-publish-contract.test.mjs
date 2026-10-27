@@ -67,3 +67,12 @@ test("an authenticated CJ report with zero verified variants publishes zero CJ p
  assert.equal(currentPublicProducts(review).length,0);
  assert.equal((html.match(/<article class="product" data-category=/g)||[]).length,0);
 });
+
+test("empty physical catalog presents truthful zero-stock and digital-delivery disclosures",()=>{
+ if(count!==0)return;
+ assert.match(html,/A zero count means no current records meet the display criteria\./);
+ assert.match(html,/No physical checkout is available\./);
+ assert.match(html,/Order-specific delivery verification is still in progress\./);
+ assert.doesNotMatch(html,/Exact supplier identity and stock were checked|These records match supplier-product identity/);
+ assert.equal((html.match(/class="ready-buy"/g)||[]).length,4);
+});
