@@ -1,0 +1,124 @@
+1
+00:00:00,020 --> 00:00:02,158
+A vendor reports up to five times
+
+2
+00:00:02,208 --> 00:00:04,345
+better cost efficiency
+for its new AI
+
+3
+00:00:04,395 --> 00:00:06,532
+models. That is an
+early vendor claim,
+
+4
+00:00:06,582 --> 00:00:07,470
+not your savings.
+
+5
+00:00:07,520 --> 00:00:10,049
+Here is the number
+executives should test.
+
+6
+00:00:10,099 --> 00:00:12,628
+Total workflow cost divided
+by accepted outputs,
+
+7
+00:00:12,678 --> 00:00:14,470
+not price per AI call.
+
+8
+00:00:14,520 --> 00:00:17,170
+In a fictional one
+thousand task pilot,
+
+9
+00:00:17,220 --> 00:00:19,870
+option A costs ten cents per run.
+
+10
+00:00:19,920 --> 00:00:22,570
+With review and rework,
+seven hundred pass.
+
+11
+00:00:22,620 --> 00:00:25,270
+Total cost is three
+hundred ninety dollars,
+
+12
+00:00:25,320 --> 00:00:27,970
+or fifty six cents
+per accepted result.
+
+13
+00:00:28,020 --> 00:00:30,746
+Option B costs
+twenty five cents per
+
+14
+00:00:30,796 --> 00:00:33,522
+run. Nine hundred
+pass. After review and
+
+15
+00:00:33,572 --> 00:00:36,298
+rework, total cost is
+four hundred thirty
+
+16
+00:00:36,348 --> 00:00:38,280
+dollars, or forty eight cents
+
+17
+00:00:38,330 --> 00:00:39,470
+per accepted result.
+
+18
+00:00:39,520 --> 00:00:41,998
+The higher priced model
+wins this hypothetical
+
+19
+00:00:42,048 --> 00:00:44,526
+comparison. Cheaper inference
+does not always mean
+
+20
+00:00:44,576 --> 00:00:45,970
+a cheaper business workflow.
+
+21
+00:00:46,020 --> 00:00:49,311
+In your pilot, include
+model costs, human
+
+22
+00:00:49,361 --> 00:00:52,652
+review, rework, infrastructure,
+security and quality. True
+
+23
+00:00:52,702 --> 00:00:55,038
+return on investment also needs
+
+24
+00:00:55,088 --> 00:00:56,470
+the value delivered.
+
+25
+00:00:56,520 --> 00:00:59,695
+Test before signing.
+Prism Bay AI helps
+
+26
+00:00:59,745 --> 00:01:01,999
+founders and executives
+measure practical
+
+27
+00:01:02,049 --> 00:01:03,381
+AI business systems.
