@@ -8,13 +8,15 @@ The router accepts canonical commerce events and creates deterministic backgroun
 
 - payment completion -> order received communication
 - order processing -> processing update
-- shipment update -> shipment communication
+- shipment update -> shipment communication only with independent order-and-tracking evidence
 - verified delivery -> delivery communication plus delayed review request
 - delivery exception -> exception communication
 - refund processed -> refund communication
-- checkout abandonment -> recovery communication only when consent evidence is true
+- checkout abandonment -> recovery communication only with independently verified recipient-bound consent
 
 The router stores only de-identified recipient references. Raw customer email addresses are rejected by the durable file job store.
+
+The runtime fails closed unless a trusted adapter supplies `verifiedConsentRecipientRefs` for abandonment. A caller's `consent: true` flag alone is insufficient. Shipment notifications require `verifiedPaidOrderRefs` plus `verifiedShipmentRefs`, keyed by `JSON.stringify([orderRef, trackingRef])`. These evidence sets must originate from authenticated consent, payment and carrier/order integrations, never from event payload flags. The default runtime provides no such evidence and sends no messages.
 
 ## Durable zero-cost queue
 
