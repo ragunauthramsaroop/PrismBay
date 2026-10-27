@@ -48,6 +48,30 @@ test("old pet grooming and standing steamer matches do not reappear in public so
   {slug:"garment-steamer",observedProduct:"Standing Garment Steamer",observedSupplierSku:"CJFU2319140",observedVariantSku:"CJFU231914001AZ",independentIdentityMatch:true,variantStockVerified:true,freightEstimateVerified:true,observedAt:checkedAt},
   {slug:"screen-protector",observedProduct:"Mobile Phone Tempered Glass Screen Protector",observedSupplierSku:"CJPB2377299",observedVariantSku:"CJPB237729905EV",independentIdentityMatch:true,variantStockVerified:true,freightEstimateVerified:true,observedAt:checkedAt}
  ];
- assert.deepEqual(currentPublicProducts({checkedAt,candidates:rows}).map(x=>x.slug),["screen-protector"]);
+ assert.deepEqual(currentPublicProducts({checkedAt,authenticationVerified:true,candidates:rows}).map(x=>x.slug),["screen-protector"]);
  assert.ok(publicRules.every(x=>x.slug!=="pethair"));
+});
+
+test("public supplier cards fail closed without authenticated, fresh, dated evidence",()=>{
+ const now=Date.now();
+ const iso=offset=>new Date(now+offset).toISOString();
+ const candidate={
+  slug:"garment-steamer",
+  observedProduct:"USB Handheld Garment Steamer Household Portable Electric Iron Small Fabulous Clothes Ironing Equipment",
+  observedSupplierSku:"CJYD2458440",
+  observedVariantSku:"CJYD245844002BY",
+  independentIdentityMatch:true,
+  variantStockVerified:true,
+  freightEstimateVerified:true,
+  observedAt:iso(0)
+ };
+ const report={checkedAt:iso(0),authenticationVerified:true,candidates:[candidate]};
+ assert.deepEqual(currentPublicProducts(report).map(x=>x.slug),["garment-steamer"]);
+ assert.deepEqual(currentPublicProducts({...report,authenticationVerified:false}),[]);
+ assert.deepEqual(currentPublicProducts({...report,authenticationVerified:undefined}),[]);
+ assert.deepEqual(currentPublicProducts({...report,checkedAt:iso(10*60000)}),[]);
+ assert.deepEqual(currentPublicProducts({...report,checkedAt:iso(-37*3600000)}),[]);
+ assert.deepEqual(currentPublicProducts({...report,candidates:[{...candidate,observedAt:undefined}]}),[]);
+ assert.deepEqual(currentPublicProducts({...report,candidates:[{...candidate,observedAt:iso(10*60000)}]}),[]);
+ assert.deepEqual(currentPublicProducts({...report,candidates:[{...candidate,observedAt:iso(-31*3600000)}]}),[]);
 });
