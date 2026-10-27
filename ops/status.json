@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "checkedAt": "2026-10-27T19:10:46.963Z",
+  "checkedAt": "2026-10-27T19:11:13.999Z",
   "source": "GitHub Actions accountability evidence",
   "refreshPolicy": "Best-effort GitHub schedules. Static snapshot; refresh does not run agents.",
   "summary": {
@@ -39,7 +39,7 @@
       "status": "fail",
       "reason": "run_cancelled",
       "consequence": "replace_route",
-      "failureStreak": 3,
+      "failureStreak": 4,
       "runId": 40558050672,
       "runUrl": "https://github.com/ragunauthramsaroop/PrismBay/actions/runs/40558050672",
       "runAgeMinutes": 57,
