@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {auditProductsPayload,auditMerchantXml,auditSitemapXml,auditRobots,auditLegacySnapshot,auditCommerceSurfaces} from './commerce-surface-auditor.mjs';
+import {auditProductsPayload,auditMerchantXml,auditSitemapXml,auditRobots,auditLegacySnapshot,auditCanonicalRetailSnapshot,auditCommerceSurfaces} from './commerce-surface-auditor.mjs';
 
 test('valid product feed requires identity title and positive price',()=>{
  const audit=auditProductsPayload({products:[{id:'p1',title:'Brush',price:12.99,link:'https://example.com/p1',availability:'in_stock'}]});
@@ -143,4 +143,35 @@ test('duplicate product IDs block technical distribution readiness even when row
   assert.equal(report.technicalSurfaceReady,false);
   assert.equal(report.freeDistributionReady,false);
  } finally {globalThis.fetch=originalFetch;}
+});
+
+test('canonical retail audit detects unapproved physical claims and educational YouTube contamination',()=>{
+ const report=auditCanonicalRetailSnapshot({
+  pages:[
+   {path:'/',ok:true,text:'<html><script type="application/ld+json">{"@type":"Product"}</script><img src="https://oss-cf.cjdropshipping.com/p.jpg"></html>'},
+   {path:'/shipping.html',ok:true,text:'<html>Supplier stock and delivery timing are confirmed after payment. PrismBay Clean currently accepts checkout and delivery only for eligible addresses.</html>'},
+   {path:'/top-15/',ok:true,text:'<html>"numberOfItems":0 Exact supplier identity and stock were checked</html>'}
+  ],
+  manifest:{products:[{slug:'unverified'}]},
+  queue:{items:[{offerType:'physical',channel:'youtube',status:'ready_for_authorized_scheduler'}]}
+ });
+ assert.equal(report.safe,false);
+ assert.equal(report.issues.length,8);
+ assert.ok(report.issues.includes('canonical_educational_youtube_retail_contamination'));
+ assert.equal(report.physicalManifestCount,1);
+});
+test('canonical retail audit preserves digital-only clean releases',()=>{
+ const report=auditCanonicalRetailSnapshot({
+  pages:[{path:'/',ok:true,text:'<html>Digital tools available</html>'},{path:'/shipping.html',ok:true,text:'<html>Physical checkout unavailable</html>'},{path:'/top-15/',ok:true,text:'<html>No approved physical offers</html>'}],
+  manifest:{products:[]},queue:{items:[{offerType:'digital',channel:'youtube',status:'ready_for_authorized_scheduler'}]}
+ });
+ assert.equal(report.safe,true);
+ assert.equal(report.physicalQueuedCount,0);
+});
+test('canonical retail audit treats missing pages and media reports as unknown',()=>{
+ const report=auditCanonicalRetailSnapshot();
+ assert.equal(report.safe,false);
+ assert.ok(report.issues.includes('canonical_uninspected:/'));
+ assert.ok(report.issues.includes('canonical_retail_manifest_uninspected'));
+ assert.ok(report.issues.includes('canonical_social_queue_uninspected'));
 });

@@ -185,12 +185,41 @@ export async function auditCommerceSurfaces(origin){
   };
 }
 
+
+// Read-only inspection of the canonical Clean storefront and its media manifests.
+export function auditCanonicalRetailSnapshot({pages=[],manifest=null,queue=null,physicalApproved=false}={}){
+ const issues=[];
+ const valid=path=>{const p=pages.find(x=>x?.path===path);if(!p?.ok||!/<html/i.test(String(p.text||''))){issues.push(`canonical_uninspected:${path}`);return null;}return String(p.text);};
+ const home=valid('/'),shipping=valid('/shipping.html'),top=valid('/top-15/');
+ if(!physicalApproved){
+  if(home&&/<script\b[^>]*type=["']application\/ld\+json["'][^>]*>[\s\S]*?"@type"\s*:\s*"Product"/i.test(home))issues.push('canonical_unapproved_physical_product_schema');
+  if(home&&/(?:https?:)?\/\/(?:oss-cf\.cjdropshipping\.com|shopifyfile\.oss-us-west-1\.aliyuncs\.com|cc-west-usa\.oss-us-west-1\.aliyuncs\.com)\//i.test(home.replace(/\\\//g,'/')))issues.push('canonical_supplier_media_rights_unverified');
+  if(shipping&&/Supplier stock and delivery timing are confirmed after payment/i.test(shipping))issues.push('canonical_postpayment_stock_verification_claim');
+  if(shipping&&/currently accepts checkout and delivery only for eligible addresses/i.test(shipping))issues.push('canonical_unapproved_physical_checkout_claim');
+  if(top&&/"numberOfItems"\s*:\s*0/.test(top)&&/Exact supplier identity and stock were checked/i.test(top))issues.push('canonical_zero_stock_misleading_verification_copy');
+ }
+ if(!manifest||!Array.isArray(manifest.products))issues.push('canonical_retail_manifest_uninspected');
+ else if(!physicalApproved&&manifest.products.length>0)issues.push('canonical_unapproved_physical_media_manifest');
+ if(!queue||!Array.isArray(queue.items))issues.push('canonical_social_queue_uninspected');
+ else if(!physicalApproved&&queue.items.some(item=>item?.offerType==='physical'&&/ready|publish|schedule/i.test(String(item.status||''))))issues.push('canonical_unapproved_physical_social_queue');
+ if(queue?.items?.some(item=>item?.offerType==='physical'&&item.channel==='youtube'))issues.push('canonical_educational_youtube_retail_contamination');
+ return {safe:issues.length===0,issues,physicalManifestCount:Array.isArray(manifest?.products)?manifest.products.length:null,physicalQueuedCount:Array.isArray(queue?.items)?queue.items.filter(x=>x?.offerType==='physical').length:null,rule:'Read-only evidence check. A passing audit does not authorize physical checkout, supplier orders, media use, or publication.'};
+}
+
+export async function auditCanonicalRetailStorefront(origin='https://clean.prismbayai.com'){
+ const paths=['/','/shipping.html','/top-15/','/media/retail-shorts/manifest.json','/media/social/distribution-queue.json'];
+ const pages=await Promise.all(paths.map(async path=>{try{return await fetchText(origin,path);}catch{return {path,ok:false,status:null,text:''};}}));
+ const parse=path=>{const p=pages.find(x=>x.path===path);if(!p?.ok)return null;try{return JSON.parse(p.text);}catch{return null;}};
+ return {origin,checkedAt:new Date().toISOString(),...auditCanonicalRetailSnapshot({pages:pages.filter(p=>p.path.endsWith('/')||p.path==='/shipping.html'),manifest:parse('/media/retail-shorts/manifest.json'),queue:parse('/media/social/distribution-queue.json')})};
+}
+
 export async function main(){
   const manifest=JSON.parse(await fs.readFile('config/store-backend-swarm.json','utf8'));
   const report=await auditCommerceSurfaces(manifest.storeOrigin);
   report.legacyExposure=manifest.legacyStoreOrigin
     ? await auditLegacyStorefront(manifest.legacyStoreOrigin)
     : {safe:false,issues:['legacy_origin_not_configured']};
+  report.canonicalRetailExposure=await auditCanonicalRetailStorefront();
   await fs.mkdir('growth-reports',{recursive:true});
   await fs.writeFile('growth-reports/commerce-surface-audit.json',JSON.stringify(report,null,2)+'\n');
   console.log(JSON.stringify({technicalSurfaceReady:report.technicalSurfaceReady,productCount:report.products.productCount,merchantItems:report.merchant.itemCount,sitemapUrls:report.sitemap.urlCount,issueCount:report.issueCount,legacyCheckoutLinks:report.legacyExposure.directCheckoutLinkCount??null,legacyInStockRows:report.legacyExposure.inStockFeedRowCount??null,legacySafe:report.legacyExposure.safe},null,2));
