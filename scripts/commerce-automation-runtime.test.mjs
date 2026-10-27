@@ -28,7 +28,8 @@ const baseEvent = Object.freeze({
 const verifiedEvidence = {
   verifiedPaidOrderRefs: new Set(['PB-1001']),
   verifiedDeliveredOrderRefs: new Set(['PB-1001']),
-  verifiedRefundOrderRefs: new Set(['PB-1001'])
+  verifiedRefundOrderRefs: new Set(['PB-1001']),
+  verifiedShipmentRefs: new Set([JSON.stringify(['PB-1001', 'tracking:PB1001'])])
 };
 
 async function storeFor(t) {
@@ -41,6 +42,40 @@ test('abandonment fails closed without consent', () => {
   const result = validateAutomationEvent({ ...baseEvent, type: 'checkout_abandoned', consent: false });
   assert.equal(result.ok, false);
   assert.ok(result.reasons.includes('consent_required_for_abandonment'));
+});
+
+test('abandonment requires independently verified, recipient-bound consent', () => {
+  const event = { ...baseEvent, type: 'checkout_abandoned', consent: true };
+  const untrusted = routeCommerceEvent(event);
+  assert.equal(untrusted.accepted, false);
+  assert.ok(untrusted.reasons.includes('consent_evidence_not_verified'));
+  assert.equal(untrusted.jobs.length, 0);
+  const wrongRecipient = routeCommerceEvent(event, { verifiedConsentRecipientRefs: new Set(['someone-else']) });
+  assert.ok(wrongRecipient.reasons.includes('consent_evidence_not_verified'));
+  const invalidProof = routeCommerceEvent(event, { verifiedConsentRecipientRefs: [baseEvent.recipientRef] });
+  assert.ok(invalidProof.reasons.includes('consent_evidence_not_verified'));
+  const verified = routeCommerceEvent(event, { verifiedConsentRecipientRefs: new Set([baseEvent.recipientRef]) });
+  assert.equal(verified.accepted, true);
+  assert.equal(verified.jobs.length, 1);
+  assert.equal(verified.jobs[0].operation, 'abandonment');
+  assert.equal(verified.liveEmailAttempted, false);
+});
+
+test('shipment notification requires independent order-and-tracking evidence', () => {
+  const event = { ...baseEvent, type: 'shipment_update', trackingRef: 'tracking:PB1001' };
+  const paidOnly = routeCommerceEvent(event, { verifiedPaidOrderRefs: verifiedEvidence.verifiedPaidOrderRefs });
+  assert.equal(paidOnly.accepted, false);
+  assert.ok(paidOnly.reasons.includes('shipment_not_verified'));
+  assert.equal(paidOnly.jobs.length, 0);
+  const wrongTracking = routeCommerceEvent({ ...event, trackingRef: 'tracking:OTHER' }, verifiedEvidence);
+  assert.ok(wrongTracking.reasons.includes('shipment_not_verified'));
+  const missingTracking = routeCommerceEvent({ ...event, trackingRef: null }, verifiedEvidence);
+  assert.ok(missingTracking.reasons.includes('shipment_not_verified'));
+  const verified = routeCommerceEvent(event, verifiedEvidence);
+  assert.equal(verified.accepted, true);
+  assert.equal(verified.jobs.length, 1);
+  assert.equal(verified.jobs[0].operation, 'shipped');
+  assert.equal(verified.liveEmailAttempted, false);
 });
 
 test('untrusted payment and delivery flags never queue lifecycle messages', () => {

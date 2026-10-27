@@ -97,11 +97,24 @@ export function validateAutomationEvent(input = {}, evidence = {}) {
   if (input.productRef && !productRef) reasons.push('invalid_product_ref');
   if (input.trackingRef && !trackingRef) reasons.push('invalid_tracking_ref');
   if (refundAmountUsd !== null && (!Number.isFinite(refundAmountUsd) || refundAmountUsd < 0 || refundAmountUsd > 100000)) reasons.push('invalid_refund_amount');
-  if (type === 'checkout_abandoned' && !consent) reasons.push('consent_required_for_abandonment');
+  if (type === 'checkout_abandoned') {
+    if (!consent) reasons.push('consent_required_for_abandonment');
+    // A caller-provided consent flag is not permission to contact a customer.
+    // The trusted consent adapter must independently bind consent to the recipient.
+    if (!(evidence.verifiedConsentRecipientRefs instanceof Set) ||
+        !evidence.verifiedConsentRecipientRefs.has(recipientRef)) {
+      reasons.push('consent_evidence_not_verified');
+    }
+  }
   if (PAID_ORDER_EVENTS.has(type)) {
     if (!orderRef) reasons.push('paid_order_ref_required');
     else if (!(evidence.verifiedPaidOrderRefs instanceof Set) ||
         !evidence.verifiedPaidOrderRefs.has(orderRef)) reasons.push('paid_order_not_verified');
+  }
+  if (type === 'shipment_update' &&
+      (!trackingRef || !(evidence.verifiedShipmentRefs instanceof Set) ||
+        !evidence.verifiedShipmentRefs.has(JSON.stringify([orderRef, trackingRef])))) {
+    reasons.push('shipment_not_verified');
   }
   if (type === 'delivery_confirmed' &&
       (!deliveryVerified || !(evidence.verifiedDeliveredOrderRefs instanceof Set) ||
