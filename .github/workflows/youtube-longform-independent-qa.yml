@@ -6,6 +6,12 @@ on:
     paths:
       - '.github/workflows/youtube-longform-independent-qa.yml'
       - 'public/youtube/longform/PB-AGENT-ACCESS-001/**'
+  # GitHub does not fire a push workflow when a renderer commits with GITHUB_TOKEN.
+  # Trigger independent QA after the studio run completes successfully.
+  workflow_run:
+    workflows: ['PrismBay AI Original Long-Form Studio']
+    types: [completed]
+    branches: [main]
   workflow_dispatch:
 
 permissions:
@@ -17,7 +23,9 @@ concurrency:
 
 jobs:
   review:
-    if: github.actor != 'github-actions[bot]'
+    if: >-
+      (github.event_name == 'workflow_run' && github.event.workflow_run.conclusion == 'success') ||
+      (github.event_name != 'workflow_run' && github.actor != 'github-actions[bot]')
     runs-on: ubuntu-latest
     timeout-minutes: 35
     steps:
