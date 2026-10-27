@@ -110,6 +110,7 @@ test('unauthenticated, stale, future, undated or incomplete supplier evidence ca
   {...report,candidates:[{...candidate,observedAt:iso(6*60_000)}]},
   {...report,candidates:[{...candidate,observedSupplierSku:null}]},
   {...report,candidates:[{...candidate,observedVariantSku:null}]},
+  {...report,candidates:[{...candidate,observedVariantSku:'CJYD245844002BY'}]}, // unrelated garment-steamer variant
   {...report,candidates:[{...candidate,variantStockVerified:false}]}
  ]){
   const result=assess(bad);
