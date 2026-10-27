@@ -14,5 +14,6 @@
   "human_visual_review": "PENDING",
   "publication_approved": false,
   "published": false,
-  "paid_spend_usd": 0
+  "paid_spend_usd": 0,
+  "audio_mastering": "-3dB attenuation applied after independent QA detected 0dB peak"
 }
