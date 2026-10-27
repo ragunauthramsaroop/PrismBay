@@ -21,3 +21,9 @@ Sole target: UCw2hs85TzIpdKwJtG-BSxzQ (@PrismBayAI). Metricool brand 6945443. Pa
 2. Verify first-frame hook, final frame, mobile subtitle legibility, and all seven scene transitions on the approved export. Preserve the current hash or generate a new signed QA manifest if edited.
 3. Verify post 407245436 becomes publicly visible after its scheduled time and capture its real YouTube video ID before starting 6h/24h/72h/7d experiments.
 4. Do not schedule the Unit Economics Short while its release gate is closed. Keep long-form Agent Permissions issue #503 independent and unpublished.
+
+## Monetization policy verification (official YouTube Help, accessed 2026-10-27)
+- Official YouTube Help confirms new applicants for full ads/Premium after 2027-02-01 need 1,000 subscribers plus either 8,000 qualified long-form watch hours (365 days) or 20 million qualified Shorts views (90 days). Already accepted YPP channels are unaffected. Source: https://support.google.com/youtube/answer/12843009
+- Official expanded YPP availability list does not include Guyana (French Guiana is listed separately). The channel's registered country has NOT been inspected, so do not infer the channel's actual eligibility. Source: https://support.google.com/youtube/answer/13429240
+- Public long-form watch hours and qualified Shorts feed views have distinct eligibility rules. Metricool's aggregate views do not establish either threshold. Source: https://support.google.com/youtube/answer/72851
+- Monetization next step: verify the channel's registered country and eligibility status inside YouTube Studio Earn when browser authorization becomes available. Do not change the channel country to misrepresent residence or create a replacement channel.
