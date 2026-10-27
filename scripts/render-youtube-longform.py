@@ -255,7 +255,7 @@ def render_executive_scene(chapter_index, chapter_title, slide_index, total, nar
             3: ["REQUEST", "CHECK", "DRAFT", "BUYER REVIEW", "LOG"],
             4: ["PROPOSE", "APPROVE", "VALIDATE", "EXECUTE", "AUDIT"],
             5: ["BASELINE", "TIME", "CASH", "EXCEPTIONS", "DECIDE"],
-            6: ["INJECT", "RESTRICT", "DENY", "RECOVER", "RECORD"],
+            6: ["UNTRUSTED DOC", "BANK CHANGE", "STALE APPROVAL", "TOOL FAILURE", "REVIEWER DENIAL"],
             7: ["MAP", "ASSIGN", "TEST", "MEASURE", "EXPAND"]
         }[chapter_index]
         colors = [CYAN, GREEN, AMBER, RED, CYAN]
