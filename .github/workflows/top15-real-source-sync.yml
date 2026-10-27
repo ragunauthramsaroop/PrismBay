@@ -1,0 +1,72 @@
+name: Keep PrismBay Public Physical Products Real
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '55 0,4,8,12,16,20 * * *'
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/top15-real-source-sync.yml'
+      - 'scripts/top15-real-source-sync.mjs'
+permissions:
+  contents: write
+concurrency:
+  group: prismbay-real-catalog-sync
+  cancel-in-progress: false
+jobs:
+  real-source-sync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Remove any CJ item without current exact supplier and variant evidence
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          for attempt in 1 2 3; do
+            git fetch origin main
+            git reset --hard origin/main
+            node scripts/top15-real-source-sync.mjs
+            node --test scripts/top15-publish-contract.test.mjs
+            git add storefront/top-15/index.html
+            if git diff --cached --quiet; then
+              echo 'Source already shows only current authentic supplier products.'
+              break
+            fi
+            git commit -m 'chore: remove unsupported physical records from public catalog'
+            if git push origin HEAD:main; then break; fi
+            echo "Real catalog changed concurrently; attempt $attempt"
+            if [ "$attempt" = 3 ]; then exit 1; fi
+            sleep "$((attempt * 2))"
+          done
+      - name: Publish exact checked source directly to the Pages branch
+        shell: bash
+        run: |
+          set -euo pipefail
+          source_file="$RUNNER_TEMP/verified-only-index.html"
+          git fetch origin main
+          git show origin/main:storefront/top-15/index.html > "$source_file"
+          for attempt in 1 2 3; do
+            git fetch origin gh-pages
+            git checkout --force -B real-catalog-publication origin/gh-pages
+            mkdir -p top-15
+            cp "$source_file" top-15/index.html
+            git add top-15/index.html
+            if git diff --cached --quiet; then
+              echo 'Published storefront is already aligned to the verified source.'
+              exit 0
+            fi
+            git -c user.name='github-actions[bot]' -c user.email='41898282+github-actions[bot]@users.noreply.github.com' commit -m 'chore: publish verified-only real product catalog'
+            if git push origin HEAD:gh-pages; then exit 0; fi
+            echo "Pages branch moved concurrently; attempt $attempt"
+            if [ "$attempt" = 3 ]; then exit 1; fi
+            sleep "$((attempt * 2))"
+          done
