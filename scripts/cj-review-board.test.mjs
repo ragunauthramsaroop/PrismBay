@@ -278,3 +278,40 @@ test('final buyer ZIP approval rejects country, example and missing quote scope'
   assert.equal(verified.candidates[0].checkoutAllowed, true);
   assert.equal(verified.saleReadyCount, 1);
 });
+
+test('unauthenticated CJ reports never confer product identity, variant stock, freight or sale readiness', () => {
+ const authorization = {
+  ownerAuthorized: true, paidSpendAuthorized: false, bulkOutreachAuthorized: false,
+  media: { promotionMediaRightsVerified: true, policy: 'original_graphics_and_original_copy_only',
+   supplierMediaAuthorized: false, thirdPartyMediaAuthorized: false },
+  promotion: { automaticPromotionAllowedAfterAllOtherGates: true },
+  checkoutInfrastructure: { deployed: true, stripeWebhookSecretConfigured: true,
+   verifiedCheckoutSkus: ['garment-steamer'] },
+ };
+ const row = {
+  slug: 'garment-steamer', candidate: 'Portable Garment Steamer',
+  supplierVerified: true, variantInventoryVerified: true, freightVerified: true,
+  finalZipFreightVerified: true, freightQuoteScope: 'buyer_destination_zip',
+  fulfillmentRouteVerified: true,
+  product: { name: 'USB Handheld Garment Steamer Household Portable Electric Iron' },
+ };
+ for (const authentication of [undefined, 'denied', 'expired']) {
+  const review = buildCJReview({...base, authentication, results: [row]}, authorization);
+  const candidate = review.candidates[0];
+  assert.equal(review.authenticationVerified, false);
+  assert.equal(review.independentProductMatches, 0);
+  assert.equal(candidate.independentIdentityMatch, null);
+  assert.equal(review.verifiedVariantCount, 0);
+  assert.equal(review.freightEstimateCount, 0);
+  assert.equal(review.finalZipFreightCount, 0);
+  assert.equal(candidate.checkoutAllowed, false);
+  assert.equal(candidate.fulfillmentRouteVerified, false);
+  assert.equal(candidate.automaticPromotionAllowed, false);
+  assert.equal(review.saleReadyCount, 0);
+  assert.equal(candidate.status, 'supplier_authentication_required');
+ }
+ const verified = buildCJReview({...base, results: [row]}, authorization);
+ assert.equal(verified.authenticationVerified, true);
+ assert.equal(verified.independentProductMatches, 1);
+ assert.equal(verified.verifiedVariantCount, 1);
+});
