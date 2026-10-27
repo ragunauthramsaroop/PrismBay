@@ -1,6 +1,6 @@
 # PrismBay AI | PB-AI-UNIT-ECON-20261027 | Original Short production and experiment brief
 
-Status: RESEARCHED_SCRIPT_READY, NOT RENDERED, NOT SCHEDULED, NOT PUBLISHED.
+Status: RENDERED_LOCAL_QA_DRAFT, AUDIO_MASTERED, NOT FULLY REVIEWED, NOT SCHEDULED, NOT PUBLISHED.
 Sole authorized channel: UCw2hs85TzIpdKwJtG-BSxzQ (@PrismBayAI). Metricool brand 6945443. Paid spend: USD 0.
 Prepared: 2026-10-27 America/Guyana.
 
@@ -63,3 +63,16 @@ Publish time: UNSCHEDULED. Inspect existing Metricool posts and exact channel be
 Success gate: after verified public upload, collect 6h/24h/72h/7d views, engaged views/retention proxy, watch minutes, average view duration, shares, comments, subscribers gained/lost and traffic sources where available. If insufficient data, classify INSUFFICIENT_DATA. SCALE only with adequate comparable Shorts and >30% improvement in qualified watch time or subscriber conversion. RETEST on observed weak hook with strong post-hook retention. MODIFY on established abandonment. STOP for inaccuracies, duplication or policy risk.
 Allocation: place behind existing QA-held Agent Permissions and Agent Testing videos, unless fresh performance evidence supports prioritizing unit economics. This is a research/script deliverable, not a video or publication.
 Release gate: CLOSED. Require new narration, finished original scenes, audio/caption/visual QA, exact asset hash, and no duplicate schedule before any publication.
+
+## 2026-10-27 08:46 America/Guyana production and release-gate update
+This section supersedes the earlier "not rendered" status. An original 1080x1920, 30 fps, 63.411-second MP4 was rendered successfully by the existing free GitHub Actions workflow 40499385656. All workflow steps completed successfully. The rendered draft was obtained for independent QA in the conversation runtime, but the locally mastered version has **not** been uploaded to GitHub or Metricool.
+
+Original QA draft SHA-256: `92b8f00accd4e24e6f03c7cbc02bb5753deafa4aaa0ea428555cf9642b618734`.
+Audio-mastered QA draft SHA-256: `fa3a5578970c4a7f9c6a1748f6404fa66c97073812d58648762c7fe0eb16d765`.
+Audio master method: video stream copied unchanged, AAC audio remastered using FFmpeg loudnorm, target -16 LUFS / -1.5 dBTP. Independent EBU R128 measurement after encoding: integrated -16.9 LUFS, true peak -1.3 dBFS, compared with original integrated -18.9 LUFS and +0.2 dBFS true peak. The master reduces intersample overshoot risk without altering visuals. Decode validation found no reported media errors. Sampled contact sheet was visually reviewed; the comparison is visibly marked as a fictional example, and both rounded accepted-result calculations match the script.
+
+Numerical validation: Option A $390/700=$0.55714 -> $0.56, Option B $430/900=$0.47778 -> $0.48. Vendor's 5x claim is attributed to early Cadence results reported by Reuters on October 26, not a verified PrismBay test. Do not imply the fictional options are Cadence models. The 63.41-second runtime exceeds the 50-60-second original target but remains a Shorts-compatible duration, subject to YouTube's applicable eligibility and upload validation.
+
+Verified Metricool brand 6945443 maps to sole channel `UCw2hs85TzIpdKwJtG-BSxzQ`. On October 27 at approximately 08:46 local, the October 26-November 4 scheduled-post calendar contained exactly one pending Short: post 407245436, due October 27 at 16:00 local. No additional post was scheduled. Latest Metricool subscriber observation: 7. Video-level watch-time and retention observations remain unavailable.
+
+**Release gate: CLOSED.** Full uninterrupted listening and word-level caption-to-audio timing review have not been completed. Do not publish either draft, mark publicationApproved true, or treat automated technical checks as editorial signoff. Next step: review the mastered draft against every spoken sentence and caption cue, check visual transitions on-device, verify public upload channel and duplicate calendar again, then upload only the approved final asset. Keep the long-form Agent Permissions issue #503 independent and unpublished until its own QA clears.
