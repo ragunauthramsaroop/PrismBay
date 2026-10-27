@@ -50,3 +50,30 @@ test('rejects contradictory live-offer component counts in supplier titles', () 
   assert.equal(matchesIntendedProduct({ slug: 'drain-catcher' }, 'Sink Drain Filter Catcher'), false);
   assert.equal(matchesIntendedProduct({ slug: 'crevice' }, 'Curved Toilet Brush Gap Cleaning Tool Bathroom Accessory'), false);
 });
+
+test('rejects live CJ matches with incompatible product form factors',()=>{
+ const falseMatches=[
+  ['scrubber','Electric Bath Scrubber, Shower Brush, Bathing Back-scrubbing Magic Tool, Long-handled Automatic Bath Brush, Massager'],
+  ['pethair','Pets Comb Brush Massage Cleaning Remove Hair Comb Pet Products'],
+  ['garment-steamer','Standing Garment Steamer'],
+  ['home-caddy','Stoneware Purple Sand Tea Caddy Sealed Storage'],
+  ['cordless-handheld-vacuum','Car Vacuum Cleaner 120W Strong Suction Wet And Dry Car Vacuum Cleaner Handheld High Power'],
+  ['hanging-closet-organizer','Wall Mounted Storage Bag Door Closet Hanging Storage Bag Organizer Waterproof 3 Pockets Pouch'],
+  ['roll-up-dish-rack','Suction Cup Socks Foldable Drying Punch Free Towel Rack']
+ ];
+ for(const [slug,title] of falseMatches){
+  assert.equal(matchesIntendedProduct({slug},title),false,slug+': '+title);
+ }
+ const valid=[
+  ['scrubber','5-in-1 Electric Spin Scrubber Cleaning Tool'],
+  ['pethair','Reusable Pet Hair Remover Roller'],
+  ['garment-steamer','Portable Garment Clothes Steamer'],
+  ['home-caddy','Portable Cleaning Supply Caddy'],
+  ['cordless-handheld-vacuum','Cordless Portable Handheld Vacuum Cleaner'],
+  ['hanging-closet-organizer','Hanging Closet Shelf Storage Organizer'],
+  ['roll-up-dish-rack','Roll-Up Dish Drying Rack']
+ ];
+ for(const [slug,title] of valid){
+  assert.equal(matchesIntendedProduct({slug},title),true,slug+': '+title);
+ }
+});
