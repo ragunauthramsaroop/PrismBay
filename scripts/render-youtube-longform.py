@@ -108,7 +108,7 @@ def render_executive_scene(chapter_index, chapter_title, slide_index, total, nar
     slides: a light action ledger, a dark 2x2 permission map, and a five-step
     evidence flow. Every slide is original and tied to its chapter.
     """
-    summary = " ".join(re.split(r"(?<=[.!?])\\s+(?=[A-Z])", narration)[:2])
+    summary = " ".join(re.split(r"(?<=[.!?])\s+(?=[A-Z])", narration)[:2])
     if mode == 2:
         img = Image.new("RGB", (W, H), (238, 245, 249))
         d = ImageDraw.Draw(img)
