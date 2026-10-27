@@ -32,7 +32,7 @@
 6. Thumbnail/Packaging Agent: retained existing original cover concepts. Shorts native A/B testing not attempted.
 7. Publisher/SEO Agent: verified exact Metricool channel and pending post before any scheduling. No new post.
 8. Analytics Agent: refreshed subscriber/view rows, checked video-level and traffic-source availability, and preserved missing observations.
-9. Portfolio Allocator: Unit Economics = MODIFY / QA HOLD, Agent Permissions = QA HOLD, scheduled Loan ROI = WAIT FOR PUBLICATION. No SCALE verdict without adequate video-level evidence.
+9. Portfolio Allocator: Unit Economics = QA HOLD / INSUFFICIENT_DATA, Agent Permissions = QA HOLD / INSUFFICIENT_DATA, scheduled Loan ROI = WAIT FOR PUBLICATION. No SCALE, RETEST, MODIFY or STOP performance verdict without adequate video-level evidence.
 
 ## Monetization and policy
 - YouTube's official 2026 announcement sets 1 February 2027 as the change date for new full ads/Premium applicants, with 8,000 qualified watch hours or 20 million qualified Shorts views, plus subscriber requirements. Earlier 500-subscriber fan-funding route remains separate.
