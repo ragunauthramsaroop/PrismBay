@@ -1,0 +1,74 @@
+name: PrismBay AI Unit Economics Short Draft
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/youtube_visual_unit_economics.py'
+      - 'scripts/render-unit-economics-draft.py'
+      - 'scripts/validate-unit-economics-scenes.py'
+      - 'content/youtube/special-requests/ai-cost-per-accepted-result-2026-10-27.json'
+      - '.github/workflows/prismbay-unit-economics-short.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: prismbay-unit-economics-draft-\${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  draft:
+    runs-on: ubuntu-latest
+    timeout-minutes: 18
+    steps:
+      - name: Checkout sole authorized channel production repository
+        uses: actions/checkout@v4
+
+      - name: Install free production tools
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y ffmpeg espeak-ng fonts-dejavu-core
+          python3 -m pip install --disable-pip-version-check --no-input pillow
+          python3 -m pip install --disable-pip-version-check --no-input piper-tts || true
+
+      - name: Validate original visual treatment
+        run: |
+          python3 scripts/validate-unit-economics-scenes.py content/youtube/special-requests/ai-cost-per-accepted-result-2026-10-27.json
+
+      - name: Render original unpublished draft
+        run: |
+          python3 scripts/render-unit-economics-draft.py content/youtube/special-requests/ai-cost-per-accepted-result-2026-10-27.json
+
+      - name: Technical media and release-gate checks
+        run: |
+          python3 - <<'PY'
+          import hashlib,json,subprocess
+          from pathlib import Path
+          slug='ai-cost-per-accepted-result-2026-10-27'
+          p=Path('public/youtube')/(slug+'.mp4')
+          m=json.loads((p.with_suffix('.json')).read_text())
+          assert p.exists() and p.stat().st_size>100000
+          assert m['channelId']=='UCw2hs85TzIpdKwJtG-BSxzQ'
+          assert m['publicationApproved'] is False and m['paidSpendUSD']==0
+          assert hashlib.sha256(p.read_bytes()).hexdigest()==m['sha256']
+          info=json.loads(subprocess.check_output(['ffprobe','-v','error','-show_streams','-show_format','-of','json',str(p)]))
+          video=next(x for x in info['streams'] if x['codec_type']=='video')
+          audio=next(x for x in info['streams'] if x['codec_type']=='audio')
+          assert (video['width'],video['height'])==(1080,1920)
+          seconds=float(info['format']['duration'])
+          assert 35<seconds<95,seconds
+          print('Technical QA passed. Duration:',round(seconds,2),'seconds. Audio codec:',audio['codec_name'])
+          print('PUBLICATION BLOCKED pending full audiovisual and captions QA.')
+          PY
+
+      - name: Preserve draft for independent QA, never publish
+        uses: actions/upload-artifact@v4
+        with:
+          name: prismbay-ai-unit-economics-qa-draft
+          path: |
+            public/youtube/ai-cost-per-accepted-result-2026-10-27.mp4
+            public/youtube/ai-cost-per-accepted-result-2026-10-27.json
+            .youtube-render/ai-cost-per-accepted-result-2026-10-27/*.png
+          retention-days: 7
