@@ -1,6 +1,6 @@
 {
   "schemaVersion": 3,
-  "checkedAt": "2026-10-27T12:16:09.485Z",
+  "checkedAt": "2026-10-27T12:18:23.860Z",
   "market": "US",
   "authenticationVerified": true,
   "sourceCandidateCount": 18,
@@ -47,7 +47,7 @@
       "checkoutAllowed": false,
       "promotionPolicyAuthorized": true,
       "automaticPromotionAllowed": false,
-      "observedAt": "2026-10-27T12:16:09.485Z"
+      "observedAt": "2026-10-27T12:18:23.860Z"
     },
     {
       "slug": "pethair",
@@ -75,7 +75,7 @@
       "checkoutAllowed": false,
       "promotionPolicyAuthorized": true,
       "automaticPromotionAllowed": false,
-      "observedAt": "2026-10-27T12:16:09.485Z"
+      "observedAt": "2026-10-27T12:18:23.860Z"
     },
     {
       "slug": "crevice",
@@ -103,7 +103,7 @@
       "checkoutAllowed": false,
       "promotionPolicyAuthorized": true,
       "automaticPromotionAllowed": false,
-      "observedAt": "2026-10-27T12:16:09.485Z"
+      "observedAt": "2026-10-27T12:18:23.860Z"
     },
     {
       "slug": "pressure-washer",
@@ -131,7 +131,7 @@
       "checkoutAllowed": false,
       "promotionPolicyAuthorized": true,
       "automaticPromotionAllowed": false,
-      "observedAt": "2026-10-27T12:16:09.485Z"
+      "observedAt": "2026-10-27T12:18:23.860Z"
     },
     {
       "slug": "mattress-vacuum",
@@ -159,7 +159,7 @@
       "checkoutAllowed": false,
       "promotionPolicyAuthorized": true,
       "automaticPromotionAllowed": false,
-      "observedAt": "2026-10-27T12:16:09.485Z"
+      "observedAt": "2026-10-27T12:18:23.860Z"
     },
     {
       "slug": "garment-steamer",
@@ -187,7 +187,7 @@
       "checkoutAllowed": false,
       "promotionPolicyAuthorized": true,
       "automaticPromotionAllowed": false,
-      "observedAt": "2026-10-27T12:16:09.485Z"
+      "observedAt": "2026-10-27T12:18:23.860Z"
     },
     {
       "slug": "mini-mop",
@@ -215,7 +215,7 @@
       "checkoutAllowed": false,
       "promotionPolicyAuthorized": true,
       "automaticPromotionAllowed": false,
-      "observedAt": "2026-10-27T12:16:09.485Z"
+      "observedAt": "2026-10-27T12:18:23.860Z"
     },
     {
       "slug": "drain-catcher",
@@ -243,7 +243,7 @@
       "checkoutAllowed": false,
       "promotionPolicyAuthorized": true,
       "automaticPromotionAllowed": false,
-      "observedAt": "2026-10-27T12:16:09.485Z"
+      "observedAt": "2026-10-27T12:18:23.860Z"
     },
     {
       "slug": "home-caddy",
@@ -271,7 +271,7 @@
       "checkoutAllowed": false,
       "promotionPolicyAuthorized": true,
       "automaticPromotionAllowed": false,
-      "observedAt": "2026-10-27T12:16:09.485Z"
+      "observedAt": "2026-10-27T12:18:23.860Z"
     },
     {
       "slug": "cordless-handheld-vacuum",
@@ -299,7 +299,7 @@
       "checkoutAllowed": false,
       "promotionPolicyAuthorized": true,
       "automaticPromotionAllowed": false,
-      "observedAt": "2026-10-27T12:16:09.485Z"
+      "observedAt": "2026-10-27T12:18:23.860Z"
     },
     {
       "slug": "insulated-tumbler",
@@ -327,7 +327,7 @@
       "checkoutAllowed": false,
       "promotionPolicyAuthorized": true,
       "automaticPromotionAllowed": false,
-      "observedAt": "2026-10-27T12:16:09.485Z"
+      "observedAt": "2026-10-27T12:18:23.860Z"
     },
     {
       "slug": "screen-protector",
@@ -355,7 +355,7 @@
       "checkoutAllowed": false,
       "promotionPolicyAuthorized": true,
       "automaticPromotionAllowed": false,
-      "observedAt": "2026-10-27T12:16:09.485Z"
+      "observedAt": "2026-10-27T12:18:23.860Z"
     },
     {
       "slug": "multiport-charger",
@@ -383,7 +383,7 @@
       "checkoutAllowed": false,
       "promotionPolicyAuthorized": true,
       "automaticPromotionAllowed": false,
-      "observedAt": "2026-10-27T12:16:09.485Z"
+      "observedAt": "2026-10-27T12:18:23.860Z"
     },
     {
       "slug": "motion-sensor-cabinet-lights",
@@ -411,7 +411,7 @@
       "checkoutAllowed": false,
       "promotionPolicyAuthorized": true,
       "automaticPromotionAllowed": false,
-      "observedAt": "2026-10-27T12:16:09.485Z"
+      "observedAt": "2026-10-27T12:18:23.860Z"
     },
     {
       "slug": "car-phone-mount",
@@ -439,7 +439,7 @@
       "checkoutAllowed": false,
       "promotionPolicyAuthorized": true,
       "automaticPromotionAllowed": false,
-      "observedAt": "2026-10-27T12:16:09.485Z"
+      "observedAt": "2026-10-27T12:18:23.860Z"
     },
     {
       "slug": "travel-packing-cubes",
@@ -467,7 +467,7 @@
       "checkoutAllowed": false,
       "promotionPolicyAuthorized": true,
       "automaticPromotionAllowed": false,
-      "observedAt": "2026-10-27T12:16:09.485Z"
+      "observedAt": "2026-10-27T12:18:23.860Z"
     },
     {
       "slug": "roll-up-dish-rack",
@@ -495,7 +495,7 @@
       "checkoutAllowed": false,
       "promotionPolicyAuthorized": true,
       "automaticPromotionAllowed": false,
-      "observedAt": "2026-10-27T12:16:09.485Z"
+      "observedAt": "2026-10-27T12:18:23.860Z"
     },
     {
       "slug": "hanging-closet-organizer",
@@ -523,7 +523,7 @@
       "checkoutAllowed": false,
       "promotionPolicyAuthorized": true,
       "automaticPromotionAllowed": false,
-      "observedAt": "2026-10-27T12:16:09.485Z"
+      "observedAt": "2026-10-27T12:18:23.860Z"
     }
   ],
   "latestBatchCandidateCount": 18
