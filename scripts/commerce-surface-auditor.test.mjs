@@ -205,6 +205,30 @@ test('retail queue rejects unclassified YouTube routes even without commercial f
  assert.ok(report.issues.includes('canonical_educational_youtube_retail_contamination'));
 });
 
+
+test('retail queue blocks YouTube aliases and alternate destination fields',()=>{
+ const unsafe=[
+  {channel:'youtube_shorts'}, {channel:'YouTube Shorts'},
+  {channel:'yt'}, {platform:'YouTube'}, {destinationPlatform:'youtube'},
+  {targetChannel:'@PrismBayAI'}, {channelId:'UCw2hs85TzIpdKwJtG-BSxzQ'},
+  {destinationUrl:'https://www.youtube.com/shorts/example'},
+  {destinationUrl:'https://youtu.be/example'}
+ ];
+ const pages=[{path:'/',ok:true,text:'<html>Digital tools</html>'},
+  {path:'/shipping.html',ok:true,text:'<html>Physical checkout unavailable</html>'},
+  {path:'/top-15/',ok:true,text:'<html>No physical offers</html>'}];
+ for(const entry of unsafe){
+  const report=auditCanonicalRetailSnapshot({pages,manifest:{products:[]},
+   queue:{items:[{offerType:'digital',status:'draft',publishAllowed:false,...entry}]}});
+  assert.equal(report.safe,false,JSON.stringify(entry));
+  assert.ok(report.issues.includes('canonical_educational_youtube_retail_contamination'),JSON.stringify(entry));
+ }
+ const clean=auditCanonicalRetailSnapshot({pages,manifest:{products:[]},
+  queue:{items:[{channel:'tiktok',destinationUrl:'https://clean.prismbayai.com/top-15/',
+   offerType:'digital',status:'draft',publishAllowed:false}]}});
+ assert.equal(clean.safe,true);
+});
+
 test('retail queue rejects YouTube route case and whitespace variants',()=>{
  for(const channel of ['YouTube',' YOUTUBE ','youtube ']){
   const report=auditCanonicalRetailSnapshot({
