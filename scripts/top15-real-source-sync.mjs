@@ -24,7 +24,8 @@ export function currentPublicProducts(review){
      p.freightEstimateVerified!==true||!rule.sourceRegex.test(String(p.observedProduct||""))||
      !matchesIntendedProduct({slug:rule.slug},p.observedProduct)||
      !/^CJ[A-Z0-9]{6,35}$/.test(p.observedSupplierSku||"")||
-     !/^CJ[A-Z0-9]{6,35}$/.test(p.observedVariantSku||""))return [];
+     !/^CJ[A-Z0-9]{6,35}$/.test(p.observedVariantSku||"")||
+     !String(p.observedVariantSku||"").startsWith(String(p.observedSupplierSku||"")))return [];
   // Never refresh an undated or stale candidate by copying the report timestamp.
   const observed=Date.parse(p.observedAt||"");
   const observationAge=now-observed;
