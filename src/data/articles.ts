@@ -117,7 +117,7 @@ export const ARTICLES: Article[] = [
     title: "AI Loan Decisions in Minutes: How to Measure Real Business ROI",
     description: "What faster AI-assisted lending decisions prove, what they do not, and a fictional 200-case cost model for executives evaluating AI automation.",
     category: "ai-operations",
-    readTime: 7,
+    readTime: 5,
     linkedProducts: [],
     keywords: ["AI lending ROI", "AI loan decision automation", "cost per accepted decision", "AI automation business case", "Deutsche Bank AI loans"],
     seoTitle: "AI Loan Decisions in Minutes: The ROI Measurement Guide | PrismBay AI",
