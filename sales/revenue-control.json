@@ -1,13 +1,13 @@
 {
   "schemaVersion": 1,
-  "checkedAt": "2026-10-27T14:57:40.120Z",
+  "checkedAt": "2026-10-27T18:14:08.280Z",
   "priority": "paid_sales_from_verified_existing_offers",
   "activeOffer": {
-    "slug": "whitepaper",
-    "title": "Executive White Paper & Board Briefing System",
-    "priceUsd": 79,
-    "guideUrl": "https://clean.prismbayai.com/board-briefing-white-paper-template.html?utm_source=github_cloud&utm_medium=owned_educational_content&utm_campaign=organic_whitepaper_83014",
-    "checkoutUrl": "https://buy.stripe.com/bJe7sMgq25hNcCe6SAgnK0s?client_reference_id=owned_content_whitepaper"
+    "slug": "bundle",
+    "title": "PrismBay Executive Intelligence Bundle",
+    "priceUsd": 179,
+    "guideUrl": "https://clean.prismbayai.com/toolkits.html?utm_source=github_cloud&utm_medium=owned_educational_content&utm_campaign=organic_bundle_83015",
+    "checkoutUrl": "https://buy.stripe.com/eVqfZi5Lo7pV31Ea4MgnK0t?client_reference_id=owned_content_bundle"
   },
   "positioning": "baseline",
   "commercialEvidence": {
