@@ -1,5 +1,6 @@
 import fs from "node:fs/promises";
 import {verifyProviderProducts} from "./alternate-supplier-readiness.mjs";
+import {matchesIntendedProduct} from "./cj-match-policy.mjs";
 
 // Only genuine, exact source-matched supplier SKUs appear in the public
 // physical catalog. Descriptions and labels deliberately reflect the
@@ -14,19 +15,27 @@ export const publicRules=[
 const esc=v=>String(v??"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
 
 export function currentPublicProducts(review, alternateRegistry=null, shortlist=null){
+ // CJ records are not trustworthy without a current authenticated report.
+ // Keep independently verified alternative-provider evidence available.
  const now=Date.parse(review?.checkedAt||"");
- if(!Number.isFinite(now)||Date.now()-now>36*3600000)return [];
- const cj=publicRules.flatMap(rule=>{
+ const reportAge=Date.now()-now;
+ const cjFresh=review?.authenticationVerified===true &&
+  Number.isFinite(now) && reportAge>=-5*60000 && reportAge<=36*3600000;
+ const cj=cjFresh?publicRules.flatMap(rule=>{
   const p=review.candidates?.find(row=>row.slug===rule.slug);
   if(!p||p.independentIdentityMatch!==true||p.variantStockVerified!==true||
      p.freightEstimateVerified!==true||!rule.sourceRegex.test(String(p.observedProduct||""))||
+     !matchesIntendedProduct({slug:rule.slug},p.observedProduct)||
      !/^CJ[A-Z0-9]{6,35}$/.test(p.observedSupplierSku||"")||
-     !/^CJ[A-Z0-9]{6,35}$/.test(p.observedVariantSku||""))return [];
-  const observed=Date.parse(p.observedAt||review.checkedAt);
-  if(!Number.isFinite(observed)||now-observed>30*3600000)return [];
+     !/^CJ[A-Z0-9]{6,35}$/.test(p.observedVariantSku||"")||
+     !String(p.observedVariantSku||"").startsWith(String(p.observedSupplierSku||"")))return [];
+  // Report refreshes never renew a missing or expired individual stock check.
+  const observed=Date.parse(p.observedAt||"");
+  const age=now-observed;
+  if(!Number.isFinite(observed)||age< -5*60000||age>30*3600000)return [];
   // All permissions other than original graphics remain unresolved.
   return [{...rule,originalName:p.observedProduct,sku:p.observedSupplierSku,variant:p.observedVariantSku,provider:"CJ",source:"CJ"}];
- });
+ }):[];
  if(!alternateRegistry||!shortlist)return cj;
  const alternative=verifyProviderProducts(alternateRegistry,shortlist,Date.now()).approved.map(p=>({
    slug:p.slug,name:p.name,category:p.category,originalName:p.supplierTitle,
