@@ -111,6 +111,22 @@ jobs:
           print('PUBLICATION BLOCKED pending full audiovisual and captions QA.')
           PY
 
+      - name: Reject black frames and black flashes before QA handoff
+        run: |
+          python3 - <<'PY'
+          import re, subprocess
+          video='public/youtube/ai-cost-per-accepted-result-2026-10-27.mp4'
+          cmd=['ffmpeg','-hide_banner','-nostats','-i',video,
+               '-vf','blackdetect=d=0.025:pix_th=0.05','-an','-f','null','-']
+          result=subprocess.run(cmd,text=True,capture_output=True)
+          if result.returncode:
+              raise RuntimeError('Frame integrity scan failed: '+result.stderr[-1200:])
+          flashes=re.findall(r'black_start:([0-9.]+)',result.stderr)
+          if flashes:
+              raise RuntimeError('Black-frame retention defect at seconds: '+', '.join(flashes))
+          print('No black flashes detected. Publication approval remains false.')
+          PY
+
       - name: Preserve draft for independent QA, never publish
         uses: actions/upload-artifact@v4
         with:
