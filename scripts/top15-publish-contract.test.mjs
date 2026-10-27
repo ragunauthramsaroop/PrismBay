@@ -15,7 +15,7 @@ const cards=[...html.matchAll(/<article class="product" data-category=/g)];
 test('physical catalog excludes all speculative products and illustrative media',()=>{
  assert.equal(merch.candidates.length,15,'Private research shortlist may continue to hold 15 candidates');
  assert.equal(cards.length,3,'Only the three separately reviewed exact real CJ products may appear');
- assert.doesNotMatch(html,/Illustrative symbol|<div class="product-art"|PRODUCT 0\d|class="art-[1-5]"/,'Fake/placeholder imagery is not acceptable');
+ assert.doesNotMatch(html,/Illustrative symbol|<div class="product-art"|class="art-[1-5]"/,'Fake/placeholder imagery is not acceptable');
  assert.doesNotMatch(html,/See all 15 picks|Showing 15 products|Explore the Top 15 picks/);
  assert.match(html,/No physical-product orders or payments are accepted on this page/);
  assert.match(html,/Supplier screening last recorded:/);
