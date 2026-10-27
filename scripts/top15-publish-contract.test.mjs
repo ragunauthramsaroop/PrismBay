@@ -95,3 +95,14 @@ test("public cards expire at the earliest report or individual stock observation
  assert.match(rendered,/id="expiredEvidenceNotice"/);
  assert.match(rendered,/Date\.parse\(card\.dataset\.evidenceExpiresAt/);
 });
+
+// A variant identifier from a different supplier product is not inventory proof.
+test("supplier variant must belong to the exact observed product SKU",()=>{
+ const checkedAt=new Date().toISOString();
+ const candidate={slug:"screen-protector",observedProduct:"Mobile Phone Tempered Glass Screen Protector",
+  observedSupplierSku:"CJPB2377299",observedVariantSku:"CJPB237729905EV",
+  independentIdentityMatch:true,variantStockVerified:true,freightEstimateVerified:true,observedAt:checkedAt};
+ const report={checkedAt,authenticationVerified:true,candidates:[candidate]};
+ assert.deepEqual(currentPublicProducts(report).map(x=>x.slug),["screen-protector"]);
+ assert.deepEqual(currentPublicProducts({...report,candidates:[{...candidate,observedVariantSku:"CJYD245844002BY"}]}),[]);
+});
