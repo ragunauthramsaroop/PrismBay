@@ -1,0 +1,238 @@
+name: PrismBay AI original agent testing Short render
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/prismbay-agent-test-render.yml
+
+permissions:
+  contents: write
+
+concurrency:
+  group: prismbay-agent-test-render
+  cancel-in-progress: false
+
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Install zero-cost renderer
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg fonts-dejavu-core
+          python -m pip install --disable-pip-version-check pillow
+      - name: Download narration from free HeyGen synthesis
+        env:
+          AUDIO_URL: "https://resource2.heygen.ai/text_to_speech/2d8fe758daa343dd962c722f1ef8c64f/4db64fcc025a418dbf6f46cd94dcc404/id=295f8a83-ad5a-43ac-b927-27016e7fdc24.wav"
+        run: |
+          mkdir -p /tmp/prismbay-agent
+          curl --fail --location --silent --show-error --retry 2 --max-time 120 "$AUDIO_URL" -o /tmp/prismbay-agent/voice.wav
+          test "$(stat -c%s /tmp/prismbay-agent/voice.wav)" -gt 100000
+          ffprobe -v error -show_entries format=duration -of default=nw=1 /tmp/prismbay-agent/voice.wav
+      - name: Render eight original visual diagrams with accurate timed captions
+        run: |
+          cat > /tmp/prismbay-agent/render.py <<'PY'
+          from PIL import Image, ImageDraw, ImageFont
+          from pathlib import Path
+          import subprocess, json, math, os
+          ROOT=Path('/tmp/prismbay-agent')
+          OUT=ROOT/'scenes'; OUT.mkdir(exist_ok=True)
+          W,H=1080,1920
+          BG='#081324'; PANEL='#13233A'; PANEL2='#192D47'; WHITE='#F5F8FF'
+          MUTE='#A9BBD0'; TEAL='#32E4C4'; RED='#FF667C'; GOLD='#F9C86A'; BLUE='#75AFFF'
+          F='/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf'
+          FB='/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf'
+          DUR=[4.2,13.4,6.4,5.2,4.8,5.8,5.3,5.5]
+          def font(n,b=False):return ImageFont.truetype(FB if b else F,n)
+          def t(d,x,y,s,n=48,c=WHITE,b=False):
+              d.text((x,y),s,font=font(n,b),fill=c,stroke_width=0)
+          def box(d,xy,fill=PANEL,outline=None,r=28,width=3):
+              d.rounded_rectangle(xy,radius=r,fill=fill,outline=outline,width=width)
+          def line(d,xy,c=TEAL,w=8):d.line(xy,fill=c,width=w,joint='curve')
+          def circle(d,x,y,r,fill,outline=None,w=4):d.ellipse((x-r,y-r,x+r,y+r),fill=fill,outline=outline,width=w)
+          def base(idx,tag):
+              im=Image.new('RGB',(W,H),BG);d=ImageDraw.Draw(im)
+              for y in range(0,H,4):
+                  k=y/H
+                  d.line([(0,y),(W,y)],fill=(int(8+7*k),int(19+8*k),int(36+12*k)),width=4)
+              d.rectangle((0,0,14,H),fill=TEAL if idx in (2,3,4,7) else RED)
+              t(d,72,64,'PRISMBAY  /  AI SYSTEMS UNDER CONTROL',27,TEAL,True)
+              t(d,72,132,tag,30,MUTE)
+              d.line((72,186,1000,186),fill='#30465E',width=3)
+              t(d,72,1798,'@PrismBayAI  |  ORIGINAL ANALYSIS',25,MUTE,True)
+              t(d,952,1794,f'{idx+1:02d}/08',25,MUTE,True)
+              return im,d
+          def save(i,im):im.save(OUT/f'{i:02d}.png',optimize=True)
+          # 01 | incident opening
+          im,d=base(0,'A REPORTED TEST-ENVIRONMENT INCIDENT')
+          t(d,76,276,'WHEN A TEST',92,WHITE,True)
+          t(d,76,386,'REACHES LIVE',92,RED,True)
+          t(d,76,500,'SYSTEMS',92,WHITE,True)
+          box(d,(70,770,450,1045),PANEL,TEAL)
+          box(d,(630,770,1010,1045),PANEL,RED)
+          t(d,135,842,'TEST',75,TEAL,True)
+          t(d,710,842,'LIVE',75,RED,True)
+          line(d,(460,908,615,908),RED,15)
+          d.polygon([(615,883),(660,908),(615,933)],fill=RED)
+          t(d,115,1150,'A PROMPT IS NOT A FIREWALL',47,GOLD,True)
+          save(0,im)
+          # 02 | reported facts
+          im,d=base(1,'OCTOBER 26, 2026  /  REUTERS')
+          t(d,72,270,'FOUR TEST AGENTS',79,WHITE,True)
+          t(d,72,365,'REACHED LIVE SYSTEMS',60,RED,True)
+          for j in range(4):
+              x=112+(j%2)*490; y=615+(j//2)*230
+              box(d,(x,y,x+365,y+164),PANEL2,BLUE,r=24)
+              circle(d,x+73,y+80,36,BLUE)
+              t(d,x+136,y+58,'AGENT '+str(j+1),40,WHITE,True)
+          t(d,70,1140,'REPORTED ACCESS WINDOW',43,MUTE,True)
+          box(d,(70,1240,1010,1455),PANEL,RED,r=24)
+          t(d,132,1284,'10  TO  34',90,GOLD,True)
+          t(d,738,1312,'HOURS',38,WHITE,True)
+          t(d,80,1530,'Filing details reported by Reuters',30,MUTE)
+          save(1,im)
+          # 03 | prompt vs enforceable policy
+          im,d=base(2,'CONTROL PRINCIPLE')
+          t(d,72,276,'INSTRUCTIONS',83,WHITE,True)
+          t(d,72,379,'ARE NOT',83,GOLD,True)
+          t(d,72,482,'PERMISSIONS',83,TEAL,True)
+          box(d,(76,705,1002,940),PANEL,RED)
+          t(d,122,755,'PROMPT',56,RED,True)
+          t(d,122,842,'"Please do not access production"',32,WHITE)
+          line(d,(540,962,540,1050),MUTE,7)
+          d.polygon([(515,1035),(540,1080),(565,1035)],fill=MUTE)
+          box(d,(76,1120,1002,1430),PANEL2,TEAL)
+          t(d,122,1175,'ENFORCED CONTROL',49,TEAL,True)
+          t(d,122,1280,'No credential. No network route.',35,WHITE)
+          t(d,122,1340,'No permission. No action.',35,WHITE)
+          save(2,im)
+          # 04 | isolate environments
+          im,d=base(3,'CONTROL 01  /  NETWORK ISOLATION')
+          t(d,72,276,'SEPARATE TEST',80,WHITE,True)
+          t(d,72,376,'FROM LIVE',80,TEAL,True)
+          box(d,(74,670,1004,1030),PANEL,TEAL)
+          t(d,128,720,'TEST ENVIRONMENT',52,TEAL,True)
+          t(d,128,816,'Synthetic records',38,WHITE)
+          t(d,128,882,'No production credentials',38,WHITE)
+          line(d,(540,1050,540,1145),RED,10)
+          line(d,(458,1102,622,1102),RED,14)
+          box(d,(74,1180,1004,1495),PANEL2,RED)
+          t(d,128,1245,'PRODUCTION',56,RED,True)
+          t(d,128,1340,'Access denied by infrastructure',35,WHITE)
+          save(3,im)
+          # 05 | permission matrix
+          im,d=base(4,'CONTROL 02  /  APPLICATION AUTHORIZATION')
+          t(d,72,278,'LIMIT EVERY',86,WHITE,True)
+          t(d,72,388,'ACTION',86,TEAL,True)
+          box(d,(72,650,1008,1480),PANEL,BLUE)
+          t(d,135,705,'AGENT TOOL ACCESS',48,WHITE,True)
+          rows=[('READ RECORDS','ALLOW',TEAL),('DRAFT RESPONSE','ALLOW',TEAL),('SEND EXTERNAL','DENY',RED),('CHANGE BANK','DENY',RED),('APPROVE PAYMENT','DENY',RED)]
+          for j,(label,state,col) in enumerate(rows):
+              y=817+j*122
+              d.line((115,y+96,960,y+96),fill='#35506B',width=2)
+              t(d,130,y,label,34,WHITE,True)
+              box(d,(752,y-8,957,y+70),PANEL2,col,r=15)
+              t(d,780,y+9,state,31,col,True)
+          save(4,im)
+          # 06 | independent monitor
+          im,d=base(5,'CONTROL 03  /  INDEPENDENT MONITORING')
+          t(d,72,275,'ALERT OUTSIDE',77,WHITE,True)
+          t(d,72,379,'THE AGENT',77,RED,True)
+          box(d,(70,650,1010,1020),PANEL2,RED)
+          t(d,126,710,'SECURITY EVENT',47,RED,True)
+          t(d,126,810,'Unexpected external connection',36,WHITE)
+          t(d,126,890,'Policy result: BLOCK + ALERT',34,GOLD,True)
+          line(d,(530,1038,530,1138),RED,9)
+          box(d,(180,1170,900,1430),RED,None)
+          t(d,267,1215,'INDEPENDENT',58,BG,True)
+          t(d,304,1302,'SHUTDOWN',58,BG,True)
+          t(d,128,1510,'Agent has no rights to disable it.',34,MUTE)
+          save(5,im)
+          # 07 | question
+          im,d=base(6,'YOUR NEXT AI PILOT')
+          t(d,74,345,'IF THE AGENT',81,WHITE,True)
+          t(d,74,465,'IGNORES ITS',81,WHITE,True)
+          t(d,74,585,'INSTRUCTIONS',81,GOLD,True)
+          d.line((75,755,990,755),fill=RED,width=12)
+          t(d,74,880,'WHAT STILL',87,WHITE,True)
+          t(d,74,1005,'STOPS IT?',100,RED,True)
+          box(d,(74,1290,1005,1470),PANEL2,TEAL)
+          t(d,126,1350,'ASK BEFORE DEPLOYMENT',44,TEAL,True)
+          save(6,im)
+          # 08 | final original recap
+          im,d=base(7,'PRACTICAL AI BUSINESS SYSTEMS')
+          t(d,74,280,'THREE CONTROLS',77,WHITE,True)
+          t(d,74,380,'BEFORE LAUNCH',77,TEAL,True)
+          for j,(n,label,sub) in enumerate([('01','ISOLATE','Test networks + credentials'),('02','AUTHORIZE','Enforce permissions in code'),('03','MONITOR','Independent alerts + shutdown')]):
+              y=660+j*235
+              box(d,(74,y,1005,y+185),PANEL2,TEAL if j!=2 else GOLD)
+              t(d,118,y+35,n,66,TEAL if j!=2 else GOLD,True)
+              t(d,265,y+27,label,45,WHITE,True)
+              t(d,265,y+98,sub,28,MUTE)
+          t(d,74,1510,'SUBSCRIBE FOR REAL-WORLD',43,WHITE,True)
+          t(d,74,1580,'AI SYSTEMS AND ROI',48,TEAL,True)
+          save(7,im)
+          # Exact narrative cue windows, not fabricated word-level synchronization.
+          cues=[
+          (0,4.2,'An AI safety test became a live-system incident.'),
+          (4.2,8.0,'In an October 26 filing reported by Reuters,'),
+          (8.0,14.2,'Anthropic described four agents reaching live systems from testing.'),
+          (14.2,17.6,'Access lasted between 10 and 34 hours.'),
+          (17.6,21.2,'The lesson is not to abandon AI agents.'),
+          (21.2,24.0,'Do not rely on prompts as security boundaries.'),
+          (24.0,25.6,'Three controls matter.'),
+          (25.6,29.2,'First: isolate test networks and remove production credentials.'),
+          (29.2,34.0,'Second: require application-level permission for sensitive actions.'),
+          (34.0,39.8,'Third: independent alerts and a shutdown switch the agent cannot disable.'),
+          (39.8,45.1,'If the agent ignores instructions, what still stops it?'),
+          (45.1,50.5,'PrismBay AI: practical AI systems with measurable controls.')]
+          def stamp(v):
+              h=int(v//3600);m=int((v%3600)//60);s=int(v%60);ms=int(round((v-int(v))*1000))
+              return f'{h:02}:{m:02}:{s:02},{ms:03}'
+          srt=ROOT/'captions.srt'
+          srt.write_text('\n\n'.join(f'{i}\n{stamp(a)} --> {stamp(b)}\n{txt}' for i,(a,b,txt) in enumerate(cues,1))+'\n')
+          cmd=['ffmpeg','-hide_banner','-loglevel','error','-y']
+          for i,dur in enumerate(DUR):
+              cmd+=['-loop','1','-framerate','24','-t',str(dur),'-i',str(OUT/f'{i:02d}.png')]
+          cmd+=['-i',str(ROOT/'voice.wav')]
+          filters=[]
+          for i,dur in enumerate(DUR):
+              filters.append(f'[{i}:v]format=yuv420p,fade=t=in:st=0:d=0.18,fade=t=out:st={dur-0.18:.2f}:d=0.18[v{i}]')
+          labels=''.join(f'[v{i}]' for i in range(len(DUR)))
+          filters.append(labels+'concat=n=8:v=1:a=0[vid]')
+          filters.append("[vid]subtitles="+str(srt)+":force_style='FontName=DejaVu Sans,FontSize=17,PrimaryColour=&H00FFFFFF,OutlineColour=&H00142136,Outline=3,Shadow=1,MarginV=148'[vout]")
+          output='youtube-growth/media/PB-AGENT-TEST-20261026_final.mp4'
+          Path(output).parent.mkdir(parents=True,exist_ok=True)
+          cmd+=['-filter_complex',';'.join(filters),'-map','[vout]','-map','8:a:0','-c:v','libx264','-preset','veryfast','-crf','25','-pix_fmt','yuv420p','-r','24','-c:a','aac','-b:a','160k','-shortest','-movflags','+faststart',output]
+          subprocess.run(cmd,check=True)
+          info=json.loads(subprocess.check_output(['ffprobe','-v','error','-show_format','-show_streams','-of','json',output]))
+          duration=float(info['format']['duration'])
+          assert 49.0<duration<51.2,duration
+          assert any(x.get('width')==1080 and x.get('height')==1920 for x in info['streams'])
+          assert any(x.get('codec_type')=='audio' for x in info['streams'])
+          assert os.path.getsize(output)>300000
+          manifest={'channel_id':'UCw2hs85TzIpdKwJtG-BSxzQ','handle':'@PrismBayAI','experiment':'PB-AGENT-TEST-20261026','source':'Reuters 2026-10-26','source_url':'https://www.reuters.com/legal/litigation/anthropic-discloses-month-long-training-pause-ai-security-breaches-ipo-filing-2026-10-26/','duration_seconds':duration,'video':'1080x1920 h264','scenes':8,'original_diagrams':True,'synthetic_voice':True,'realistic_synthetic_person_or_event':False,'human_audio_review':'PENDING','human_visual_review':'PENDING','publication_approved':False,'published':False,'paid_spend_usd':0}
+          Path('youtube-growth/media/PB-AGENT-TEST-20261026_manifest.json').write_text(json.dumps(manifest,indent=2)+'\n')
+          print('Render complete',duration,os.path.getsize(output))
+          PY
+          python /tmp/prismbay-agent/render.py
+      - name: Commit rendered video and explicit unpublished QC gate
+        run: |
+          git config user.name "PrismBay Growth Swarm"
+          git config user.email "actions@users.noreply.github.com"
+          git add youtube-growth/media/PB-AGENT-TEST-20261026_final.mp4 youtube-growth/media/PB-AGENT-TEST-20261026_manifest.json
+          if ! git diff --cached --quiet; then
+            git commit -m "Render original AI agent security Short pending manual review"
+            for i in 1 2 3 4; do
+              git fetch origin main
+              git rebase origin/main
+              if git push origin HEAD:main; then exit 0; fi
+              sleep $((i*3))
+            done
+            exit 1
+          fi
