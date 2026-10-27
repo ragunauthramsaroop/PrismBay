@@ -1,0 +1,80 @@
+{
+  "experimentId": "PB-LOAN-CYCLE-20261026",
+  "lastCheckedAt": "2026-10-27T04:48:30-04:00",
+  "soleChannelId": "UCw2hs85TzIpdKwJtG-BSxzQ",
+  "handle": "@PrismBayAI",
+  "metricoolBrandId": 6945443,
+  "metricoolPostId": 407245436,
+  "metricoolPostUuid": "-734470313704142668",
+  "status": "SCHEDULED_PENDING_NOT_PUBLIC",
+  "publishAt": "2026-10-27T16:00:00-04:00",
+  "autoPublish": true,
+  "visibility": "public",
+  "format": "Short",
+  "title": "AI Loan Decisions in Minutes: Is That Real ROI?",
+  "audience": "Founders, finance executives, lenders, operations leaders and AI implementation teams",
+  "hypothesis": "A news-led loan-decision example followed by three practical ROI measures will generate qualified attention and subscriber conversion beyond generic AI speed claims.",
+  "hookType": "Reported real-world speed claim versus measurable ROI",
+  "hook": "AI loan decisions in minutes do not automatically mean business ROI.",
+  "narrativePayoff": "Measure time to decision, verified cash effects and exception rates; fictional arithmetic is explicitly labeled.",
+  "thumbnailConcept": "Simple decision clock versus cash and exception scorecard; no deceptive bank logo or performance claim.",
+  "cta": "PrismBay AI helps founders, operators and executives implement practical AI business systems.",
+  "source": "https://www.reuters.com/business/finance/ai-cuts-some-deutsche-bank-corporate-loan-decisions-minutes-2026-10-26/",
+  "accuracy": "Reuters report is attributed. The 200-case illustration is fictional, not Deutsche Bank results.",
+  "experimentDesign": {
+    "shortsABTesting": false,
+    "variant": "A, news-led ROI question",
+    "followUpRule": "Only test a distinct subsequent hook after reviewing the initial Short. Do not post near duplicates.",
+    "checkpointsHours": [
+      6,
+      24,
+      72,
+      168
+    ],
+    "classification": [
+      "SCALE",
+      "RETEST",
+      "MODIFY",
+      "STOP",
+      "INSUFFICIENT_DATA"
+    ],
+    "measurement": [
+      "publicWatchUrl",
+      "views",
+      "watchMinutes",
+      "averageViewDuration",
+      "retentionOrEngagedViewProxy",
+      "shares",
+      "comments",
+      "subscriberGain",
+      "subscriberLoss",
+      "trafficSources"
+    ],
+    "thresholds": {
+      "dataSufficiency": "Do not classify performance as a winner until at least five comparable channel Shorts have usable metrics and the candidate has at least 100 views. Otherwise INSUFFICIENT_DATA.",
+      "scale": "At least 30% above comparable channel median on qualified watch time per impression or subscriber conversion, with adequate observations and no accuracy or policy concerns.",
+      "retest": "Weak initial hook with stronger post-hook retention, supported by observed retention data.",
+      "modify": "Early abandonment or audience mismatch established by real metrics.",
+      "stop": "Source error, misleading claims, duplication, policy concern or clear underperformance with adequate observations."
+    }
+  },
+  "channelAnalyticsSnapshot": {
+    "asOf": "2026-10-27T04:45:00-04:00",
+    "latestReportedSubscribers": 7,
+    "latestSubscriberObservation": "2026-10-26",
+    "reportedDailyViewRows": 24,
+    "dailyViewSumForNonNullRows": 496,
+    "daysInRequestedRange": 39,
+    "viewDataNullDays": 15,
+    "latestNonNullViewDate": "2026-10-17",
+    "note": "496 is the sum of 24 non-null daily values, not a reliable full-period total. Nulls are missing, not zero. Per-video metrics and traffic sources returned empty rows."
+  },
+  "releaseSafety": {
+    "noNewChannel": true,
+    "noPaidAds": true,
+    "noEngagementExchange": true,
+    "duplicateCalendarCheck": "One scheduled YouTube post in 2026-10-26 through 2026-11-04 range, this post only.",
+    "publicUploadConfirmed": false,
+    "nextAction": "After 16:00 America/Guyana on 2026-10-27, verify Metricool status and public video URL before performance reporting."
+  }
+}
