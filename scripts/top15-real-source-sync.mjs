@@ -13,8 +13,11 @@ export const publicRules=[
 const esc=v=>String(v??"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
 
 export function currentPublicProducts(review){
+ // A fresh timestamp alone never authenticates a supplier report.
+ if(review?.authenticationVerified!==true)return [];
  const now=Date.parse(review?.checkedAt||"");
- if(!Number.isFinite(now)||Date.now()-now>36*3600000)return [];
+ const reportAge=Date.now()-now;
+ if(!Number.isFinite(now)||reportAge< -5*60000||reportAge>36*3600000)return [];
  return publicRules.flatMap(rule=>{
   const p=review.candidates?.find(row=>row.slug===rule.slug);
   if(!p||p.independentIdentityMatch!==true||p.variantStockVerified!==true||
@@ -22,8 +25,10 @@ export function currentPublicProducts(review){
      !matchesIntendedProduct({slug:rule.slug},p.observedProduct)||
      !/^CJ[A-Z0-9]{6,35}$/.test(p.observedSupplierSku||"")||
      !/^CJ[A-Z0-9]{6,35}$/.test(p.observedVariantSku||""))return [];
-  const observed=Date.parse(p.observedAt||review.checkedAt);
-  if(!Number.isFinite(observed)||now-observed>30*3600000)return [];
+  // Never refresh an undated or stale candidate by copying the report timestamp.
+  const observed=Date.parse(p.observedAt||"");
+  const observationAge=now-observed;
+  if(!Number.isFinite(observed)||observationAge< -5*60000||observationAge>30*3600000)return [];
   // All permissions other than original graphics remain unresolved.
   return [{...rule,originalName:p.observedProduct,sku:p.observedSupplierSku,variant:p.observedVariantSku}];
  });
