@@ -398,7 +398,8 @@ def thumbnail(label, concept, filename):
     d = ImageDraw.Draw(img)
     d.rectangle((0, 0, 1280, 24), fill=[CYAN, RED, AMBER][concept])
     d.text((70, 70), "PRISMBAY AI", font=ft(32, True), fill=[CYAN, RED, AMBER][concept])
-    d.multiline_text((70, 210), lines(label, 14, 3), font=ft(82, True), fill=fg, spacing=20)
+    headline = "WHO\nAPPROVES?" if concept == 0 else lines(label, 14, 3)
+    d.multiline_text((70, 210), headline, font=ft(82, True), fill=fg, spacing=20)
     if concept == 0:
         for j, s in enumerate(["OBSERVE", "DRAFT", "PROPOSE", "EXECUTE"]):
             box(d, (805, 160+j*125, 1190, 260+j*125), s, [CYAN, GREEN, AMBER, RED][j], 32)
