@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-26T09:23:35.024Z",
+  "updatedAt": "2026-10-27T09:22:06.439Z",
   "supplierIntegration": "awaiting-cj-auth",
   "items": [
     {
@@ -15,17 +15,6 @@
     },
     {
       "rank": 2,
-      "slug": "hanging-closet-organizer",
-      "product": "Hanging Closet Organizer",
-      "attentionScore": 78.8,
-      "supplierReady": false,
-      "freightReady": false,
-      "promotionReady": false,
-      "nextAction": "connect-cj",
-      "supplier": null
-    },
-    {
-      "rank": 3,
       "slug": "roll-up-dish-rack",
       "product": "Roll-Up Dish Drying Rack",
       "attentionScore": 78.6,
@@ -36,10 +25,10 @@
       "supplier": null
     },
     {
-      "rank": 4,
-      "slug": "dryer-vent-cleaner-kit",
-      "product": "Dryer Vent Cleaner Kit",
-      "attentionScore": 70.4,
+      "rank": 3,
+      "slug": "hanging-closet-organizer",
+      "product": "Hanging Closet Organizer",
+      "attentionScore": 71.3,
       "supplierReady": false,
       "freightReady": false,
       "promotionReady": false,
