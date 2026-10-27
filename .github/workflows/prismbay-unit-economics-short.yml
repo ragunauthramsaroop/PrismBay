@@ -90,6 +90,17 @@ jobs:
           assert m['channelId']=='UCw2hs85TzIpdKwJtG-BSxzQ'
           assert m['publicationApproved'] is False and m['paidSpendUSD']==0
           assert hashlib.sha256(p.read_bytes()).hexdigest()==m['sha256']
+          assert m.get('audioMastered') is True
+          assert m.get('captionTimingVerified') is False
+          assert m.get('manualNarrationReview') is False
+          subtitle=p.with_suffix('.srt')
+          report=p.with_suffix('.caption_qa.json')
+          assert subtitle.exists() and subtitle.stat().st_size>500
+          caption_report=json.loads(report.read_text())
+          assert caption_report['cueCount']>=25
+          assert caption_report['channelId']=='UCw2hs85TzIpdKwJtG-BSxzQ'
+          assert caption_report['publicationApproved'] is False
+          assert caption_report['timingStatus']=='PROVISIONAL_REQUIRES_FULL_AUDIO_LISTENING'
           info=json.loads(subprocess.check_output(['ffprobe','-v','error','-show_streams','-show_format','-of','json',str(p)]))
           video=next(x for x in info['streams'] if x['codec_type']=='video')
           audio=next(x for x in info['streams'] if x['codec_type']=='audio')
