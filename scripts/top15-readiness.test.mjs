@@ -118,3 +118,41 @@ test('unauthenticated, stale, future, undated or incomplete supplier evidence ca
   assert.equal(result.products.find(x=>x.slug==='screen-protector').globallySaleReady,false);
  }
 });
+
+test('commercial readiness flags fail closed when supplier identity or variant provenance fails',()=>{
+ const nowMs=Date.parse('2026-10-27T10:00:00Z');
+ const now=new Date(nowMs).toISOString();
+ const positive={
+  slug:'screen-protector',observedAt:now,
+  observedProduct:'Mobile Phone Tempered Glass Screen Protector',
+  observedSupplierSku:'CJPB2377299',observedVariantSku:'CJPB237729905EV',
+  independentIdentityMatch:true,variantStockVerified:true,
+  freightEstimateVerified:true,finalZipFreightVerified:true,
+  mediaRightsVerified:true,supplierPhotoVideoRightsVerified:true,
+  promotionMediaPolicy:'supplier_photography_authorized',
+  checkoutInfrastructureVerified:true,fulfillmentRouteVerified:true,
+  automaticPromotionAllowed:true
+ };
+ const assess=row=>assessTop15(merch,{checkedAt:now,authenticationVerified:true,candidates:[row]},nowMs)
+   .products.find(x=>x.slug==='screen-protector');
+ const approvedEvidence=assess(positive);
+ assert.ok(Object.values(approvedEvidence.verifiedChecks).every(Boolean));
+ assert.equal(approvedEvidence.globallySaleReady,false);
+ assert.equal(approvedEvidence.checkoutAction,'price_request_only');
+ for(const invalid of [
+  {...positive,observedProduct:'Standing Garment Steamer'},
+  {...positive,independentIdentityMatch:false},
+  {...positive,observedSupplierSku:'CJYD2458440',observedVariantSku:'CJYD245844002BY'},
+  {...positive,observedVariantSku:'CJYD245844002BY'},
+  {...positive,variantStockVerified:false},
+  {...positive,observedAt:undefined}
+ ]){
+  const row=assess(invalid);
+  assert.ok(Object.values(row.verifiedChecks).every(x=>x===false),
+    'unmatched supplier or variant must not retain any downstream approval');
+  assert.equal(row.supplierPhotoVideoRightsVerified,false);
+  assert.equal(row.supplierScreeningPassed,false);
+  assert.equal(row.globallySaleReady,false);
+  assert.equal(row.checkoutAction,'price_request_only');
+ }
+});
