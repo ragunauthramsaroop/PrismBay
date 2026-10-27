@@ -41,3 +41,29 @@ test("unapproved physical purchases are impossible through the catalog; four dig
  ])assert.ok(html.includes(link));
  assert.doesNotMatch(html,/World.s lowest price guaranteed|Most sold products in the world/);
 });
+
+
+test("CJ public records require authenticated fresh evidence and matching supplier variants",()=>{
+ const iso=offset=>new Date(Date.now()+offset).toISOString();
+ const candidate={
+  slug:"screen-protector",observedProduct:"Mobile Phone Tempered Glass Screen Protector",
+  observedSupplierSku:"CJPB2377299",observedVariantSku:"CJPB237729905EV",
+  independentIdentityMatch:true,variantStockVerified:true,freightEstimateVerified:true,observedAt:iso(0)
+ };
+ const evidence={checkedAt:iso(0),authenticationVerified:true,candidates:[candidate]};
+ assert.deepEqual(currentPublicProducts(evidence).map(x=>x.slug),["screen-protector"]);
+ assert.deepEqual(currentPublicProducts({...evidence,authenticationVerified:false}),[]);
+ assert.deepEqual(currentPublicProducts({...evidence,authenticationVerified:undefined}),[]);
+ assert.deepEqual(currentPublicProducts({...evidence,checkedAt:iso(10*60000)}),[]);
+ assert.deepEqual(currentPublicProducts({...evidence,checkedAt:iso(-37*3600000)}),[]);
+ assert.deepEqual(currentPublicProducts({...evidence,candidates:[{...candidate,observedAt:null}]}),[]);
+ assert.deepEqual(currentPublicProducts({...evidence,candidates:[{...candidate,observedAt:iso(-31*3600000)}]}),[]);
+ assert.deepEqual(currentPublicProducts({...evidence,candidates:[{...candidate,observedVariantSku:"CJYD245844002BY"}]}),[]);
+ assert.deepEqual(currentPublicProducts({...evidence,candidates:[{...candidate,observedProduct:"Camera Lens Replacement Adhesive"}]}),[]);
+});
+test("an authenticated CJ report with zero verified variants publishes zero CJ physical cards",()=>{
+ assert.equal(review.authenticationVerified,true);
+ assert.equal(review.verifiedVariantCount,0);
+ assert.equal(currentPublicProducts(review).length,0);
+ assert.equal((html.match(/<article class="product" data-category=/g)||[]).length,0);
+});
