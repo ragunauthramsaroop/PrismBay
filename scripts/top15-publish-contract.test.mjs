@@ -18,6 +18,8 @@ test("public page is synchronized to authenticated CJ inventory, not a product-i
  assert.doesNotMatch(html,/See all 15 picks|Showing 15 products|Explore the Top 15 picks/);
  assert.match(html,/No physical-product orders or payments are accepted on this page/);
  assert.match(html,/Supplier screening last recorded:/);
+ assert.match(html,/dated screening snapshot, not live stock availability/i);
+ assert.doesNotMatch(html,/Current source-matched inventory records/);
  assert.match(html,/Product photographs are intentionally omitted until legitimate rights/i);
 });
 test("every visible physical item has an authentic CJ variant and its true supplier description",()=>{
