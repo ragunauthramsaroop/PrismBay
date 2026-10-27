@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-26T22:53:37.941Z",
+  "updatedAt": "2026-10-27T05:39:18.720Z",
   "market": "US",
   "methodology": "Public-news attention, freshness, and short-form demonstration fit. This is not PrismBay sales data and is not a TikTok, Amazon, Google, or Bing product ranking.",
   "refreshTargetHours": 6,
@@ -12,8 +12,8 @@
       "signalLabel": "high-attention",
       "evidence": {
         "publicMentions": 106,
-        "mentionsLast7Days": 6,
-        "mentionsLast30Days": 12,
+        "mentionsLast7Days": 7,
+        "mentionsLast30Days": 13,
         "sourcesAvailable": [
           "Google News",
           "Bing News"
@@ -25,6 +25,12 @@
           "source": "Google News",
           "publishedAt": "2026-10-26T15:41:07.000Z",
           "url": "https://news.google.com/rss/articles/CBMitgFBVV95cUxQb214N2FsdEUxMmJTYlRTTXBTdkZhWDNCb25rSGhkZGdHbDJNek53TnVqdU5GZHF3dTFZbnVxYnZnXzJ5M2xwdGlvWnVWWWx6X1hFc29fX3FkNkJaeUxGbUlCUjdtMlp6RGNUNy1KQWFjd3JqN1J0ODRQSWZWbERwLWVKOEE0NmEzWGlmNmgtaGJCYW81STZyWFlsd2lqZ3ZRdEhLU1dNSm1hVS1nVlVGbjJJSzNLdw?oc=5"
+        },
+        {
+          "title": "This $55 mattress vacuum showed me just how dirty my clean mattress really was - Palm Beach Daily News",
+          "source": "Google News",
+          "publishedAt": "2026-10-26T15:41:14.000Z",
+          "url": "https://news.google.com/rss/articles/CBMiwgFBVV95cUxNNk5yb3Vmd2tNWHduT1ZvQTZRQXNObUJsVnF4V0lEaWNBbVpfYm9mR3lIcVdERkJjN2lYT2p2cm9rMWZDNWFQMHkxN0dsVG55dWx0aVY5SUFMeVFOQXRFY2k0Y0k0Z0N6am02ejVCWi1BTE5MU1huZThERUJLeUItaG5KUWhFZGloQV9XX1N2LWIxMFhZUDg2Wjk3MkR4Z1FFN01wdHV1TTZ5UTM5NU5DN3lKb2M0UXRiM3VCVHhnamltUQ?oc=5"
         },
         {
           "title": "This $55 mattress vacuum showed me just how dirty my clean mattress really was - Chillicothe Gazette",
@@ -43,12 +49,6 @@
           "source": "Google News",
           "publishedAt": "2026-10-26T15:41:38.000Z",
           "url": "https://news.google.com/rss/articles/CBMivwFBVV95cUxQWlh4dG43MG1LMmIzXzNPb3diODhMQWdmM096OC1ELV9FTkdvbGh0SEVmZjRwOFp6S3luemlEd084YmU2Nzh3UUNwZ01idXkxajk5YkRieXQ4cGF5OGRjVjhPVFJIZ2tRYkZMdEJOR3ZQN3RWd2N6a3RGaEowQWhIQURhZHhUQ2pBSVBfMUVha3Rwc2UwQ2dlclkzTFlVbFdkN29pUW00RnM2bnlSRmF5RW9mZy02bWJicVhxYldfaw?oc=5"
-        },
-        {
-          "title": "This $55 mattress vacuum showed me just how dirty my clean mattress really was - The Oklahoman",
-          "source": "Google News",
-          "publishedAt": "2026-10-26T15:41:48.000Z",
-          "url": "https://news.google.com/rss/articles/CBMitgFBVV95cUxNbFgwWkNfd3FseDVpMnl2MzcyQ2puTTgxcS1NTDZOUGJnRjZkZmZjOXM0Vk9acXBSemdRN0hZTGVGN0JrYllvNU1Vb0RsLUszNVFZVTNKZ1RNTjRDd2lodVZTNFJyZUR0RGZZdkdUM3pDdmZRMXdoVmJoSkt6QVV4OUswXzg5RXB3VDZSd0wzczNQRE1EYlFOR0JKc09HUTF5VTlmelNJWFRzY0tfWUQyVjhRZlFOUQ?oc=5"
         }
       ],
       "rank": 1
@@ -102,14 +102,62 @@
       "rank": 2
     },
     {
-      "slug": "scrubber",
-      "name": "5-in-1 Electric Spin Scrubber",
-      "signalScore": 77.5,
+      "slug": "garment-steamer",
+      "name": "Portable Garment Steamer",
+      "signalScore": 78.5,
       "signalLabel": "high-attention",
       "evidence": {
-        "publicMentions": 92,
+        "publicMentions": 31,
+        "mentionsLast7Days": 1,
+        "mentionsLast30Days": 6,
+        "sourcesAvailable": [
+          "Google News",
+          "Bing News"
+        ]
+      },
+      "sampleSignals": [
+        {
+          "title": "We Tested 18 Travel Steamers—These 9 Keep Clothes Wrinkle-free - Travel + Leisure",
+          "source": "Google News",
+          "publishedAt": "2026-10-23T07:00:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMibkFVX3lxTE9Wd0NtOV9wTS1JUl9UUG5oQzV0UnEwVG93X29YS0NvZTlqVXAxeWh1bFhyeEhZenNwY25sUEZMNWdhaHh4M1hqSXJtMWdGcVNXTUx3N29tNXliOGZqb1QzVldUSEtYZktoRnNRbWJR?oc=5"
+        },
+        {
+          "title": "Best travel steamers 2026: tested and reviewed for wrinkle-free packing - CN Traveller",
+          "source": "Google News",
+          "publishedAt": "2026-07-30T07:00:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMiZkFVX3lxTE1ZRDlxanVrQ3JSeXhtdXBjS3JmVTdkQnV2LURHdldCN1BidHU0ZjhselZXRVZWLVhJUEpwaUMwTEgweU5mLVRmZnozS3dJUTk5TGZTZHctbHpmZHkySDktbE1hZ0Zsdw?oc=5"
+        },
+        {
+          "title": "Portable Garment Steamers Market Size, Share | Forecast [2034] - Fortune Business Insights",
+          "source": "Google News",
+          "publishedAt": "2026-09-28T07:00:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMihgFBVV95cUxQaXlNc3IwRkdxSWMwS0xGc1dQZEQyRkdjb0l6M2hvZDNual9lUHQzWm5MUS1BSHhNRzRHSGxrQm5tb3dKMXlpeS0tUlJ1TElEbWNoUkN2MGgzMnp4TjRkczE4VlQ0UmNNRy1hbWI2Y05Xa3Z3RzBkU1VpcWZ1OEdRNVgtVEl1UQ?oc=5"
+        },
+        {
+          "title": "10 of the best handheld steamers on the market - Vogue Australia",
+          "source": "Google News",
+          "publishedAt": "2026-01-08T08:00:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMirwFBVV95cUxQdkdwdjFkSnptM0JmTmpLYWRPTjUwZEhjOEI3YTlCT2VmOG1GUVJ1dklzUnV5LTROeXJKQ3QzRnEyakRLQWRrUUhPNUJvZWZ2dlhWaXFoajlpTFkwdXhDaTZjT3M4LThxM3d4bXI0X1ZMUmtSdmZXN1A0ZkM4eWF0amE3ZkxJUEVsUXVuQlM4Zk91andHSk15YVRaUHJLN1JUVGlEc2hVajBRMlRYU0h3?oc=5"
+        },
+        {
+          "title": "The Best Travel Steamers To Keep Clothing Wrinkle-Free On The Go - Forbes",
+          "source": "Google News",
+          "publishedAt": "2024-09-13T07:00:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMiigFBVV95cUxPOEltbERZMDMtemlzdFRPSUdTZGFXLVJDTUJpWWZrMGtSLVVFMDlSWWxHS3YzSXpydFhpWUlyTmd5dTYyMTBaMEtuT1VMazI2SUxzQkhSSVZEV0tqTTdzRGhlYlZxWEw5RVhxSkpsS0xsQjA4cFNkX2Jjb1NYem04OTR0TzNnQlZ1WlE?oc=5"
+        }
+      ],
+      "rank": 3
+    },
+    {
+      "slug": "scrubber",
+      "name": "5-in-1 Electric Spin Scrubber",
+      "signalScore": 70,
+      "signalLabel": "high-attention",
+      "evidence": {
+        "publicMentions": 65,
         "mentionsLast7Days": 0,
-        "mentionsLast30Days": 5,
+        "mentionsLast30Days": 0,
         "sourcesAvailable": [
           "Google News",
           "Bing News"
@@ -145,54 +193,6 @@
           "source": "Google News",
           "publishedAt": "2026-08-07T07:00:00.000Z",
           "url": "https://news.google.com/rss/articles/CBMiakFVX3lxTE1oaV9ZeXV0ZjBvUS00bTdZQW1MU3JYOU1PMHdBaEYwY2lPV1VPeUxRSV9QVWVqUmIwTUR4WmE5bGF4LV94SDZHWDFTQ1p2S2xJNUVQaE02UVJaZEZ3TEtrRlZKV2dYMGYxYnc?oc=5"
-        }
-      ],
-      "rank": 3
-    },
-    {
-      "slug": "garment-steamer",
-      "name": "Portable Garment Steamer",
-      "signalScore": 77,
-      "signalLabel": "high-attention",
-      "evidence": {
-        "publicMentions": 30,
-        "mentionsLast7Days": 1,
-        "mentionsLast30Days": 5,
-        "sourcesAvailable": [
-          "Google News",
-          "Bing News"
-        ]
-      },
-      "sampleSignals": [
-        {
-          "title": "We Tested 18 Travel Steamers—These 9 Keep Clothes Wrinkle-free - Travel + Leisure",
-          "source": "Google News",
-          "publishedAt": "2026-10-23T07:00:00.000Z",
-          "url": "https://news.google.com/rss/articles/CBMibkFVX3lxTE9Wd0NtOV9wTS1JUl9UUG5oQzV0UnEwVG93X29YS0NvZTlqVXAxeWh1bFhyeEhZenNwY25sUEZMNWdhaHh4M1hqSXJtMWdGcVNXTUx3N29tNXliOGZqb1QzVldUSEtYZktoRnNRbWJR?oc=5"
-        },
-        {
-          "title": "Best travel steamers 2026: tested and reviewed for wrinkle-free packing - CN Traveller",
-          "source": "Google News",
-          "publishedAt": "2026-07-30T07:00:00.000Z",
-          "url": "https://news.google.com/rss/articles/CBMiZkFVX3lxTE1ZRDlxanVrQ3JSeXhtdXBjS3JmVTdkQnV2LURHdldCN1BidHU0ZjhselZXRVZWLVhJUEpwaUMwTEgweU5mLVRmZnozS3dJUTk5TGZTZHctbHpmZHkySDktbE1hZ0Zsdw?oc=5"
-        },
-        {
-          "title": "10 of the best handheld steamers on the market - Vogue Australia",
-          "source": "Google News",
-          "publishedAt": "2026-01-08T08:00:00.000Z",
-          "url": "https://news.google.com/rss/articles/CBMirwFBVV95cUxQdkdwdjFkSnptM0JmTmpLYWRPTjUwZEhjOEI3YTlCT2VmOG1GUVJ1dklzUnV5LTROeXJKQ3QzRnEyakRLQWRrUUhPNUJvZWZ2dlhWaXFoajlpTFkwdXhDaTZjT3M4LThxM3d4bXI0X1ZMUmtSdmZXN1A0ZkM4eWF0amE3ZkxJUEVsUXVuQlM4Zk91andHSk15YVRaUHJLN1JUVGlEc2hVajBRMlRYU0h3?oc=5"
-        },
-        {
-          "title": "The Best Travel Steamers To Keep Clothing Wrinkle-Free On The Go - Forbes",
-          "source": "Google News",
-          "publishedAt": "2024-09-13T07:00:00.000Z",
-          "url": "https://news.google.com/rss/articles/CBMiigFBVV95cUxPOEltbERZMDMtemlzdFRPSUdTZGFXLVJDTUJpWWZrMGtSLVVFMDlSWWxHS3YzSXpydFhpWUlyTmd5dTYyMTBaMEtuT1VMazI2SUxzQkhSSVZEV0tqTTdzRGhlYlZxWEw5RVhxSkpsS0xsQjA4cFNkX2Jjb1NYem04OTR0TzNnQlZ1WlE?oc=5"
-        },
-        {
-          "title": "Amazon Prime Day 2023: Get a Portable Garment Steamer With 65,000+ 5-Star Amazon Reviews for Just $28 - E! News",
-          "source": "Google News",
-          "publishedAt": "2023-07-12T07:00:00.000Z",
-          "url": "https://news.google.com/rss/articles/CBMi0gFBVV95cUxOdDk2RDdCUE1xN09MdVBTQ1VhbTY3X1BFZkhYT090cWF1Y0s0b0Z0S2hPODlUb0dYUFBaeHRxRVduMHh0STVtSXNZOVRINTNhd0d6VE9HTHduY29xTHRYbVpaN0p1RTNEOEU4eHFERksybmpyUmRMNUd6ZnZYaEtZSUZzN04zd2JJd3ZfRk9YYm82ZUFBS0NOcGZmVzFxeEg1bjFYYTBxaGdoN0RZd3lwYW5OSTk2ZkdOUlhkSkJfbDh5aHVETDktMEYtOFJ6R3pTWmc?oc=5"
         }
       ],
       "rank": 4
