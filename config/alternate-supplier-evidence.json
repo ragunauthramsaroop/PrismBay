@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "policy": "Supplier onboarding research only. No manual provider evidence currently approved for publication, product checkout, supplier order, image reuse, or marketing.",
+  "providers": {
+    "hypersku": {
+      "priority": 1,
+      "basePlanUsdMonthly": 0,
+      "apiStatus": "account_and_open_api_access_pending",
+      "source": "https://support.hypersku.com/en/articles/2941652-what-s-hypersku-how-to-sign-up-and-get-started",
+      "sourceOfPlan": "https://www.hypersku.com/pricing/",
+      "lastOutreach": "2026-10-27",
+      "sourcingContact": "support@etailerhub.com"
+    },
+    "eprolo": {
+      "priority": 2,
+      "basePlanUsdMonthly": 0,
+      "apiStatus": "account_and_api_documentation_pending",
+      "source": "https://eprolo.com/eprolo-api/",
+      "sourceOfPlan": "https://eprolo.com/",
+      "lastOutreach": "2026-10-27",
+      "sourcingContact": "support@eprolo.com"
+    }
+  },
+  "candidates": [],
+  "operatorReview": "A supplier email or quote is not sufficient on its own. Reconcile actual variant/spec, current warehouse stock, shipment, price margin, media licensing and actual fulfillment capability before publishing an alternate-provider item. Never put API keys, customer addresses, vendor private attachments or personal email in this file."
+}
