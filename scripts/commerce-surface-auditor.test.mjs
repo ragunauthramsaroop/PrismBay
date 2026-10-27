@@ -163,10 +163,29 @@ test('canonical retail audit detects unapproved physical claims and educational 
 test('canonical retail audit preserves digital-only clean releases',()=>{
  const report=auditCanonicalRetailSnapshot({
   pages:[{path:'/',ok:true,text:'<html>Digital tools available</html>'},{path:'/shipping.html',ok:true,text:'<html>Physical checkout unavailable</html>'},{path:'/top-15/',ok:true,text:'<html>No approved physical offers</html>'}],
-  manifest:{products:[]},queue:{items:[{offerType:'digital',channel:'youtube',status:'ready_for_authorized_scheduler'}]}
+  manifest:{products:[]},queue:{items:[{offerType:'digital',channel:'tiktok',status:'draft',publishAllowed:false}]}
  });
  assert.equal(report.safe,true);
  assert.equal(report.physicalQueuedCount,0);
+});
+test('canonical retail audit rejects digital sales entries targeting educational YouTube even as drafts',()=>{
+ const report=auditCanonicalRetailSnapshot({
+  pages:[{path:'/',ok:true,text:'<html>Digital offers</html>'},{path:'/shipping.html',ok:true,text:'<html>Physical checkout unavailable</html>'},{path:'/top-15/',ok:true,text:'<html>Zero physical offers</html>'}],
+  manifest:{products:[]},
+  queue:{items:[{offerType:'digital',channel:'youtube',status:'draft',publishAllowed:false}]}
+ });
+ assert.equal(report.safe,false);
+ assert.ok(report.issues.includes('canonical_educational_youtube_retail_contamination'));
+ assert.equal(report.physicalQueuedCount,0);
+});
+test('canonical retail audit rejects commercial YouTube entries with missing offer classification',()=>{
+ const report=auditCanonicalRetailSnapshot({
+  pages:[{path:'/',ok:true,text:'<html>Digital offers</html>'},{path:'/shipping.html',ok:true,text:'<html>Physical checkout unavailable</html>'},{path:'/top-15/',ok:true,text:'<html>Zero physical offers</html>'}],
+  manifest:{products:[]},
+  queue:{items:[{channel:'youtube',commercialContentOwnBrand:true,status:'draft'}]}
+ });
+ assert.equal(report.safe,false);
+ assert.ok(report.issues.includes('canonical_educational_youtube_retail_contamination'));
 });
 test('canonical retail audit treats missing pages and media reports as unknown',()=>{
  const report=auditCanonicalRetailSnapshot();
