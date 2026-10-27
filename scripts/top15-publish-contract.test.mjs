@@ -60,6 +60,17 @@ test("CJ public records require authenticated fresh evidence and matching suppli
  assert.deepEqual(currentPublicProducts({...evidence,candidates:[{...candidate,observedAt:iso(-31*3600000)}]}),[]);
  assert.deepEqual(currentPublicProducts({...evidence,candidates:[{...candidate,observedVariantSku:"CJYD245844002BY"}]}),[]);
  assert.deepEqual(currentPublicProducts({...evidence,candidates:[{...candidate,observedProduct:"Camera Lens Replacement Adhesive"}]}),[]);
+ // A later report timestamp must not renew a stock observation older than 30 hours.
+ assert.deepEqual(currentPublicProducts({
+  ...evidence,checkedAt:iso(-29*3600000),
+  candidates:[{...candidate,observedAt:iso(-54*3600000)}]
+ }),[]);
+ // Duplicate supplier rows for one slug are ambiguous even when the first row passes.
+ assert.deepEqual(currentPublicProducts({
+  ...evidence,candidates:[candidate,{...candidate,variantStockVerified:false}]
+ }),[]);
+ // Malformed candidate collections never authorize public supplier cards.
+ assert.deepEqual(currentPublicProducts({...evidence,candidates:{slug:"screen-protector"}}),[]);
 });
 test("an authenticated CJ report with zero verified variants publishes zero CJ physical cards",()=>{
  assert.equal(review.authenticationVerified,true);
