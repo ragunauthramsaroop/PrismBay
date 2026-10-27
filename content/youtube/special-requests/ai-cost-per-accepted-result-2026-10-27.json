@@ -1,0 +1,38 @@
+{
+  "slug": "ai-cost-per-accepted-result-2026-10-27",
+  "targetChannelId": "UCw2hs85TzIpdKwJtG-BSxzQ",
+  "visualStyle": "unit_economics_v1",
+  "publicationApproved": false,
+  "paidSpendUSD": 0,
+  "sourceAttribution": "Reuters 26 Oct 2026; vendor-reported claim; all A/B numbers fictional",
+  "segments": [
+    {
+      "scene": "hook",
+      "spoken": "A vendor reports up to five times better cost efficiency for its new AI models. That is an early vendor claim, not your savings."
+    },
+    {
+      "scene": "formula",
+      "spoken": "Here is the number executives should test. Total workflow cost divided by accepted outputs, not price per AI call."
+    },
+    {
+      "scene": "option_a",
+      "spoken": "In a fictional one thousand task pilot, option A costs ten cents per run. With review and rework, seven hundred pass. Total cost is three hundred ninety dollars, or fifty six cents per accepted result."
+    },
+    {
+      "scene": "option_b",
+      "spoken": "Option B costs twenty five cents per run. Nine hundred pass. After review and rework, total cost is four hundred thirty dollars, or forty eight cents per accepted result."
+    },
+    {
+      "scene": "compare",
+      "spoken": "The higher priced model wins this hypothetical comparison. Cheaper inference does not always mean a cheaper business workflow."
+    },
+    {
+      "scene": "pilot",
+      "spoken": "In your pilot, include model costs, human review, rework, infrastructure, security and quality. True return on investment also needs the value delivered."
+    },
+    {
+      "scene": "close",
+      "spoken": "Test before signing. Prism Bay AI helps founders and executives measure practical AI business systems."
+    }
+  ]
+}
