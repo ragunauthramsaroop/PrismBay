@@ -9,7 +9,11 @@ Sole channel: `UCw2hs85TzIpdKwJtG-BSxzQ` (`@PrismBayAI`). Metricool brand `69454
 - Best-time heatmap for 2026-10-27 through 2026-11-02 places Wednesday 2026-10-28 at 16:00 near the highest relative score in the inspected week. A heatmap score is not proof of future audience response.
 - Opera browser access required interactive input. Ask Studio and native A/B testing were not accessible. Descript Shorts Factory project exists with no active jobs; no duplicate editing job initiated.
 
-## Existing long-form QA failure
+## Updated independent QA result after workflow repair
+
+The repaired independent-QA workflow completed successfully on the repository's currently available long-form media. Its refreshed report now identifies source SHA-256 `9153c2584142e4b5e1ef6d663650bcffa11604196052475dfe41298f875bf96a`, **11 visually distinct sampled scenes**, 99 caption cues and `technicalPass=true`. This supersedes the older four-scene report below. Inspected the refreshed 12-frame contact sheet and confirmed six visibly differentiated original editorial layouts, while some repeated chapter diagrams still appear. The separate three-scene renderer enhancement is still rebuilding; do not confuse the passing QA of the currently stored asset with verification of the pending new render. Full human listening and full-frame visual review are still pending. Publication remains blocked.
+
+## Historical QA failure (superseded by refreshed report)
 Asset: `public/youtube/longform/PB-AGENT-ACCESS-001/PB-AGENT-ACCESS-001.mp4`, a 442.371-second, 1920x1080, 31-slide original tutorial on four levels of AI-agent permissions.
 
 Independent report: `editorial/youtube/qa/PB-AGENT-ACCESS-001/independent_report.json`.
