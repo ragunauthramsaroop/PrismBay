@@ -19,6 +19,9 @@ test("public page is synchronized to authenticated CJ inventory, not a product-i
  assert.match(html,/No physical-product orders or payments are accepted on this page/);
  assert.match(html,/Supplier screening last recorded:/);
  assert.match(html,/dated screening snapshot, not live stock availability/i);
+ assert.match(html,/id="expiredEvidenceNotice"/);
+ assert.match(html,/Date\.parse\(card\.dataset\.evidenceExpiresAt/);
+ assert.match(html,/setInterval\(apply,60000\)/);
  assert.doesNotMatch(html,/Current source-matched inventory records/);
  assert.match(html,/Product photographs are intentionally omitted until legitimate rights/i);
 });
@@ -27,6 +30,7 @@ test("every visible physical item has an authentic CJ variant and its true suppl
   assert.ok(html.includes(item.name),item.slug+" is missing");
   assert.ok(html.includes(item.sku),item.slug+" has no authentic supplier SKU");
   assert.ok(html.includes(item.variant),item.slug+" has no physically stocked variant SKU");
+  assert.ok(html.includes('data-evidence-expires-at="'+item.expiresAt+'"'),item.slug+" has no deterministic evidence expiry");
   assert.ok(html.includes(item.originalName.replace(/&/g,"&amp;")),item.slug+" supplier listing missing");
   assert.ok(html.includes("quote?product="+item.slug+"&amp;utm_source=verified-catalog"),item.slug+" does not open the correct inquiry");
  }
@@ -76,4 +80,18 @@ test("public supplier cards fail closed without authenticated, fresh, dated evid
  assert.deepEqual(currentPublicProducts({...report,candidates:[{...candidate,observedAt:undefined}]}),[]);
  assert.deepEqual(currentPublicProducts({...report,candidates:[{...candidate,observedAt:iso(10*60000)}]}),[]);
  assert.deepEqual(currentPublicProducts({...report,candidates:[{...candidate,observedAt:iso(-31*3600000)}]}),[]);
+});
+
+
+test("public cards expire at the earliest report or individual stock observation limit",()=>{
+ const now=Date.now();const iso=offset=>new Date(now+offset).toISOString();
+ const candidate={slug:"garment-steamer",observedProduct:"USB Handheld Garment Steamer Household Portable Electric Iron Small Fabulous Clothes Ironing Equipment",observedSupplierSku:"CJYD2458440",observedVariantSku:"CJYD245844002BY",independentIdentityMatch:true,variantStockVerified:true,freightEstimateVerified:true,observedAt:iso(-29*3600000)};
+ const report={checkedAt:iso(-1*3600000),authenticationVerified:true,candidates:[candidate]};
+ const products=currentPublicProducts(report);
+ assert.equal(products.length,1);
+ assert.equal(products[0].expiresAt,new Date(Date.parse(candidate.observedAt)+30*3600000).toISOString());
+ const rendered=refresh(html,report).html;
+ assert.match(rendered,/data-evidence-expires-at=/);
+ assert.match(rendered,/id="expiredEvidenceNotice"/);
+ assert.match(rendered,/Date\.parse\(card\.dataset\.evidenceExpiresAt/);
 });
