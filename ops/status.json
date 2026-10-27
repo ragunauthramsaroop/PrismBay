@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "checkedAt": "2026-10-27T08:19:19.836Z",
+  "checkedAt": "2026-10-27T08:24:17.946Z",
   "source": "GitHub Actions accountability evidence",
   "refreshPolicy": "Best-effort GitHub schedules. Static snapshot; refresh does not run agents.",
   "summary": {
@@ -24,7 +24,7 @@
       "failureStreak": 0,
       "runId": 40463124126,
       "runUrl": "https://github.com/ragunauthramsaroop/PrismBay/actions/runs/40463124126",
-      "runAgeMinutes": 93,
+      "runAgeMinutes": 98,
       "artifactName": "buyer-acquisition-40463124126",
       "artifactBytes": 21982,
       "remediation": null
@@ -42,7 +42,7 @@
       "failureStreak": 0,
       "runId": 40395849132,
       "runUrl": "https://github.com/ragunauthramsaroop/PrismBay/actions/runs/40395849132",
-      "runAgeMinutes": 712,
+      "runAgeMinutes": 716,
       "artifactName": "prismbay-external-traffic-40395849132",
       "artifactBytes": 659918,
       "remediation": null
@@ -57,10 +57,10 @@
       "status": "fail",
       "reason": "worker_stale",
       "consequence": "replace_route",
-      "failureStreak": 3,
+      "failureStreak": 4,
       "runId": 40459299574,
       "runUrl": "https://github.com/ragunauthramsaroop/PrismBay/actions/runs/40459299574",
-      "runAgeMinutes": 131,
+      "runAgeMinutes": 136,
       "artifactName": null,
       "artifactBytes": null,
       "remediation": "reassigned_to_currently_operational_buyer_acquisition"
@@ -78,7 +78,7 @@
       "failureStreak": 0,
       "runId": 40460772253,
       "runUrl": "https://github.com/ragunauthramsaroop/PrismBay/actions/runs/40460772253",
-      "runAgeMinutes": 116,
+      "runAgeMinutes": 121,
       "artifactName": "prismbay-paperclip-revenue-40460772253",
       "artifactBytes": 6242,
       "remediation": null
@@ -96,7 +96,7 @@
       "failureStreak": 0,
       "runId": 40468963751,
       "runUrl": "https://github.com/ragunauthramsaroop/PrismBay/actions/runs/40468963751",
-      "runAgeMinutes": 35,
+      "runAgeMinutes": 40,
       "artifactName": "prismbay-commerce-group-40468963751",
       "artifactBytes": 35191,
       "remediation": null
