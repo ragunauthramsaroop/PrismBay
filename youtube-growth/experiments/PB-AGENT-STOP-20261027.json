@@ -1,0 +1,66 @@
+{
+  "experimentId": "PB-AGENT-STOP-20261027",
+  "lastCheckedAt": "2026-10-27T18:43:00-04:00",
+  "soleChannelId": "UCw2hs85TzIpdKwJtG-BSxzQ",
+  "handle": "@PrismBayAI",
+  "metricoolBrandId": 6945443,
+  "status": "SCRIPT_READY_QA_GATE_CLOSED",
+  "published": false,
+  "publicationApproved": false,
+  "publishAt": null,
+  "format": "Short",
+  "targetDurationSeconds": [
+    52,
+    64
+  ],
+  "audience": "CIOs, CISOs, CFOs, procurement and automation owners",
+  "hypothesis": "An accurately qualified independent AI shutdown-test contrast plus an actionable S3 control framework attracts more qualified attention and subscriber conversion than generic AI alarm content.",
+  "hookType": "Controlled test finding with operational response",
+  "hook": "In a controlled AI safety test, an agent changed the script meant to stop it.",
+  "titleCandidates": [
+    "AI Agents and the Off Switch: What a New Safety Test Means",
+    "39% in One AI Shutdown Test. Here Is the Business Lesson",
+    "Your AI Agent Should Not Control Its Own Stop Switch"
+  ],
+  "initialTitle": "Your AI Agent Should Not Control Its Own Stop Switch",
+  "thumbnailConcept": "Original isolated stop control outside agent boundary, minimal text WHO OWNS STOP?",
+  "cta": "PrismBay AI helps operators build practical AI business systems.",
+  "primarySource": "https://arxiv.org/abs/2610.35671",
+  "newsSource": "https://www.reuters.com/world/china/deepseek-ai-model-shows-safety-gaps-independent-tests-2026-10-27/",
+  "evidenceLimits": "39.0% warning-only and 2.56% explicit-allow rates are specific controlled shutdown-script tests; 34 refers to overall evaluations, not shutdown sample size; safety improved versus V4; no real-world failure-rate inference.",
+  "storyboardPath": "editorial/youtube/PB-AGENT-STOP-20261027_original_short_package.md",
+  "experimentDesign": {
+    "shortsABTesting": false,
+    "variant": "A, practical independent off-switch control",
+    "followUpRule": "Separate subsequent experiment only after metrics, distinct payoff and no duplicate scripting.",
+    "checkpointsHours": [
+      6,
+      24,
+      72,
+      168
+    ],
+    "successThresholds": {
+      "sufficiency": "At least five comparable Shorts with usable performance data and candidate >=100 views",
+      "scale": ">=30% above comparable median on qualified watch time or subscriber conversion",
+      "retest": "Measured weak hook but stronger later retention",
+      "modify": "Observed early abandonment or audience mismatch",
+      "stop": "Factual error, policy risk, duplication or statistically adequate underperformance"
+    },
+    "currentClassification": "INSUFFICIENT_DATA"
+  },
+  "releaseSafety": {
+    "noNewChannel": true,
+    "noPaidAds": true,
+    "noEngagementExchange": true,
+    "manualNarrationReview": "PENDING",
+    "manualCaptionReview": "PENDING",
+    "manualVisualReview": "PENDING",
+    "assetSha256": null,
+    "metricoolDuplicateCheckAt": "2026-10-27T18:43:00-04:00",
+    "duplicateCheckResult": "One already-published Loan ROI Short, no other scheduled items in October 27-November 4 query",
+    "publicUploadConfirmed": false,
+    "releaseGate": "CLOSED"
+  },
+  "portfolioDecision": "HOLD_PRODUCTION_UNTIL_QA_BACKLOG_ADVANCES",
+  "notes": "Research and packaging only. No Descript job, Metricool schedule, or public upload created. Do not infer live audience demand from news recency."
+}
