@@ -22,7 +22,11 @@ export function currentPublicProducts(review, alternateRegistry=null, shortlist=
  const cjFresh=review?.authenticationVerified===true &&
   Number.isFinite(now) && reportAge>=-5*60000 && reportAge<=36*3600000;
  const cj=cjFresh?publicRules.flatMap(rule=>{
-  const p=review.candidates?.find(row=>row.slug===rule.slug);
+  // Duplicate or malformed candidate records are ambiguous and fail closed.
+  const records=Array.isArray(review.candidates)
+   ?review.candidates.filter(row=>row?.slug===rule.slug):[];
+  if(records.length!==1)return [];
+  const p=records[0];
   if(!p||p.independentIdentityMatch!==true||p.variantStockVerified!==true||
      p.freightEstimateVerified!==true||!rule.sourceRegex.test(String(p.observedProduct||""))||
      !matchesIntendedProduct({slug:rule.slug},p.observedProduct)||
@@ -32,7 +36,10 @@ export function currentPublicProducts(review, alternateRegistry=null, shortlist=
   // Report refreshes never renew a missing or expired individual stock check.
   const observed=Date.parse(p.observedAt||"");
   const age=now-observed;
-  if(!Number.isFinite(observed)||age< -5*60000||age>30*3600000)return [];
+  const absoluteAge=Date.now()-observed;
+  // A fresh report never extends the lifetime of an older stock observation.
+  if(!Number.isFinite(observed)||age< -5*60000||age>30*3600000||
+     absoluteAge< -5*60000||absoluteAge>30*3600000)return [];
   // All permissions other than original graphics remain unresolved.
   return [{...rule,originalName:p.observedProduct,sku:p.observedSupplierSku,variant:p.observedVariantSku,provider:"CJ",source:"CJ"}];
  }):[];
