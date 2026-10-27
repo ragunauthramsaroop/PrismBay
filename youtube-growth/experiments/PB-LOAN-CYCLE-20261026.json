@@ -1,6 +1,6 @@
 {
   "experimentId": "PB-LOAN-CYCLE-20261026",
-  "lastCheckedAt": "2026-10-27T04:48:30-04:00",
+  "lastCheckedAt": "2026-10-27T05:48:27-04:00",
   "soleChannelId": "UCw2hs85TzIpdKwJtG-BSxzQ",
   "handle": "@PrismBayAI",
   "metricoolBrandId": 6945443,
@@ -59,7 +59,7 @@
     }
   },
   "channelAnalyticsSnapshot": {
-    "asOf": "2026-10-27T04:45:00-04:00",
+    "asOf": "2026-10-27T05:48:27-04:00",
     "latestReportedSubscribers": 7,
     "latestSubscriberObservation": "2026-10-26",
     "reportedDailyViewRows": 24,
@@ -67,14 +67,28 @@
     "daysInRequestedRange": 39,
     "viewDataNullDays": 15,
     "latestNonNullViewDate": "2026-10-17",
-    "note": "496 is the sum of 24 non-null daily values, not a reliable full-period total. Nulls are missing, not zero. Per-video metrics and traffic sources returned empty rows."
+    "note": "Fresh Metricool evolution returned seven subscribers through 2026-10-26. The partial 2026-10-27 row has zero video views and no subscriber observation; do not infer an audience trend from an incomplete day. All-videos and videos-published-in-range metric queries returned empty rows. Earlier 496 view sum represents 24 non-null observations only, not a full-period total."
   },
   "releaseSafety": {
     "noNewChannel": true,
     "noPaidAds": true,
     "noEngagementExchange": true,
-    "duplicateCalendarCheck": "One scheduled YouTube post in 2026-10-26 through 2026-11-04 range, this post only.",
+    "duplicateCalendarCheck": "2026-10-27 00:00 through 2026-11-05 23:59 America/Guyana: exactly one pending YouTube post (407245436), no duplicate.",
     "publicUploadConfirmed": false,
-    "nextAction": "After 16:00 America/Guyana on 2026-10-27, verify Metricool status and public video URL before performance reporting."
+    "nextAction": "At or after 2026-10-27 16:00 America/Guyana verify the publication status and public watch URL. Do not classify this video before observed video-level data."
+  },
+  "reviewScheduleLocal": {
+    "6h": "2026-10-27T22:00:00-04:00",
+    "24h": "2026-10-28T16:00:00-04:00",
+    "72h": "2026-10-30T16:00:00-04:00",
+    "7d": "2026-11-03T16:00:00-04:00",
+    "condition": "Checkpoints apply only after confirmed public publication. If actual publish time differs, recalculate from the verified public timestamp."
+  },
+  "publishTimeEvidence": {
+    "checkedAt": "2026-10-27T05:48:27-04:00",
+    "source": "Metricool best-time-to-post YouTube calendar for brand 6945443, 2026-10-27 through 2026-11-02",
+    "tuesday16LocalScore": 10353,
+    "interpretation": "Tuesday 16:00 was the highest suggested Tuesday hour in the returned calendar. Scores are recommendation signals, not proof of channel-specific conversion or a guarantee of performance.",
+    "scheduleChanged": false
   }
 }
