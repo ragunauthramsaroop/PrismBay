@@ -1,0 +1,50 @@
+name: PrismBay Free Supplier Readiness Gate
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '29 2,8,14,20 * * *'
+  push:
+    branches: [main]
+    paths:
+      - 'config/alternate-supplier-evidence.json'
+      - 'scripts/alternate-supplier-readiness.mjs'
+      - 'scripts/alternate-supplier-readiness.test.mjs'
+      - '.github/workflows/alternate-supplier-readiness.yml'
+permissions:
+  contents: write
+concurrency:
+  group: prismbay-commerce-board-writers
+  cancel-in-progress: false
+jobs:
+  supplier-verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verify no false product, licensed images, real stock, or free-plan claim
+        run: node --test scripts/alternate-supplier-readiness.test.mjs
+      - name: Publish read-only alternate supplier readiness; never charge or order
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          for attempt in 1 2 3; do
+            git fetch origin main
+            git reset --hard origin/main
+            node --test scripts/alternate-supplier-readiness.test.mjs
+            node scripts/alternate-supplier-readiness.mjs
+            git add -f growth-reports/alternate-supplier-readiness.json
+            if git diff --cached --quiet; then exit 0; fi
+            git commit -m 'chore: refresh fail-closed free-supplier sourcing evidence board'
+            if git push origin HEAD:main; then exit 0; fi
+            echo "Supplier board updated during push. Retrying."
+            if [ "$attempt" = 3 ]; then exit 1; fi
+            sleep "$((attempt * 2))"
+          done
