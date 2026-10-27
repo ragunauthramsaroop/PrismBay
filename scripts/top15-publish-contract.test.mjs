@@ -40,3 +40,14 @@ test("unapproved physical purchases are impossible through the catalog; four dig
  ])assert.ok(html.includes(link));
  assert.doesNotMatch(html,/World.s lowest price guaranteed|Most sold products in the world/);
 });
+
+test("old pet grooming and standing steamer matches do not reappear in public source",()=>{
+ const checkedAt=new Date().toISOString();
+ const rows=[
+  {slug:"pethair",observedProduct:"Pets Comb Brush Massage Cleaning Remove Hair Comb Pet Products",observedSupplierSku:"CJYD2247348",observedVariantSku:"CJYD224734802BY",independentIdentityMatch:true,variantStockVerified:true,freightEstimateVerified:true,observedAt:checkedAt},
+  {slug:"garment-steamer",observedProduct:"Standing Garment Steamer",observedSupplierSku:"CJFU2319140",observedVariantSku:"CJFU231914001AZ",independentIdentityMatch:true,variantStockVerified:true,freightEstimateVerified:true,observedAt:checkedAt},
+  {slug:"screen-protector",observedProduct:"Mobile Phone Tempered Glass Screen Protector",observedSupplierSku:"CJPB2377299",observedVariantSku:"CJPB237729905EV",independentIdentityMatch:true,variantStockVerified:true,freightEstimateVerified:true,observedAt:checkedAt}
+ ];
+ assert.deepEqual(currentPublicProducts({checkedAt,candidates:rows}).map(x=>x.slug),["screen-protector"]);
+ assert.ok(publicRules.every(x=>x.slug!=="pethair"));
+});
