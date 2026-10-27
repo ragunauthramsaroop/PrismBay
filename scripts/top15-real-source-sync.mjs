@@ -30,14 +30,15 @@ export function currentPublicProducts(review){
   const observationAge=now-observed;
   if(!Number.isFinite(observed)||observationAge< -5*60000||observationAge>30*3600000)return [];
   // All permissions other than original graphics remain unresolved.
-  return [{...rule,originalName:p.observedProduct,sku:p.observedSupplierSku,variant:p.observedVariantSku}];
+  const expiresAt=new Date(Math.min(now+36*3600000,observed+30*3600000)).toISOString();
+  return [{...rule,originalName:p.observedProduct,sku:p.observedSupplierSku,variant:p.observedVariantSku,expiresAt}];
  });
 }
 
 export function renderCards(products){
  return products.map((p,i)=>{
   const link="https://prismbay-clean-global.floot.app/quote?product="+encodeURIComponent(p.slug)+"&amp;utm_source=verified-catalog&amp;variantSku="+encodeURIComponent(p.variant);
-  return '<article class="product" data-category="'+esc(p.category)+'" data-search="'+esc((p.name+" "+p.originalName+" "+p.sku+" "+p.category).toLowerCase())+'">\n'+
+  return '<article class="product" data-evidence-expires-at="'+esc(p.expiresAt)+'" data-category="'+esc(p.category)+'" data-search="'+esc((p.name+" "+p.originalName+" "+p.sku+" "+p.category).toLowerCase())+'">\n'+
    '<div class="product-content"><div class="tag-row"><span class="tag">'+esc(p.category)+' · Supplier record</span><span class="state">Checkout not yet approved</span></div>\n'+
    '<p class="supplier-label">EXACT SOURCE-MATCHED PRODUCT '+String(i+1).padStart(2,"0")+'</p>\n'+
    '<h3>'+esc(p.name)+'</h3><p>'+esc(p.desc)+'</p>\n'+
