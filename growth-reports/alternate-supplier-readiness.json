@@ -1,0 +1,12 @@
+{
+  "schemaVersion": 1,
+  "asOf": "2026-10-27T11:44:30.804Z",
+  "liveSupplierAPIs": [],
+  "verifiedSourceProducts": [],
+  "blockedCandidateReasons": [],
+  "publicAlternateSourceCount": 0,
+  "customerCheckoutEnabled": false,
+  "automaticOrdersEnabled": false,
+  "monthlySubscriptionCommitmentUsd": 0,
+  "note": "Supplier-linked public media appears only with explicit reuse rights; checkout also requires buyer-specific final delivery, refundable order-routing terms, and separately authorized funding."
+}
