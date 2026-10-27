@@ -26,6 +26,28 @@ jobs:
           sudo apt-get update -qq
           sudo apt-get install -y -qq ffmpeg
           python -m pip install --disable-pip-version-check pillow
+      - name: Correct any unsafe zero-decibel audio peak before final QA
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import subprocess,re,json
+          root=Path('youtube-growth/media')
+          video=root/'PB-AGENT-TEST-20261026_final.mp4'
+          manifest_path=root/'PB-AGENT-TEST-20261026_manifest.json'
+          test=subprocess.run(['ffmpeg','-hide_banner','-i',str(video),'-vn','-af','volumedetect','-f','null','-'],capture_output=True,text=True)
+          m=re.search(r'max_volume:\s*(-?[0-9.]+) dB',test.stderr)
+          if m and float(m.group(1))>=-0.1:
+              tmp=video.with_name('PB-AGENT-TEST-20261026_master_tmp.mp4')
+              subprocess.run(['ffmpeg','-hide_banner','-loglevel','error','-y','-i',str(video),'-c:v','copy','-af','volume=-3dB','-c:a','aac','-b:a','160k','-movflags','+faststart',str(tmp)],check=True)
+              tmp.replace(video)
+              data=json.loads(manifest_path.read_text())
+              data['audio_mastering']='-3dB attenuation applied after independent QA detected 0dB peak'
+              data['publication_approved']=False
+              manifest_path.write_text(json.dumps(data,indent=2)+'\n')
+              print('Applied -3dB audio mastering and preserved publication gate')
+          else:
+              print('Audio already has safe headroom')
+          PY
       - name: Verify output and create independent visual evidence
         run: |
           python - <<'PY'
@@ -93,7 +115,7 @@ jobs:
         run: |
           git config user.name "PrismBay Growth Swarm QA"
           git config user.email "actions@users.noreply.github.com"
-          git add editorial/youtube/qa/PB-AGENT-TEST-20261026/
+          git add editorial/youtube/qa/PB-AGENT-TEST-20261026/ youtube-growth/media/PB-AGENT-TEST-20261026_final.mp4 youtube-growth/media/PB-AGENT-TEST-20261026_manifest.json
           if ! git diff --cached --quiet; then
             git commit -m "Audit original agent testing Short and preserve unpublished review gate"
             for i in 1 2 3 4; do
