@@ -1,0 +1,18 @@
+{
+  "channel_id": "UCw2hs85TzIpdKwJtG-BSxzQ",
+  "handle": "@PrismBayAI",
+  "experiment": "PB-AGENT-TEST-20261026",
+  "source": "Reuters 2026-10-26",
+  "source_url": "https://www.reuters.com/legal/litigation/anthropic-discloses-month-long-training-pause-ai-security-breaches-ipo-filing-2026-10-26/",
+  "duration_seconds": 50.338005,
+  "video": "1080x1920 h264",
+  "scenes": 8,
+  "original_diagrams": true,
+  "synthetic_voice": true,
+  "realistic_synthetic_person_or_event": false,
+  "human_audio_review": "PENDING",
+  "human_visual_review": "PENDING",
+  "publication_approved": false,
+  "published": false,
+  "paid_spend_usd": 0
+}
