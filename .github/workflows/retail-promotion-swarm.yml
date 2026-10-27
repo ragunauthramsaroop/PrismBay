@@ -27,6 +27,8 @@ on:
       - 'scripts/dropshipping-dispatch.mjs'
       - 'scripts/organic-growth-agent.mjs'
       - 'scripts/cj-review-board.mjs'
+      - 'scripts/top15-readiness.mjs'
+      - 'scripts/top15-readiness.test.mjs'
   push:
     branches: [main]
     paths:
@@ -35,6 +37,8 @@ on:
       - 'scripts/retail-promotion-swarm.test.mjs'
       - 'scripts/tiktok-retail-readiness.mjs'
       - 'scripts/tiktok-retail-readiness.test.mjs'
+      - 'scripts/top15-readiness.mjs'
+      - 'scripts/top15-readiness.test.mjs'
 
 permissions:
   contents: read
@@ -72,6 +76,7 @@ jobs:
           scripts/retail-readiness-closure.test.mjs
           scripts/first-sale-verifier.test.mjs
           scripts/cj-review-board.test.mjs
+          scripts/top15-readiness.test.mjs
           scripts/cj-match-policy.test.mjs
           scripts/cj-freight-policy.test.mjs
           scripts/dropshipping-dispatch.test.mjs
