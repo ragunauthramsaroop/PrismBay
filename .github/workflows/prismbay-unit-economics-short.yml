@@ -7,6 +7,7 @@ on:
       - 'scripts/youtube_visual_unit_economics.py'
       - 'scripts/render-unit-economics-draft.py'
       - 'scripts/validate-unit-economics-scenes.py'
+      - 'scripts/build-unit-economics-captions.py'
       - 'content/youtube/special-requests/ai-cost-per-accepted-result-2026-10-27.json'
       - '.github/workflows/prismbay-unit-economics-short.yml'
   workflow_dispatch:
@@ -41,6 +42,42 @@ jobs:
         run: |
           python3 scripts/render-unit-economics-draft.py content/youtube/special-requests/ai-cost-per-accepted-result-2026-10-27.json
 
+      - name: Normalize narration audio and preserve strict release gate
+        run: |
+          set -euo pipefail
+          slug='ai-cost-per-accepted-result-2026-10-27'
+          original="public/youtube/$slug.mp4"
+          temp="public/youtube/$slug.audio-master.mp4"
+          ffmpeg -hide_banner -loglevel error -y -i "$original" \
+            -map 0:v:0 -map 0:a:0 -c:v copy \
+            -af 'loudnorm=I=-16:TP=-1.5:LRA=11' \
+            -c:a aac -b:a 160k -ar 44100 -movflags +faststart "$temp"
+          mv "$temp" "$original"
+          python3 - <<'PY'
+          import hashlib,json
+          from pathlib import Path
+          slug='ai-cost-per-accepted-result-2026-10-27'
+          p=Path('public/youtube')/(slug+'.mp4')
+          m=p.with_suffix('.json')
+          manifest=json.loads(m.read_text())
+          assert manifest['channelId']=='UCw2hs85TzIpdKwJtG-BSxzQ'
+          assert manifest['publicationApproved'] is False
+          assert manifest['paidSpendUSD']==0
+          manifest['sha256']=hashlib.sha256(p.read_bytes()).hexdigest()
+          manifest['audioMastered']=True
+          manifest['captionTimingVerified']=False
+          manifest['manualNarrationReview']=False
+          manifest['qualityGate']='CLOSED_PENDING_FULL_AUDIO_VISUAL_CAPTION_QA'
+          m.write_text(json.dumps(manifest,indent=2)+'\n')
+          PY
+
+      - name: Generate scene-aligned provisional captions, never auto-approve
+        run: |
+          python3 scripts/build-unit-economics-captions.py \
+            content/youtube/special-requests/ai-cost-per-accepted-result-2026-10-27.json \
+            public/youtube/ai-cost-per-accepted-result-2026-10-27.mp4 \
+            --output public/youtube/ai-cost-per-accepted-result-2026-10-27.srt
+
       - name: Technical media and release-gate checks
         run: |
           python3 - <<'PY'
@@ -70,5 +107,7 @@ jobs:
           path: |
             public/youtube/ai-cost-per-accepted-result-2026-10-27.mp4
             public/youtube/ai-cost-per-accepted-result-2026-10-27.json
+            public/youtube/ai-cost-per-accepted-result-2026-10-27.srt
+            public/youtube/ai-cost-per-accepted-result-2026-10-27.caption_qa.json
             .youtube-render/ai-cost-per-accepted-result-2026-10-27/*.png
           retention-days: 7
