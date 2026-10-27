@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-27T12:42:29.242Z",
+  "updatedAt": "2026-10-27T18:20:25.027Z",
   "market": "US",
   "methodology": "Public-news attention, freshness, and short-form demonstration fit. This is not PrismBay sales data and is not a TikTok, Amazon, Google, or Bing product ranking.",
   "refreshTargetHours": 6,
@@ -11,9 +11,9 @@
       "signalScore": 98.5,
       "signalLabel": "high-attention",
       "evidence": {
-        "publicMentions": 110,
-        "mentionsLast7Days": 12,
-        "mentionsLast30Days": 18,
+        "publicMentions": 107,
+        "mentionsLast7Days": 14,
+        "mentionsLast30Days": 20,
         "sourcesAvailable": [
           "Google News",
           "Bing News"
@@ -21,10 +21,10 @@
       },
       "sampleSignals": [
         {
-          "title": "I tested the Feppo mattress vacuum, and I was shocked by what it picked up - Amarillo Globe-News",
+          "title": "I tested the Feppo mattress vacuum, and I was shocked by what it picked up - Daily American",
           "source": "Google News",
-          "publishedAt": "2026-10-27T11:41:45.000Z",
-          "url": "https://news.google.com/rss/articles/CBMingFBVV95cUxPcHFKZ2RacFF6LUI5Tkgta1ZEemxtQnB4by1OZVJvU3l3Tm1FanlfMzdOWFU2OXdXd1ZsaGpjQ1g3Wjdrd0JGZU9NMzVKYW1qclF5Z0RNODdlN25iaEtlX2dlMUNGYjdmN3R4R0RIMkk1S1VLdnFSLUVkZU5Zb3FRUmdqVVVUMjJ4VU9feWlQVEFKUndFMTV2SE9wNVJTUQ?oc=5"
+          "publishedAt": "2026-10-27T11:41:29.000Z",
+          "url": "https://news.google.com/rss/articles/CBMipAFBVV95cUxNOXdyYXhKbmQ2SGV5NE05YVNUWGhTMTJ6VHFaNjVlUW5xMjhhd1ZjaVBhLWxNdEFvMEp6R3poVmpzNmdNRjlLVU91RWF0SWlTTVhLYnBvWFVWZVBaQXhXQjVOMUZlQXU0bUoxeU5VeF9aQjd3ZmdSQXFRSGpkOGpQODlFTjdjOWNDVDc0Z2tXd3ozTC1wdlJvN2ZMcWRUdFFGQ0dFQw?oc=5"
         },
         {
           "title": "This $55 mattress vacuum showed me just how dirty my clean mattress really was - Kitsap Sun",
@@ -33,22 +33,22 @@
           "url": "https://news.google.com/rss/articles/CBMitgFBVV95cUxQb214N2FsdEUxMmJTYlRTTXBTdkZhWDNCb25rSGhkZGdHbDJNek53TnVqdU5GZHF3dTFZbnVxYnZnXzJ5M2xwdGlvWnVWWWx6X1hFc29fX3FkNkJaeUxGbUlCUjdtMlp6RGNUNy1KQWFjd3JqN1J0ODRQSWZWbERwLWVKOEE0NmEzWGlmNmgtaGJCYW81STZyWFlsd2lqZ3ZRdEhLU1dNSm1hVS1nVlVGbjJJSzNLdw?oc=5"
         },
         {
+          "title": "This $55 mattress vacuum showed me just how dirty my clean mattress really was - Daily American",
+          "source": "Google News",
+          "publishedAt": "2026-10-26T15:41:08.000Z",
+          "url": "https://news.google.com/rss/articles/CBMiuwFBVV95cUxNck1fNmlINXZ5SmdEUmwtU0FGd2RBcnRfN2xJY1dKSXZ4OEQyMGxuVEJBTE9mTm9mSlRzdENhYlZkRTNCM210VXVxdDBWeFJuLUw4ODhjd0FOSEROcmhMWG1sSlJQM0cxYXd2SHFJb1lqZWtBaGktaDFjM1BId3IzRkZYY19SZzFTalBqYTJxcDYxXzJFekxvVUdGSVh2YWp6Sk1FbXFqcVBRX1NYXzk2OE1NcVE3TEItNTJR?oc=5"
+        },
+        {
+          "title": "This $55 mattress vacuum showed me just how dirty my clean mattress really was - Panama City News Herald",
+          "source": "Google News",
+          "publishedAt": "2026-10-26T15:41:13.000Z",
+          "url": "https://news.google.com/rss/articles/CBMitwFBVV95cUxNRWh6cHNPempsc1NHSVNEcTY4WHpwaVhKWTUxU1ZrUno4STIyYlY1MXo2MXgtX1dtaS1jU0pTUWhKb3VuSGJQMXR4M1ItYUVFZmxFaEJiZlNuOGpGcnZkX2d1dnVJcDl5VFBRSVBGWFJ6M3ZTVHJMcWc0TTV1X1Exa0lRSmljeUZad1IwbTFocThiaWNsR3A3cWpXdk9ndk9TWkg3cGJySUJZMzJvN3pqR3h3emM0RTg?oc=5"
+        },
+        {
           "title": "This $55 mattress vacuum showed me just how dirty my clean mattress really was - The Florida Times-Union",
           "source": "Google News",
           "publishedAt": "2026-10-26T15:41:16.000Z",
           "url": "https://news.google.com/rss/articles/CBMiugFBVV95cUxNcnRyNzZNX2JJQ0l5RlhrQ3VsOVdhRkRaWVVsNVJmRTlmbWdYN251cVA4T21QeGZhYkJUNGpBb29jcGpmTlVIS0RkelluWEZ4QjRHNkNOMnVmMm1GUGpqRkhaV3FMbENlRk5lSmtnWThrQ19zaEZEV2J3TjYxNFI2QVJaUERMdzhldkdHT29zcFllM3NrVXR3aUR6dHhPMU5kZjV4SzlCRWNPcXdiVzRZODZDVmNwRU5ISEE?oc=5"
-        },
-        {
-          "title": "This $55 mattress vacuum showed me just how dirty my clean mattress really was - Erie Times-News",
-          "source": "Google News",
-          "publishedAt": "2026-10-26T15:41:42.000Z",
-          "url": "https://news.google.com/rss/articles/CBMisgFBVV95cUxPQVV2OEF0LUpvNmVydF9JMGMzOTZkMEdvQzdfeGh3b2hGOUM3Z0FhZ2VwUjRUbmI0RVJCeVJqOXFJc0xpZmdCVExpeGFUaktvN1FJaGt3eDRoMTJraW93V21ZYmdEOVQxdEVlZDBXS3Ffckp5MENUZEplRi0teW5mbXRncEtUZmlQbTQwNnRTUXRVcDRyRzhtbmRsQVMyMFprRndONGFnOEVBRVUwYVlmQ19B?oc=5"
-        },
-        {
-          "title": "This $55 mattress vacuum showed me just how dirty my clean mattress really was - Oakridger",
-          "source": "Google News",
-          "publishedAt": "2026-10-26T15:41:18.000Z",
-          "url": "https://news.google.com/rss/articles/CBMitgFBVV95cUxNZlRKS3FSY2Nlby1KbDRJZnlfM1hmcWdRdXgtbjNLeGMybUNRNDF2TW9maVlsbWdvT0tlcW5DV25zeGtSc2M3eXpMSVFEMlFzWDBNT09KMkZDZzltY3p5YVBsSnl6Q2JvdVF0WFo4WjhaVFVwZlpValJkMGlLLUxqTl9oWE1lU2I5OWFCQTFZWENrS3RRZEFEbklOOFpSRVUtSnJ4TGVWZEhNSUtuN1J0WFZmZl85Zw?oc=5"
         }
       ],
       "rank": 1
@@ -56,12 +56,12 @@
     {
       "slug": "scrubber",
       "name": "5-in-1 Electric Spin Scrubber",
-      "signalScore": 79,
+      "signalScore": 86.5,
       "signalLabel": "high-attention",
       "evidence": {
-        "publicMentions": 67,
+        "publicMentions": 92,
         "mentionsLast7Days": 2,
-        "mentionsLast30Days": 2,
+        "mentionsLast30Days": 7,
         "sourcesAvailable": [
           "Google News",
           "Bing News"
@@ -104,12 +104,12 @@
     {
       "slug": "pressure-washer",
       "name": "Cordless Pressure Washer",
-      "signalScore": 78.5,
+      "signalScore": 80,
       "signalLabel": "high-attention",
       "evidence": {
         "publicMentions": 104,
         "mentionsLast7Days": 2,
-        "mentionsLast30Days": 2,
+        "mentionsLast30Days": 3,
         "sourcesAvailable": [
           "Google News",
           "Bing News"
@@ -155,7 +155,7 @@
       "signalScore": 78.5,
       "signalLabel": "high-attention",
       "evidence": {
-        "publicMentions": 32,
+        "publicMentions": 31,
         "mentionsLast7Days": 1,
         "mentionsLast30Days": 6,
         "sourcesAvailable": [
@@ -203,9 +203,9 @@
       "signalScore": 44,
       "signalLabel": "watch",
       "evidence": {
-        "publicMentions": 10,
-        "mentionsLast7Days": 1,
-        "mentionsLast30Days": 2,
+        "publicMentions": 11,
+        "mentionsLast7Days": 0,
+        "mentionsLast30Days": 3,
         "sourcesAvailable": [
           "Google News",
           "Bing News"
@@ -231,16 +231,16 @@
           "url": "https://news.google.com/rss/articles/CBMid0FVX3lxTE9TRHBxazJndGdPZkxWeW5xUGRibHc4aGJjUjBRN2tueTdCU1I1dEx2N1RXSGYteThUejc1cWlBcnNiOGhDYmNYSVVRUk0wN1djTE9Ub2VZYzV5VGJYczFLTHo2MHhWdEpXckdnX3V5U0pyOUNTVFpN?oc=5"
         },
         {
+          "title": "Best Prime Big Deal Days Sales on Pet Products - Consumer Reports",
+          "source": "Google News",
+          "publishedAt": "2026-10-07T07:00:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMiugFBVV95cUxPNUFvYlVIOURkSktJaEk1ZUV3STQtbmhWaU4teXdfZDBvUzR6bFNhX1RBM1h4TEFWUUNaYkgxWjU2bFZXSl9SRnZTbXRtaFJSXzdReWN2N0pzR05pdWxyOVFHTTRKcVE4R29oZlhlU3VLaVRtYXNqWWx0X2JyX091OUluaGJMSWF1YmR6UVMySGxTdk9zczFTY2dMc3ktaDViUUZfMjZMSVp5MkpCQ2VjZTVTcGlFWnBnTUE?oc=5"
+        },
+        {
           "title": "Uproot Clean Promo Code LOUISAWARWICK10 – Get 10% Off Sitewide on Viral Pet Hair Removal Tools - Muzique Magazine",
           "source": "Google News",
           "publishedAt": "2026-05-26T07:00:00.000Z",
           "url": "https://news.google.com/rss/articles/CBMivAFBVV95cUxNdDdxTXg5VTljRFBmTDlNd0VXaDV5eUJlbHp4NGxpT3RQdk1sUmVhM3RydDJ3OXJGR3dMalAxemlVYjhzT2NZZ2pLYlBSM2F0Rk1zVDNrR2x0NGJyb3FJOUNDY2x0eEVnRk90aGtvdENXX01MMUhSNTIzOEhnZHVHWHByRW1hYmpCa0tTcXc3clBKTjVNMkdkNmR4blJtYng3cVhkRTdoRHBuZEczeWNENUhST0hsY2pRcU9Udw?oc=5"
-        },
-        {
-          "title": "Best Pet Hair Remover Tools - Consumer Reports",
-          "source": "Google News",
-          "publishedAt": "2025-02-10T08:00:00.000Z",
-          "url": "https://news.google.com/rss/articles/CBMikwFBVV95cUxOdFp5djVaTWsxTXVTeFlpcWdPTXNhNHlHUU5icHMxUFlWWVJab0lDMVpPUHhqbV9MaVh4bGJwLXJMSlB6OGQ5ajlWOThPOXJ2VS0xT2dsWVl4OHZKWm14ZW1JZmVvUlRUWFBlTXZSVzYzZUJzWG9KeEJYUXkzSlp2NWFLSlpad2U1eVRxRVV0QWt4dHc?oc=5"
         }
       ],
       "rank": 5
@@ -279,10 +279,10 @@
           "url": "https://news.google.com/rss/articles/CBMidkFVX3lxTE92V3lnSDcyVlhvSUJINnN4VU85em51bjBTNFRKU0ltYzNrd3c5YVNMVE1jTmUzMC1tYnM4S1VUQzAtTmVNa2Jha0tNNFFvMlU1ZnkzSHpZVms4MUFiQmF6b2YxRnYydlVob3RoakhnM2t5cW9zRVE?oc=5"
         },
         {
-          "title": "'Mighty little brush': This handy Amazon tool makes cleaning tight spaces a 'breeze' — and its under $20 - Yahoo Lifestyle Canada",
+          "title": "These No. 1 bestselling crevice brushes 'get into all the hard to reach places!' — and they're less than $3 a pop - Yahoo",
           "source": "Google News",
-          "publishedAt": "2025-02-02T08:00:00.000Z",
-          "url": "https://news.google.com/rss/articles/CBMi1gFBVV95cUxNcEhyRlB4aXZhWUFQLV81OUpVOG9sU2g0eFl5eWhpd216a3UwWE5xekRIeFlqbGJjX3VBMi1UbHhITFlUQVlEM1BWYjBsSW85NWFFZEpFUjRteS16ejRpUVJpclZJZ1dHbTA4UThYX2tOY3prWE81QWktVmtTNTdMc0Z2UnNUcWRtaXU0RGpLMHc2ZGwyNkU2UmZMT3g4cFZJbGI2ZXFCdjk2MnlEaGpRQ200WGhSV0xobENKRFktZ0xuSF9ndUFLZ0ZrUFJsYWpvZ01VMVNB?oc=5"
+          "publishedAt": "2024-02-03T08:00:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMi7wFBVV95cUxQMllzbFMyWUc4SVdwd1E1QmJFbXpmc1VnYjFzZnh4SkhxbDVhRldvYjAzZDJKVUZLYVBwSEFOeEMxcl92cGMwMENVRkVKTU9Xbnp5YmkyUk1UTnNETGVNeXo2RWRJZ2ViUnZ3WjRadUtaeUN5SXFlY3I5aHJfYm1qazFKQWQ4Q1FTVUQteHgxX3FNNUJrT2FSc0J6SnFkOHdGeHJVQm5RWWg5dm83OXh0QWFRSlJVdjRPeF9NcEpaMU5CRGhtdGxyY0ZyeDRDVmdBX21xQmtQb0xqTzJXLVdTNlpJQzFsNGtTOGpQdDdfOA?oc=5"
         },
         {
           "title": "The $3 Tool That Gets Rid of All the Grime and Leaves Surfaces Spotless - Apartment Therapy",
