@@ -77,19 +77,36 @@ jobs:
             echo 'Video exceeds safe GitHub file limit; Actions artifact preserved. No public media URL claimed.'
             exit 0
           fi
+          # Preserve the exact rendered output before refreshing the checkout.
+          # Concurrent GitHub jobs can update the same binary media files.
+          output_dir='public/youtube/longform/PB-AGENT-ACCESS-001'
+          saved_dir="$RUNNER_TEMP/prismbay-longform-output"
+          mkdir -p "$saved_dir"
+          cp -a "$output_dir/." "$saved_dir/"
           git config user.name 'prismbay-ai-longform-bot'
           git config user.email 'actions@users.noreply.github.com'
-          git add public/youtube/longform/PB-AGENT-ACCESS-001/
-          if git diff --cached --quiet; then
-            echo 'Identical media already present; no duplicate commit.'
-            exit 0
-          fi
-          git commit -m 'Render original PrismBay AI long-form episode, subtitles and thumbnail variants'
           for attempt in 1 2 3 4; do
             git fetch origin main
-            git rebase origin/main
+            # Never overwrite assets from a newer renderer or editorial source.
+            if ! git diff --quiet "$GITHUB_SHA" origin/main -- \
+              scripts/render-youtube-longform.py \
+              editorial/youtube/PB-AGENT-ACCESS-001_package.md; then
+              echo 'A newer source exists. Keep this run artifact; skip stale media commit.'
+              exit 0
+            fi
+            # A fresh checkout avoids binary rebase conflicts and preserves
+            # unrelated commits made by other PrismBay workers.
+            git reset --hard origin/main
+            mkdir -p "$output_dir"
+            cp -a "$saved_dir/." "$output_dir/"
+            git add "$output_dir/"
+            if git diff --cached --quiet; then
+              echo 'Identical media already present; no duplicate commit.'
+              exit 0
+            fi
+            git commit -m 'Render original PrismBay AI long-form episode, subtitles and thumbnail variants'
             if git push origin HEAD:main; then
-              echo 'Original long-form assets committed. Publication remains blocked pending human QA.'
+              echo 'Original long-form assets committed. Human QA gate remains closed.'
               exit 0
             fi
             sleep $((attempt*3))
