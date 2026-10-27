@@ -103,7 +103,7 @@ def diagram(d, chapter, slide):
 
 def concise_summary(chapter_index, narration):
     """Use a complete, legible sentence rather than clipped narration."""
-    first = re.split(r"(?<=[.!?])\\s+(?=[A-Z])", narration.strip(), maxsplit=1)[0].strip()
+    first = re.split(r"(?<=[.!?])\s+(?=[A-Z])", narration.strip(), maxsplit=1)[0].strip()
     if len(first) <= 145:
         return first
     fallbacks = {
