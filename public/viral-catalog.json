@@ -1,19 +1,67 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-27T18:20:25.027Z",
+  "updatedAt": "2026-10-27T22:39:14.091Z",
   "market": "US",
   "methodology": "Public-news attention, freshness, and short-form demonstration fit. This is not PrismBay sales data and is not a TikTok, Amazon, Google, or Bing product ranking.",
   "refreshTargetHours": 6,
   "products": [
     {
-      "slug": "mattress-vacuum",
-      "name": "Mattress Vacuum",
-      "signalScore": 98.5,
+      "slug": "scrubber",
+      "name": "5-in-1 Electric Spin Scrubber",
+      "signalScore": 91,
       "signalLabel": "high-attention",
       "evidence": {
-        "publicMentions": 107,
-        "mentionsLast7Days": 14,
-        "mentionsLast30Days": 20,
+        "publicMentions": 94,
+        "mentionsLast7Days": 3,
+        "mentionsLast30Days": 8,
+        "sourcesAvailable": [
+          "Google News",
+          "Bing News"
+        ]
+      },
+      "sampleSignals": [
+        {
+          "title": "Back or knee pain? This electric scrubber 'saves your back' — it's on sale for $41, and Amazon shoppers say it makes them 'almost look forward to cleaning' - Yahoo Lifestyle Canada",
+          "source": "Google News",
+          "publishedAt": "2026-10-27T18:58:45.000Z",
+          "url": "https://news.google.com/rss/articles/CBMilwJBVV95cUxNOU9aN2ZwTmdMaHNFN0xRUjV0djd5TzVFUkRlNHJsS1pEU2RhT3ppemJwTzlGdHROMlh1VldxQ1ZnbTlld1pab2hRZ0k4VzhTNk9JSWc5bzRWbERVMThzd1dSeEZiSWdLd0VqeGxmbE5ObEItLWs5RGM1YzI1azlndGVKMGFPVUFEUm1MZVpwcF9UWmJqcElTRXNaUHRlUTFEeHZ4X3VvbVJYTkJFdVBXcUY0ekU0TGpaYVFiX2lmQy1iWHh5emtIUnJTdnpRUUszaHZaN3ZZdUk1LWZBOFZiRWZfT0p4MngybXBZSzAyLTcwakIyOE5pRkpjTE01ZGVqclNmcFNSRFlNUXNhRllmSHhXeXoyVzA?oc=5"
+        },
+        {
+          "title": "Yes, You Can Get ‘Excited to Clean’ Your Bathroom with This Back-Saving Electric Scrubber Brush — Shop It for $26 - People.com",
+          "source": "Google News",
+          "publishedAt": "2026-10-27T07:00:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMiigFBVV95cUxPZEdtZ3NuU1dxY2xBakxlZEExb1EzYnB5b2drMUdZNWNSejZBRHBXenNqbVdvc2dpTUpUM1c4eVgtbmFFMWtxZlZ1clo4T3FIRk5JSG82RWZqMG52VlRuUjZzZFhWOUV0M0dxVlRUZVhNY212SHByMGpjNG1MWFpKdE95c3BaRXNkemc?oc=5"
+        },
+        {
+          "title": "Spend Less Time Scrubbing With These Top-Tested Picks - Good Housekeeping",
+          "source": "Google News",
+          "publishedAt": "2026-06-25T07:00:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMijAFBVV95cUxPeHdhUGRKUmlMQy1qT2hYWXZISTJDcExWc1hFVkoxQXQ0cldiWUVGTFlnOWNNVDQxS0kwRjg0MTFZaUp3X3M4WDhFUjNJLVRYT201NjNKZlkxWmNIYVd3T1JfSGs3dDFTMXQyUGNEcmVFdUtmSHJwUTduM015VGNYNHl4MFd4TDlRSnJBbw?oc=5"
+        },
+        {
+          "title": "I Have a Leg Injury, and This Extendable Spin Scrubber Has Been a Lifesaver in Keeping My Bathroom Spotless - Apartment Therapy",
+          "source": "Google News",
+          "publishedAt": "2026-09-11T07:00:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMihgFBVV95cUxPOF92S3dDMlBWc1ptWEpxX0pxNWd5emtEbHdyMXg4NkxhUWxweGVsR1pGMXotcElFNGQtWldFRkNtUzdRWGE5aFdFNFl3NW5NYVdlbzhJVk9YMUpsLUF0Mkp4MGFfVlVXVll1Qmo5Yl9sRnhrdkJwMVpxRjlNc2NFc0E5NmhQZw?oc=5"
+        },
+        {
+          "title": "These electric spin scrubbers clean grout, tubs, and floors with ease - Business Insider",
+          "source": "Google News",
+          "publishedAt": "2026-04-22T07:00:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMie0FVX3lxTE40c3JDUmdvYnFzQW4wNUE0VUdoWVMzUk1MT1VGOTBMbDdIT0tBcU1IbzMwWmNwME5za1ozalNqUWdkVDNMV1d0WUx5YUpOSU9TRGhWR1VVTzktT3VBOXR0d0pQM0hpQVZpU2hRdFN4M3dXRlpiejRwSUlDMA?oc=5"
+        }
+      ],
+      "rank": 1
+    },
+    {
+      "slug": "mattress-vacuum",
+      "name": "Mattress Vacuum",
+      "signalScore": 88,
+      "signalLabel": "high-attention",
+      "evidence": {
+        "publicMentions": 32,
+        "mentionsLast7Days": 4,
+        "mentionsLast30Days": 5,
         "sourcesAvailable": [
           "Google News",
           "Bing News"
@@ -33,70 +81,22 @@
           "url": "https://news.google.com/rss/articles/CBMitgFBVV95cUxQb214N2FsdEUxMmJTYlRTTXBTdkZhWDNCb25rSGhkZGdHbDJNek53TnVqdU5GZHF3dTFZbnVxYnZnXzJ5M2xwdGlvWnVWWWx6X1hFc29fX3FkNkJaeUxGbUlCUjdtMlp6RGNUNy1KQWFjd3JqN1J0ODRQSWZWbERwLWVKOEE0NmEzWGlmNmgtaGJCYW81STZyWFlsd2lqZ3ZRdEhLU1dNSm1hVS1nVlVGbjJJSzNLdw?oc=5"
         },
         {
-          "title": "This $55 mattress vacuum showed me just how dirty my clean mattress really was - Daily American",
+          "title": "I Finally Got a Bed Vacuum, and Now I’m Never Going to Be Without One Again (and It’s on Sale for Prime!) - Apartment Therapy",
           "source": "Google News",
-          "publishedAt": "2026-10-26T15:41:08.000Z",
-          "url": "https://news.google.com/rss/articles/CBMiuwFBVV95cUxNck1fNmlINXZ5SmdEUmwtU0FGd2RBcnRfN2xJY1dKSXZ4OEQyMGxuVEJBTE9mTm9mSlRzdENhYlZkRTNCM210VXVxdDBWeFJuLUw4ODhjd0FOSEROcmhMWG1sSlJQM0cxYXd2SHFJb1lqZWtBaGktaDFjM1BId3IzRkZYY19SZzFTalBqYTJxcDYxXzJFekxvVUdGSVh2YWp6Sk1FbXFqcVBRX1NYXzk2OE1NcVE3TEItNTJR?oc=5"
+          "publishedAt": "2026-10-06T07:00:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMikAFBVV95cUxNbkpkQUFEYVRYc3gzc0Q0MUdkdE1pb2VORTFxbi1XbXk5OXBDYWg0Rmk3R01ZSUt6ZzNlRzRRWGR2RzRGQ09FQVNJNlZOMHk2eU9zZ0p1c1Q1dHpLbXZLZ29RcDQyX1JDZWpPME1pSlRyOG1XUTV2TlRYcDhLUWpXbFFJQkFvS09tb2YyQi1HYnE?oc=5"
         },
         {
-          "title": "This $55 mattress vacuum showed me just how dirty my clean mattress really was - Panama City News Herald",
+          "title": "Is a Mattress Vacuum the Allergy Solution We’ve Been Needing? I Tested One to Find Out - CNET",
           "source": "Google News",
-          "publishedAt": "2026-10-26T15:41:13.000Z",
-          "url": "https://news.google.com/rss/articles/CBMitwFBVV95cUxNRWh6cHNPempsc1NHSVNEcTY4WHpwaVhKWTUxU1ZrUno4STIyYlY1MXo2MXgtX1dtaS1jU0pTUWhKb3VuSGJQMXR4M1ItYUVFZmxFaEJiZlNuOGpGcnZkX2d1dnVJcDl5VFBRSVBGWFJ6M3ZTVHJMcWc0TTV1X1Exa0lRSmljeUZad1IwbTFocThiaWNsR3A3cWpXdk9ndk9TWkg3cGJySUJZMzJvN3pqR3h3emM0RTg?oc=5"
+          "publishedAt": "2026-06-27T07:00:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMisAFBVV95cUxQcmFNWEdvTUxuY1RES2k4bXh1T0U2ci1nTHBJRXVud3F4ekF2NHF4NkF4LTlKR3lRWTNObHBGcjUzOGlLNUlHNXd1dGdOQXBYcEN6QllhNGZyVDFja2h1R3AzX1hIaFk4RUpsZ3JQT05Ga2pkelRscFRTaVJ0NFhyX0c3cVllQzIxTXoyeGhKcTNvLUJuRWNLd0g3Si1mYnRoUjEzZExKZGEtUXlsVlV3dQ?oc=5"
         },
         {
-          "title": "This $55 mattress vacuum showed me just how dirty my clean mattress really was - The Florida Times-Union",
+          "title": "Turns out you do need a mattress vacuum — here’s why I love mine - NJ.com",
           "source": "Google News",
-          "publishedAt": "2026-10-26T15:41:16.000Z",
-          "url": "https://news.google.com/rss/articles/CBMiugFBVV95cUxNcnRyNzZNX2JJQ0l5RlhrQ3VsOVdhRkRaWVVsNVJmRTlmbWdYN251cVA4T21QeGZhYkJUNGpBb29jcGpmTlVIS0RkelluWEZ4QjRHNkNOMnVmMm1GUGpqRkhaV3FMbENlRk5lSmtnWThrQ19zaEZEV2J3TjYxNFI2QVJaUERMdzhldkdHT29zcFllM3NrVXR3aUR6dHhPMU5kZjV4SzlCRWNPcXdiVzRZODZDVmNwRU5ISEE?oc=5"
-        }
-      ],
-      "rank": 1
-    },
-    {
-      "slug": "scrubber",
-      "name": "5-in-1 Electric Spin Scrubber",
-      "signalScore": 86.5,
-      "signalLabel": "high-attention",
-      "evidence": {
-        "publicMentions": 92,
-        "mentionsLast7Days": 2,
-        "mentionsLast30Days": 7,
-        "sourcesAvailable": [
-          "Google News",
-          "Bing News"
-        ]
-      },
-      "sampleSignals": [
-        {
-          "title": "Yes, You Can Get ‘Excited to Clean’ Your Bathroom with This Back-Saving Electric Scrubber Brush — Shop It for $26 - People.com",
-          "source": "Google News",
-          "publishedAt": "2026-10-27T07:00:00.000Z",
-          "url": "https://news.google.com/rss/articles/CBMiigFBVV95cUxPZEdtZ3NuU1dxY2xBakxlZEExb1EzYnB5b2drMUdZNWNSejZBRHBXenNqbVdvc2dpTUpUM1c4eVgtbmFFMWtxZlZ1clo4T3FIRk5JSG82RWZqMG52VlRuUjZzZFhWOUV0M0dxVlRUZVhNY212SHByMGpjNG1MWFpKdE95c3BaRXNkemc?oc=5"
-        },
-        {
-          "title": "Spend Less Time Scrubbing With These Top-Tested Picks - Good Housekeeping",
-          "source": "Google News",
-          "publishedAt": "2026-06-25T07:00:00.000Z",
-          "url": "https://news.google.com/rss/articles/CBMijAFBVV95cUxPeHdhUGRKUmlMQy1qT2hYWXZISTJDcExWc1hFVkoxQXQ0cldiWUVGTFlnOWNNVDQxS0kwRjg0MTFZaUp3X3M4WDhFUjNJLVRYT201NjNKZlkxWmNIYVd3T1JfSGs3dDFTMXQyUGNEcmVFdUtmSHJwUTduM015VGNYNHl4MFd4TDlRSnJBbw?oc=5"
-        },
-        {
-          "title": "Back or joint pain? This electric scrubber means no kneeling down to clean — it's usually $150, but it's on sale for $45 ahead of October Prime Day - Yahoo Lifestyle Canada",
-          "source": "Google News",
-          "publishedAt": "2026-09-22T07:00:00.000Z",
-          "url": "https://news.google.com/rss/articles/CBMijwJBVV95cUxNcDFRcm1TT183LWtEanVuS2hYRWhqUkhsdlEyeHRZS0hsOUVBRXNKWkc1dE1oakk5TUlkcE1vRFlrWkVFVE5YWFZOcjg5MVp1SkgyZnpqY1NFc1Z5dHBkZ1UtV2ppdmRRTFFEOGx1TUNYYmlfc1d6aFk5ZUhOLTJoZ1R6MldTOUFDUnV5bWo0SWFma0xGMWUwM0F5S0VhbXQ4V3FuLTBySGwxMU9iZzN6OVZGVVUyNnBZUXhYRHJyYUZHMWJZWkg5U0R4RFkydEhDNjJ4M3NBVjlNSzFUWVFBNU5mRFU1RmNCckRMOGM5aE1Sdlo2QjNrRVRRd0NJa2Rra3R1S3dvSFk1T0N2Qmcw?oc=5"
-        },
-        {
-          "title": "I Have a Leg Injury, and This Extendable Spin Scrubber Has Been a Lifesaver in Keeping My Bathroom Spotless - Apartment Therapy",
-          "source": "Google News",
-          "publishedAt": "2026-09-11T07:00:00.000Z",
-          "url": "https://news.google.com/rss/articles/CBMihgFBVV95cUxPOF92S3dDMlBWc1ptWEpxX0pxNWd5emtEbHdyMXg4NkxhUWxweGVsR1pGMXotcElFNGQtWldFRkNtUzdRWGE5aFdFNFl3NW5NYVdlbzhJVk9YMUpsLUF0Mkp4MGFfVlVXVll1Qmo5Yl9sRnhrdkJwMVpxRjlNc2NFc0E5NmhQZw?oc=5"
-        },
-        {
-          "title": "These electric spin scrubbers clean grout, tubs, and floors with ease - Business Insider",
-          "source": "Google News",
-          "publishedAt": "2026-04-22T07:00:00.000Z",
-          "url": "https://news.google.com/rss/articles/CBMie0FVX3lxTE40c3JDUmdvYnFzQW4wNUE0VUdoWVMzUk1MT1VGOTBMbDdIT0tBcU1IbzMwWmNwME5za1ozalNqUWdkVDNMV1d0WUx5YUpOSU9TRGhWR1VVTzktT3VBOXR0d0pQM0hpQVZpU2hRdFN4M3dXRlpiejRwSUlDMA?oc=5"
+          "publishedAt": "2026-08-16T07:00:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMirAFBVV95cUxORUVHTHVGWkZtVUhlMG1CSUpQUjRzM0dwTWhNem9pM3ppNkRiZjFxZzRCNkVIc0dhd3RUVU4zTU91am9UQVVYcFZsU2k5a1d1WVFFWHBFTHBpUWJaQzc5bEpxR1hUb1AyZW4wVTRRaE94OW1BYU90cUNWZkcwVzlSWW96VzdzYkZuajBkN2JqSjJzNjBkeEtjTUx6QWtmemRvRUhVT21OWmplTkhh0gHAAUFVX3lxTE95S1VXaDg0OFdlMm85aXdBSjN0aHJUTElRWEhEdlhpaWRCMDlnXzVia2p5NFpJZTEwcUZvVGhnNGJzMDR4N0NWamlXS28yMzRiME15aHdsV3RYMWZucGpRTkFVUEZYakZLeEJJR2w4b0Y1NlNOU1ZURVVsTDRyOVN1SHZyRk5COUJNbnFLbExVMEhrNkszREZJcnp3dnVDck5oZXZYMllyRlN5S3NwMmFNU0FkZ0s1YkJ2TE1EZFpYSw?oc=5"
         }
       ],
       "rank": 2
@@ -104,12 +104,12 @@
     {
       "slug": "pressure-washer",
       "name": "Cordless Pressure Washer",
-      "signalScore": 80,
+      "signalScore": 81.5,
       "signalLabel": "high-attention",
       "evidence": {
-        "publicMentions": 104,
+        "publicMentions": 55,
         "mentionsLast7Days": 2,
-        "mentionsLast30Days": 3,
+        "mentionsLast30Days": 4,
         "sourcesAvailable": [
           "Google News",
           "Bing News"
@@ -155,7 +155,7 @@
       "signalScore": 78.5,
       "signalLabel": "high-attention",
       "evidence": {
-        "publicMentions": 31,
+        "publicMentions": 30,
         "mentionsLast7Days": 1,
         "mentionsLast30Days": 6,
         "sourcesAvailable": [
@@ -183,16 +183,16 @@
           "url": "https://news.google.com/rss/articles/CBMihgFBVV95cUxQaXlNc3IwRkdxSWMwS0xGc1dQZEQyRkdjb0l6M2hvZDNual9lUHQzWm5MUS1BSHhNRzRHSGxrQm5tb3dKMXlpeS0tUlJ1TElEbWNoUkN2MGgzMnp4TjRkczE4VlQ0UmNNRy1hbWI2Y05Xa3Z3RzBkU1VpcWZ1OEdRNVgtVEl1UQ?oc=5"
         },
         {
-          "title": "7 Clothes Steamers That Can Quickly Remove Wrinkles From Your Shirt - News18",
-          "source": "Google News",
-          "publishedAt": "2026-09-12T07:00:00.000Z",
-          "url": "https://news.google.com/rss/articles/CBMitgFBVV95cUxPd290QWhjS011aTVuZ25VOHZ2ekJRV2ZTNzI1dUVNUGpjQkIyem1Uby1sVkdiTEJXbnJ1Rmg1cHlrV2NZUkhveGVDakYyc3YtLUVkNW9iWVdxRy1Tc3pIYnNPamNhMkFzaW0xWko2a1FUNHdEbEtkdUJhMllMaERZZktRTzRrUzBHRjhXZEVqdHpGR3V0Z2RPYzZpQ3RVTjlvMVNwTW91dDdkbk9neWFRWU8wbEN2QdIBuwFBVV95cUxPeXdfVi05cnFVUG1kYjlaU2lKMjNhOUtLa0NKanR1R29GSnpkVTEyeWwwbzB2N2R5M3gxakRHWUc3M1NzOTZqc1FuSDJrb2RRRERrU3pTWTdzWVhmNHN2d2FFX0M4cWlTRERGaDc0NjN2S1NVWFYtS2dQZGFWbVUyV29uMFJBQ2xRVUI0cC1HNTJzaWFueGVtSHgtRmJCWHhIUU1UT0VkT3d4NVliOW14LVhPSEdZeDVrbG5F?oc=5"
-        },
-        {
           "title": "10 of the best handheld steamers on the market - Vogue Australia",
           "source": "Google News",
           "publishedAt": "2026-01-08T08:00:00.000Z",
           "url": "https://news.google.com/rss/articles/CBMirwFBVV95cUxQdkdwdjFkSnptM0JmTmpLYWRPTjUwZEhjOEI3YTlCT2VmOG1GUVJ1dklzUnV5LTROeXJKQ3QzRnEyakRLQWRrUUhPNUJvZWZ2dlhWaXFoajlpTFkwdXhDaTZjT3M4LThxM3d4bXI0X1ZMUmtSdmZXN1A0ZkM4eWF0amE3ZkxJUEVsUXVuQlM4Zk91andHSk15YVRaUHJLN1JUVGlEc2hVajBRMlRYU0h3?oc=5"
+        },
+        {
+          "title": "The Best Travel Steamers To Keep Clothing Wrinkle-Free On The Go - Forbes",
+          "source": "Google News",
+          "publishedAt": "2024-09-13T07:00:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMiigFBVV95cUxPOEltbERZMDMtemlzdFRPSUdTZGFXLVJDTUJpWWZrMGtSLVVFMDlSWWxHS3YzSXpydFhpWUlyTmd5dTYyMTBaMEtuT1VMazI2SUxzQkhSSVZEV0tqTTdzRGhlYlZxWEw5RVhxSkpsS0xsQjA4cFNkX2Jjb1NYem04OTR0TzNnQlZ1WlE?oc=5"
         }
       ],
       "rank": 4
@@ -200,12 +200,12 @@
     {
       "slug": "pethair",
       "name": "Reusable Pet Hair Remover",
-      "signalScore": 44,
+      "signalScore": 41,
       "signalLabel": "watch",
       "evidence": {
-        "publicMentions": 11,
+        "publicMentions": 10,
         "mentionsLast7Days": 0,
-        "mentionsLast30Days": 3,
+        "mentionsLast30Days": 2,
         "sourcesAvailable": [
           "Google News",
           "Bing News"
@@ -231,16 +231,16 @@
           "url": "https://news.google.com/rss/articles/CBMid0FVX3lxTE9TRHBxazJndGdPZkxWeW5xUGRibHc4aGJjUjBRN2tueTdCU1I1dEx2N1RXSGYteThUejc1cWlBcnNiOGhDYmNYSVVRUk0wN1djTE9Ub2VZYzV5VGJYczFLTHo2MHhWdEpXckdnX3V5U0pyOUNTVFpN?oc=5"
         },
         {
-          "title": "Best Prime Big Deal Days Sales on Pet Products - Consumer Reports",
-          "source": "Google News",
-          "publishedAt": "2026-10-07T07:00:00.000Z",
-          "url": "https://news.google.com/rss/articles/CBMiugFBVV95cUxPNUFvYlVIOURkSktJaEk1ZUV3STQtbmhWaU4teXdfZDBvUzR6bFNhX1RBM1h4TEFWUUNaYkgxWjU2bFZXSl9SRnZTbXRtaFJSXzdReWN2N0pzR05pdWxyOVFHTTRKcVE4R29oZlhlU3VLaVRtYXNqWWx0X2JyX091OUluaGJMSWF1YmR6UVMySGxTdk9zczFTY2dMc3ktaDViUUZfMjZMSVp5MkpCQ2VjZTVTcGlFWnBnTUE?oc=5"
-        },
-        {
           "title": "Uproot Clean Promo Code LOUISAWARWICK10 – Get 10% Off Sitewide on Viral Pet Hair Removal Tools - Muzique Magazine",
           "source": "Google News",
           "publishedAt": "2026-05-26T07:00:00.000Z",
           "url": "https://news.google.com/rss/articles/CBMivAFBVV95cUxNdDdxTXg5VTljRFBmTDlNd0VXaDV5eUJlbHp4NGxpT3RQdk1sUmVhM3RydDJ3OXJGR3dMalAxemlVYjhzT2NZZ2pLYlBSM2F0Rk1zVDNrR2x0NGJyb3FJOUNDY2x0eEVnRk90aGtvdENXX01MMUhSNTIzOEhnZHVHWHByRW1hYmpCa0tTcXc3clBKTjVNMkdkNmR4blJtYng3cVhkRTdoRHBuZEczeWNENUhST0hsY2pRcU9Udw?oc=5"
+        },
+        {
+          "title": "Best Pet Hair Remover Tools - Consumer Reports",
+          "source": "Google News",
+          "publishedAt": "2025-02-10T08:00:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMikwFBVV95cUxOdFp5djVaTWsxTXVTeFlpcWdPTXNhNHlHUU5icHMxUFlWWVJab0lDMVpPUHhqbV9MaVh4bGJwLXJMSlB6OGQ5ajlWOThPOXJ2VS0xT2dsWVl4OHZKWm14ZW1JZmVvUlRUWFBlTXZSVzYzZUJzWG9KeEJYUXkzSlp2NWFLSlpad2U1eVRxRVV0QWt4dHc?oc=5"
         }
       ],
       "rank": 5
@@ -279,10 +279,10 @@
           "url": "https://news.google.com/rss/articles/CBMidkFVX3lxTE92V3lnSDcyVlhvSUJINnN4VU85em51bjBTNFRKU0ltYzNrd3c5YVNMVE1jTmUzMC1tYnM4S1VUQzAtTmVNa2Jha0tNNFFvMlU1ZnkzSHpZVms4MUFiQmF6b2YxRnYydlVob3RoakhnM2t5cW9zRVE?oc=5"
         },
         {
-          "title": "These No. 1 bestselling crevice brushes 'get into all the hard to reach places!' — and they're less than $3 a pop - Yahoo",
+          "title": "'Mighty little brush': This handy Amazon tool makes cleaning tight spaces a 'breeze' — and its under $20 - Yahoo Lifestyle Canada",
           "source": "Google News",
-          "publishedAt": "2024-02-03T08:00:00.000Z",
-          "url": "https://news.google.com/rss/articles/CBMi7wFBVV95cUxQMllzbFMyWUc4SVdwd1E1QmJFbXpmc1VnYjFzZnh4SkhxbDVhRldvYjAzZDJKVUZLYVBwSEFOeEMxcl92cGMwMENVRkVKTU9Xbnp5YmkyUk1UTnNETGVNeXo2RWRJZ2ViUnZ3WjRadUtaeUN5SXFlY3I5aHJfYm1qazFKQWQ4Q1FTVUQteHgxX3FNNUJrT2FSc0J6SnFkOHdGeHJVQm5RWWg5dm83OXh0QWFRSlJVdjRPeF9NcEpaMU5CRGhtdGxyY0ZyeDRDVmdBX21xQmtQb0xqTzJXLVdTNlpJQzFsNGtTOGpQdDdfOA?oc=5"
+          "publishedAt": "2025-02-02T08:00:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMi1gFBVV95cUxNcEhyRlB4aXZhWUFQLV81OUpVOG9sU2g0eFl5eWhpd216a3UwWE5xekRIeFlqbGJjX3VBMi1UbHhITFlUQVlEM1BWYjBsSW85NWFFZEpFUjRteS16ejRpUVJpclZJZ1dHbTA4UThYX2tOY3prWE81QWktVmtTNTdMc0Z2UnNUcWRtaXU0RGpLMHc2ZGwyNkU2UmZMT3g4cFZJbGI2ZXFCdjk2MnlEaGpRQ200WGhSV0xobENKRFktZ0xuSF9ndUFLZ0ZrUFJsYWpvZ01VMVNB?oc=5"
         },
         {
           "title": "The $3 Tool That Gets Rid of All the Grime and Leaves Surfaces Spotless - Apartment Therapy",
