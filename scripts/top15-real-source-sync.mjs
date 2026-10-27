@@ -1,37 +1,44 @@
 import fs from "node:fs/promises";
+import {matchesIntendedProduct} from "./cj-match-policy.mjs";
 
 // Only genuine, exact source-matched supplier SKUs appear in the public
 // physical catalog. Descriptions and labels deliberately reflect the
 // actual observed CJ title, not speculative earlier marketing promises.
 // Media is intentionally omitted until written re-use rights are secured.
 export const publicRules=[
- {slug:"pethair",name:"Pet Grooming & Hair-Removal Comb",category:"Pet",sourceRegex:/\b(pet|pets|cat|dog)\b.*\b(comb|brush)\b.*\bhair\b/i,desc:"Supplier-listed pet grooming comb. Designed for brushing loose hair from pets; not a fabric lint-roller or upholstery scraper.",spec:"Confirm animal suitability and exact grooming-comb size before accepting an order."},
- {slug:"garment-steamer",name:"Standing Garment Steamer",category:"Travel",sourceRegex:/\bstanding\s+garment\s+steamer\b/i,desc:"Supplier-listed standing garment steamer. This is a standing appliance, not a pocket-sized travel steamer.",spec:"Verify voltage, plug type, safety documentation and buyer-specific delivery before payment."},
+ {slug:"garment-steamer",name:"USB Handheld Garment Steamer",category:"Fabric care",sourceRegex:/\bgarment\s+steamer\b/i,desc:"Supplier-listed USB handheld garment steamer. Actual steam function, voltage, power and fabric compatibility require independent verification.",spec:"Confirm genuine steam output, safety documentation, exact variant, buyer ZIP freight and returns before accepting payment."},
  {slug:"screen-protector",name:"Tempered-Glass Phone Screen Protector",category:"Tech",sourceRegex:/\bmobile phone tempered glass screen protector\b/i,desc:"Supplier-listed tempered-glass screen protector; its compatibility depends on the exact phone model and selected variant.",spec:"The buyer must confirm the supported phone model and pack contents before any final quote."}
 ];
 
 const esc=v=>String(v??"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
 
 export function currentPublicProducts(review){
+ // A fresh timestamp alone never authenticates a supplier report.
+ if(review?.authenticationVerified!==true)return [];
  const now=Date.parse(review?.checkedAt||"");
- if(!Number.isFinite(now)||Date.now()-now>36*3600000)return [];
+ const reportAge=Date.now()-now;
+ if(!Number.isFinite(now)||reportAge< -5*60000||reportAge>36*3600000)return [];
  return publicRules.flatMap(rule=>{
   const p=review.candidates?.find(row=>row.slug===rule.slug);
   if(!p||p.independentIdentityMatch!==true||p.variantStockVerified!==true||
      p.freightEstimateVerified!==true||!rule.sourceRegex.test(String(p.observedProduct||""))||
+     !matchesIntendedProduct({slug:rule.slug},p.observedProduct)||
      !/^CJ[A-Z0-9]{6,35}$/.test(p.observedSupplierSku||"")||
      !/^CJ[A-Z0-9]{6,35}$/.test(p.observedVariantSku||""))return [];
-  const observed=Date.parse(p.observedAt||review.checkedAt);
-  if(!Number.isFinite(observed)||now-observed>30*3600000)return [];
+  // Never refresh an undated or stale candidate by copying the report timestamp.
+  const observed=Date.parse(p.observedAt||"");
+  const observationAge=now-observed;
+  if(!Number.isFinite(observed)||observationAge< -5*60000||observationAge>30*3600000)return [];
   // All permissions other than original graphics remain unresolved.
-  return [{...rule,originalName:p.observedProduct,sku:p.observedSupplierSku,variant:p.observedVariantSku}];
+  const expiresAt=new Date(Math.min(now+36*3600000,observed+30*3600000)).toISOString();
+  return [{...rule,originalName:p.observedProduct,sku:p.observedSupplierSku,variant:p.observedVariantSku,expiresAt}];
  });
 }
 
 export function renderCards(products){
  return products.map((p,i)=>{
   const link="https://prismbay-clean-global.floot.app/quote?product="+encodeURIComponent(p.slug)+"&amp;utm_source=verified-catalog&amp;variantSku="+encodeURIComponent(p.variant);
-  return '<article class="product" data-category="'+esc(p.category)+'" data-search="'+esc((p.name+" "+p.originalName+" "+p.sku+" "+p.category).toLowerCase())+'">\n'+
+  return '<article class="product" data-category="'+esc(p.category)+'" data-evidence-expires-at="'+esc(p.expiresAt)+'" data-search="'+esc((p.name+" "+p.originalName+" "+p.sku+" "+p.category).toLowerCase())+'">\n'+
    '<div class="product-content"><div class="tag-row"><span class="tag">'+esc(p.category)+' · Supplier record</span><span class="state">Checkout not yet approved</span></div>\n'+
    '<p class="supplier-label">EXACT SOURCE-MATCHED PRODUCT '+String(i+1).padStart(2,"0")+'</p>\n'+
    '<h3>'+esc(p.name)+'</h3><p>'+esc(p.desc)+'</p>\n'+
