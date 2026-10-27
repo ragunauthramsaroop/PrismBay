@@ -66,10 +66,11 @@ def main():
         render_frame_unit_economics(segment, i, len(segments), spec.get('sourceAttribution', '')).save(png)
         engines.add(voice(segment['spoken'], wav, voices))
         seconds = max(1.0, duration(wav) + 0.18)
-        fade = max(0.1, seconds - 0.16)
+        # Hard cuts keep the first frame visible and avoid black flashes at scene changes.
+        # Do not fade to/from black: Shorts must show the hook immediately.
         filt = ("scale=1120:1992,crop=1080:1920:"
                 "x='20+10*sin(t*0.7)':y='36+10*cos(t*0.5)',"
-                f"fps=30,fade=t=in:st=0:d=0.12,fade=t=out:st={fade:.3f}:d=0.12,format=yuv420p")
+                "fps=30,format=yuv420p")
         run(['ffmpeg','-hide_banner','-loglevel','error','-y','-loop','1','-i',str(png),
              '-i',str(wav),'-t',f'{seconds:.3f}','-vf',filt,'-c:v','libx264',
              '-preset','fast','-crf','21','-c:a','aac','-b:a','160k',
