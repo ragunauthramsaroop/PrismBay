@@ -194,3 +194,24 @@ test('canonical retail audit treats missing pages and media reports as unknown',
  assert.ok(report.issues.includes('canonical_retail_manifest_uninspected'));
  assert.ok(report.issues.includes('canonical_social_queue_uninspected'));
 });
+
+test('retail queue rejects unclassified YouTube routes even without commercial flags',()=>{
+ const report=auditCanonicalRetailSnapshot({
+  pages:[{path:'/',ok:true,text:'<html>Digital tools</html>'},{path:'/shipping.html',ok:true,text:'<html>Physical checkout unavailable</html>'},{path:'/top-15/',ok:true,text:'<html>No physical offers</html>'}],
+  manifest:{products:[]},
+  queue:{items:[{channel:'youtube',status:'draft',publishAllowed:false}]}
+ });
+ assert.equal(report.safe,false);
+ assert.ok(report.issues.includes('canonical_educational_youtube_retail_contamination'));
+});
+
+test('retail queue rejects YouTube route case and whitespace variants',()=>{
+ for(const channel of ['YouTube',' YOUTUBE ','youtube ']){
+  const report=auditCanonicalRetailSnapshot({
+   pages:[{path:'/',ok:true,text:'<html>Digital tools</html>'},{path:'/shipping.html',ok:true,text:'<html>Physical checkout unavailable</html>'},{path:'/top-15/',ok:true,text:'<html>No physical offers</html>'}],
+   manifest:{products:[]},queue:{items:[{channel,offerType:'digital',status:'draft',publishAllowed:false}]}
+  });
+  assert.equal(report.safe,false,channel);
+  assert.ok(report.issues.includes('canonical_educational_youtube_retail_contamination'),channel);
+ }
+});
