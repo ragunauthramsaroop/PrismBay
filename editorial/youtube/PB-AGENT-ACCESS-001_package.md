@@ -10,10 +10,12 @@ The problem is not whether an agent produces a plausible answer. The operational
 
 ## Finished narration script
 
+Narration clarity revision (2026-10-26): tightened six spoken passages after independent speech-recognition checks. In particular, the reversible-label example now explicitly says a person must be able to undo the action. Speech-recognition output is a diagnostic proxy, not proof of an audible error. Re-render and repeat QA before publication.
+
 ### 0:00–0:55 | Cold open: the $20,000 decision
 An AI assistant reads a supplier invoice. It notices the supplier's banking details have changed. It writes a convincing explanation and recommends paying twenty thousand dollars to the new account. The recommendation sounds reasonable. But there are two completely different questions here. Can the assistant summarize the evidence? And should it be allowed to change a bank account or release money? If you confuse those questions, a useful automation becomes an authorization problem.
 
-In this video, we will design a four-level permission system for AI agents, apply it to an actual workflow pattern, and build a test to decide which actions belong behind a human approval gate. No complex architecture diagram is required. You need a workflow, a list of actions, and a clear owner.
+In this video, we will design a system with four permission levels for AI agents, apply it to an actual workflow pattern, and build a test to decide which actions belong behind a human approval gate. No complex architecture diagram is required. You need a workflow, a list of actions, and a clear owner.
 
 On screen: READ THE INVOICE ≠ RELEASE THE PAYMENT. Then four stacked blocks: OBSERVE / DRAFT / PROPOSE / EXECUTE.
 
@@ -31,7 +33,7 @@ On screen: matrix with columns LEVEL / AGENT DOES / HUMAN DOES / SYSTEM PERMISSI
 ### 2:15–3:30 | Build the action inventory before the prompt
 Start with the verbs. Read, classify, draft, send, approve, pay, delete, publish, export, update bank details. Each verb touches a different risk.
 
-For every verb, document five fields: what data the action touches, who is affected, what happens if it is wrong, whether the action is reversible, and who owns approval. If the action sends confidential information outside the organization, changes financial details, or creates a binding external commitment, a text instruction saying 'be careful' is not a sufficient control.
+For every verb, record five items: what data the action touches, who is affected, what happens if it is wrong, whether the action is reversible, and who owns approval. If the action sends confidential information outside the organization, changes financial details, or creates a binding external commitment, a text instruction saying 'be careful' is not a sufficient control.
 
 A useful agent design keeps the system's actual access narrower than its language ability. An assistant can discuss a payment without holding payment credentials. It can prepare an email without having permission to send it. The boundary belongs in the application and the tool permissions, not only in a prompt.
 
@@ -46,23 +48,23 @@ DRAFT: prepare a missing-document request in an internal queue. No outbound emai
 
 PROPOSE: suggest a purchase-order correction, including the original record, proposed change, and evidence. A buyer approves through a separate interface.
 
-EXECUTE: apply only a reversible internal category label to requests meeting a documented rule. The agent cannot create a vendor, change bank details, approve invoices, or release funds.
+EXECUTE: apply a low-risk internal category label to requests meeting a documented rule. A person must be able to undo the label. The agent cannot create a vendor, change bank details, approve invoices, or release funds.
 
 Why start this narrow? Because the organization learns where the system is reliable before granting more consequential permissions. The agent's value comes from fewer handoffs and clearer work, not from pretending that every decision should be autonomous.
 
 On screen: a genuine before-and-after swimlane diagram showing five manual handoffs reduced to three, labelled 'illustrative, not measured'.
 
 ### 4:55–6:15 | The approval gate needs real engineering
-A weak approval gate is a message asking, 'Are you sure?' inside the same conversation. A stronger gate requires an independent authorized identity, a transaction-specific approval, and a server-side check before execution.
+An unsafe approval step is a message asking, 'Are you sure?' inside the same conversation. A stronger gate requires an independent authorized identity, a transaction-specific approval, and a server-side check before execution.
 
 Imagine an agent proposes a purchase-order adjustment. The reviewer sees the exact fields to change, old values, new values, supporting documents, and the business reason. The reviewer approves one specific transaction. The backend validates the reviewer's role, checks the amount and destination, and records the decision. If the data changes after approval, the approval expires.
 
-Keep credentials outside the model's text context. Restrict tools to allowlisted destinations and actions. Log who requested the action, which system executed it, when, and what changed. Include a way to suspend the agent when behavior departs from its approved scope.
+Keep credentials outside the model's text context. Restrict tools to preapproved destinations and actions. Log who requested the action, which system executed it, when, and what changed. Include a way to suspend the agent when behavior departs from its approved scope.
 
 On screen: proposal → independent approval → policy check → execute → immutable audit record. Use a visible RED STOP at each failed check.
 
 ### 6:15–7:35 | Measure business value without hiding risk
-Here is a deliberately hypothetical pilot. A team processes eight hundred requests per month. A controlled agent reduces average manual handling time from ten minutes to seven. Eight hundred times three minutes equals twenty-four hundred minutes, or forty hours of released capacity. That is not automatically forty hours of payroll savings.
+Here is a deliberately hypothetical pilot. A team processes eight hundred requests per month. A controlled agent reduces average manual handling time from ten minutes to seven. Eight hundred times three minutes equals twenty-four hundred minutes, or forty hours of released capacity. Those forty hours are released capacity, not automatic reductions in wage costs.
 
 Suppose the pilot costs four hundred dollars per month in usage and oversight. Suppose it also prevents five hundred dollars in verified overtime. The recurring net cash effect is one hundred dollars per month, before setup costs. Separately, record turnaround time, correction rate, customer complaints, and approval exceptions. If quality worsens, a positive time-saving chart is not proof of success.
 
