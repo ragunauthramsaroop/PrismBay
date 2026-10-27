@@ -1,10 +1,10 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-10-27T12:43:08.903Z",
+  "generatedAt": "2026-10-27T14:34:56.452Z",
   "researchCandidates": 12,
   "publishedResearchSignals": 12,
   "verifiedCJStatus": {
-    "checkedAt": "2026-10-27T12:18:23.860Z",
+    "checkedAt": "2026-10-27T14:34:54.634Z",
     "validSupplierMatches": 0,
     "variantStock": 0,
     "freightEstimates": 0,
@@ -27,6 +27,27 @@
       "executionMode": "scheduled_cj_and_manual_review",
       "candidateCount": 18,
       "blockers": [
+        {
+          "slug": "cordless-handheld-vacuum",
+          "status": "supplier_api_retry_required",
+          "sku": null,
+          "shippingDiagnostic": null,
+          "zeroPricedMethods": 0
+        },
+        {
+          "slug": "insulated-tumbler",
+          "status": "supplier_api_retry_required",
+          "sku": null,
+          "shippingDiagnostic": null,
+          "zeroPricedMethods": 0
+        },
+        {
+          "slug": "screen-protector",
+          "status": "supplier_api_retry_required",
+          "sku": null,
+          "shippingDiagnostic": null,
+          "zeroPricedMethods": 0
+        },
         {
           "slug": "scrubber",
           "status": "supplier_api_retry_required",
@@ -85,27 +106,6 @@
         },
         {
           "slug": "home-caddy",
-          "status": "supplier_api_retry_required",
-          "sku": null,
-          "shippingDiagnostic": null,
-          "zeroPricedMethods": 0
-        },
-        {
-          "slug": "cordless-handheld-vacuum",
-          "status": "supplier_api_retry_required",
-          "sku": null,
-          "shippingDiagnostic": null,
-          "zeroPricedMethods": 0
-        },
-        {
-          "slug": "insulated-tumbler",
-          "status": "supplier_api_retry_required",
-          "sku": null,
-          "shippingDiagnostic": null,
-          "zeroPricedMethods": 0
-        },
-        {
-          "slug": "screen-protector",
           "status": "supplier_api_retry_required",
           "sku": null,
           "shippingDiagnostic": null,
@@ -171,7 +171,7 @@
       "executionMode": "existing_cloud_script",
       "reportAvailable": true,
       "storefrontStatus": 200,
-      "missingProductSchema": false
+      "missingProductSchema": true
     },
     {
       "worker": "Hook/Creative Writer",
