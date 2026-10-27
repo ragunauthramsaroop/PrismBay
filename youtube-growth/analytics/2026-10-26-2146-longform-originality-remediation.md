@@ -16,6 +16,7 @@ Independent report: `editorial/youtube/qa/PB-AGENT-ACCESS-001/independent_report
 - Audio peak: -2.9 dB. Caption cues: 99. ASR word-sequence similarity proxy: 0.941.
 - Originality/scene-diversity check: **4 distinct sampled scenes**, below the existing threshold of 6. Consequently `technicalPass=false`.
 - Human visual and narration reviews: PENDING. `publicationApproved=false`. No YouTube upload or A/B test initiated.
+- Independently inspected the existing 12-frame contact sheet. The samples confirm repeated left-side narration and right-side workflow boxes, with limited chapter-to-chapter compositional variation. This is a substantive originality concern, not only a hash-threshold artifact. The revised renderer introduces genuinely different editorial structures. The new rendered output still requires inspection.
 
 ## Concrete zero-cost remediation applied
 Updated `scripts/render-youtube-longform.py` on the existing main branch:
