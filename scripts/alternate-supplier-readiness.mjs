@@ -1,5 +1,6 @@
 import {pathToFileURL} from "node:url";
 import fs from "node:fs/promises";
+import {matchesIntendedProduct} from "./cj-match-policy.mjs";
 
 const supported=new Set(["hypersku","eprolo"]);
 const baseDomains={hypersku:["hypersku.com","www.hypersku.com","support.hypersku.com"],eprolo:["eprolo.com","www.eprolo.com"]};
@@ -45,7 +46,8 @@ export function verifyProviderProducts(data,catalog,now=Date.now()){
    reasons.push("missing_exact_product_variant_id");
   if(!row?.catalogMatchVerified||!row?.independentIdentityReviewed||
     typeof row?.supplierTitle!=="string"||row.supplierTitle.trim().length<8||
-    !officialEvidence(row?.listingEvidenceUrl,origin))reasons.push("product_identity_evidence_missing");
+    !officialEvidence(row?.listingEvidenceUrl,origin)||
+    (original&&!matchesIntendedProduct(original,row?.supplierTitle)))reasons.push("product_identity_evidence_missing");
   if(!row?.stock||!Number.isInteger(row.stock.units)||row.stock.units<1||
     !fresh(row.stock.checkedAt,now)||!row.stock.warehouseCountry)
     reasons.push("current_physical_stock_unverified");
