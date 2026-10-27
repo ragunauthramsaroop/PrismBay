@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "checkedAt": "2026-10-27T06:17:43.935Z",
+  "checkedAt": "2026-10-27T06:18:09.597Z",
   "source": "GitHub Actions accountability evidence",
   "refreshPolicy": "Best-effort GitHub schedules. Static snapshot; refresh does not run agents.",
   "summary": {
@@ -24,7 +24,7 @@
       "failureStreak": 0,
       "runId": 40459311047,
       "runUrl": "https://github.com/ragunauthramsaroop/PrismBay/actions/runs/40459311047",
-      "runAgeMinutes": 9,
+      "runAgeMinutes": 10,
       "artifactName": "buyer-acquisition-40459311047",
       "artifactBytes": 21981,
       "remediation": null
@@ -78,7 +78,7 @@
       "failureStreak": 0,
       "runId": 40459315053,
       "runUrl": "https://github.com/ragunauthramsaroop/PrismBay/actions/runs/40459315053",
-      "runAgeMinutes": 9,
+      "runAgeMinutes": 10,
       "artifactName": "prismbay-paperclip-revenue-40459315053",
       "artifactBytes": 6242,
       "remediation": null
