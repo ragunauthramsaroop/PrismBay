@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "checkedAt": "2026-10-28T09:21:40.201Z",
+  "checkedAt": "2026-10-28T09:45:08.034Z",
   "source": "GitHub Actions accountability evidence",
   "refreshPolicy": "Best-effort GitHub schedules. Static snapshot; refresh does not run agents.",
   "summary": {
@@ -24,7 +24,7 @@
       "failureStreak": 0,
       "runId": 40656237588,
       "runUrl": "https://github.com/ragunauthramsaroop/PrismBay/actions/runs/40656237588",
-      "runAgeMinutes": 60,
+      "runAgeMinutes": 83,
       "artifactName": "buyer-acquisition-40656237588",
       "artifactBytes": 21983,
       "remediation": null
@@ -42,7 +42,7 @@
       "failureStreak": 0,
       "runId": 40595675987,
       "runUrl": "https://github.com/ragunauthramsaroop/PrismBay/actions/runs/40595675987",
-      "runAgeMinutes": 649,
+      "runAgeMinutes": 672,
       "artifactName": "prismbay-external-traffic-40595675987",
       "artifactBytes": 659919,
       "remediation": null
@@ -57,10 +57,10 @@
       "status": "fail",
       "reason": "worker_stale",
       "consequence": "replace_route",
-      "failureStreak": 6,
+      "failureStreak": 7,
       "runId": 40649351981,
       "runUrl": "https://github.com/ragunauthramsaroop/PrismBay/actions/runs/40649351981",
-      "runAgeMinutes": 122,
+      "runAgeMinutes": 145,
       "artifactName": null,
       "artifactBytes": null,
       "remediation": null
@@ -78,7 +78,7 @@
       "failureStreak": 0,
       "runId": 40640506142,
       "runUrl": "https://github.com/ragunauthramsaroop/PrismBay/actions/runs/40640506142",
-      "runAgeMinutes": 209,
+      "runAgeMinutes": 233,
       "artifactName": "prismbay-paperclip-revenue-40640506142",
       "artifactBytes": 6164,
       "remediation": null
@@ -93,10 +93,10 @@
       "status": "fail",
       "reason": "worker_stale",
       "consequence": "replace_route",
-      "failureStreak": 3,
+      "failureStreak": 4,
       "runId": 40651018513,
       "runUrl": "https://github.com/ragunauthramsaroop/PrismBay/actions/runs/40651018513",
-      "runAgeMinutes": 107,
+      "runAgeMinutes": 130,
       "artifactName": null,
       "artifactBytes": null,
       "remediation": null
