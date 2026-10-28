@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>PrismBay WFS Wholesale Preflight</title>
+<style>
+:root{font-family:system-ui,-apple-system,"Segoe UI",sans-serif;color:#15243a;background:#f1f4fa}
+*{box-sizing:border-box}body{margin:0}main{max-width:1024px;margin:auto;padding:30px 18px 60px}
+h1{font-size:clamp(26px,4vw,38px);line-height:1.12;margin:8px 0 12px}h2{font-size:18px}
+.eyebrow{text-transform:uppercase;letter-spacing:2px;font-size:12px;color:#2452bb;font-weight:800}
+.lead{max-width:850px;color:#51637a}.notice{font-size:13px;color:#a24821;background:#fff1e8;border:1px solid #f1d2bd;padding:9px 13px;border-radius:10px}
+.grid{display:grid;grid-template-columns:1.15fr 1fr;gap:16px;margin-top:22px}
+.card{background:#fff;border:1px solid #dbe3ed;border-radius:15px;padding:20px;min-width:0}
+.wide{grid-column:1/-1}.fields,.gates,.metrics{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+label{font-size:13px;font-weight:650}label input[type=number]{display:block;width:100%;font:inherit;margin-top:5px;padding:9px 10px;border:1px solid #bfcbdc;border-radius:8px}
+.gate{border:1px solid #dbe3ed;padding:10px;display:flex;align-items:flex-start;gap:8px;border-radius:8px;font-weight:450}.gate input{margin-top:4px}
+.metric{background:#f4f7fb;padding:12px;border-radius:9px}.metric small{display:block;color:#65768b}.metric strong{display:block;font-size:21px;margin-top:5px}
+.decision{background:#feebed;color:#9f2631;padding:12px;border-radius:9px;font-weight:800}.decision.pass{background:#e8f7ee;color:#196a45}
+.note{font-size:12px;color:#5f7188}table{width:100%;border-collapse:collapse;font-size:13px}th,td{padding:10px 5px;text-align:right;border-bottom:1px solid #e4eaf1}th:first-child,td:first-child{text-align:left}th{color:#586a82}
+#errors{color:#9f2631;font-weight:650}a{color:#2452bb}
+@media(max-width:780px){.grid{grid-template-columns:1fr}.wide{grid-column:1}}
+@media(max-width:490px){.fields,.gates{grid-template-columns:1fr}.metric strong{font-size:17px}}
+</style>
+</head>
+<body><main>
+<div class="eyebrow">PrismBay / Commerce underwriting</div>
+<h1>Walmart WFS wholesale preflight</h1>
+<p class="lead">A decision worksheet for wholesale inventory. Initial inputs illustrate the 80-second video, not a verified supplier quote. No order, listing, seller approval, or real-world profit is claimed.</p>
+<p class="notice">No purchasing until account eligibility, exact product rights, fulfillment and budget evidence all pass. Tick boxes only when independently documented.</p>
+<div class="grid">
+<section class="card"><h2>Estimate your unit economics</h2><div class="fields" id="fields"></div>
+<p class="note">All monetary figures in USD. Shipping, WFS, storage, returns and advertising figures initially use hypothetical planning allowances. Store no personal credentials here.</p></section>
+<section class="card" aria-live="polite"><h2>Acquisition decision</h2><p id="decision" class="decision">DO NOT PURCHASE</p>
+<div class="metrics">
+<div class="metric"><small>Initial cash</small><strong id="cash"></strong></div>
+<div class="metric"><small>Contribution / unit</small><strong id="contribution"></strong></div>
+<div class="metric"><small>Contribution margin</small><strong id="margin"></strong></div>
+<div class="metric"><small>Price for margin target</small><strong id="targetPrice"></strong></div>
+<div class="metric"><small>Total lot contribution at sellout</small><strong id="sellout"></strong></div>
+<div class="metric"><small>Units to recover cash</small><strong id="breakeven"></strong></div>
+</div>
+<p class="note" id="reasons"></p><p id="errors" role="alert"></p></section>
+<section class="card wide"><h2>Documentary gates</h2>
+<p class="note">A checked gate is self-reported and does not constitute Walmart or supplier verification.</p>
+<div class="gates" id="gates"></div></section>
+<section class="card wide"><h2>Cash exposure by sell-through</h2>
+<p class="note">Net cash includes the full lot acquisition and inbound spend, less actual customer sale proceeds after modeled per-sale costs. Unsold stock is shown at wholesale cost, not as cash.</p>
+<div style="overflow-x:auto"><table><thead><tr><th>Sell-through</th><th>Sold</th><th>Remaining</th><th>Net cash flow</th><th>Unsold stock cost</th></tr></thead><tbody id="scenarios"></tbody></table></div></section>
+</div>
+<p class="note">Pricing rules: <a href="https://marketplace.walmart.com/pricing/">referral fees</a> · <a href="https://marketplace.walmart.com/walmart-fulfillment-services-pricing/">WFS rates</a> · <a href="https://marketplacelearn.walmart.com/guides/Getting%20started/Onboarding/Before-you-start-selling-on-Walmart-Marketplace/">seller requirements</a>. Browser-only calculator, no customer data transmission.</p>
+</main>
+<script type="module">
+import {evaluateCandidate,requiredGates} from './pricing.mjs';
+const definitions=[
+['salePrice','Competitive selling price',134],
+['wholesaleUnitCost','Supplier cost / unit',74.99],
+['minimumOrderQty','Supplier minimum units',72],
+['referralRatePercent','Marketplace referral, %',12],
+['wfsFeePerSale','WFS fulfillment / sale',10],
+['freightPerUnit','Freight / acquired unit',5],
+['prepPerUnit','Prep / acquired unit',1],
+['storagePerUnit','Budgeted storage / unit',1.5],
+['returnReservePerSale','Returns allowance / sale',4],
+['adsPerSale','Advertising / sale',2],
+['otherFeesPerSale','Other costs / sale',0],
+['cashBudget','Available investment budget',3000],
+['targetMarginPercent','Target contribution margin, %',20]
+];
+const byId=id=>document.getElementById(id), fields=byId('fields'), gates=byId('gates');
+for(const [key,label,value] of definitions){
+  const wrap=document.createElement('label'), input=document.createElement('input');
+  wrap.textContent=label;input.type='number';input.name=key;input.min=key==='minimumOrderQty'?'1':'0';
+  input.step=key==='minimumOrderQty'?'1':'0.01';input.value=value;input.addEventListener('input',update);
+  wrap.append(input);fields.append(wrap);
+}
+for(const [key,label] of requiredGates){
+  const wrap=document.createElement('label'), box=document.createElement('input');
+  wrap.className='gate';box.type='checkbox';box.name=key;box.addEventListener('change',update);
+  wrap.append(box,document.createTextNode(label));gates.append(wrap);
+}
+const usd=value=>value===null?'Not possible':new Intl.NumberFormat('en-US',{style:'currency',currency:'USD'}).format(value);
+function update(){
+ try{
+  const data={};for(const [key] of definitions){
+    const el=fields.querySelector(`[name="${key}"]`);
+    if(el.value==='')throw new Error('Missing input: '+key);
+    data[key]=Number(el.value);
+  }
+  data.gates=Object.fromEntries(requiredGates.map(([key])=>[key,gates.querySelector(`[name="${key}"]`).checked]));
+  const r=evaluateCandidate(data);
+  byId('decision').textContent=r.decision;
+  byId('decision').classList.toggle('pass',r.decision.startsWith('UNDERWRITING PASSED'));
+  byId('cash').textContent=usd(r.initialCashOutlay);
+  byId('contribution').textContent=usd(r.unitContribution);
+  byId('margin').textContent=r.unitMarginPercent.toFixed(2)+'%';
+  byId('targetPrice').textContent=usd(r.minimumSalePriceForTargetMargin);
+  byId('sellout').textContent=usd(r.profitAtSellout);
+  byId('breakeven').textContent=r.cashBreakEvenUnits===null?'Never':r.cashBreakEvenUnits+' / '+data.minimumOrderQty;
+  const blockers=[];
+  if(r.missingGates.length)blockers.push(r.missingGates.length+' missing documentary checks');
+  if(!r.budgetSufficient)blockers.push('insufficient cash budget');
+  if(!r.passesMargin)blockers.push('below target margin');
+  if(!r.cashRecoverableOnSellout)blockers.push('cash unrecovered even at sell-out');
+  byId('reasons').textContent=blockers.join(' · ')||'Self-reported financial screen passes. Human document review remains mandatory.';
+  const body=byId('scenarios');body.replaceChildren();
+  for(const s of r.scenarios){
+    const tr=document.createElement('tr');
+    for(const value of [s.sellThroughPercent+'%',s.sold,s.unsold,usd(s.netCashFlow),usd(s.unsoldStockCostBasis)]){
+      const td=document.createElement('td');td.textContent=String(value);tr.append(td);
+    }body.append(tr);
+  }
+  byId('errors').textContent='';
+ }catch(err){byId('decision').textContent='DO NOT PURCHASE';byId('decision').classList.remove('pass');byId('errors').textContent=err.message;}
+}
+update();
+</script></body></html>
