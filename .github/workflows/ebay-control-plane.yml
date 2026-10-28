@@ -8,6 +8,7 @@ on:
     paths:
       - 'scripts/ebay-control-plane.mjs'
       - 'scripts/ebay-control-plane-blocked.test.mjs'
+      - 'scripts/ebay-pages-single-writer.test.mjs'
       - 'scripts/ebay-draft-feed.mjs'
       - 'scripts/ebay-draft-feed.test.mjs'
       - 'marketplaces/ebay/garment-steamer.json'
@@ -17,6 +18,7 @@ on:
     branches: [main]
     paths:
       - 'scripts/ebay-control-plane.mjs'
+      - 'scripts/ebay-pages-single-writer.test.mjs'
       - 'scripts/ebay-control-plane-blocked.test.mjs'
       - 'scripts/ebay-draft-feed.mjs'
       - 'scripts/ebay-draft-feed.test.mjs'
@@ -44,7 +46,7 @@ jobs:
         run: |
           node --check scripts/ebay-control-plane.mjs
           node --check scripts/ebay-draft-feed.mjs
-          node --test scripts/ebay-draft-feed.test.mjs scripts/ebay-control-plane-blocked.test.mjs
+          node --test scripts/ebay-draft-feed.test.mjs scripts/ebay-control-plane-blocked.test.mjs scripts/ebay-pages-single-writer.test.mjs
           node -e "JSON.parse(require('fs').readFileSync('marketplaces/ebay/garment-steamer.json','utf8'))"
       - name: Generate eBay draft and manual-entry packets
         run: node scripts/ebay-draft-feed.mjs
@@ -63,32 +65,33 @@ jobs:
           git worktree add --detach "$syncdir" origin/gh-pages
           git -C "$syncdir" config user.name 'github-actions[bot]'
           git -C "$syncdir" config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          mkdir -p "$syncdir/marketplace/ebay"
-          cp growth-reports/ebay/control-plane.json "$syncdir/marketplace/ebay/control-plane.json"
-          cp growth-reports/ebay/garment-steamer-ebay-draft.csv "$syncdir/marketplace/ebay/garment-steamer-ebay-draft.csv"
-          cp growth-reports/ebay/garment-steamer-manual-packet.csv "$syncdir/marketplace/ebay/garment-steamer-manual-packet.csv"
-          cp growth-reports/ebay/garment-steamer-draft-readme.txt "$syncdir/marketplace/ebay/garment-steamer-draft-readme.txt"
-          cp marketplaces/ebay/garment-steamer.json "$syncdir/marketplace/ebay/garment-steamer.json"
-          cp marketplaces/ebay/seller-packet.html "$syncdir/marketplace/ebay/index.html"
-          git -C "$syncdir" add marketplace/ebay
-          if ! git -C "$syncdir" diff --cached --quiet; then
-            git -C "$syncdir" commit -m 'chore: publish eBay marketplace state and draft feed'
-            for attempt in 1 2 3; do
-              git fetch origin gh-pages
-              if ! git -C "$syncdir" rebase origin/gh-pages; then
-                git -C "$syncdir" rebase --abort || true
-                echo '::error::Concurrent marketplace Pages edit requires review; no force push.'
-                exit 1
-              fi
-              if git -C "$syncdir" push origin HEAD:gh-pages; then
-                echo 'eBay marketplace state published.'
-                exit 0
-              fi
-              if [[ "$attempt" != "3" ]]; then sleep "$((attempt * 3))"; fi
-            done
-            echo '::error::Marketplace Pages publication unsuccessful after safe retries.'
-            exit 1
-          fi
+          # Only this workflow owns marketplace/ebay/control-plane.json.
+          # Reset to the latest remote state and replay ONLY our files on each
+          # retry; rebasing a timestamped report causes avoidable conflicts.
+          for attempt in 1 2 3 4 5; do
+            git fetch origin gh-pages
+            git -C "$syncdir" reset --hard origin/gh-pages
+            mkdir -p "$syncdir/marketplace/ebay"
+            cp growth-reports/ebay/control-plane.json "$syncdir/marketplace/ebay/control-plane.json"
+            cp growth-reports/ebay/garment-steamer-ebay-draft.csv "$syncdir/marketplace/ebay/garment-steamer-ebay-draft.csv"
+            cp growth-reports/ebay/garment-steamer-manual-packet.csv "$syncdir/marketplace/ebay/garment-steamer-manual-packet.csv"
+            cp growth-reports/ebay/garment-steamer-draft-readme.txt "$syncdir/marketplace/ebay/garment-steamer-draft-readme.txt"
+            cp marketplaces/ebay/garment-steamer.json "$syncdir/marketplace/ebay/garment-steamer.json"
+            cp marketplaces/ebay/seller-packet.html "$syncdir/marketplace/ebay/index.html"
+            git -C "$syncdir" add marketplace/ebay/control-plane.json marketplace/ebay/garment-steamer-ebay-draft.csv marketplace/ebay/garment-steamer-manual-packet.csv marketplace/ebay/garment-steamer-draft-readme.txt marketplace/ebay/garment-steamer.json marketplace/ebay/index.html
+            if git -C "$syncdir" diff --cached --quiet; then
+              echo 'eBay marketplace files unchanged.'
+              exit 0
+            fi
+            git -C "$syncdir" commit -m 'chore: publish verified eBay control-plane state'
+            if git -C "$syncdir" push origin HEAD:gh-pages; then
+              echo 'eBay marketplace state published without force pushing.'
+              exit 0
+            fi
+            if [[ "$attempt" != "5" ]]; then sleep "$((attempt * 2))"; fi
+          done
+          echo '::error::eBay marketplace publish failed after replaying fresh gh-pages state.'
+          exit 1
       - name: Summary
         if: always()
         run: |
