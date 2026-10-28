@@ -212,6 +212,10 @@ test('retail queue blocks YouTube aliases and alternate destination fields',()=>
   {channel:'yt'}, {platform:'YouTube'}, {destinationPlatform:'youtube'},
   {targetChannel:'@PrismBayAI'}, {channelId:'UCw2hs85TzIpdKwJtG-BSxzQ'},
   {destinationUrl:'https://www.youtube.com/shorts/example'},
+  {destinationUrl:'https://m.youtube.com/shorts/example'},
+  {destinationUrl:'https://music.youtube.com/watch?v=example'},
+  {destinationUrl:'https://www.youtube-nocookie.com/embed/example'},
+  {channel:'m.youtube.com'}, {channel:'www.youtube-nocookie.com'},
   {destinationUrl:'https://youtu.be/example'}
  ];
  const pages=[{path:'/',ok:true,text:'<html>Digital tools</html>'},
