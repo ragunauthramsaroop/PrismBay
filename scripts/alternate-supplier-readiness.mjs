@@ -1,5 +1,6 @@
 import {pathToFileURL} from "node:url";
 import fs from "node:fs/promises";
+import {isIP} from "node:net";
 import {matchesIntendedProduct} from "./cj-match-policy.mjs";
 
 const supported=new Set(["hypersku","eprolo"]);
@@ -21,9 +22,15 @@ function officialEvidence(url,provider){
 }
 function httpsUrl(url){
  if(typeof url!=="string")return false;
- try{const u=new URL(url);return u.protocol==="https:"&&!u.username&&!u.password&&
-  !/^(localhost|127\.|10\.|192\.168\.)/.test(u.hostname)&&!u.hostname.endsWith(".local");}
- catch{return false;}
+ try{
+  const u=new URL(url);
+  const host=u.hostname.toLowerCase().replace(/^\[|\]$/g,"");
+  // Commercial product media must be public HTTPS assets, not browser requests
+  // to loopback, private/link-local IPs, or internal-only DNS names.
+  return u.protocol==="https:"&&!u.username&&!u.password&&
+   host.includes(".")&&!isIP(host)&&
+   !/(^|\.)(?:localhost|local|internal|test|invalid|onion)$/.test(host);
+ }catch{return false;}
 }
 function nonEmptyId(v){return typeof v==="string"&&/^[A-Za-z0-9][A-Za-z0-9._:-]{3,100}$/.test(v);}
 function num(v){return typeof v==="number"&&Number.isFinite(v)&&v>0;}
