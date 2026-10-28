@@ -74,10 +74,16 @@ jobs:
         run: |
           run_id='${{ steps.source.outputs.run_id }}'
           mkdir -p "$RUNNER_TEMP/cj-evidence"
-          gh run download "$run_id" \
-            --repo '${{ github.repository }}' \
-            --name "prismbay-cj-supplier-verification-$run_id" \
-            --dir "$RUNNER_TEMP/cj-evidence"
+          # A rerun can retain two artifacts with the same name and different
+          # contents. gh run download --name fails on that ambiguity. Select
+          # the latest unexpired artifact from this exact verification run.
+          artifact_id=$(gh api "repos/${GITHUB_REPOSITORY}/actions/runs/${run_id}/artifacts?per_page=100" \
+            --jq ".artifacts | map(select(.name == \"prismbay-cj-supplier-verification-${run_id}\" and .expired == false)) | max_by(.created_at) | .id // empty")
+          test -n "$artifact_id"
+          gh api -H "Accept: application/vnd.github+json" \
+            "repos/${GITHUB_REPOSITORY}/actions/artifacts/${artifact_id}/zip" \
+            > "$RUNNER_TEMP/cj-evidence.zip"
+          unzip -oq "$RUNNER_TEMP/cj-evidence.zip" -d "$RUNNER_TEMP/cj-evidence"
           source=$(find "$RUNNER_TEMP/cj-evidence" -type f -name 'cj-supplier-verification.json' -print -quit)
           test -n "$source"
           mkdir -p growth-reports
