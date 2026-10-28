@@ -6,6 +6,13 @@ on:
   push:
     branches: [main]
     paths:
+      - 'config/alternate-supplier-evidence.json'
+      - 'scripts/hypersku-github-bridge.mjs'
+      - 'scripts/hypersku-github-bridge.test.mjs'
+      - '.github/workflows/hypersku-github-bridge.yml'
+  pull_request:
+    paths:
+      - 'config/alternate-supplier-evidence.json'
       - 'scripts/hypersku-github-bridge.mjs'
       - 'scripts/hypersku-github-bridge.test.mjs'
       - '.github/workflows/hypersku-github-bridge.yml'
@@ -14,10 +21,20 @@ permissions:
 jobs:
   readiness:
     runs-on: ubuntu-latest
+    timeout-minutes: 8
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - run: node --test scripts/hypersku-github-bridge.test.mjs
-      - run: node scripts/hypersku-github-bridge.mjs
+      - name: Validate fail-closed bridge readiness
+        run: node --test scripts/hypersku-github-bridge.test.mjs
+      - name: Generate non-secret, read-only supplier bridge status
+        run: node scripts/hypersku-github-bridge.mjs
+      - name: Retain status for inspection without publishing to storefront
+        uses: actions/upload-artifact@v4
+        with:
+          name: hypersku-custom-store-readiness
+          path: growth-reports/hypersku-github-bridge.json
+          if-no-files-found: error
+          retention-days: 7
