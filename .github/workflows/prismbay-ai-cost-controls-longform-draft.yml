@@ -1,0 +1,76 @@
+name: PrismBay AI Cost Controls Long-Form Draft
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/render-ai-agent-cost-controls.py'
+      - '.github/workflows/prismbay-ai-cost-controls-longform-draft.yml'
+      - 'youtube-growth/production/2026-10-28-ai-agent-cost-control-longform-script.md'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: prismbay-cost-controls-draft-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  draft:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    timeout-minutes: 55
+    steps:
+      - name: Checkout existing PrismBay repository
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install zero-cost rendering and offline speech tools
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg fonts-dejavu-core
+          python -m pip install --disable-pip-version-check --no-input pillow piper-tts
+      - name: Validate renderer syntax
+        run: python -m py_compile scripts/render-ai-agent-cost-controls.py
+      - name: Render original long-form draft, provisional SRT and three thumbnail candidates
+        run: python scripts/render-ai-agent-cost-controls.py
+      - name: Verify target channel and strict unpublished status
+        shell: bash
+        run: |
+          python - <<'PY'
+          import json,subprocess
+          from pathlib import Path
+          base=Path('out/youtube/ai-agent-cost-controls')
+          meta=json.loads((base/'manifest.json').read_text())
+          assert meta['channelId']=='UCw2hs85TzIpdKwJtG-BSxzQ'
+          assert meta['paidSpendUSD']==0
+          assert meta['published'] is False
+          assert meta['publicationApproved'] is False
+          assert meta['uploadPermitted'] is False
+          assert meta['captionSynchronization']=='PROVISIONAL'
+          assert meta['sceneCount']>=30
+          assert all((base/f'thumbnail_{x}.png').stat().st_size>10000 for x in 'ABC')
+          assert (base/'captions-provisional.srt').stat().st_size>1000
+          info=json.loads(subprocess.check_output(['ffprobe','-v','error','-show_format','-show_streams','-of','json',str(base/'ai-agent-cost-controls-draft.mp4')],text=True))
+          assert 420<=float(info['format']['duration'])<=900
+          assert any(s.get('width')==1920 and s.get('height')==1080 and s.get('codec_name')=='h264' for s in info['streams'])
+          assert any(s.get('codec_name')=='aac' for s in info['streams'])
+          print('DRAFT MEDIA VERIFIED. Publication remains forbidden until independent listening, caption correction and mobile review.')
+          PY
+      - name: Preserve production draft as private workflow artifact, not a YouTube upload
+        uses: actions/upload-artifact@v4
+        with:
+          name: prismbay-ai-cost-controls-unapproved-${{ github.run_id }}
+          path: out/youtube/ai-agent-cost-controls/
+          retention-days: 14
+          if-no-files-found: error
+      - name: Publish internal QA status only
+        if: always()
+        run: |
+          echo '## PrismBay AI Cost Controls Draft' >> "$GITHUB_STEP_SUMMARY"
+          echo 'Sole target: UCw2hs85TzIpdKwJtG-BSxzQ / @PrismBayAI.' >> "$GITHUB_STEP_SUMMARY"
+          echo 'Zero paid spend. No YouTube upload or Metricool scheduling.' >> "$GITHUB_STEP_SUMMARY"
+          echo 'Provisional captions and machine narration require full editorial and real-device review.' >> "$GITHUB_STEP_SUMMARY"
