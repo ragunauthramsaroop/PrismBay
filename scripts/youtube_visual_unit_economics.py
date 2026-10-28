@@ -58,13 +58,13 @@ def center(d,text,y,size,color=WHITE,bold=True):
 
 def scene_hook(d):
     tx(d,'5X',78,318,240,CYAN,True)
-    tx(d,'COST EFFICIENCY?',78,624,70,WHITE,True)
+    tx(d,'TOKEN EFFICIENCY?',78,624,70,WHITE,True)
     box(d,(75,804,987,967),fill=(37,50,69),stroke=GOLD)
     center(d,"VENDOR'S EARLY CLAIM",852,43,GOLD)
     box(d,(75,1030,987,1360),fill=(19,53,58),stroke=CYAN,width=5)
     center(d,'NOT YOUR',1100,78,WHITE)
     center(d,'SAVINGS',1220,95,CYAN)
-    tx(d,'Source: Reuters, 26 Oct 2026',79,1430,28,MUTED)
+    tx(d,'Source: Cadence, 26 Oct 2026',79,1430,28,MUTED)
 
 def scene_formula(d):
     tx(d,'THE METRIC',78,318,84,WHITE,True)

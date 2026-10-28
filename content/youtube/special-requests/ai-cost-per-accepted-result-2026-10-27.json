@@ -4,11 +4,11 @@
   "visualStyle": "unit_economics_v1",
   "publicationApproved": false,
   "paidSpendUSD": 0,
-  "sourceAttribution": "Reuters 26 Oct 2026; vendor-reported claim; all A/B numbers fictional",
+  "sourceAttribution": "Cadence Maestro, 26 Oct 2026: initial vendor-reported up-to-5X token efficiency versus a general-purpose foundation model; not 5X end-to-end cost savings. Fictional A/B numbers.",
   "segments": [
     {
       "scene": "hook",
-      "spoken": "A vendor reports up to five times better cost efficiency for its new AI models. That is an early vendor claim, not your savings."
+      "spoken": "Cadence reports up to five times greater token efficiency for its specialized chip-design AI, compared with a general-purpose foundation model. This is an early vendor result, not your savings."
     },
     {
       "scene": "formula",
@@ -34,5 +34,7 @@
       "scene": "close",
       "spoken": "Test before signing. Prism Bay AI helps founders and executives measure practical AI business systems."
     }
-  ]
+  ],
+  "sourceUrl": "https://www.cadence.com/zh_TW/home/company/newsroom/press-releases/pr/2026/cadence-introduces-maestro-a-domain-specialized-ai-model.html",
+  "sourceClaimScope": "Initial semiconductor design workflow results, not independently verified customer financial ROI. Cadence reports up to 5X token efficiency, not up to 5X overall business cost savings."
 }
