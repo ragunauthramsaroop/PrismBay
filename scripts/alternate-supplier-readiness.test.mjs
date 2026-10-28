@@ -66,3 +66,28 @@ test("do not accept non-official rights references, unlicensed media or private 
  const {rejected}=verifyProviderProducts(data,shortlist,now);
  assert.ok(rejected[0].reasons.includes("commercial_image_rights_not_proven"));
 });
+
+test("commercial media URL rejects private networks and internal hosts",()=>{
+ const disallowed=[
+  "https://172.16.1.20/product.jpg",
+  "https://169.254.169.254/latest/meta-data/",
+  "https://0.0.0.0/product.jpg",
+  "https://[::1]/product.jpg",
+  "https://[fd00::1]/product.jpg",
+  "https://localhost/product.jpg",
+  "https://assets.internal/product.jpg",
+  "https://assets.local/product.jpg",
+  "https://assets.internal./product.jpg",
+  "https://localhost./product.jpg",
+  "https://cdn.example.com./product.jpg"
+ ];
+ for(const url of disallowed){
+  const data=sample();
+  data.candidates[0].media.url=url;
+  const out=verifyProviderProducts(data,shortlist,now);
+  assert.equal(out.approved.length,0,url);
+  assert.ok(out.rejected[0].reasons.includes("commercial_image_rights_not_proven"),url);
+ }
+ const valid=verifyProviderProducts(sample(),shortlist,now);
+ assert.equal(valid.approved.length,1,"Public HTTPS CDN fixture must remain eligible");
+});
