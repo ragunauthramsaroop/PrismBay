@@ -59,6 +59,37 @@ export const ACTIVE_DIGITAL_OFFERS = Object.freeze([
     deliverables: ['Executive Stakeholder Mapping Toolkit', 'ESG & Social Performance Operating Pack', 'Executive White Paper & Board Briefing System']
   })
 ]);
+// Audit public checkout URLs against the existing digital-offer registry.
+// An unrecognized Stripe link is not assumed to be a physical or digital product.
+// Treat it as unapproved until independently reconciled with live Stripe.
+export function auditPublicStripeLinks(html) {
+  const source = typeof html === 'string' ? html : '';
+  const links = [...source.matchAll(/(?:https?:)?\\/\\/buy\\.stripe\\.com\\/[^\\s"'<>]*/gi)]
+    .map(match => match[0]);
+  const approvedPaths = new Set(ACTIVE_DIGITAL_OFFERS.map(offer => new URL(offer.checkout).pathname));
+  let approvedDigitalStripeLinkCount = 0;
+  let unapprovedDirectStripeLinkCount = 0;
+  for (const raw of links) {
+    try {
+      const parsed = new URL(raw.startsWith('//') ? 'https:' + raw : raw);
+      if (parsed.protocol === 'https:' && parsed.hostname === 'buy.stripe.com' && approvedPaths.has(parsed.pathname)) {
+        approvedDigitalStripeLinkCount += 1;
+      } else {
+        unapprovedDirectStripeLinkCount += 1;
+      }
+    } catch {
+      unapprovedDirectStripeLinkCount += 1;
+    }
+  }
+  return {
+    directStripeLinkCount: links.length,
+    approvedDigitalStripeLinkCount,
+    unapprovedDirectStripeLinkCount,
+    hasDirectStripeLink: links.length > 0,
+    hasUnapprovedDirectStripeLink: unapprovedDirectStripeLinkCount > 0,
+  };
+}
+
 const safeSegment = s => String(s).replace(/[^a-z0-9_]/gi,'_').slice(0,64);
 export function campaignForSlot(slot) {
   if (!Number.isSafeInteger(slot) || slot < 0) throw new TypeError('A nonnegative six-hour slot is required');
