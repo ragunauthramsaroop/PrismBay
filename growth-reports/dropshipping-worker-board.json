@@ -1,10 +1,10 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-10-28T15:09:43.424Z",
+  "generatedAt": "2026-10-28T21:17:16.996Z",
   "researchCandidates": 12,
   "publishedResearchSignals": 12,
   "verifiedCJStatus": {
-    "checkedAt": "2026-10-28T15:09:41.729Z",
+    "checkedAt": "2026-10-28T21:17:15.404Z",
     "validSupplierMatches": 0,
     "variantStock": 0,
     "freightEstimates": 0,
@@ -25,8 +25,29 @@
       "action": "Investigate specific catalog SKUs, incorrect product matches and incomplete stock evidence.",
       "state": "review_required",
       "executionMode": "scheduled_cj_and_manual_review",
-      "candidateCount": 18,
+      "candidateCount": 9,
       "blockers": [
+        {
+          "slug": "travel-packing-cubes",
+          "status": "supplier_api_retry_required",
+          "sku": null,
+          "shippingDiagnostic": null,
+          "zeroPricedMethods": 0
+        },
+        {
+          "slug": "roll-up-dish-rack",
+          "status": "supplier_api_retry_required",
+          "sku": null,
+          "shippingDiagnostic": null,
+          "zeroPricedMethods": 0
+        },
+        {
+          "slug": "hanging-closet-organizer",
+          "status": "supplier_api_retry_required",
+          "sku": null,
+          "shippingDiagnostic": null,
+          "zeroPricedMethods": 0
+        },
         {
           "slug": "cordless-handheld-vacuum",
           "status": "supplier_api_retry_required",
@@ -64,90 +85,6 @@
         },
         {
           "slug": "garment-steamer",
-          "status": "supplier_api_retry_required",
-          "sku": null,
-          "shippingDiagnostic": null,
-          "zeroPricedMethods": 0
-        },
-        {
-          "slug": "travel-packing-cubes",
-          "status": "supplier_api_retry_required",
-          "sku": null,
-          "shippingDiagnostic": null,
-          "zeroPricedMethods": 0
-        },
-        {
-          "slug": "roll-up-dish-rack",
-          "status": "supplier_api_retry_required",
-          "sku": null,
-          "shippingDiagnostic": null,
-          "zeroPricedMethods": 0
-        },
-        {
-          "slug": "hanging-closet-organizer",
-          "status": "supplier_api_retry_required",
-          "sku": null,
-          "shippingDiagnostic": null,
-          "zeroPricedMethods": 0
-        },
-        {
-          "slug": "scrubber",
-          "status": "supplier_api_retry_required",
-          "sku": null,
-          "shippingDiagnostic": null,
-          "zeroPricedMethods": 0
-        },
-        {
-          "slug": "pethair",
-          "status": "supplier_api_retry_required",
-          "sku": null,
-          "shippingDiagnostic": null,
-          "zeroPricedMethods": 0
-        },
-        {
-          "slug": "crevice",
-          "status": "supplier_api_retry_required",
-          "sku": null,
-          "shippingDiagnostic": null,
-          "zeroPricedMethods": 0
-        },
-        {
-          "slug": "mini-mop",
-          "status": "supplier_api_retry_required",
-          "sku": null,
-          "shippingDiagnostic": null,
-          "zeroPricedMethods": 0
-        },
-        {
-          "slug": "drain-catcher",
-          "status": "supplier_api_retry_required",
-          "sku": null,
-          "shippingDiagnostic": null,
-          "zeroPricedMethods": 0
-        },
-        {
-          "slug": "home-caddy",
-          "status": "supplier_api_retry_required",
-          "sku": null,
-          "shippingDiagnostic": null,
-          "zeroPricedMethods": 0
-        },
-        {
-          "slug": "multiport-charger",
-          "status": "supplier_api_retry_required",
-          "sku": null,
-          "shippingDiagnostic": null,
-          "zeroPricedMethods": 0
-        },
-        {
-          "slug": "motion-sensor-cabinet-lights",
-          "status": "supplier_api_retry_required",
-          "sku": null,
-          "shippingDiagnostic": null,
-          "zeroPricedMethods": 0
-        },
-        {
-          "slug": "car-phone-mount",
           "status": "supplier_api_retry_required",
           "sku": null,
           "shippingDiagnostic": null,
