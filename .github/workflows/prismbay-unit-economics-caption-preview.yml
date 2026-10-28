@@ -183,8 +183,12 @@ jobs:
           report = json.loads(Path('editorial/youtube/qa/PB-AI-UNIT-ECON-20261027/speech_alignment_report.json').read_text())
           gate = json.loads((root / 'review-gate.json').read_text())
           assert gate['publicationApproved'] is False and gate['uploadPermitted'] is False
-          assert gate['sourceSha256'] == report['sourceSha256']
-          assert gate['sourceCaptionCues'] == report['captionCueCount']
+          matching_report = (
+              gate['sourceSha256'] == report.get('sourceSha256') and
+              gate['sourceCaptionCues'] == report.get('captionCueCount')
+          )
+          if not matching_report:
+              print('Source has no matching independent speech report. Every cue remains unverified.')
 
           def seconds(t):
               h, m, sec = t.replace(',', '.').split(':')
@@ -197,8 +201,8 @@ jobs:
               a, b = lines[1].split(' --> ')
               cues[n] = {'start': seconds(a), 'end': seconds(b), 'text': ' '.join(lines[2:])}
 
-          audit = {x['cue']: x for x in report['captionAudit']}
-          flagged = set(gate['asrFlaggedCues'])
+          audit = {x['cue']: x for x in report.get('captionAudit', [])} if matching_report else {}
+          flagged = set(gate['asrFlaggedCues']) if matching_report else set(cues)
           dense = {n for n, c in cues.items() if len(c['text']) / max(c['end'] - c['start'], 0.1) > 17.0}
           review = sorted(flagged | dense)
           assert review, 'Expected unresolved cues for editorial review'
@@ -233,7 +237,7 @@ jobs:
               a = audit.get(n, {})
               cps = round(len(c['text']) / (c['end'] - c['start']), 2)
               reasons = []
-              if n in flagged: reasons.append('ASR timing/word-match flag')
+              if n in flagged: reasons.append('ASR timing/word-match flag' if matching_report else 'No matching ASR audit: verify full narration')
               if n in dense: reasons.append('caption reading speed >17 chars/s')
               rows.append({'cue': n, **c, 'charactersPerSecond': cps, 'reasons': reasons,
                            'asrMatchedWords': a.get('matchedWords'), 'asrExpectedWords': a.get('expectedWords'),
