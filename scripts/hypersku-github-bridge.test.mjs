@@ -7,6 +7,9 @@ test('vendor not approved: never sync or charge even with configuration',()=>{
  assert.equal(x.productSyncEnabled,false);
  assert.equal(x.physicalCheckoutEnabled,false);
  assert.equal(x.supplierOrdersEnabled,false);
+ assert.equal(x.authenticatedApiVerified,false);
+ assert.equal(x.supplierConnected,false);
+ assert.equal(x.authenticationEvidence,'not_performed');
 });
 test('vendor approval without documentation is still blocked',()=>{
  const x=readiness({apiStatus:'api_active'},true);
@@ -21,6 +24,19 @@ test('configured secrets do not independently authorize stock, media or physical
  assert.equal(x.status,'integration_configuration_review_required');
  assert.equal(x.productSyncEnabled,false);
  assert.equal(x.supplierMediaReuseEnabled,false);
+ assert.equal(x.physicalCheckoutEnabled,false);
+ assert.equal(x.supplierOrdersEnabled,false);
+});
+
+test('registry approval and configured secret never imply an authenticated supplier connection',()=>{
+ const x=readiness({apiStatus:'api_active',approvedApiDocumentation:true},true);
+ assert.equal(x.apiApproved,true,'Registry approval is only a declared flag');
+ assert.equal(x.credentialsPresent,true,'A configured key is not proof of validity');
+ assert.equal(x.authenticatedApiVerified,false);
+ assert.equal(x.supplierConnected,false);
+ assert.equal(x.authenticationEvidence,'not_performed');
+ assert.equal(x.status,'integration_configuration_review_required');
+ assert.equal(x.productSyncEnabled,false);
  assert.equal(x.physicalCheckoutEnabled,false);
  assert.equal(x.supplierOrdersEnabled,false);
 });
