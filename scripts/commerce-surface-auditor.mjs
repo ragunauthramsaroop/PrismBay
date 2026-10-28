@@ -211,12 +211,15 @@ export function auditCanonicalRetailSnapshot({pages=[],manifest=null,queue=null,
    const route=String(value??'').trim().toLowerCase();
    const alias=route.replaceAll('_','-').replaceAll(' ','-').replaceAll('/','-');
    if(['youtube','youtube-shorts','youtube-channel','yt','youtube.com',
-    'www.youtube.com','youtu.be','@prismbayai',
+    'www.youtube.com','m.youtube.com','music.youtube.com','youtu.be',
+    'youtube-nocookie.com','www.youtube-nocookie.com','@prismbayai',
     'ucw2hs85tzipdkwjtg-bsxzq'].includes(alias))return true;
    try{
     const url=new URL(route);
     return ['http:','https:'].includes(url.protocol)&&
-     ['youtube.com','www.youtube.com','youtu.be'].includes(url.hostname);
+     (['youtube.com','youtu.be','youtube-nocookie.com'].includes(url.hostname)||
+      url.hostname.endsWith('.youtube.com')||
+      url.hostname.endsWith('.youtube-nocookie.com'));
    }catch{return false;}
   });
  };
