@@ -58,3 +58,19 @@ jobs:
         run: bun run build
         env:
           CI: "true"
+
+  build-diagnostic:
+    name: Diagnostic build (lock drift does not pass release gate)
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+      - name: Install in disposable CI workspace
+        run: bun install
+      - name: Validate Vite production build without deployment
+        run: bun run build
+        env:
+          CI: "true"
