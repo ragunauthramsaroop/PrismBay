@@ -36,15 +36,15 @@ Current Top 10:
 9. 3-in-1 Crevice Cleaning Brush
 10. Sink Drain Catcher 2-Pack
 
-Active storefront: https://prismbay-clean-49izhg.v2.appdeploy.ai/tiktok/
-Desired custom storefront route: https://shop.prismbayai.com/tiktok
-Main site: https://www.prismbayai.com
+Canonical PrismBay Clean retail storefront: https://clean.prismbayai.com/
+Retail product research landing page: https://clean.prismbayai.com/top-15/
+PrismBay AI educational site: https://www.prismbayai.com
+Do not direct retail traffic to historical AppDeploy or unverified shop subdomains. Confirm live HTTPS and approved product/digital delivery gates before linking a commercial offer. Retail TikTok must be connected and separately authorized before any scheduling or publication.
 
 Run a role with:
 `node scripts/organic-growth-agent.mjs "Storefront CRO Auditor"`
 
-Run the full local/K1 swarm with:
-`powershell -ExecutionPolicy Bypass -File scripts/run-growth-swarm.ps1`
+Run the existing cloud-only growth workers through the `PrismBay Free Cloud Operations` GitHub Actions workflow (`.github/workflows/free-cloud-ops.yml`) on an authorized GitHub-hosted runner. Do not run the legacy local/K1 swarm or access K1, AGMADMINLPT18, self-hosted runners, or remote desktops.
 
 Treat live publication, creator replies, checkout activity, verified Stripe sales, and native TikTok Shop progress as measurable outcomes. Do not infer outcomes from generated artifacts alone.
 
