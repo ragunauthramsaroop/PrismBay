@@ -1,10 +1,10 @@
 name: PrismBay AI Unit Economics Caption Preview QA
 
 on:
-  push:
+  workflow_run:
+    workflows: ['PrismBay AI Unit Economics Short Draft']
+    types: [completed]
     branches: [main]
-    paths:
-      - '.github/workflows/prismbay-unit-economics-caption-preview.yml'
   workflow_dispatch:
 
 permissions:
@@ -17,6 +17,7 @@ concurrency:
 
 jobs:
   caption-preview-only:
+    if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
     runs-on: ubuntu-latest
     timeout-minutes: 22
     steps:
@@ -32,16 +33,18 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: prismbay-ai-unit-economics-qa-draft
-          run-id: 40553516435
+          run-id: ${{ github.event_name == 'workflow_run' && github.event.workflow_run.id || 40553516435 }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
           path: .caption-preview-source
 
       - name: Verify source hash and generate portrait-safe caption preview
         shell: bash
+        env:
+          SOURCE_RUN_ID: ${{ github.event_name == 'workflow_run' && github.event.workflow_run.id || 40553516435 }}
         run: |
           set -euo pipefail
           python3 - <<'PY'
-          import hashlib,json,re,textwrap
+          import hashlib,json,os,re,textwrap
           from pathlib import Path
 
           root=Path('.caption-preview-source')
@@ -55,12 +58,14 @@ jobs:
               return hits[0]
           mp4=one('.mp4')
           manifest=json.loads(one('.json').read_text())
-          report=json.loads(Path('editorial/youtube/qa/PB-AI-UNIT-ECON-20261027/speech_alignment_report.json').read_text())
+          report_path=Path('editorial/youtube/qa/PB-AI-UNIT-ECON-20261027/speech_alignment_report.json')
+          report=json.loads(report_path.read_text()) if report_path.exists() else {}
           sha=hashlib.sha256(mp4.read_bytes()).hexdigest()
-          assert sha==manifest['sha256']==report['sourceSha256']
-          assert manifest['channelId']==report['channelId']=='UCw2hs85TzIpdKwJtG-BSxzQ'
+          assert sha==manifest['sha256']
+          assert manifest['channelId']=='UCw2hs85TzIpdKwJtG-BSxzQ'
           assert manifest['publicationApproved'] is False and manifest['paidSpendUSD']==0
-          assert report['publicationApproved'] is False
+          if report.get('sourceSha256')==sha:
+              assert report['channelId']==manifest['channelId'] and report['publicationApproved'] is False
           srt=one('.srt')
           blocks=re.split(r'\n\s*\n',srt.read_text(encoding='utf-8-sig').strip())
           cues=[]
@@ -70,7 +75,7 @@ jobs:
                   raise RuntimeError('Malformed SRT cue')
               a,b=lines[1].split(' --> ')
               cues.append((a,b,' '.join(lines[2:])))
-          assert len(cues)==report['captionCueCount']==31
+          assert len(cues)==31
           def ass_time(value):
               h,m,rest=value.replace(',','.').split(':')
               return f'{int(h)}:{int(m):02}:{float(rest):05.2f}'
@@ -100,14 +105,19 @@ jobs:
           (out/'preview-captions.ass').write_text(header+'\n'.join(lines)+'\n')
           (out/'source-provisional.srt').write_bytes(srt.read_bytes())
           (out/'source.mp4').write_bytes(mp4.read_bytes())
-          flagged=[x['cue'] for x in report['captionAudit'] if
-                   x.get('matchedWords',0)<max(2,0.65*x.get('expectedWords',1)) or
-                   abs(x.get('startErrorSeconds',0))>0.75 or
-                   abs(x.get('endErrorSeconds',0))>0.75]
-          meta={'channelId':'UCw2hs85TzIpdKwJtG-BSxzQ','sourceRunId':40553516435,
+          if report.get('sourceSha256')==sha and report.get('captionCueCount')==len(cues):
+              flagged=[x['cue'] for x in report['captionAudit'] if
+                       x.get('matchedWords',0)<max(2,0.65*x.get('expectedWords',1)) or
+                       abs(x.get('startErrorSeconds',0))>0.75 or
+                       abs(x.get('endErrorSeconds',0))>0.75]
+              speech_audit='MATCHING_INDEPENDENT_ASR'
+          else:
+              flagged=list(range(1,len(cues)+1))
+              speech_audit='NO_MATCHING_SPEECH_AUDIT_ALL_CUES_REQUIRE_REVIEW'
+          meta={'channelId':'UCw2hs85TzIpdKwJtG-BSxzQ','sourceRunId':int(os.environ['SOURCE_RUN_ID']),
                 'sourceSha256':sha,'sourceCaptionCues':len(cues),
                 'captionSource':'PROVISIONAL_SCENE_ALIGNED_NOT_SPEECH_VERIFIED',
-                'asrFlaggedCues':flagged,'manualNarrationReview':'PENDING',
+                'asrFlaggedCues':flagged,'speechAuditStatus':speech_audit,'manualNarrationReview':'PENDING',
                 'mobileSafeAreaReview':'PENDING','captionSynchronizationReview':'PENDING',
                 'publicationApproved':False,'uploadPermitted':False,'paidSpendUSD':0,
                 'note':'Caption delivery preview only. Not approved for upload. ASR errors are diagnostic, not corrections.'}
