@@ -34,3 +34,8 @@ All six assets are original 1920×1080 SVGs, without externally loaded media, fo
 
 ## Release state
 `publicationApproved=false`. `uploadPermitted=false`. SVG creation and numeric review completed. Full visual render, audio, narration, mobile playback and final editorial approval not completed. Descript Agent Underlord returned `Insufficient AI credits` on 2026-10-28, so no paid upgrade was initiated. The local SVG + FFmpeg route remains the zero-cost fallback. No new channel or YouTube upload was created.
+
+## Automated raster review workflow (2026-10-28)
+- [PrismBay AI Cost Controls Visual Render QA](https://github.com/ragunauthramsaroop/PrismBay/blob/main/.github/workflows/prismbay-ai-cost-controls-visual-qa.yml) was added for the existing six-scene package. It rasterizes every SVG to a 1920x1080 PNG, generates a six-panel contact sheet and a source-hash report, checks scene distinctness, and preserves an Actions artifact without a publishing step.
+- The workflow is triggered by changes to its own definition or the six SVG sources. A workflow trigger or queued job is not evidence of a completed render. Check the actual Actions conclusion and `rendered/render-qa.json` before claiming success.
+- Its static checks do not substitute for an independent human visual review, narration listening, caption checks or real-device playback. `publicationApproved=false` and `uploadPermitted=false` remain mandatory.
