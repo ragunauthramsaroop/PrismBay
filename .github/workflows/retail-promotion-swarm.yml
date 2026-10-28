@@ -133,8 +133,8 @@ jobs:
           // still fail closed. A broad Stripe URL boolean incorrectly blocked the legitimate
           // $179 downloadable bundle on the public home page.
           const live = storefront?.result?.activeStorefront;
-          if (report.promotionEligibleCount === 0 && live?.hasDirectStripeLink === true && live?.hasUnapprovedDirectStripeLink !== false) {
-            throw new Error('Unapproved direct Stripe checkout detected while no physical product is promotion eligible');
+          if (live?.hasDirectStripeLink === true && live?.hasUnapprovedDirectStripeLink !== false) {
+            throw new Error('Unapproved direct Stripe checkout detected on the public storefront');
           }
           console.log(`Guarded-preflight promotion eligible: ${report.promotionEligibleCount}`);
           NODE
