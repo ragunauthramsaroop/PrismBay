@@ -1,15 +1,37 @@
 {
   "schemaVersion": 1,
-  "policy": "Supplier onboarding research only. No manual provider evidence currently approved for publication, product checkout, supplier order, image reuse, or marketing.",
+  "policy": "Supplier research and manual-CSV preparation only. No authenticated HyperSKU/EPROLO API, supplier purchases, customer checkout, media publication or marketing authorization. Supplier statements require exact product and current destination-specific verification.",
   "providers": {
     "hypersku": {
       "priority": 1,
       "basePlanUsdMonthly": 0,
-      "apiStatus": "account_and_open_api_access_pending",
-      "source": "https://support.hypersku.com/en/articles/2941652-what-s-hypersku-how-to-sign-up-and-get-started",
+      "apiStatus": "open_api_not_available_low_volume",
+      "source": "https://support.hypersku.com/en/articles/3161590-how-can-i-submit-a-sourcing-request-and-get-a-quote-on-hypersku",
       "sourceOfPlan": "https://www.hypersku.com/pricing/",
       "lastOutreach": "2026-10-27",
-      "sourcingContact": "support@etailerhub.com"
+      "sourcingContact": "support@etailerhub.com",
+      "supplierReplyDate": "2026-10-28",
+      "apiThresholdSupplierWording": "Ideally minimum 2,000 MOV; ask provider to define MOV and measurement period before assuming eligibility.",
+      "customStoreRoute": "manual_csv_batch_upload_only",
+      "manualCsvOrderSubmissionAvailable": true,
+      "manualCsvOrderSubmissionAuthorized": false,
+      "manualCsvOrdersEnabled": false,
+      "sourcingRequestMethod": "AliExpress item URLs submitted via HyperSKU dashboard > Sourcing > Smart Sourcing",
+      "freeSourcingRequestsPerDay": 3,
+      "freeSourcingLinksPerWeek": 10,
+      "additionalSourcingLinkFeeUsd": 1,
+      "additionalSourcingLinksAuthorized": false,
+      "indicativeQuoteTurnaroundBusinessDays": 2,
+      "shippingQuoteMethod": "dashboard_shipping_calculator_after_exact_sourcing",
+      "usStandardTrackedTransitBusinessDaysAfterDispatch": "7-12 indicative, not guaranteed",
+      "fulfillmentOriginCountry": "CN",
+      "usDomesticReturnAddressAvailable": false,
+      "prepaidRemorseReturnLabelsAvailable": false,
+      "orderFunding": "prepaid before dispatch; no funding authorized",
+      "supplierMediaClaim": "SKU-specific media in private sourced-product dashboard described by supplier as commercially usable; independent exact-SKU/variant rights review required before reuse",
+      "approvedApiDocumentation": false,
+      "authenticatedApiVerified": false,
+      "supplierConnected": false
     },
     "eprolo": {
       "priority": 2,
@@ -22,5 +44,5 @@
     }
   },
   "candidates": [],
-  "operatorReview": "A supplier email or quote is not sufficient on its own. Reconcile actual variant/spec, current warehouse stock, shipment, price margin, media licensing and actual fulfillment capability before publishing an alternate-provider item. Never put API keys, customer addresses, vendor private attachments or personal email in this file."
+  "operatorReview": "2026-10-28 direct supplier response: HyperSKU Open API is not self-service for low-volume custom stores. Use dashboard Smart Sourcing and non-executing manual CSV preparation only; do not place or fund orders. Vendor states an ideal 2,000 MOV API threshold (meaning/period unconfirmed), three free sourcing requests per day and up to ten links per week, with additional links costing USD 1 each (not authorized). Dashboard quotes and SKU-specific media must be independently checked. No US domestic remorse return address, dispatch is prepaid. No supplier email or dashboard claim is proof of stock, variant, final buyer freight, profit, licensing or fulfillment. Never put credentials, buyer addresses, vendor private attachments or personal email in this file."
 }
