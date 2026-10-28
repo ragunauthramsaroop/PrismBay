@@ -36,9 +36,10 @@ Current Top 10:
 9. 3-in-1 Crevice Cleaning Brush
 10. Sink Drain Catcher 2-Pack
 
-Active storefront: https://prismbay-clean-49izhg.v2.appdeploy.ai/tiktok/
-Desired custom storefront route: https://shop.prismbayai.com/tiktok
-Main site: https://www.prismbayai.com
+Canonical PrismBay Clean retail storefront: https://clean.prismbayai.com/
+Retail product research landing page: https://clean.prismbayai.com/top-15/
+PrismBay AI educational site: https://www.prismbayai.com
+Do not direct retail traffic to historical AppDeploy or unverified shop subdomains. Confirm live HTTPS and approved product/digital delivery gates before linking a commercial offer. Retail TikTok must be connected and separately authorized before any scheduling or publication.
 
 Run a role with:
 `node scripts/organic-growth-agent.mjs "Storefront CRO Auditor"`
