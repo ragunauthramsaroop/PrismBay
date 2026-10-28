@@ -1,5 +1,5 @@
 import fs from 'node:fs/promises';
-import { campaignForSlot, currentSixHourSlot } from './digital-conversion-campaign.mjs';
+import { auditPublicStripeLinks, campaignForSlot, currentSixHourSlot } from './digital-conversion-campaign.mjs';
 
 const role = process.argv[2] || 'Storefront CRO Auditor';
 const SHOP = process.env.PRISMBAY_SHOP_URL || 'https://clean.prismbayai.com/';
@@ -58,6 +58,7 @@ const strip = s => s.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
 async function inspectStorefront(target) {
   const r = await fetchText(target);
   const html = r.text;
+  const stripeAudit = auditPublicStripeLinks(html);
   return { target, status: r.status, finalUrl: r.url,
     reachable: r.ok, error: r.error, attempts: r.attempts,
     title: strip(match(html, /<title[^>]*>([\s\S]*?)<\/title>/i)),
@@ -66,7 +67,7 @@ async function inspectStorefront(target) {
     h1: strip(match(html, /<h1[^>]*>([\s\S]*?)<\/h1>/i)),
     ctaCount: count(html, /<(?:a|button)\b[^>]*>[\s\S]*?(?:buy|shop|checkout|order|view|see|get|check|open)[\s\S]*?<\/(?:a|button)>/gi),
     hasProductSchema: /"@type"\s*:\s*"(?:Product|ItemList)"/i.test(html),
-    hasDirectStripeLink: /https:\/\/buy\.stripe\.com\//i.test(html),
+    ...stripeAudit,
     hasRailwayPreflight: /browser-worker-production-f5b4\.up\.railway\.app\/garment-steamer/i.test(html),
     hasExpiredAugustCopy: /August\s+27|Aug\.?\s*27/i.test(html)
   };
