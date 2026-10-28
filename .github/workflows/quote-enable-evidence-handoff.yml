@@ -41,6 +41,14 @@ jobs:
           scripts/freight-ceiling-engine.test.mjs
           scripts/quote-enable-candidate.test.mjs
           scripts/build-quote-runtime-config.test.mjs
+      - name: Verify newest unexpired duplicate-name artifact selection
+        shell: bash
+        run: |
+          selected=$(jq -r '.artifacts | map(select(.name == "prismbay-cj-supplier-verification-40769387988" and .expired == false)) | max_by(.created_at) | .id // empty' <<'JSON'
+          {"artifacts":[{"id":100,"name":"prismbay-cj-supplier-verification-40769387988","created_at":"2026-10-28T21:17:19Z","expired":false},{"id":200,"name":"prismbay-cj-supplier-verification-40769387988","created_at":"2026-10-28T21:08:56Z","expired":false},{"id":300,"name":"prismbay-cj-supplier-verification-40769387988","created_at":"2026-10-28T21:18:00Z","expired":true},{"id":400,"name":"unrelated","created_at":"2026-10-28T21:19:00Z","expired":false}]}
+          JSON
+          )
+          test "$selected" = "100"
 
   build-handoff:
     if: >-
