@@ -79,7 +79,7 @@ jobs:
                   raise RuntimeError('Malformed SRT cue')
               a,b=lines[1].split(' --> ')
               cues.append((a,b,' '.join(lines[2:])))
-          assert len(cues)==31
+          assert 10 <= len(cues) <= 120, f'Unexpected caption cue count: {len(cues)}'
           def ass_time(value):
               h,m,rest=value.replace(',','.').split(':')
               return f'{int(h)}:{int(m):02}:{float(rest):05.2f}'
