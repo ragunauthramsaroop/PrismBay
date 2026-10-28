@@ -7,6 +7,7 @@ on:
   pull_request:
     paths:
       - 'scripts/ebay-control-plane.mjs'
+      - 'scripts/ebay-pages-single-writer.test.mjs'
       - 'scripts/ebay-autonomous-orchestrator.mjs'
       - 'scripts/ebay-inventory-connector.mjs'
       - '.github/workflows/ebay-autonomous-orchestrator.yml'
@@ -40,6 +41,7 @@ jobs:
           node --check scripts/ebay-control-plane.mjs
           node --check scripts/ebay-autonomous-orchestrator.mjs
           node --check scripts/ebay-inventory-connector.mjs
+          node --test scripts/ebay-pages-single-writer.test.mjs
       - name: Refresh live CJ and eBay control plane
         if: github.event_name != 'pull_request'
         env:
@@ -79,31 +81,32 @@ jobs:
           git worktree add --detach "$syncdir" origin/gh-pages
           git -C "$syncdir" config user.name 'github-actions[bot]'
           git -C "$syncdir" config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          mkdir -p "$syncdir/marketplace/ebay"
-          cp growth-reports/ebay/control-plane.json "$syncdir/marketplace/ebay/control-plane.json"
-          cp growth-reports/ebay/orchestrator-state.json "$syncdir/marketplace/ebay/orchestrator-state.json"
-          if [ -f growth-reports/ebay/ebay-api-result.json ]; then
-            cp growth-reports/ebay/ebay-api-result.json "$syncdir/marketplace/ebay/ebay-api-result.json"
-          fi
-          git -C "$syncdir" add marketplace/ebay
-          if ! git -C "$syncdir" diff --cached --quiet; then
+          # This workflow owns orchestrator-state.json and ebay-api-result.json.
+          # The control-plane workflow exclusively owns control-plane.json.
+          # Never publish a stale copy of another workflow's authorization status.
+          for attempt in 1 2 3 4 5; do
+            git fetch origin gh-pages
+            git -C "$syncdir" reset --hard origin/gh-pages
+            mkdir -p "$syncdir/marketplace/ebay"
+            cp growth-reports/ebay/orchestrator-state.json "$syncdir/marketplace/ebay/orchestrator-state.json"
+            git -C "$syncdir" add marketplace/ebay/orchestrator-state.json
+            if [ -f growth-reports/ebay/ebay-api-result.json ]; then
+              cp growth-reports/ebay/ebay-api-result.json "$syncdir/marketplace/ebay/ebay-api-result.json"
+              git -C "$syncdir" add marketplace/ebay/ebay-api-result.json
+            fi
+            if git -C "$syncdir" diff --cached --quiet; then
+              echo 'eBay orchestrator files unchanged.'
+              exit 0
+            fi
             git -C "$syncdir" commit -m 'chore: publish autonomous eBay state'
-            for attempt in 1 2 3; do
-              git fetch origin gh-pages
-              if ! git -C "$syncdir" rebase origin/gh-pages; then
-                git -C "$syncdir" rebase --abort || true
-                echo '::error::Concurrent eBay orchestrator Pages edit requires review; no force push.'
-                exit 1
-              fi
-              if git -C "$syncdir" push origin HEAD:gh-pages; then
-                echo 'eBay orchestrator state published.'
-                exit 0
-              fi
-              if [[ "$attempt" != "3" ]]; then sleep "$((attempt * 3))"; fi
-            done
-            echo '::error::eBay orchestrator publication failed after safe retries.'
-            exit 1
-          fi
+            if git -C "$syncdir" push origin HEAD:gh-pages; then
+              echo 'eBay orchestrator state published without force pushing.'
+              exit 0
+            fi
+            if [[ "$attempt" != "5" ]]; then sleep "$((attempt * 2))"; fi
+          done
+          echo '::error::eBay orchestrator publish failed after replaying fresh gh-pages state.'
+          exit 1
       - name: Maintain GitHub launch queue
         if: github.event_name != 'pull_request'
         uses: actions/github-script@v7
