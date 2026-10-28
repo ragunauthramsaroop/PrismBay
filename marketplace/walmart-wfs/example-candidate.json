@@ -1,0 +1,27 @@
+{
+  "candidate": "Video illustration only: Ninja Crispi, exact SKU and condition unverified",
+  "source": "User-provided video, October 28, 2026. Video pricing is not a supplier quote.",
+  "salePrice": 134,
+  "wholesaleUnitCost": 74.99,
+  "minimumOrderQty": 72,
+  "referralRatePercent": 12,
+  "wfsFeePerSale": 10,
+  "freightPerUnit": 5,
+  "prepPerUnit": 1,
+  "storagePerUnit": 1.5,
+  "returnReservePerSale": 4,
+  "adsPerSale": 2,
+  "otherFeesPerSale": 0,
+  "cashBudget": 3000,
+  "targetMarginPercent": 20,
+  "gates": {
+    "accountApproved": false,
+    "wfsEnabled": false,
+    "skuExactMatch": false,
+    "resaleRights": false,
+    "supplierVerified": false,
+    "wfsInboundConfirmed": false,
+    "returnsPlanConfirmed": false,
+    "priceAndDemandVerified": false
+  }
+}
