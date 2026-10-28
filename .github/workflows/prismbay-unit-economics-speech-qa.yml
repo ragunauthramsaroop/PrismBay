@@ -1,0 +1,194 @@
+name: PrismBay AI Unit Economics Independent Speech QA
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/prismbay-unit-economics-speech-qa.yml'
+  workflow_run:
+    workflows: ['PrismBay AI Unit Economics Short Draft']
+    types: [completed]
+    branches: [main]
+
+permissions:
+  actions: read
+  contents: write
+
+concurrency:
+  group: prismbay-unit-economics-speech-qa
+  cancel-in-progress: false
+
+jobs:
+  independent-speech-audit:
+    if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install free open-source speech inspection tools
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg
+          python -m pip install --disable-pip-version-check --no-input faster-whisper
+      - name: Download the existing unpublished production artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: prismbay-ai-unit-economics-qa-draft
+          run-id: ${{ github.event_name == 'workflow_run' && github.event.workflow_run.id || 40553516435 }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: .unit-economics-qa-input
+      - name: Independently compare spoken words and subtitle timing
+        shell: bash
+        env:
+          SOURCE_RUN_ID: ${{ github.event_name == 'workflow_run' && github.event.workflow_run.id || 40553516435 }}
+        run: |
+          python - <<'PY'
+          import difflib, hashlib, json, os, re, statistics, subprocess
+          from pathlib import Path
+          from faster_whisper import WhisperModel
+
+          root=Path('.unit-economics-qa-input')
+          slug='ai-cost-per-accepted-result-2026-10-27'
+          def locate(ext):
+              hits=list(root.rglob(slug+ext))
+              if len(hits)!=1:
+                  raise RuntimeError(f'Expected one {slug+ext}, found {len(hits)}')
+              return hits[0]
+          video=locate('.mp4')
+          srt=locate('.srt')
+          manifest=json.loads(locate('.json').read_text())
+          assert manifest['channelId']=='UCw2hs85TzIpdKwJtG-BSxzQ'
+          assert manifest['publicationApproved'] is False
+          assert manifest['paidSpendUSD']==0
+          sha=hashlib.sha256(video.read_bytes()).hexdigest()
+          assert sha==manifest['sha256'], 'Artifact checksum mismatch'
+
+          def sec(s):
+              h,m,rest=s.replace(',','.').split(':')
+              return int(h)*3600+int(m)*60+float(rest)
+          cues=[]
+          for block in re.split(r'\n\s*\n',srt.read_text(encoding='utf-8-sig').strip()):
+              lines=block.strip().splitlines()
+              if len(lines)<3 or '-->' not in lines[1]:
+                  continue
+              left,right=lines[1].split(' --> ')
+              cues.append({'start':sec(left),'end':sec(right),'text':' '.join(lines[2:])})
+          assert len(cues)>=25
+
+          def tokens(s):
+              return re.findall(r'[a-z0-9]+',s.lower())
+          expected=[]; cue_ranges=[]
+          for cue in cues:
+              start=len(expected)
+              expected.extend(tokens(cue['text']))
+              cue_ranges.append((start,len(expected)))
+          assert len(expected)>=100
+
+          pcm=Path('/tmp/prismbay-unit-speech-16k.wav')
+          subprocess.run(['ffmpeg','-hide_banner','-loglevel','error','-y','-i',str(video),
+                          '-vn','-ac','1','-ar','16000',str(pcm)],check=True)
+          model=WhisperModel('tiny.en',device='cpu',compute_type='int8')
+          segments,_=model.transcribe(str(pcm),language='en',beam_size=5,
+                                      vad_filter=True,word_timestamps=True)
+          heard_words=[]
+          for seg in segments:
+              for word in (seg.words or []):
+                  normalized=tokens(word.word)
+                  if not normalized:
+                      continue
+                  for item in normalized:
+                      heard_words.append((item,float(word.start),float(word.end)))
+          heard=[x[0] for x in heard_words]
+          similarity=difflib.SequenceMatcher(None,expected,heard,autojunk=False).ratio()
+          matcher=difflib.SequenceMatcher(None,expected,heard,autojunk=False)
+          index_map={}
+          for block in matcher.get_matching_blocks():
+              for offset in range(block.size):
+                  index_map[block.a+offset]=block.b+offset
+
+          cue_results=[]; boundary_errors=[]
+          for i,(start,end) in enumerate(cue_ranges):
+              matches=[index_map[j] for j in range(start,end) if j in index_map]
+              if not matches:
+                  cue_results.append({'cue':i+1,'matchedWords':0,'status':'UNMATCHED'})
+                  continue
+              first=heard_words[min(matches)][1]
+              last=heard_words[max(matches)][2]
+              start_error=round(cues[i]['start']-first,3)
+              end_error=round(cues[i]['end']-last,3)
+              boundary_errors.extend([abs(start_error),abs(end_error)])
+              cue_results.append({'cue':i+1,'matchedWords':len(matches),
+                                  'expectedWords':end-start,
+                                  'captionStart':cues[i]['start'],'speechStart':round(first,3),
+                                  'captionEnd':cues[i]['end'],'speechEnd':round(last,3),
+                                  'startErrorSeconds':start_error,'endErrorSeconds':end_error})
+          median_error=statistics.median(boundary_errors) if boundary_errors else None
+          sorted_errors=sorted(boundary_errors)
+          p90_error=sorted_errors[min(len(sorted_errors)-1,int(0.9*(len(sorted_errors)-1)))] if sorted_errors else None
+          matched_cues=sum('matchedWords' in r and r['matchedWords']>0 for r in cue_results)
+          proxy_pass=(similarity>=0.72 and matched_cues/len(cues)>=0.7 and
+                      median_error is not None and median_error<=1.4 and
+                      p90_error is not None and p90_error<=2.8)
+          report={
+            'channelId':'UCw2hs85TzIpdKwJtG-BSxzQ',
+            'asset':slug,'sourceRunId':int(os.environ['SOURCE_RUN_ID']),
+            'sourceSha256':sha,'captionCueCount':len(cues),
+            'expectedWordCount':len(expected),'asrWordCount':len(heard),
+            'wordSequenceSimilarity':round(similarity,3),
+            'matchedCues':matched_cues,
+            'medianBoundaryErrorSeconds':round(median_error,3) if median_error is not None else None,
+            'p90BoundaryErrorSeconds':round(p90_error,3) if p90_error is not None else None,
+            'machineSpeechAlignmentProxyPass':proxy_pass,
+            'machineModel':'faster-whisper tiny.en CPU',
+            'captionAudit':cue_results,
+            'asrTranscript':' '.join(heard),
+            'manualNarrationReview':'PENDING',
+            'manualCaptionSynchronizationReview':'PENDING',
+            'manualVisualReview':'PENDING',
+            'publicationApproved':False,'published':False,'paidSpendUSD':0,
+            'note':'ASR is a fallible machine proxy, not proof of exact narration or caption sync. No publication authorization.'
+          }
+          out=Path('editorial/youtube/qa/PB-AI-UNIT-ECON-20261027')
+          out.mkdir(parents=True,exist_ok=True)
+          (out/'speech_alignment_report.json').write_text(json.dumps(report,indent=2)+'\n')
+          print(json.dumps({k:v for k,v in report.items() if k not in ('captionAudit','asrTranscript')},indent=2))
+          PY
+      - name: Upload review evidence even when the source is held unpublished
+        uses: actions/upload-artifact@v4
+        with:
+          name: prismbay-unit-economics-independent-speech-qa
+          path: editorial/youtube/qa/PB-AI-UNIT-ECON-20261027/speech_alignment_report.json
+          retention-days: 14
+      - name: Commit independent machine audit to the existing repository
+        shell: bash
+        run: |
+          set -euo pipefail
+          target=editorial/youtube/qa/PB-AI-UNIT-ECON-20261027/speech_alignment_report.json
+          mkdir -p "$RUNNER_TEMP/prismbay-unit-economics-qa"
+          cp "$target" "$RUNNER_TEMP/prismbay-unit-economics-qa/report.json"
+          git config user.name prismbay-ai-speech-qa-bot
+          git config user.email actions@users.noreply.github.com
+          for attempt in 1 2 3 4; do
+            git fetch origin main
+            git reset --hard origin/main
+            mkdir -p "$(dirname "$target")"
+            cp "$RUNNER_TEMP/prismbay-unit-economics-qa/report.json" "$target"
+            git add "$target"
+            if git diff --cached --quiet; then
+              echo 'Identical QA evidence already present.'
+              exit 0
+            fi
+            git commit -m 'Record independent PrismBay Unit Economics narration alignment audit'
+            if git push origin HEAD:main; then
+              echo 'Independent QA evidence recorded. Publication remains blocked.'
+              exit 0
+            fi
+            sleep $((attempt*3))
+          done
+          echo 'Independent QA evidence was not committed after retries.'
+          exit 1
