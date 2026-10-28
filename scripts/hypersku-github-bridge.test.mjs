@@ -62,10 +62,10 @@ test('serialized readiness never echoes raw credentials or private provider fiel
  assert.equal(x.supplierOrdersEnabled,false);
 });
 
-test('confirmed low-volume manual CSV route never implies API or order authorization',()=>{
- const x=readiness({apiStatus:'open_api_not_available_low_volume',customStoreRoute:'manual_csv_batch_upload_only'},false);
- assert.equal(x.status,'manual_csv_research_only');
- assert.equal(x.manualCsvResearchAvailable,true);
+test('supplier-branded manual CSV claim is not independently confirmed',()=>{
+ const x=readiness({apiStatus:'open_api_not_available_low_volume',customStoreRoute:'manual_csv_batch_upload_only',manualCsvRouteIndependentlyConfirmed:false},false);
+ assert.equal(x.status,'manual_csv_route_unverified');
+ assert.equal(x.manualCsvResearchAvailable,false);
  assert.equal(x.apiApproved,false);
  assert.equal(x.authenticatedApiVerified,false);
  assert.equal(x.supplierConnected,false);
@@ -73,4 +73,15 @@ test('confirmed low-volume manual CSV route never implies API or order authoriza
  assert.equal(x.manualCsvOrdersEnabled,false);
  assert.equal(x.physicalCheckoutEnabled,false);
  assert.equal(x.supplierMediaReuseEnabled,false);
+});
+
+test('independently confirmed manual route still forbids submission, purchase and checkout',()=>{
+ const x=readiness({apiStatus:'open_api_not_available_low_volume',customStoreRoute:'manual_csv_batch_upload_only',manualCsvRouteIndependentlyConfirmed:true},false);
+ assert.equal(x.status,'manual_csv_research_only');
+ assert.equal(x.manualCsvResearchAvailable,true);
+ assert.equal(x.manualCsvSubmissionAuthorized,false);
+ assert.equal(x.manualCsvOrdersEnabled,false);
+ assert.equal(x.supplierOrdersEnabled,false);
+ assert.equal(x.physicalCheckoutEnabled,false);
+ assert.equal(x.supplierConnected,false);
 });
