@@ -15,6 +15,7 @@ on:
     branches: [main]
     paths:
       - 'scripts/ebay-control-plane.mjs'
+      - 'scripts/ebay-pages-single-writer.test.mjs'
       - 'scripts/ebay-autonomous-orchestrator.mjs'
       - 'scripts/ebay-inventory-connector.mjs'
       - '.github/workflows/ebay-autonomous-orchestrator.yml'
