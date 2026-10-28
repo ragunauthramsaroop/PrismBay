@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { WORKERS, checkWorker, selectEvidenceRun, applyConsequence, shouldDispatchFallback, reportSummary } from './worker-accountability.mjs';
+import { WORKERS, checkWorker, selectEvidenceRun, applyConsequence, shouldDispatchFallback, shouldDispatchRecovery, reportSummary } from './worker-accountability.mjs';
 
 const now=Date.parse('2026-10-23T21:00:00Z');
 const worker=WORKERS[0];
@@ -80,4 +80,19 @@ test('a failure is never coalesced, even if a successful run preceded it',()=>{
   const ok=run(3,{id:90,event:'schedule',conclusion:'success'});
   assert.equal(selectEvidenceRun([failed,ok]).id,91);
   assert.equal(checkWorker({worker,runs:[failed,ok],artifacts:[proof],nowMs:now}).status,'fail');
+});
+
+test('stale CEO and commerce work receives bounded first-party recovery',()=>{
+  const nowMs=Date.parse('2026-10-28T14:00:00Z');
+  for (const id of ['ceo-recovery','commerce-control']) {
+    const worker=WORKERS.find(w=>w.id===id);
+    const stale={status:'fail',reason:'worker_stale',failureStreak:2};
+    assert.equal(shouldDispatchRecovery(worker,stale,nowMs),true);
+    assert.equal(shouldDispatchRecovery(worker,{...stale,lastRecoveryAt:new Date(nowMs-60000).toISOString()},nowMs),false);
+    assert.equal(shouldDispatchRecovery(worker,{...stale,lastRecoveryAt:new Date(nowMs-3*3600000).toISOString()},nowMs),true);
+    assert.equal(shouldDispatchRecovery(worker,{...stale,reason:'run_failure'},nowMs),false);
+    assert.equal(shouldDispatchRecovery(worker,{...stale,failureStreak:1},nowMs),false);
+    assert.equal(shouldDispatchRecovery(worker,{...stale,status:'running'},nowMs),false);
+  }
+  assert.equal(shouldDispatchRecovery(WORKERS[0],{status:'fail',reason:'worker_stale',failureStreak:4},nowMs),false);
 });
