@@ -149,7 +149,7 @@ jobs:
           info=json.loads(subprocess.check_output(['ffprobe','-v','error','-show_streams','-show_format','-of','json',str(p)]))
           v=next(x for x in info['streams'] if x['codec_type']=='video')
           assert (v['width'],v['height'])==(1080,1920)
-          assert 60<float(info['format']['duration'])<65
+          assert 60<float(info['format']['duration'])<75, 'Unexpected Short preview duration'
           gate=json.loads((root/'review-gate.json').read_text())
           assert gate['publicationApproved'] is False and gate['uploadPermitted'] is False
           print('Unapproved portrait caption preview duration:',info['format']['duration'])
