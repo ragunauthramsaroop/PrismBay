@@ -2,18 +2,21 @@ import fs from 'node:fs/promises';
 import {pathToFileURL} from 'node:url';
 export function readiness(provider,credentialConfigured) {
  const hasApprovedApi = provider?.apiStatus === 'api_active';
+ const manualCsvResearchOnly = provider?.apiStatus === 'open_api_not_available_low_volume' && provider?.customStoreRoute === 'manual_csv_batch_upload_only';
  const hasDocs = provider?.approvedApiDocumentation === true;
  // Keep only a boolean in the retained artifact, even if a caller passes a raw key.
  const hasPrivateConfiguration = Boolean(credentialConfigured);
  return {
   provider:'hypersku', apiApproved:hasApprovedApi,
+  manualCsvResearchAvailable:manualCsvResearchOnly,
+  manualCsvSubmissionAuthorized:false, manualCsvOrdersEnabled:false,
   documentationApproved:hasDocs,
   credentialsPresent:hasPrivateConfiguration,
   // Registry flags and a configured key are not an authenticated provider API call.
   authenticatedApiVerified:false,
   supplierConnected:false,
   authenticationEvidence:'not_performed',
-  status:!hasApprovedApi?'awaiting_vendor_approval':!hasDocs?'awaiting_vendor_api_docs':!hasPrivateConfiguration?'awaiting_private_configuration':'integration_configuration_review_required',
+  status:manualCsvResearchOnly?'manual_csv_research_only':!hasApprovedApi?'awaiting_vendor_approval':!hasDocs?'awaiting_vendor_api_docs':!hasPrivateConfiguration?'awaiting_private_configuration':'integration_configuration_review_required',
   productSyncEnabled:false, physicalCheckoutEnabled:false,
   supplierOrdersEnabled:false, supplierMediaReuseEnabled:false
  };

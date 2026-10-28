@@ -23,7 +23,9 @@ function sample(){
 test("real production registry is empty rather than invented",()=>{
  assert.equal(vendors.providers.hypersku.basePlanUsdMonthly,0);
  assert.equal(vendors.providers.eprolo.basePlanUsdMonthly,0);
- assert.equal(vendors.providers.hypersku.apiStatus,"account_and_open_api_access_pending");
+ assert.equal(vendors.providers.hypersku.apiStatus,"open_api_not_available_low_volume");
+ assert.equal(vendors.providers.hypersku.manualCsvOrderSubmissionAuthorized,false);
+ assert.equal(vendors.providers.hypersku.supplierConnected,false);
  assert.equal(verifyProviderProducts(vendors,shortlist,now).approved.length,0);
 });
 test("strict complete provider evidence allows a real product source, but not checkout",()=>{
