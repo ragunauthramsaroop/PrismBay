@@ -2,7 +2,9 @@ import fs from 'node:fs/promises';
 import {pathToFileURL} from 'node:url';
 export function readiness(provider,credentialConfigured) {
  const hasApprovedApi = provider?.apiStatus === 'api_active';
- const manualCsvResearchOnly = provider?.apiStatus === 'open_api_not_available_low_volume' && provider?.customStoreRoute === 'manual_csv_batch_upload_only';
+ const manualCsvClaimRecorded = provider?.apiStatus === 'open_api_not_available_low_volume' && provider?.customStoreRoute === 'manual_csv_batch_upload_only';
+ // An authenticated sender domain is not proof of vendor authority or dashboard support.
+ const manualCsvResearchOnly = manualCsvClaimRecorded && provider?.manualCsvRouteIndependentlyConfirmed === true;
  const hasDocs = provider?.approvedApiDocumentation === true;
  // Keep only a boolean in the retained artifact, even if a caller passes a raw key.
  const hasPrivateConfiguration = Boolean(credentialConfigured);
@@ -16,7 +18,7 @@ export function readiness(provider,credentialConfigured) {
   authenticatedApiVerified:false,
   supplierConnected:false,
   authenticationEvidence:'not_performed',
-  status:manualCsvResearchOnly?'manual_csv_research_only':!hasApprovedApi?'awaiting_vendor_approval':!hasDocs?'awaiting_vendor_api_docs':!hasPrivateConfiguration?'awaiting_private_configuration':'integration_configuration_review_required',
+  status:manualCsvResearchOnly?'manual_csv_research_only':manualCsvClaimRecorded?'manual_csv_route_unverified':!hasApprovedApi?'awaiting_vendor_approval':!hasDocs?'awaiting_vendor_api_docs':!hasPrivateConfiguration?'awaiting_private_configuration':'integration_configuration_review_required',
   productSyncEnabled:false, physicalCheckoutEnabled:false,
   supplierOrdersEnabled:false, supplierMediaReuseEnabled:false
  };
