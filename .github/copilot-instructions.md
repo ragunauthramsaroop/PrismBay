@@ -44,8 +44,7 @@ Do not direct retail traffic to historical AppDeploy or unverified shop subdomai
 Run a role with:
 `node scripts/organic-growth-agent.mjs "Storefront CRO Auditor"`
 
-Run the full local/K1 swarm with:
-`powershell -ExecutionPolicy Bypass -File scripts/run-growth-swarm.ps1`
+Run the existing cloud-only growth workers through the `PrismBay Free Cloud Operations` GitHub Actions workflow (`.github/workflows/free-cloud-ops.yml`) on an authorized GitHub-hosted runner. Do not run the legacy local/K1 swarm or access K1, AGMADMINLPT18, self-hosted runners, or remote desktops.
 
 Treat live publication, creator replies, checkout activity, verified Stripe sales, and native TikTok Shop progress as measurable outcomes. Do not infer outcomes from generated artifacts alone.
 
