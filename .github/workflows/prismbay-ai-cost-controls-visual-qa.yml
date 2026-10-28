@@ -1,0 +1,166 @@
+name: PrismBay AI Cost Controls Visual Render QA
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/prismbay-ai-cost-controls-visual-qa.yml'
+      - 'youtube-growth/production/assets/ai-agent-cost-control-2026-10-28/*.svg'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: prismbay-ai-cost-controls-visual-qa-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  render-qa:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install open SVG rendering tools
+        run: python -m pip install --disable-pip-version-check --no-input cairosvg pillow
+      - name: Rasterize and independently inspect six original vector scenes
+        shell: bash
+        run: |
+          python - <<'PY'
+          import hashlib, io, json, re
+          import xml.etree.ElementTree as ET
+          from pathlib import Path
+          import cairosvg
+          from PIL import Image, ImageChops, ImageDraw, ImageStat
+          base=Path('youtube-growth/production/assets/ai-agent-cost-control-2026-10-28')
+          output=base/'rendered'
+          output.mkdir(parents=True, exist_ok=True)
+          names=[
+              '01-budget-math.svg',
+              '02-eight-call-stop-rule.svg',
+              '03-cost-per-accepted-result.svg',
+              '04-authority-permissions.svg',
+              '05-pilot-scorecard.svg',
+              '06-spend-access-proof-close.svg',
+          ]
+          rows=[]; frames=[]; hashes=[]
+          for name in names:
+              path=base/name
+              data=path.read_bytes()
+              text=data.decode('utf-8')
+              root=ET.fromstring(data)
+              assert root.tag.endswith('svg'), name
+              assert root.attrib.get('viewBox')=='0 0 1920 1080', (name,root.attrib.get('viewBox'))
+              assert root.attrib.get('width')=='1920' and root.attrib.get('height')=='1080', name
+              assert not re.search(r'<(?:script|image|foreignObject)\\b',text,re.I), name
+              assert not re.search(r'(?:href|src)\\s*=\\s*["\'](?:https?:|data:|//)',text,re.I), name
+              assert not re.search(r'url\\(\\s*["\']?https?://',text,re.I), name
+              text_nodes=[e for e in root.iter() if e.tag.endswith('text')]
+              assert len(text_nodes)>=8, (name,len(text_nodes))
+              png=cairosvg.svg2png(bytestring=data,output_width=1920,output_height=1080)
+              image=Image.open(io.BytesIO(png)).convert('RGB')
+              assert image.size==(1920,1080), name
+              assert ImageChops.difference(image,Image.new('RGB',image.size,image.getpixel((0,0)))).getbbox(), name
+              assert sum(ImageStat.Stat(image).stddev)>15, name
+              digest=hashlib.sha256(png).hexdigest()
+              hashes.append(digest)
+              (output/name.replace('.svg','.png')).write_bytes(png)
+              frames.append(image.resize((640,360),Image.Resampling.LANCZOS))
+              rows.append({
+                  'source':name,'sourceSha256':hashlib.sha256(data).hexdigest(),
+                  'pngSha256':digest,'pngBytes':len(png),
+                  'resolution':'1920x1080','textElements':len(text_nodes),
+                  'automatedRender':'PASS','humanVisualReview':'PENDING'
+              })
+          assert len(set(hashes))==6, 'Duplicate scene renders'
+          sheet=Image.new('RGB',(1920,1140),'#101725')
+          draw=ImageDraw.Draw(sheet)
+          for i,frame in enumerate(frames):
+              x=(i%3)*640; y=(i//3)*570
+              sheet.paste(frame,(x,y))
+              draw.text((x+14,y+374),names[i],fill='white')
+          sheet.save(output/'contact-sheet.jpg',quality=90,optimize=True)
+          report={
+              'channelId':'UCw2hs85TzIpdKwJtG-BSxzQ',
+              'handle':'@PrismBayAI','brandId':6945443,
+              'scenes':rows,'allSixRasterized':True,
+              'sourceAssetsOriginal':True,
+              'publicationApproved':False,'uploadPermitted':False,
+              'humanVisualReview':'PENDING',
+              'humanNarrationReview':'PENDING',
+              'mobilePlaybackReview':'PENDING',
+              'paidSpendUSD':0,
+              'note':'Raster and static integrity checks only. Contact sheet requires independent human inspection. No video or YouTube upload is produced.'
+          }
+          (output/'render-qa.json').write_text(json.dumps(report,indent=2)+'\n')
+          print(json.dumps({'scenes':len(rows),'distinctPngs':len(set(hashes)),
+                            'resolution':'1920x1080','publicationApproved':False},indent=2))
+          PY
+      - name: Preserve rendered previews and QA report
+        uses: actions/upload-artifact@v4
+        with:
+          name: prismbay-ai-cost-controls-visual-qa-${{ github.run_id }}
+          path: youtube-growth/production/assets/ai-agent-cost-control-2026-10-28/rendered/
+          retention-days: 14
+          if-no-files-found: error
+      - name: Commit original rendered preview assets with stale-source protection
+        shell: bash
+        run: |
+          set -euo pipefail
+          base='youtube-growth/production/assets/ai-agent-cost-control-2026-10-28'
+          saved_dir="$RUNNER_TEMP/cost-controls-rendered"
+          mkdir -p "$saved_dir"
+          cp -a "$base/rendered/." "$saved_dir/"
+          python - <<'PY' > "$RUNNER_TEMP/source-hashes.txt"
+          import hashlib,json
+          from pathlib import Path
+          report=json.loads(Path('youtube-growth/production/assets/ai-agent-cost-control-2026-10-28/rendered/render-qa.json').read_text())
+          for scene in report['scenes']:
+              print(scene['source']+' '+scene['sourceSha256'])
+          PY
+          git config user.name 'prismbay-ai-visual-qa-bot'
+          git config user.email 'actions@users.noreply.github.com'
+          for attempt in 1 2 3 4; do
+            git fetch origin main
+            git reset --hard origin/main
+            if ! python - "$RUNNER_TEMP/source-hashes.txt" <<'PY'
+          import hashlib,sys
+          from pathlib import Path
+          base=Path('youtube-growth/production/assets/ai-agent-cost-control-2026-10-28')
+          for line in Path(sys.argv[1]).read_text().splitlines():
+              name,expected=line.split()
+              if hashlib.sha256((base/name).read_bytes()).hexdigest()!=expected:
+                  sys.exit(1)
+          PY
+            then
+              echo 'SVG source changed during QA. Preserve artifact, skip stale preview commit.'
+              exit 0
+            fi
+            mkdir -p "$base/rendered"
+            cp -a "$saved_dir/." "$base/rendered/"
+            git add "$base/rendered/"
+            if git diff --cached --quiet; then
+              echo 'Identical previews already committed.'
+              exit 0
+            fi
+            git commit -m 'Rasterize six PrismBay AI cost-control scenes for independent visual QA'
+            if git push origin HEAD:main; then
+              echo 'Rendered previews and QA evidence committed. Publication gate closed.'
+              exit 0
+            fi
+            sleep $((attempt*3))
+          done
+          echo 'Artifact preserved, but committing previews failed after retries.'
+          exit 1
+      - name: Report strict release status
+        if: always()
+        run: |
+          echo 'Sole authorized channel: UCw2hs85TzIpdKwJtG-BSxzQ.' >> "$GITHUB_STEP_SUMMARY"
+          echo 'Six 1920x1080 rendered previews, contact sheet and hashes. No upload.' >> "$GITHUB_STEP_SUMMARY"
+          echo 'Human visual inspection, narration, captions and mobile playback still required. Paid spend USD 0.' >> "$GITHUB_STEP_SUMMARY"
