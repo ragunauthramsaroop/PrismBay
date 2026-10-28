@@ -3,11 +3,17 @@ import {pathToFileURL} from 'node:url';
 export function readiness(provider,credentialConfigured) {
  const hasApprovedApi = provider?.apiStatus === 'api_active';
  const hasDocs = provider?.approvedApiDocumentation === true;
+ // Keep only a boolean in the retained artifact, even if a caller passes a raw key.
+ const hasPrivateConfiguration = Boolean(credentialConfigured);
  return {
   provider:'hypersku', apiApproved:hasApprovedApi,
   documentationApproved:hasDocs,
-  credentialsPresent:credentialConfigured,
-  status:!hasApprovedApi?'awaiting_vendor_approval':!hasDocs?'awaiting_vendor_api_docs':!credentialConfigured?'awaiting_private_configuration':'integration_configuration_review_required',
+  credentialsPresent:hasPrivateConfiguration,
+  // Registry flags and a configured key are not an authenticated provider API call.
+  authenticatedApiVerified:false,
+  supplierConnected:false,
+  authenticationEvidence:'not_performed',
+  status:!hasApprovedApi?'awaiting_vendor_approval':!hasDocs?'awaiting_vendor_api_docs':!hasPrivateConfiguration?'awaiting_private_configuration':'integration_configuration_review_required',
   productSyncEnabled:false, physicalCheckoutEnabled:false,
   supplierOrdersEnabled:false, supplierMediaReuseEnabled:false
  };
