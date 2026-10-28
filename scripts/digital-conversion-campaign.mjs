@@ -64,7 +64,7 @@ export const ACTIVE_DIGITAL_OFFERS = Object.freeze([
 // Treat it as unapproved until independently reconciled with live Stripe.
 export function auditPublicStripeLinks(html) {
   const source = typeof html === 'string' ? html : '';
-  const links = [...source.matchAll(/(?:https?:)?\\/\\/buy\\.stripe\\.com\\/[^\\s"'<>]*/gi)]
+  const links = [...source.matchAll(/(?:https?:)?\/\/buy\.stripe\.com\/[^\s"'<>]*/gi)]
     .map(match => match[0]);
   const approvedPaths = new Set(ACTIVE_DIGITAL_OFFERS.map(offer => new URL(offer.checkout).pathname));
   let approvedDigitalStripeLinkCount = 0;
