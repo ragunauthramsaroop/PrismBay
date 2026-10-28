@@ -18,6 +18,7 @@ on:
     branches: [main]
     paths:
       - 'scripts/ebay-control-plane.mjs'
+      - 'scripts/ebay-pages-single-writer.test.mjs'
       - 'scripts/ebay-control-plane-blocked.test.mjs'
       - 'scripts/ebay-draft-feed.mjs'
       - 'scripts/ebay-draft-feed.test.mjs'
