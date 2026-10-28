@@ -3,6 +3,13 @@ on:
   workflow_dispatch:
   schedule:
     - cron: '29 2,8,14,20 * * *'
+  pull_request:
+    branches: [main]
+    paths:
+      - 'config/alternate-supplier-evidence.json'
+      - 'scripts/alternate-supplier-readiness.mjs'
+      - 'scripts/alternate-supplier-readiness.test.mjs'
+      - '.github/workflows/alternate-supplier-readiness.yml'
   push:
     branches: [main]
     paths:
@@ -11,12 +18,28 @@ on:
       - 'scripts/alternate-supplier-readiness.test.mjs'
       - '.github/workflows/alternate-supplier-readiness.yml'
 permissions:
-  contents: write
-concurrency:
-  group: prismbay-commerce-board-writers
-  cancel-in-progress: false
+  contents: read
 jobs:
+  supplier-pr-preflight:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Validate supplier gates on proposed code without publishing
+        run: |
+          node --test scripts/alternate-supplier-readiness.test.mjs
+          node scripts/alternate-supplier-readiness.mjs
   supplier-verify:
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+    permissions:
+      contents: write
+    concurrency:
+      group: prismbay-commerce-board-writers
+      cancel-in-progress: false
     runs-on: ubuntu-latest
     timeout-minutes: 8
     steps:
