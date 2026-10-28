@@ -1,0 +1,164 @@
+name: PrismBay AI Unit Economics Caption Preview QA
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/prismbay-unit-economics-caption-preview.yml'
+  workflow_dispatch:
+
+permissions:
+  actions: read
+  contents: read
+
+concurrency:
+  group: prismbay-unit-economics-caption-preview
+  cancel-in-progress: false
+
+jobs:
+  caption-preview-only:
+    runs-on: ubuntu-latest
+    timeout-minutes: 22
+    steps:
+      - name: Checkout original production and independent speech audit
+        uses: actions/checkout@v4
+
+      - name: Install free caption and inspection tools
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg fonts-dejavu-core
+
+      - name: Retrieve exact unpublished source artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: prismbay-ai-unit-economics-qa-draft
+          run-id: 40553516435
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: .caption-preview-source
+
+      - name: Verify source hash and generate portrait-safe caption preview
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import hashlib,json,re,textwrap
+          from pathlib import Path
+
+          root=Path('.caption-preview-source')
+          out=Path('.caption-preview-output')
+          out.mkdir(exist_ok=True)
+          slug='ai-cost-per-accepted-result-2026-10-27'
+          def one(ext):
+              hits=list(root.rglob(slug+ext))
+              if len(hits)!=1:
+                  raise RuntimeError(f'Expected one {ext} source, got {len(hits)}')
+              return hits[0]
+          mp4=one('.mp4')
+          manifest=json.loads(one('.json').read_text())
+          report=json.loads(Path('editorial/youtube/qa/PB-AI-UNIT-ECON-20261027/speech_alignment_report.json').read_text())
+          sha=hashlib.sha256(mp4.read_bytes()).hexdigest()
+          assert sha==manifest['sha256']==report['sourceSha256']
+          assert manifest['channelId']==report['channelId']=='UCw2hs85TzIpdKwJtG-BSxzQ'
+          assert manifest['publicationApproved'] is False and manifest['paidSpendUSD']==0
+          assert report['publicationApproved'] is False
+          srt=one('.srt')
+          blocks=re.split(r'\n\s*\n',srt.read_text(encoding='utf-8-sig').strip())
+          cues=[]
+          for block in blocks:
+              lines=block.strip().splitlines()
+              if len(lines)<3 or '-->' not in lines[1]:
+                  raise RuntimeError('Malformed SRT cue')
+              a,b=lines[1].split(' --> ')
+              cues.append((a,b,' '.join(lines[2:])))
+          assert len(cues)==report['captionCueCount']==31
+          def ass_time(value):
+              h,m,rest=value.replace(',','.').split(':')
+              return f'{int(h)}:{int(m):02}:{float(rest):05.2f}'
+          def ass_text(s):
+              s=s.replace('\\','').replace('{','(').replace('}',')')
+              lines=textwrap.wrap(s,width=26,break_long_words=False,break_on_hyphens=False)
+              if len(lines)>2:
+                  lines=[lines[0],' '.join(lines[1:])]
+              return r'\N'.join(lines)
+          header='''[Script Info]
+          Title: PrismBay AI Unit Economics UNAPPROVED caption preview
+          ScriptType: v4.00+
+          PlayResX: 1080
+          PlayResY: 1920
+          WrapStyle: 0
+          ScaledBorderAndShadow: yes
+
+          [V4+ Styles]
+          Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+          Style: ShortSafe,DejaVu Sans,57,&H00FFFFFF,&H00FFFFFF,&HAA000000,&H90000000,-1,0,0,0,100,100,0,0,3,3,0,2,95,210,410,1
+
+          [Events]
+          Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+          '''
+          header='\n'.join(line.strip() for line in header.splitlines())+'\n'
+          lines=[f'Dialogue: 0,{ass_time(a)},{ass_time(b)},ShortSafe,,0,0,0,,{ass_text(t)}' for a,b,t in cues]
+          (out/'preview-captions.ass').write_text(header+'\n'.join(lines)+'\n')
+          (out/'source-provisional.srt').write_bytes(srt.read_bytes())
+          (out/'source.mp4').write_bytes(mp4.read_bytes())
+          flagged=[x['cue'] for x in report['captionAudit'] if
+                   x.get('matchedWords',0)<max(2,0.65*x.get('expectedWords',1)) or
+                   abs(x.get('startErrorSeconds',0))>0.75 or
+                   abs(x.get('endErrorSeconds',0))>0.75]
+          meta={'channelId':'UCw2hs85TzIpdKwJtG-BSxzQ','sourceRunId':40553516435,
+                'sourceSha256':sha,'sourceCaptionCues':len(cues),
+                'captionSource':'PROVISIONAL_SCENE_ALIGNED_NOT_SPEECH_VERIFIED',
+                'asrFlaggedCues':flagged,'manualNarrationReview':'PENDING',
+                'mobileSafeAreaReview':'PENDING','captionSynchronizationReview':'PENDING',
+                'publicationApproved':False,'uploadPermitted':False,'paidSpendUSD':0,
+                'note':'Caption delivery preview only. Not approved for upload. ASR errors are diagnostic, not corrections.'}
+          (out/'review-gate.json').write_text(json.dumps(meta,indent=2)+'\n')
+          print('Source verified. Flagged cues:',flagged)
+          PY
+          ffmpeg -hide_banner -loglevel error -y \
+            -i .caption-preview-output/source.mp4 \
+            -vf 'ass=.caption-preview-output/preview-captions.ass:fontsdir=/usr/share/fonts/truetype/dejavu' \
+            -c:v libx264 -preset veryfast -crf 20 -pix_fmt yuv420p \
+            -c:a aac -b:a 160k -movflags +faststart \
+            .caption-preview-output/UNAPPROVED-captioned-preview.mp4
+          rm .caption-preview-output/source.mp4
+
+      - name: Independent technical checks and review frames
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import json,subprocess
+          from pathlib import Path
+          root=Path('.caption-preview-output')
+          p=root/'UNAPPROVED-captioned-preview.mp4'
+          assert p.exists() and p.stat().st_size>100000
+          info=json.loads(subprocess.check_output(['ffprobe','-v','error','-show_streams','-show_format','-of','json',str(p)]))
+          v=next(x for x in info['streams'] if x['codec_type']=='video')
+          assert (v['width'],v['height'])==(1080,1920)
+          assert 60<float(info['format']['duration'])<65
+          gate=json.loads((root/'review-gate.json').read_text())
+          assert gate['publicationApproved'] is False and gate['uploadPermitted'] is False
+          print('Unapproved portrait caption preview duration:',info['format']['duration'])
+          PY
+          mkdir -p .caption-preview-output/review-frames
+          for second in 1.5 15.5 25 34 36 50 58; do
+            ffmpeg -hide_banner -loglevel error -y -ss "$second" \
+              -i .caption-preview-output/UNAPPROVED-captioned-preview.mp4 \
+              -frames:v 1 ".caption-preview-output/review-frames/at-${second}s.png"
+          done
+          ffmpeg -hide_banner -nostats -i .caption-preview-output/UNAPPROVED-captioned-preview.mp4 \
+            -vf 'blackdetect=d=0.025:pix_th=0.05' -an -f null - \
+            2> .caption-preview-output/blackdetect.log
+          if grep -q 'black_start:' .caption-preview-output/blackdetect.log; then
+            echo 'Black-frame defect detected in caption preview.'
+            exit 1
+          fi
+          echo 'Technical checks passed. Editorial release gate remains CLOSED.'
+
+      - name: Save caption delivery preview for independent visual and audio review
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: prismbay-unit-economics-caption-preview-UNAPPROVED
+          path: .caption-preview-output/
+          retention-days: 7
