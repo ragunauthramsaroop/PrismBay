@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "checkedAt": "2026-10-28T01:11:46.061Z",
+  "checkedAt": "2026-10-28T01:12:07.019Z",
   "source": "GitHub Actions accountability evidence",
   "refreshPolicy": "Best-effort GitHub schedules. Static snapshot; refresh does not run agents.",
   "summary": {
@@ -20,8 +20,8 @@
       "workflow": "buyer-acquisition.yml",
       "status": "fail",
       "reason": "worker_stale",
-      "consequence": "probation",
-      "failureStreak": 2,
+      "consequence": "replace_route",
+      "failureStreak": 3,
       "runId": 40598331971,
       "runUrl": "https://github.com/ragunauthramsaroop/PrismBay/actions/runs/40598331971",
       "runAgeMinutes": 137,
@@ -92,14 +92,14 @@
       "workflow": "paperclip-commerce-group.yml",
       "status": "fail",
       "reason": "worker_stale",
-      "consequence": "probation",
-      "failureStreak": 2,
+      "consequence": "replace_route",
+      "failureStreak": 3,
       "runId": 40597345215,
       "runUrl": "https://github.com/ragunauthramsaroop/PrismBay/actions/runs/40597345215",
-      "runAgeMinutes": 145,
+      "runAgeMinutes": 146,
       "artifactName": null,
       "artifactBytes": null,
-      "remediation": null
+      "remediation": "dispatched_safe_digital_buyer_acquisition_fallback"
     }
   ],
   "commercial": {
