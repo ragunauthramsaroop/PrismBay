@@ -24,7 +24,11 @@ function httpsUrl(url){
  if(typeof url!=="string")return false;
  try{
   const u=new URL(url);
-  const host=u.hostname.toLowerCase().replace(/^\[|\]$/g,"");
+  const rawHost=u.hostname.toLowerCase();
+  // A trailing DNS root dot bypasses suffix checks (e.g. assets.internal.).
+  // Commercial media links must use canonical hostnames without root dots.
+  if(rawHost.endsWith("."))return false;
+  const host=rawHost.replace(/^\[|\]$/g,"");
   // Commercial product media must be public HTTPS assets, not browser requests
   // to loopback, private/link-local IPs, or internal-only DNS names.
   return u.protocol==="https:"&&!u.username&&!u.password&&
