@@ -40,3 +40,24 @@ test('registry approval and configured secret never imply an authenticated suppl
  assert.equal(x.physicalCheckoutEnabled,false);
  assert.equal(x.supplierOrdersEnabled,false);
 });
+
+test('serialized readiness never echoes raw credentials or private provider fields',()=>{
+ const dummyCredential='FAKE_TEST_CREDENTIAL_NOT_REAL_123';
+ const dummyProviderKey='FAKE_PROVIDER_KEY_NOT_REAL_456';
+ const x=readiness({
+  apiStatus:'api_active',approvedApiDocumentation:true,
+  apiKey:dummyProviderKey,customerEmail:'sample@example.invalid',
+  shippingAddress:'FAKE_PRIVATE_ADDRESS_NOT_REAL'
+ },dummyCredential);
+ assert.equal(x.credentialsPresent,true);
+ assert.equal(typeof x.credentialsPresent,'boolean');
+ const artifact=JSON.stringify(x);
+ for(const sensitive of [dummyCredential,dummyProviderKey,'sample@example.invalid','FAKE_PRIVATE_ADDRESS_NOT_REAL']){
+  assert.equal(artifact.includes(sensitive),false,'No private value may enter a retained artifact');
+ }
+ assert.equal(x.authenticatedApiVerified,false);
+ assert.equal(x.supplierConnected,false);
+ assert.equal(x.productSyncEnabled,false);
+ assert.equal(x.physicalCheckoutEnabled,false);
+ assert.equal(x.supplierOrdersEnabled,false);
+});
