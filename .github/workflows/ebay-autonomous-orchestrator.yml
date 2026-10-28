@@ -2,7 +2,7 @@ name: PrismBay eBay Autonomous Orchestrator
 
 on:
   schedule:
-    - cron: '7,22,37,52 * * * *'
+    - cron: '7 * * * *'
   workflow_dispatch:
   pull_request:
     paths:
@@ -88,8 +88,21 @@ jobs:
           git -C "$syncdir" add marketplace/ebay
           if ! git -C "$syncdir" diff --cached --quiet; then
             git -C "$syncdir" commit -m 'chore: publish autonomous eBay state'
-            git -C "$syncdir" pull --rebase origin gh-pages
-            git -C "$syncdir" push origin HEAD:gh-pages
+            for attempt in 1 2 3; do
+              git fetch origin gh-pages
+              if ! git -C "$syncdir" rebase origin/gh-pages; then
+                git -C "$syncdir" rebase --abort || true
+                echo '::error::Concurrent eBay orchestrator Pages edit requires review; no force push.'
+                exit 1
+              fi
+              if git -C "$syncdir" push origin HEAD:gh-pages; then
+                echo 'eBay orchestrator state published.'
+                exit 0
+              fi
+              if [[ "$attempt" != "3" ]]; then sleep "$((attempt * 3))"; fi
+            done
+            echo '::error::eBay orchestrator publication failed after safe retries.'
+            exit 1
           fi
       - name: Maintain GitHub launch queue
         if: github.event_name != 'pull_request'
