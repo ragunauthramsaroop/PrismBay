@@ -4,7 +4,7 @@ export const bodyHtml = `
 <p><strong>Decision speed is not the same as financial return.</strong> On 26 October 2026, Reuters reported that Deutsche Bank had shortened decisions for some smaller corporate loans from weeks to minutes using AI. The report described selected lending processes, not a measured bank-wide profit increase. For an operator, the useful question is which costs, risks and customer outcomes change after a faster decision.</p>
 
 <h2>Watch the original PrismBay AI explainer</h2>
-<div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:12px;background:#101827">
+<div style="position:relative;width:100%;max-width:360px;aspect-ratio:9/16;overflow:hidden;border-radius:12px;background:#101827;margin:0 auto">
 <iframe src="https://www.youtube-nocookie.com/embed/i7v6wfwd5-I" title="AI Loan Decisions in Minutes: Is That Real ROI? | PrismBay AI" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen style="position:absolute;inset:0;width:100%;height:100%;border:0"></iframe>
 </div>
 <p><a href="https://www.youtube.com/shorts/i7v6wfwd5-I" target="_blank" rel="noopener noreferrer">Watch the public Short on PrismBay AI's original YouTube channel</a>. This article expands the measurement method and provides a worked illustration.</p>
