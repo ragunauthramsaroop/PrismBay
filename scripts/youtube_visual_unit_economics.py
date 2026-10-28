@@ -2,6 +2,7 @@
 
 Seven distinct editorial scenes. All financial figures are explicitly hypothetical.
 No external imagery, vendor logos, stock footage or paid assets.
+The lower visual band is reserved for portrait-safe subtitles after independent review.
 """
 from PIL import Image, ImageDraw, ImageFont
 from pathlib import Path
@@ -63,7 +64,7 @@ def scene_hook(d):
     box(d,(75,1030,987,1360),fill=(19,53,58),stroke=CYAN,width=5)
     center(d,'NOT YOUR',1100,78,WHITE)
     center(d,'SAVINGS',1220,95,CYAN)
-    tx(d,'Source: Reuters, 26 Oct 2026',79,1560,28,MUTED)
+    tx(d,'Source: Reuters, 26 Oct 2026',79,1430,28,MUTED)
 
 def scene_formula(d):
     tx(d,'THE METRIC',78,318,84,WHITE,True)
@@ -72,7 +73,7 @@ def scene_formula(d):
     center(d,'TOTAL WORKFLOW COST',758,54,WHITE)
     d.line((155,927,910,927),fill=CYAN,width=8)
     center(d,'ACCEPTED OUTPUTS',1010,59,LIME)
-    center(d,'NOT PRICE PER CALL',1380,52,GOLD)
+    center(d,'NOT PRICE PER CALL',1310,52,GOLD)
 
 def bar(d,y,parts,colors):
     left=120; width=820; total=sum(parts)
@@ -92,9 +93,9 @@ def scene_option(d,name,per_run,accepted,total,parts,price,col):
     tx(d,accepted,584,852,96,LIME,True)
     bar(d,1104,parts,[CYAN,GOLD,CORAL])
     tx(d,'INFERENCE     REVIEW     REWORK',110,1230,29,MUTED,True)
-    box(d,(78,1340,980,1590),fill=(25,57,57),stroke=LIME,width=5)
-    tx(d,'COST / ACCEPTED',112,1384,34,MUTED,True)
-    tx(d,price,110,1440,99,LIME,True)
+    box(d,(78,1290,980,1445),fill=(25,57,57),stroke=LIME,width=5)
+    tx(d,'COST / ACCEPTED',112,1302,28,MUTED,True)
+    tx(d,price,110,1340,79,LIME,True)
 
 def scene_compare(d):
     tx(d,'CHEAPEST RUN',78,308,68,WHITE,True)
@@ -110,20 +111,20 @@ def scene_compare(d):
     tx(d,'B',111,1024,79,LIME,True)
     tx(d,'$0.25',350,1039,57,WHITE,True)
     tx(d,'$0.48',670,1039,57,LIME,True)
-    box(d,(75,1325,990,1530),fill=(20,55,59),stroke=CYAN)
-    center(d,'B WINS THIS',1370,58,WHITE)
-    center(d,'FICTIONAL EXAMPLE',1444,50,CYAN)
+    box(d,(75,1250,990,1440),fill=(20,55,59),stroke=CYAN)
+    center(d,'B WINS THIS',1280,58,WHITE)
+    center(d,'FICTIONAL EXAMPLE',1360,50,CYAN)
 
 def scene_pilot(d):
     tx(d,'PILOT BEFORE',76,300,70,WHITE,True)
     tx(d,'YOU SIGN',76,400,89,CYAN,True)
     rows=[('01','MODEL COST',CYAN),('02','HUMAN REVIEW',GOLD),('03','REWORK',CORAL),('04','INFRASTRUCTURE',CYAN),('05','SECURITY + QUALITY',LIME)]
     for i,(num,name,col) in enumerate(rows):
-        y=608+i*192
+        y=608+i*172
         box(d,(78,y,987,y+150),fill=PANEL,stroke=col,r=24,width=4)
         tx(d,num,110,y+35,58,col,True)
         tx(d,name,246,y+51,40,WHITE,True,max_width=700)
-    center(d,'ROI ALSO NEEDS VALUE DELIVERED',1630,31,GOLD)
+    center(d,'ROI ALSO NEEDS VALUE DELIVERED',1690,27,GOLD)
 
 def scene_close(d):
     tx(d,'TEST BEFORE',78,390,83,WHITE,True)
@@ -131,9 +132,9 @@ def scene_close(d):
     box(d,(78,760,987,1180),fill=(23,54,58),stroke=LIME,width=5)
     center(d,'COST PER',826,69,WHITE)
     center(d,'ACCEPTED RESULT',938,59,LIME)
-    tx(d,'PrismBay AI',79,1350,62,WHITE,True)
-    tx(d,'Practical AI business systems',79,1452,37,MUTED)
-    tx(d,'for founders and executives.',79,1512,35,MUTED)
+    tx(d,'PrismBay AI',79,1220,62,WHITE,True)
+    tx(d,'Practical AI business systems',79,1325,37,MUTED)
+    tx(d,'for founders and executives.',79,1385,35,MUTED)
 
 def render_frame_unit_economics(segment,index,total,source):
     if total != 7:
