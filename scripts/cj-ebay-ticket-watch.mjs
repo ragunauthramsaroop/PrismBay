@@ -83,4 +83,43 @@ async function main(){
   console.log(JSON.stringify(report));
 }
 
-main().catch(e=>{console.error(e?.stack||e);process.exit(1)});
+
+// A revoked CJ API is an external authorization block, not a transient CI defect.
+// Preserve the true unread state and provide an actionable next step without
+// emitting the same failed-run notification every hour.
+async function publishAuthorizationBlock(reason, instruction) {
+  const report={
+    schemaVersion:1,
+    checkedAt:new Date().toISOString(),
+    ticketId:TARGET_ID,
+    ticketNo:TARGET_NO,
+    status:reason,
+    verification:'NOT_VERIFIED',
+    replyDetected:false,
+    nextAction:instruction
+  };
+  await fs.mkdir('growth-reports/ebay',{recursive:true});
+  await fs.writeFile(OUT,JSON.stringify(report,null,2)+'\n');
+  console.log('::warning::CJ ticket is not verified: '+reason);
+  console.log(JSON.stringify(report));
+}
+
+main().catch(async error=>{
+  const message=String(error?.message??error);
+  if (/cj_\d+_1600014_|Your API access has been disabled/i.test(message)) {
+    await publishAuthorizationBlock(
+      'API_ACCESS_DISABLED',
+      'Reauthorize CJ API in the CJ account at https://www.cjdropshipping.com/my.html#/authorize/APIStores. Until then, check the ticket directly in the CJ portal. No reply is verified.'
+    );
+    return;
+  }
+  if (message==='CJ_API_KEY missing') {
+    await publishAuthorizationBlock(
+      'API_KEY_MISSING',
+      'Configure a valid CJ_API_KEY secret or inspect the ticket in the CJ portal. No reply is verified.'
+    );
+    return;
+  }
+  throw error;
+}).catch(error=>{console.error(error?.stack||error);process.exitCode=1;});
+

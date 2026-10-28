@@ -62,8 +62,15 @@ async def audit(strict=True):
           if data['clippedText']: warnings.append(f'{path} {name}: clipped text {data["clippedText"][:3]}')
           if data['offscreen']: warnings.append(f'{path} {name}: offscreen elements {data["offscreen"][:3]}')
           if data['tinyControls']: warnings.append(f'{path} {name}: small controls {data["tinyControls"][:3]}')
-          if path in {'/','/garment-steamer/'} and data['stripeLinks']:
-            errors.append(f'{path} {name}: direct Stripe link exposed before buyer-specific verification')
+          if path=='/garment-steamer/' and data['stripeLinks']:
+            errors.append(f'{path} {name}: physical product checkout exposed before buyer-specific verification')
+          if path=='/':
+            # The executive digital bundle is not a physical supplier offer.
+            # Preserve its valid checkout while blocking unapproved home links.
+            authorized_digital={'https://buy.stripe.com/eVqfZi5Lo7pV31Ea4MgnK0t'}
+            unapproved=[url for url in data['stripeLinks'] if url.split('?',1)[0] not in authorized_digital]
+            if unapproved:
+              errors.append(f'{path} {name}: unapproved home checkout link {unapproved[:3]}')
           if path=='/' and name=='desktop':
             if not any(h.startswith(BASE+'/garment-steamer/') for h in data['hrefs']):
               errors.append('/: no guarded garment-steamer preflight CTA found')

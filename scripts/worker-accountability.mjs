@@ -58,20 +58,29 @@ export function applyConsequence(check, previous = {}, nowMs = Date.now()) {
   const prevStreak = Number.isInteger(previous.failureStreak) ? Math.max(0,Math.min(previous.failureStreak,100)) : 0;
   if (check.status === 'running') {
     return {...check,consequence:prevStreak>=3?'replacement_pending':prevStreak>=2?'probation':prevStreak===1?'warning':'none',
-      failureStreak:prevStreak,lastFallbackAt:previous.lastFallbackAt||null,lastFallbackRunId:previous.lastFallbackRunId||null};
+      failureStreak:prevStreak,lastFallbackAt:previous.lastFallbackAt||null,lastFallbackRunId:previous.lastFallbackRunId||null,lastRecoveryAt:previous.lastRecoveryAt||null};
   }
   if (check.status === 'pass') {
-    return {...check,consequence:'none',failureStreak:0,lastFallbackAt:previous.lastFallbackAt||null,lastFallbackRunId:previous.lastFallbackRunId||null};
+    return {...check,consequence:'none',failureStreak:0,lastFallbackAt:previous.lastFallbackAt||null,lastFallbackRunId:previous.lastFallbackRunId||null,lastRecoveryAt:previous.lastRecoveryAt||null};
   }
   const failures = Math.min(prevStreak+1,100);
   return {...check,consequence: failures>=3?'replace_route':failures===2?'probation':'warning',
-    failureStreak:failures,lastFallbackAt:previous.lastFallbackAt||null,lastFallbackRunId:previous.lastFallbackRunId||null};
+    failureStreak:failures,lastFallbackAt:previous.lastFallbackAt||null,lastFallbackRunId:previous.lastFallbackRunId||null,lastRecoveryAt:previous.lastRecoveryAt||null};
 }
 
 export function shouldDispatchFallback(worker, record, nowMs = Date.now()) {
   if (!worker.replacement || record.consequence !== 'replace_route' || record.status !== 'fail') return false;
   const last = Date.parse(record.lastFallbackAt || '');
   return !Number.isFinite(last) || nowMs-last >= 6*60*60*1000;
+}
+
+// Recover only stale first-party GitHub workflows with existing manual dispatch.
+// Never rerun failed supplier calls, paid actions, or customer-facing mutations.
+export function shouldDispatchRecovery(worker, record, nowMs = Date.now()) {
+  if (!['ceo-recovery','commerce-control'].includes(worker.id)) return false;
+  if (record.status !== 'fail' || record.reason !== 'worker_stale' || record.failureStreak < 2) return false;
+  const last = Date.parse(record.lastRecoveryAt || '');
+  return !Number.isFinite(last) || nowMs-last >= 2*60*60*1000;
 }
 
 export function reportSummary(state) {

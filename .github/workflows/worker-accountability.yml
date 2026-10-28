@@ -4,12 +4,8 @@ on:
   schedule:
     - cron: '22,52 * * * *'
   workflow_dispatch:
-  workflow_run:
-    workflows:
-      - 'PrismBay Buyer Acquisition Priority'
-      - 'PrismBay Paperclip Revenue Ops'
-      - 'PrismBay External Traffic Factory'
-    types: [completed]
+  # Schedule and explicit dispatch only. Upstream completion events previously
+  # multiplied watchdog runs and generated repetitive failure notifications.
   pull_request:
     paths:
       - 'scripts/worker-accountability.mjs'
@@ -41,7 +37,7 @@ concurrency:
 
 jobs:
   enforce:
-    if: github.event_name != 'workflow_run' || github.event.workflow_run.head_branch == 'main'
+    if: github.event_name != 'pull_request' || github.base_ref == 'main'
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:

@@ -1,5 +1,5 @@
 import fs from 'node:fs/promises';
-import { WORKERS, checkWorker, selectEvidenceRun, applyConsequence, shouldDispatchFallback, reportSummary } from './worker-accountability.mjs';
+import { WORKERS, checkWorker, selectEvidenceRun, applyConsequence, shouldDispatchFallback, shouldDispatchRecovery, reportSummary } from './worker-accountability.mjs';
 
 const repository = process.env.GITHUB_REPOSITORY || '';
 const token = process.env.GITHUB_TOKEN || '';
@@ -63,6 +63,24 @@ for (const worker of WORKERS) {
   }
   const check=checkWorker({worker,runs,artifacts,fetchError,nowMs});
   state.workers[worker.id]=applyConsequence(check,prior.workers?.[worker.id]||{},nowMs);
+}
+
+// GitHub schedules are best effort. When a core first-party recovery worker
+// has stale evidence on two consecutive checks, dispatch its existing workflow.
+// Cooldown and persisted state prevent a fan-out loop and duplicate dispatches.
+for (const worker of WORKERS) {
+  const record=state.workers[worker.id];
+  if (!shouldDispatchRecovery(worker,record,nowMs)) continue;
+  try {
+    await github('/repos/'+repository+'/actions/workflows/'+encodeURIComponent(worker.workflow)+'/dispatches',{
+      method:'POST',body:{ref:'main'}
+    });
+    record.lastRecoveryAt=timestamp;
+    record.remediation='requested_fresh_run_of_stale_original_workflow';
+    state.fallbackEvents.push({from:worker.id,to:worker.id,reason:'stale_original_workflow',at:timestamp});
+  } catch(error) {
+    record.remediation='stale_recovery_dispatch_failed_'+(error instanceof Error?error.message:'unknown');
+  }
 }
 
 // Recovery route is read-only buyer acquisition using existing published offers;
@@ -162,4 +180,10 @@ const lines=[
 ];
 if(process.env.GITHUB_STEP_SUMMARY)await fs.appendFile(process.env.GITHUB_STEP_SUMMARY,lines.join('\n')+'\n');
 console.log(JSON.stringify(summary));
-if(summary.failures>0)process.exitCode=1;
+if (summary.failures>0) {
+  // The health issue and published report explicitly remain RED.
+  // An unchanged red operational state must not turn each watchdog pulse
+  // into another GitHub Actions "Run failed" notification.
+  console.log('::warning::'+summary.failures+' operational workers need attention; see accountability issue and public status dashboard.');
+}
+

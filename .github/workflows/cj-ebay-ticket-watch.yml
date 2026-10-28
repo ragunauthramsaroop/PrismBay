@@ -52,8 +52,21 @@ jobs:
           git -C "$syncdir" add marketplace/ebay/cj-ticket-watch.json
           if ! git -C "$syncdir" diff --cached --quiet; then
             git -C "$syncdir" commit -m 'chore: publish CJ eBay reply status'
-            git -C "$syncdir" pull --rebase origin gh-pages
-            git -C "$syncdir" push origin HEAD:gh-pages
+            for attempt in 1 2 3; do
+              git fetch origin gh-pages
+              if ! git -C "$syncdir" rebase origin/gh-pages; then
+                git -C "$syncdir" rebase --abort || true
+                echo '::error::Concurrent CJ status edit requires review; no force push.'
+                exit 1
+              fi
+              if git -C "$syncdir" push origin HEAD:gh-pages; then
+                echo 'CJ reply status published.'
+                exit 0
+              fi
+              if [[ "$attempt" != "3" ]]; then sleep "$((attempt * 3))"; fi
+            done
+            echo '::error::CJ status publish unsuccessful after safe retries.'
+            exit 1
           fi
       - name: Summary
         if: always()
