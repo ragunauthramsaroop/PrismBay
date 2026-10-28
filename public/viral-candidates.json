@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-27T09:22:06.439Z",
+  "updatedAt": "2026-10-28T10:03:03.167Z",
   "market": "US",
   "supplierIntegration": "awaiting-cj-auth",
   "methodology": "Public attention and recency identify candidates. Supplier promotion requires verified US inventory and product-level checks. Freight and checkout creation occur only after supplier validation.",
@@ -12,14 +12,20 @@
       "attentionScore": 99.5,
       "attentionLabel": "high-attention",
       "evidence": {
-        "publicMentions": 101,
+        "publicMentions": 56,
         "mentionsLast7Days": 4,
-        "mentionsLast30Days": 14,
+        "mentionsLast30Days": 11,
         "sourcesAvailable": [
           "Google News",
           "Bing News"
         ],
         "sampleSignals": [
+          {
+            "title": "Shark's UltraCyclone Pet Pro Plus has never been cheaper — save $20 ahead of Black Friday - Mashable",
+            "source": "Google News",
+            "publishedAt": "2026-10-27T22:20:11.000Z",
+            "url": "https://news.google.com/rss/articles/CBMimgFBVV95cUxPUU9hV2VtcnFoNjdZcDBqbGhEeE5WbWpZSjJuUzc1aW5NdUZHakJtTm9YNlBPcE1KY1VqQm10UGJwZS11ejlHRndMU3Fnb1ZaNmx0cXl0RS1RbUZKUHRaUGhrX3Z1Ykg5ZUY4Z243T2YwXy1VMUNlRVZETGFYdXNwM1AzaWJIeTdHT29jcUE3RVB3XzBWUE9ta1BB?oc=5"
+          },
           {
             "title": "Amazon Canada has a Nespresso machine for 50% off, a cordless handheld vacuum for under $90 and 28 more mega deals to shop this week - Yahoo Lifestyle Canada",
             "source": "Google News",
@@ -27,22 +33,16 @@
             "url": "https://news.google.com/rss/articles/CBMigAJBVV95cUxOaWpyOXJDUzFDSGtGaENfWG5ZTlU3TEc5ZzY5NWdLZUlmNkdGVXFyV2VCODFncUJXVmlzdXFPLVNuQ2lGdjBxYVEyQVE2R1I2eDZDb29tc3Q5Rm1VVVJET1BMYXo3amtJNlJHNkIxbllwdjE2Qi1Cdk1zZ0E1c2p5aGhDeHhBdngtUm1MemhPeXkwMXozeGs2a0gyeC1GczNlZGttMm5sNUxzd2NldE05WG42UW1sRThGUXFPTWEzcGdiMktlR0tIQ1B6ajVMWGRuUDlTejl6dG5LM080TGpXZnJFUTBRdXRhMXdxOG9naG5TeGQ3dlc5ZHl2R2toWVJF?oc=5"
           },
           {
+            "title": "The 3 Best Handheld Vacuums For Pet Hair of 2026 - RTINGS.com",
+            "source": "Google News",
+            "publishedAt": "2026-10-23T07:00:00.000Z",
+            "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTE9YV0Y0SWZmOFd6Sm1CR1hOR2g0ZlVNMmVJbVZzVnRzbHpGZVMzcC01UGpVSkZLVFEtdVdXV3Z5Ymg0c1F5RlNkZjZlRDk5MTZnZmRIdVlOdWtyS3lZWjNVM2JQVTlCQ2ZXNEI3QQ?oc=5"
+          },
+          {
             "title": "Amazon's Choice Shark pet vacuum is 20% off and selling fast - USA Today",
             "source": "Google News",
             "publishedAt": "2026-10-21T16:03:00.000Z",
             "url": "https://news.google.com/rss/articles/CBMi1gFBVV95cUxQa2N3NUFFQWlpbWN3SEp3aDRJZDUwZE03Ml9JbGlZYTI5dC1WR0FzNDk0M05lenozcHhQQ25ZZ2tsWkZRRWJJUFZUeHl4bFlVcG5fQUFOand1alVuSXptYUhibjJkd1FCMEF5X0wtSzBQakd0MUdwMGZLVWNOVkJPZ1RPMUNpSThib0hpNEs5VDdobnZGaVhWMVkyRGJfMWFXRDJKdjNyQ0hhQkhUd2owRGhvVmFpd0lTQ1pUYnRFaGtNUXZKSjdLYzl1ZFl2NC1YQU45MEVn?oc=5"
-          },
-          {
-            "title": "Shark's UltraCyclone Pet Pro Plus has never been cheaper — save $20 ahead of Black Friday - Mashable",
-            "source": "Google News",
-            "publishedAt": "2026-10-23T10:56:26.000Z",
-            "url": "https://news.google.com/rss/articles/CBMimgFBVV95cUxPUU9hV2VtcnFoNjdZcDBqbGhEeE5WbWpZSjJuUzc1aW5NdUZHakJtTm9YNlBPcE1KY1VqQm10UGJwZS11ejlHRndMU3Fnb1ZaNmx0cXl0RS1RbUZKUHRaUGhrX3Z1Ykg5ZUY4Z243T2YwXy1VMUNlRVZETGFYdXNwM1AzaWJIeTdHT29jcUE3RVB3XzBWUE9ta1BB?oc=5"
-          },
-          {
-            "title": "Amazon's Choice Shark pet vacuum is 20% off and selling fast - AOL.com",
-            "source": "Google News",
-            "publishedAt": "2026-10-21T16:00:32.000Z",
-            "url": "https://news.google.com/rss/articles/CBMigAFBVV95cUxOT2Z3Tm1wQm1ZRGh0T0MzOEhXa1kydGRaRXRyTS16bnQwS0lValZ6emN0dnVJNDNyQkZKSlBGbmZ3SjBQRmtxLVhVcG9VUTRjdldhTkt5TTh5RDZFSEZqWmpNbnQ4eEYzejFqampfRWlwSEtENkZ0elJGWV9hOHRCbA?oc=5"
           }
         ]
       },
@@ -64,7 +64,7 @@
       "attentionScore": 78.6,
       "attentionLabel": "high-attention",
       "evidence": {
-        "publicMentions": 32,
+        "publicMentions": 31,
         "mentionsLast7Days": 1,
         "mentionsLast30Days": 5,
         "sourcesAvailable": [
@@ -116,19 +116,19 @@
       "attentionScore": 71.3,
       "attentionLabel": "high-attention",
       "evidence": {
-        "publicMentions": 24,
-        "mentionsLast7Days": 1,
-        "mentionsLast30Days": 3,
+        "publicMentions": 44,
+        "mentionsLast7Days": 0,
+        "mentionsLast30Days": 4,
         "sourcesAvailable": [
           "Google News",
           "Bing News"
         ],
         "sampleSignals": [
           {
-            "title": "I Finally Found a Solution for Storing My Bulky Fall Sweaters — and It’s on Sale for $7 Apiece at Amazon - People.com",
+            "title": "There’s No Such Thing as ‘Too Many Purses’ — You Just Need This $10 Hanging Closet Organizer to Corral Them - People.com",
             "source": "Google News",
-            "publishedAt": "2026-10-21T07:00:00.000Z",
-            "url": "https://news.google.com/rss/articles/CBMieEFVX3lxTFBZaHFIb3JMaHdnQXV3WF9JY3dILVNJWGExMV9sVWo3dU9XbGhZejVxMTNoallNX1E5d1VPZmpJNW9rb3g1VFpKd2FQUGpxS1ptZGFDd2ZMejRfNHJsd0RsbkhjSzkyZll0RURnN0FmbmN3UDc2cGdzWA?oc=5"
+            "publishedAt": "2026-10-19T07:00:00.000Z",
+            "url": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxOYjBORVJFdTNwbm10ZjVwcGRlT05YaUhOS0lLdW9QQ2RfNmVRSWlzRldURGdMZ0pOM3lPVUdzOVFHS3MtY3ZYdndnVG5WclFnOG43NkpsdURISTNuTVJobjRGYVpkM0lpTGIwbEtEZ1FhbUpWUEt4SDhJdjEwVU5lMXhBWmdnam1T?oc=5"
           },
           {
             "title": "Amazon's 'Space-Saving' Hanging Organizer Is a 'Game-Changer' for Small Closets, Now $14 During Prime Day - Parade Magazine",
@@ -143,10 +143,10 @@
             "url": "https://news.google.com/rss/articles/CBMigwFBVV95cUxNTEktQnJlSWx1UGpURHMxc3VaaVRIaklobEQxSGYtejQ3NW96Qk1Ed25rTlFwRUxfNUx3Y2VsYTduLVg2aURmMDhjYklwS2l2MnhVT2NocnpUZmhmaTlwVmZoSFVYRHBxZGpDMGJOckVNckZMbERudFFRem9uVWl2bkVSUQ?oc=5"
           },
           {
-            "title": "There’s No Such Thing as ‘Too Many Purses’ — You Just Need This $10 Hanging Closet Organizer to Corral Them - People.com",
+            "title": "Amazon has a stackable 5-piece storage organizer for only $36 - thestreet.com",
             "source": "Google News",
-            "publishedAt": "2026-10-19T07:00:00.000Z",
-            "url": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxOYjBORVJFdTNwbm10ZjVwcGRlT05YaUhOS0lLdW9QQ2RfNmVRSWlzRldURGdMZ0pOM3lPVUdzOVFHS3MtY3ZYdndnVG5WclFnOG43NkpsdURISTNuTVJobjRGYVpkM0lpTGIwbEtEZ1FhbUpWUEt4SDhJdjEwVU5lMXhBWmdnam1T?oc=5"
+            "publishedAt": "2026-07-24T07:00:00.000Z",
+            "url": "https://news.google.com/rss/articles/CBMihAFBVV95cUxPdTNFMTk1Rk1GcmtlN0pZb0Z3WU1ZQlJwMGUtamNJeVpFQkQ2VzZxbVp6M2RELTZaZXhDcjdSZzRaTVp5OV9oZEhJUUlWTzdKNDA0bmlOMnM3LV8xXzVqOU1SN1pfdWdkd1JCLW5yWnJvMzVZSklsOWFVMW5ENzJiaWgtR2w?oc=5"
           }
         ]
       },
@@ -269,10 +269,10 @@
       "slug": "bottle-brush-set",
       "name": "Bottle Brush Cleaning Set",
       "query": "bottle brush cleaning set",
-      "attentionScore": 33.6,
+      "attentionScore": 28.2,
       "attentionLabel": "low-signal",
       "evidence": {
-        "publicMentions": 7,
+        "publicMentions": 4,
         "mentionsLast7Days": 0,
         "mentionsLast30Days": 0,
         "sourcesAvailable": [
@@ -293,16 +293,16 @@
             "url": "https://news.google.com/rss/articles/CBMie0FVX3lxTFBSSnZJWk02YnZ0a196a2FxNGRxV29yeFJscE4tOUxEb1czcXdQREwta0NRNy1kSmNFVklxd2VENmRRSjkzdnQzX1Bob2dScW1pLXF5YzBGSDBDYnJwalZ0bERjOWdyZEZvcmlwN0ZOYjFhRl9UQmxyQklsMA?oc=5"
           },
           {
-            "title": "10 best bottle brushes to keep your water bottles squeaky clean - ABC4 Utah",
+            "title": "10 best bottle brushes to keep your water bottles squeaky clean - FOX 2",
             "source": "Google News",
             "publishedAt": "2023-03-09T08:00:00.000Z",
-            "url": "https://news.google.com/rss/articles/CBMi1gFBVV95cUxQVUl2UHNvZnUtZmsxM2x1Uy05UnNUNkxKWnVsSmxERGxRV2tXRHg5V2NhblZ6QVVnMmJpRzFPczYtSk1HZ3I3dkxJT1BRZWRudHQyeTlNOXNVbWRlbnR1cEc5MUpSbVBLXzdxdm1aOEZpcHhGeEh3U2g5UG15cVdabDFoQUlSOFhMbVR2bzVEMkxfaEZtb2V0Q2sxTXRmVWpoMEotcTVaYWw0Y2V3ZjZETnVjcWh5czFrV3ZNc294N3g2MG85bURtRFhzRkdPVjBiTnpMWWdn0gHbAUFVX3lxTE91UDZHNEgzd3F5QlpxWUtmSkVfbW5KWnZuVTJJSmxScFNHdFh1QVY1SDd1SEg5OEpJclAwVEZCTjlZcFJfcm1VckZ5cXlkVzE4Q2F5clNKTnFWWGg3X2VyRjRkVTlHUlQwVTVLWi13ZE9OdEdvR1ozanM5amJPX3hpYnU4OXJ6VDJDclplclMwLU03NDVFMHJfazUwSG9qWGlJN0hWdFhKUUdvUTRwM2JxbG12cmp5YVNpYmRZSC1FZXZTajlzdDN0cGFuc2tkdjUzYzZYazk5SThWTQ?oc=5"
+            "url": "https://news.google.com/rss/articles/CBMi1AFBVV95cUxNMjVaSDJZeUhsd19yYllqYVNJSlV0S3NXVF94YWE5UmVfRVNSUVlBYjZ1WWJqWlhtLWxJaHZkRk9uTFl1M1FGTmgyMTNVRWR6WlFsVEY5R1lWdnJIYnhUMjlQRktSWmowUG41eGgyN01TNFNhaXIxQWdzQmthQUxnTHZ3emlSRFNwZXpld0xERTU0aXlqTWtuSUhhTVQ3aDI1X3dTdUM2RW9JV2x4NGtCdDE0V3JmRE43RGF2ZHRmUEtZbTRTRDBkUVJ2bUg3RHNtYUFjRNIB2gFBVV95cUxOdmlFalBKcURtOU1RYkNyV0RFb0h6NERzY3lEZU9hUlJld0hSRkZIZjdkOHFock1ncTlTcFVyQk9rLWR0dGtvLUYwaVpia005amMxSDgzemt6b2ZsQ2dXTF9mZ0hhQ0xnVHFyMjNMTHVhZnBvcm9UOEs2YVhwdnNmeE5lY0wxd3gtcmItb1d3emNaNnc3ZFFMWDMydmQ1Nnl4em5OV0tjX3JFcDZYUDNMeWhqdzlLcTFDbFZLUEh3ZjlweWQwSEZvY1VBelMyNUxHdnhETzZpa3E3QQ?oc=5"
           },
           {
-            "title": "These 19 Award-Winning Products Will Help Keep Your Baby Nourished and Fed - Parents",
+            "title": "5 Best Bottle Brushes - Nov. 2026 - BestReviews",
             "source": "Google News",
-            "publishedAt": "2026-04-07T07:00:00.000Z",
-            "url": "https://news.google.com/rss/articles/CBMif0FVX3lxTE5VVDlIY3NTbzNFWlY3Wm1XNF95cktMX2ZDckhFNlJ0UEdudUEzbDEzSlo4MHpqc0pMUmxYZm9uWU5BNkVBUG1xblhkcm1fMm9jX1ZSeUQ4OFFDUWJHbUNoclBVNDFKRmt2NWFDZ204eWhLQU5FR0xJSFJpZWxwT3M?oc=5"
+            "publishedAt": "2021-09-13T20:28:27.000Z",
+            "url": "https://news.google.com/rss/articles/CBMiaEFVX3lxTE9TZFM1UEhkVU1IQmtwb2V0aXJaLVEwTVVOZTRyNlFmYTBLakRyMTlMRkpVMmFGZzZiU3VIYWVFdTRhUHB4YzlMTVg3aGc5ZE1fSVdCcV92Q1JsN3lEcDd4RUZEOG1BX1A4?oc=5"
           }
         ]
       },
