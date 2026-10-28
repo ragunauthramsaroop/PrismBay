@@ -1,10 +1,10 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-10-28T13:35:31.819Z",
+  "generatedAt": "2026-10-28T15:09:43.424Z",
   "researchCandidates": 12,
   "publishedResearchSignals": 12,
   "verifiedCJStatus": {
-    "checkedAt": "2026-10-28T05:47:22.790Z",
+    "checkedAt": "2026-10-28T15:09:41.729Z",
     "validSupplierMatches": 0,
     "variantStock": 0,
     "freightEstimates": 0,
@@ -27,6 +27,27 @@
       "executionMode": "scheduled_cj_and_manual_review",
       "candidateCount": 18,
       "blockers": [
+        {
+          "slug": "cordless-handheld-vacuum",
+          "status": "supplier_api_retry_required",
+          "sku": null,
+          "shippingDiagnostic": null,
+          "zeroPricedMethods": 0
+        },
+        {
+          "slug": "insulated-tumbler",
+          "status": "supplier_api_retry_required",
+          "sku": null,
+          "shippingDiagnostic": null,
+          "zeroPricedMethods": 0
+        },
+        {
+          "slug": "screen-protector",
+          "status": "supplier_api_retry_required",
+          "sku": null,
+          "shippingDiagnostic": null,
+          "zeroPricedMethods": 0
+        },
         {
           "slug": "pressure-washer",
           "status": "supplier_api_retry_required",
@@ -64,27 +85,6 @@
         },
         {
           "slug": "hanging-closet-organizer",
-          "status": "supplier_api_retry_required",
-          "sku": null,
-          "shippingDiagnostic": null,
-          "zeroPricedMethods": 0
-        },
-        {
-          "slug": "cordless-handheld-vacuum",
-          "status": "supplier_api_retry_required",
-          "sku": null,
-          "shippingDiagnostic": null,
-          "zeroPricedMethods": 0
-        },
-        {
-          "slug": "insulated-tumbler",
-          "status": "supplier_api_retry_required",
-          "sku": null,
-          "shippingDiagnostic": null,
-          "zeroPricedMethods": 0
-        },
-        {
-          "slug": "screen-protector",
           "status": "supplier_api_retry_required",
           "sku": null,
           "shippingDiagnostic": null,
