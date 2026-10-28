@@ -5,8 +5,10 @@ Date: 2026-10-28. Authorized channel only: `UCw2hs85TzIpdKwJtG-BSxzQ` (`@PrismBa
 1. `01-budget-math.svg`: long-form opening / 00:00–02:05. Two matching 6,000-task workloads with different calls per task. $600 and $2,400 represent fictional charges at $0.02 per call. The 4× badge sits in the inter-card gutter, away from the numeric claims.
 2. `02-eight-call-stop-rule.svg`: spending-limit scene / 03:05–04:30. Eight permitted calls and a ninth blocked call, followed by approval, fallback or stop. Eight is an illustrative cap, not a general recommendation.
 3. `03-cost-per-accepted-result.svg`: acceptance-cost scene / 05:55–07:15. 100 attempts, 80 accepted, $40 tool charges and $60 review charges. Total $100 / 80 accepted = $1.25. $0.40 per attempted task omits review cost.
+4. `04-authority-permissions.svg`: scoped-authority scene / 04:30–05:55. Original five-row supplier-agent permissions matrix. Reading and drafting are permitted; changing payment details is denied; purchasing and external publication require a person to approve. Illustrative design, not an account permission audit.
+5. `05-pilot-scorecard.svg`: pilot-measurement scene / 07:15–08:35. Six distinct metrics covering acceptance rate, true unit cost, completion time, paid calls and retries, blocked actions, and exception handling. No fabricated benchmark or measured result.
 
-All assets are original 1920×1080 SVGs, without externally loaded media, fonts, images or trademarks. Dark navy, cyan and amber visual system. Designed for an original 16:9 video, not standalone proof of measured customer outcomes.
+All five assets are original 1920×1080 SVGs, without externally loaded media, fonts, images or trademarks. Dark navy, cyan and amber visual system. Designed for an original 16:9 video, not standalone proof of measured customer outcomes.
 
 ## Production handoff
 - Use with `youtube-growth/production/2026-10-28-ai-agent-cost-control-longform-script.md`. The voiceover script, timed sections, packaging variants and sources live there.
@@ -23,6 +25,11 @@ All assets are original 1920×1080 SVGs, without externally loaded media, fonts,
 - $2,400 / $600 = 4.
 - $100 = $40 + $60; $100 / 80 = $1.25; $40 / 100 = $0.40 per attempted task (partial cost only).
 - These figures are hypothetical. Verify source citations and spoken qualifications against the script.
+
+## 2026-10-28 additional scene QA
+- Added the authority-permissions and pilot-scorecard scenes on the existing channel's long-form production path. Both files were read back from GitHub after creation.
+- Static checks verified 1920×1080 dimensions, complete SVG boundaries, in-bounds text anchor coordinates, and no externally loaded images, scripts or URLs. These checks do not prove rendered font fit, contrast on mobile, or absence of text clipping.
+- A visual PNG render, real-device playback, complete narration and final editorial approval are still required. These two SVGs are production assets, not publishable videos.
 
 ## Release state
 `publicationApproved=false`. `uploadPermitted=false`. SVG creation and numeric review completed. Full visual render, audio, narration, mobile playback and final editorial approval not completed. Descript Agent Underlord returned `Insufficient AI credits` on 2026-10-28, so no paid upgrade was initiated. The local SVG + FFmpeg route remains the zero-cost fallback. No new channel or YouTube upload was created.
