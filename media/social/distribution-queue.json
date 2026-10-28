@@ -1,40 +1,18 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-10-26T18:38:50.763Z",
-  "priority": "external_traffic_to_verified_guarded_offers",
+  "generatedAt": "2026-10-26T20:26:41.354Z",
+  "priority": "external_traffic_to_verified_digital_offers",
   "items": [
-    {
-      "id": "stakeholder-youtube",
-      "offer": "stakeholder",
-      "offerType": "digital",
-      "channel": "youtube",
-      "status": "ready_for_authorized_scheduler",
-      "mediaUrl": "https://ragunauthramsaroop.github.io/PrismBay/media/social/stakeholder.mp4",
-      "destinationUrl": "https://ragunauthramsaroop.github.io/PrismBay/learn/stakeholder-mapping-toolkit.html?utm_source=youtube&utm_medium=shorts&utm_campaign=prismbay_external_traffic_oct2026&utm_content=stakeholder_short_01",
-      "title": "A contact list is not a follow-through plan #Shorts",
-      "caption": "A contact list is not a follow-through plan. Start with a free commitments register: record the exact promise, who approved it, the due date and evidence of closure. Start with the free guide: https://ragunauthramsaroop.github.io/PrismBay/learn/stakeholder-mapping-toolkit.html?utm_source=youtube&utm_medium=shorts&utm_campaign=prismbay_external_traffic_oct2026&utm_content=stakeholder_short_01 Optional editable document toolkit: $49 USD one time.",
-      "commercialContentOwnBrand": true,
-      "madeForKids": false,
-      "aiAssisted": true,
-      "strategy": "deterministic_fallback",
-      "guardrails": {
-        "noInventedTestimonials": true,
-        "noGuaranteedResults": true,
-        "exactPriceUsd": 49,
-        "originalTypographyVideoOnly": true,
-        "paidAds": false
-      }
-    },
     {
       "id": "stakeholder-tiktok",
       "offer": "stakeholder",
       "offerType": "digital",
       "channel": "tiktok",
-      "status": "ready_for_authorized_scheduler",
-      "mediaUrl": "https://ragunauthramsaroop.github.io/PrismBay/media/social/stakeholder.mp4",
-      "destinationUrl": "https://ragunauthramsaroop.github.io/PrismBay/learn/stakeholder-mapping-toolkit.html?utm_source=tiktok&utm_medium=organic_video&utm_campaign=prismbay_external_traffic_oct2026&utm_content=stakeholder_short_01",
+      "status": "draft",
+      "mediaUrl": "https://clean.prismbayai.com/media/social/stakeholder.mp4",
+      "destinationUrl": "https://clean.prismbayai.com/learn/stakeholder-mapping-toolkit.html?utm_source=tiktok&utm_medium=organic_video&utm_campaign=prismbay_external_traffic_oct2026&utm_content=stakeholder_short_01",
       "title": "A contact list is not a follow-through plan",
-      "caption": "A contact list is not a follow-through plan. Start with a free commitments register: record the exact promise, who approved it, the due date and evidence of closure. Start with the free guide: https://ragunauthramsaroop.github.io/PrismBay/learn/stakeholder-mapping-toolkit.html?utm_source=tiktok&utm_medium=organic_video&utm_campaign=prismbay_external_traffic_oct2026&utm_content=stakeholder_short_01 Optional editable document toolkit: $49 USD one time.",
+      "caption": "A contact list is not a follow-through plan. Start with a free commitments register: record the exact promise, who approved it, the due date and evidence of closure. Start with the free guide: https://clean.prismbayai.com/learn/stakeholder-mapping-toolkit.html?utm_source=tiktok&utm_medium=organic_video&utm_campaign=prismbay_external_traffic_oct2026&utm_content=stakeholder_short_01 Optional editable document toolkit: $49 USD one time.",
       "commercialContentOwnBrand": true,
       "madeForKids": false,
       "aiAssisted": true,
@@ -45,40 +23,20 @@
         "exactPriceUsd": 49,
         "originalTypographyVideoOnly": true,
         "paidAds": false
-      }
-    },
-    {
-      "id": "esg-youtube",
-      "offer": "esg",
-      "offerType": "digital",
-      "channel": "youtube",
-      "status": "ready_for_authorized_scheduler",
-      "mediaUrl": "https://ragunauthramsaroop.github.io/PrismBay/media/social/esg.mp4",
-      "destinationUrl": "https://ragunauthramsaroop.github.io/PrismBay/learn/esg-reporting-toolkit.html?utm_source=youtube&utm_medium=shorts&utm_campaign=prismbay_external_traffic_oct2026&utm_content=esg_short_01",
-      "title": "A polished sustainability dashboard cannot repair an unverified KPI #Shorts",
-      "caption": "A polished sustainability dashboard cannot repair an unverified KPI. Create three basic columns today: KPI definition, evidence location and the accountable reviewer. Mark estimates and unresolved exceptions. Start with the free guide: https://ragunauthramsaroop.github.io/PrismBay/learn/esg-reporting-toolkit.html?utm_source=youtube&utm_medium=shorts&utm_campaign=prismbay_external_traffic_oct2026&utm_content=esg_short_01 Optional editable document toolkit: $99 USD one time.",
-      "commercialContentOwnBrand": true,
-      "madeForKids": false,
-      "aiAssisted": true,
-      "strategy": "deterministic_fallback",
-      "guardrails": {
-        "noInventedTestimonials": true,
-        "noGuaranteedResults": true,
-        "exactPriceUsd": 99,
-        "originalTypographyVideoOnly": true,
-        "paidAds": false
-      }
+      },
+      "publishAllowed": false,
+      "holdReason": "Retail TikTok authorization, creative/media review, owner release approval and verified payment-linked digital delivery are outstanding."
     },
     {
       "id": "esg-tiktok",
       "offer": "esg",
       "offerType": "digital",
       "channel": "tiktok",
-      "status": "ready_for_authorized_scheduler",
-      "mediaUrl": "https://ragunauthramsaroop.github.io/PrismBay/media/social/esg.mp4",
-      "destinationUrl": "https://ragunauthramsaroop.github.io/PrismBay/learn/esg-reporting-toolkit.html?utm_source=tiktok&utm_medium=organic_video&utm_campaign=prismbay_external_traffic_oct2026&utm_content=esg_short_01",
+      "status": "draft",
+      "mediaUrl": "https://clean.prismbayai.com/media/social/esg.mp4",
+      "destinationUrl": "https://clean.prismbayai.com/learn/esg-reporting-toolkit.html?utm_source=tiktok&utm_medium=organic_video&utm_campaign=prismbay_external_traffic_oct2026&utm_content=esg_short_01",
       "title": "A polished sustainability dashboard cannot repair an unverified KPI",
-      "caption": "A polished sustainability dashboard cannot repair an unverified KPI. Create three basic columns today: KPI definition, evidence location and the accountable reviewer. Mark estimates and unresolved exceptions. Start with the free guide: https://ragunauthramsaroop.github.io/PrismBay/learn/esg-reporting-toolkit.html?utm_source=tiktok&utm_medium=organic_video&utm_campaign=prismbay_external_traffic_oct2026&utm_content=esg_short_01 Optional editable document toolkit: $99 USD one time.",
+      "caption": "A polished sustainability dashboard cannot repair an unverified KPI. Create three basic columns today: KPI definition, evidence location and the accountable reviewer. Mark estimates and unresolved exceptions. Start with the free guide: https://clean.prismbayai.com/learn/esg-reporting-toolkit.html?utm_source=tiktok&utm_medium=organic_video&utm_campaign=prismbay_external_traffic_oct2026&utm_content=esg_short_01 Optional editable document toolkit: $99 USD one time.",
       "commercialContentOwnBrand": true,
       "madeForKids": false,
       "aiAssisted": true,
@@ -89,40 +47,20 @@
         "exactPriceUsd": 99,
         "originalTypographyVideoOnly": true,
         "paidAds": false
-      }
-    },
-    {
-      "id": "whitepaper-youtube",
-      "offer": "whitepaper",
-      "offerType": "digital",
-      "channel": "youtube",
-      "status": "ready_for_authorized_scheduler",
-      "mediaUrl": "https://ragunauthramsaroop.github.io/PrismBay/media/social/whitepaper.mp4",
-      "destinationUrl": "https://ragunauthramsaroop.github.io/PrismBay/learn/board-briefing-white-paper-system.html?utm_source=youtube&utm_medium=shorts&utm_campaign=prismbay_external_traffic_oct2026&utm_content=whitepaper_short_01",
-      "title": "A convincing report is not the same as a defensible one #Shorts",
-      "caption": "A convincing report is not the same as a defensible one. Start a claim ledger with the source, date, methodology, reviewer and what could change the conclusion. Start with the free guide: https://ragunauthramsaroop.github.io/PrismBay/learn/board-briefing-white-paper-system.html?utm_source=youtube&utm_medium=shorts&utm_campaign=prismbay_external_traffic_oct2026&utm_content=whitepaper_short_01 Optional editable document toolkit: $79 USD one time.",
-      "commercialContentOwnBrand": true,
-      "madeForKids": false,
-      "aiAssisted": true,
-      "strategy": "deterministic_fallback",
-      "guardrails": {
-        "noInventedTestimonials": true,
-        "noGuaranteedResults": true,
-        "exactPriceUsd": 79,
-        "originalTypographyVideoOnly": true,
-        "paidAds": false
-      }
+      },
+      "publishAllowed": false,
+      "holdReason": "Retail TikTok authorization, creative/media review, owner release approval and verified payment-linked digital delivery are outstanding."
     },
     {
       "id": "whitepaper-tiktok",
       "offer": "whitepaper",
       "offerType": "digital",
       "channel": "tiktok",
-      "status": "ready_for_authorized_scheduler",
-      "mediaUrl": "https://ragunauthramsaroop.github.io/PrismBay/media/social/whitepaper.mp4",
-      "destinationUrl": "https://ragunauthramsaroop.github.io/PrismBay/learn/board-briefing-white-paper-system.html?utm_source=tiktok&utm_medium=organic_video&utm_campaign=prismbay_external_traffic_oct2026&utm_content=whitepaper_short_01",
+      "status": "draft",
+      "mediaUrl": "https://clean.prismbayai.com/media/social/whitepaper.mp4",
+      "destinationUrl": "https://clean.prismbayai.com/learn/board-briefing-white-paper-system.html?utm_source=tiktok&utm_medium=organic_video&utm_campaign=prismbay_external_traffic_oct2026&utm_content=whitepaper_short_01",
       "title": "A convincing report is not the same as a defensible one",
-      "caption": "A convincing report is not the same as a defensible one. Start a claim ledger with the source, date, methodology, reviewer and what could change the conclusion. Start with the free guide: https://ragunauthramsaroop.github.io/PrismBay/learn/board-briefing-white-paper-system.html?utm_source=tiktok&utm_medium=organic_video&utm_campaign=prismbay_external_traffic_oct2026&utm_content=whitepaper_short_01 Optional editable document toolkit: $79 USD one time.",
+      "caption": "A convincing report is not the same as a defensible one. Start a claim ledger with the source, date, methodology, reviewer and what could change the conclusion. Start with the free guide: https://clean.prismbayai.com/learn/board-briefing-white-paper-system.html?utm_source=tiktok&utm_medium=organic_video&utm_campaign=prismbay_external_traffic_oct2026&utm_content=whitepaper_short_01 Optional editable document toolkit: $79 USD one time.",
       "commercialContentOwnBrand": true,
       "madeForKids": false,
       "aiAssisted": true,
@@ -133,40 +71,20 @@
         "exactPriceUsd": 79,
         "originalTypographyVideoOnly": true,
         "paidAds": false
-      }
-    },
-    {
-      "id": "bundle-youtube",
-      "offer": "bundle",
-      "offerType": "digital",
-      "channel": "youtube",
-      "status": "ready_for_authorized_scheduler",
-      "mediaUrl": "https://ragunauthramsaroop.github.io/PrismBay/media/social/bundle.mp4",
-      "destinationUrl": "https://ragunauthramsaroop.github.io/PrismBay/toolkits.html?utm_source=youtube&utm_medium=shorts&utm_campaign=prismbay_external_traffic_oct2026&utm_content=bundle_short_01",
-      "title": "Executive work slows down when stakeholder, ESG and board-reporting processes live in di #Shorts",
-      "caption": "Executive work slows down when stakeholder, ESG and board-reporting processes live in disconnected files. Map the work into three evidence lanes: stakeholder commitments, ESG performance records and decision-grade research claims. Assign one accountable owner to each lane. Start with the free guide: https://ragunauthramsaroop.github.io/PrismBay/toolkits.html?utm_source=youtube&utm_medium=shorts&utm_campaign=prismbay_external_traffic_oct2026&utm_content=bundle_short_01 Optional editable document toolkit: $179 USD one time.",
-      "commercialContentOwnBrand": true,
-      "madeForKids": false,
-      "aiAssisted": true,
-      "strategy": "deterministic_fallback",
-      "guardrails": {
-        "noInventedTestimonials": true,
-        "noGuaranteedResults": true,
-        "exactPriceUsd": 179,
-        "originalTypographyVideoOnly": true,
-        "paidAds": false
-      }
+      },
+      "publishAllowed": false,
+      "holdReason": "Retail TikTok authorization, creative/media review, owner release approval and verified payment-linked digital delivery are outstanding."
     },
     {
       "id": "bundle-tiktok",
       "offer": "bundle",
       "offerType": "digital",
       "channel": "tiktok",
-      "status": "ready_for_authorized_scheduler",
-      "mediaUrl": "https://ragunauthramsaroop.github.io/PrismBay/media/social/bundle.mp4",
-      "destinationUrl": "https://ragunauthramsaroop.github.io/PrismBay/toolkits.html?utm_source=tiktok&utm_medium=organic_video&utm_campaign=prismbay_external_traffic_oct2026&utm_content=bundle_short_01",
+      "status": "draft",
+      "mediaUrl": "https://clean.prismbayai.com/media/social/bundle.mp4",
+      "destinationUrl": "https://clean.prismbayai.com/toolkits.html?utm_source=tiktok&utm_medium=organic_video&utm_campaign=prismbay_external_traffic_oct2026&utm_content=bundle_short_01",
       "title": "Executive work slows down when stakeholder, ESG and board-reporting processes live in di",
-      "caption": "Executive work slows down when stakeholder, ESG and board-reporting processes live in disconnected files. Map the work into three evidence lanes: stakeholder commitments, ESG performance records and decision-grade research claims. Assign one accountable owner to each lane. Start with the free guide: https://ragunauthramsaroop.github.io/PrismBay/toolkits.html?utm_source=tiktok&utm_medium=organic_video&utm_campaign=prismbay_external_traffic_oct2026&utm_content=bundle_short_01 Optional editable document toolkit: $179 USD one time.",
+      "caption": "Executive work slows down when stakeholder, ESG and board-reporting processes live in disconnected files. Map the work into three evidence lanes: stakeholder commitments, ESG performance records and decision-grade research claims. Assign one accountable owner to each lane. View the toolkit overview: https://clean.prismbayai.com/toolkits.html?utm_source=tiktok&utm_medium=organic_video&utm_campaign=prismbay_external_traffic_oct2026&utm_content=bundle_short_01 Optional editable document toolkit: $179 USD one time.",
       "commercialContentOwnBrand": true,
       "madeForKids": false,
       "aiAssisted": true,
@@ -177,57 +95,9 @@
         "exactPriceUsd": 179,
         "originalTypographyVideoOnly": true,
         "paidAds": false
-      }
-    },
-    {
-      "id": "garment-steamer-youtube",
-      "offer": "garment-steamer",
-      "offerType": "physical",
-      "channel": "youtube",
-      "status": "ready_for_authorized_scheduler",
-      "mediaUrl": "https://ragunauthramsaroop.github.io/PrismBay/media/social/garment-steamer.mp4",
-      "destinationUrl": "https://browser-worker-production-f5b4.up.railway.app/garment-steamer/youtube/?utm_source=youtube&utm_medium=shorts&utm_campaign=prismbay_clean_steamer_oct2026&utm_content=garment-steamer_short_01",
-      "title": "Portable Garment Steamer: check U.S. ZIP before payment #Shorts",
-      "caption": "Portable Garment Steamer — $29.95 USD. Check your 5-digit U.S. ZIP before payment. PrismBay Clean checks current supplier stock and destination shipping first. Availability varies by ZIP. https://browser-worker-production-f5b4.up.railway.app/garment-steamer/youtube/?utm_source=youtube&utm_medium=shorts&utm_campaign=prismbay_clean_steamer_oct2026&utm_content=garment-steamer_short_01",
-      "commercialContentOwnBrand": true,
-      "madeForKids": false,
-      "aiAssisted": false,
-      "strategy": "guarded_physical_preflight",
-      "guardrails": {
-        "noInventedTestimonials": true,
-        "noGuaranteedResults": true,
-        "exactPriceUsd": 29.95,
-        "originalTypographyVideoOnly": true,
-        "paidAds": false,
-        "directStripe": false,
-        "zipPreflightRequired": true,
-        "availabilityClaim": "live_check_required"
-      }
-    },
-    {
-      "id": "garment-steamer-tiktok",
-      "offer": "garment-steamer",
-      "offerType": "physical",
-      "channel": "tiktok",
-      "status": "ready_for_authorized_scheduler",
-      "mediaUrl": "https://ragunauthramsaroop.github.io/PrismBay/media/social/garment-steamer.mp4",
-      "destinationUrl": "https://browser-worker-production-f5b4.up.railway.app/garment-steamer/tiktok/?utm_source=tiktok&utm_medium=organic_video&utm_campaign=prismbay_clean_steamer_oct2026&utm_content=garment-steamer_short_01",
-      "title": "Portable Garment Steamer: check U.S. ZIP before payment",
-      "caption": "Portable Garment Steamer — $29.95 USD. Check your 5-digit U.S. ZIP before payment. PrismBay Clean checks current supplier stock and destination shipping first. Availability varies by ZIP. https://browser-worker-production-f5b4.up.railway.app/garment-steamer/tiktok/?utm_source=tiktok&utm_medium=organic_video&utm_campaign=prismbay_clean_steamer_oct2026&utm_content=garment-steamer_short_01",
-      "commercialContentOwnBrand": true,
-      "madeForKids": false,
-      "aiAssisted": false,
-      "strategy": "guarded_physical_preflight",
-      "guardrails": {
-        "noInventedTestimonials": true,
-        "noGuaranteedResults": true,
-        "exactPriceUsd": 29.95,
-        "originalTypographyVideoOnly": true,
-        "paidAds": false,
-        "directStripe": false,
-        "zipPreflightRequired": true,
-        "availabilityClaim": "live_check_required"
-      }
+      },
+      "publishAllowed": false,
+      "holdReason": "Retail TikTok authorization, creative/media review, owner release approval and verified payment-linked digital delivery are outstanding."
     }
   ],
   "freeLLM": {
@@ -255,13 +125,6 @@
     "bundle": {
       "status": "not_configured",
       "strategy": "deterministic_fallback",
-      "model": null,
-      "routedVia": null,
-      "routeAttempts": 0
-    },
-    "garment-steamer": {
-      "status": "deterministic_guarded_physical",
-      "strategy": "guarded_physical_preflight",
       "model": null,
       "routedVia": null,
       "routeAttempts": 0
@@ -295,13 +158,6 @@
       "sha256": "185c240a5b872b77d8d5b53384392dfcb87e70cb0e4ee5a96c0dcf4d075085fd",
       "durationSeconds": 20,
       "bytes": 207417
-    },
-    {
-      "slug": "garment-steamer",
-      "file": "/home/runner/work/PrismBay/PrismBay/growth-reports/external-social/garment-steamer/garment-steamer.mp4",
-      "sha256": "05792e7adc0b0405932d38d0e6ad1d2b44952a5a19100d5418762b173afc4306",
-      "durationSeconds": 20,
-      "bytes": 184923
     }
   ],
   "publication": {
@@ -309,6 +165,10 @@
     "authorizedScheduler": "required for platform publication",
     "coldEmail": false,
     "paidAds": false,
-    "physicalPromotion": "garment steamer only; guarded ZIP preflight required before checkout"
-  }
+    "physicalPromotion": "disabled_pending_supplier_variant_destination_freight_landed_cost_media_rights_checkout_fulfillment_and_owner_approval",
+    "retailTikTok": "disabled_until_original_or_rights_cleared_media_and_explicit_owner_authorization"
+  },
+  "blockedPhysicalCount": 2,
+  "rule": "Educational PrismBay AI YouTube is never a destination for PrismBay Clean commercial distribution, including paid digital offers. Physical-product distribution is withheld until independently verified supplier, variant, destination freight, landed cost, media rights, checkout, fulfillment and explicit owner approval. Retail TikTok publication stays disabled until account, branding, media and owner authorization are verified.",
+  "releaseStatus": "WITHHELD_PENDING_TIKTOK_AND_DIGITAL_DELIVERY_GATES"
 }
