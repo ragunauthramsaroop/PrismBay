@@ -13,6 +13,7 @@ OUT = ROOT / 'out/youtube/ai-agent-cost-controls'
 CHANNEL = 'UCw2hs85TzIpdKwJtG-BSxzQ'
 VOICE = 'en_US-norman-medium'
 SIZE = (1920, 1080)
+TEMPO = 0.84  # Pitch-preserving slowdown for draft narration; editorial approval still required.
 SCENES = ['01-budget-math.png', '01-budget-math.png', '05-pilot-scorecard.png',
           '02-eight-call-stop-rule.png', '04-authority-permissions.png',
           '03-cost-per-accepted-result.png', '05-pilot-scorecard.png',
@@ -98,6 +99,33 @@ def stamp(t):
     s, ms = divmod(ms, 1000)
     return f'{h:02d}:{m:02d}:{s:02d},{ms:03d}'
 
+def caption_chunks(paragraph, duration):
+    """Provisional reading-length chunks, not a speech-alignment claim."""
+    words = paragraph.split()
+    if not words:
+        return []
+    words_per_second = len(words) / max(duration, 0.1)
+    max_words = max(4, min(12, int(words_per_second * 5.4)))
+    min_words = max(2, int(words_per_second * 1.5))
+    chunks = []
+    cursor = 0
+    while cursor < len(words):
+        remaining = len(words) - cursor
+        if remaining <= max_words:
+            end = len(words)
+        else:
+            upper = min(cursor + max_words, len(words) - min_words)
+            lower = max(cursor + min_words, upper - 4)
+            boundaries = [i for i in range(lower, upper + 1)
+                          if words[i - 1].endswith(('.', '?', '!', ';', ':', ','))]
+            end = boundaries[-1] if boundaries else upper
+            if end <= cursor:
+                end = min(cursor + max_words, len(words))
+        chunks.append(' '.join(words[cursor:end]))
+        cursor = end
+    assert ' '.join(chunks) == ' '.join(words)
+    return chunks
+
 def thumbnail(kind, output):
     im = Image.new('RGB', (1280, 720), (8, 24, 43))
     d = ImageDraw.Draw(im)
@@ -137,19 +165,19 @@ def main():
         for j, paragraph in enumerate(paras):
             wav, png, mp4 = (WORK/f'{kind}-{i:02d}.{ext}' for kind,ext in [('voice','wav'),('scene','png'),('clip','mp4')])
             run([sys.executable, '-m', 'piper', '-m', VOICE, '--data-dir', voices, '-f', wav, '--', paragraph])
-            duration = seconds(wav) + 0.22
+            duration = seconds(wav) / TEMPO + 0.22
             scene(ci, j, title, paragraph, png)
             run(['ffmpeg','-hide_banner','-loglevel','error','-y','-loop','1','-framerate','24','-i',png,
                  '-i',wav,'-t',f'{duration:.3f}','-vf','format=yuv420p','-c:v','libx264',
                  '-preset','ultrafast','-crf','30','-r','24','-c:a','aac','-b:a','112k',
-                 '-af','apad=pad_dur=0.22,volume=-3dB','-movflags','+faststart',mp4])
+                 '-af',f'atempo={TEMPO},apad=pad_dur=0.22,volume=-3dB','-movflags','+faststart',mp4])
             entries.append(mp4)
-            sentences = [x.strip() for x in re.split(r'(?<=[.!?])\s+(?=[A-Z])', paragraph) if x.strip()]
-            total = sum(len(x.split()) for x in sentences)
+            chunks = caption_chunks(paragraph, duration)
+            total = sum(len(x.split()) for x in chunks)
             t = cursor
-            for sentence in sentences:
-                dt = duration*len(sentence.split())/max(1,total)
-                captions.append((t, t+dt, sentence))
+            for chunk in chunks:
+                dt = duration*len(chunk.split())/max(1,total)
+                captions.append((t, t+dt, chunk))
                 t += dt
             cursor += duration
             i += 1
@@ -172,6 +200,7 @@ def main():
                 'scriptSha256':hashlib.sha256(SOURCE.read_bytes()).hexdigest(),
                 'voice':'Piper en_US-norman-medium','chapters':chapters_meta,'sceneCount':len(entries),
                 'originalIllustrations':6,'titleThumbnailCandidates':3,
+                'narrationTempo':TEMPO,'captionSegmentation':'READING_LENGTH_PROVISIONAL',
                 'manualNarrationReview':'PENDING','captionSynchronization':'PROVISIONAL',
                 'realDevicePlayback':'PENDING','status':'UNAPPROVED_PRODUCTION_DRAFT'}
     (OUT/'manifest.json').write_text(json.dumps(manifest,indent=2)+'\n')
