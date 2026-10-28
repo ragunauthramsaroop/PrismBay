@@ -1,12 +1,12 @@
 {
   "schemaVersion": 1,
-  "checkedAt": "2026-10-28T13:17:14.496Z",
+  "checkedAt": "2026-10-28T13:17:43.035Z",
   "source": "GitHub Actions accountability evidence",
   "refreshPolicy": "Best-effort GitHub schedules. Static snapshot; refresh does not run agents.",
   "summary": {
     "passing": 2,
-    "running": 0,
-    "attention": 3,
+    "running": 1,
+    "attention": 2,
     "warnings": 3,
     "total": 5
   },
@@ -18,13 +18,13 @@
       "cadence": "Every 30 minutes",
       "purpose": "Produces and publishes digital product buyer pages",
       "workflow": "buyer-acquisition.yml",
-      "status": "fail",
-      "reason": "worker_stale",
+      "status": "running",
+      "reason": "operational_run_in_progress",
       "consequence": "probation",
       "failureStreak": 2,
-      "runId": 40678503755,
-      "runUrl": "https://github.com/ragunauthramsaroop/PrismBay/actions/runs/40678503755",
-      "runAgeMinutes": 122,
+      "runId": 40695068283,
+      "runUrl": "https://github.com/ragunauthramsaroop/PrismBay/actions/runs/40695068283",
+      "runAgeMinutes": 0,
       "artifactName": null,
       "artifactBytes": null,
       "remediation": null
@@ -42,7 +42,7 @@
       "failureStreak": 0,
       "runId": 40595675987,
       "runUrl": "https://github.com/ragunauthramsaroop/PrismBay/actions/runs/40595675987",
-      "runAgeMinutes": 884,
+      "runAgeMinutes": 885,
       "artifactName": "prismbay-external-traffic-40595675987",
       "artifactBytes": 659919,
       "remediation": null
@@ -56,8 +56,8 @@
       "workflow": "ceo-autonomous-recovery.yml",
       "status": "fail",
       "reason": "worker_stale",
-      "consequence": "probation",
-      "failureStreak": 2,
+      "consequence": "replace_route",
+      "failureStreak": 3,
       "runId": 40680463346,
       "runUrl": "https://github.com/ragunauthramsaroop/PrismBay/actions/runs/40680463346",
       "runAgeMinutes": 107,
@@ -93,13 +93,13 @@
       "status": "fail",
       "reason": "worker_stale",
       "consequence": "replace_route",
-      "failureStreak": 12,
+      "failureStreak": 13,
       "runId": 40651018513,
       "runUrl": "https://github.com/ragunauthramsaroop/PrismBay/actions/runs/40651018513",
-      "runAgeMinutes": 342,
+      "runAgeMinutes": 343,
       "artifactName": null,
       "artifactBytes": null,
-      "remediation": "dispatched_safe_digital_buyer_acquisition_fallback"
+      "remediation": null
     }
   ],
   "commercial": {
