@@ -7,6 +7,10 @@ export function readiness(provider,credentialConfigured) {
   provider:'hypersku', apiApproved:hasApprovedApi,
   documentationApproved:hasDocs,
   credentialsPresent:credentialConfigured,
+  // Registry flags and a configured key are not an authenticated provider API call.
+  authenticatedApiVerified:false,
+  supplierConnected:false,
+  authenticationEvidence:'not_performed',
   status:!hasApprovedApi?'awaiting_vendor_approval':!hasDocs?'awaiting_vendor_api_docs':!credentialConfigured?'awaiting_private_configuration':'integration_configuration_review_required',
   productSyncEnabled:false, physicalCheckoutEnabled:false,
   supplierOrdersEnabled:false, supplierMediaReuseEnabled:false
