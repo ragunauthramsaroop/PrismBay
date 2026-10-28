@@ -81,3 +81,35 @@ test('every existing digital offer is allowlisted by exact checkout path, not a 
   assert.equal(audit.hasUnapprovedDirectStripeLink, false);
   assert.equal(auditPublicStripeLinks('').hasDirectStripeLink, false);
 });
+
+
+test('HTML-encoded or alternate Stripe checkout URLs cannot bypass the direct-payment guard', () => {
+  const approved = ACTIVE_DIGITAL_OFFERS.find(offer => offer.slug === 'bundle').checkout;
+  const unsafe = [
+    '<a href="https:&#x2F;&#x2F;buy&#46;stripe&#46;com/UNVERIFIED">Buy</a>',
+    '<a href="https&#58;&#47;&#47;buy&#46;stripe&#46;com/UNVERIFIED">Buy</a>',
+    'https://buy.stripe.com:443/UNVERIFIED',
+    'https://checkout.stripe.com/c/pay/UNVERIFIED',
+    'http://' + approved.slice('https://'.length),
+    approved.replace('buy.stripe.com', 'buy.stripe.com.'),
+    approved.replace('buy.stripe.com', 'buy.stripe.com:8443'),
+    'https:\n//buy.stripe.com/UNVERIFIED',
+    'https://buy%2estripe.com/UNVERIFIED',
+  ];
+  for (const html of unsafe) {
+    const audit = auditPublicStripeLinks(html);
+    assert.equal(audit.hasUnapprovedDirectStripeLink, true, html);
+    assert.equal(audit.unapprovedDirectStripeLinkCount, 1, html);
+  }
+  assert.equal(auditPublicStripeLinks(approved).approvedDigitalStripeLinkCount, 1);
+  assert.equal(auditPublicStripeLinks('https://example.org/guide').directStripeLinkCount, 0);
+});
+
+test('encoded physical link beside an approved digital checkout still fails closed', () => {
+  const approved = ACTIVE_DIGITAL_OFFERS[0].checkout;
+  const encodedPhysical = '<a href="https:&#47;&#47;buy.stripe.com/UNVERIFIED">Shop</a>';
+  const audit = auditPublicStripeLinks(approved + ' ' + encodedPhysical);
+  assert.equal(audit.approvedDigitalStripeLinkCount, 1);
+  assert.equal(audit.unapprovedDirectStripeLinkCount, 1);
+  assert.equal(audit.hasUnapprovedDirectStripeLink, true);
+});
