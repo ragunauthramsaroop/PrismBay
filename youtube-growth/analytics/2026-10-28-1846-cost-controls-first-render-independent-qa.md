@@ -17,7 +17,7 @@ Disposition: MODIFY. UNAPPROVED. No upload, scheduling, paid advertising, or mon
 - The source contains repeated full-frame graphics and split layouts with a small repeated infographic inset. This is a retention-quality concern for an almost eight-minute video. Do not treat successful encoding as editorial readiness.
 - Some split-screen chapter headings were visibly shortened with ellipses, including the Control Three heading. The original renderer explicitly used `textwrap.shorten` and sliced lines, which also risked omitting meaningful spoken words from on-screen cards.
 - All three thumbnails were legible in a combined contact sheet. Variant A presents the clearest quantified promise, with the fictional-example label. Thumbnail selection still needs audience data and native YouTube A/B testing where available.
-- The 120-cue SRT is a separate provisional file. The MP4 has no verified embedded subtitle track. Sentence timings were estimated by word proportion, not word-level speech alignment. This must not be represented as verified caption delivery.
+- The 120-cue SRT is a separate provisional file. The MP4 has no verified embedded subtitle track. Sentence timings were estimated by word proportion, not word-level speech alignment. This must not be represented as verified caption delivery. Independent timing analysis found 28 cues above 180 words per minute, nine cues shorter than 1.5 seconds and 12 cues longer than seven seconds. These are targeted readability flags, not a substitute for listening.
 - The offline synthetic voice is a low-cost fallback, but a full independent narration listen is outstanding. Audio sampling frequency is 22.05 kHz, which warrants listening for artifacts before release.
 
 ## Remediation initiated
