@@ -7,8 +7,9 @@ Date: 2026-10-28. Authorized channel only: `UCw2hs85TzIpdKwJtG-BSxzQ` (`@PrismBa
 3. `03-cost-per-accepted-result.svg`: acceptance-cost scene / 05:55–07:15. 100 attempts, 80 accepted, $40 tool charges and $60 review charges. Total $100 / 80 accepted = $1.25. $0.40 per attempted task omits review cost.
 4. `04-authority-permissions.svg`: scoped-authority scene / 04:30–05:55. Original five-row supplier-agent permissions matrix. Reading and drafting are permitted; changing payment details is denied; purchasing and external publication require a person to approve. Illustrative design, not an account permission audit.
 5. `05-pilot-scorecard.svg`: pilot-measurement scene / 07:15–08:35. Six distinct metrics covering acceptance rate, true unit cost, completion time, paid calls and retries, blocked actions, and exception handling. No fabricated benchmark or measured result.
+6. `06-spend-access-proof-close.svg`: original end-screen visual / 08:35–09:20. Three pre-deployment questions covering spending, access and evidence, followed by the PrismBay AI subscriber promise.
 
-All five assets are original 1920×1080 SVGs, without externally loaded media, fonts, images or trademarks. Dark navy, cyan and amber visual system. Designed for an original 16:9 video, not standalone proof of measured customer outcomes.
+All six assets are original 1920×1080 SVGs, without externally loaded media, fonts, images or trademarks. Dark navy, cyan and amber visual system. Designed for an original 16:9 video, not standalone proof of measured customer outcomes.
 
 ## Production handoff
 - Use with `youtube-growth/production/2026-10-28-ai-agent-cost-control-longform-script.md`. The voiceover script, timed sections, packaging variants and sources live there.
@@ -27,8 +28,8 @@ All five assets are original 1920×1080 SVGs, without externally loaded media, f
 - These figures are hypothetical. Verify source citations and spoken qualifications against the script.
 
 ## 2026-10-28 additional scene QA
-- Added the authority-permissions and pilot-scorecard scenes on the existing channel's long-form production path. Both files were read back from GitHub after creation.
-- Static checks verified 1920×1080 dimensions, complete SVG boundaries, in-bounds text anchor coordinates, and no externally loaded images, scripts or URLs. These checks do not prove rendered font fit, contrast on mobile, or absence of text clipping.
+- Added the authority-permissions, pilot-scorecard and closing scenes on the existing channel's long-form production path. All new files were created on the existing production path.
+- Static checks on scenes 04 and 05 verified 1920×1080 dimensions, complete SVG boundaries, in-bounds text anchor coordinates, and no externally loaded images, scripts or URLs. Scene 06 passed dimension, content-boundary and external-reference checks. These checks do not prove rendered font fit, contrast on mobile, or absence of text clipping.
 - A visual PNG render, real-device playback, complete narration and final editorial approval are still required. These two SVGs are production assets, not publishable videos.
 
 ## Release state
