@@ -59,6 +59,60 @@ export const ACTIVE_DIGITAL_OFFERS = Object.freeze([
     deliverables: ['Executive Stakeholder Mapping Toolkit', 'ESG & Social Performance Operating Pack', 'Executive White Paper & Board Briefing System']
   })
 ]);
+// Audit public checkout URLs against the existing digital-offer registry.
+// An unrecognized Stripe link is not assumed to be a physical or digital product.
+// Treat it as unapproved until independently reconciled with live Stripe.
+// Browser navigation decodes numeric and named HTML entities in href values.
+// Normalize the common URL characters before checking public checkout links.
+function decodeHtmlUrlEntities(source) {
+  return source.replace(/&(?:#(?:x([0-9a-f]{1,6})|([0-9]{1,7}))|sol|colon|period|dot|amp);?/gi,
+    (raw, hex, decimal) => {
+      if (hex || decimal) {
+        const cp = Number.parseInt(hex || decimal, hex ? 16 : 10);
+        return cp > 0 && cp <= 0x10ffff ? String.fromCodePoint(cp) : raw;
+      }
+      const name = raw.slice(1).replace(/;$/, '').toLowerCase();
+      return { sol: '/', colon: ':', period: '.', dot: '.', amp: '&' }[name] ?? raw;
+    });
+}
+export function auditPublicStripeLinks(html) {
+  const source = typeof html === 'string' ? html : '';
+  const normalized = decodeHtmlUrlEntities(source).replace(/https?:[\t\r\n]*\/[\t\r\n]*\//gi,
+    raw => raw.replace(/[\t\r\n]/g, ''));
+  // Parse URL candidates rather than matching one literal host spelling.
+  // This detects HTML-encoded checkout links, ports and Stripe Checkout URLs.
+  const candidates = [...normalized.matchAll(/(?:https?:)?\/\/[^\s"'<>]+/gi)]
+    .map(match => match[0]);
+  const approvedPaths = new Set(ACTIVE_DIGITAL_OFFERS.map(offer => new URL(offer.checkout).pathname));
+  let directStripeLinkCount = 0;
+  let approvedDigitalStripeLinkCount = 0;
+  let unapprovedDirectStripeLinkCount = 0;
+  for (const raw of candidates) {
+    let parsed;
+    try { parsed = new URL(raw.startsWith('//') ? 'https:' + raw : raw); }
+    catch { continue; }
+    const host = parsed.hostname.toLowerCase().replace(/\.$/, '');
+    if (host !== 'buy.stripe.com' && host !== 'checkout.stripe.com') continue;
+    directStripeLinkCount += 1;
+    // Only the four existing HTTPS digital Payment Link paths are approved.
+    // Noncanonical host spelling, plain HTTP and Checkout Session links fail closed.
+    if (parsed.protocol === 'https:' && parsed.hostname === 'buy.stripe.com' &&
+        !parsed.username && !parsed.password && parsed.port === '' &&
+        approvedPaths.has(parsed.pathname)) {
+      approvedDigitalStripeLinkCount += 1;
+    } else {
+      unapprovedDirectStripeLinkCount += 1;
+    }
+  }
+  return {
+    directStripeLinkCount,
+    approvedDigitalStripeLinkCount,
+    unapprovedDirectStripeLinkCount,
+    hasDirectStripeLink: directStripeLinkCount > 0,
+    hasUnapprovedDirectStripeLink: unapprovedDirectStripeLinkCount > 0,
+  };
+}
+
 const safeSegment = s => String(s).replace(/[^a-z0-9_]/gi,'_').slice(0,64);
 export function campaignForSlot(slot) {
   if (!Number.isSafeInteger(slot) || slot < 0) throw new TypeError('A nonnegative six-hour slot is required');

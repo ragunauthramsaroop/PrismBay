@@ -129,8 +129,12 @@ jobs:
             if (offer.checkoutMode !== 'buyer_zip_guarded_preflight') throw new Error(`Unexpected checkout mode for ${offer.slug}`);
             if (offer.storefrontUrl.startsWith('https://buy.stripe.com/')) throw new Error(`Direct Stripe promotion leaked for ${offer.slug}`);
           }
-          if (report.promotionEligibleCount === 0 && storefront?.result?.activeStorefront?.hasDirectStripeLink === true) {
-            throw new Error('Direct Stripe checkout leaked while no physical product is promotion eligible');
+          // Existing, exact-match digital document links are permitted. Unknown Stripe links
+          // still fail closed. A broad Stripe URL boolean incorrectly blocked the legitimate
+          // $179 downloadable bundle on the public home page.
+          const live = storefront?.result?.activeStorefront;
+          if (live?.hasDirectStripeLink === true && live?.hasUnapprovedDirectStripeLink !== false) {
+            throw new Error('Unapproved direct Stripe checkout detected on the public storefront');
           }
           console.log(`Guarded-preflight promotion eligible: ${report.promotionEligibleCount}`);
           NODE
