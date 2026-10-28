@@ -7,6 +7,7 @@ on:
   pull_request:
     paths:
       - 'scripts/ebay-control-plane.mjs'
+      - 'scripts/ebay-control-plane-blocked.test.mjs'
       - 'scripts/ebay-draft-feed.mjs'
       - 'scripts/ebay-draft-feed.test.mjs'
       - 'marketplaces/ebay/garment-steamer.json'
@@ -16,6 +17,7 @@ on:
     branches: [main]
     paths:
       - 'scripts/ebay-control-plane.mjs'
+      - 'scripts/ebay-control-plane-blocked.test.mjs'
       - 'scripts/ebay-draft-feed.mjs'
       - 'scripts/ebay-draft-feed.test.mjs'
       - 'marketplaces/ebay/garment-steamer.json'
@@ -42,7 +44,7 @@ jobs:
         run: |
           node --check scripts/ebay-control-plane.mjs
           node --check scripts/ebay-draft-feed.mjs
-          node --test scripts/ebay-draft-feed.test.mjs
+          node --test scripts/ebay-draft-feed.test.mjs scripts/ebay-control-plane-blocked.test.mjs
           node -e "JSON.parse(require('fs').readFileSync('marketplaces/ebay/garment-steamer.json','utf8'))"
       - name: Generate eBay draft and manual-entry packets
         run: node scripts/ebay-draft-feed.mjs
@@ -71,8 +73,21 @@ jobs:
           git -C "$syncdir" add marketplace/ebay
           if ! git -C "$syncdir" diff --cached --quiet; then
             git -C "$syncdir" commit -m 'chore: publish eBay marketplace state and draft feed'
-            git -C "$syncdir" pull --rebase origin gh-pages
-            git -C "$syncdir" push origin HEAD:gh-pages
+            for attempt in 1 2 3; do
+              git fetch origin gh-pages
+              if ! git -C "$syncdir" rebase origin/gh-pages; then
+                git -C "$syncdir" rebase --abort || true
+                echo '::error::Concurrent marketplace Pages edit requires review; no force push.'
+                exit 1
+              fi
+              if git -C "$syncdir" push origin HEAD:gh-pages; then
+                echo 'eBay marketplace state published.'
+                exit 0
+              fi
+              if [[ "$attempt" != "3" ]]; then sleep "$((attempt * 3))"; fi
+            done
+            echo '::error::Marketplace Pages publication unsuccessful after safe retries.'
+            exit 1
           fi
       - name: Summary
         if: always()
