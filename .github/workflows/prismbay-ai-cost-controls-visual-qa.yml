@@ -58,9 +58,9 @@ jobs:
               assert root.tag.endswith('svg'), name
               assert root.attrib.get('viewBox')=='0 0 1920 1080', (name,root.attrib.get('viewBox'))
               assert root.attrib.get('width')=='1920' and root.attrib.get('height')=='1080', name
-              assert not re.search(r'<(?:script|image|foreignObject)\\b',text,re.I), name
-              assert not re.search(r'(?:href|src)\\s*=\\s*["\'](?:https?:|data:|//)',text,re.I), name
-              assert not re.search(r'url\\(\\s*["\']?https?://',text,re.I), name
+              assert not re.search(r'<(?:script|image|foreignObject)\b',text,re.I), name
+              assert not re.search(r'(?:href|src)\s*=\s*["\'](?:https?:|data:|//)',text,re.I), name
+              assert not re.search(r'url\(\s*["\']?https?://',text,re.I), name
               text_nodes=[e for e in root.iter() if e.tag.endswith('text')]
               assert len(text_nodes)>=8, (name,len(text_nodes))
               png=cairosvg.svg2png(bytestring=data,output_width=1920,output_height=1080)
