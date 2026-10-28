@@ -1,4 +1,5 @@
 import fs from 'node:fs/promises';
+import {pathToFileURL} from 'node:url';
 import { evaluateEconomics } from './ebay-listing-worker.mjs';
 
 const CJ_BASE = 'https://developers.cjdropshipping.com/api2.0/v1';
@@ -340,7 +341,78 @@ async function main() {
   }));
 }
 
-main().catch(error => {
-  console.error(error?.stack || error);
-  process.exit(1);
-});
+
+/**
+ * Explicit, fail-closed state when CJ revokes API access.
+ * Do not reuse old stock, an old authorized shop, or an old warehouse.
+ * The offline eBay draft is informational and is never published as a listing.
+ */
+export function buildApiBlockedReport(manifest, reason) {
+  if (!['API_ACCESS_DISABLED','API_KEY_MISSING'].includes(reason)) {
+    throw new Error('unsupported_block_reason');
+  }
+  const verification=manifest.verification||{};
+  const listEconomics=evaluateEconomics(manifest);
+  const offerFloor=Number(manifest?.offer?.bestOffer?.autoDeclineBelowUsd??manifest.offer.price);
+  const floorEconomics=evaluateEconomics(manifest,offerFloor);
+  return {
+    schemaVersion:6,
+    checkedAt:new Date().toISOString(),
+    status:reason,
+    nextAction:'Restore CJ API authorization in the CJ account; otherwise inspect the seller packet offline. Seller, stock, and dispatch location remain unverified.',
+    product:{
+      slug:manifest.product.slug,
+      variantId:manifest.product.supplier.variantId,
+      variantSku:manifest.product.supplier.variantSku,
+      originCountryCode:clean(manifest.product.supplier.originCountryCode,10).toUpperCase(),
+      listingPriceUsd:manifest.offer.price,
+      bestOfferFloorUsd:offerFloor,
+      categoryId:manifest.product.categoryId,
+      categoryName:manifest.product.categoryName,
+    },
+    economics:{listPrice:listEconomics,bestOfferFloor:floorEconomics},
+    verification:{
+      supplierSpecsVerified:verification.supplierSpecsVerified===true,
+      ebayCategoryVerified:verification.ebayCategoryVerified===true,
+      marketplacePolicyReviewed:verification.marketplacePolicyReviewed===true,
+      checkedAt:clean(verification.checkedAt,40)
+    },
+    cj:{
+      authenticated:false,shopCount:0,shops:[],ebayShopCount:0,
+      ebaySellerAuthenticated:false,authorizedEbayShop:null,liveStockVerified:false,
+      routeSummary:null,warehouse:null,
+      warehouseDiscovery:{attempted:false,source:'API_BLOCKED',candidateIds:[],pidInventoryFallbackAttempted:false,candidatesChecked:[],errors:[]},
+      confirmationDiscovery:{attempted:false,endpoint:'/shopping/privateInventory/getConfirmation',readOnly:true,quantity:1,candidates:[],exactStockMatches:[],error:'CJ_API_UNAVAILABLE'},
+      dispatchLocationVerified:false,dispatchEvidenceMode:null,
+    },
+    gates:{
+      economicsPass:listEconomics.pass,
+      offerFloorEconomicsPass:floorEconomics.pass,
+      supplierSpecsVerified:verification.supplierSpecsVerified===true,
+      ebayCategoryVerified:verification.ebayCategoryVerified===true,
+      marketplacePolicyReviewed:verification.marketplacePolicyReviewed===true,
+      wholesaleSupplierConfigured:manifest.product?.supplier?.relationshipMode==='wholesale_dropshipping_supplier',
+      ebaySellerAuthenticated:false,liveStockVerified:false,
+      dispatchLocationVerified:false,directStripeAbsent:true,
+      automaticSupplierOrderingDisabled:manifest.safety?.automaticSupplierOrdering===false,
+    },
+    readyForBrowserPublish:false
+  };
+}
+
+if (process.argv[1] && import.meta.url===pathToFileURL(process.argv[1]).href) {
+  main().catch(async error=>{
+    const message=String(error?.message??error);
+    const reason=/cj_\d+_1600014_|Your API access has been disabled/i.test(message)
+      ? 'API_ACCESS_DISABLED'
+      : message==='CJ_API_KEY missing' ? 'API_KEY_MISSING' : null;
+    if(!reason)throw error;
+    const manifest=JSON.parse(await fs.readFile(manifestPath,'utf8'));
+    const report=buildApiBlockedReport(manifest,reason);
+    await fs.mkdir(outDir,{recursive:true});
+    await fs.writeFile(outDir+'/control-plane.json',JSON.stringify(report,null,2)+'\n');
+    console.log('::warning::eBay authorization unavailable; no CJ stock or listing is verified.');
+    console.log(JSON.stringify({status:reason,readyForBrowserPublish:false,nextAction:report.nextAction}));
+  }).catch(error=>{console.error(error?.stack||error);process.exitCode=1});
+}
+
