@@ -61,3 +61,16 @@ test('serialized readiness never echoes raw credentials or private provider fiel
  assert.equal(x.physicalCheckoutEnabled,false);
  assert.equal(x.supplierOrdersEnabled,false);
 });
+
+test('confirmed low-volume manual CSV route never implies API or order authorization',()=>{
+ const x=readiness({apiStatus:'open_api_not_available_low_volume',customStoreRoute:'manual_csv_batch_upload_only'},false);
+ assert.equal(x.status,'manual_csv_research_only');
+ assert.equal(x.manualCsvResearchAvailable,true);
+ assert.equal(x.apiApproved,false);
+ assert.equal(x.authenticatedApiVerified,false);
+ assert.equal(x.supplierConnected,false);
+ assert.equal(x.manualCsvSubmissionAuthorized,false);
+ assert.equal(x.manualCsvOrdersEnabled,false);
+ assert.equal(x.physicalCheckoutEnabled,false);
+ assert.equal(x.supplierMediaReuseEnabled,false);
+});
