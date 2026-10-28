@@ -1,6 +1,10 @@
 name: PrismBay AI Unit Economics Caption Preview QA
 
 on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/prismbay-unit-economics-caption-preview.yml'
   workflow_run:
     workflows: ['PrismBay AI Unit Economics Short Draft']
     types: [completed]
@@ -33,14 +37,14 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: prismbay-ai-unit-economics-qa-draft
-          run-id: ${{ github.event_name == 'workflow_run' && github.event.workflow_run.id || 40553516435 }}
+          run-id: ${{ github.event_name == 'workflow_run' && github.event.workflow_run.id || 40640703818 }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
           path: .caption-preview-source
 
       - name: Verify source hash and generate portrait-safe caption preview
         shell: bash
         env:
-          SOURCE_RUN_ID: ${{ github.event_name == 'workflow_run' && github.event.workflow_run.id || 40553516435 }}
+          SOURCE_RUN_ID: ${{ github.event_name == 'workflow_run' && github.event.workflow_run.id || 40640703818 }}
         run: |
           set -euo pipefail
           python3 - <<'PY'
@@ -95,7 +99,7 @@ jobs:
 
           [V4+ Styles]
           Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
-          Style: ShortSafe,DejaVu Sans,57,&H00FFFFFF,&H00FFFFFF,&HAA000000,&H90000000,-1,0,0,0,100,100,0,0,3,3,0,2,95,210,410,1
+          Style: ShortSafe,DejaVu Sans,57,&H00FFFFFF,&H00FFFFFF,&HAA000000,&H90000000,-1,0,0,0,100,100,0,0,3,3,0,2,95,210,310,1
 
           [Events]
           Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
