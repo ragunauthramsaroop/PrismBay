@@ -162,3 +162,4 @@ jobs:
           name: prismbay-unit-economics-caption-preview-UNAPPROVED
           path: .caption-preview-output/
           retention-days: 7
+          include-hidden-files: true
