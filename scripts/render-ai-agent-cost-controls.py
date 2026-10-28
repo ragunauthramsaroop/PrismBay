@@ -29,10 +29,10 @@ def parse():
     raw = SOURCE.read_text(encoding='utf-8')
     body = raw.split('## Full original spoken script, scene by scene', 1)[1].split('## Packaging and native A/B candidates', 1)[0]
     chapters = []
-    for section in re.split(r'(?m)^###\\s+', body)[1:]:
-        heading, _, body_text = section.partition('\\n')
+    for section in re.split(r'(?m)^###\s+', body)[1:]:
+        heading, _, body_text = section.partition('\n')
         title = heading.split('|', 1)[-1].strip()
-        paras = [re.sub(r'\\s+', ' ', p.strip()) for p in re.split(r'\\n\\s*\\n', body_text)
+        paras = [re.sub(r'\s+', ' ', p.strip()) for p in re.split(r'\n\s*\n', body_text)
                  if p.strip() and not p.strip().startswith('[Visual:')]
         if paras:
             chapters.append((title, paras))
@@ -51,13 +51,13 @@ def scene(chapter, index, title, paragraph, output):
     d.rectangle((0, 0, 1920, 16), fill=(31, 218, 210))
     d.text((95, 68), 'PRISMBAY AI  /  AI SYSTEMS UNDER CONTROL', font=font(36, True), fill=(49, 227, 220))
     d.text((95, 161), textwrap.shorten(title.upper(), width=47, placeholder='...'), font=font(51, True), fill='white')
-    sentences = re.split(r'(?<=[.!?])\\s+', paragraph)
+    sentences = re.split(r'(?<=[.!?])\s+', paragraph)
     message = sentences[0]
     if len(message.split()) < 7 and len(sentences) > 1:
         message += ' ' + sentences[1]
     message = textwrap.shorten(message, width=158, placeholder='...')
     lines = textwrap.wrap(message, width=33)
-    d.multiline_text((98, 330), '\\n'.join(lines[:6]), font=font(44, True), fill='white', spacing=22)
+    d.multiline_text((98, 330), '\n'.join(lines[:6]), font=font(44, True), fill='white', spacing=22)
     d.rounded_rectangle((1110, 305, 1850, 760), radius=22, fill=(24, 52, 72), outline=(31, 218, 210), width=4)
     inset = base.resize((680, 383), Image.Resampling.LANCZOS)
     img.paste(inset, (1140, 340))
@@ -122,7 +122,7 @@ def main():
                  '-preset','ultrafast','-crf','30','-r','24','-c:a','aac','-b:a','112k',
                  '-af','apad=pad_dur=0.22,volume=-3dB','-movflags','+faststart',mp4])
             entries.append(mp4)
-            sentences = [x.strip() for x in re.split(r'(?<=[.!?])\\s+(?=[A-Z])', paragraph) if x.strip()]
+            sentences = [x.strip() for x in re.split(r'(?<=[.!?])\s+(?=[A-Z])', paragraph) if x.strip()]
             total = sum(len(x.split()) for x in sentences)
             t = cursor
             for sentence in sentences:
@@ -132,7 +132,7 @@ def main():
             cursor += duration
             i += 1
     playlist = WORK/'concat.txt'
-    playlist.write_text(''.join("file '" + str(x.resolve()) + "'\\n" for x in entries))
+    playlist.write_text(''.join("file '" + str(x.resolve()) + "'\n" for x in entries))
     video = OUT/'ai-agent-cost-controls-draft.mp4'
     run(['ffmpeg','-hide_banner','-loglevel','error','-y','-f','concat','-safe','0','-i',playlist,
          '-c','copy','-movflags','+faststart',video])
@@ -141,7 +141,7 @@ def main():
     assert 420 <= actual <= 900, f'Unexpected duration {actual}; editorial review needed'
     assert any(s.get('width')==1920 and s.get('height')==1080 for s in probe['streams'])
     assert any(s.get('codec_name')=='aac' for s in probe['streams'])
-    (OUT/'captions-provisional.srt').write_text(''.join(f'{n}\\n{stamp(a)} --> {stamp(b)}\\n{t}\\n\\n' for n,(a,b,t) in enumerate(captions,1)))
+    (OUT/'captions-provisional.srt').write_text(''.join(f'{n}\n{stamp(a)} --> {stamp(b)}\n{t}\n\n' for n,(a,b,t) in enumerate(captions,1)))
     for kind in 'ABC':
         thumbnail(kind, OUT/f'thumbnail_{kind}.png')
     manifest = {'channelId':CHANNEL,'handle':'@PrismBayAI','published':False,'publicationApproved':False,
@@ -152,7 +152,7 @@ def main():
                 'originalIllustrations':6,'titleThumbnailCandidates':3,
                 'manualNarrationReview':'PENDING','captionSynchronization':'PROVISIONAL',
                 'realDevicePlayback':'PENDING','status':'UNAPPROVED_PRODUCTION_DRAFT'}
-    (OUT/'manifest.json').write_text(json.dumps(manifest,indent=2)+'\\n')
+    (OUT/'manifest.json').write_text(json.dumps(manifest,indent=2)+'\n')
     print(json.dumps({'duration':actual,'scenes':len(entries),'approved':False}))
 
 if __name__ == '__main__':
