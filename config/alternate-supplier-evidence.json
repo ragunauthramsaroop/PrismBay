@@ -13,7 +13,7 @@
       "supplierReplyDate": "2026-10-28",
       "apiThresholdSupplierWording": "Supplier-branded email claims ideal 2,000 MOV minimum; definition, measurement period and sender's corporate authority not independently confirmed.",
       "customStoreRoute": "manual_csv_batch_upload_only",
-      "manualCsvOrderSubmissionAvailable": true,
+      "manualCsvOrderSubmissionAvailable": false,
       "manualCsvOrderSubmissionAuthorized": false,
       "manualCsvOrdersEnabled": false,
       "sourcingRequestMethod": "Official Help Center: dashboard > Sourcing > AliExpress Sourcing to submit full product URLs, then Sourcing > Smart Sourcing to review quotes. Official guide requires connected store; confirm custom-store eligibility through official support.",
@@ -34,7 +34,9 @@
       "supplierConnected": false,
       "supplierReplyIdentityConfirmed": false,
       "manualCsvRouteIndependentlyConfirmed": false,
-      "sourcingQuotaEvidence": "Official help verifies up to 3 requests/day; 10 links/week and USD 1 per extra link are email claims pending official account confirmation."
+      "sourcingQuotaEvidence": "Official help verifies up to 3 requests/day; 10 links/week and USD 1 per extra link are email claims pending official account confirmation.",
+      "manualImportDocumentationSource": "https://support.hypersku.com/migration/en/articles/3297862-import-orders-manually-by-uploading-excels",
+      "manualImportDocumentedFileType": "Excel template; official generic import guide, custom-store eligibility not verified"
     },
     "eprolo": {
       "priority": 2,
@@ -47,5 +49,5 @@
     }
   },
   "candidates": [],
-  "operatorReview": "2026-10-28 technical reply received from a supplier-branded email domain with valid sender-domain authentication, but affiliation with HyperSKU's official support domain has not been independently established. Confirm API threshold, manual CSV route, custom-store Smart Sourcing access, weekly limits and media permissions through official HyperSKU support or the authenticated merchant dashboard. Official Help Center verifies AliExpress Sourcing input, Smart Sourcing results, approximately two-business-day quotations and up to three daily requests, while requiring a connected store. Treat all other email claims as provisional. No API authentication, paid requests, order submission, wallet funding, physical checkout, media publication or marketing. Verify exact variant, current stock, buyer ZIP freight, landed margin, return rights and fulfillment before any future approval. Never store credentials, buyer addresses, private attachments or personal email."
+  "operatorReview": "2026-10-28 technical reply received from a supplier-branded email domain with valid sender-domain authentication, but affiliation with HyperSKU's official support domain has not been independently established. Confirm API threshold, manual CSV route, custom-store Smart Sourcing access, weekly limits and media permissions through official HyperSKU support or the authenticated merchant dashboard. Official Help Center verifies AliExpress Sourcing input, Smart Sourcing results, approximately two-business-day quotations and up to three daily requests, while requiring a connected store. Treat all other email claims as provisional. No API authentication, paid requests, order submission, wallet funding, physical checkout, media publication or marketing. Verify exact variant, current stock, buyer ZIP freight, landed margin, return rights and fulfillment before any future approval. Never store credentials, buyer addresses, private attachments or personal email. Official HyperSKU Help Center describes manual Excel-template import, while the unverified supplier-branded reply says CSV. Neither proves a custom-store import is enabled in this merchant account. Require authenticated-dashboard verification of the exact file template and permitted workflow; do not prepare, upload or publish customer-order data."
 }
