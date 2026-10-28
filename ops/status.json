@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "checkedAt": "2026-10-28T12:19:05.377Z",
+  "checkedAt": "2026-10-28T12:19:26.629Z",
   "source": "GitHub Actions accountability evidence",
   "refreshPolicy": "Best-effort GitHub schedules. Static snapshot; refresh does not run agents.",
   "summary": {
@@ -75,7 +75,7 @@
       "status": "fail",
       "reason": "worker_stale",
       "consequence": "replace_route",
-      "failureStreak": 5,
+      "failureStreak": 6,
       "runId": 40640506142,
       "runUrl": "https://github.com/ragunauthramsaroop/PrismBay/actions/runs/40640506142",
       "runAgeMinutes": 387,
@@ -93,7 +93,7 @@
       "status": "fail",
       "reason": "worker_stale",
       "consequence": "replace_route",
-      "failureStreak": 9,
+      "failureStreak": 10,
       "runId": 40651018513,
       "runUrl": "https://github.com/ragunauthramsaroop/PrismBay/actions/runs/40651018513",
       "runAgeMinutes": 284,
