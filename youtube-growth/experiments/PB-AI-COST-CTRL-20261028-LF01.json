@@ -1,0 +1,125 @@
+{
+  "experimentId": "PB-AI-COST-CTRL-20261028-LF01",
+  "channelId": "UCw2hs85TzIpdKwJtG-BSxzQ",
+  "handle": "@PrismBayAI",
+  "metricoolBrandId": 6945443,
+  "createdAt": "2026-10-28T17:55:00-04:00",
+  "status": "PRODUCTION_DRAFT_NOT_SCHEDULED",
+  "paidSpendUSD": 0,
+  "publicationApproved": false,
+  "uploadPermitted": false,
+  "series": "AI Systems Under Control",
+  "audience": [
+    "founders",
+    "CFOs",
+    "operations directors",
+    "IT owners"
+  ],
+  "hypothesis": "A fictional cost-overrun calculation plus three enforceable controls will earn more qualified watch time and subscribers than a generic agent news roundup.",
+  "format": "long_form_16x9",
+  "targetDurationSeconds": [
+    480,
+    720
+  ],
+  "hook": "Same 6,000 tasks. Agent cost increased from $600 to $2,400 because paid calls per task quadrupled. Fictional example.",
+  "titleCandidates": [
+    "How to Stop AI Agent Cost Overruns",
+    "Your AI Agent Needs a Budget Kill Switch",
+    "3 Controls Before AI Agents Touch Your Business"
+  ],
+  "thumbnailConcepts": [
+    "$600 to $2,400 with FICTIONAL label",
+    "Red STOP button over repeated agent tool calls",
+    "Three bold icons: COST, ACCESS, PROOF"
+  ],
+  "cta": "After demonstrating controls, subscribe to PrismBay AI for practical AI business systems.",
+  "timing": {
+    "status": "NOT_SCHEDULED",
+    "timezone": "America/Guyana",
+    "metricoolObservedBestHours": [
+      {
+        "dayOfWeek": 3,
+        "hour": 16,
+        "score": 12033
+      },
+      {
+        "dayOfWeek": 4,
+        "hour": 16,
+        "score": 11979
+      }
+    ],
+    "note": "Timing scores are Metricool relative estimates, not proven incremental reach. Recheck calendar and actual audience before release."
+  },
+  "success": {
+    "at72Hours": {
+      "averageViewDurationPercentMin": 35,
+      "viewsVsMedianComparableLongform": 1.5,
+      "attributedSubscribersMin": 1
+    },
+    "ifNoComparableBaseline": "INSUFFICIENT_DATA",
+    "reviewsAfterPublishHours": [
+      6,
+      24,
+      72,
+      168
+    ],
+    "decisions": [
+      "SCALE",
+      "RETEST",
+      "MODIFY",
+      "STOP",
+      "INSUFFICIENT_DATA"
+    ]
+  },
+  "baseline": {
+    "lastVerifiedSubscribers": 7,
+    "lastVerifiedDailyViews": [
+      {
+        "date": "2026-10-24",
+        "views": 83
+      },
+      {
+        "date": "2026-10-25",
+        "views": 62
+      }
+    ],
+    "comparableVideoRetention": "UNAVAILABLE",
+    "trafficSources": "UNAVAILABLE"
+  },
+  "derivatives": [
+    {
+      "experimentId": "PB-AI-COST-CTRL-S01",
+      "hook": "A spending alert does not stop your AI agent from charging you again.",
+      "payoff": "Block the ninth paid call after eight approved calls, then escalate.",
+      "status": "SCRIPT_ONLY"
+    },
+    {
+      "experimentId": "PB-AI-COST-CTRL-S02",
+      "hook": "Your dashboard says 40 cents per AI task. The accepted result costs $1.25.",
+      "payoff": "Include $60 human review and 80 accepted outcomes in unit-cost math.",
+      "status": "SCRIPT_ONLY"
+    }
+  ],
+  "sources": [
+    "youtube-growth/production/2026-10-28-ai-agent-cost-control-longform-script.md",
+    "youtube-growth/production/assets/ai-agent-cost-control-2026-10-28/rendered/",
+    "youtube-growth/analytics/2026-10-28-1752-cost-controls-independent-visual-qa.md"
+  ],
+  "releaseGate": [
+    "draft workflow successful",
+    "full narration listening",
+    "caption synchronization corrected",
+    "mobile readability verified",
+    "source checks verified",
+    "duplicate calendar check",
+    "exact channel verified",
+    "human editorial approval"
+  ],
+  "prohibited": [
+    "paid advertising",
+    "bought engagement",
+    "duplicate uploads",
+    "account country misrepresentation",
+    "automatic publication of unreviewed video"
+  ]
+}
