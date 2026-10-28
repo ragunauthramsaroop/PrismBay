@@ -2,7 +2,7 @@ name: Guyana final PDF after Claude review
 
 on:
   schedule:
-    - cron: '3/10 * * * *'
+    - cron: '3 */6 * * *'
   workflow_dispatch:
 
 permissions:
@@ -97,19 +97,29 @@ jobs:
           EOF
 
       - name: Generate integration patch through Claude Cloud Agent
+        id: integrate
         if: steps.detect.outputs.ready == 'true'
+        continue-on-error: true
         run: |
           node scripts/claude-9router-auto.mjs             --prompt-file=/tmp/final-pdf-task.txt             --output-file=/tmp/final-integration.patch
 
+      - name: Record unavailable integration model without false publication
+        if: steps.detect.outputs.ready == 'true' && steps.integrate.outcome != 'success'
+        shell: bash
+        run: |
+          echo '::warning::Cloud integration model unavailable. No integration diff was approved and no public-release PDF was produced.'
+          echo '## Guyana final PDF blocked by model availability' >> "$GITHUB_STEP_SUMMARY"
+          echo 'The model router did not complete the requested repository-aware review. The completed independent review remains unhandled. No PDF was published, and no false review certification is implied.' >> "$GITHUB_STEP_SUMMARY"
+
       - name: Apply reviewed integration patch
-        if: steps.detect.outputs.ready == 'true'
+        if: steps.detect.outputs.ready == 'true' && steps.integrate.outcome == 'success'
         run: |
           test -s /tmp/final-integration.patch
           git apply --check /tmp/final-integration.patch
           git apply /tmp/final-integration.patch
 
       - name: Build public-release PDF
-        if: steps.detect.outputs.ready == 'true'
+        if: steps.detect.outputs.ready == 'true' && steps.integrate.outcome == 'success'
         working-directory: claude-review/guyana-edition2
         run: |
           python build_edition2_integrated_pdf.py
@@ -117,7 +127,7 @@ jobs:
           cp guyana-petroleum-edition-2-expanded-working-manuscript.pdf              Guyana_Petroleum_Transformation_Public_Release_Edition_2_1.pdf
 
       - name: PDF QA
-        if: steps.detect.outputs.ready == 'true'
+        if: steps.detect.outputs.ready == 'true' && steps.integrate.outcome == 'success'
         working-directory: claude-review/guyana-edition2
         run: |
           python - <<'PY'
@@ -151,7 +161,7 @@ jobs:
           PY
 
       - name: Commit public-release candidate
-        if: steps.detect.outputs.ready == 'true'
+        if: steps.detect.outputs.ready == 'true' && steps.integrate.outcome == 'success'
         env:
           REVIEW_COMMENT_ID: ${{ steps.detect.outputs.comment_id }}
         run: |
@@ -164,7 +174,7 @@ jobs:
           git push --force-with-lease origin "$branch"
 
       - name: Mark review handled and publish link
-        if: steps.detect.outputs.ready == 'true'
+        if: steps.detect.outputs.ready == 'true' && steps.integrate.outcome == 'success'
         uses: actions/github-script@v7
         env:
           REVIEW_COMMENT_ID: ${{ steps.detect.outputs.comment_id }}
