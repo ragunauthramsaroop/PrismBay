@@ -1,0 +1,23 @@
+name: HyperSKU Custom Store Bridge
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '47 3,9,15,21 * * *'
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/hypersku-github-bridge.mjs'
+      - 'scripts/hypersku-github-bridge.test.mjs'
+      - '.github/workflows/hypersku-github-bridge.yml'
+permissions:
+  contents: read
+jobs:
+  readiness:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node --test scripts/hypersku-github-bridge.test.mjs
+      - run: node scripts/hypersku-github-bridge.mjs
