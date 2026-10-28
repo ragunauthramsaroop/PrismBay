@@ -40,6 +40,28 @@ def parse():
     assert sum(len(p.split()) for _, paras in chapters for p in paras) >= 1200
     return chapters
 
+def wrap_to_width(draw, text, fnt, max_px):
+    """Wrap by measured glyph width, never by character count."""
+    lines, line = [], ''
+    for word in text.split():
+        candidate = (line + ' ' + word).strip()
+        if draw.textbbox((0, 0), candidate, font=fnt)[2] > max_px and line:
+            lines.append(line)
+            line = word
+        else:
+            line = candidate
+    if line:
+        lines.append(line)
+    return lines
+
+def fit_lines(draw, text, max_px, max_lines, initial=50, minimum=30):
+    for size in range(initial, minimum - 1, -1):
+        fnt = font(size, True)
+        lines = wrap_to_width(draw, text, fnt, max_px)
+        if len(lines) <= max_lines:
+            return fnt, lines
+    raise ValueError(f'Unfittable scene text: {text[:80]}')
+
 def scene(chapter, index, title, paragraph, output):
     base = Image.open(ASSETS / SCENES[chapter]).convert('RGB')
     assert base.size == SIZE
@@ -50,17 +72,17 @@ def scene(chapter, index, title, paragraph, output):
     d = ImageDraw.Draw(img)
     d.rectangle((0, 0, 1920, 16), fill=(31, 218, 210))
     d.text((95, 68), 'PRISMBAY AI  /  AI SYSTEMS UNDER CONTROL', font=font(36, True), fill=(49, 227, 220))
-    d.text((95, 161), textwrap.shorten(title.upper(), width=47, placeholder='...'), font=font(51, True), fill='white')
+    heading_font, heading_lines = fit_lines(d, title.upper(), 1700, 2, initial=51, minimum=35)
+    d.multiline_text((95, 157), '\n'.join(heading_lines), font=heading_font, fill='white', spacing=10)
     sentences = re.split(r'(?<=[.!?])\s+', paragraph)
     message = sentences[0]
     if len(message.split()) < 7 and len(sentences) > 1:
         message += ' ' + sentences[1]
-    message = textwrap.shorten(message, width=158, placeholder='...')
-    lines = textwrap.wrap(message, width=33)
-    d.multiline_text((98, 330), '\n'.join(lines[:6]), font=font(44, True), fill='white', spacing=22)
-    d.rounded_rectangle((1110, 305, 1850, 760), radius=22, fill=(24, 52, 72), outline=(31, 218, 210), width=4)
-    inset = base.resize((680, 383), Image.Resampling.LANCZOS)
-    img.paste(inset, (1140, 340))
+    message_font, message_lines = fit_lines(d, message, 825, 7, initial=46, minimum=32)
+    d.multiline_text((98, 345), '\n'.join(message_lines), font=message_font, fill='white', spacing=16)
+    d.rounded_rectangle((968, 302, 1848, 808), radius=22, fill=(24, 52, 72), outline=(31, 218, 210), width=4)
+    inset = base.resize((820, 461), Image.Resampling.LANCZOS)
+    img.paste(inset, (997, 325))
     d.text((100, 880), 'Illustrative workflow. No measured customer outcome.', font=font(27), fill=(163, 203, 220))
     d.text((100, 970), f'SECTION {chapter+1:02d}  |  PRISMBAY AI', font=font(27, True), fill=(49, 227, 220))
     img.save(output, optimize=True)
