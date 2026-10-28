@@ -38,7 +38,7 @@ def header(d, topic, n, total):
     d.line((72,210,982,210),fill=GRID,width=3)
     d.rectangle((72,1764,982,1778),fill=GRID)
     d.rectangle((72,1764,72+int(910*(n+1)/total),1778),fill=CYAN)
-    tx(d,'ILLUSTRATIVE NUMBERS. NOT COMPANY RESULTS.',72,1812,22,MUTED,True)
+    tx(d,'ILLUSTRATIVE FINANCIALS. VENDOR CLAIM LABELED.',72,235,20,MUTED,True)
 
 def base(topic, n, total):
     im=Image.new('RGB',(W,H),NAVY)
@@ -56,24 +56,26 @@ def center(d,text,y,size,color=WHITE,bold=True):
     x=(W-(bounds[2]-bounds[0]))/2
     d.text((x,y),text,font=ft,fill=color)
 
+
 def scene_hook(d):
-    tx(d,'5X',78,318,240,CYAN,True)
-    tx(d,'TOKEN EFFICIENCY?',78,624,70,WHITE,True)
-    box(d,(75,804,987,967),fill=(37,50,69),stroke=GOLD)
-    center(d,"VENDOR'S EARLY CLAIM",852,43,GOLD)
-    box(d,(75,1030,987,1360),fill=(19,53,58),stroke=CYAN,width=5)
-    center(d,'NOT YOUR',1100,78,WHITE)
-    center(d,'SAVINGS',1220,95,CYAN)
-    tx(d,'Source: Cadence, 26 Oct 2026',79,1430,28,MUTED)
+    tx(d,'5X',78,290,190,CYAN,True)
+    tx(d,'TOKEN EFFICIENCY?',78,545,62,WHITE,True)
+    box(d,(75,695,987,830),fill=(37,50,69),stroke=GOLD)
+    center(d,"VENDOR'S EARLY CLAIM",733,40,GOLD)
+    box(d,(75,865,987,1115),fill=(19,53,58),stroke=CYAN,width=5)
+    center(d,'NOT YOUR',918,68,WHITE)
+    center(d,'SAVINGS',1014,84,CYAN)
+    tx(d,'Source: Cadence, 26 Oct 2026',79,1150,26,MUTED)
+
 
 def scene_formula(d):
-    tx(d,'THE METRIC',78,318,84,WHITE,True)
-    tx(d,'TO TEST',78,430,92,CYAN,True)
-    box(d,(72,670,990,1230),fill=(17,39,55),stroke=CYAN,width=5)
-    center(d,'TOTAL WORKFLOW COST',758,54,WHITE)
-    d.line((155,927,910,927),fill=CYAN,width=8)
-    center(d,'ACCEPTED OUTPUTS',1010,59,LIME)
-    center(d,'NOT PRICE PER CALL',1310,52,GOLD)
+    tx(d,'THE METRIC',78,290,76,WHITE,True)
+    tx(d,'TO TEST',78,395,84,CYAN,True)
+    box(d,(72,570,990,1030),fill=(17,39,55),stroke=CYAN,width=5)
+    center(d,'TOTAL WORKFLOW COST',644,48,WHITE)
+    d.line((155,812,910,812),fill=CYAN,width=8)
+    center(d,'ACCEPTED OUTPUTS',880,53,LIME)
+    center(d,'NOT PRICE PER CALL',1100,45,GOLD)
 
 def bar(d,y,parts,colors):
     left=120; width=820; total=sum(parts)
@@ -82,59 +84,63 @@ def bar(d,y,parts,colors):
         d.rectangle((left,y,left+w,y+92),fill=col)
         left+=w
 
+
 def scene_option(d,name,per_run,accepted,total,parts,price,col):
-    tx(d,name,78,316,88,col,True)
-    box(d,(78,480,980,710),fill=(18,36,55),stroke=col,width=5)
-    tx(d,per_run,112,532,69,WHITE,True)
-    tx(d,'PER RUN',113,625,29,MUTED,True)
-    tx(d,'TOTAL COST',92,804,34,MUTED,True)
-    tx(d,total,90,852,106,WHITE,True)
-    tx(d,'ACCEPTED',590,804,34,MUTED,True)
-    tx(d,accepted,584,852,96,LIME,True)
-    bar(d,1104,parts,[CYAN,GOLD,CORAL])
-    tx(d,'INFERENCE     REVIEW     REWORK',110,1230,29,MUTED,True)
-    box(d,(78,1290,980,1445),fill=(25,57,57),stroke=LIME,width=5)
-    tx(d,'COST / ACCEPTED',112,1302,28,MUTED,True)
-    tx(d,price,110,1340,79,LIME,True)
+    tx(d,name,78,286,80,col,True)
+    box(d,(78,410,980,595),fill=(18,36,55),stroke=col,width=5)
+    tx(d,per_run,112,447,60,WHITE,True)
+    tx(d,'PER RUN',113,530,27,MUTED,True)
+    tx(d,'TOTAL COST',92,630,32,MUTED,True)
+    tx(d,total,90,675,85,WHITE,True)
+    tx(d,'ACCEPTED',590,630,32,MUTED,True)
+    tx(d,accepted,584,675,85,LIME,True)
+    bar(d,850,parts,[CYAN,GOLD,CORAL])
+    tx(d,'INFERENCE     REVIEW     REWORK',110,963,27,MUTED,True)
+    box(d,(78,1030,980,1185),fill=(25,57,57),stroke=LIME,width=5)
+    tx(d,'COST / ACCEPTED',112,1042,28,MUTED,True)
+    tx(d,price,110,1080,75,LIME,True)
+
 
 def scene_compare(d):
-    tx(d,'CHEAPEST RUN',78,308,68,WHITE,True)
-    tx(d,'IS NOT THE GOAL',78,402,67,CYAN,True)
-    tx(d,'MODEL',80,630,30,MUTED,True)
-    tx(d,'PER RUN',380,630,30,MUTED,True)
-    tx(d,'PER ACCEPTED',660,630,30,MUTED,True)
-    box(d,(75,712,990,927),fill=(32,44,58),stroke=CORAL)
-    tx(d,'A',111,765,79,CORAL,True)
-    tx(d,'$0.10',350,780,57,WHITE,True)
-    tx(d,'$0.56',670,780,57,CORAL,True)
-    box(d,(75,973,990,1190),fill=(22,60,54),stroke=LIME,width=5)
-    tx(d,'B',111,1024,79,LIME,True)
-    tx(d,'$0.25',350,1039,57,WHITE,True)
-    tx(d,'$0.48',670,1039,57,LIME,True)
-    box(d,(75,1250,990,1440),fill=(20,55,59),stroke=CYAN)
-    center(d,'B WINS THIS',1280,58,WHITE)
-    center(d,'FICTIONAL EXAMPLE',1360,50,CYAN)
+    tx(d,'CHEAPEST RUN',78,285,64,WHITE,True)
+    tx(d,'IS NOT THE GOAL',78,375,60,CYAN,True)
+    tx(d,'MODEL',80,530,29,MUTED,True)
+    tx(d,'PER RUN',380,530,29,MUTED,True)
+    tx(d,'PER ACCEPTED',660,530,29,MUTED,True)
+    box(d,(75,600,990,775),fill=(32,44,58),stroke=CORAL)
+    tx(d,'A',111,640,70,CORAL,True)
+    tx(d,'$0.10',350,650,54,WHITE,True)
+    tx(d,'$0.56',670,650,54,CORAL,True)
+    box(d,(75,800,990,975),fill=(22,60,54),stroke=LIME,width=5)
+    tx(d,'B',111,840,70,LIME,True)
+    tx(d,'$0.25',350,850,54,WHITE,True)
+    tx(d,'$0.48',670,850,54,LIME,True)
+    box(d,(75,1000,990,1175),fill=(20,55,59),stroke=CYAN)
+    center(d,'B WINS THIS',1023,53,WHITE)
+    center(d,'FICTIONAL EXAMPLE',1090,46,CYAN)
+
 
 def scene_pilot(d):
-    tx(d,'PILOT BEFORE',76,300,70,WHITE,True)
-    tx(d,'YOU SIGN',76,400,89,CYAN,True)
+    tx(d,'PILOT BEFORE',76,280,70,WHITE,True)
+    tx(d,'YOU SIGN',76,380,84,CYAN,True)
     rows=[('01','MODEL COST',CYAN),('02','HUMAN REVIEW',GOLD),('03','REWORK',CORAL),('04','INFRASTRUCTURE',CYAN),('05','SECURITY + QUALITY',LIME)]
     for i,(num,name,col) in enumerate(rows):
-        y=608+i*172
-        box(d,(78,y,987,y+150),fill=PANEL,stroke=col,r=24,width=4)
-        tx(d,num,110,y+35,58,col,True)
-        tx(d,name,246,y+51,40,WHITE,True,max_width=700)
-    center(d,'ROI ALSO NEEDS VALUE DELIVERED',1690,27,GOLD)
+        y=490+i*132
+        box(d,(78,y,987,y+120),fill=PANEL,stroke=col,r=24,width=4)
+        tx(d,num,110,y+24,52,col,True)
+        tx(d,name,246,y+35,35,WHITE,True,max_width=700)
+    center(d,'ROI ALSO NEEDS VALUE DELIVERED',1160,24,GOLD)
+
 
 def scene_close(d):
-    tx(d,'TEST BEFORE',78,390,83,WHITE,True)
-    tx(d,'YOU SIGN.',78,510,100,CYAN,True)
-    box(d,(78,760,987,1180),fill=(23,54,58),stroke=LIME,width=5)
-    center(d,'COST PER',826,69,WHITE)
-    center(d,'ACCEPTED RESULT',938,59,LIME)
-    tx(d,'PrismBay AI',79,1220,62,WHITE,True)
-    tx(d,'Practical AI business systems',79,1325,37,MUTED)
-    tx(d,'for founders and executives.',79,1385,35,MUTED)
+    tx(d,'TEST BEFORE',78,320,80,WHITE,True)
+    tx(d,'YOU SIGN.',78,430,94,CYAN,True)
+    box(d,(78,610,987,960),fill=(23,54,58),stroke=LIME,width=5)
+    center(d,'COST PER',675,67,WHITE)
+    center(d,'ACCEPTED RESULT',785,57,LIME)
+    tx(d,'PrismBay AI',79,995,58,WHITE,True)
+    tx(d,'Practical AI business systems',79,1080,34,MUTED)
+    tx(d,'for founders and executives.',79,1135,32,MUTED)
 
 def render_frame_unit_economics(segment,index,total,source):
     if total != 7:
