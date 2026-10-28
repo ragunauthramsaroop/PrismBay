@@ -18,7 +18,7 @@ export const bodyHtml = `
 <p><strong>Cost per accepted decision = total end-to-end workflow cost / number of accepted decisions.</strong> Track the numerator and denominator separately. Keep exceptional cases and rejected outputs visible.</p>
 
 <h2>Fictional 200-case pilot: the difference between capacity and cash</h2>
-<p>The following figures are invented solely to show the arithmetic. They are not Deutsche Bank results, forecasts or evidence of any product's performance.</p>
+<p>The following figures are invented solely to show the arithmetic. They are not Deutsche Bank results, forecasts or evidence of any product's performance. Assume both groups produce 200 accepted decisions under the same predeclared quality, fairness and compliance standards. If acceptance counts differ, divide each group's total workflow cost by its own verified accepted-decision count rather than by cases submitted.</p>
 <ul>
 <li><strong>Manual baseline:</strong> 200 cases at 50 staff minutes each, with a loaded labor rate of $40 per hour. Imputed labor cost: $6,666.67.</li>
 <li><strong>AI-assisted pilot review:</strong> 200 cases at 20 staff minutes each. Imputed labor cost: $2,666.67.</li>
@@ -27,6 +27,7 @@ export const bodyHtml = `
 <li><strong>Pilot integration and quality assurance:</strong> $750 allocated to this sample.</li>
 <li><strong>Total pilot cost:</strong> $3,966.67. Difference against the manual baseline: $2,700 of modeled capacity-equivalent value.</li>
 </ul>
+<p>Under these assumptions, manual review uses 166.7 staff hours. The AI-assisted pilot uses 66.7 hours of initial review plus 12.5 hours for exceptions, or 79.2 hours in total. The difference is 87.5 hours of released capacity, valued at $3,500 using the assumed $40 loaded hourly rate. Subtract $800 of incremental processing, integration and quality-assurance costs to reach the modeled $2,700 difference.</p>
 <p><strong>$2,700 is not automatically cash saved.</strong> If the same staff remain on payroll and no additional profitable work is completed, the benefit is released capacity, not a verified reduction in cash expense. Cash ROI requires observed cost reductions, additional contribution margin or another defensible financial outcome. Also confirm whether both groups meet the same credit, compliance and service standards. The example does not include loan losses, which require a separate risk analysis.</p>
 
 <h2>A seven-measure operating scorecard</h2>
