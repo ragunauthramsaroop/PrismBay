@@ -169,6 +169,96 @@ jobs:
           fi
           echo 'Technical checks passed. Editorial release gate remains CLOSED.'
 
+      - name: Build cue-level editorial review clips
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import json, re, subprocess
+          from pathlib import Path
+
+          root = Path('.caption-preview-output')
+          preview = root / 'UNAPPROVED-captioned-preview.mp4'
+          srt = root / 'source-provisional.srt'
+          report = json.loads(Path('editorial/youtube/qa/PB-AI-UNIT-ECON-20261027/speech_alignment_report.json').read_text())
+          gate = json.loads((root / 'review-gate.json').read_text())
+          assert gate['publicationApproved'] is False and gate['uploadPermitted'] is False
+          assert gate['sourceSha256'] == report['sourceSha256']
+          assert gate['sourceCaptionCues'] == report['captionCueCount']
+
+          def seconds(t):
+              h, m, sec = t.replace(',', '.').split(':')
+              return int(h) * 3600 + int(m) * 60 + float(sec)
+
+          cues = {}
+          for block in re.split(r'\n\s*\n', srt.read_text(encoding='utf-8-sig').strip()):
+              lines = block.splitlines()
+              n = int(lines[0].strip())
+              a, b = lines[1].split(' --> ')
+              cues[n] = {'start': seconds(a), 'end': seconds(b), 'text': ' '.join(lines[2:])}
+
+          audit = {x['cue']: x for x in report['captionAudit']}
+          flagged = set(gate['asrFlaggedCues'])
+          dense = {n for n, c in cues.items() if len(c['text']) / max(c['end'] - c['start'], 0.1) > 17.0}
+          review = sorted(flagged | dense)
+          assert review, 'Expected unresolved cues for editorial review'
+          out = root / 'editorial-cue-review'
+          out.mkdir(exist_ok=True)
+          duration = float(json.loads(subprocess.check_output([
+              'ffprobe', '-v', 'error', '-show_entries', 'format=duration', '-of', 'json', str(preview)
+          ]))['format']['duration'])
+          rows = []
+          md = [
+              '# Unit Economics Short | targeted editorial review',
+              '',
+              'This packet is an UNAPPROVED review aid, not release authorization.',
+              'Listen to every clip, then listen to the complete final video.',
+              'The ASR model is a fallible diagnostic. Never auto-rewrite spoken text from its guesses.',
+              'Inspect the real YouTube Shorts mobile interface before release.',
+              ''
+          ]
+          for n in review:
+              c = cues[n]
+              start = max(0.0, c['start'] - 1.25)
+              end = min(duration, c['end'] + 1.25)
+              assert end > start
+              name = f'cue-{n:02d}-UNAPPROVED.mp4'
+              subprocess.run([
+                  'ffmpeg', '-hide_banner', '-loglevel', 'error', '-y',
+                  '-ss', f'{start:.3f}', '-i', str(preview), '-t', f'{end-start:.3f}',
+                  '-c:v', 'libx264', '-preset', 'ultrafast', '-crf', '29',
+                  '-c:a', 'aac', '-b:a', '96k', '-movflags', '+faststart', str(out / name)
+              ], check=True)
+              assert (out / name).stat().st_size > 10000
+              a = audit.get(n, {})
+              cps = round(len(c['text']) / (c['end'] - c['start']), 2)
+              reasons = []
+              if n in flagged: reasons.append('ASR timing/word-match flag')
+              if n in dense: reasons.append('caption reading speed >17 chars/s')
+              rows.append({'cue': n, **c, 'charactersPerSecond': cps, 'reasons': reasons,
+                           'asrMatchedWords': a.get('matchedWords'), 'asrExpectedWords': a.get('expectedWords'),
+                           'asrStartErrorSeconds': a.get('startErrorSeconds'),
+                           'asrEndErrorSeconds': a.get('endErrorSeconds'), 'clip': name})
+              md += [
+                  f"## Cue {n} | {', '.join(reasons)}",
+                  f"Time {c['start']:.3f}–{c['end']:.3f}s | {cps} characters/s",
+                  f"Caption: {c['text']}",
+                  f"ASR matched words: {a.get('matchedWords', 'unknown')}/{a.get('expectedWords', 'unknown')}; "
+                  f"start offset: {a.get('startErrorSeconds', 'unknown')}s; "
+                  f"end offset: {a.get('endErrorSeconds', 'unknown')}s.",
+                  f"Review clip: {name}",
+                  'Manual verdict: PENDING',
+                  ''
+              ]
+          (out / 'cue-review-manifest.json').write_text(json.dumps({
+              'channelId': gate['channelId'], 'sourceSha256': gate['sourceSha256'],
+              'reviewCues': rows, 'publicationApproved': False,
+              'uploadPermitted': False, 'paidSpendUSD': 0
+          }, indent=2) + '\n')
+          (out / 'human-review-checklist.md').write_text('\n'.join(md) + '\n')
+          print('Generated', len(review), 'captioned audio/video review clips for cues', review)
+          PY
+
       - name: Save caption delivery preview for independent visual and audio review
         if: always()
         uses: actions/upload-artifact@v4
