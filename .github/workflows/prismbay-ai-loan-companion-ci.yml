@@ -74,35 +74,3 @@ jobs:
         run: bun run build
         env:
           CI: "true"
-
-  sync-lockfile-on-branch:
-    name: Synchronize existing Bun lockfile on companion PR branch
-    if: github.event_name == 'push' && github.ref == 'refs/heads/youtube/loan-roi-companion-20261027-1942' && github.actor != 'github-actions[bot]'
-    runs-on: ubuntu-latest
-    timeout-minutes: 15
-    permissions:
-      contents: write
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          persist-credentials: true
-      - uses: oven-sh/setup-bun@v2
-        with:
-          bun-version: latest
-      - name: Refresh lockfile without changing package manifest
-        run: |
-          set -euo pipefail
-          bun install --lockfile-only
-          git diff --check
-          git diff --quiet -- package.json
-          bun install --frozen-lockfile
-          if git diff --quiet -- bun.lock; then
-            echo "Lockfile already matches package manifest"
-            exit 0
-          fi
-          git config user.name 'github-actions[bot]'
-          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add bun.lock
-          git commit -m 'chore: synchronize Bun lockfile for companion article CI'
-          git push origin HEAD:youtube/loan-roi-companion-20261027-1942
-          echo "Updated only bun.lock on the isolated companion article branch"
