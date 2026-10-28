@@ -1,0 +1,76 @@
+{
+  "channelId": "UCw2hs85TzIpdKwJtG-BSxzQ",
+  "handle": "@PrismBayAI",
+  "brandId": 6945443,
+  "scenes": [
+    {
+      "source": "01-budget-math.svg",
+      "sourceSha256": "9c98ea3740dacf9492eb6a14f8dd6f0b2e3bbe96574f0c4f6a6846095d69766c",
+      "pngSha256": "8ed601f2d6f9f01e0ec8cff266d228e1d73fa0405b5e7ac76ab9ba3e0544e2e4",
+      "pngBytes": 202595,
+      "resolution": "1920x1080",
+      "textElements": 17,
+      "automatedRender": "PASS",
+      "humanVisualReview": "PENDING"
+    },
+    {
+      "source": "02-eight-call-stop-rule.svg",
+      "sourceSha256": "e509729e73fc6279e297cdd08acb8693ce8f0756bc754f58d857d5014c6a0247",
+      "pngSha256": "f76b171fd526d8154ff73ff9538135b76bf0909254f6ab9cc02b90c24ccbf6bd",
+      "pngBytes": 189600,
+      "resolution": "1920x1080",
+      "textElements": 30,
+      "automatedRender": "PASS",
+      "humanVisualReview": "PENDING"
+    },
+    {
+      "source": "03-cost-per-accepted-result.svg",
+      "sourceSha256": "7d0d3ed8582e8af5fb22c4fc76ff2d1955cb08674db4377b8ca049110e1a5fba",
+      "pngSha256": "b0e52e219d40b04734bf9ee8055a72f71fde8571180ccb437a44509dc9858907",
+      "pngBytes": 232420,
+      "resolution": "1920x1080",
+      "textElements": 17,
+      "automatedRender": "PASS",
+      "humanVisualReview": "PENDING"
+    },
+    {
+      "source": "04-authority-permissions.svg",
+      "sourceSha256": "ce3574f106e859e46e8bbd14c3e3f9903711d3923afd6e762a8a923504e56ece",
+      "pngSha256": "468c8a3df644569a0195ff6c3f74a946cc537dae97184dad0c7cd15ea7027b87",
+      "pngBytes": 169807,
+      "resolution": "1920x1080",
+      "textElements": 19,
+      "automatedRender": "PASS",
+      "humanVisualReview": "PENDING"
+    },
+    {
+      "source": "05-pilot-scorecard.svg",
+      "sourceSha256": "05f0436ff3c10d948b8eba388cf98878625607bb7b2a1aa09acf06bdf0414a43",
+      "pngSha256": "178aa4374803af6e882c60dead171b1a82ea588499d907fdf08a4bb47d455293",
+      "pngBytes": 185077,
+      "resolution": "1920x1080",
+      "textElements": 32,
+      "automatedRender": "PASS",
+      "humanVisualReview": "PENDING"
+    },
+    {
+      "source": "06-spend-access-proof-close.svg",
+      "sourceSha256": "c66d1da7b4e624beb6edbcb9033a1944bb7b6fd709f0fd0bccd7d5ff98c27ce5",
+      "pngSha256": "1f4ca601776658f718e95fcdd0f96fcb058546caa1ee54ce5c94e61aed8f7b0f",
+      "pngBytes": 162212,
+      "resolution": "1920x1080",
+      "textElements": 20,
+      "automatedRender": "PASS",
+      "humanVisualReview": "PENDING"
+    }
+  ],
+  "allSixRasterized": true,
+  "sourceAssetsOriginal": true,
+  "publicationApproved": false,
+  "uploadPermitted": false,
+  "humanVisualReview": "PENDING",
+  "humanNarrationReview": "PENDING",
+  "mobilePlaybackReview": "PENDING",
+  "paidSpendUSD": 0,
+  "note": "Raster and static integrity checks only. Contact sheet requires independent human inspection. No video or YouTube upload is produced."
+}
