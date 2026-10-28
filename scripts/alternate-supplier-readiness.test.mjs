@@ -76,7 +76,10 @@ test("commercial media URL rejects private networks and internal hosts",()=>{
   "https://[fd00::1]/product.jpg",
   "https://localhost/product.jpg",
   "https://assets.internal/product.jpg",
-  "https://assets.local/product.jpg"
+  "https://assets.local/product.jpg",
+  "https://assets.internal./product.jpg",
+  "https://localhost./product.jpg",
+  "https://cdn.example.com./product.jpg"
  ];
  for(const url of disallowed){
   const data=sample();
