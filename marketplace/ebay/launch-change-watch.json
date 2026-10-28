@@ -1,20 +1,22 @@
 {
-  "checkedAt": "2026-10-28T08:23:21.004Z",
-  "phase": "WAITING_EBAY_CJ_AUTH",
+  "checkedAt": "2026-10-28T15:14:47.419Z",
+  "phase": "BLOCKED",
   "blockers": [
-    "ebaySellerAuthenticated"
+    "ebaySellerAuthenticated",
+    "liveStockVerified",
+    "dispatchLocationVerified"
   ],
   "cjEbayAuthorized": false,
   "readyForFinalEbayReview": false,
-  "liveStockVerified": true,
-  "dispatchLocationVerified": true,
+  "liveStockVerified": false,
+  "dispatchLocationVerified": false,
   "economicsPass": true,
-  "orchestratorCheckedAt": "2026-10-27T01:25:49.479Z",
-  "orchestratorAgeMinutes": 1857,
+  "orchestratorCheckedAt": "2026-10-28T14:33:46.738Z",
+  "orchestratorAgeMinutes": 41,
   "orchestratorStale": true,
-  "orchestratorNextAction": "Keep CJ/eBay authorization watcher active and keep the zero-cost local authorization runner published. No listing publish until CJ reports the eBay shop authorized.",
-  "ticketStatus": "EXPIRED",
-  "ticketReplyDetected": true,
-  "ticketNextAction": "CJ response detected: review ticket detail before changing any listing location or authorization state.",
-  "fingerprint": "312e7e490f49067186e7ff199bd7f8437c806a9bf804251810791675599cbe58"
+  "orchestratorNextAction": "Resolve blockers: ebaySellerAuthenticated, liveStockVerified, dispatchLocationVerified",
+  "ticketStatus": "API_ACCESS_DISABLED",
+  "ticketReplyDetected": false,
+  "ticketNextAction": "Reauthorize CJ API in the CJ account at https://www.cjdropshipping.com/my.html#/authorize/APIStores. Until then, check the ticket directly in the CJ portal. No reply is verified.",
+  "fingerprint": "07e6ceef414bec1cf500be6863b45803456568a01c7e20af9229bbe35bdf9b89"
 }
