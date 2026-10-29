@@ -45,3 +45,31 @@ test('a second day cannot exceed stricter published three-free-per-48-hours cap'
  assert.equal(x.valid,false);
  assert.ok(x.errors.includes('free_48hour_sourcing_limit_exceeded'));
 });
+
+test('future-dated submissions never count as verified sourcing activity',()=>{
+ const x=validateSourcingQueue({schemaVersion:1,requests:[
+  {slug:'pethair',aliExpressUrl:link(1),status:'submitted',submittedAt:'2026-10-30T11:00:00Z'}
+ ]},short,Date.parse('2026-10-29T03:00:00Z'));
+ assert.equal(x.valid,false);
+ assert.ok(x.errors.includes('future_submission_timestamp'));
+ assert.equal(x.submitted,0);
+});
+test('rollover dates and timezone-ambiguous timestamps fail closed',()=>{
+ for(const submittedAt of ['2026-02-30T11:00:00Z','2026-10-28T11:00:00','2026-10-28T11:00:00+00:00']){
+  const x=validateSourcingQueue({schemaVersion:1,requests:[
+   {slug:'pethair',aliExpressUrl:link(1),status:'submitted',submittedAt}
+  ]},short,Date.parse('2026-10-29T03:00:00Z'));
+  assert.equal(x.valid,false,submittedAt);
+  assert.ok(x.errors.includes('missing_valid_submission_timestamp'),submittedAt);
+  assert.equal(x.submitted,0);
+ }
+});
+test('paid sourcing and execution flags are rejected rather than silently ignored',()=>{
+ const x=validateSourcingQueue({schemaVersion:1,requestQuota:{paidLinksAuthorized:true},
+  automaticallySubmitted:1,orderImportAuthorized:true,physicalCheckoutEnabled:true,requests:[]},short);
+ assert.equal(x.valid,false);
+ assert.ok(x.errors.includes('paid_sourcing_not_authorized'));
+ assert.ok(x.errors.includes('unsafe_execution_flag'));
+ assert.equal(x.automaticallySubmitted,0);
+ assert.equal(x.physicalCheckoutEnabled,false);
+});
