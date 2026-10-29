@@ -13,10 +13,13 @@ export function validateSourcingQueue(data,shortlist,nowMs=Date.now()) {
  const disabled=value=>value===undefined||value===false||value===0;
  if(!disabled(data?.requestQuota?.paidLinksAuthorized)||!disabled(data?.paidLinksAuthorized))
   errors.push('paid_sourcing_not_authorized');
- if([data?.orderImportAuthorized,data?.physicalCheckoutEnabled,
-     data?.automaticallySubmitted,data?.manualCsvOrdersEnabled,
-     data?.manualCsvOrderSubmissionAuthorized,data?.walletFundingAuthorized,
-     data?.automaticOrdersEnabled].some(value=>!disabled(value)))
+ const executionKeys=['orderImportAuthorized','physicalCheckoutEnabled',
+  'automaticallySubmitted','manualCsvOrdersEnabled',
+  'manualCsvOrderSubmissionAuthorized','walletFundingAuthorized',
+  'automaticOrdersEnabled'];
+ const unsafeExecution=scope=>executionKeys.some(key=>!disabled(scope?.[key]));
+ // Quota metadata is not an authority to order, import, charge, or enable checkout.
+ if(unsafeExecution(data)||unsafeExecution(data.requestQuota))
   errors.push('unsafe_execution_flag');
  for(const row of data.requests){
   // Malformed entries must produce an auditable rejection, not crash the readiness gate.
@@ -26,11 +29,7 @@ export function validateSourcingQueue(data,shortlist,nowMs=Date.now()) {
   }
   // Per-request flags must never override queue-wide no-spend controls.
   if(!disabled(row?.paidLinksAuthorized))errors.push('paid_sourcing_not_authorized');
-  if([row?.orderImportAuthorized,row?.physicalCheckoutEnabled,
-      row?.automaticallySubmitted,row?.manualCsvOrdersEnabled,
-      row?.manualCsvOrderSubmissionAuthorized,row?.walletFundingAuthorized,
-      row?.automaticOrdersEnabled].some(value=>!disabled(value)))
-   errors.push('unsafe_execution_flag');
+  if(unsafeExecution(row))errors.push('unsafe_execution_flag');
   if(!allowed.has(row.slug))errors.push('unknown_slug');
   if(ids.has(row.slug))errors.push('duplicate_product_slug');
   ids.add(row.slug);
