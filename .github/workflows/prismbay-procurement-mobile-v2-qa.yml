@@ -1,0 +1,124 @@
+name: PrismBay AI Procurement Mobile V2 Independent QA
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/prismbay-procurement-mobile-v2-qa.yml'
+      - 'public/youtube/ai-vendor-procurement-mobile-v2-2026-10-29.mp4'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: prismbay-procurement-mobile-v2-qa-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - name: Checkout sole authorized PrismBay repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Wait for the independent mobile V2 render without publishing
+        shell: bash
+        run: |
+          set -euo pipefail
+          media=public/youtube/ai-vendor-procurement-mobile-v2-2026-10-29.mp4
+          manifest=public/youtube/ai-vendor-procurement-mobile-v2-2026-10-29.json
+          ready=0
+          for attempt in $(seq 1 40); do
+            git fetch origin main
+            if git cat-file -e "origin/main:$media" 2>/dev/null && git cat-file -e "origin/main:$manifest" 2>/dev/null; then
+              git reset --hard origin/main
+              ready=1
+              break
+            fi
+            echo "Render pending: attempt $attempt of 40"
+            sleep 20
+          done
+          if [ "$ready" -ne 1 ]; then
+            echo "New candidate not yet committed. No upload authorized."
+            exit 1
+          fi
+      - name: Install free media and speech inspection tools
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg fonts-dejavu-core
+          python3 -m pip install --disable-pip-version-check --no-input faster-whisper numpy pillow
+      - name: Verify new candidate identity and strict release hold
+        run: |
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          s=json.loads(Path('content/youtube/requests/ai-vendor-procurement-mobile-v2-2026-10-29.json').read_text())
+          m=json.loads(Path('public/youtube/ai-vendor-procurement-mobile-v2-2026-10-29.json').read_text())
+          assert s['targetChannelId']==m['channelId']=='UCw2hs85TzIpdKwJtG-BSxzQ'
+          assert s['metricoolBrandId']==6945443
+          assert s['playbackDurationFactor']==1.2
+          assert m['playbackDurationFactor']==1.2
+          assert len(s['segments'])==6
+          assert s['published'] is False and s['publicationApproved'] is False and s['uploadPermitted'] is False
+          assert m['published'] is False and m['publicationApproved'] is False and m['uploadPermitted'] is False
+          assert m['paidSpend']==0 and s['paidSpendUSD']==0
+          print('Unpublished mobile V2 source identity, pacing and release hold confirmed.')
+          PY
+      - name: Independently inspect media, narration proxy and six distinct scenes
+        run: |
+          python3 scripts/prismbay_procurement_short_qa.py \
+            --video public/youtube/ai-vendor-procurement-mobile-v2-2026-10-29.mp4 \
+            --manifest public/youtube/ai-vendor-procurement-mobile-v2-2026-10-29.json \
+            --spec content/youtube/requests/ai-vendor-procurement-mobile-v2-2026-10-29.json \
+            --output youtube-growth/analytics/procurement-mobile-v2-qa
+      - name: Confirm machine QA does not authorize publication
+        run: |
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          m=json.loads(Path('youtube-growth/analytics/procurement-mobile-v2-qa/qa-report.json').read_text())
+          assert m['channelId']=='UCw2hs85TzIpdKwJtG-BSxzQ'
+          assert m['originalSceneCount']==6
+          assert len(m['sceneSamplePlan'])==6
+          assert m['durationSeconds']>=45
+          assert m['transcriptSequenceSimilarity']>=0.80
+          assert m['publicationApproved'] is False and m['uploadPermitted'] is False
+          assert m['paidSpendUSD']==0
+          print('Machine checks passed. Full listening, caption synchronization and mobile playback still required.')
+          PY
+      - name: Archive QA evidence without publication
+        uses: actions/upload-artifact@v4
+        with:
+          name: prismbay-procurement-mobile-v2-qa-${{ github.run_id }}
+          path: youtube-growth/analytics/procurement-mobile-v2-qa/
+          retention-days: 14
+          if-no-files-found: error
+      - name: Commit only unpublished QA evidence
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name prismbay-ai-qa-bot
+          git config user.email actions@users.noreply.github.com
+          git add youtube-growth/analytics/procurement-mobile-v2-qa/
+          if git diff --cached --quiet; then
+            echo 'Evidence already recorded.'
+            exit 0
+          fi
+          git commit -m 'Record independent mobile V2 procurement QA, no upload'
+          for attempt in 1 2 3 4; do
+            git fetch origin main
+            git rebase origin/main
+            if git push origin HEAD:main; then
+              exit 0
+            fi
+            sleep $((attempt * 3))
+          done
+          exit 1
+      - name: Preserve release gate
+        if: always()
+        run: |
+          echo 'Only target UCw2hs85TzIpdKwJtG-BSxzQ / @PrismBayAI.' >> "$GITHUB_STEP_SUMMARY"
+          echo 'QA is automated and not full listening or mobile playback. Publication remains forbidden.' >> "$GITHUB_STEP_SUMMARY"
