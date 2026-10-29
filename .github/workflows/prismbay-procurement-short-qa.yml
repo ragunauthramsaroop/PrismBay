@@ -39,6 +39,21 @@ jobs:
             --manifest public/youtube/ai-vendor-procurement-acceptance-test-2026-10-29.json \
             --spec content/youtube/requests/ai-vendor-procurement-acceptance-test-2026-10-29.json \
             --output youtube-growth/analytics/procurement-qa
+      - name: Cross-check revised word-anchored captions against source video
+        run: |
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          manifest=json.loads(Path('public/youtube/ai-vendor-procurement-acceptance-test-2026-10-29.json').read_text())
+          report=json.loads(Path('youtube-growth/analytics/procurement-qa/captions-asr-anchored-script-report.json').read_text())
+          assert report['sourceVideoSHA256']==manifest['sha256']
+          assert report['durationSeconds']>50
+          assert report['maximumWordsPerCue']<=7
+          assert report['cuesOver160WPM']==0 and report['cuesUnder1_5Seconds']==0
+          assert report['maximumSmoothedWordCenterDisplacementSeconds']<1.0
+          assert report['publicationApproved'] is False and report['uploadPermitted'] is False
+          print('Anchored script-exact captions mechanically valid, editorial approval still required.')
+          PY
       - name: Assert publication is forbidden
         run: |
           python3 - <<'PY'
