@@ -1,0 +1,95 @@
+{
+  "channelId": "UCw2hs85TzIpdKwJtG-BSxzQ",
+  "handle": "@PrismBayAI",
+  "metricoolBrandId": 6945443,
+  "createdAt": "2026-10-29T09:41:00-04:00",
+  "paidSpendUSD": 0,
+  "published": false,
+  "publicationApproved": false,
+  "uploadPermitted": false,
+  "publicWatchUrl": null,
+  "publishAt": null,
+  "timezone": "America/Guyana",
+  "experimentReviewHours": [
+    6,
+    24,
+    72,
+    168
+  ],
+  "currentClassification": "INSUFFICIENT_DATA",
+  "shortsNativeABTest": false,
+  "reviewPolicy": "Measure 6h/24h/72h/168h after verified publication; no performance inference while unpublished; use sequential distinct hook experiments, not native Shorts A/B.",
+  "safety": {
+    "soleChannel": "UCw2hs85TzIpdKwJtG-BSxzQ",
+    "minimumHoursBetweenShorts": 4,
+    "noPaidAds": true,
+    "noDuplicateUploads": true,
+    "noEngagementManipulation": true
+  },
+  "experimentId": "PB-NIST-IDENTITY-20261029-S04",
+  "status": "RENDERED_TECHNICAL_QA_PASS_EDITORIAL_HOLD",
+  "targetAudience": [
+    "founders",
+    "security leaders",
+    "operations directors",
+    "IT owners",
+    "AI procurement leads"
+  ],
+  "hypothesis": "A concrete mid-task agent revocation test attracts qualified business operators and drives attributable subscribers more effectively than generic agent security commentary.",
+  "format": "short_vertical_1080x1920",
+  "durationSeconds": 48.279,
+  "hookType": "Operational failure test",
+  "openingHook": "You revoked your AI agent's access. Does its next tool call still work?",
+  "titleCandidates": [
+    "Revoke an AI Agent Mid-Task. Does the Next Call Fail?",
+    "Your AI Agent Still Works After Revocation? Test This",
+    "NIST's AI Agent Identity Proposal: 3 Operator Tests"
+  ],
+  "coverConcepts": [
+    "REVOKED stamp above NEXT CALL?",
+    "Three readable checkpoints: ID / REVOKE / EVIDENCE",
+    "Denied API call with red access boundary"
+  ],
+  "cta": "Follow PrismBay AI for practical AI business systems.",
+  "source": {
+    "date": "2026-10-27",
+    "url": "https://www.nist.gov/blogs/cybersecurity-insights/design-tenets-agent-identity-management-systems",
+    "qualification": "NIST proposed ten tenets. PrismBay's three operator tests are an original interpretation, not an official NIST checklist."
+  },
+  "asset": {
+    "sha256": "a7a3f3469d6f2ec6d620d50c5ff1e32f8075cddd271fd1b2b3c1eae541387dc4",
+    "qaReport": "youtube-growth/analytics/nist-agent-identity-qa/qa-report.json",
+    "captionCandidate": "youtube-growth/analytics/nist-agent-identity-qa/captions-asr-anchored-script-candidate.srt",
+    "fullDecodePass": true,
+    "captionCues": 21,
+    "maxCaptionWPM": 159.89,
+    "asrDirectWordMatchRatio": 0.9217,
+    "maxEstimatedWordTimingDriftSeconds": 1.011
+  },
+  "releaseGates": {
+    "fullNarrationListening": "PENDING",
+    "mobilePlayback": "PENDING",
+    "captionTimingHumanCheck": "PENDING_35_TO_41_SECONDS",
+    "voiceAssetRights": "PENDING_FINAL",
+    "exactChannelRecheck": "REQUIRED_PRE_PUBLISH",
+    "metricoolCalendarRecheck": "REQUIRED_PRE_PUBLISH",
+    "editorialApproval": "PENDING"
+  },
+  "success": {
+    "requiredComparableShorts": 5,
+    "scaleAt72Hours": "At least 1.5 times median qualified watch minutes of five comparable Shorts AND at least one attributable subscriber.",
+    "ifNoComparableBaseline": "INSUFFICIENT_DATA",
+    "otherMetrics": [
+      "views",
+      "watchMinutes",
+      "averageViewDuration",
+      "shares",
+      "comments",
+      "subscribersGained",
+      "subscribersLost",
+      "trafficSources"
+    ]
+  },
+  "portfolioDecision": "MODIFY_CAPTION_DRIFT_AND_COMPLETE_EDITORIAL_REVIEW_BEFORE_ANY_PUBLISH",
+  "issue": "https://github.com/ragunauthramsaroop/PrismBay/issues/530"
+}
