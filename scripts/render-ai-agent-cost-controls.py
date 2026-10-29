@@ -79,11 +79,17 @@ def scene(chapter, index, title, paragraph, output):
     message = sentences[0]
     if len(message.split()) < 7 and len(sentences) > 1:
         message += ' ' + sentences[1]
+    # Alternate the illustrated panel and explanatory copy to reduce repeated static layouts.
+    # Both layouts retain the same measured text width and safe outer margins.
+    panel_left = (index % 2 == 1)
+    message_x = 1015 if panel_left else 98
+    panel_x = 95 if panel_left else 968
     message_font, message_lines = fit_lines(d, message, 825, 7, initial=46, minimum=32)
-    d.multiline_text((98, 345), '\n'.join(message_lines), font=message_font, fill='white', spacing=16)
-    d.rounded_rectangle((968, 302, 1848, 808), radius=22, fill=(24, 52, 72), outline=(31, 218, 210), width=4)
+    d.multiline_text((message_x, 345), '\n'.join(message_lines), font=message_font, fill='white', spacing=16)
+    d.rounded_rectangle((panel_x, 302, panel_x + 880, 808), radius=22,
+                        fill=(24, 52, 72), outline=(31, 218, 210), width=4)
     inset = base.resize((820, 461), Image.Resampling.LANCZOS)
-    img.paste(inset, (997, 325))
+    img.paste(inset, (panel_x + 29, 325))
     d.text((100, 880), 'Illustrative workflow. No measured customer outcome.', font=font(27), fill=(163, 203, 220))
     d.text((100, 970), f'SECTION {chapter+1:02d}  |  PRISMBAY AI', font=font(27, True), fill=(49, 227, 220))
     img.save(output, optimize=True)
@@ -123,6 +129,12 @@ def caption_chunks(paragraph, duration):
                 end = min(cursor + max_words, len(words))
         chunks.append(' '.join(words[cursor:end]))
         cursor = end
+    # Avoid orphaned two- or three-word closing captions when merging stays readable.
+    # Durations are subsequently allocated in proportion to words within the paragraph.
+    if len(chunks) > 1 and len(chunks[-1].split()) <= 3:
+        combined_words = len(chunks[-2].split()) + len(chunks[-1].split())
+        if combined_words <= 16:
+            chunks[-2] += ' ' + chunks.pop()
     assert ' '.join(chunks) == ' '.join(words)
     return chunks
 
@@ -169,7 +181,7 @@ def main():
             scene(ci, j, title, paragraph, png)
             run(['ffmpeg','-hide_banner','-loglevel','error','-y','-loop','1','-framerate','24','-i',png,
                  '-i',wav,'-t',f'{duration:.3f}','-vf','format=yuv420p','-c:v','libx264',
-                 '-preset','ultrafast','-crf','30','-r','24','-c:a','aac','-b:a','112k',
+                 '-preset','veryfast','-crf','22','-r','24','-c:a','aac','-b:a','112k',
                  '-af',f'atempo={TEMPO},apad=pad_dur=0.22,volume=-3dB','-movflags','+faststart',mp4])
             entries.append(mp4)
             chunks = caption_chunks(paragraph, duration)
