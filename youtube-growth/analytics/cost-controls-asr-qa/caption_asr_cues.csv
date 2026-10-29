@@ -1,0 +1,135 @@
+cue,start_s,end_s,caption_words,matched_words,match_fraction,start_drift_s,end_drift_s,wpm,flag,text
+1,0.0,4.561,12,12,1.0,0.0,0.441,157.9,OK,Your AI agent handled the same number of tasks this month as
+2,4.561,9.121,13,8,0.615,0.441,1.241,171.1,CHECK_SYNC,last month. But the bill climbed from six hundred dollars to twenty-four
+3,9.121,12.922,10,9,0.9,-0.419,0.242,157.9,OK,hundred. Nothing obvious changed in the dashboard. So what happened?
+4,12.922,17.071,10,10,1.0,-0.318,-0.309,144.6,OK,"Here is the explanation. A workflow can repeat tool calls,"
+5,17.071,20.806,9,8,0.889,-0.689,-0.454,144.6,OK,"retry failed steps, or ask another model for help."
+6,20.806,25.785,12,12,1.0,-0.614,-0.075,144.6,OK,If nobody measures the number of paid actions required for an accepted
+7,25.785,30.35,11,11,1.0,-0.075,0.29,144.6,OK,"result, the budget can rise even while the workload stays flat."
+8,30.35,34.95,12,12,1.0,-0.33,0.59,156.5,OK,"I will show the math, then give you three controls to put"
+9,34.95,39.167,11,10,0.909,0.59,1.447,156.5,CHECK_SYNC,"in place before an agent touches your business: a spending limit,"
+10,39.167,43.384,11,9,0.818,0.387,0.444,156.5,OK,"an authority limit, and an evidence trail. The example is fictional,"
+11,43.384,47.984,12,12,1.0,0.444,0.004,156.5,OK,"with clear assumptions, so you can replace the numbers with your own."
+12,47.984,52.098,10,7,0.7,-0.356,0.018,145.8,OK,"Start with two hundred tasks per day, for thirty days."
+13,52.098,57.034,12,10,0.833,-0.282,0.574,145.9,OK,That is six thousand tasks. Assume each paid model or tool call
+14,57.034,61.971,12,11,0.917,0.574,0.031,145.8,OK,"costs two cents. The exact price is hypothetical, not a vendor quote."
+15,61.971,66.685,9,7,0.778,-0.569,0.185,114.6,OK,"In month one, each task uses five paid calls."
+16,66.685,72.446,11,4,0.364,-0.735,1.466,114.6,CHECK_SYNC,Six thousand times five times two cents equals six hundred dollars.
+17,72.446,76.698,9,7,0.778,-0.394,-0.322,127.0,OK,"In month two, each task uses twenty paid calls."
+18,76.698,81.894,12,4,0.333,-1.422,0.634,138.6,CHECK_SYNC,Six thousand times twenty times two cents equals twenty-four hundred dollars.
+19,81.894,84.729,6,3,0.5,-1.386,-0.311,127.0,CHECK_SYNC,The task count did not change.
+20,84.729,88.035,7,7,1.0,-0.751,0.115,127.0,OK,The paid calls per task rose fourfold.
+21,88.035,92.985,10,10,1.0,-0.665,-1.815,121.2,CHECK_SYNC,"This calculation isolates call charges. It excludes hosting, data storage,"
+22,92.985,97.934,10,9,0.9,-2.415,-1.666,121.2,CHECK_SYNC,"external software, integration, human review, and the cost of fixing"
+23,97.934,100.904,6,5,0.833,-1.666,-0.936,121.2,CHECK_SYNC,"mistakes. If those costs rise too,"
+24,100.904,103.874,6,6,1.0,-1.496,0.054,121.2,CHECK_SYNC,the total bill can be higher.
+25,103.874,107.858,10,9,0.9,-0.526,0.958,150.6,OK,The metric to watch is not only cost per call.
+26,107.858,111.843,10,10,1.0,0.958,-0.097,150.6,OK,"Watch paid calls per attempted task, cost per accepted result,"
+27,111.843,116.225,11,10,0.909,-0.577,-0.095,150.6,OK,and the percentage of tasks that fail or need human repair.
+28,116.225,121.007,12,12,1.0,-0.575,-0.193,150.6,OK,Those three numbers expose whether your workflow is doing useful work or
+29,121.007,122.601,4,4,1.0,-0.193,0.021,150.6,OK,paying to repeat itself.
+30,122.601,127.615,13,11,0.846,-0.639,0.575,155.6,OK,"There is a reason to take these controls seriously. On October twenty-second,"
+31,127.615,132.629,12,7,0.583,-0.905,-0.031,143.6,OK,Cognizant published a survey of two hundred and fifty senior FinOps leaders
+32,132.629,137.226,11,11,1.0,-0.031,-0.774,143.6,OK,"at large organizations in the United States, United Kingdom and India."
+33,137.226,142.24,13,10,0.769,-2.254,-1.46,155.6,CHECK_SYNC,Seventy-two percent of the surveyed organizations had exceeded their AI budgets in
+34,142.24,147.254,13,11,0.846,-1.46,-0.566,155.6,CHECK_SYNC,the preceding twelve months. The survey was vendor-sponsored and does not establish
+35,147.254,149.344,5,5,1.0,-0.566,-0.196,143.5,OK,the rate for every business.
+36,149.344,154.441,12,9,0.75,-1.036,-0.019,141.3,CHECK_SYNC,The useful takeaway is narrower: leaders need cost visibility tied to work
+37,154.441,159.114,11,8,0.727,-0.019,0.254,141.2,OK,"performed, not a dashboard showing token totals without a business outcome."
+38,159.114,164.038,10,8,0.8,-0.266,-1.162,121.9,CHECK_SYNC,"On October twenty-seventh, IBM announced new AI-agent identity"
+39,164.038,168.961,8,8,1.0,-1.162,-1.059,97.5,CHECK_SYNC,and control capabilities. Its announcement separates currently available
+40,168.961,173.884,8,8,1.0,-1.059,-1.196,97.5,CHECK_SYNC,evaluation functions from discovery and containment functions described
+41,173.884,178.807,8,7,0.875,-1.196,-0.793,97.5,CHECK_SYNC,as technology previews. Vendor announcements are not independent
+42,178.807,181.269,4,4,1.0,-0.793,-0.131,97.5,OK,evidence of customer savings.
+43,181.269,184.329,8,8,1.0,-0.731,-1.131,156.9,CHECK_SYNC,These developments point toward the same operating discipline.
+44,184.329,188.92,12,12,1.0,-1.531,-0.64,156.8,CHECK_SYNC,Count what an agent spends. Define what it is allowed to do.
+45,188.92,190.832,5,5,1.0,-0.78,-0.368,156.9,OK,Preserve proof of the result.
+46,190.832,194.286,10,8,0.8,-0.888,-0.234,173.7,OK,The first control is a budget limit at three levels.
+47,194.286,199.088,12,12,1.0,-0.834,-0.892,149.9,OK,"At the individual call level, set a maximum cost and maximum response"
+48,199.088,203.09,10,9,0.9,-0.892,-0.43,149.9,OK,"size where your provider supports them. At the task level,"
+49,203.09,207.892,12,12,1.0,-1.11,0.192,149.9,CHECK_SYNC,"limit the number of paid calls and retries. At the daily level,"
+50,207.892,211.894,10,9,0.9,-0.188,-0.506,149.9,OK,stop the workflow when its approved spending allocation is reached.
+51,211.894,214.96,8,8,1.0,-0.506,-0.94,156.6,OK,Suppose a task is allowed eight paid calls.
+52,214.96,219.558,12,12,1.0,-1.3,-0.962,156.6,CHECK_SYNC,"If call nine becomes necessary, do not let the agent silently keep"
+53,219.558,224.157,12,9,0.75,-0.962,-0.583,156.6,OK,"going. Pause the task, log the reason, and route it to a"
+54,224.157,226.073,5,5,1.0,-0.583,-0.727,156.6,OK,person or an approved fallback.
+55,226.073,229.511,10,10,1.0,-0.987,-0.349,174.5,OK,Here is the distinction between an alert and a control.
+56,229.511,232.949,10,9,0.9,-0.629,0.069,174.5,OK,An email saying you spent too much is an alert.
+57,232.949,237.074,12,11,0.917,-0.311,-0.506,174.5,OK,A budget enforcement point that blocks the next charge is a control.
+58,237.074,241.278,11,11,1.0,-1.006,-0.062,157.0,CHECK_SYNC,"You also need a failure rule. When a tool times out,"
+59,241.278,245.099,10,10,1.0,-0.562,-0.241,157.0,OK,"the agent should not retry forever. Set a retry count,"
+60,245.099,249.303,11,10,0.909,-0.721,-1.117,157.0,CHECK_SYNC,"a backoff interval, and an escalation path. When the task fails,"
+61,249.303,253.507,11,11,1.0,-1.117,-0.533,157.0,CHECK_SYNC,record the failure. Do not label it as a completed result.
+62,253.507,258.572,11,11,1.0,-1.053,0.412,130.3,CHECK_SYNC,"For a small pilot, a simple ledger and a wrapper around"
+63,258.572,262.717,9,8,0.889,0.412,1.577,130.3,CHECK_SYNC,paid tool calls are enough to test this design.
+64,262.717,266.401,9,8,0.889,0.817,-0.479,146.6,OK,Production enforcement requires reliable accounting and provider-specific limits.
+65,266.401,270.938,12,12,1.0,-1.279,-0.962,158.7,CHECK_SYNC,The second control is an authority limit. A useful agent needs enough
+66,270.938,273.207,6,6,1.0,-0.962,-0.933,158.7,OK,"access to complete a defined job,"
+67,273.207,275.853,7,6,0.857,-0.933,-0.807,158.7,OK,but not unlimited access to the company.
+68,275.853,280.829,10,10,1.0,-1.427,-0.171,120.6,CHECK_SYNC,Take a purchasing assistant. It might read an approved supplier
+69,280.829,285.804,10,9,0.9,-0.871,0.884,120.6,OK,catalogue and prepare a comparison. That does not mean it
+70,285.804,288.789,6,6,1.0,0.884,0.949,120.6,OK,"should place orders, alter banking details,"
+71,288.789,291.775,6,6,1.0,0.049,-0.645,120.6,OK,or approve invoices without separate authorization.
+72,291.775,296.224,9,9,1.0,-0.645,-0.516,121.4,OK,"Give each agent a named owner, a specific job,"
+73,296.224,300.179,8,8,1.0,-0.516,0.379,121.4,OK,and only the permissions required for that job.
+74,300.179,305.123,11,11,1.0,-0.121,-1.037,133.5,CHECK_SYNC,"Use short-lived credentials where supported. Keep payment, deletion, external publication,"
+75,305.123,309.573,9,9,1.0,-1.377,-0.907,121.3,CHECK_SYNC,and other irreversible actions behind an explicit approval step.
+76,309.573,313.528,8,8,1.0,-1.367,-0.772,121.4,CHECK_SYNC,Make sure a responsible operator can revoke access.
+77,313.528,317.602,9,9,1.0,-1.252,0.522,132.5,CHECK_SYNC,Think of the workflow as a series of gates.
+78,317.602,321.675,9,9,1.0,-0.078,-0.225,132.6,OK,Read approved information. Propose a decision. Validate the proposal.
+79,321.675,326.201,10,10,1.0,-0.745,-0.839,132.6,OK,Obtain approval for a sensitive action. Execute. Verify the result.
+80,326.201,331.118,12,11,0.917,-1.439,-0.562,146.4,CHECK_SYNC,"A prompt that says, 'Do not spend money,' is not a financial"
+81,331.118,336.034,12,12,1.0,-0.562,-0.666,146.5,OK,"control. The actual tool must enforce the restriction. A written policy helps,"
+82,336.034,338.902,7,6,0.857,-0.666,-0.738,146.4,OK,but a blocked transaction is stronger evidence.
+83,338.902,343.841,10,10,1.0,-1.378,-0.099,121.5,CHECK_SYNC,"The third control is an evidence trail. For each run,"
+84,343.841,348.285,9,9,1.0,-0.099,-0.015,121.5,OK,"record a task identifier, its owner, the input category,"
+85,348.285,353.718,11,10,0.909,-0.375,-1.062,121.5,CHECK_SYNC,"every tool call, cost, retry, exception, human approval, and final outcome."
+86,353.718,357.617,9,9,1.0,-1.522,-0.683,138.5,CHECK_SYNC,Do not store unnecessary personal information in the log.
+87,357.617,361.083,8,8,1.0,-1.343,-1.077,138.5,CHECK_SYNC,Protect sensitive records and define a retention period.
+88,361.083,365.902,11,11,1.0,-1.557,-1.678,137.0,CHECK_SYNC,"Then create an acceptance test. If the agent extracts invoice data,"
+89,365.902,371.16,12,11,0.917,-2.158,-1.0,136.9,CHECK_SYNC,compare the fields against a checked reference. If it produces a supplier
+90,371.16,376.417,12,11,0.917,-1.0,-1.123,137.0,CHECK_SYNC,"shortlist, check the requirements and source dates. If it drafts an email,"
+91,376.417,378.608,5,4,0.8,-1.483,-1.172,136.9,CHECK_SYNC,a reviewer approves before sending.
+92,378.608,383.576,11,11,1.0,-1.692,-1.584,132.9,CHECK_SYNC,Now calculate the metric that matters: total operating cost divided by
+93,383.576,389.899,14,14,1.0,-1.584,-1.081,132.8,CHECK_SYNC,accepted outputs. Include the human review and rework costs where you have reliable data.
+94,389.899,394.961,11,9,0.818,-1.561,0.181,130.4,CHECK_SYNC,Here is a second fictional example. An agent completes one hundred
+95,394.961,398.183,7,6,0.857,-0.399,-0.677,130.4,OK,"tasks, but only eighty pass quality checks."
+96,398.183,401.865,8,6,0.75,-1.177,0.685,130.4,CHECK_SYNC,The model and tool charges are forty dollars.
+97,401.865,405.547,8,6,0.75,-0.475,0.607,130.4,OK,Human review and corrections cost another sixty dollars.
+98,405.547,410.61,11,5,0.455,-1.893,-0.41,130.4,CHECK_SYNC,The combined one hundred dollars divided by eighty accepted outputs equals
+99,410.61,414.292,9,3,0.333,-2.55,-1.128,146.7,CHECK_SYNC,one dollar and twenty-five cents per accepted result.
+100,414.292,417.518,9,8,0.889,-1.768,-1.442,167.4,CHECK_SYNC,"If you only report forty cents per attempted task,"
+101,417.518,421.102,10,8,0.8,-2.022,-1.478,167.4,CHECK_SYNC,you hide the cost of failed results and human repair.
+102,421.102,425.044,11,11,1.0,-1.478,-1.396,167.4,CHECK_SYNC,That makes the agent look cheaper than the workflow really is.
+103,425.044,430.178,12,11,0.917,-1.816,-1.042,140.2,CHECK_SYNC,"Before scaling an agent, run a controlled pilot with a written scorecard."
+104,430.178,434.456,10,10,1.0,-1.262,-0.944,140.3,CHECK_SYNC,Pick one workflow with clear inputs and a measurable outcome.
+105,434.456,439.589,12,12,1.0,-1.404,-1.891,140.3,CHECK_SYNC,"Record the manual baseline: cost, elapsed time, error rate, and human effort."
+106,439.589,443.439,9,9,1.0,-2.391,-1.321,140.3,CHECK_SYNC,Then run the agent on a comparable task set.
+107,443.439,447.85,8,8,1.0,-1.881,-2.15,108.8,CHECK_SYNC,Measure six items. One: accepted output rate. Two:
+108,447.85,451.71,7,7,1.0,-2.15,-2.25,108.8,CHECK_SYNC,"cost per accepted output, including review. Three:"
+109,451.71,455.019,7,7,1.0,-2.25,-1.921,126.9,CHECK_SYNC,median and slow-end completion time. Four:
+110,455.019,458.879,7,7,1.0,-1.921,-1.121,108.8,CHECK_SYNC,tool calls and retries per task. Five:
+111,458.879,462.187,7,7,1.0,-1.121,-1.473,127.0,CHECK_SYNC,unauthorized-action attempts and blocked actions. Six:
+112,462.187,464.944,5,5,1.0,-1.473,-1.196,108.8,CHECK_SYNC,operator time spent on exceptions.
+113,464.944,469.142,10,10,1.0,-2.036,-1.738,142.9,CHECK_SYNC,"Set pass and stop conditions before the pilot. For example,"
+114,469.142,472.92,9,6,0.667,-2.038,-2.0,142.9,CHECK_SYNC,"stop automatically if a task exceeds eight paid calls,"
+115,472.92,477.957,12,11,0.917,-2.0,-1.623,142.9,CHECK_SYNC,"if an approval is missing, or if a required field fails validation."
+116,477.957,482.994,12,12,1.0,-2.243,-1.206,142.9,CHECK_SYNC,Those numbers are illustrative and should be tuned to the actual workflow.
+117,482.994,487.914,12,12,1.0,-1.806,-1.806,146.3,CHECK_SYNC,Do not calculate return on investment from time saved unless the time
+118,487.914,492.834,12,11,0.917,-1.806,-1.246,146.3,CHECK_SYNC,has a defensible value. Released staff capacity is not the same thing
+119,492.834,495.294,6,6,1.0,-1.246,-1.366,146.3,CHECK_SYNC,as cash savings. Show both separately.
+120,495.294,498.76,8,8,1.0,-1.886,-1.96,138.5,CHECK_SYNC,"When the pilot passes, increase volume in stages."
+121,498.76,503.526,11,11,1.0,-2.38,-2.174,138.5,CHECK_SYNC,Check whether cost per accepted output stays stable as volume grows.
+122,503.526,508.726,12,11,0.917,-2.634,-1.454,138.5,CHECK_SYNC,"If quality drops or exception handling rises, do not scale on the"
+123,508.726,511.325,6,6,1.0,-1.454,-1.355,138.5,CHECK_SYNC,strength of a headline productivity percentage.
+124,511.325,514.795,8,7,0.875,-2.035,-1.265,138.3,CHECK_SYNC,Here is the decision framework in one sentence.
+125,514.795,519.131,10,9,0.9,-1.565,-1.189,138.4,CHECK_SYNC,Do not approve an AI agent because it answers quickly.
+126,519.131,523.902,11,10,0.909,-1.589,-1.398,138.3,CHECK_SYNC,"Approve it when its cost, authority and accepted outcomes are measurable."
+127,523.902,527.111,7,6,0.857,-2.218,-2.309,130.9,CHECK_SYNC,"Before your next rollout, ask three questions."
+128,527.111,530.778,8,8,1.0,-2.889,-1.682,130.9,CHECK_SYNC,What stops spending when the workflow goes wrong?
+129,530.778,537.197,14,14,1.0,-1.882,-1.443,130.9,CHECK_SYNC,What prevents an unauthorized action? And what evidence proves the task was completed correctly?
+130,537.197,541.796,12,12,1.0,-2.063,-1.504,156.6,CHECK_SYNC,"If the answers are unclear, run a smaller pilot and fix the"
+131,541.796,544.479,7,7,1.0,-1.504,-1.621,156.5,CHECK_SYNC,controls before giving the agent more responsibility.
+132,544.479,549.615,11,10,0.909,-2.961,-3.505,128.5,CHECK_SYNC,"PrismBay AI helps founders, operators and executives implement practical AI business"
+133,549.615,554.751,11,10,0.909,-3.505,-2.429,128.5,CHECK_SYNC,"systems. Subscribe for the next breakdown, where we will turn this"
+134,554.751,559.419,10,10,1.0,-2.689,-1.421,128.5,CHECK_SYNC,scorecard into a simple workflow you can inspect and adapt.

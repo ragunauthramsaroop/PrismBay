@@ -1,0 +1,24 @@
+{
+  "channelId": "UCw2hs85TzIpdKwJtG-BSxzQ",
+  "videoSha256": "c8da6a5fa46bb1e7ea9dfd6abf82b55d44b80d7fc63fdf515db7362d58be6a72",
+  "method": "faster-whisper tiny.en CPU word timestamps + ordered token matching",
+  "metrics": {
+    "captionWordCount": 1298,
+    "asrWordCount": 1276,
+    "sequenceSimilarity": 0.9169,
+    "matchedCueFraction": 1.0,
+    "medianAbsBoundaryDriftSeconds": 0.958,
+    "cuesWithSyncFlags": 81,
+    "cuesWithoutAsrMatch": 0,
+    "cuesOver160Wpm": 8,
+    "cuesOver180Wpm": 0
+  },
+  "machineReview": "COMPLETE",
+  "humanListeningReview": "NOT_PERFORMED",
+  "mobilePlaybackReview": "NOT_PERFORMED",
+  "captionSynchronization": "PROVISIONAL_ASR_PROXY",
+  "publicationApproved": false,
+  "uploadPermitted": false,
+  "paidSpendUSD": 0,
+  "limitations": "Whisper recognition and timestamps are estimates. Numerical speech and proper nouns cause false flags. Human audiovisual review is still required."
+}
