@@ -49,8 +49,18 @@ export function verifyProviderProducts(data,catalog,now=Date.now()){
   const code=String(row?.slug||"");
   const original=allowed.get(code);
   const provider=data?.providers?.[origin];
+  const apiSource=provider?.apiStatus==="api_active"&&row?.fulfillment?.mode==="api";
+  // HyperSKU's low-volume path is manual: confirmed merchant dashboard source
+  // records may qualify for quote-only listings, never automated ordering.
+  const manualSource=origin==="hypersku"&&
+    provider?.apiStatus==="open_api_not_available_low_volume"&&
+    provider?.customStoreRoute==="manual_csv_batch_upload_only"&&
+    provider?.manualCsvRouteIndependentlyConfirmed===true&&
+    provider?.manualCsvOrderSubmissionAvailable===true&&
+    row?.manualSourcingQuoteFromAuthenticatedDashboard===true&&
+    row?.fulfillment?.mode==="manual";
   if(!supported.has(origin)||!provider||provider.basePlanUsdMonthly!==0||
-    provider.apiStatus!=="api_active")reasons.push("provider_api_not_active");
+    !(apiSource||manualSource))reasons.push("provider_api_not_active");
   if(!original||!code)reasons.push("not_on_approved_research_shortlist");
   if(seen.has(code))reasons.push("ambiguous_duplicate_supplier_for_slug");seen.add(code);
   if(!nonEmptyId(row?.supplierProductId)||!nonEmptyId(row?.supplierVariantId))
@@ -93,6 +103,7 @@ export function verifyProviderProducts(data,catalog,now=Date.now()){
    stockCheckedAt:row.stock.checkedAt,stockUnits:row.stock.units,productCostUsd:row.unitCostUsd,
    indicativeShippingUsd:row.usFreight.costUsd,exampleZip:row.usFreight.exampleZip,
    indicativeRetailUsd:row.targetRetailUsd,approvedAt:row.approvedAt,
+   sourcingRoute:manualSource?"merchant_verified_manual":"api",
    // Source verification is not authorization to settle a buyer order.
    physicalCheckoutAuthorized:false,automaticSupplierOrdering:false});
  }
