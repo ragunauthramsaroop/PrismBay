@@ -1,0 +1,163 @@
+{
+  "schemaVersion": 1,
+  "updatedAt": "2026-10-29T11:46:00-04:00",
+  "channel": {
+    "id": "UCw2hs85TzIpdKwJtG-BSxzQ",
+    "handle": "@PrismBayAI",
+    "metricoolBrandId": 6945443,
+    "timezone": "America/Guyana",
+    "soleAuthorizedChannel": true
+  },
+  "monetization": {
+    "subscribersLastVerified": 7,
+    "verifiedFrom": "Metricool evolution 2026-10-29",
+    "countryEligibility": "UNVERIFIED_IN_STUDIO",
+    "eligibleWatchHours": "UNAVAILABLE",
+    "qualifiedShortsViews": "UNAVAILABLE",
+    "revenueMilestone": "NONE_VERIFIED",
+    "paidSpendUSD": 0
+  },
+  "analytics": {
+    "dailyViewsKnown": {
+      "2026-10-24": 83,
+      "2026-10-25": 62,
+      "2026-10-26": 7
+    },
+    "missingDatesNotZero": true,
+    "videoLevelData": "NO_ROWS",
+    "trafficSources": "NO_ROWS",
+    "scheduledMetricoolPosts": {
+      "from": "2026-10-29",
+      "to": "2026-11-15",
+      "count": 0
+    },
+    "nativeStudioSchedule": "UNVERIFIED_BROWSER_AUTH"
+  },
+  "connectedProduction": {
+    "descriptProjectId": "3de30d73-71c8-4e9d-9ccf-72faf3fb5d11",
+    "activeDescriptJobs": 0,
+    "freeAIAgentCredits": "PREVIOUSLY_EXHAUSTED",
+    "fallback": "GitHub Actions FFmpeg Piper open-TTS",
+    "operaStudio": "REQUIRES_INTERACTIVE_AUTHORIZATION"
+  },
+  "releaseQueue": [
+    {
+      "priority": 1,
+      "slug": "nist-agent-identity-revocation-2026-10-29",
+      "issue": 530,
+      "videoSha256": "a7a3f3469d6f2ec6d620d50c5ff1e32f8075cddd271fd1b2b3c1eae541387dc4",
+      "durationSeconds": 48.279,
+      "experiment": "PB-NIST-IDENTITY-20261029-S04",
+      "gates": {
+        "sourceClaims": "PASS_NIST_2026_10_27_TENETS_01_04_10",
+        "sixStaticSceneFrames": "PASS_SAMPLED_FRAMES_ONLY",
+        "upstreamVoiceModelProvenance": "PASS_PUBLIC_DOMAIN_DATASET_MIT_REPOSITORY",
+        "completeVoiceAndDependencyRights": "PENDING",
+        "fullNarrationListening": "PENDING",
+        "captionSync": "PENDING_35_TO_41_SECONDS",
+        "continuousMobilePlayback": "PENDING",
+        "channelAndScheduleBeforeUpload": "PENDING"
+      },
+      "publicationApproved": false,
+      "uploadPermitted": false,
+      "publicYouTubeUrl": null,
+      "nextAction": "Review complete audio, verify NIST caption words around 35-41s against speech, then inspect continuous mobile playback and exact dependency rights."
+    },
+    {
+      "priority": 2,
+      "slug": "ai-vendor-procurement-mobile-v2-2026-10-29",
+      "issue": 529,
+      "videoSha256": "befb4336402d312b8728811c0fcff808d07a863842acadf37f1a5e9a77ee300b",
+      "durationSeconds": 51.196,
+      "experiment": "PB-PROC-GATE-20261029-S03",
+      "gates": {
+        "originalityAndIllustrativeClaims": "PASS_SAMPLED_FRAMES",
+        "sixStaticSceneFrames": "PASS_SAMPLED_FRAMES_ONLY",
+        "upstreamVoiceModelProvenance": "PASS_PUBLIC_DOMAIN_DATASET_MIT_REPOSITORY",
+        "completeVoiceAndDependencyRights": "PENDING",
+        "fullNarrationListening": "PENDING",
+        "quietIntervals": "PENDING_22_969_TO_23_530_AND_47_699_TO_48_309",
+        "captionSync": "PENDING",
+        "continuousMobilePlayback": "PENDING",
+        "channelAndScheduleBeforeUpload": "PENDING"
+      },
+      "publicationApproved": false,
+      "uploadPermitted": false,
+      "publicYouTubeUrl": null,
+      "nextAction": "Listen to both short quiet intervals and all narration, compare captions with speech, inspect mobile playback and exact dependency rights."
+    },
+    {
+      "priority": 3,
+      "slug": "ai-agent-cost-control-longform-2026-10-28",
+      "issue": 526,
+      "videoSha256": "c8da6a5fa46bb1e7ea9dfd6abf82b55d44b80d7fc63fdf515db7362d58be6a72",
+      "durationSeconds": 559.503,
+      "experiment": "PB-AI-COST-CTRL-20261028-LF01",
+      "gates": {
+        "technicalStream": "PASS_PREVIOUS_CHECKPOINT",
+        "captionSync": "PENDING_16_ESTIMATED_EXCEPTIONS",
+        "fullNarrationListening": "PENDING",
+        "continuousMobilePlayback": "PENDING",
+        "completeVoiceAndDependencyRights": "PENDING",
+        "longformABTest": "UNAVAILABLE_UNTIL_STUDIO_ACCESS"
+      },
+      "publicationApproved": false,
+      "uploadPermitted": false,
+      "publicYouTubeUrl": null,
+      "nextAction": "Review 16 caption exceptions against audio, inspect full video pacing, then verify complete rights and eligible native A/B."
+    }
+  ],
+  "specialistAgents": [
+    {
+      "name": "Trend Scout",
+      "nextAction": "Research current evidence and unanswered operator questions; do not generate near-duplicate unfinished scripts."
+    },
+    {
+      "name": "Audience Problem Scout",
+      "nextAction": "Extract concrete founder and executive pain points from existing topic research and actual comments when available."
+    },
+    {
+      "name": "Hook and Title",
+      "nextAction": "Preserve 3 distinct title variants for long-form; Shorts experiments remain sequential."
+    },
+    {
+      "name": "Script and Research",
+      "nextAction": "Verify NIST tenets 01,04,10 and fictional examples; avoid treating proposed tenets as certification."
+    },
+    {
+      "name": "Visual and Editing",
+      "nextAction": "Prioritize full audio review, caption timing, mobile-safe overlay and full playback of three queued videos."
+    },
+    {
+      "name": "Thumbnail and Packaging",
+      "nextAction": "Use existing three concept variants, avoid duplicate designs; native long-form A/B only with access."
+    },
+    {
+      "name": "Publisher and SEO",
+      "nextAction": "Do not schedule while publicationApproved false; check native Studio and Metricool before any future upload."
+    },
+    {
+      "name": "Analytics",
+      "nextAction": "Keep missing views as null; acquire video-level watch minutes and retention before SCALE judgments."
+    },
+    {
+      "name": "Portfolio Allocator",
+      "nextAction": "Finish P1-P3 before adding unfinished assets; classify INSUFFICIENT_DATA until five comparable published videos."
+    }
+  ],
+  "evidence": {
+    "sourceAndVisualReview": "youtube-growth/analytics/2026-10-29-1146-source-rights-visual-review.md",
+    "nistSource": "https://www.nist.gov/blogs/cybersecurity-insights/design-tenets-agent-identity-management-systems",
+    "voiceModelCard": "https://huggingface.co/rhasspy/piper-voices/blob/main/en/en_US/norman/medium/MODEL_CARD"
+  },
+  "noNotificationUnless": [
+    "public_upload_success",
+    "breakout_performance",
+    "100_500_1000_subscribers",
+    "monetization_threshold",
+    "verified_external_revenue",
+    "policy_risk",
+    "user_owned_blocker_after_alternatives"
+  ],
+  "status": "HOLD_ALL_QUEUED_MEDIA_NO_PUBLICATION"
+}
