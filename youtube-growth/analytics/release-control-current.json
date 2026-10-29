@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-29T19:44:10Z",
+  "updatedAt": "2026-10-29T20:45:00Z",
   "channel": {
     "id": "UCw2hs85TzIpdKwJtG-BSxzQ",
     "handle": "@PrismBayAI",
@@ -37,7 +37,7 @@
     "trafficSources": "NO_ROWS",
     "scheduledMetricoolPosts": {
       "from": "2026-10-29",
-      "to": "2026-11-15",
+      "to": "2026-11-18",
       "count": 0
     },
     "nativeStudioSchedule": "UNVERIFIED_BROWSER_AUTH",
@@ -46,7 +46,7 @@
     "observedViewDatesArePartial": true,
     "allVideosConnector": "NO_ROWS_2026_10_01_TO_2026_10_29",
     "publishedInRangeConnector": "NO_ROWS_2026_10_01_TO_2026_10_29",
-    "lastMetricoolCheck": "2026-10-29T19:42Z"
+    "lastMetricoolCheck": "2026-10-29T20:42Z"
   },
   "connectedProduction": {
     "descriptProjectId": "3de30d73-71c8-4e9d-9ccf-72faf3fb5d11",
@@ -71,14 +71,17 @@
         "completeVoiceAndDependencyRights": "PENDING",
         "fullNarrationListening": "PENDING",
         "captionSync": "IMPROVED_ASR_TIMED_PACED_CANDIDATE_PENDING_HUMAN_VERIFICATION",
-        "continuousMobilePlayback": "PENDING",
+        "continuousMobilePlayback": "PENDING_SAMPLED_FRAMES_DO_NOT_REPLACE_CONTINUOUS_PLAYBACK",
         "channelAndScheduleBeforeUpload": "PENDING",
-        "sampledCaptionedMobileFrame": "PASS_AT_38P5_SECONDS_ONLY"
+        "sampledCaptionedMobileFrame": "PASS_AT_38P5_SECONDS_ONLY",
+        "captionScriptCoverage": "PASS_119_OF_119_NORMALIZED_TOKENS_IN_ORDER_SRT_NOT_SPOKEN_AUDIO",
+        "secondBySecondFrameSamples": "PASS_55_SAMPLED_SECONDS_OF_55P523_SECOND_VIDEO_NOT_CONTINUOUS_PLAYBACK",
+        "audioIntegratedLoudness": "MEASURED_MINUS_21P8_LUFS_TRUE_PEAK_MINUS_3P0_DBFS"
       },
       "publicationApproved": false,
       "uploadPermitted": false,
       "publicYouTubeUrl": null,
-      "nextAction": "Listen to the full 55.523s captioned review candidate, check 15% slowed narration naturalness and spoken-word timing, inspect full mobile playback and verify rights. Keep all publication flags false.",
+      "nextAction": "Complete uninterrupted narration listening, verify spoken-word cue sync and continuous mobile UI playback, then rights; do not publish based on exact SRT/script match alone.",
       "pacedReviewCandidate": {
         "workflowRunId": 40925565238,
         "workflowUrl": "https://github.com/ragunauthramsaroop/PrismBay/actions/runs/40925565238",
@@ -98,7 +101,12 @@
         "technicalGateReport": "youtube-growth/analytics/2026-10-29-1455-nist-independent-artifact-audit.md",
         "audioPeakDbFS": -3.009,
         "blackIntervalsOver0p2Seconds": 0,
-        "silenceIntervalsOver0p4Seconds": 4
+        "silenceIntervalsOver0p4Seconds": 4,
+        "independentFrameSampleCount": 55,
+        "captionScriptCoverageTokens": 119,
+        "captionScriptTokenErrors": 0,
+        "integratedLoudnessLUFS": -21.8,
+        "independentFrameAndScriptAudit": "youtube-growth/analytics/2026-10-29-1641-nist-full-second-frame-and-script-coverage-audit.md"
       }
     },
     {
@@ -187,7 +195,8 @@
     "sourceAndVisualReview": "youtube-growth/analytics/2026-10-29-1146-source-rights-visual-review.md",
     "nistSource": "https://www.nist.gov/blogs/cybersecurity-insights/design-tenets-agent-identity-management-systems",
     "voiceModelCard": "https://huggingface.co/rhasspy/piper-voices/blob/main/en/en_US/norman/medium/MODEL_CARD",
-    "pacedCaptionedReview": "youtube-growth/analytics/2026-10-29-nist-paced-captioned-review-candidate.md"
+    "pacedCaptionedReview": "youtube-growth/analytics/2026-10-29-nist-paced-captioned-review-candidate.md",
+    "nistSecondBySecondFrameAndScriptAudit": "youtube-growth/analytics/2026-10-29-1641-nist-full-second-frame-and-script-coverage-audit.md"
   },
   "noNotificationUnless": [
     "public_upload_success",
