@@ -1,0 +1,536 @@
+1
+00:00:00,000 --> 00:00:04,500
+Your AI agent handled the same number of tasks this month as
+
+2
+00:00:04,500 --> 00:00:09,375
+last month. But the bill climbed from six hundred dollars to twenty-four
+
+3
+00:00:09,375 --> 00:00:13,125
+hundred. Nothing obvious changed in the dashboard. So what happened?
+
+4
+00:00:13,125 --> 00:00:17,470
+Here is the explanation. A workflow can repeat tool calls,
+
+5
+00:00:17,470 --> 00:00:21,233
+retry failed steps, or ask another model for help.
+
+6
+00:00:21,233 --> 00:00:25,845
+If nobody measures the number of paid actions required for an accepted
+
+7
+00:00:25,845 --> 00:00:30,366
+result, the budget can rise even while the workload stays flat.
+
+8
+00:00:30,366 --> 00:00:34,866
+I will show the math, then give you three controls to put
+
+9
+00:00:34,866 --> 00:00:38,991
+in place before an agent touches your business: a spending limit,
+
+10
+00:00:38,991 --> 00:00:43,116
+an authority limit, and an evidence trail. The example is fictional,
+
+11
+00:00:43,116 --> 00:00:48,125
+with clear assumptions, so you can replace the numbers with your own.
+
+12
+00:00:48,125 --> 00:00:52,204
+Start with two hundred tasks per day, for thirty days.
+
+13
+00:00:52,204 --> 00:00:56,704
+That is six thousand tasks. Assume each paid model or tool call
+
+14
+00:00:56,704 --> 00:01:02,186
+costs two cents. The exact price is hypothetical, not a vendor quote.
+
+15
+00:01:02,186 --> 00:01:06,905
+In month one, each task uses five paid calls.
+
+16
+00:01:06,905 --> 00:01:12,017
+Six thousand times five times two cents equals six hundred dollars.
+
+17
+00:01:12,017 --> 00:01:17,396
+In month two, each task uses twenty paid calls.
+
+18
+00:01:17,396 --> 00:01:22,195
+Six thousand times twenty times two cents equals twenty-four hundred dollars.
+
+19
+00:01:22,195 --> 00:01:25,154
+The task count did not change.
+
+20
+00:01:25,154 --> 00:01:28,255
+The paid calls per task rose fourfold.
+
+21
+00:01:28,255 --> 00:01:34,677
+This calculation isolates call charges. It excludes hosting, data storage,
+
+22
+00:01:34,677 --> 00:01:39,267
+external software, integration, human review, and the cost of fixing
+
+23
+00:01:39,267 --> 00:01:41,877
+mistakes. If those costs rise too,
+
+24
+00:01:41,877 --> 00:01:44,127
+the total bill can be higher.
+
+25
+00:01:44,127 --> 00:01:47,877
+The metric to watch is not only cost per call.
+
+26
+00:01:47,877 --> 00:01:52,113
+Watch paid calls per attempted task, cost per accepted result,
+
+27
+00:01:52,113 --> 00:01:56,493
+and the percentage of tasks that fail or need human repair.
+
+28
+00:01:56,493 --> 00:02:01,161
+Those three numbers expose whether your workflow is doing useful work or
+
+29
+00:02:01,161 --> 00:02:02,848
+paying to repeat itself.
+
+30
+00:02:02,848 --> 00:02:07,747
+There is a reason to take these controls seriously. On October twenty-second,
+
+31
+00:02:07,747 --> 00:02:12,654
+Cognizant published a survey of two hundred and fifty senior FinOps leaders
+
+32
+00:02:12,654 --> 00:02:18,437
+at large organizations in the United States, United Kingdom and India.
+
+33
+00:02:18,437 --> 00:02:23,408
+Seventy-two percent of the surveyed organizations had exceeded their AI budgets in
+
+34
+00:02:23,408 --> 00:02:28,283
+the preceding twelve months. The survey was vendor-sponsored and does not establish
+
+35
+00:02:28,283 --> 00:02:30,158
+the rate for every business.
+
+36
+00:02:30,158 --> 00:02:34,658
+The useful takeaway is narrower: leaders need cost visibility tied to work
+
+37
+00:02:34,658 --> 00:02:39,119
+performed, not a dashboard showing token totals without a business outcome.
+
+38
+00:02:39,119 --> 00:02:44,968
+On October twenty-seventh, IBM announced new AI-agent identity
+
+39
+00:02:44,968 --> 00:02:49,808
+and control capabilities. Its announcement separates currently available
+
+40
+00:02:49,808 --> 00:02:54,841
+evaluation functions from discovery and containment functions described
+
+41
+00:02:54,841 --> 00:02:59,441
+as technology previews. Vendor announcements are not independent
+
+42
+00:02:59,441 --> 00:03:01,614
+evidence of customer savings.
+
+43
+00:03:01,614 --> 00:03:05,394
+These developments point toward the same operating discipline.
+
+44
+00:03:05,394 --> 00:03:09,894
+Count what an agent spends. Define what it is allowed to do.
+
+45
+00:03:09,894 --> 00:03:11,769
+Preserve proof of the result.
+
+46
+00:03:11,769 --> 00:03:15,519
+The first control is a budget limit at three levels.
+
+47
+00:03:15,519 --> 00:03:20,019
+At the individual call level, set a maximum cost and maximum response
+
+48
+00:03:20,019 --> 00:03:23,769
+size where your provider supports them. At the task level,
+
+49
+00:03:23,769 --> 00:03:28,269
+limit the number of paid calls and retries. At the daily level,
+
+50
+00:03:28,269 --> 00:03:32,299
+stop the workflow when its approved spending allocation is reached.
+
+51
+00:03:32,299 --> 00:03:35,856
+Suppose a task is allowed eight paid calls.
+
+52
+00:03:35,856 --> 00:03:40,356
+If call nine becomes necessary, do not let the agent silently keep
+
+53
+00:03:40,356 --> 00:03:44,856
+going. Pause the task, log the reason, and route it to a
+
+54
+00:03:44,856 --> 00:03:46,759
+person or an approved fallback.
+
+55
+00:03:46,759 --> 00:03:50,509
+Here is the distinction between an alert and a control.
+
+56
+00:03:50,509 --> 00:03:54,259
+An email saying you spent too much is an alert.
+
+57
+00:03:54,259 --> 00:03:58,759
+A budget enforcement point that blocks the next charge is a control.
+
+58
+00:03:58,759 --> 00:04:02,884
+You also need a failure rule. When a tool times out,
+
+59
+00:04:02,884 --> 00:04:06,634
+the agent should not retry forever. Set a retry count,
+
+60
+00:04:06,634 --> 00:04:10,759
+a backoff interval, and an escalation path. When the task fails,
+
+61
+00:04:10,759 --> 00:04:14,884
+record the failure. Do not label it as a completed result.
+
+62
+00:04:14,884 --> 00:04:19,009
+For a small pilot, a simple ledger and a wrapper around
+
+63
+00:04:19,009 --> 00:04:22,384
+paid tool calls are enough to test this design.
+
+64
+00:04:22,384 --> 00:04:27,104
+Production enforcement requires reliable accounting and provider-specific limits.
+
+65
+00:04:27,104 --> 00:04:31,708
+The second control is an authority limit. A useful agent needs enough
+
+66
+00:04:31,708 --> 00:04:33,958
+access to complete a defined job,
+
+67
+00:04:33,958 --> 00:04:36,747
+but not unlimited access to the company.
+
+68
+00:04:36,747 --> 00:04:41,246
+Take a purchasing assistant. It might read an approved supplier
+
+69
+00:04:41,246 --> 00:04:45,097
+catalogue and prepare a comparison. That does not mean it
+
+70
+00:04:45,097 --> 00:04:48,390
+should place orders, alter banking details,
+
+71
+00:04:48,390 --> 00:04:52,291
+or approve invoices without separate authorization.
+
+72
+00:04:52,291 --> 00:04:56,637
+Give each agent a named owner, a specific job,
+
+73
+00:04:56,637 --> 00:05:00,076
+and only the permissions required for that job.
+
+74
+00:05:00,076 --> 00:05:06,089
+Use short-lived credentials where supported. Keep payment, deletion, external publication,
+
+75
+00:05:06,089 --> 00:05:10,483
+and other irreversible actions behind an explicit approval step.
+
+76
+00:05:10,483 --> 00:05:14,338
+Make sure a responsible operator can revoke access.
+
+77
+00:05:14,338 --> 00:05:17,713
+Think of the workflow as a series of gates.
+
+78
+00:05:17,713 --> 00:05:22,063
+Read approved information. Propose a decision. Validate the proposal.
+
+79
+00:05:22,063 --> 00:05:27,112
+Obtain approval for a sensitive action. Execute. Verify the result.
+
+80
+00:05:27,112 --> 00:05:31,612
+A prompt that says, 'Do not spend money,' is not a financial
+
+81
+00:05:31,612 --> 00:05:36,567
+control. The actual tool must enforce the restriction. A written policy helps,
+
+82
+00:05:36,567 --> 00:05:39,748
+but a blocked transaction is stronger evidence.
+
+83
+00:05:39,748 --> 00:05:43,920
+The third control is an evidence trail. For each run,
+
+84
+00:05:43,920 --> 00:05:48,441
+record a task identifier, its owner, the input category,
+
+85
+00:05:48,441 --> 00:05:54,752
+every tool call, cost, retry, exception, human approval, and final outcome.
+
+86
+00:05:54,752 --> 00:05:58,427
+Do not store unnecessary personal information in the log.
+
+87
+00:05:58,427 --> 00:06:02,137
+Protect sensitive records and define a retention period.
+
+88
+00:06:02,137 --> 00:06:07,436
+Then create an acceptance test. If the agent extracts invoice data,
+
+89
+00:06:07,436 --> 00:06:11,960
+compare the fields against a checked reference. If it produces a supplier
+
+90
+00:06:11,960 --> 00:06:17,459
+shortlist, check the requirements and source dates. If it drafts an email,
+
+91
+00:06:17,459 --> 00:06:19,754
+a reviewer approves before sending.
+
+92
+00:06:19,754 --> 00:06:24,843
+Now calculate the metric that matters: total operating cost divided by
+
+93
+00:06:24,843 --> 00:06:30,956
+accepted outputs. Include the human review and rework costs where you have reliable data.
+
+94
+00:06:30,956 --> 00:06:35,081
+Here is a second fictional example. An agent completes one hundred
+
+95
+00:06:35,081 --> 00:06:38,925
+tasks, but only eighty pass quality checks.
+
+96
+00:06:38,925 --> 00:06:41,925
+The model and tool charges are forty dollars.
+
+97
+00:06:41,925 --> 00:06:46,061
+Human review and corrections cost another sixty dollars.
+
+98
+00:06:46,061 --> 00:06:51,794
+The combined one hundred dollars divided by eighty accepted outputs equals
+
+99
+00:06:51,794 --> 00:06:55,450
+one dollar and twenty-five cents per accepted result.
+
+100
+00:06:55,450 --> 00:06:58,904
+If you only report forty cents per attempted task,
+
+101
+00:06:58,904 --> 00:07:02,654
+you hide the cost of failed results and human repair.
+
+102
+00:07:02,654 --> 00:07:06,779
+That makes the agent look cheaper than the workflow really is.
+
+103
+00:07:06,779 --> 00:07:11,279
+Before scaling an agent, run a controlled pilot with a written scorecard.
+
+104
+00:07:11,279 --> 00:07:15,395
+Pick one workflow with clear inputs and a measurable outcome.
+
+105
+00:07:15,395 --> 00:07:21,302
+Record the manual baseline: cost, elapsed time, error rate, and human effort.
+
+106
+00:07:21,302 --> 00:07:24,720
+Then run the agent on a comparable task set.
+
+107
+00:07:24,720 --> 00:07:29,570
+Measure six items. One: accepted output rate. Two:
+
+108
+00:07:29,570 --> 00:07:33,510
+cost per accepted output, including review. Three:
+
+109
+00:07:33,510 --> 00:07:36,556
+median and slow-end completion time. Four:
+
+110
+00:07:36,556 --> 00:07:39,776
+tool calls and retries per task. Five:
+
+111
+00:07:39,776 --> 00:07:43,365
+unauthorized-action attempts and blocked actions. Six:
+
+112
+00:07:43,365 --> 00:07:46,237
+operator time spent on exceptions.
+
+113
+00:07:46,237 --> 00:07:50,652
+Set pass and stop conditions before the pilot. For example,
+
+114
+00:07:50,652 --> 00:07:54,520
+stop automatically if a task exceeds eight paid calls,
+
+115
+00:07:54,520 --> 00:07:59,503
+if an approval is missing, or if a required field fails validation.
+
+116
+00:07:59,503 --> 00:08:04,199
+Those numbers are illustrative and should be tuned to the actual workflow.
+
+117
+00:08:04,199 --> 00:08:09,359
+Do not calculate return on investment from time saved unless the time
+
+118
+00:08:09,359 --> 00:08:13,859
+has a defensible value. Released staff capacity is not the same thing
+
+119
+00:08:13,859 --> 00:08:16,595
+as cash savings. Show both separately.
+
+120
+00:08:16,595 --> 00:08:20,496
+When the pilot passes, increase volume in stages.
+
+121
+00:08:20,496 --> 00:08:25,449
+Check whether cost per accepted output stays stable as volume grows.
+
+122
+00:08:25,449 --> 00:08:29,949
+If quality drops or exception handling rises, do not scale on the
+
+123
+00:08:29,949 --> 00:08:32,681
+strength of a headline productivity percentage.
+
+124
+00:08:32,681 --> 00:08:35,927
+Here is the decision framework in one sentence.
+
+125
+00:08:35,927 --> 00:08:40,242
+Do not approve an AI agent because it answers quickly.
+
+126
+00:08:40,242 --> 00:08:45,348
+Approve it when its cost, authority and accepted outcomes are measurable.
+
+127
+00:08:45,348 --> 00:08:49,111
+Before your next rollout, ask three questions.
+
+128
+00:08:49,111 --> 00:08:52,204
+What stops spending when the workflow goes wrong?
+
+129
+00:08:52,204 --> 00:08:58,599
+What prevents an unauthorized action? And what evidence proves the task was completed correctly?
+
+130
+00:08:58,599 --> 00:09:03,099
+If the answers are unclear, run a smaller pilot and fix the
+
+131
+00:09:03,099 --> 00:09:06,312
+controls before giving the agent more responsibility.
+
+132
+00:09:06,312 --> 00:09:11,615
+PrismBay AI helps founders, operators and executives implement practical AI business
+
+133
+00:09:11,615 --> 00:09:15,753
+systems. Subscribe for the next breakdown, where we will turn this
+
+134
+00:09:15,753 --> 00:09:19,503
+scorecard into a simple workflow you can inspect and adapt.
+
