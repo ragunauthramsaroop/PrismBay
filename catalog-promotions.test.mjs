@@ -57,6 +57,9 @@ test('legacy physical product listing is withdrawn without checkout or unlicense
  assert.match(page, /noindex,nofollow/);
  assert.doesNotMatch(page, /oss-cf\.cjdropshipping\.com|29\.95|schema\.org\/Product|buy\.stripe\.com|quote\?product=/i);
  assert.equal(catalog.products.length, 0);
+ assert.doesNotMatch(page, /<form\\b|<video\\b|<img\\b|<input\\b/i);
+ assert.match(home, /<title>PrismBay Clean \\| Professional Digital Toolkits<\\/title>/);
+ assert.doesNotMatch(home, /professional systems &amp; home tools|Home Products/i);
  assert.doesNotMatch(home, /href="\/garment-steamer\/"/);
  assert.match(home, /Physical goods unavailable/);
  assert.match(home, /No physical purchases or shipping inquiries are accepted/);
