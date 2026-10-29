@@ -1,0 +1,19 @@
+{
+  "slug": "ai-vendor-procurement-mobile-v2-2026-10-29",
+  "title": "Before You Buy an AI Agent, Run These 3 Acceptance Tests | PrismBay AI",
+  "sha256": "befb4336402d312b8728811c0fcff808d07a863842acadf37f1a5e9a77ee300b",
+  "ttsEngines": [
+    "piper"
+  ],
+  "voice": "en_US-norman-medium",
+  "voiceLicenseBasis": "Piper voice with attribution and license subject to pre-publication verification; eSpeak-ng offline fallback",
+  "sourceAttribution": "Original PrismBay AI illustrative procurement acceptance framework. No real customer records, vendor performance assertions or legal-compliance claims.",
+  "originalProgrammaticVisuals": true,
+  "paidSpend": 0,
+  "playbackDurationFactor": 1.2,
+  "channelId": "UCw2hs85TzIpdKwJtG-BSxzQ",
+  "published": false,
+  "publicationApproved": false,
+  "uploadPermitted": false,
+  "qualityGate": "CLOSED_PENDING_FULL_AUDIO_CAPTION_MOBILE_QA"
+}
