@@ -1,7 +1,7 @@
 {
   "channelId": "UCw2hs85TzIpdKwJtG-BSxzQ",
-  "sha256": "ddacf142875ef75298ec13243e80dca3ffe2057e6ccd393bff0b5e73685eb006",
-  "durationSeconds": 46.522,
+  "sha256": "8e117195ee4f4755f899966fba184499ccf20a126763be45ebb9234de917fc6c",
+  "durationSeconds": 50.745,
   "dimensions": [
     1080,
     1920
@@ -21,10 +21,10 @@
     40
   ],
   "captionCueCount": 15,
-  "maxCaptionWPM": 201.7,
-  "cuesOver160WPM": 5,
+  "maxCaptionWPM": 186.0,
+  "cuesOver160WPM": 3,
   "cuesUnder1_5Seconds": 0,
-  "transcriptSequenceSimilarity": 0.9391,
+  "transcriptSequenceSimilarity": 0.9304,
   "captionSource": "Faster-Whisper tiny.en provisional recognition",
   "manualNarrationReview": "NOT_PERFORMED",
   "captionSynchronization": "ASR_AND_EDITORIAL_CANDIDATE_REQUIRE_MANUAL_SYNC_REVIEW",
@@ -35,8 +35,8 @@
   "paidSpendUSD": 0,
   "releaseDecision": "HOLD_PENDING_FULL_EDITORIAL_REVIEW",
   "limitations": "ASR may mishear words or numbers. Sampled frames do not replace full mobile playback. No YouTube publication.",
-  "pacedNarrationFactor": 1.1,
+  "pacedNarrationFactor": 1.2,
   "editorialCaptionCandidateCues": 23,
-  "editorialCaptionCandidateMaxWPM": 147.03,
+  "editorialCaptionCandidateMaxWPM": 134.79,
   "editorialCaptionStatus": "CANDIDATE_ONLY_NOT_WORD_ALIGNED"
 }

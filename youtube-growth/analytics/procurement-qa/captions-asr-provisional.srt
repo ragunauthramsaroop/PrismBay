@@ -1,59 +1,59 @@
 1
-00:00:00,000 --> 00:00:02,980
+00:00:00,000 --> 00:00:03,240
 your AI vendors demo worked, that does not
 
 2
-00:00:02,920 --> 00:00:05,680
+00:00:03,180 --> 00:00:06,120
 mean your business should sign, run through acceptance
 
 3
-00:00:05,620 --> 00:00:09,140
+00:00:06,060 --> 00:00:09,980
 tests before approval. First, use a fictional invoice
 
 4
-00:00:09,080 --> 00:00:12,520
+00:00:09,920 --> 00:00:13,640
 with synthetic customer details, confirm where the data
 
 5
-00:00:12,460 --> 00:00:14,840
+00:00:13,580 --> 00:00:16,160
 goes, who keeps it, and when it gets
 
 6
-00:00:14,780 --> 00:00:18,420
+00:00:16,100 --> 00:00:20,100
 deleted. Second, submit an invoice above the allowed
 
 7
-00:00:18,360 --> 00:00:21,640
-approval limit. The agent must stop, in route
+00:00:20,040 --> 00:00:23,600
+approval limit. The agent must stop and wrote
 
 8
-00:00:21,580 --> 00:00:24,320
+00:00:23,540 --> 00:00:26,500
 the decision to a person. Third, make a
 
 9
-00:00:24,260 --> 00:00:27,200
+00:00:26,440 --> 00:00:29,680
 tool fails twice. Check whether the agent stops
 
 10
-00:00:27,140 --> 00:00:30,820
-safely, avoids endless retries and records the field
+00:00:29,620 --> 00:00:33,600
+safely, avoids endless retries, and records the field
 
 11
-00:00:30,760 --> 00:00:33,820
+00:00:33,540 --> 00:00:36,840
 actions. Put the evidence for all three tests
 
 12
-00:00:33,760 --> 00:00:36,880
-in your purchase decision. A polished demo is
+00:00:36,780 --> 00:00:40,240
+in your purchased decision. A polished demo is
 
 13
-00:00:36,820 --> 00:00:40,480
-not an acceptance test. Follow prism, bay, AI,
+00:00:40,180 --> 00:00:44,200
+not an acceptance test, follow prism, bay, AI,
 
 14
-00:00:40,920 --> 00:00:44,780
-for practical AI business systems, with clear controls
+00:00:44,620 --> 00:00:48,280
+for practical AI business systems, with clear
 
 15
-00:00:44,720 --> 00:00:46,280
-and measurable results.
+00:00:48,220 --> 00:00:50,480
+controls and measurable results.
