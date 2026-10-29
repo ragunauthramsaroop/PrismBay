@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-29T13:45:27.450Z",
+  "updatedAt": "2026-10-29T22:59:28.467Z",
   "market": "US",
   "methodology": "Public-news attention, freshness, and short-form demonstration fit. This is not PrismBay sales data and is not a TikTok, Amazon, Google, or Bing product ranking.",
   "refreshTargetHours": 6,
@@ -8,12 +8,12 @@
     {
       "slug": "mattress-vacuum",
       "name": "Mattress Vacuum",
-      "signalScore": 88,
+      "signalScore": 97,
       "signalLabel": "high-attention",
       "evidence": {
-        "publicMentions": 34,
+        "publicMentions": 110,
         "mentionsLast7Days": 4,
-        "mentionsLast30Days": 5,
+        "mentionsLast30Days": 11,
         "sourcesAvailable": [
           "Google News",
           "Bing News"
@@ -27,10 +27,10 @@
           "url": "https://news.google.com/rss/articles/CBMipAFBVV95cUxNOXdyYXhKbmQ2SGV5NE05YVNUWGhTMTJ6VHFaNjVlUW5xMjhhd1ZjaVBhLWxNdEFvMEp6R3poVmpzNmdNRjlLVU91RWF0SWlTTVhLYnBvWFVWZVBaQXhXQjVOMUZlQXU0bUoxeU5VeF9aQjd3ZmdSQXFRSGpkOGpQODlFTjdjOWNDVDc0Z2tXd3ozTC1wdlJvN2ZMcWRUdFFGQ0dFQw?oc=5"
         },
         {
-          "title": "This $55 mattress vacuum showed me just how dirty my clean mattress really was - Kitsap Sun",
+          "title": "This $55 mattress vacuum showed me just how dirty my clean mattress really was - Columbia Daily Tribune",
           "source": "Google News",
           "publishedAt": "2026-10-26T15:41:07.000Z",
-          "url": "https://news.google.com/rss/articles/CBMitgFBVV95cUxQb214N2FsdEUxMmJTYlRTTXBTdkZhWDNCb25rSGhkZGdHbDJNek53TnVqdU5GZHF3dTFZbnVxYnZnXzJ5M2xwdGlvWnVWWWx6X1hFc29fX3FkNkJaeUxGbUlCUjdtMlp6RGNUNy1KQWFjd3JqN1J0ODRQSWZWbERwLWVKOEE0NmEzWGlmNmgtaGJCYW81STZyWFlsd2lqZ3ZRdEhLU1dNSm1hVS1nVlVGbjJJSzNLdw?oc=5"
+          "url": "https://news.google.com/rss/articles/CBMivAFBVV95cUxNaEhIR0ROUzBObnBNbDk5REpTSGFUYzJuMU13M2ZfQlotMjlEa0xLYTJGUzhtVWJvTW4wTkVOeVhTNEhVS0NYU2VkdEdpbGFmSThYbklrcktYZmlWSUQ3azVzbXJhOHk2U2hFSEZlaTVDbVpDSmRqOEpUVDd0OVRBS2NFWFF2ZGNUWEdJVC1MVFVwYnlUbmlBRjVaR3ZMYzEwMHVVUzh1QVA5WXp0WU9DUlRMeG9XcUVrUGpVOA?oc=5"
         },
         {
           "title": "I Finally Got a Bed Vacuum, and Now I’m Never Going to Be Without One Again (and It’s on Sale for Prime!) - Apartment Therapy",
@@ -59,7 +59,7 @@
       "signalScore": 85,
       "signalLabel": "high-attention",
       "evidence": {
-        "publicMentions": 67,
+        "publicMentions": 66,
         "mentionsLast7Days": 3,
         "mentionsLast30Days": 4,
         "sourcesAvailable": [
@@ -107,7 +107,7 @@
       "signalScore": 81.5,
       "signalLabel": "high-attention",
       "evidence": {
-        "publicMentions": 33,
+        "publicMentions": 34,
         "mentionsLast7Days": 2,
         "mentionsLast30Days": 6,
         "sourcesAvailable": [
@@ -135,16 +135,16 @@
           "url": "https://news.google.com/rss/articles/CBMihgFBVV95cUxQaXlNc3IwRkdxSWMwS0xGc1dQZEQyRkdjb0l6M2hvZDNual9lUHQzWm5MUS1BSHhNRzRHSGxrQm5tb3dKMXlpeS0tUlJ1TElEbWNoUkN2MGgzMnp4TjRkczE4VlQ0UmNNRy1hbWI2Y05Xa3Z3RzBkU1VpcWZ1OEdRNVgtVEl1UQ?oc=5"
         },
         {
+          "title": "7 Clothes Steamers That Can Quickly Remove Wrinkles From Your Shirt - News18",
+          "source": "Google News",
+          "publishedAt": "2026-09-12T07:00:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMitgFBVV95cUxPd290QWhjS011aTVuZ25VOHZ2ekJRV2ZTNzI1dUVNUGpjQkIyem1Uby1sVkdiTEJXbnJ1Rmg1cHlrV2NZUkhveGVDakYyc3YtLUVkNW9iWVdxRy1Tc3pIYnNPamNhMkFzaW0xWko2a1FUNHdEbEtkdUJhMllMaERZZktRTzRrUzBHRjhXZEVqdHpGR3V0Z2RPYzZpQ3RVTjlvMVNwTW91dDdkbk9neWFRWU8wbEN2QdIBuwFBVV95cUxPeXdfVi05cnFVUG1kYjlaU2lKMjNhOUtLa0NKanR1R29GSnpkVTEyeWwwbzB2N2R5M3gxakRHWUc3M1NzOTZqc1FuSDJrb2RRRERrU3pTWTdzWVhmNHN2d2FFX0M4cWlTRERGaDc0NjN2S1NVWFYtS2dQZGFWbVUyV29uMFJBQ2xRVUI0cC1HNTJzaWFueGVtSHgtRmJCWHhIUU1UT0VkT3d4NVliOW14LVhPSEdZeDVrbG5F?oc=5"
+        },
+        {
           "title": "10 of the best handheld steamers on the market - Vogue Australia",
           "source": "Google News",
           "publishedAt": "2026-01-08T08:00:00.000Z",
           "url": "https://news.google.com/rss/articles/CBMirwFBVV95cUxQdkdwdjFkSnptM0JmTmpLYWRPTjUwZEhjOEI3YTlCT2VmOG1GUVJ1dklzUnV5LTROeXJKQ3QzRnEyakRLQWRrUUhPNUJvZWZ2dlhWaXFoajlpTFkwdXhDaTZjT3M4LThxM3d4bXI0X1ZMUmtSdmZXN1A0ZkM4eWF0amE3ZkxJUEVsUXVuQlM4Zk91andHSk15YVRaUHJLN1JUVGlEc2hVajBRMlRYU0h3?oc=5"
-        },
-        {
-          "title": "The Best Travel Steamers To Keep Clothing Wrinkle-Free On The Go - Forbes",
-          "source": "Google News",
-          "publishedAt": "2024-09-13T07:00:00.000Z",
-          "url": "https://news.google.com/rss/articles/CBMiigFBVV95cUxPOEltbERZMDMtemlzdFRPSUdTZGFXLVJDTUJpWWZrMGtSLVVFMDlSWWxHS3YzSXpydFhpWUlyTmd5dTYyMTBaMEtuT1VMazI2SUxzQkhSSVZEV0tqTTdzRGhlYlZxWEw5RVhxSkpsS0xsQjA4cFNkX2Jjb1NYem04OTR0TzNnQlZ1WlE?oc=5"
         }
       ],
       "rank": 3
@@ -152,12 +152,12 @@
     {
       "slug": "pressure-washer",
       "name": "Cordless Pressure Washer",
-      "signalScore": 78.5,
+      "signalScore": 75.5,
       "signalLabel": "high-attention",
       "evidence": {
-        "publicMentions": 55,
+        "publicMentions": 104,
         "mentionsLast7Days": 1,
-        "mentionsLast30Days": 4,
+        "mentionsLast30Days": 2,
         "sourcesAvailable": [
           "Google News",
           "Bing News"
