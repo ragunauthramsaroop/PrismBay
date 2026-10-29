@@ -1,13 +1,15 @@
 {
   "targetChannelId": "UCw2hs85TzIpdKwJtG-BSxzQ",
-  "originalSeconds": 42.28,
-  "pacedSeconds": 46.522,
-  "speedFactor": 1.1,
-  "originalSha256": "c32b191ea69bc28b3a244d4a7c3e43b31fd17da8dfe11d193610d2472674107a",
-  "pacedSha256": "ddacf142875ef75298ec13243e80dca3ffe2057e6ccd393bff0b5e73685eb006",
+  "originalSeconds": 42.293,
+  "previousSeconds": 46.522,
+  "incrementalFactor": 1.090909,
+  "pacedSeconds": 50.745,
+  "speedFactor": 1.2,
+  "originalSha256": "ddacf142875ef75298ec13243e80dca3ffe2057e6ccd393bff0b5e73685eb006",
+  "pacedSha256": "8e117195ee4f4755f899966fba184499ccf20a126763be45ebb9234de917fc6c",
   "captionWordCount": 114,
   "captionCueCount": 23,
-  "maxCaptionWPM": 147.03,
+  "maxCaptionWPM": 134.79,
   "cuesOver160WPM": 0,
   "cuesUnder1_5Seconds": 0,
   "captionTiming": "PROPORTIONAL_EDITORIAL_CANDIDATE_NOT_WORD_ALIGNED",
@@ -22,140 +24,140 @@
     {
       "cue": 1,
       "words": 5,
-      "durationSeconds": 2.04,
-      "wpm": 147.03
+      "durationSeconds": 2.226,
+      "wpm": 134.79
     },
     {
       "cue": 2,
       "words": 5,
-      "durationSeconds": 2.04,
-      "wpm": 147.03
+      "durationSeconds": 2.226,
+      "wpm": 134.79
     },
     {
       "cue": 3,
       "words": 5,
-      "durationSeconds": 2.04,
-      "wpm": 147.03
+      "durationSeconds": 2.226,
+      "wpm": 134.79
     },
     {
       "cue": 4,
       "words": 5,
-      "durationSeconds": 2.04,
-      "wpm": 147.03
+      "durationSeconds": 2.226,
+      "wpm": 134.79
     },
     {
       "cue": 5,
       "words": 5,
-      "durationSeconds": 2.04,
-      "wpm": 147.03
+      "durationSeconds": 2.226,
+      "wpm": 134.79
     },
     {
       "cue": 6,
       "words": 5,
-      "durationSeconds": 2.04,
-      "wpm": 147.03
+      "durationSeconds": 2.226,
+      "wpm": 134.79
     },
     {
       "cue": 7,
       "words": 5,
-      "durationSeconds": 2.04,
-      "wpm": 147.03
+      "durationSeconds": 2.226,
+      "wpm": 134.79
     },
     {
       "cue": 8,
       "words": 5,
-      "durationSeconds": 2.04,
-      "wpm": 147.03
+      "durationSeconds": 2.226,
+      "wpm": 134.79
     },
     {
       "cue": 9,
       "words": 5,
-      "durationSeconds": 2.04,
-      "wpm": 147.03
+      "durationSeconds": 2.226,
+      "wpm": 134.79
     },
     {
       "cue": 10,
       "words": 5,
-      "durationSeconds": 2.04,
-      "wpm": 147.03
+      "durationSeconds": 2.226,
+      "wpm": 134.79
     },
     {
       "cue": 11,
       "words": 5,
-      "durationSeconds": 2.04,
-      "wpm": 147.03
+      "durationSeconds": 2.226,
+      "wpm": 134.79
     },
     {
       "cue": 12,
       "words": 5,
-      "durationSeconds": 2.04,
-      "wpm": 147.03
+      "durationSeconds": 2.226,
+      "wpm": 134.79
     },
     {
       "cue": 13,
       "words": 5,
-      "durationSeconds": 2.04,
-      "wpm": 147.03
+      "durationSeconds": 2.226,
+      "wpm": 134.79
     },
     {
       "cue": 14,
       "words": 5,
-      "durationSeconds": 2.04,
-      "wpm": 147.03
+      "durationSeconds": 2.226,
+      "wpm": 134.79
     },
     {
       "cue": 15,
       "words": 5,
-      "durationSeconds": 2.04,
-      "wpm": 147.03
+      "durationSeconds": 2.226,
+      "wpm": 134.79
     },
     {
       "cue": 16,
       "words": 5,
-      "durationSeconds": 2.04,
-      "wpm": 147.03
+      "durationSeconds": 2.226,
+      "wpm": 134.79
     },
     {
       "cue": 17,
       "words": 5,
-      "durationSeconds": 2.04,
-      "wpm": 147.03
+      "durationSeconds": 2.226,
+      "wpm": 134.79
     },
     {
       "cue": 18,
       "words": 5,
-      "durationSeconds": 2.04,
-      "wpm": 147.03
+      "durationSeconds": 2.226,
+      "wpm": 134.79
     },
     {
       "cue": 19,
       "words": 5,
-      "durationSeconds": 2.04,
-      "wpm": 147.03
+      "durationSeconds": 2.226,
+      "wpm": 134.79
     },
     {
       "cue": 20,
       "words": 5,
-      "durationSeconds": 2.04,
-      "wpm": 147.03
+      "durationSeconds": 2.226,
+      "wpm": 134.79
     },
     {
       "cue": 21,
       "words": 5,
-      "durationSeconds": 2.04,
-      "wpm": 147.03
+      "durationSeconds": 2.226,
+      "wpm": 134.79
     },
     {
       "cue": 22,
       "words": 5,
-      "durationSeconds": 2.04,
-      "wpm": 147.03
+      "durationSeconds": 2.226,
+      "wpm": 134.79
     },
     {
       "cue": 23,
       "words": 4,
-      "durationSeconds": 1.632,
-      "wpm": 147.03
+      "durationSeconds": 1.781,
+      "wpm": 134.79
     }
   ]
 }
