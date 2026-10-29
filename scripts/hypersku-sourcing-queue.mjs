@@ -19,6 +19,13 @@ export function validateSourcingQueue(data,shortlist,nowMs=Date.now()) {
      data?.automaticOrdersEnabled].some(value=>!disabled(value)))
   errors.push('unsafe_execution_flag');
  for(const row of data.requests){
+  // Per-request flags must never override queue-wide no-spend controls.
+  if(!disabled(row?.paidLinksAuthorized))errors.push('paid_sourcing_not_authorized');
+  if([row?.orderImportAuthorized,row?.physicalCheckoutEnabled,
+      row?.automaticallySubmitted,row?.manualCsvOrdersEnabled,
+      row?.manualCsvOrderSubmissionAuthorized,row?.walletFundingAuthorized,
+      row?.automaticOrdersEnabled].some(value=>!disabled(value)))
+   errors.push('unsafe_execution_flag');
   if(!allowed.has(row.slug))errors.push('unknown_slug');
   if(ids.has(row.slug))errors.push('duplicate_product_slug');
   ids.add(row.slug);
