@@ -112,3 +112,14 @@ test('per-request execution flags cannot override queue-wide supplier restrictio
   assert.ok(x.errors.includes('paid_sourcing_not_authorized'));
  }
 });
+
+test('malformed sourcing rows fail closed with a structured error instead of crashing',()=>{
+ for(const malformed of [null,false,0,'invalid',[]]){
+  const result=validateSourcingQueue({schemaVersion:1,requests:[malformed]},short);
+  assert.equal(result.valid,false,String(malformed));
+  assert.ok(result.errors.includes('invalid_sourcing_request'),String(malformed));
+  assert.equal(result.submitted,0);
+  assert.equal(result.readyToSubmit,0);
+  assert.equal(result.physicalCheckoutEnabled,false);
+ }
+});
