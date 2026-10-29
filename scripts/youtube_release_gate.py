@@ -87,17 +87,17 @@ def main():
     run("ffmpeg", "-v", "error", "-i", a.video, "-map", "0:v:0", "-map", "0:a:0", "-f", "null", "-")
     _, sound = run("ffmpeg", "-hide_banner", "-i", a.video, "-vn", "-af",
                    "silencedetect=noise=-35dB:d=0.4,astats=metadata=1:reset=0", "-f", "null", "-")
-    starts = [float(x) for x in re.findall(r"silence_start: ([\\d.]+)", sound)]
-    ends = [(float(x), float(y)) for x,y in re.findall(r"silence_end: ([\\d.]+) \\| silence_duration: ([\\d.]+)", sound)]
+    starts = [float(x) for x in re.findall(r"silence_start: ([\d.]+)", sound)]
+    ends = [(float(x), float(y)) for x,y in re.findall(r"silence_end: ([\d.]+) \| silence_duration: ([\d.]+)", sound)]
     silences = [{"start": round(starts[i],3) if i<len(starts) else None,
                  "end": round(end,3), "duration": round(span,3)} for i,(end,span) in enumerate(ends)]
     check(not any(x["duration"] > 1 for x in silences), "Audio silence exceeds one second")
-    peaks = [float(x) for x in re.findall(r"Peak level dB: (-?[\\d.]+)", sound)]
+    peaks = [float(x) for x in re.findall(r"Peak level dB: (-?[\d.]+)", sound)]
     peak = max(peaks) if peaks else None
     check(peak is not None and peak < -0.1, "Clipping or missing peak")
     _, frames = run("ffmpeg", "-hide_banner", "-i", a.video, "-an", "-vf",
                     "blackdetect=d=0.2:pix_th=0.10", "-f", "null", "-")
-    black = re.findall(r"black_start:([\\d.]+) black_end:([\\d.]+) black_duration:([\\d.]+)", frames)
+    black = re.findall(r"black_start:([\d.]+) black_end:([\d.]+) black_duration:([\d.]+)", frames)
     check(not black, "Black video interval detected")
     result = {
         "checkedAtUTC": datetime.now(timezone.utc).isoformat(), "channelId": CHANNEL,
