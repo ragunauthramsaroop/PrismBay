@@ -92,3 +92,9 @@ YouTube's current standard and expanded YPP country lists include French Guiana 
 3. Set publish time from fresh audience data when available, not an invented 'best time'. Register title, cover, hook, duration, CTA, audience, experiment ID and success thresholds.
 4. Record a public watch URL only after actual verified upload. Then measure 6h/24h/72h/7d, classify SCALE / RETEST / MODIFY / STOP / INSUFFICIENT_DATA and publish adjacent topics only from evidence.
 5. No bought engagement, fabricated revenue, paid ads, new channel, account-country changes, or unapproved spend.
+
+## Additional publisher and discovery checks
+
+Metricool's YouTube best-time scores for Oct 29–Nov 4, in America/Guyana local time, rank Wednesday 16:00 (score 12,033) and Thursday 16:00 (11,979) highest among returned hours. These are Metricool recommendation scores, **not predicted views**, and no video is scheduled. Treat 16:00 as a candidate test slot after release QA, with at least four hours between Shorts. Compare against actual performance when the channel accumulates enough observations.
+
+GSC Wizard discovery was attempted. The connected account returned `payment_required` because its trial ended or no subscription is active. No purchase, upgrade, or paid service was authorized. Use public sources and available Metricool data as free discovery fallbacks. Do not claim Google Search Console traffic measurements.
