@@ -225,3 +225,21 @@ test('invalid queue schema returns complete no-execution result',()=>{
   assert.equal(x.physicalCheckoutEnabled,false);
  }
 });
+
+test('malformed object fields fail closed without throwing or reporting sourcing readiness',()=>{
+ const hostile={toString:null,valueOf:null};
+ const cases=[
+  {slug:'pethair',aliExpressUrl:hostile,status:'candidate'},
+  {slug:'pethair',aliExpressUrl:link(1),status:hostile},
+  {slug:'pethair',aliExpressUrl:link(1),status:'submitted',submittedAt:hostile},
+  {slug:'pethair',aliExpressUrl:link(1),status:'candidate',submittedAt:hostile}
+ ];
+ for(const [index,row] of cases.entries()){
+  const result=validateSourcingQueue({schemaVersion:1,requests:[row]},short);
+  assert.equal(result.valid,false,'malformed case '+index);
+  assert.equal(result.submitted,0);
+  assert.equal(result.readyToSubmit,0);
+  assert.equal(result.automaticallySubmitted,0);
+  assert.equal(result.physicalCheckoutEnabled,false);
+ }
+});
