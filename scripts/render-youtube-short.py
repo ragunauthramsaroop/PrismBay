@@ -16,6 +16,7 @@ from youtube_incident_visual import render_frame_incident
 from youtube_visual_trust import render_frame_trust
 from youtube_visual_regression import render_frame_regression
 from youtube_visual_procurement import render_frame_procurement
+from youtube_visual_nist_identity import render_frame_nist_identity
 
 WIDTH, HEIGHT = 1080, 1920
 BG = (8, 12, 20)
@@ -288,7 +289,9 @@ def main():
         used = synthesize(spoken, wav, voice, voice_dir) if engine == 'piper' else synthesize(spoken, wav, '__missing__', voice_dir)
         used_engines.add(used)
         duration = max(1.0, wav_duration(wav) + 0.18)
-        frame = (render_frame_procurement(segment, i, len(segments), spec.get('sourceAttribution', ''))
+        frame = (render_frame_nist_identity(segment, i, len(segments), spec.get('sourceAttribution', ''))
+                 if spec.get('visualStyle') == 'nist_agent_identity_v1'
+                 else render_frame_procurement(segment, i, len(segments), spec.get('sourceAttribution', ''))
                  if spec.get('visualStyle') == 'procurement_gate_v1'
                  else render_frame_regression(segment, i, len(segments), spec.get('sourceAttribution', ''))
                  if spec.get('visualStyle') == 'regression_lab_v1'
