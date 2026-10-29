@@ -1,0 +1,38 @@
+{
+  "channelId": "UCw2hs85TzIpdKwJtG-BSxzQ",
+  "sha256": "c32b191ea69bc28b3a244d4a7c3e43b31fd17da8dfe11d193610d2472674107a",
+  "durationSeconds": 42.28,
+  "dimensions": [
+    1080,
+    1920
+  ],
+  "videoCodec": "h264",
+  "audioCodec": "aac",
+  "ttsEngine": [
+    "piper"
+  ],
+  "originalSceneCount": 6,
+  "sampledFrames": [
+    2,
+    10,
+    18,
+    26,
+    33,
+    40
+  ],
+  "captionCueCount": 15,
+  "maxCaptionWPM": 218.2,
+  "cuesOver160WPM": 8,
+  "cuesUnder1_5Seconds": 1,
+  "transcriptSequenceSimilarity": 0.9391,
+  "captionSource": "Faster-Whisper tiny.en provisional recognition",
+  "manualNarrationReview": "NOT_PERFORMED",
+  "captionSynchronization": "PROVISIONAL_ASR_ONLY",
+  "mobilePlaybackReview": "NOT_PERFORMED",
+  "voiceLicenseReview": "NOT_PERFORMED",
+  "publicationApproved": false,
+  "uploadPermitted": false,
+  "paidSpendUSD": 0,
+  "releaseDecision": "HOLD_PENDING_FULL_EDITORIAL_REVIEW",
+  "limitations": "ASR may mishear words or numbers. Sampled frames do not replace full mobile playback. No YouTube publication."
+}
