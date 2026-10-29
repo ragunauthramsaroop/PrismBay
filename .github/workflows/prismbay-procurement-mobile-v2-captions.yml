@@ -1,0 +1,92 @@
+name: PrismBay AI Procurement Mobile V2 Word-Aligned Captions
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/prismbay-procurement-mobile-v2-captions.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: prismbay-procurement-mobile-v2-captions-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  align:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - name: Checkout sole authorized PrismBay repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Install free speech tools
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg
+          python3 -m pip install --disable-pip-version-check --no-input faster-whisper numpy
+      - name: Validate alignment implementation
+        run: python3 -m py_compile scripts/prismbay_procurement_caption_alignment.py
+      - name: Align original script to new mobile V2 audio
+        run: |
+          python3 scripts/prismbay_procurement_caption_alignment.py \
+            --video public/youtube/ai-vendor-procurement-mobile-v2-2026-10-29.mp4 \
+            --manifest public/youtube/ai-vendor-procurement-mobile-v2-2026-10-29.json \
+            --spec content/youtube/requests/ai-vendor-procurement-mobile-v2-2026-10-29.json \
+            --output youtube-growth/analytics/procurement-mobile-v2-qa
+      - name: Verify captions and prevent false approval
+        run: |
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          base=Path('youtube-growth/analytics/procurement-mobile-v2-qa')
+          report=json.loads((base/'captions-asr-anchored-script-report.json').read_text())
+          manifest=json.loads(Path('public/youtube/ai-vendor-procurement-mobile-v2-2026-10-29.json').read_text())
+          assert report['sourceVideoSHA256']==manifest['sha256']
+          assert report['channelId']=='UCw2hs85TzIpdKwJtG-BSxzQ'
+          assert report['directASRWordMatchRatio']>=0.78
+          assert report['cuesOver160WPM']==0 and report['cuesUnder1_5Seconds']==0
+          assert report['maximumWordsPerCue']<=7
+          assert report['maximumSmoothedWordCenterDisplacementSeconds']<1.0
+          assert report['publicationApproved'] is False and report['uploadPermitted'] is False
+          assert report['paidSpendUSD']==0
+          print('New candidate captions mechanically valid, full audiovisual approval still required.')
+          PY
+      - name: Archive unpublished caption evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: prismbay-procurement-mobile-v2-caption-candidate-${{ github.run_id }}
+          path: |
+            youtube-growth/analytics/procurement-mobile-v2-qa/captions-asr-anchored-script-candidate.srt
+            youtube-growth/analytics/procurement-mobile-v2-qa/captions-asr-anchored-script-report.json
+          retention-days: 14
+          if-no-files-found: error
+      - name: Commit only new candidate captions
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name prismbay-ai-caption-qa-bot
+          git config user.email actions@users.noreply.github.com
+          git add youtube-growth/analytics/procurement-mobile-v2-qa/captions-asr-anchored-script-candidate.srt
+          git add youtube-growth/analytics/procurement-mobile-v2-qa/captions-asr-anchored-script-report.json
+          if git diff --cached --quiet; then
+            exit 0
+          fi
+          git commit -m 'Align mobile V2 captions to revised narration, hold release'
+          for attempt in 1 2 3 4; do
+            git fetch origin main
+            git rebase origin/main
+            if git push origin HEAD:main; then
+              exit 0
+            fi
+            sleep $((attempt * 3))
+          done
+          exit 1
+      - name: State release control
+        if: always()
+        run: |
+          echo 'Only target UCw2hs85TzIpdKwJtG-BSxzQ / @PrismBayAI.' >> "$GITHUB_STEP_SUMMARY"
+          echo 'Captions remain machine candidates. No upload or scheduling authorized.' >> "$GITHUB_STEP_SUMMARY"
