@@ -5,6 +5,7 @@ on:
     branches: [main]
     paths:
       - 'scripts/prismbay_procurement_short_qa.py'
+      - 'scripts/youtube_visual_procurement.py'
       - 'public/youtube/ai-vendor-procurement-acceptance-test-2026-10-29.mp4'
       - '.github/workflows/prismbay-procurement-short-qa.yml'
   workflow_dispatch:
@@ -31,7 +32,22 @@ jobs:
           sudo apt-get install -y -qq ffmpeg fonts-dejavu-core
           python3 -m pip install --disable-pip-version-check --no-input faster-whisper numpy pillow
       - name: Validate Python syntax
-        run: python3 -m py_compile scripts/prismbay_procurement_short_qa.py
+        run: python3 -m py_compile scripts/prismbay_procurement_short_qa.py scripts/youtube_visual_procurement.py
+      - name: Smoke-test six mobile typography layouts without altering released media
+        run: |
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          from scripts.youtube_visual_procurement import render_frame_procurement
+          spec = json.loads(Path('content/youtube/requests/ai-vendor-procurement-acceptance-test-2026-10-29.json').read_text())
+          assert spec['targetChannelId'] == 'UCw2hs85TzIpdKwJtG-BSxzQ'
+          assert spec['publicationApproved'] is False and spec['uploadPermitted'] is False
+          assert len(spec['segments']) == 6
+          for i, segment in enumerate(spec['segments']):
+              img = render_frame_procurement(segment, i, 6, spec)
+              assert img.size == (1080, 1920)
+          print('All six revised renderer scenes passed layout smoke test. Existing MP4 unchanged.')
+          PY
       - name: Verify original Short and generate provisional ASR captions and visual contact sheet
         run: |
           python3 scripts/prismbay_procurement_short_qa.py \
