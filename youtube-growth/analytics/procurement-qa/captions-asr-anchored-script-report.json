@@ -1,12 +1,15 @@
 {
   "channelId": "UCw2hs85TzIpdKwJtG-BSxzQ",
-  "sourceVideoSHA256": "ddacf142875ef75298ec13243e80dca3ffe2057e6ccd393bff0b5e73685eb006",
-  "durationSeconds": 46.522,
+  "sourceVideoSHA256": "8e117195ee4f4755f899966fba184499ccf20a126763be45ebb9234de917fc6c",
+  "durationSeconds": 50.745,
   "exactScriptWords": 114,
   "recognizedASRWords": 115,
-  "directASRWordMatchRatio": 0.9561,
-  "cueCount": 15,
-  "maximumWPM": 160.0,
+  "directASRWordMatchRatio": 0.9386,
+  "cueCount": 22,
+  "maximumWPM": 158.82,
+  "maximumWordsPerCue": 7,
+  "asrAnchorWeight": 0.7,
+  "maximumSmoothedWordCenterDisplacementSeconds": 0.878,
   "cuesOver160WPM": 0,
   "cuesUnder1_5Seconds": 0,
   "captionTiming": "ASR_WORD_ANCHORED_INTERPOLATED_CANDIDATE_NOT_HUMAN_VERIFIED",
@@ -22,122 +25,178 @@
     {
       "index": 1,
       "start": 0.0,
-      "end": 2.8,
+      "end": 3.063,
       "text": "Your AI vendor's demo worked. That does",
       "words": 7,
-      "wpm": 150.0
+      "wpm": 137.13
     },
     {
       "index": 2,
-      "start": 2.8,
-      "end": 7.485,
-      "text": "not mean your business should sign. Run three acceptance tests before approval.",
-      "words": 12,
-      "wpm": 153.68
+      "start": 3.063,
+      "end": 5.707,
+      "text": "not mean your business should sign. Run",
+      "words": 7,
+      "wpm": 158.82
     },
     {
       "index": 3,
-      "start": 7.485,
-      "end": 10.61,
-      "text": "First, use a fictional invoice with synthetic customer",
-      "words": 8,
-      "wpm": 153.6
+      "start": 5.707,
+      "end": 8.225,
+      "text": "three acceptance tests before approval.",
+      "words": 5,
+      "wpm": 119.17
     },
     {
       "index": 4,
-      "start": 10.61,
-      "end": 13.655,
-      "text": "details. Confirm where the data goes, who keeps",
-      "words": 8,
-      "wpm": 157.64
+      "start": 8.225,
+      "end": 10.198,
+      "text": "First, use a fictional invoice",
+      "words": 5,
+      "wpm": 152.04
     },
     {
       "index": 5,
-      "start": 13.655,
-      "end": 19.295,
-      "text": "it, and when it gets deleted. Second, submit an invoice above the allowed approval limit.",
-      "words": 15,
-      "wpm": 159.57
+      "start": 10.198,
+      "end": 12.409,
+      "text": "with synthetic customer details.",
+      "words": 4,
+      "wpm": 108.56
     },
     {
       "index": 6,
-      "start": 19.295,
-      "end": 21.92,
-      "text": "The agent must stop, and route the",
-      "words": 7,
-      "wpm": 160.0
+      "start": 12.409,
+      "end": 14.694,
+      "text": "Confirm where the data goes, who",
+      "words": 6,
+      "wpm": 157.53
     },
     {
       "index": 7,
-      "start": 21.92,
-      "end": 23.805,
-      "text": "decision to a person. Third,",
-      "words": 5,
-      "wpm": 159.15
+      "start": 14.694,
+      "end": 17.34,
+      "text": "keeps it, and when it gets deleted.",
+      "words": 7,
+      "wpm": 158.71
     },
     {
       "index": 8,
-      "start": 23.805,
-      "end": 28.105,
-      "text": "make a tool fail twice. Check whether the agent stops safely,",
-      "words": 11,
-      "wpm": 153.49
+      "start": 17.34,
+      "end": 19.845,
+      "text": "Second, submit an invoice above",
+      "words": 5,
+      "wpm": 119.75
     },
     {
       "index": 9,
-      "start": 28.105,
-      "end": 30.963,
-      "text": "avoids endless retries, and records the failed",
-      "words": 7,
-      "wpm": 146.98
+      "start": 19.845,
+      "end": 21.812,
+      "text": "the allowed approval limit. The",
+      "words": 5,
+      "wpm": 152.58
     },
     {
       "index": 10,
-      "start": 30.963,
-      "end": 33.25,
-      "text": "actions. Put the evidence for all",
-      "words": 6,
-      "wpm": 157.38
+      "start": 21.812,
+      "end": 24.002,
+      "text": "agent must stop, and route",
+      "words": 5,
+      "wpm": 136.97
     },
     {
       "index": 11,
-      "start": 33.25,
-      "end": 35.88,
-      "text": "three tests in your purchase decision. A",
-      "words": 7,
-      "wpm": 159.7
+      "start": 24.002,
+      "end": 25.961,
+      "text": "the decision to a person.",
+      "words": 5,
+      "wpm": 153.12
     },
     {
       "index": 12,
-      "start": 35.88,
-      "end": 39.062,
-      "text": "polished demo is not an acceptance test. Follow",
-      "words": 8,
-      "wpm": 150.82
+      "start": 25.961,
+      "end": 28.264,
+      "text": "Third, make a tool fail twice.",
+      "words": 6,
+      "wpm": 156.34
     },
     {
       "index": 13,
-      "start": 39.062,
-      "end": 41.62,
-      "text": "PrismBay AI for practical",
-      "words": 4,
-      "wpm": 93.84
+      "start": 28.264,
+      "end": 30.447,
+      "text": "Check whether the agent stops",
+      "words": 5,
+      "wpm": 137.41
     },
     {
       "index": 14,
-      "start": 41.62,
-      "end": 44.065,
-      "text": "AI business systems, with",
+      "start": 30.447,
+      "end": 32.794,
+      "text": "safely, avoids endless retries,",
       "words": 4,
-      "wpm": 98.16
+      "wpm": 102.25
     },
     {
       "index": 15,
-      "start": 44.065,
-      "end": 46.522,
+      "start": 32.794,
+      "end": 34.827,
+      "text": "and records the failed actions.",
+      "words": 5,
+      "wpm": 147.59
+    },
+    {
+      "index": 16,
+      "start": 34.827,
+      "end": 36.852,
+      "text": "Put the evidence for all",
+      "words": 5,
+      "wpm": 148.1
+    },
+    {
+      "index": 17,
+      "start": 36.852,
+      "end": 38.78,
+      "text": "three tests in your purchase",
+      "words": 5,
+      "wpm": 155.63
+    },
+    {
+      "index": 18,
+      "start": 38.78,
+      "end": 40.981,
+      "text": "decision. A polished demo is",
+      "words": 5,
+      "wpm": 136.32
+    },
+    {
+      "index": 19,
+      "start": 40.981,
+      "end": 43.293,
+      "text": "not an acceptance test. Follow",
+      "words": 5,
+      "wpm": 129.72
+    },
+    {
+      "index": 20,
+      "start": 43.293,
+      "end": 45.795,
+      "text": "PrismBay AI for practical",
+      "words": 4,
+      "wpm": 95.96
+    },
+    {
+      "index": 21,
+      "start": 45.795,
+      "end": 48.187,
+      "text": "AI business systems, with",
+      "words": 4,
+      "wpm": 100.31
+    },
+    {
+      "index": 22,
+      "start": 48.187,
+      "end": 50.745,
       "text": "clear controls and measurable results.",
       "words": 5,
-      "wpm": 122.1
+      "wpm": 117.29
     }
   ]
 }

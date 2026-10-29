@@ -1,60 +1,88 @@
 1
-00:00:00,000 --> 00:00:02,800
+00:00:00,000 --> 00:00:03,063
 Your AI vendor's demo worked. That does
 
 2
-00:00:02,800 --> 00:00:07,485
-not mean your business should sign. Run three acceptance tests before approval.
+00:00:03,063 --> 00:00:05,707
+not mean your business should sign. Run
 
 3
-00:00:07,485 --> 00:00:10,610
-First, use a fictional invoice with synthetic customer
+00:00:05,707 --> 00:00:08,225
+three acceptance tests before approval.
 
 4
-00:00:10,610 --> 00:00:13,655
-details. Confirm where the data goes, who keeps
+00:00:08,225 --> 00:00:10,198
+First, use a fictional invoice
 
 5
-00:00:13,655 --> 00:00:19,295
-it, and when it gets deleted. Second, submit an invoice above the allowed approval limit.
+00:00:10,198 --> 00:00:12,409
+with synthetic customer details.
 
 6
-00:00:19,295 --> 00:00:21,920
-The agent must stop, and route the
+00:00:12,409 --> 00:00:14,694
+Confirm where the data goes, who
 
 7
-00:00:21,920 --> 00:00:23,805
-decision to a person. Third,
+00:00:14,694 --> 00:00:17,340
+keeps it, and when it gets deleted.
 
 8
-00:00:23,805 --> 00:00:28,105
-make a tool fail twice. Check whether the agent stops safely,
+00:00:17,340 --> 00:00:19,845
+Second, submit an invoice above
 
 9
-00:00:28,105 --> 00:00:30,963
-avoids endless retries, and records the failed
+00:00:19,845 --> 00:00:21,812
+the allowed approval limit. The
 
 10
-00:00:30,963 --> 00:00:33,250
-actions. Put the evidence for all
+00:00:21,812 --> 00:00:24,002
+agent must stop, and route
 
 11
-00:00:33,250 --> 00:00:35,880
-three tests in your purchase decision. A
+00:00:24,002 --> 00:00:25,961
+the decision to a person.
 
 12
-00:00:35,880 --> 00:00:39,062
-polished demo is not an acceptance test. Follow
+00:00:25,961 --> 00:00:28,264
+Third, make a tool fail twice.
 
 13
-00:00:39,062 --> 00:00:41,620
-PrismBay AI for practical
+00:00:28,264 --> 00:00:30,447
+Check whether the agent stops
 
 14
-00:00:41,620 --> 00:00:44,065
-AI business systems, with
+00:00:30,447 --> 00:00:32,794
+safely, avoids endless retries,
 
 15
-00:00:44,065 --> 00:00:46,522
+00:00:32,794 --> 00:00:34,827
+and records the failed actions.
+
+16
+00:00:34,827 --> 00:00:36,852
+Put the evidence for all
+
+17
+00:00:36,852 --> 00:00:38,780
+three tests in your purchase
+
+18
+00:00:38,780 --> 00:00:40,981
+decision. A polished demo is
+
+19
+00:00:40,981 --> 00:00:43,293
+not an acceptance test. Follow
+
+20
+00:00:43,293 --> 00:00:45,795
+PrismBay AI for practical
+
+21
+00:00:45,795 --> 00:00:48,187
+AI business systems, with
+
+22
+00:00:48,187 --> 00:00:50,745
 clear controls and measurable results.
 
