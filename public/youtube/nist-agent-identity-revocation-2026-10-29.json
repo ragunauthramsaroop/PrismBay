@@ -1,0 +1,19 @@
+{
+  "slug": "nist-agent-identity-revocation-2026-10-29",
+  "title": "Your AI Agent Still Works After Revocation? Test This | PrismBay AI",
+  "sha256": "a7a3f3469d6f2ec6d620d50c5ff1e32f8075cddd271fd1b2b3c1eae541387dc4",
+  "ttsEngines": [
+    "piper"
+  ],
+  "voice": "en_US-norman-medium",
+  "voiceLicenseBasis": "Piper Norman model provenance and redistribution terms require final pre-publication review; eSpeak-ng zero-cost fallback",
+  "sourceAttribution": "NIST, Design Tenets for Agent Identity Management Systems, 27 October 2026. https://www.nist.gov/blogs/cybersecurity-insights/design-tenets-agent-identity-management-systems. Three tests are PrismBay's original interpretation, not an official NIST checklist.",
+  "originalProgrammaticVisuals": true,
+  "paidSpend": 0,
+  "playbackDurationFactor": 1.1,
+  "channelId": "UCw2hs85TzIpdKwJtG-BSxzQ",
+  "published": false,
+  "publicationApproved": false,
+  "uploadPermitted": false,
+  "qualityGate": "CLOSED_PENDING_FULL_AUDIO_CAPTION_MOBILE_QA"
+}
