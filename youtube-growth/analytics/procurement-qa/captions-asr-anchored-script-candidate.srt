@@ -1,88 +1,88 @@
 1
-00:00:00,000 --> 00:00:03,063
+00:00:00,000 --> 00:00:03,070
 Your AI vendor's demo worked. That does
 
 2
-00:00:03,063 --> 00:00:05,707
+00:00:03,070 --> 00:00:05,746
 not mean your business should sign. Run
 
 3
-00:00:05,707 --> 00:00:08,225
+00:00:05,746 --> 00:00:08,264
 three acceptance tests before approval.
 
 4
-00:00:08,225 --> 00:00:10,198
-First, use a fictional invoice
+00:00:08,264 --> 00:00:10,736
+First, use a fictional invoice with
 
 5
-00:00:10,198 --> 00:00:12,409
-with synthetic customer details.
+00:00:10,736 --> 00:00:13,307
+synthetic customer details. Confirm where
 
 6
-00:00:12,409 --> 00:00:14,694
-Confirm where the data goes, who
+00:00:13,307 --> 00:00:15,608
+the data goes, who keeps it,
 
 7
-00:00:14,694 --> 00:00:17,340
-keeps it, and when it gets deleted.
+00:00:15,608 --> 00:00:17,551
+and when it gets deleted.
 
 8
-00:00:17,340 --> 00:00:19,845
+00:00:17,551 --> 00:00:19,935
 Second, submit an invoice above
 
 9
-00:00:19,845 --> 00:00:21,812
+00:00:19,935 --> 00:00:21,945
 the allowed approval limit. The
 
 10
-00:00:21,812 --> 00:00:24,002
+00:00:21,945 --> 00:00:24,108
 agent must stop, and route
 
 11
-00:00:24,002 --> 00:00:25,961
+00:00:24,108 --> 00:00:25,993
 the decision to a person.
 
 12
-00:00:25,961 --> 00:00:28,264
-Third, make a tool fail twice.
+00:00:25,993 --> 00:00:28,026
+Third, make a tool fail
 
 13
-00:00:28,264 --> 00:00:30,447
-Check whether the agent stops
+00:00:28,026 --> 00:00:30,150
+twice. Check whether the agent
 
 14
-00:00:30,447 --> 00:00:32,794
-safely, avoids endless retries,
+00:00:30,150 --> 00:00:32,945
+stops safely, avoids endless retries,
 
 15
-00:00:32,794 --> 00:00:34,827
+00:00:32,945 --> 00:00:35,002
 and records the failed actions.
 
 16
-00:00:34,827 --> 00:00:36,852
+00:00:35,002 --> 00:00:37,045
 Put the evidence for all
 
 17
-00:00:36,852 --> 00:00:38,780
+00:00:37,045 --> 00:00:39,027
 three tests in your purchase
 
 18
-00:00:38,780 --> 00:00:40,981
+00:00:39,027 --> 00:00:41,231
 decision. A polished demo is
 
 19
-00:00:40,981 --> 00:00:43,293
+00:00:41,231 --> 00:00:43,567
 not an acceptance test. Follow
 
 20
-00:00:43,293 --> 00:00:45,795
+00:00:43,567 --> 00:00:45,936
 PrismBay AI for practical
 
 21
-00:00:45,795 --> 00:00:48,187
+00:00:45,936 --> 00:00:48,253
 AI business systems, with
 
 22
-00:00:48,187 --> 00:00:50,745
+00:00:48,253 --> 00:00:50,745
 clear controls and measurable results.
 
