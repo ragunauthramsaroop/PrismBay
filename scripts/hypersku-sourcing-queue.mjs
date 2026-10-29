@@ -49,16 +49,16 @@ export function validateSourcingQueue(data,shortlist,nowMs=Date.now()) {
   if(!allowed.has(row.slug))errors.push('unknown_slug');
   if(ids.has(row.slug))errors.push('duplicate_product_slug');
   ids.add(row.slug);
-  const url=String(row.aliExpressUrl||'');
+  const url=typeof row.aliExpressUrl==='string'?row.aliExpressUrl:'';
   const good=/^https:\/\/(?:www\.)?aliexpress\.com\/item\/[0-9]{8,25}\.html$/.test(url);
   if(!good)errors.push('invalid_direct_aliexpress_item_url');
   if(links.has(url))errors.push('duplicate_product_link');
   links.add(url);
-  const state=String(row.status||'');
+  const state=typeof row.status==='string'?row.status:'';
   if(!['candidate','ready_to_submit','submitted','quote_received','no_source'].includes(state))
    errors.push('invalid_sourcing_state');
   if(['submitted','quote_received','no_source'].includes(state)){
-   const submittedAt=String(row.submittedAt||'');
+   const submittedAt=typeof row.submittedAt==='string'?row.submittedAt:'';
    const day=submittedAt.slice(0,10);
    const date=Date.parse(submittedAt);
    // Strict UTC ISO dates reject rollover dates and ambiguous local timestamps.
