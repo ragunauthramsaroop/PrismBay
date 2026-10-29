@@ -1,0 +1,194 @@
+{
+  "channelId": "UCw2hs85TzIpdKwJtG-BSxzQ",
+  "sourceVideoSHA256": "a7a3f3469d6f2ec6d620d50c5ff1e32f8075cddd271fd1b2b3c1eae541387dc4",
+  "durationSeconds": 48.279,
+  "exactScriptWords": 115,
+  "recognizedASRWords": 118,
+  "directASRWordMatchRatio": 0.9217,
+  "cueCount": 21,
+  "maximumWPM": 159.89,
+  "maximumWordsPerCue": 7,
+  "asrAnchorWeight": 0.5,
+  "maximumSmoothedWordCenterDisplacementSeconds": 1.011,
+  "cuesOver160WPM": 0,
+  "cuesUnder1_5Seconds": 0,
+  "captionTiming": "ASR_WORD_ANCHORED_INTERPOLATED_CANDIDATE_NOT_HUMAN_VERIFIED",
+  "fullNarrationListening": "NOT_PERFORMED",
+  "mobilePlaybackReview": "NOT_PERFORMED",
+  "voiceLicenseReview": "NOT_PERFORMED",
+  "publicationApproved": false,
+  "uploadPermitted": false,
+  "published": false,
+  "paidSpendUSD": 0,
+  "releaseDecision": "HOLD_PENDING_FULL_EDITORIAL_REVIEW",
+  "cues": [
+    {
+      "index": 1,
+      "start": 0.0,
+      "end": 2.614,
+      "text": "You revoked your AI agent's access.",
+      "words": 6,
+      "wpm": 137.7
+    },
+    {
+      "index": 2,
+      "start": 2.614,
+      "end": 4.519,
+      "text": "Does its next tool call",
+      "words": 5,
+      "wpm": 157.52
+    },
+    {
+      "index": 3,
+      "start": 4.519,
+      "end": 6.461,
+      "text": "still work? Test this before",
+      "words": 5,
+      "wpm": 154.48
+    },
+    {
+      "index": 4,
+      "start": 6.461,
+      "end": 8.665,
+      "text": "deployment. On October twenty seventh,",
+      "words": 5,
+      "wpm": 136.12
+    },
+    {
+      "index": 5,
+      "start": 8.665,
+      "end": 10.793,
+      "text": "NIST proposed ten agent identity",
+      "words": 5,
+      "wpm": 141.0
+    },
+    {
+      "index": 6,
+      "start": 10.793,
+      "end": 12.917,
+      "text": "design tenets. Here are three",
+      "words": 5,
+      "wpm": 141.21
+    },
+    {
+      "index": 7,
+      "start": 12.917,
+      "end": 15.284,
+      "text": "practical operator tests. First, give",
+      "words": 5,
+      "wpm": 126.74
+    },
+    {
+      "index": 8,
+      "start": 15.284,
+      "end": 17.289,
+      "text": "each agent a distinct identity.",
+      "words": 5,
+      "wpm": 149.66
+    },
+    {
+      "index": 9,
+      "start": 17.289,
+      "end": 19.473,
+      "text": "Never share an administrator login.",
+      "words": 5,
+      "wpm": 137.33
+    },
+    {
+      "index": 10,
+      "start": 19.473,
+      "end": 21.993,
+      "text": "Link actions to an accountable owner.",
+      "words": 6,
+      "wpm": 142.89
+    },
+    {
+      "index": 11,
+      "start": 21.993,
+      "end": 24.662,
+      "text": "Second, revoke a short-lived permission mid-task.",
+      "words": 6,
+      "wpm": 134.86
+    },
+    {
+      "index": 12,
+      "start": 24.662,
+      "end": 27.301,
+      "text": "The next protected tool call must fail",
+      "words": 7,
+      "wpm": 159.13
+    },
+    {
+      "index": 13,
+      "start": 27.301,
+      "end": 28.821,
+      "text": "at the service, not",
+      "words": 4,
+      "wpm": 157.93
+    },
+    {
+      "index": 14,
+      "start": 28.821,
+      "end": 31.55,
+      "text": "merely in the prompt. Third, keep independent",
+      "words": 7,
+      "wpm": 153.88
+    },
+    {
+      "index": 15,
+      "start": 31.55,
+      "end": 33.882,
+      "text": "evidence of who authorized the task,",
+      "words": 6,
+      "wpm": 154.38
+    },
+    {
+      "index": 16,
+      "start": 33.882,
+      "end": 36.509,
+      "text": "when access ended, and what the agent",
+      "words": 7,
+      "wpm": 159.89
+    },
+    {
+      "index": 17,
+      "start": 36.509,
+      "end": 38.914,
+      "text": "tried next. Prevent the agent editing",
+      "words": 6,
+      "wpm": 149.72
+    },
+    {
+      "index": 18,
+      "start": 38.914,
+      "end": 41.203,
+      "text": "those records. Use fictional data.",
+      "words": 5,
+      "wpm": 131.03
+    },
+    {
+      "index": 19,
+      "start": 41.203,
+      "end": 43.39,
+      "text": "These are PrismBay tests inspired",
+      "words": 5,
+      "wpm": 137.17
+    },
+    {
+      "index": 20,
+      "start": 43.39,
+      "end": 45.545,
+      "text": "by NIST's proposal, not an",
+      "words": 5,
+      "wpm": 139.24
+    },
+    {
+      "index": 21,
+      "start": 45.545,
+      "end": 48.279,
+      "text": "official checklist. Follow PrismBay AI.",
+      "words": 5,
+      "wpm": 109.74
+    }
+  ]
+}

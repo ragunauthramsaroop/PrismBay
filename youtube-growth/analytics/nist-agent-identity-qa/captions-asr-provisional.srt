@@ -1,0 +1,59 @@
+1
+00:00:00,000 --> 00:00:03,260
+you revoked your AI agent's access. Does its
+
+2
+00:00:03,200 --> 00:00:06,120
+next tool call still work? Test this before
+
+3
+00:00:06,060 --> 00:00:10,180
+deployment on October 27th. This proposed 10 agent
+
+4
+00:00:10,120 --> 00:00:13,640
+identity design tenets. Here are three practical operator
+
+5
+00:00:13,580 --> 00:00:17,380
+tests. First, give each agent a distinct identity.
+
+6
+00:00:17,680 --> 00:00:20,880
+Never share an administrator login. Link actions to
+
+7
+00:00:20,820 --> 00:00:23,960
+an accountable owner. Second, revoke a short -lived
+
+8
+00:00:23,900 --> 00:00:26,860
+permission mid -task. The next protected tool call
+
+9
+00:00:26,800 --> 00:00:29,100
+must fail at the service. Not merely in
+
+10
+00:00:29,040 --> 00:00:32,040
+the prompt. Third, keep independent evidence of who
+
+11
+00:00:31,980 --> 00:00:35,220
+authorized the task, when access ended, and what
+
+12
+00:00:35,160 --> 00:00:37,920
+the agent tried next. Prevent the agent editing
+
+13
+00:00:37,860 --> 00:00:41,380
+those records. Use fictional data. These are prism
+
+14
+00:00:41,320 --> 00:00:44,840
+bay tests inspired by NIST proposal, not an
+
+15
+00:00:44,780 --> 00:00:48,120
+official checklist. Follow prism bay AI.

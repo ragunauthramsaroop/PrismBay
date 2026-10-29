@@ -1,0 +1,90 @@
+{
+  "channelId": "UCw2hs85TzIpdKwJtG-BSxzQ",
+  "sha256": "a7a3f3469d6f2ec6d620d50c5ff1e32f8075cddd271fd1b2b3c1eae541387dc4",
+  "durationSeconds": 48.279,
+  "dimensions": [
+    1080,
+    1920
+  ],
+  "videoCodec": "h264",
+  "audioCodec": "aac",
+  "ttsEngine": [
+    "piper"
+  ],
+  "originalSceneCount": 6,
+  "sampledFrames": [
+    3.28,
+    10.425,
+    18.285,
+    26.06,
+    34.23,
+    43.495
+  ],
+  "sceneSamplePlan": [
+    {
+      "index": 1,
+      "scene": "hook",
+      "second": 3.28,
+      "matchedWords": 18,
+      "expectedWords": 18,
+      "method": "ASR_MATCHED_WORD_SPAN"
+    },
+    {
+      "index": 2,
+      "scene": "source",
+      "second": 10.425,
+      "matchedWords": 13,
+      "expectedWords": 17,
+      "method": "ASR_MATCHED_WORD_SPAN"
+    },
+    {
+      "index": 3,
+      "scene": "identity",
+      "second": 18.285,
+      "matchedWords": 18,
+      "expectedWords": 18,
+      "method": "ASR_MATCHED_WORD_SPAN"
+    },
+    {
+      "index": 4,
+      "scene": "revoke",
+      "second": 26.06,
+      "matchedWords": 23,
+      "expectedWords": 23,
+      "method": "ASR_MATCHED_WORD_SPAN"
+    },
+    {
+      "index": 5,
+      "scene": "evidence",
+      "second": 34.23,
+      "matchedWords": 24,
+      "expectedWords": 24,
+      "method": "ASR_MATCHED_WORD_SPAN"
+    },
+    {
+      "index": 6,
+      "scene": "close",
+      "second": 43.495,
+      "matchedWords": 16,
+      "expectedWords": 19,
+      "method": "ASR_MATCHED_WORD_SPAN"
+    }
+  ],
+  "sceneSamplingMethod": "SIX_AUTHORED_SCENES_ASR_WORD_ANCHORED",
+  "sceneCoverageStatus": "SIX_DISTINCT_SCRIPT_SEGMENTS_SAMPLED_NOT_FULL_PLAYBACK",
+  "captionCueCount": 15,
+  "maxCaptionWPM": 208.7,
+  "cuesOver160WPM": 5,
+  "cuesUnder1_5Seconds": 0,
+  "transcriptSequenceSimilarity": 0.9412,
+  "captionSource": "Faster-Whisper tiny.en provisional recognition",
+  "manualNarrationReview": "NOT_PERFORMED",
+  "captionSynchronization": "PROVISIONAL_ASR_ONLY",
+  "mobilePlaybackReview": "NOT_PERFORMED",
+  "voiceLicenseReview": "NOT_PERFORMED",
+  "publicationApproved": false,
+  "uploadPermitted": false,
+  "paidSpendUSD": 0,
+  "releaseDecision": "HOLD_PENDING_FULL_EDITORIAL_REVIEW",
+  "limitations": "ASR may mishear words or numbers. Sampled frames do not replace full mobile playback. No YouTube publication."
+}
