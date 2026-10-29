@@ -10,6 +10,92 @@
   "maximumWordsPerCue": 7,
   "asrAnchorWeight": 0.5,
   "maximumSmoothedWordCenterDisplacementSeconds": 1.011,
+  "largestWordTimingAdjustments": [
+    {
+      "wordIndex": 97,
+      "scriptWord": "records.",
+      "asrAnchoredCenterSeconds": 38.49,
+      "smoothedCenterSeconds": 39.501,
+      "estimatedAbsoluteDisplacementSeconds": 1.011
+    },
+    {
+      "wordIndex": 96,
+      "scriptWord": "those",
+      "asrAnchoredCenterSeconds": 38.13,
+      "smoothedCenterSeconds": 39.111,
+      "estimatedAbsoluteDisplacementSeconds": 0.981
+    },
+    {
+      "wordIndex": 95,
+      "scriptWord": "editing",
+      "asrAnchoredCenterSeconds": 37.76,
+      "smoothedCenterSeconds": 38.716,
+      "estimatedAbsoluteDisplacementSeconds": 0.956
+    },
+    {
+      "wordIndex": 94,
+      "scriptWord": "agent",
+      "asrAnchoredCenterSeconds": 37.39,
+      "smoothedCenterSeconds": 38.321,
+      "estimatedAbsoluteDisplacementSeconds": 0.931
+    },
+    {
+      "wordIndex": 91,
+      "scriptWord": "next.",
+      "asrAnchoredCenterSeconds": 36.14,
+      "smoothedCenterSeconds": 37.067,
+      "estimatedAbsoluteDisplacementSeconds": 0.927
+    },
+    {
+      "wordIndex": 93,
+      "scriptWord": "the",
+      "asrAnchoredCenterSeconds": 37.0,
+      "smoothedCenterSeconds": 37.916,
+      "estimatedAbsoluteDisplacementSeconds": 0.916
+    },
+    {
+      "wordIndex": 90,
+      "scriptWord": "tried",
+      "asrAnchoredCenterSeconds": 35.78,
+      "smoothedCenterSeconds": 36.677,
+      "estimatedAbsoluteDisplacementSeconds": 0.897
+    },
+    {
+      "wordIndex": 102,
+      "scriptWord": "are",
+      "asrAnchoredCenterSeconds": 40.91,
+      "smoothedCenterSeconds": 41.761,
+      "estimatedAbsoluteDisplacementSeconds": 0.851
+    },
+    {
+      "wordIndex": 92,
+      "scriptWord": "Prevent",
+      "asrAnchoredCenterSeconds": 36.73,
+      "smoothedCenterSeconds": 37.571,
+      "estimatedAbsoluteDisplacementSeconds": 0.841
+    },
+    {
+      "wordIndex": 98,
+      "scriptWord": "Use",
+      "asrAnchoredCenterSeconds": 39.25,
+      "smoothedCenterSeconds": 40.091,
+      "estimatedAbsoluteDisplacementSeconds": 0.841
+    },
+    {
+      "wordIndex": 99,
+      "scriptWord": "fictional",
+      "asrAnchoredCenterSeconds": 39.7,
+      "smoothedCenterSeconds": 40.526,
+      "estimatedAbsoluteDisplacementSeconds": 0.826
+    },
+    {
+      "wordIndex": 100,
+      "scriptWord": "data.",
+      "asrAnchoredCenterSeconds": 40.12,
+      "smoothedCenterSeconds": 40.946,
+      "estimatedAbsoluteDisplacementSeconds": 0.826
+    }
+  ],
   "cuesOver160WPM": 0,
   "cuesUnder1_5Seconds": 0,
   "captionTiming": "ASR_WORD_ANCHORED_INTERPOLATED_CANDIDATE_NOT_HUMAN_VERIFIED",
