@@ -1,0 +1,89 @@
+name: PrismBay AI Procurement Short Independent QA
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/prismbay_procurement_short_qa.py'
+      - 'public/youtube/ai-vendor-procurement-acceptance-test-2026-10-29.mp4'
+      - '.github/workflows/prismbay-procurement-short-qa.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: prismbay-procurement-short-qa-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - name: Checkout sole authorized PrismBay repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Install zero-cost local speech and media analysis
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg fonts-dejavu-core
+          python3 -m pip install --disable-pip-version-check --no-input faster-whisper numpy pillow
+      - name: Validate Python syntax
+        run: python3 -m py_compile scripts/prismbay_procurement_short_qa.py
+      - name: Verify original Short and generate provisional ASR captions and visual contact sheet
+        run: |
+          python3 scripts/prismbay_procurement_short_qa.py \
+            --video public/youtube/ai-vendor-procurement-acceptance-test-2026-10-29.mp4 \
+            --manifest public/youtube/ai-vendor-procurement-acceptance-test-2026-10-29.json \
+            --spec content/youtube/requests/ai-vendor-procurement-acceptance-test-2026-10-29.json \
+            --output youtube-growth/analytics/procurement-qa
+      - name: Assert publication is forbidden
+        run: |
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          p=Path('youtube-growth/analytics/procurement-qa/qa-report.json')
+          m=json.loads(p.read_text())
+          assert m['channelId']=='UCw2hs85TzIpdKwJtG-BSxzQ'
+          assert m['publicationApproved'] is False and m['uploadPermitted'] is False
+          assert m['paidSpendUSD']==0
+          assert m['releaseDecision']=='HOLD_PENDING_FULL_EDITORIAL_REVIEW'
+          print('Machine QA only. No publishing authority granted.')
+          PY
+      - name: Preserve QA evidence for manual editorial review
+        uses: actions/upload-artifact@v4
+        with:
+          name: prismbay-procurement-short-independent-qa-${{ github.run_id }}
+          path: youtube-growth/analytics/procurement-qa/
+          retention-days: 14
+          if-no-files-found: error
+      - name: Commit text QA and preview evidence without publishing
+        run: |
+          set -euo pipefail
+          git config user.name 'prismbay-ai-qa-bot'
+          git config user.email 'actions@users.noreply.github.com'
+          git add youtube-growth/analytics/procurement-qa/
+          if git diff --cached --quiet; then
+            echo 'QA evidence already recorded.'
+            exit 0
+          fi
+          git commit -m 'Record independent provisional QA for procurement Short'
+          for attempt in 1 2 3 4; do
+            git fetch origin main
+            git rebase origin/main
+            if git push origin HEAD:main; then
+              echo 'Independent QA evidence committed.'
+              exit 0
+            fi
+            sleep $((attempt * 3))
+          done
+          echo 'QA succeeded but evidence push needs recovery.'
+          exit 1
+      - name: State release control
+        if: always()
+        run: |
+          echo '## PrismBay AI Procurement Short QA' >> "$GITHUB_STEP_SUMMARY"
+          echo 'Target: UCw2hs85TzIpdKwJtG-BSxzQ, @PrismBayAI.' >> "$GITHUB_STEP_SUMMARY"
+          echo 'No upload or scheduling. Full narration listening, caption correction, mobile review and license verification remain mandatory.' >> "$GITHUB_STEP_SUMMARY"
