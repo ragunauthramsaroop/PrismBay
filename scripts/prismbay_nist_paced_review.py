@@ -74,15 +74,15 @@ Style: Default,DejaVu Sans,47,&H00FFFFFF,&H00000000,&H00321D08,&H00000000,1,0,0,
 [Events]
 Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
 """
-    for block in srt_text.strip().split("\\n\\n"):
+    for block in srt_text.strip().split("\n\n"):
         lines = block.splitlines()
         start, end = lines[1].split(" --> ")
         caption = " ".join(lines[2:])
-        wrapped = "\\\\N".join(textwrap.wrap(
+        wrapped = "\\N".join(textwrap.wrap(
             caption, width=29, break_long_words=False,
             break_on_hyphens=False))
         header += (f"Dialogue: 0,{ass_stamp(start)},{ass_stamp(end)},"
-                   f"Default,,0,0,0,,{wrapped}\\n")
+                   f"Default,,0,0,0,,{wrapped}\n")
     return header
 
 
