@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-29T11:46:00-04:00",
+  "updatedAt": "2026-10-29T16:50:16.201Z",
   "channel": {
     "id": "UCw2hs85TzIpdKwJtG-BSxzQ",
     "handle": "@PrismBayAI",
@@ -28,17 +28,23 @@
     "trafficSources": "NO_ROWS",
     "scheduledMetricoolPosts": {
       "from": "2026-10-29",
-      "to": "2026-11-15",
+      "to": "2026-11-12",
       "count": 0
     },
-    "nativeStudioSchedule": "UNVERIFIED_BROWSER_AUTH"
+    "nativeStudioSchedule": "UNVERIFIED_BROWSER_AUTH",
+    "observedOctoberViews": 364,
+    "observedOctoberDays": 16,
+    "observedViewDatesArePartial": true,
+    "allVideosConnector": "NO_ROWS_2026_10_01_TO_2026_10_29",
+    "publishedInRangeConnector": "NO_ROWS_2026_10_01_TO_2026_10_29"
   },
   "connectedProduction": {
     "descriptProjectId": "3de30d73-71c8-4e9d-9ccf-72faf3fb5d11",
     "activeDescriptJobs": 0,
     "freeAIAgentCredits": "PREVIOUSLY_EXHAUSTED",
     "fallback": "GitHub Actions FFmpeg Piper open-TTS",
-    "operaStudio": "REQUIRES_INTERACTIVE_AUTHORIZATION"
+    "operaStudio": "BROWSER_ORIGIN_AUTH_REQUIRED",
+    "exa": "CREDITS_EXHAUSTED_NO_PURCHASE"
   },
   "releaseQueue": [
     {
@@ -159,5 +165,19 @@
     "policy_risk",
     "user_owned_blocker_after_alternatives"
   ],
-  "status": "HOLD_ALL_QUEUED_MEDIA_NO_PUBLICATION"
+  "status": "HOLD_ALL_QUEUED_MEDIA_NO_PUBLICATION",
+  "editorialReviewBundle": {
+    "status": "SUCCESS_ARTIFACT_VERIFIED",
+    "workflowRunId": 40915300003,
+    "workflowUrl": "https://github.com/ragunauthramsaroop/PrismBay/actions/runs/40915300003",
+    "artifactId": 12915911262,
+    "artifactName": "prismbay-editorial-review-cuts-40915300003",
+    "artifactExpiresAt": "2026-11-12T16:49:54Z",
+    "originalVideoCount": 2,
+    "targetedVideoReviewCuts": 4,
+    "fullLengthAudioReviewFiles": 2,
+    "scriptsCopied": 2,
+    "publicationApproval": false,
+    "purpose": "Provide full narration audio and targeted video clips for NIST caption drift and procurement quiet intervals; no human review claimed"
+  }
 }
