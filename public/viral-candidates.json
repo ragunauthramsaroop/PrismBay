@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-28T10:03:03.167Z",
+  "updatedAt": "2026-10-29T10:26:49.798Z",
   "market": "US",
   "supplierIntegration": "awaiting-cj-auth",
   "methodology": "Public attention and recency identify candidates. Supplier promotion requires verified US inventory and product-level checks. Freight and checkout creation occur only after supplier validation.",
@@ -12,18 +12,18 @@
       "attentionScore": 99.5,
       "attentionLabel": "high-attention",
       "evidence": {
-        "publicMentions": 56,
-        "mentionsLast7Days": 4,
-        "mentionsLast30Days": 11,
+        "publicMentions": 55,
+        "mentionsLast7Days": 3,
+        "mentionsLast30Days": 10,
         "sourcesAvailable": [
           "Google News",
           "Bing News"
         ],
         "sampleSignals": [
           {
-            "title": "Shark's UltraCyclone Pet Pro Plus has never been cheaper — save $20 ahead of Black Friday - Mashable",
+            "title": "Best Shark deal: Save $20 on the Shark UltraCyclone Pet Pro Plus - Mashable",
             "source": "Google News",
-            "publishedAt": "2026-10-27T22:20:11.000Z",
+            "publishedAt": "2026-10-28T21:53:54.000Z",
             "url": "https://news.google.com/rss/articles/CBMimgFBVV95cUxPUU9hV2VtcnFoNjdZcDBqbGhEeE5WbWpZSjJuUzc1aW5NdUZHakJtTm9YNlBPcE1KY1VqQm10UGJwZS11ejlHRndMU3Fnb1ZaNmx0cXl0RS1RbUZKUHRaUGhrX3Z1Ykg5ZUY4Z243T2YwXy1VMUNlRVZETGFYdXNwM1AzaWJIeTdHT29jcUE3RVB3XzBWUE9ta1BB?oc=5"
           },
           {
@@ -39,10 +39,10 @@
             "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTE9YV0Y0SWZmOFd6Sm1CR1hOR2g0ZlVNMmVJbVZzVnRzbHpGZVMzcC01UGpVSkZLVFEtdVdXV3Z5Ymg0c1F5RlNkZjZlRDk5MTZnZmRIdVlOdWtyS3lZWjNVM2JQVTlCQ2ZXNEI3QQ?oc=5"
           },
           {
-            "title": "Amazon's Choice Shark pet vacuum is 20% off and selling fast - USA Today",
+            "title": "Handy Little Suckers, Aren’t They? These Are Our 4 Favorite Handheld Vacs. - The New York Times",
             "source": "Google News",
-            "publishedAt": "2026-10-21T16:03:00.000Z",
-            "url": "https://news.google.com/rss/articles/CBMi1gFBVV95cUxQa2N3NUFFQWlpbWN3SEp3aDRJZDUwZE03Ml9JbGlZYTI5dC1WR0FzNDk0M05lenozcHhQQ25ZZ2tsWkZRRWJJUFZUeHl4bFlVcG5fQUFOand1alVuSXptYUhibjJkd1FCMEF5X0wtSzBQakd0MUdwMGZLVWNOVkJPZ1RPMUNpSThib0hpNEs5VDdobnZGaVhWMVkyRGJfMWFXRDJKdjNyQ0hhQkhUd2owRGhvVmFpd0lTQ1pUYnRFaGtNUXZKSjdLYzl1ZFl2NC1YQU45MEVn?oc=5"
+            "publishedAt": "2026-10-09T07:00:00.000Z",
+            "url": "https://news.google.com/rss/articles/CBMickFVX3lxTE1XOUpyanpZbTZFckt6dy1pNzliMHBXUlZncnZlNjdGMEdFVlJrOHVzM2FmVk9uX1o3Y1RTYm9uc1lkRXpJaUlOblJsT05YX096cDdDNDVEVGhRNkNvVGFWajhfTFM4bS1ONkZrSG94T19pQQ?oc=5"
           }
         ]
       },
@@ -64,7 +64,7 @@
       "attentionScore": 78.6,
       "attentionLabel": "high-attention",
       "evidence": {
-        "publicMentions": 31,
+        "publicMentions": 30,
         "mentionsLast7Days": 1,
         "mentionsLast30Days": 5,
         "sourcesAvailable": [
@@ -165,10 +165,10 @@
       "slug": "dryer-vent-cleaner-kit",
       "name": "Dryer Vent Cleaner Kit",
       "query": "dryer vent cleaner kit",
-      "attentionScore": 52.3,
+      "attentionScore": 54.1,
       "attentionLabel": "research",
       "evidence": {
-        "publicMentions": 16,
+        "publicMentions": 17,
         "mentionsLast7Days": 0,
         "mentionsLast30Days": 0,
         "sourcesAvailable": [
