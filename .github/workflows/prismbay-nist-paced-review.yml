@@ -44,9 +44,11 @@ jobs:
           assert r['maximumCaptionWPM']<=160
           assert r['cuesUnder1p5Seconds']==0
           assert r['captionEstimatedMaxDisplacementSeconds']<=0.2
-          assert r['audioVisualFullDecode']=='PASS'
-          assert len(list(root.glob('*.mp4')))==1
+          assert r['audioVisualFullDecode']=='PASS_BOTH_UNCAPTIONED_AND_CAPTIONED'
+          assert len(list(root.glob('*.mp4')))==2
           assert len(list(root.glob('*.srt')))==1
+          assert len(list(root.glob('*.ass')))==1
+          assert len(r['captionedReviewVideoSHA256'])==64
           print('Unpublished pacing candidate verified. Full editorial approval still required.')
           PY
       - name: Archive review-only video, subtitles and report
