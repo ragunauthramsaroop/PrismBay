@@ -73,3 +73,22 @@ test('paid sourcing and execution flags are rejected rather than silently ignore
  assert.equal(x.automaticallySubmitted,0);
  assert.equal(x.physicalCheckoutEnabled,false);
 });
+
+test('string-encoded and malformed authorizations cannot bypass the no-spend gate',()=>{
+ for(const flag of ['true','0',-1,null,1]){
+  const paid=validateSourcingQueue({schemaVersion:1,paidLinksAuthorized:flag,requests:[]},short);
+  assert.equal(paid.valid,false,String(flag));
+  assert.ok(paid.errors.includes('paid_sourcing_not_authorized'));
+  const auto=validateSourcingQueue({schemaVersion:1,automaticallySubmitted:flag,requests:[]},short);
+  assert.equal(auto.valid,false,String(flag));
+  assert.ok(auto.errors.includes('unsafe_execution_flag'));
+ }
+});
+test('manual order, wallet funding and supplier-order flags remain disabled',()=>{
+ for(const key of ['manualCsvOrdersEnabled','manualCsvOrderSubmissionAuthorized',
+                    'walletFundingAuthorized','automaticOrdersEnabled']){
+  const x=validateSourcingQueue({schemaVersion:1,requests:[],[key]:true},short);
+  assert.equal(x.valid,false,key);
+  assert.ok(x.errors.includes('unsafe_execution_flag'),key);
+ }
+});
