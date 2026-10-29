@@ -4,12 +4,12 @@
   "durationSeconds": 50.745,
   "exactScriptWords": 114,
   "recognizedASRWords": 115,
-  "directASRWordMatchRatio": 0.9474,
+  "directASRWordMatchRatio": 0.9386,
   "cueCount": 22,
-  "maximumWPM": 159.17,
+  "maximumWPM": 158.82,
   "maximumWordsPerCue": 7,
-  "asrAnchorWeight": 0.6,
-  "maximumSmoothedWordCenterDisplacementSeconds": 1.162,
+  "asrAnchorWeight": 0.7,
+  "maximumSmoothedWordCenterDisplacementSeconds": 0.878,
   "cuesOver160WPM": 0,
   "cuesUnder1_5Seconds": 0,
   "captionTiming": "ASR_WORD_ANCHORED_INTERPOLATED_CANDIDATE_NOT_HUMAN_VERIFIED",
@@ -25,178 +25,178 @@
     {
       "index": 1,
       "start": 0.0,
-      "end": 3.07,
+      "end": 3.063,
       "text": "Your AI vendor's demo worked. That does",
       "words": 7,
-      "wpm": 136.79
+      "wpm": 137.13
     },
     {
       "index": 2,
-      "start": 3.07,
-      "end": 5.746,
+      "start": 3.063,
+      "end": 5.707,
       "text": "not mean your business should sign. Run",
       "words": 7,
-      "wpm": 156.96
+      "wpm": 158.82
     },
     {
       "index": 3,
-      "start": 5.746,
-      "end": 8.264,
+      "start": 5.707,
+      "end": 8.225,
       "text": "three acceptance tests before approval.",
       "words": 5,
-      "wpm": 119.15
+      "wpm": 119.17
     },
     {
       "index": 4,
-      "start": 8.264,
-      "end": 10.736,
-      "text": "First, use a fictional invoice with",
-      "words": 6,
-      "wpm": 145.61
+      "start": 8.225,
+      "end": 10.198,
+      "text": "First, use a fictional invoice",
+      "words": 5,
+      "wpm": 152.04
     },
     {
       "index": 5,
-      "start": 10.736,
-      "end": 13.307,
-      "text": "synthetic customer details. Confirm where",
-      "words": 5,
-      "wpm": 116.72
+      "start": 10.198,
+      "end": 12.409,
+      "text": "with synthetic customer details.",
+      "words": 4,
+      "wpm": 108.56
     },
     {
       "index": 6,
-      "start": 13.307,
-      "end": 15.608,
-      "text": "the data goes, who keeps it,",
+      "start": 12.409,
+      "end": 14.694,
+      "text": "Confirm where the data goes, who",
       "words": 6,
-      "wpm": 156.43
+      "wpm": 157.53
     },
     {
       "index": 7,
-      "start": 15.608,
-      "end": 17.551,
-      "text": "and when it gets deleted.",
-      "words": 5,
-      "wpm": 154.38
+      "start": 14.694,
+      "end": 17.34,
+      "text": "keeps it, and when it gets deleted.",
+      "words": 7,
+      "wpm": 158.71
     },
     {
       "index": 8,
-      "start": 17.551,
-      "end": 19.935,
+      "start": 17.34,
+      "end": 19.845,
       "text": "Second, submit an invoice above",
       "words": 5,
-      "wpm": 125.83
+      "wpm": 119.75
     },
     {
       "index": 9,
-      "start": 19.935,
-      "end": 21.945,
+      "start": 19.845,
+      "end": 21.812,
       "text": "the allowed approval limit. The",
       "words": 5,
-      "wpm": 149.31
+      "wpm": 152.58
     },
     {
       "index": 10,
-      "start": 21.945,
-      "end": 24.108,
+      "start": 21.812,
+      "end": 24.002,
       "text": "agent must stop, and route",
       "words": 5,
-      "wpm": 138.65
+      "wpm": 136.97
     },
     {
       "index": 11,
-      "start": 24.108,
-      "end": 25.993,
+      "start": 24.002,
+      "end": 25.961,
       "text": "the decision to a person.",
       "words": 5,
-      "wpm": 159.17
+      "wpm": 153.12
     },
     {
       "index": 12,
-      "start": 25.993,
-      "end": 28.026,
-      "text": "Third, make a tool fail",
-      "words": 5,
-      "wpm": 147.55
+      "start": 25.961,
+      "end": 28.264,
+      "text": "Third, make a tool fail twice.",
+      "words": 6,
+      "wpm": 156.34
     },
     {
       "index": 13,
-      "start": 28.026,
-      "end": 30.15,
-      "text": "twice. Check whether the agent",
+      "start": 28.264,
+      "end": 30.447,
+      "text": "Check whether the agent stops",
       "words": 5,
-      "wpm": 141.29
+      "wpm": 137.41
     },
     {
       "index": 14,
-      "start": 30.15,
-      "end": 32.945,
-      "text": "stops safely, avoids endless retries,",
-      "words": 5,
-      "wpm": 107.32
+      "start": 30.447,
+      "end": 32.794,
+      "text": "safely, avoids endless retries,",
+      "words": 4,
+      "wpm": 102.25
     },
     {
       "index": 15,
-      "start": 32.945,
-      "end": 35.002,
+      "start": 32.794,
+      "end": 34.827,
       "text": "and records the failed actions.",
       "words": 5,
-      "wpm": 145.82
+      "wpm": 147.59
     },
     {
       "index": 16,
-      "start": 35.002,
-      "end": 37.045,
+      "start": 34.827,
+      "end": 36.852,
       "text": "Put the evidence for all",
       "words": 5,
-      "wpm": 146.9
+      "wpm": 148.1
     },
     {
       "index": 17,
-      "start": 37.045,
-      "end": 39.027,
+      "start": 36.852,
+      "end": 38.78,
       "text": "three tests in your purchase",
       "words": 5,
-      "wpm": 151.34
+      "wpm": 155.63
     },
     {
       "index": 18,
-      "start": 39.027,
-      "end": 41.231,
+      "start": 38.78,
+      "end": 40.981,
       "text": "decision. A polished demo is",
       "words": 5,
-      "wpm": 136.1
+      "wpm": 136.32
     },
     {
       "index": 19,
-      "start": 41.231,
-      "end": 43.567,
+      "start": 40.981,
+      "end": 43.293,
       "text": "not an acceptance test. Follow",
       "words": 5,
-      "wpm": 128.41
+      "wpm": 129.72
     },
     {
       "index": 20,
-      "start": 43.567,
-      "end": 45.936,
+      "start": 43.293,
+      "end": 45.795,
       "text": "PrismBay AI for practical",
       "words": 4,
-      "wpm": 101.34
+      "wpm": 95.96
     },
     {
       "index": 21,
-      "start": 45.936,
-      "end": 48.253,
+      "start": 45.795,
+      "end": 48.187,
       "text": "AI business systems, with",
       "words": 4,
-      "wpm": 103.57
+      "wpm": 100.31
     },
     {
       "index": 22,
-      "start": 48.253,
+      "start": 48.187,
       "end": 50.745,
       "text": "clear controls and measurable results.",
       "words": 5,
-      "wpm": 120.37
+      "wpm": 117.29
     }
   ]
 }
