@@ -3,10 +3,22 @@ import {pathToFileURL} from 'node:url';
 
 export function validateSourcingQueue(data,shortlist,nowMs=Date.now()) {
  const errors=[],ids=new Set(),links=new Set();
- const allowed=new Set((shortlist?.candidates||[]).map(x=>x.slug));
+ // Every invalid input must return an explicit no-execution result.
+ const failSchema=reason=>({valid:false,errors:[reason],submitted:0,readyToSubmit:0,
+  automaticallySubmitted:0,paidLinksAuthorized:false,orderImportAuthorized:false,
+  physicalCheckoutEnabled:false});
+ if(!data||typeof data!=='object'||Array.isArray(data)||
+    data.schemaVersion!==1||!Array.isArray(data.requests))
+  return failSchema('invalid_queue_schema');
+ if(!shortlist||!Array.isArray(shortlist.candidates)||
+    shortlist.candidates.some(x=>!x||typeof x!=='object'||Array.isArray(x)||
+      typeof x.slug!=='string'||!x.slug.trim()))
+  return failSchema('invalid_shortlist_schema');
+ if(data.requestQuota!==undefined&&(!data.requestQuota||
+    typeof data.requestQuota!=='object'||Array.isArray(data.requestQuota)))
+  return failSchema('invalid_request_quota_schema');
+ const allowed=new Set(shortlist.candidates.map(x=>x.slug));
  const counts=new Map(),weeks=[];
- if(data?.schemaVersion!==1||!Array.isArray(data.requests))
-  return {valid:false,errors:['invalid_queue_schema'],submitted:0,readyToSubmit:0};
  // The research queue must never authorize paid sourcing, automatic uploads or physical checkout.
  // Reject non-boolean and string-encoded authorizations as well as positive flags.
  // Only absent, false, or numeric zero are unambiguously disabled.
