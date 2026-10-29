@@ -1,0 +1,29 @@
+name: PrismBay YouTube Release Gate Regression Tests
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/youtube_release_gate.py'
+      - 'tests/test_youtube_release_gate.py'
+      - '.github/workflows/prismbay-youtube-release-gate-tests.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify syntax and fail-closed behavior
+        run: |
+          python3 -m py_compile scripts/youtube_release_gate.py
+          python3 -m unittest discover -s tests -p 'test_youtube_release_gate.py' -v
+      - name: Publication remains closed
+        if: always()
+        run: |
+          echo 'Tests do not publish, schedule or approve any video.' >> "$GITHUB_STEP_SUMMARY"
+          echo 'Only authorized channel: UCw2hs85TzIpdKwJtG-BSxzQ.' >> "$GITHUB_STEP_SUMMARY"
