@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-10-28T20:24:00.666Z",
+  "checkedAt": "2026-10-29T00:05:27.847Z",
   "phase": "BLOCKED",
   "blockers": [
     "ebaySellerAuthenticated",
@@ -12,11 +12,11 @@
   "dispatchLocationVerified": false,
   "economicsPass": true,
   "orchestratorCheckedAt": "2026-10-28T20:13:25.817Z",
-  "orchestratorAgeMinutes": 10,
-  "orchestratorStale": false,
+  "orchestratorAgeMinutes": 232,
+  "orchestratorStale": true,
   "orchestratorNextAction": "Resolve blockers: ebaySellerAuthenticated, liveStockVerified, dispatchLocationVerified",
   "ticketStatus": "API_ACCESS_DISABLED",
   "ticketReplyDetected": false,
   "ticketNextAction": "Reauthorize CJ API in the CJ account at https://www.cjdropshipping.com/my.html#/authorize/APIStores. Until then, check the ticket directly in the CJ portal. No reply is verified.",
-  "fingerprint": "9381e42ffd8669b1a9573e509b2212b2f17419fbe321981560b14ed36e3d5c45"
+  "fingerprint": "07e6ceef414bec1cf500be6863b45803456568a01c7e20af9229bbe35bdf9b89"
 }
