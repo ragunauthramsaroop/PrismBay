@@ -19,6 +19,11 @@ export function validateSourcingQueue(data,shortlist,nowMs=Date.now()) {
      data?.automaticOrdersEnabled].some(value=>!disabled(value)))
   errors.push('unsafe_execution_flag');
  for(const row of data.requests){
+  // Malformed entries must produce an auditable rejection, not crash the readiness gate.
+  if(!row||typeof row!=='object'||Array.isArray(row)){
+   errors.push('invalid_sourcing_request');
+   continue;
+  }
   // Per-request flags must never override queue-wide no-spend controls.
   if(!disabled(row?.paidLinksAuthorized))errors.push('paid_sourcing_not_authorized');
   if([row?.orderImportAuthorized,row?.physicalCheckoutEnabled,
@@ -58,7 +63,7 @@ export function validateSourcingQueue(data,shortlist,nowMs=Date.now()) {
  for(const t of weeks)if(weeks.filter(u=>u>=t&&u<t+7*86400000).length>10)
   {errors.push('free_weekly_sourcing_limit_exceeded');break;}
  return {valid:errors.length===0,errors:[...new Set(errors)],
-  submitted:weeks.length,readyToSubmit:data.requests.filter(x=>x.status==='ready_to_submit').length,
+  submitted:weeks.length,readyToSubmit:data.requests.filter(x=>x&&typeof x==='object'&&!Array.isArray(x)&&x.status==='ready_to_submit').length,
   automaticallySubmitted:0,paidLinksAuthorized:false,
   orderImportAuthorized:false,physicalCheckoutEnabled:false};
 }
