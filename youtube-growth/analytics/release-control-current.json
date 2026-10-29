@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-29T21:49:00Z",
+  "updatedAt": "2026-10-29T22:41:16Z",
   "channel": {
     "id": "UCw2hs85TzIpdKwJtG-BSxzQ",
     "handle": "@PrismBayAI",
@@ -24,6 +24,30 @@
       "expandedList": "https://support.google.com/youtube/answer/13429240?hl=en",
       "countryChangeAuthorized": false,
       "trackingIssue": 509
+    },
+    "policyVerification": {
+      "checkedDate": "2026-10-29",
+      "officialYppUpdate": "https://support.google.com/youtube/answer/12843009",
+      "newApplicantAdsFrom20270201": {
+        "subscribers": 1000,
+        "watchHours365Days": 8000,
+        "qualifiedShortsViews90Days": 20000000
+      },
+      "currentAds": {
+        "subscribers": 1000,
+        "watchHours365Days": 4000,
+        "qualifiedShortsViews90Days": 10000000
+      },
+      "earlyFanFunding": {
+        "subscribers": 500,
+        "watchHours365Days": 3000,
+        "qualifiedShortsViews90Days": 3000000
+      },
+      "shortsCreatorPoolMinimumFrom20270201": {
+        "qualifiedShortsViews90Days": 10000000
+      },
+      "countryEligibilityStillUnverified": true,
+      "accountSettingsChanged": false
     }
   },
   "analytics": {
@@ -34,7 +58,7 @@
     },
     "missingDatesNotZero": true,
     "videoLevelData": "NO_ROWS",
-    "trafficSources": "NO_ROWS",
+    "trafficSources": "NO_ROWS_2026_10_01_TO_2026_10_29",
     "scheduledMetricoolPosts": {
       "from": "2026-10-29",
       "to": "2026-11-08",
@@ -45,11 +69,11 @@
     "observedOctoberViews": 364,
     "observedOctoberDays": 16,
     "observedViewDatesArePartial": true,
-    "allVideosConnector": "NO_ROWS_2026_10_01_TO_2026_10_29",
+    "allVideosConnector": "NO_ROWS_2026_09_19_TO_2026_10_29",
     "publishedInRangeConnector": "NO_ROWS_2026_10_01_TO_2026_10_29",
-    "lastMetricoolCheck": "2026-10-29T21:48Z",
+    "lastMetricoolCheck": "2026-10-29T22:41Z",
     "latestSevenDayObservation": {
-      "window": "2026-10-23 through 2026-10-29 17:45 America/Guyana",
+      "window": "2026-10-23 through 2026-10-29 18:41 America/Guyana",
       "subscribers": 7,
       "knownViews": {
         "2026-10-24": 83,
@@ -93,7 +117,7 @@
     "fallback": "GitHub Actions FFmpeg Piper open-TTS",
     "operaStudio": "INTERACTIVE_AUTHORIZATION_REQUIRED_NONINTERACTIVE_RUN",
     "exa": "CREDITS_EXHAUSTED_NO_PURCHASE",
-    "descriptProjectInspection": "2026-10-29T21:48Z",
+    "descriptProjectInspection": "2026-10-29T22:41Z",
     "descriptImportedMedia": {
       "name": "PrismBay Procurement Mobile V2 QA 2026-10-29.mp4",
       "durationSeconds": 51.133333,
@@ -311,5 +335,32 @@
       "publicationApproved": false,
       "uploadPermitted": false
     }
+  },
+  "companionResources": {
+    "nistThreeOperatorTests": {
+      "path": "youtube-growth/companion/2026-10-29-nist-agent-identity-three-operator-tests.md",
+      "source": "https://www.nist.gov/blogs/cybersecurity-insights/design-tenets-agent-identity-management-systems",
+      "status": "ORIGINAL_COMPANION_CREATED_NOT_LINKED_TO_UNPUBLISHED_VIDEO",
+      "videoExperiment": "PB-NIST-IDENTITY-20261029-S04",
+      "videoPublicationApproved": false
+    }
+  },
+  "lastOperationalCycle": {
+    "at": "2026-10-29T22:41:16Z",
+    "connectedChannelVerified": "UCw2hs85TzIpdKwJtG-BSxzQ",
+    "scheduledPostsChecked": 0,
+    "subscriberCount": 7,
+    "observedViews": {
+      "2026-10-24": 83,
+      "2026-10-25": 62,
+      "2026-10-26": 7
+    },
+    "allVideosRows": 0,
+    "trafficSourceRows": 0,
+    "descriptJobsRunning": 0,
+    "companionCreated": true,
+    "publicUploadVerified": false,
+    "paidSpendUSD": 0,
+    "publicationHoldMaintained": true
   }
 }
