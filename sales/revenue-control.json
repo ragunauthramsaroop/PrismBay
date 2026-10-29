@@ -1,13 +1,13 @@
 {
   "schemaVersion": 1,
-  "checkedAt": "2026-10-28T23:57:58.934Z",
+  "checkedAt": "2026-10-29T00:20:01.886Z",
   "priority": "paid_sales_from_verified_existing_offers",
   "activeOffer": {
-    "slug": "bundle",
-    "title": "PrismBay Executive Intelligence Bundle",
-    "priceUsd": 179,
-    "guideUrl": "https://clean.prismbayai.com/toolkits.html?utm_source=github_cloud&utm_medium=owned_educational_content&utm_campaign=organic_bundle_83019",
-    "checkoutUrl": "https://buy.stripe.com/eVqfZi5Lo7pV31Ea4MgnK0t?client_reference_id=owned_content_bundle"
+    "slug": "stakeholder",
+    "title": "Executive Stakeholder Mapping Toolkit",
+    "priceUsd": 49,
+    "guideUrl": "https://clean.prismbayai.com/stakeholder-engagement-plan-template.html?utm_source=github_cloud&utm_medium=owned_educational_content&utm_campaign=organic_stakeholder_83020",
+    "checkoutUrl": "https://buy.stripe.com/4gM8wQ1v8dOj45Ib8QgnK0q?client_reference_id=owned_content_stakeholder"
   },
   "positioning": "baseline",
   "commercialEvidence": {
