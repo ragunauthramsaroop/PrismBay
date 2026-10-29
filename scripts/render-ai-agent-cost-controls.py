@@ -134,9 +134,24 @@ def caption_chunks(paragraph, duration):
     if len(chunks) > 1 and len(chunks[-1].split()) <= 3:
         combined_words = len(chunks[-2].split()) + len(chunks[-1].split())
         if combined_words <= 16:
-            chunks[-2] += ' ' + chunks.pop()
+            # Pop first: augmented assignment to chunks[-2] after pop overwrites
+            # a different list element and silently loses caption words.
+            closing = chunks.pop()
+            chunks[-1] = chunks[-1] + ' ' + closing
     assert ' '.join(chunks) == ' '.join(words)
     return chunks
+
+def validate_caption_segmentation():
+    """Fast regression check before costly narration or video rendering."""
+    for length in range(1, 101):
+        for duration in (1.0, 4.0, 15.0, 40.0):
+            sample = ' '.join(f'word{i}' for i in range(length))
+            chunks = caption_chunks(sample, duration)
+            assert ' '.join(chunks) == sample, (length, duration)
+            assert all(chunk.strip() for chunk in chunks)
+    punctuation = 'A short sentence. Then a longer sentence, with a comma, and a final thought.'
+    for duration in (5.0, 12.0, 25.0):
+        assert ' '.join(caption_chunks(punctuation, duration)) == punctuation
 
 def thumbnail(kind, output):
     im = Image.new('RGB', (1280, 720), (8, 24, 43))
@@ -163,6 +178,7 @@ def thumbnail(kind, output):
     im.save(output, optimize=True)
 
 def main():
+    validate_caption_segmentation()
     chapters = parse()
     OUT.mkdir(parents=True, exist_ok=True)
     WORK.mkdir(parents=True, exist_ok=True)
