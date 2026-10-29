@@ -96,6 +96,17 @@
       "estimatedAbsoluteDisplacementSeconds": 0.968
     }
   ],
+  "timingFirstDiagnostic": {
+    "status": "REVIEW_ONLY_NOT_RELEASE_APPROVED",
+    "cueCount": 23,
+    "maximumWPM": 181.0,
+    "maximumSmoothedWordCenterDisplacementSeconds": 0.0,
+    "asrAnchorWeight": 1.0,
+    "cuesOver160WPM": 7,
+    "cuesUnder1_5Seconds": 0,
+    "candidateFilename": "captions-timing-first-review-only.srt",
+    "publicationApproved": false
+  },
   "cuesOver160WPM": 0,
   "cuesUnder1_5Seconds": 0,
   "captionTiming": "ASR_WORD_ANCHORED_INTERPOLATED_CANDIDATE_NOT_HUMAN_VERIFIED",
