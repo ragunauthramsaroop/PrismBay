@@ -1,0 +1,63 @@
+name: PrismBay AI Editorial Review Cuts (No Publishing)
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/prismbay-editorial-review-cuts.yml'
+      - 'scripts/prismbay_editorial_review_cuts.py'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: prismbay-editorial-review-cuts-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  create-review-cuts:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout original sole-channel assets
+        uses: actions/checkout@v4
+      - name: Install free video and audio processing
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg
+      - name: Generate targeted audio and video editorial review assets
+        run: python3 scripts/prismbay_editorial_review_cuts.py
+      - name: Verify no publishing authorization or channel redirection
+        run: |
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          p=Path('youtube-growth/analytics/editorial-review-cuts/manifest.json')
+          j=json.loads(p.read_text())
+          assert j['channelId']=='UCw2hs85TzIpdKwJtG-BSxzQ'
+          assert j['metricoolBrandId']==6945443
+          assert j['publicationApproved'] is False
+          assert j['uploadPermitted'] is False
+          assert j['paidSpendUSD']==0
+          assert len(j['assets'])==2
+          assert sum(len(a['clips']) for a in j['assets'])==4
+          for a in j['assets']:
+              assert Path('youtube-growth/analytics/editorial-review-cuts',a['fullAudio']).is_file()
+              for c in a['clips']:
+                  assert Path('youtube-growth/analytics/editorial-review-cuts',c['name']).is_file()
+          print('Review bundle verified. No public publication, no scheduling.')
+          PY
+      - name: Upload unpublished review bundle
+        uses: actions/upload-artifact@v4
+        with:
+          name: prismbay-editorial-review-cuts-${{ github.run_id }}
+          path: youtube-growth/analytics/editorial-review-cuts/
+          retention-days: 14
+          if-no-files-found: error
+      - name: Record remaining human review gates
+        if: always()
+        run: |
+          echo 'Sole channel: UCw2hs85TzIpdKwJtG-BSxzQ / @PrismBayAI.' >> "$GITHUB_STEP_SUMMARY"
+          echo 'Full narration listening, caption sync, continuous mobile playback and rights checks are not automated away.' >> "$GITHUB_STEP_SUMMARY"
+          echo 'This workflow never publishes or schedules videos. Advertising spend USD 0.' >> "$GITHUB_STEP_SUMMARY"
