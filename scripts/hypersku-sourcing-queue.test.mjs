@@ -123,3 +123,27 @@ test('malformed sourcing rows fail closed with a structured error instead of cra
   assert.equal(result.physicalCheckoutEnabled,false);
  }
 });
+
+
+test('invalid sourcing evidence never exposes an actionable ready-to-submit count',()=>{
+ const validRow={slug:'pethair',aliExpressUrl:link(1),status:'ready_to_submit'};
+ const invalidRow={slug:'crevice',aliExpressUrl:'https://example.invalid/item/1',status:'ready_to_submit'};
+ const result=validateSourcingQueue({schemaVersion:1,requests:[validRow,invalidRow]},short);
+ assert.equal(result.valid,false);
+ assert.ok(result.errors.includes('invalid_direct_aliexpress_item_url'));
+ assert.equal(result.readyToSubmit,0);
+ assert.equal(result.submitted,0);
+ assert.equal(result.physicalCheckoutEnabled,false);
+});
+
+test('unauthorized execution flag invalidates all sourcing readiness counters',()=>{
+ const result=validateSourcingQueue({schemaVersion:1,automaticOrdersEnabled:true,requests:[
+  {slug:'pethair',aliExpressUrl:link(1),status:'ready_to_submit'},
+  {slug:'crevice',aliExpressUrl:link(2),status:'submitted',submittedAt:'2026-10-28T11:00:00Z'}
+ ]},short,Date.parse('2026-10-29T10:00:00Z'));
+ assert.equal(result.valid,false);
+ assert.ok(result.errors.includes('unsafe_execution_flag'));
+ assert.equal(result.readyToSubmit,0);
+ assert.equal(result.submitted,0);
+ assert.equal(result.automaticallySubmitted,0);
+});
