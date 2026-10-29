@@ -1,0 +1,39 @@
+{
+  "channelId": "UCw2hs85TzIpdKwJtG-BSxzQ",
+  "sourceVideoSHA256": "befb4336402d312b8728811c0fcff808d07a863842acadf37f1a5e9a77ee300b",
+  "durationSeconds": 51.196,
+  "dimensions": [
+    1080,
+    1920
+  ],
+  "videoCodec": "h264",
+  "audioCodec": "aac",
+  "allVideoFramesDecoded": true,
+  "allAudioDecoded": true,
+  "blackIntervalsOverHalfSecond": [],
+  "silenceIntervalsOverHalfSecond": [
+    {
+      "start": 22.969,
+      "end": 23.53,
+      "duration": 0.561
+    },
+    {
+      "start": 47.699,
+      "end": 48.309,
+      "duration": 0.611
+    }
+  ],
+  "meanAudioVolumeDb": -21.3,
+  "peakAudioVolumeDb": -2.8,
+  "potentialClipping": false,
+  "potentialBlackout": false,
+  "limitations": "Black/silence detection can flag intentional pauses and dark designs. Full decode does not verify spoken claims, captions, mobile readability, or rights.",
+  "fullNarrationListening": "NOT_PERFORMED",
+  "mobilePlaybackReview": "NOT_PERFORMED",
+  "voiceLicenseReview": "NOT_PERFORMED",
+  "publicationApproved": false,
+  "uploadPermitted": false,
+  "published": false,
+  "paidSpendUSD": 0,
+  "releaseDecision": "HOLD_PENDING_FULL_EDITORIAL_REVIEW"
+}
