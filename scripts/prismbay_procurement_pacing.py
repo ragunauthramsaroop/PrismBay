@@ -109,7 +109,7 @@ def main():
         "incrementalFactor": round(incremental_factor, 6),
         "pacedSeconds": round(new_seconds, 3),
         "speedFactor": FACTOR,
-        "originalSha256": before_sha,
+        "originalSha256": manifest.get("originalSha256", manifest.get("previousSha256", before_sha)),
         "pacedSha256": after_sha,
         "captionWordCount": word_count,
         "captionCueCount": len(measures),
