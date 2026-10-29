@@ -1,14 +1,14 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import fs from "node:fs";
-import {verifyProviderProducts} from "./alternate-supplier-readiness.mjs";
+import {verifyProviderProducts,apiVerified} from "./alternate-supplier-readiness.mjs";
 
 const vendors=JSON.parse(fs.readFileSync(new URL("../config/alternate-supplier-evidence.json",import.meta.url)));
 const shortlist=JSON.parse(fs.readFileSync(new URL("../config/top15-merchandising.json",import.meta.url)));
 const now=Date.parse("2026-10-27T11:00:00.000Z");
 function sample(){
  return {schemaVersion:1,
-  providers:{hypersku:{basePlanUsdMonthly:0,apiStatus:"api_active"}},
+  providers:{hypersku:{basePlanUsdMonthly:0,apiStatus:"api_active",approvedApiDocumentation:true,authenticatedApiVerified:true,supplierConnected:true}},
   candidates:[{slug:"pethair",provider:"hypersku",supplierProductId:"hyper-1234",supplierVariantId:"hyper-1234-medium",
    supplierTitle:"Genuine Reusable Pet Hair Remover Brush",
    catalogMatchVerified:true,independentIdentityReviewed:true,
@@ -37,6 +37,32 @@ test("strict complete provider evidence allows a real product source, but not ch
  assert.equal(out.approved[0].physicalCheckoutAuthorized,false);
  assert.equal(out.approved[0].automaticSupplierOrdering,false);
 });
+test("declared API status without authenticated connection never approves source products",()=>{
+ const data=sample();
+ const provider=data.providers.hypersku;
+ provider.authenticatedApiVerified=false;
+ assert.equal(apiVerified(provider),false);
+ assert.equal(verifyProviderProducts(data,shortlist,now).approved.length,0);
+ assert.ok(verifyProviderProducts(data,shortlist,now).rejected[0].reasons.includes("provider_api_not_active"));
+ provider.authenticatedApiVerified=true;
+ provider.supplierConnected=false;
+ assert.equal(apiVerified(provider),false);
+ assert.equal(verifyProviderProducts(data,shortlist,now).approved.length,0);
+ provider.supplierConnected=true;
+ provider.approvedApiDocumentation=false;
+ assert.equal(apiVerified(provider),false);
+ assert.equal(verifyProviderProducts(data,shortlist,now).approved.length,0);
+ provider.approvedApiDocumentation=true;
+ assert.equal(apiVerified(provider),true);
+ assert.equal(verifyProviderProducts(data,shortlist,now).approved.length,1);
+});
+
+test("provider status, documents and a secret without authenticated API proof are insufficient",()=>{
+ assert.equal(apiVerified({apiStatus:"api_active",approvedApiDocumentation:true,apiKeyConfigured:true}),false);
+ assert.equal(apiVerified({apiStatus:"api_active",approvedApiDocumentation:true,authenticatedApiVerified:true}),false);
+ assert.equal(apiVerified({apiStatus:"api_active",approvedApiDocumentation:true,supplierConnected:true}),false);
+});
+
 test("provisional provider credentials never authorize source evidence",()=>{
  const data=sample();data.providers.hypersku.apiStatus="pending";
  assert.deepEqual(verifyProviderProducts(data,shortlist,now).rejected[0].reasons,["provider_api_not_active"]);
