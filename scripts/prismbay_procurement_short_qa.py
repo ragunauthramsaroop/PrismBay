@@ -63,6 +63,46 @@ def subtitles(words):
     return rows, "\n".join(lines)
 
 
+def scene_sample_plan(spec, heard, duration):
+    """Select a distinct frame from each authored scene using ASR word anchors.
+
+    Fixed clock timestamps can silently sample the same scene twice and miss
+    the closing CTA after a narration-speed revision.
+    """
+    expected, spans = [], []
+    for segment in spec["segments"]:
+        start = len(expected)
+        expected.extend(tokens(segment["spoken"]))
+        spans.append((start, len(expected), segment["scene"]))
+    heard_tokens, heard_centers = [], []
+    for word in heard:
+        center = (float(word["start"]) + float(word["end"])) / 2
+        for token in tokens(word["word"]):
+            heard_tokens.append(token)
+            heard_centers.append(center)
+    matcher = difflib.SequenceMatcher(None, expected, heard_tokens, autojunk=False)
+    anchors = {}
+    for block in matcher.get_matching_blocks():
+        for offset in range(block.size):
+            anchors[block.a + offset] = heard_centers[block.b + offset]
+    plan = []
+    for i, (start, end, name) in enumerate(spans):
+        matched = [anchors[j] for j in range(start, end) if j in anchors]
+        if len(matched) >= max(3, (end - start) // 3):
+            second = (min(matched) + max(matched)) / 2
+            method = "ASR_MATCHED_WORD_SPAN"
+        else:
+            second = duration * (start + (end - start) / 2) / len(expected)
+            method = "SCRIPT_WORD_PROPORTION_FALLBACK"
+        second = max(0.5, min(duration - 0.5, second))
+        plan.append({"index": i + 1, "scene": name, "second": round(second, 3),
+                     "matchedWords": len(matched), "expectedWords": end - start,
+                     "method": method})
+    assert len(plan) == 6 and len({p["scene"] for p in plan}) == 6
+    assert all(a["second"] < b["second"] for a, b in zip(plan, plan[1:]))
+    return plan
+
+
 def frame(video, second, output):
     subprocess.run(["ffmpeg", "-hide_banner", "-loglevel", "error", "-y",
                     "-ss", str(second), "-i", str(video), "-frames:v", "1",
@@ -115,8 +155,10 @@ def main():
     (out / "captions-asr-provisional.srt").write_text(srt, encoding="utf-8")
     (out / "asr-transcript.txt").write_text(recognized + "\n", encoding="utf-8")
 
+    scene_plan = scene_sample_plan(spec, heard, duration)
     frames = []
-    for i, second in enumerate((2, 10, 18, 26, 33, 40)):
+    for item in scene_plan:
+        i, second = item["index"] - 1, item["second"]
         path = out / f"scene-{i + 1:02}.png"
         frame(video, second, path)
         with Image.open(path) as img:
@@ -134,7 +176,10 @@ def main():
         "audioCodec": aud[0].get("codec_name"),
         "ttsEngine": manifest["ttsEngines"],
         "originalSceneCount": len(spec["segments"]),
-        "sampledFrames": [2, 10, 18, 26, 33, 40],
+        "sampledFrames": [p["second"] for p in scene_plan],
+        "sceneSamplePlan": scene_plan,
+        "sceneSamplingMethod": "SIX_AUTHORED_SCENES_ASR_WORD_ANCHORED",
+        "sceneCoverageStatus": "SIX_DISTINCT_SCRIPT_SEGMENTS_SAMPLED_NOT_FULL_PLAYBACK",
         "captionCueCount": len(cues),
         "maxCaptionWPM": max(r["wpm"] for r in cues),
         "cuesOver160WPM": sum(r["wpm"] > 160 for r in cues),
