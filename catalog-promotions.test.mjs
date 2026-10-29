@@ -58,5 +58,8 @@ test('legacy physical product listing is withdrawn without checkout or unlicense
  assert.doesNotMatch(page, /oss-cf\.cjdropshipping\.com|29\.95|schema\.org\/Product|buy\.stripe\.com|quote\?product=/i);
  assert.equal(catalog.products.length, 0);
  assert.doesNotMatch(home, /href="\/garment-steamer\/"/);
+ assert.match(home, /Physical goods unavailable/);
+ assert.match(home, /No physical purchases or shipping inquiries are accepted/);
+ assert.doesNotMatch(home, /ZIP shipping inquiry|Enter your ZIP|Home-product shipping inquiries remain available|Explore real supplier-matched products/i);
  assert.doesNotMatch(sitemap, /<loc>https:\/\/clean\.prismbayai\.com\/garment-steamer\/<\/loc>/);
 });
