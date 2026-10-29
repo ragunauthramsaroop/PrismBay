@@ -320,9 +320,17 @@ def main():
     concat = work / 'concat.txt'
     concat.write_text(''.join(f"file '{p.as_posix()}'\n" for p in segment_files))
     output = out_dir / f'{slug}.mp4'
+    # Optional pitch-preserving playback pacing for editorially approved specs.
+    # Slow both video timestamps and audio by the same factor. This never
+    # changes the channel or bypasses the independent publication gate.
+    pace = float(spec.get('playbackDurationFactor', 1.0))
+    if not 1.0 <= pace <= 1.3:
+        raise ValueError('playbackDurationFactor must be between 1.0 and 1.3')
+    vf = ['-vf', f'setpts={pace:.6f}*PTS'] if pace > 1.0 else []
+    af = f'atempo={1.0 / pace:.6f},volume=-3dB' if pace > 1.0 else 'volume=-3dB'
     run([
         'ffmpeg', '-hide_banner', '-loglevel', 'error', '-y', '-f', 'concat', '-safe', '0', '-i', str(concat),
-        '-c:v', 'libx264', '-preset', 'medium', '-crf', '20', '-af', 'volume=-3dB', '-c:a', 'aac', '-b:a', '160k',
+        *vf, '-c:v', 'libx264', '-preset', 'medium', '-crf', '20', '-af', af, '-c:a', 'aac', '-b:a', '160k',
         '-movflags', '+faststart', '-pix_fmt', 'yuv420p', str(output)
     ])
 
@@ -337,6 +345,7 @@ def main():
         'sourceAttribution': spec.get('sourceAttribution', ''),
         'originalProgrammaticVisuals': True,
         'paidSpend': 0,
+        'playbackDurationFactor': pace,
         'channelId': 'UCw2hs85TzIpdKwJtG-BSxzQ',
         'published': False,
         'publicationApproved': False,
