@@ -15,8 +15,9 @@ const esc=v=>String(v??"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>
 
 export function currentPublicProducts(review, alternateRegistry=null, shortlist=null){
  const now=Date.parse(review?.checkedAt||"");
- if(!Number.isFinite(now)||Date.now()-now>36*3600000)return [];
- const cj=publicRules.flatMap(rule=>{
+ const cjEvidenceCurrent=Number.isFinite(now)&&now<=Date.now()+120000&&Date.now()-now<=36*3600000;
+ // Stale CJ evidence must not suppress separately verified manual/other suppliers.
+ const cj=cjEvidenceCurrent?publicRules.flatMap(rule=>{
   const p=review.candidates?.find(row=>row.slug===rule.slug);
   if(!p||p.independentIdentityMatch!==true||p.variantStockVerified!==true||
      p.freightEstimateVerified!==true||!rule.sourceRegex.test(String(p.observedProduct||""))||
@@ -26,7 +27,7 @@ export function currentPublicProducts(review, alternateRegistry=null, shortlist=
   if(!Number.isFinite(observed)||now-observed>30*3600000)return [];
   // All permissions other than original graphics remain unresolved.
   return [{...rule,originalName:p.observedProduct,sku:p.observedSupplierSku,variant:p.observedVariantSku,provider:"CJ",source:"CJ"}];
- });
+ }) : [];
  if(!alternateRegistry||!shortlist)return cj;
  const alternative=verifyProviderProducts(alternateRegistry,shortlist,Date.now()).approved.map(p=>({
    slug:p.slug,name:p.name,category:p.category,originalName:p.supplierTitle,
