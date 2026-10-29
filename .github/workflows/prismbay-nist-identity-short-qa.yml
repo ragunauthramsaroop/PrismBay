@@ -6,6 +6,7 @@ on:
     paths:
       - '.github/workflows/prismbay-nist-identity-short-qa.yml'
       - 'public/youtube/nist-agent-identity-revocation-2026-10-29.mp4'
+      - 'scripts/prismbay_procurement_caption_alignment.py'
   workflow_dispatch:
 
 permissions:
