@@ -47,3 +47,16 @@ test('non-finite prices cannot produce an infinite discount', () => {
 test('percentage savings are never rounded above the actual discount', () => {
   assert.equal(api.validatePromotion({ ...promotion, regularPriceUsd: 29.95 }, 20, now).percentOff, 33);
 });
+
+test('legacy physical product listing is withdrawn without checkout or unlicensed media', () => {
+ const page = fs.readFileSync(new URL('./garment-steamer/index.html', import.meta.url), 'utf8');
+ const home = fs.readFileSync(new URL('./index.html', import.meta.url), 'utf8');
+ const sitemap = fs.readFileSync(new URL('./sitemap.xml', import.meta.url), 'utf8');
+ const catalog = JSON.parse(fs.readFileSync(new URL('./products.json', import.meta.url), 'utf8'));
+ assert.match(page, /not currently offered/i);
+ assert.match(page, /noindex,nofollow/);
+ assert.doesNotMatch(page, /oss-cf\.cjdropshipping\.com|29\.95|schema\.org\/Product|buy\.stripe\.com|quote\?product=/i);
+ assert.equal(catalog.products.length, 0);
+ assert.doesNotMatch(home, /href="\/garment-steamer\/"/);
+ assert.doesNotMatch(sitemap, /<loc>https:\/\/clean\.prismbayai\.com\/garment-steamer\/<\/loc>/);
+});
