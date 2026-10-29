@@ -149,6 +149,20 @@ def main():
         "releaseDecision": "HOLD_PENDING_FULL_EDITORIAL_REVIEW",
         "limitations": "ASR may mishear words or numbers. Sampled frames do not replace full mobile playback. No YouTube publication."
     }
+    if manifest.get("pacedFactor"):
+        paced = json.loads((out / "pacing-candidate-report.json").read_text())
+        candidate_path = Path(manifest["captionsCandidatePath"])
+        assert candidate_path.is_file(), "Missing provisional editorial SRT"
+        assert paced["pacedSha256"] == sha, "Pacing report does not match video"
+        assert paced["targetChannelId"] == CHANNEL
+        assert paced["cuesOver160WPM"] == 0
+        assert paced["cuesUnder1_5Seconds"] == 0
+        assert paced["published"] is False and paced["publicationApproved"] is False
+        report["pacedNarrationFactor"] = manifest["pacedFactor"]
+        report["editorialCaptionCandidateCues"] = paced["captionCueCount"]
+        report["editorialCaptionCandidateMaxWPM"] = paced["maxCaptionWPM"]
+        report["editorialCaptionStatus"] = "CANDIDATE_ONLY_NOT_WORD_ALIGNED"
+        report["captionSynchronization"] = "ASR_AND_EDITORIAL_CANDIDATE_REQUIRE_MANUAL_SYNC_REVIEW"
     (out / "qa-report.json").write_text(json.dumps(report, indent=2) + "\n")
     print(json.dumps(report, indent=2))
 
