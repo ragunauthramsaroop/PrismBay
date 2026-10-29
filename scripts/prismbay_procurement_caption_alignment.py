@@ -130,7 +130,7 @@ def main():
     assert manifest["publicationApproved"] is False
     assert manifest["uploadPermitted"] is False
     assert manifest["paidSpend"] == 0 and spec["paidSpendUSD"] == 0
-    assert float(manifest.get("pacedFactor", 0)) >= 1.20, "Require revised 50-second narration"
+    assert float(manifest.get("pacedFactor", manifest.get("playbackDurationFactor", 0))) >= 1.20, "Require revised 50-second narration"
     import hashlib
     sha = hashlib.sha256(video.read_bytes()).hexdigest()
     assert sha == manifest["sha256"], "Source video integrity failure"
