@@ -1,7 +1,7 @@
 {
   "slug": "ai-vendor-procurement-acceptance-test-2026-10-29",
   "title": "Before You Buy an AI Agent, Run These 3 Acceptance Tests | PrismBay AI",
-  "sha256": "c32b191ea69bc28b3a244d4a7c3e43b31fd17da8dfe11d193610d2472674107a",
+  "sha256": "ddacf142875ef75298ec13243e80dca3ffe2057e6ccd393bff0b5e73685eb006",
   "ttsEngines": [
     "piper"
   ],
@@ -14,5 +14,8 @@
   "published": false,
   "publicationApproved": false,
   "uploadPermitted": false,
-  "qualityGate": "CLOSED_PENDING_FULL_AUDIO_CAPTION_MOBILE_QA"
+  "qualityGate": "CLOSED_PENDING_FULL_AUDIO_CAPTION_MOBILE_QA",
+  "previousSha256": "c32b191ea69bc28b3a244d4a7c3e43b31fd17da8dfe11d193610d2472674107a",
+  "pacedFactor": 1.1,
+  "captionsCandidatePath": "youtube-growth/analytics/procurement-qa/captions-editorial-paced-candidate.srt"
 }

@@ -1,0 +1,161 @@
+{
+  "targetChannelId": "UCw2hs85TzIpdKwJtG-BSxzQ",
+  "originalSeconds": 42.28,
+  "pacedSeconds": 46.522,
+  "speedFactor": 1.1,
+  "originalSha256": "c32b191ea69bc28b3a244d4a7c3e43b31fd17da8dfe11d193610d2472674107a",
+  "pacedSha256": "ddacf142875ef75298ec13243e80dca3ffe2057e6ccd393bff0b5e73685eb006",
+  "captionWordCount": 114,
+  "captionCueCount": 23,
+  "maxCaptionWPM": 147.03,
+  "cuesOver160WPM": 0,
+  "cuesUnder1_5Seconds": 0,
+  "captionTiming": "PROPORTIONAL_EDITORIAL_CANDIDATE_NOT_WORD_ALIGNED",
+  "fullNarrationListening": "NOT_PERFORMED",
+  "mobilePlaybackReview": "NOT_PERFORMED",
+  "publicationApproved": false,
+  "uploadPermitted": false,
+  "published": false,
+  "paidSpendUSD": 0,
+  "releaseDecision": "HOLD_PENDING_AUDIO_CAPTION_MOBILE_REVIEW",
+  "cueMetrics": [
+    {
+      "cue": 1,
+      "words": 5,
+      "durationSeconds": 2.04,
+      "wpm": 147.03
+    },
+    {
+      "cue": 2,
+      "words": 5,
+      "durationSeconds": 2.04,
+      "wpm": 147.03
+    },
+    {
+      "cue": 3,
+      "words": 5,
+      "durationSeconds": 2.04,
+      "wpm": 147.03
+    },
+    {
+      "cue": 4,
+      "words": 5,
+      "durationSeconds": 2.04,
+      "wpm": 147.03
+    },
+    {
+      "cue": 5,
+      "words": 5,
+      "durationSeconds": 2.04,
+      "wpm": 147.03
+    },
+    {
+      "cue": 6,
+      "words": 5,
+      "durationSeconds": 2.04,
+      "wpm": 147.03
+    },
+    {
+      "cue": 7,
+      "words": 5,
+      "durationSeconds": 2.04,
+      "wpm": 147.03
+    },
+    {
+      "cue": 8,
+      "words": 5,
+      "durationSeconds": 2.04,
+      "wpm": 147.03
+    },
+    {
+      "cue": 9,
+      "words": 5,
+      "durationSeconds": 2.04,
+      "wpm": 147.03
+    },
+    {
+      "cue": 10,
+      "words": 5,
+      "durationSeconds": 2.04,
+      "wpm": 147.03
+    },
+    {
+      "cue": 11,
+      "words": 5,
+      "durationSeconds": 2.04,
+      "wpm": 147.03
+    },
+    {
+      "cue": 12,
+      "words": 5,
+      "durationSeconds": 2.04,
+      "wpm": 147.03
+    },
+    {
+      "cue": 13,
+      "words": 5,
+      "durationSeconds": 2.04,
+      "wpm": 147.03
+    },
+    {
+      "cue": 14,
+      "words": 5,
+      "durationSeconds": 2.04,
+      "wpm": 147.03
+    },
+    {
+      "cue": 15,
+      "words": 5,
+      "durationSeconds": 2.04,
+      "wpm": 147.03
+    },
+    {
+      "cue": 16,
+      "words": 5,
+      "durationSeconds": 2.04,
+      "wpm": 147.03
+    },
+    {
+      "cue": 17,
+      "words": 5,
+      "durationSeconds": 2.04,
+      "wpm": 147.03
+    },
+    {
+      "cue": 18,
+      "words": 5,
+      "durationSeconds": 2.04,
+      "wpm": 147.03
+    },
+    {
+      "cue": 19,
+      "words": 5,
+      "durationSeconds": 2.04,
+      "wpm": 147.03
+    },
+    {
+      "cue": 20,
+      "words": 5,
+      "durationSeconds": 2.04,
+      "wpm": 147.03
+    },
+    {
+      "cue": 21,
+      "words": 5,
+      "durationSeconds": 2.04,
+      "wpm": 147.03
+    },
+    {
+      "cue": 22,
+      "words": 5,
+      "durationSeconds": 2.04,
+      "wpm": 147.03
+    },
+    {
+      "cue": 23,
+      "words": 4,
+      "durationSeconds": 1.632,
+      "wpm": 147.03
+    }
+  ]
+}
