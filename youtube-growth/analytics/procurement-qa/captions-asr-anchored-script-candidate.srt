@@ -1,0 +1,60 @@
+1
+00:00:00,000 --> 00:00:02,800
+Your AI vendor's demo worked. That does
+
+2
+00:00:02,800 --> 00:00:07,485
+not mean your business should sign. Run three acceptance tests before approval.
+
+3
+00:00:07,485 --> 00:00:10,610
+First, use a fictional invoice with synthetic customer
+
+4
+00:00:10,610 --> 00:00:13,655
+details. Confirm where the data goes, who keeps
+
+5
+00:00:13,655 --> 00:00:19,295
+it, and when it gets deleted. Second, submit an invoice above the allowed approval limit.
+
+6
+00:00:19,295 --> 00:00:21,920
+The agent must stop, and route the
+
+7
+00:00:21,920 --> 00:00:23,805
+decision to a person. Third,
+
+8
+00:00:23,805 --> 00:00:28,105
+make a tool fail twice. Check whether the agent stops safely,
+
+9
+00:00:28,105 --> 00:00:30,963
+avoids endless retries, and records the failed
+
+10
+00:00:30,963 --> 00:00:33,250
+actions. Put the evidence for all
+
+11
+00:00:33,250 --> 00:00:35,880
+three tests in your purchase decision. A
+
+12
+00:00:35,880 --> 00:00:39,062
+polished demo is not an acceptance test. Follow
+
+13
+00:00:39,062 --> 00:00:41,620
+PrismBay AI for practical
+
+14
+00:00:41,620 --> 00:00:44,065
+AI business systems, with
+
+15
+00:00:44,065 --> 00:00:46,522
+clear controls and measurable results.
+

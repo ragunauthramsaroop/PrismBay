@@ -1,0 +1,143 @@
+{
+  "channelId": "UCw2hs85TzIpdKwJtG-BSxzQ",
+  "sourceVideoSHA256": "ddacf142875ef75298ec13243e80dca3ffe2057e6ccd393bff0b5e73685eb006",
+  "durationSeconds": 46.522,
+  "exactScriptWords": 114,
+  "recognizedASRWords": 115,
+  "directASRWordMatchRatio": 0.9561,
+  "cueCount": 15,
+  "maximumWPM": 160.0,
+  "cuesOver160WPM": 0,
+  "cuesUnder1_5Seconds": 0,
+  "captionTiming": "ASR_WORD_ANCHORED_INTERPOLATED_CANDIDATE_NOT_HUMAN_VERIFIED",
+  "fullNarrationListening": "NOT_PERFORMED",
+  "mobilePlaybackReview": "NOT_PERFORMED",
+  "voiceLicenseReview": "NOT_PERFORMED",
+  "publicationApproved": false,
+  "uploadPermitted": false,
+  "published": false,
+  "paidSpendUSD": 0,
+  "releaseDecision": "HOLD_PENDING_FULL_EDITORIAL_REVIEW",
+  "cues": [
+    {
+      "index": 1,
+      "start": 0.0,
+      "end": 2.8,
+      "text": "Your AI vendor's demo worked. That does",
+      "words": 7,
+      "wpm": 150.0
+    },
+    {
+      "index": 2,
+      "start": 2.8,
+      "end": 7.485,
+      "text": "not mean your business should sign. Run three acceptance tests before approval.",
+      "words": 12,
+      "wpm": 153.68
+    },
+    {
+      "index": 3,
+      "start": 7.485,
+      "end": 10.61,
+      "text": "First, use a fictional invoice with synthetic customer",
+      "words": 8,
+      "wpm": 153.6
+    },
+    {
+      "index": 4,
+      "start": 10.61,
+      "end": 13.655,
+      "text": "details. Confirm where the data goes, who keeps",
+      "words": 8,
+      "wpm": 157.64
+    },
+    {
+      "index": 5,
+      "start": 13.655,
+      "end": 19.295,
+      "text": "it, and when it gets deleted. Second, submit an invoice above the allowed approval limit.",
+      "words": 15,
+      "wpm": 159.57
+    },
+    {
+      "index": 6,
+      "start": 19.295,
+      "end": 21.92,
+      "text": "The agent must stop, and route the",
+      "words": 7,
+      "wpm": 160.0
+    },
+    {
+      "index": 7,
+      "start": 21.92,
+      "end": 23.805,
+      "text": "decision to a person. Third,",
+      "words": 5,
+      "wpm": 159.15
+    },
+    {
+      "index": 8,
+      "start": 23.805,
+      "end": 28.105,
+      "text": "make a tool fail twice. Check whether the agent stops safely,",
+      "words": 11,
+      "wpm": 153.49
+    },
+    {
+      "index": 9,
+      "start": 28.105,
+      "end": 30.963,
+      "text": "avoids endless retries, and records the failed",
+      "words": 7,
+      "wpm": 146.98
+    },
+    {
+      "index": 10,
+      "start": 30.963,
+      "end": 33.25,
+      "text": "actions. Put the evidence for all",
+      "words": 6,
+      "wpm": 157.38
+    },
+    {
+      "index": 11,
+      "start": 33.25,
+      "end": 35.88,
+      "text": "three tests in your purchase decision. A",
+      "words": 7,
+      "wpm": 159.7
+    },
+    {
+      "index": 12,
+      "start": 35.88,
+      "end": 39.062,
+      "text": "polished demo is not an acceptance test. Follow",
+      "words": 8,
+      "wpm": 150.82
+    },
+    {
+      "index": 13,
+      "start": 39.062,
+      "end": 41.62,
+      "text": "PrismBay AI for practical",
+      "words": 4,
+      "wpm": 93.84
+    },
+    {
+      "index": 14,
+      "start": 41.62,
+      "end": 44.065,
+      "text": "AI business systems, with",
+      "words": 4,
+      "wpm": 98.16
+    },
+    {
+      "index": 15,
+      "start": 44.065,
+      "end": 46.522,
+      "text": "clear controls and measurable results.",
+      "words": 5,
+      "wpm": 122.1
+    }
+  ]
+}
