@@ -10,7 +10,7 @@ import subprocess
 import tempfile
 
 CHANNEL = "UCw2hs85TzIpdKwJtG-BSxzQ"
-FACTOR = 1.10
+FACTOR = 1.20
 
 def cmd(*args):
     return subprocess.check_output(args, text=True).strip()
@@ -75,10 +75,12 @@ def main():
     assert spec["paidSpendUSD"] == 0
     before_sha = sha(a.video)
     assert before_sha == manifest["sha256"], "Media hash differs from manifest"
-    if "pacedFactor" in manifest:
-        assert manifest["pacedFactor"] == FACTOR
-        print("Previously paced. No duplicate rendering.")
+    previous_factor = float(manifest.get("pacedFactor", 1.0))
+    if abs(previous_factor - FACTOR) < 0.0001:
+        print("Target pacing already applied. No duplicate rendering.")
         return
+    assert previous_factor in (1.0, 1.10), "Unexpected prior pacing; refuse reprocessing"
+    incremental_factor = FACTOR / previous_factor
     old_seconds = duration(a.video)
     with tempfile.TemporaryDirectory(dir=a.video.parent) as temp:
         output = Path(temp) / "paced.mp4"
@@ -86,14 +88,14 @@ def main():
             "ffmpeg", "-hide_banner", "-loglevel", "error", "-y",
             "-i", str(a.video),
             "-filter_complex",
-            f"[0:v]setpts={FACTOR}*PTS,fps=30[v];[0:a]atempo={1/FACTOR:.9f}[a]",
+            f"[0:v]setpts={incremental_factor}*PTS,fps=30[v];[0:a]atempo={1/incremental_factor:.9f}[a]",
             "-map", "[v]", "-map", "[a]", "-c:v", "libx264",
             "-preset", "medium", "-crf", "20", "-c:a", "aac",
             "-b:a", "160k", "-movflags", "+faststart",
             "-pix_fmt", "yuv420p", str(output)
         ], check=True)
         new_seconds = duration(output)
-        assert old_seconds * 1.08 <= new_seconds <= old_seconds * 1.13
+        assert old_seconds * incremental_factor * 0.98 <= new_seconds <= old_seconds * incremental_factor * 1.02
         srt, measures, word_count = candidate(spec, new_seconds)
         after_sha = sha(output)
         output.replace(a.video)
@@ -102,7 +104,9 @@ def main():
     a.captions.write_text(srt)
     report = {
         "targetChannelId": CHANNEL,
-        "originalSeconds": round(old_seconds, 3),
+        "originalSeconds": round(old_seconds / previous_factor, 3),
+        "previousSeconds": round(old_seconds, 3),
+        "incrementalFactor": round(incremental_factor, 6),
         "pacedSeconds": round(new_seconds, 3),
         "speedFactor": FACTOR,
         "originalSha256": before_sha,
@@ -125,6 +129,7 @@ def main():
     a.report.write_text(json.dumps(report, indent=2) + "\n")
     manifest.update({
         "sha256": after_sha, "previousSha256": before_sha,
+        "originalSha256": manifest.get("originalSha256", manifest.get("previousSha256", before_sha)),
         "pacedFactor": FACTOR,
         "captionsCandidatePath": str(a.captions),
         "qualityGate": "CLOSED_PENDING_FULL_AUDIO_CAPTION_MOBILE_QA"
