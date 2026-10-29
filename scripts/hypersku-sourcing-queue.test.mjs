@@ -92,3 +92,23 @@ test('manual order, wallet funding and supplier-order flags remain disabled',()=
   assert.ok(x.errors.includes('unsafe_execution_flag'),key);
  }
 });
+
+test('per-request execution flags cannot override queue-wide supplier restrictions',()=>{
+ const base={slug:'pethair',aliExpressUrl:link(1),status:'ready_to_submit'};
+ for(const key of ['orderImportAuthorized','physicalCheckoutEnabled',
+   'automaticallySubmitted','manualCsvOrdersEnabled',
+   'manualCsvOrderSubmissionAuthorized','walletFundingAuthorized',
+   'automaticOrdersEnabled']){
+  for(const flag of [true,'false',1,null]){
+   const x=validateSourcingQueue({schemaVersion:1,requests:[{...base,[key]:flag}]},short);
+   assert.equal(x.valid,false,key+':'+String(flag));
+   assert.ok(x.errors.includes('unsafe_execution_flag'),key);
+   assert.equal(x.physicalCheckoutEnabled,false);
+  }
+ }
+ for(const flag of [true,'false',1,null]){
+  const x=validateSourcingQueue({schemaVersion:1,requests:[{...base,paidLinksAuthorized:flag}]},short);
+  assert.equal(x.valid,false,String(flag));
+  assert.ok(x.errors.includes('paid_sourcing_not_authorized'));
+ }
+});
