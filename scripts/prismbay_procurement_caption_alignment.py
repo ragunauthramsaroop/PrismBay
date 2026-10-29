@@ -57,10 +57,11 @@ def align_centers(expected, recognized, duration):
     return points, match_ratio
 
 
-def segment(expected, centers, duration):
-    """Limit every caption to seven words, smoothing ASR jitter when needed."""
+def segment(expected, centers, duration, *, max_wpm=160, min_seconds=1.5,
+            weights=(1.0, 0.9, 0.8, 0.7, 0.6, 0.5, 0.4)):
+    """Segment captions without concealing the readability/timing trade-off."""
     n = len(expected)
-    for anchor_weight in (1.0, 0.9, 0.8, 0.7, 0.6, 0.5, 0.4):
+    for anchor_weight in weights:
         smoothed = [
             anchor_weight * centers[i]
             + (1 - anchor_weight) * (i + 0.5) * duration / n
@@ -79,7 +80,7 @@ def segment(expected, centers, duration):
                 seconds = boundaries[j] - boundaries[i]
                 words = j - i
                 wpm = 60 * words / max(0.001, seconds)
-                if seconds < 1.5 or seconds > 4.5 or wpm > 160:
+                if seconds < min_seconds or seconds > 4.5 or wpm > max_wpm:
                     continue
                 penalty = abs(words - 5) * 0.35 + abs(seconds - 2.4) * 0.25
                 if expected[j - 1].endswith((".", "!", "?")):
@@ -179,6 +180,30 @@ def main():
     out = Path(args.output)
     out.mkdir(parents=True, exist_ok=True)
     (out / "captions-asr-anchored-script-candidate.srt").write_text(make_srt(rows))
+    # A separate timing-first diagnostic keeps ASR anchors closer to speech.
+    # Faster cues are NOT publication-approved. Review both variants, then
+    # prefer slowing the narration when neither achieves readable sync.
+    timing_first = {"status": "NO_FEASIBLE_TIMING_FIRST_SEGMENTATION"}
+    try:
+        timing_rows, timing_weight, timing_drift = segment(
+            expected, centers, duration, max_wpm=185, min_seconds=1.25,
+            weights=(1.0, 0.95, 0.9, 0.85, 0.8))
+        (out / "captions-timing-first-review-only.srt").write_text(
+            make_srt(timing_rows))
+        timing_first = {
+            "status": "REVIEW_ONLY_NOT_RELEASE_APPROVED",
+            "cueCount": len(timing_rows),
+            "maximumWPM": max(row["wpm"] for row in timing_rows),
+            "maximumSmoothedWordCenterDisplacementSeconds": round(timing_drift, 3),
+            "asrAnchorWeight": timing_weight,
+            "cuesOver160WPM": sum(row["wpm"] > 160 for row in timing_rows),
+            "cuesUnder1_5Seconds": sum(
+                row["end"] - row["start"] < 1.5 for row in timing_rows),
+            "candidateFilename": "captions-timing-first-review-only.srt",
+            "publicationApproved": False,
+        }
+    except ValueError as exc:
+        timing_first["reason"] = str(exc)
     report = {
         "channelId": CHANNEL, "sourceVideoSHA256": sha,
         "durationSeconds": round(duration, 3),
@@ -189,6 +214,7 @@ def main():
         "asrAnchorWeight": anchor_weight,
         "maximumSmoothedWordCenterDisplacementSeconds": round(max_drift, 3),
         "largestWordTimingAdjustments": timing_adjustments,
+        "timingFirstDiagnostic": timing_first,
         "cuesOver160WPM": sum(row["wpm"] > 160 for row in rows),
         "cuesUnder1_5Seconds": sum(row["end"] - row["start"] < 1.5 for row in rows),
         "captionTiming": "ASR_WORD_ANCHORED_INTERPOLATED_CANDIDATE_NOT_HUMAN_VERIFIED",
