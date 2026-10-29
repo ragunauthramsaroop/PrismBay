@@ -28,6 +28,10 @@ export function validateSourcingQueue(data,shortlist) {
   }else if(row.submittedAt)errors.push('unsubmitted_request_must_not_claim_submission');
  }
  for(const [day,n] of counts)if(n>3)errors.push('free_daily_sourcing_limit_exceeded:'+day);
+ // Public HyperSKU pricing states three free sourcing requests within 48h,
+ // which is stricter than the chat-agent's three-per-day wording.
+ for(const t of weeks)if(weeks.filter(u=>u>=t&&u<t+48*3600000).length>3)
+  {errors.push('free_48hour_sourcing_limit_exceeded');break;}
  for(const t of weeks)if(weeks.filter(u=>u>=t&&u<t+7*86400000).length>10)
   {errors.push('free_weekly_sourcing_limit_exceeded');break;}
  return {valid:errors.length===0,errors:[...new Set(errors)],
