@@ -147,3 +147,22 @@ test('unauthorized execution flag invalidates all sourcing readiness counters',(
  assert.equal(result.submitted,0);
  assert.equal(result.automaticallySubmitted,0);
 });
+
+test('nested request-quota execution flags cannot authorize supplier actions',()=>{
+ for(const key of ['orderImportAuthorized','physicalCheckoutEnabled',
+  'automaticallySubmitted','manualCsvOrdersEnabled',
+  'manualCsvOrderSubmissionAuthorized','walletFundingAuthorized',
+  'automaticOrdersEnabled']){
+  for(const flag of [true,'false',1,null]){
+   const x=validateSourcingQueue({schemaVersion:1,
+    requestQuota:{paidLinksAuthorized:false,[key]:flag},
+    requests:[{slug:'pethair',aliExpressUrl:link(1),status:'ready_to_submit'}]},short);
+   assert.equal(x.valid,false,key+':'+String(flag));
+   assert.ok(x.errors.includes('unsafe_execution_flag'),key);
+   assert.equal(x.readyToSubmit,0);
+   assert.equal(x.submitted,0);
+   assert.equal(x.automaticallySubmitted,0);
+   assert.equal(x.physicalCheckoutEnabled,false);
+  }
+ }
+});
