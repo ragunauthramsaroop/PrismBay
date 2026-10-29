@@ -1,0 +1,104 @@
+{
+  "channelId": "UCw2hs85TzIpdKwJtG-BSxzQ",
+  "handle": "@PrismBayAI",
+  "metricoolBrandId": 6945443,
+  "createdAt": "2026-10-29T09:41:00-04:00",
+  "paidSpendUSD": 0,
+  "published": false,
+  "publicationApproved": false,
+  "uploadPermitted": false,
+  "publicWatchUrl": null,
+  "publishAt": null,
+  "timezone": "America/Guyana",
+  "experimentReviewHours": [
+    6,
+    24,
+    72,
+    168
+  ],
+  "currentClassification": "INSUFFICIENT_DATA",
+  "shortsNativeABTest": false,
+  "reviewPolicy": "Measure 6h/24h/72h/168h after verified publication; no performance inference while unpublished; use sequential distinct hook experiments, not native Shorts A/B.",
+  "safety": {
+    "soleChannel": "UCw2hs85TzIpdKwJtG-BSxzQ",
+    "minimumHoursBetweenShorts": 4,
+    "noPaidAds": true,
+    "noDuplicateUploads": true,
+    "noEngagementManipulation": true
+  },
+  "experimentId": "PB-PROC-GATE-20261029-S03",
+  "status": "RENDERED_TECHNICAL_QA_PASS_EDITORIAL_HOLD",
+  "targetAudience": [
+    "founders",
+    "procurement directors",
+    "operations leaders",
+    "AI budget owners"
+  ],
+  "hypothesis": "Three concrete AI vendor acceptance tests lead to more qualified operator watch time and attributable subscribers than a generic vendor ranking.",
+  "format": "short_vertical_1080x1920",
+  "durationSeconds": 51.196,
+  "hookType": "Demo success versus purchase failure",
+  "openingHook": "Your AI vendor's demo worked. That does not mean your business should sign.",
+  "titleCandidates": [
+    "An AI Demo Passed. The Procurement Test Failed.",
+    "Before Buying an AI Agent, Run These 3 Tests",
+    "3 AI Vendor Tests Before You Sign"
+  ],
+  "coverConcepts": [
+    "DEMO PASSED / PURCHASE ON HOLD",
+    "Three original controls: DATA / APPROVAL / RECOVERY",
+    "Fictional invoice with a visible approval stop"
+  ],
+  "cta": "Follow PrismBay AI for practical AI business systems, with clear controls and measurable results.",
+  "source": {
+    "qualification": "Original PrismBay procurement acceptance framework. Fictional invoices and any dollar limits are teaching examples, not vendor benchmarks or customer results."
+  },
+  "asset": {
+    "sha256": "befb4336402d312b8728811c0fcff808d07a863842acadf37f1a5e9a77ee300b",
+    "qaReport": "youtube-growth/analytics/procurement-mobile-v2-qa/qa-report.json",
+    "captionCandidate": "youtube-growth/analytics/procurement-mobile-v2-qa/captions-asr-anchored-script-candidate.srt",
+    "fullDecodePass": true,
+    "captionCues": 22,
+    "maxCaptionWPM": 159.14,
+    "asrDirectWordMatchRatio": 0.9298,
+    "maxEstimatedWordTimingDriftSeconds": 0.563,
+    "shortSilenceWindowsSeconds": [
+      [
+        22.969,
+        23.53
+      ],
+      [
+        47.699,
+        48.309
+      ]
+    ]
+  },
+  "releaseGates": {
+    "fullNarrationListening": "PENDING",
+    "mobilePlayback": "PENDING",
+    "captionTimingHumanCheck": "PENDING",
+    "shortSilenceEditorialCheck": "PENDING_TWO_WINDOWS",
+    "voiceAssetRights": "PENDING_FINAL",
+    "syntheticDataDisclosure": "PENDING_FINAL",
+    "exactChannelRecheck": "REQUIRED_PRE_PUBLISH",
+    "metricoolCalendarRecheck": "REQUIRED_PRE_PUBLISH",
+    "editorialApproval": "PENDING"
+  },
+  "success": {
+    "requiredComparableShorts": 5,
+    "scaleAt72Hours": "At least 1.5 times median qualified watch minutes of five comparable Shorts AND at least one attributable subscriber.",
+    "ifNoComparableBaseline": "INSUFFICIENT_DATA",
+    "otherMetrics": [
+      "views",
+      "watchMinutes",
+      "averageViewDuration",
+      "shares",
+      "comments",
+      "subscribersGained",
+      "subscribersLost",
+      "trafficSources"
+    ]
+  },
+  "portfolioDecision": "COMPLETE_FULL_EDITORIAL_QA_NO_ADDITIONAL_RENDERS_WITHOUT_DEFECT",
+  "issue": "https://github.com/ragunauthramsaroop/PrismBay/issues/529"
+}
