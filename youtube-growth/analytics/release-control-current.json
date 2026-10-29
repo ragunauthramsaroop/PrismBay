@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-29T16:50:16.201Z",
+  "updatedAt": "2026-10-29T17:56:00Z",
   "channel": {
     "id": "UCw2hs85TzIpdKwJtG-BSxzQ",
     "handle": "@PrismBayAI",
@@ -28,7 +28,7 @@
     "trafficSources": "NO_ROWS",
     "scheduledMetricoolPosts": {
       "from": "2026-10-29",
-      "to": "2026-11-12",
+      "to": "2026-11-07",
       "count": 0
     },
     "nativeStudioSchedule": "UNVERIFIED_BROWSER_AUTH",
@@ -60,14 +60,31 @@
         "upstreamVoiceModelProvenance": "PASS_PUBLIC_DOMAIN_DATASET_MIT_REPOSITORY",
         "completeVoiceAndDependencyRights": "PENDING",
         "fullNarrationListening": "PENDING",
-        "captionSync": "PENDING_35_TO_41_SECONDS",
+        "captionSync": "IMPROVED_ASR_TIMED_PACED_CANDIDATE_PENDING_HUMAN_VERIFICATION",
         "continuousMobilePlayback": "PENDING",
-        "channelAndScheduleBeforeUpload": "PENDING"
+        "channelAndScheduleBeforeUpload": "PENDING",
+        "sampledCaptionedMobileFrame": "PASS_AT_38P5_SECONDS_ONLY"
       },
       "publicationApproved": false,
       "uploadPermitted": false,
       "publicYouTubeUrl": null,
-      "nextAction": "Review complete audio, verify NIST caption words around 35-41s against speech, then inspect continuous mobile playback and exact dependency rights."
+      "nextAction": "Listen to the full 55.523s captioned review candidate, check 15% slowed narration naturalness and spoken-word timing, inspect full mobile playback and verify rights. Keep all publication flags false.",
+      "pacedReviewCandidate": {
+        "workflowRunId": 40925565238,
+        "workflowUrl": "https://github.com/ragunauthramsaroop/PrismBay/actions/runs/40925565238",
+        "status": "SUCCESS_REVIEW_ONLY",
+        "durationSeconds": 55.523,
+        "captionCueCount": 22,
+        "maximumCaptionWPM": 159.07,
+        "cuesOver160WPM": 0,
+        "cuesUnder1p5Seconds": 0,
+        "captionASRRelativeSmoothingDisplacementSeconds": 0,
+        "captionedMP4SHA256": "dadebd0ecbdfb4201dbc734deb415d68c38865068d8b5ebcd888189ef7326418",
+        "artifactExpiresAt": "2026-11-12T17:55:05Z",
+        "fullNarrationListening": "PENDING",
+        "publicationApproved": false,
+        "uploadPermitted": false
+      }
     },
     {
       "priority": 2,
@@ -154,7 +171,8 @@
   "evidence": {
     "sourceAndVisualReview": "youtube-growth/analytics/2026-10-29-1146-source-rights-visual-review.md",
     "nistSource": "https://www.nist.gov/blogs/cybersecurity-insights/design-tenets-agent-identity-management-systems",
-    "voiceModelCard": "https://huggingface.co/rhasspy/piper-voices/blob/main/en/en_US/norman/medium/MODEL_CARD"
+    "voiceModelCard": "https://huggingface.co/rhasspy/piper-voices/blob/main/en/en_US/norman/medium/MODEL_CARD",
+    "pacedCaptionedReview": "youtube-growth/analytics/2026-10-29-nist-paced-captioned-review-candidate.md"
   },
   "noNotificationUnless": [
     "public_upload_success",
