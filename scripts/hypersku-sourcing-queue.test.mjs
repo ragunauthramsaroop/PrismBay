@@ -148,6 +148,27 @@ test('unauthorized execution flag invalidates all sourcing readiness counters',(
  assert.equal(result.automaticallySubmitted,0);
 });
 
+test('supplier purchase, payment and fulfillment aliases cannot enable spending',()=>{
+ const aliases=['automaticSupplierOrderingEnabled','supplierPurchasesEnabled',
+  'supplierPaymentsEnabled','walletTopupAuthorized','physicalPaymentLinksEnabled',
+  'orderSubmissionAuthorized','autoFulfillmentEnabled','paidSourcingEnabled'];
+ const row={slug:'pethair',aliExpressUrl:link(1),status:'ready_to_submit'};
+ for(const key of aliases){
+  for(const scope of ['queue','quota','request']){
+   const queue={schemaVersion:1,requests:[{...row}]};
+   if(scope==='queue')queue[key]=true;
+   if(scope==='quota')queue.requestQuota={[key]:true};
+   if(scope==='request')queue.requests[0][key]=true;
+   const result=validateSourcingQueue(queue,short);
+   assert.equal(result.valid,false,scope+':'+key);
+   assert.ok(result.errors.includes('unsafe_execution_flag'),scope+':'+key);
+   assert.equal(result.readyToSubmit,0);
+   assert.equal(result.automaticallySubmitted,0);
+   assert.equal(result.physicalCheckoutEnabled,false);
+  }
+ }
+});
+
 test('nested request-quota execution flags cannot authorize supplier actions',()=>{
  for(const key of ['orderImportAuthorized','physicalCheckoutEnabled',
   'automaticallySubmitted','manualCsvOrdersEnabled',
