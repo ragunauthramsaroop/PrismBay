@@ -58,22 +58,28 @@ def align_centers(expected, recognized, duration):
 
 
 def segment(expected, centers, duration):
-    """Find readable, non-overlapping cue groups without changing script words."""
+    """Limit every caption to seven words, smoothing ASR jitter when needed."""
     n = len(expected)
-    boundaries = [0.0] + [(centers[i - 1] + centers[i]) / 2 for i in range(1, n)] + [duration]
-    # Prefer 4-6 words and 2-3 seconds, while requiring safe cue duration and WPM.
-    for max_words, max_duration in [(8, 4.5), (12, 6.5), (16, 7.0)]:
+    for anchor_weight in (1.0, 0.9, 0.8, 0.7, 0.6, 0.5, 0.4):
+        smoothed = [
+            anchor_weight * centers[i]
+            + (1 - anchor_weight) * (i + 0.5) * duration / n
+            for i in range(n)
+        ]
+        boundaries = [0.0] + [
+            (smoothed[i - 1] + smoothed[i]) / 2 for i in range(1, n)
+        ] + [duration]
         best = [float("inf")] * (n + 1)
         previous = [-1] * (n + 1)
         best[0] = 0.0
         for i in range(n):
             if best[i] == float("inf"):
                 continue
-            for j in range(i + 2, min(n, i + max_words) + 1):
+            for j in range(i + 2, min(n, i + 7) + 1):
                 seconds = boundaries[j] - boundaries[i]
                 words = j - i
                 wpm = 60 * words / max(0.001, seconds)
-                if seconds < 1.5 or seconds > max_duration or wpm > 160:
+                if seconds < 1.5 or seconds > 4.5 or wpm > 160:
                     continue
                 penalty = abs(words - 5) * 0.35 + abs(seconds - 2.4) * 0.25
                 if expected[j - 1].endswith((".", "!", "?")):
@@ -92,13 +98,16 @@ def segment(expected, centers, duration):
             for index, (i, j) in enumerate(groups, 1):
                 start, end = boundaries[i], boundaries[j]
                 rows.append({
-                    "index": index, "start": round(start, 3), "end": round(end, 3),
-                    "text": " ".join(expected[i:j]),
+                    "index": index, "start": round(start, 3),
+                    "end": round(end, 3), "text": " ".join(expected[i:j]),
                     "words": j - i,
                     "wpm": round((j - i) * 60 / (end - start), 2),
                 })
-            return rows
-    raise ValueError("No safe caption segmentation found. Retain release hold.")
+            max_drift = max(abs(smoothed[i] - centers[i]) for i in range(n))
+            return rows, anchor_weight, max_drift
+    raise ValueError(
+        "No readable seven-word caption segmentation found. Retain release hold."
+    )
 
 
 def make_srt(rows):
@@ -141,10 +150,10 @@ def main():
     expected = " ".join(segment["spoken"] for segment in spec["segments"]).split()
     assert recognized, "No recognized speech"
     centers, ratio = align_centers(expected, recognized, duration)
-    rows = segment(expected, centers, duration)
+    rows, anchor_weight, max_drift = segment(expected, centers, duration)
     assert " ".join(row["text"] for row in rows) == " ".join(expected)
     assert all(row["end"] - row["start"] >= 1.49 for row in rows)
-    assert all(row["wpm"] <= 160 for row in rows)
+    assert all(row["wpm"] <= 160 and row["words"] <= 7 for row in rows)
     assert all(rows[i]["end"] <= rows[i + 1]["start"] for i in range(len(rows) - 1))
     out = Path(args.output)
     out.mkdir(parents=True, exist_ok=True)
@@ -155,6 +164,9 @@ def main():
         "exactScriptWords": len(expected), "recognizedASRWords": len(recognized),
         "directASRWordMatchRatio": round(ratio, 4),
         "cueCount": len(rows), "maximumWPM": max(row["wpm"] for row in rows),
+        "maximumWordsPerCue": max(row["words"] for row in rows),
+        "asrAnchorWeight": anchor_weight,
+        "maximumSmoothedWordCenterDisplacementSeconds": round(max_drift, 3),
         "cuesOver160WPM": sum(row["wpm"] > 160 for row in rows),
         "cuesUnder1_5Seconds": sum(row["end"] - row["start"] < 1.5 for row in rows),
         "captionTiming": "ASR_WORD_ANCHORED_INTERPOLATED_CANDIDATE_NOT_HUMAN_VERIFIED",
