@@ -1,0 +1,76 @@
+name: PrismBay AI companion article validation
+
+on:
+  push:
+    branches:
+      - youtube/loan-roi-companion-20261027-1942
+    paths:
+      - src/data/articles.ts
+      - src/data/articles/ai-loan-decisions-real-roi-2026.ts
+      - .github/workflows/prismbay-ai-loan-companion-ci.yml
+      - package.json
+      - bun.lock
+  pull_request:
+    paths:
+      - src/data/articles.ts
+      - src/data/articles/ai-loan-decisions-real-roi-2026.ts
+      - .github/workflows/prismbay-ai-loan-companion-ci.yml
+      - package.json
+      - bun.lock
+
+permissions:
+  contents: read
+
+concurrency:
+  group: prismbay-ai-loan-companion-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-article:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+      - name: Validate editorial and channel boundaries
+        run: |
+          node --input-type=module <<'NODE'
+          import { readFileSync } from 'node:fs';
+          import assert from 'node:assert/strict';
+          const body = readFileSync('src/data/articles/ai-loan-decisions-real-roi-2026.ts', 'utf8');
+          const index = readFileSync('src/data/articles.ts', 'utf8');
+          const slug = 'ai-loan-decisions-real-roi-2026';
+          assert(index.includes(`bodyHtmlFile: "${slug}"`), 'Article is not registered');
+          assert(body.includes('i7v6wfwd5-I'), 'Missing exact published Short');
+          assert(body.includes('www.youtube.com/@PrismBayAI'), 'Missing authorized channel');
+          assert(body.includes('fictional'), 'Missing fictional example disclosure');
+          assert(body.includes('$6,666.67') && body.includes('$3,966.67') && body.includes('$2,700'), 'ROI model mismatch');
+          assert(body.includes('not automatically cash saved'), 'Missing capacity versus cash distinction');
+          assert(body.includes('Reuters, 26 October 2026'), 'Missing dated source');
+          assert(!body.includes('youtube.com/@PrismBayClean'), 'Retail channel contamination');
+          console.log('Editorial, source and channel boundaries verified');
+          NODE
+      - name: Install locked dependencies
+        run: bun install --frozen-lockfile
+      - name: Production build (validation only, no deployment)
+        run: bun run build
+        env:
+          CI: "true"
+
+  build-diagnostic:
+    name: Diagnostic build (lock drift does not pass release gate)
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+      - name: Install in disposable CI workspace
+        run: bun install
+      - name: Validate Vite production build without deployment
+        run: bun run build
+        env:
+          CI: "true"

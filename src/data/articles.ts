@@ -1,3 +1,4 @@
+import { bodyHtml as body_ai_loan_decisions_real_roi_2026 } from './articles/ai-loan-decisions-real-roi-2026';
 // ── Static imports for all article body HTML ──
 import { bodyHtml as body_how_ai_business_systems_save_smbs_time } from './articles/how-ai-business-systems-save-smbs-time';
 import { bodyHtml as body_procurement_intelligence_cfo_guide } from './articles/procurement-intelligence-cfo-guide';
@@ -33,6 +34,7 @@ import { bodyHtml as body_ai_integration_guide_connecting_existing_tools } from 
 import { bodyHtml as body_ai_business_models_build_monetize_ai_platform } from './articles/ai-business-models-build-monetize-ai-platform';
 
 const _bodyHtmlByFile: Record<string, string> = {
+  'ai-loan-decisions-real-roi-2026': body_ai_loan_decisions_real_roi_2026,
   'how-ai-business-systems-save-smbs-time': body_how_ai_business_systems_save_smbs_time,
   'procurement-intelligence-cfo-guide': body_procurement_intelligence_cfo_guide,
   'ai-powered-decision-support-executive-guide': body_ai_powered_decision_support_executive_guide,
@@ -109,6 +111,21 @@ export const CATEGORIES = [
 ];
 
 export const ARTICLES: Article[] = [
+  // Original video companion: Reuters reporting is separated from fictional ROI math.
+  {
+    slug: "ai-loan-decisions-real-roi-2026",
+    title: "AI Loan Decisions in Minutes: How to Measure Real Business ROI",
+    description: "What faster AI-assisted lending decisions prove, what they do not, and a fictional 200-case cost model for executives evaluating AI automation.",
+    category: "ai-operations",
+    readTime: 5,
+    linkedProducts: [],
+    keywords: ["AI lending ROI", "AI loan decision automation", "cost per accepted decision", "AI automation business case", "Deutsche Bank AI loans"],
+    seoTitle: "AI Loan Decisions in Minutes: The ROI Measurement Guide | PrismBay AI",
+    metaDescription: "Reuters reported faster AI-assisted loan decisions at Deutsche Bank. Learn how to measure complete workflow cost, quality, exceptions and cash ROI.",
+    bodyHtmlFile: "ai-loan-decisions-real-roi-2026",
+    published: "2026-10-27",
+    modified: "2026-10-27",
+  },
   // ── PUBLISHED: Article 1 ──
   {
     slug: "how-ai-business-systems-save-smbs-time",
