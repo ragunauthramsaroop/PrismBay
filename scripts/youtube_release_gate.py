@@ -14,6 +14,21 @@ from pathlib import Path
 
 CHANNEL = "UCw2hs85TzIpdKwJtG-BSxzQ"
 
+def validate_manifest(manifest):
+    """Fail closed on channel, rights-review state, spending and file identity."""
+    if manifest.get("channelId") != CHANNEL:
+        raise ValueError("STOP: incorrect target channel")
+    for key in ("published", "publicationApproved", "uploadPermitted"):
+        if manifest.get(key) is not False:
+            raise ValueError(f"STOP: {key} must be explicitly false")
+    if manifest.get("paidSpend", manifest.get("paidSpendUSD")) != 0:
+        raise ValueError("STOP: nonzero or unspecified paid spend")
+    digest_keys = ("captionedReviewVideoSHA256", "reviewVideoSHA256",
+                   "videoSha256", "captionedMP4SHA256", "sha256")
+    if not any(manifest.get(key) for key in digest_keys):
+        raise ValueError("STOP: no expected media SHA256 in manifest")
+
+
 def run(*args):
     p = subprocess.run(args, capture_output=True, text=True)
     if p.returncode:
@@ -36,7 +51,11 @@ def read_srt(path):
         words = " ".join(lines[lines.index(marker)+1:]).strip().split()
         if not words:
             raise ValueError("Empty subtitle cue")
+        if start < 0 or end <= start:
+            raise ValueError("Invalid subtitle timestamp range")
         out.append((start, end, len(words)))
+    if not out:
+        raise ValueError("No subtitle cues")
     return out
 
 def sha256(path):
@@ -52,8 +71,7 @@ def main():
         ap.add_argument("--" + arg, required=True)
     a = ap.parse_args()
     manifest = json.loads(Path(a.manifest).read_text())
-    if manifest.get("channelId") != CHANNEL:
-        raise SystemExit("STOP: incorrect target channel")
+    validate_manifest(manifest)
     probe = json.loads(run("ffprobe", "-v", "error", "-show_format", "-show_streams", "-of", "json", a.video)[0])
     video = next((x for x in probe["streams"] if x.get("codec_type") == "video"), {})
     audio = next((x for x in probe["streams"] if x.get("codec_type") == "audio"), {})
@@ -80,7 +98,7 @@ def main():
         if i:
             check(start >= cues[i-1][1] - 0.02, f"Cue {i+1} overlaps")
     digest = sha256(a.video)
-    known = [manifest.get(k) for k in ("captionedReviewVideoSHA256", "reviewVideoSHA256", "videoSha256", "captionedMP4SHA256")]
+    known = [manifest.get(k) for k in ("captionedReviewVideoSHA256", "reviewVideoSHA256", "videoSha256", "captionedMP4SHA256", "sha256")]
     known = [x for x in known if x]
     if known:
         check(digest in known, "SHA256 mismatch")
