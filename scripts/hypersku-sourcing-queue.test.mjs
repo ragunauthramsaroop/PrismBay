@@ -187,3 +187,41 @@ test('nested request-quota execution flags cannot authorize supplier actions',()
   }
  }
 });
+
+test('malformed shortlist evidence returns disabled controls instead of throwing',()=>{
+ const validQueue={schemaVersion:1,requests:[]};
+ for(const malformed of [null,{}, {candidates:null}, {candidates:{}},
+   {candidates:[null]}, {candidates:['crevice']}, {candidates:[{slug:''}]}]){
+  const x=validateSourcingQueue(validQueue,malformed);
+  assert.equal(x.valid,false,JSON.stringify(malformed));
+  assert.ok(x.errors.includes('invalid_shortlist_schema'));
+  assert.equal(x.readyToSubmit,0);
+  assert.equal(x.submitted,0);
+  assert.equal(x.automaticallySubmitted,0);
+  assert.equal(x.paidLinksAuthorized,false);
+  assert.equal(x.orderImportAuthorized,false);
+  assert.equal(x.physicalCheckoutEnabled,false);
+ }
+});
+test('malformed request quota never authorizes sourcing or checkout',()=>{
+ for(const requestQuota of [null,[],true,'3',3]){
+  const x=validateSourcingQueue({schemaVersion:1,requests:[],requestQuota},short);
+  assert.equal(x.valid,false,JSON.stringify(requestQuota));
+  assert.ok(x.errors.includes('invalid_request_quota_schema'));
+  assert.equal(x.readyToSubmit,0);
+  assert.equal(x.physicalCheckoutEnabled,false);
+ }
+});
+test('invalid queue schema returns complete no-execution result',()=>{
+ for(const data of [null,[],{}, {schemaVersion:1,requests:{}}]){
+  const x=validateSourcingQueue(data,short);
+  assert.equal(x.valid,false);
+  assert.ok(x.errors.includes('invalid_queue_schema'));
+  assert.equal(x.submitted,0);
+  assert.equal(x.readyToSubmit,0);
+  assert.equal(x.automaticallySubmitted,0);
+  assert.equal(x.paidLinksAuthorized,false);
+  assert.equal(x.orderImportAuthorized,false);
+  assert.equal(x.physicalCheckoutEnabled,false);
+ }
+});
