@@ -83,13 +83,13 @@ def main():
     assert abs(output_duration - source_duration * FACTOR) < 0.40
 
     raw = source_srt.read_text()
-    regex = re.compile(r"\\d{2}:\\d{2}:\\d{2},\\d{3}")
+    regex = re.compile(r"\d{2}:\d{2}:\d{2},\d{3}")
     revised = regex.sub(lambda m: timestamp(seconds(m.group()) * FACTOR), raw)
     output_srt = OUT / (SLUG + "-paced-1p15-review-only.srt")
     output_srt.write_text(revised)
     cues = re.findall(
-        r"(?m)^(\\d+)\\n(\\d{2}:\\d{2}:\\d{2},\\d{3}) --> "
-        r"(\\d{2}:\\d{2}:\\d{2},\\d{3})\\n(.*?)(?=\\n\\n|\\Z)",
+        r"(?m)^(\d+)\n(\d{2}:\d{2}:\d{2},\d{3}) --> "
+        r"(\d{2}:\d{2}:\d{2},\d{3})\n(.*?)(?=\n\n|\Z)",
         revised.strip(), flags=re.S)
     assert len(cues) == diagnostic["cueCount"]
     pace = []
