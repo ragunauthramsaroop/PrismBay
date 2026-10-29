@@ -1,0 +1,80 @@
+{
+  "slug": "ai-vendor-procurement-mobile-v2-2026-10-29",
+  "title": "Before You Buy an AI Agent, Run These 3 Acceptance Tests | PrismBay AI",
+  "visualStyle": "procurement_gate_v1",
+  "voice": "en_US-norman-medium",
+  "voiceLicenseBasis": "Piper voice with attribution and license subject to pre-publication verification; eSpeak-ng offline fallback",
+  "sourceAttribution": "Original PrismBay AI illustrative procurement acceptance framework. No real customer records, vendor performance assertions or legal-compliance claims.",
+  "targetChannelId": "UCw2hs85TzIpdKwJtG-BSxzQ",
+  "handle": "@PrismBayAI",
+  "metricoolBrandId": 6945443,
+  "experimentId": "PB-PROC-GATE-20261029-S03-MOBILE-V2",
+  "targetAudience": "Founders, procurement managers, operations directors and IT decision-makers",
+  "hypothesis": "A three-part vendor acceptance test will attract more qualified operator engagement than an unsubstantiated AI tool ranking.",
+  "hookType": "Demo success versus procurement rejection",
+  "format": "short_vertical_1080x1920",
+  "titleCandidates": [
+    "Before You Buy an AI Agent, Run These 3 Acceptance Tests",
+    "An AI Demo Passed. The Procurement Test Failed."
+  ],
+  "thumbnailConcepts": [
+    "DEMO PASSED over PURCHASE ON HOLD",
+    "Three procurement checks: DATA, AUTHORITY, RECOVERY"
+  ],
+  "cta": "Follow PrismBay AI for practical AI business systems.",
+  "publishTime": "UNASSIGNED_NOT_AUTHORIZED",
+  "successThreshold": "At 72 hours SCALE only if at least 1.5 times the median of five comparable Shorts and at least one attributable subscriber. Otherwise RETEST, MODIFY or INSUFFICIENT_DATA.",
+  "reviewHoursAfterPublish": [
+    6,
+    24,
+    72,
+    168
+  ],
+  "paidSpendUSD": 0,
+  "published": false,
+  "publicationApproved": false,
+  "uploadPermitted": false,
+  "qualityGate": "CLOSED_PENDING_INDEPENDENT_AUDIO_CAPTION_MOBILE_QA",
+  "segments": [
+    {
+      "scene": "hook",
+      "headline": "The AI demo passed. Should you sign?",
+      "body": "A polished demonstration is not procurement evidence.",
+      "spoken": "Your AI vendor's demo worked. That does not mean your business should sign. Run three acceptance tests before approval."
+    },
+    {
+      "scene": "privacy",
+      "headline": "01 / Trace private data",
+      "body": "Use a fictional invoice. Document each data destination.",
+      "spoken": "First, use a fictional invoice with synthetic customer details. Confirm where the data goes, who keeps it, and when it gets deleted."
+    },
+    {
+      "scene": "approval",
+      "headline": "02 / Enforce human authority",
+      "body": "Illustrative $5,000 approval limit. Test a $12,000 request.",
+      "spoken": "Second, submit an invoice above the allowed approval limit. The agent must stop, and route the decision to a person."
+    },
+    {
+      "scene": "failure",
+      "headline": "03 / Test failed tools",
+      "body": "Two failures. No endless retries. Record each action.",
+      "spoken": "Third, make a tool fail twice. Check whether the agent stops safely, avoids endless retries, and records the failed actions."
+    },
+    {
+      "scene": "evidence",
+      "headline": "Make the purchase decision auditable",
+      "body": "Keep a test record with outcomes and accountable owners.",
+      "spoken": "Put the evidence for all three tests in your purchase decision. A polished demo is not an acceptance test."
+    },
+    {
+      "scene": "close",
+      "headline": "Approve only after the tests",
+      "body": "Original, illustrative decision framework. No vendor endorsement.",
+      "spoken": "Follow PrismBay AI for practical AI business systems, with clear controls and measurable results."
+    }
+  ],
+  "releaseCandidateOf": "ai-vendor-procurement-acceptance-test-2026-10-29",
+  "playbackDurationFactor": 1.2,
+  "visualRevision": "2026-10-29-mobile-typography-v2",
+  "productionNote": "Unpublished replacement candidate only, not a second public Short. Updated 1080x1920 mobile typography, pitch-preserving pacing, all six original scenes. Prior draft remains preserved. Must re-run independent QA and re-align subtitles against this candidate SHA256 before any upload."
+}
