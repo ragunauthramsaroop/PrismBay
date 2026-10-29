@@ -41,3 +41,34 @@ test("unapproved physical purchases are impossible through the catalog; four dig
  ])assert.ok(html.includes(link));
  assert.doesNotMatch(html,/World.s lowest price guaranteed|Most sold products in the world/);
 });
+
+test("expired CJ stock cannot hide independently authenticated manual HyperSKU sourced items",()=>{
+ const stamp=new Date().toISOString();
+ const manual={
+  schemaVersion:1,
+  providers:{hypersku:{apiStatus:"open_api_not_available_low_volume",
+   customStoreRoute:"manual_csv_batch_upload_only",basePlanUsdMonthly:0,
+   manualCsvRouteIndependentlyConfirmed:true,manualCsvOrderSubmissionAvailable:true}},
+  candidates:[{slug:"pethair",provider:"hypersku",supplierProductId:"TEST-SUPPLIER-00001",
+   supplierVariantId:"TEST-VARIANT-00001",
+   supplierTitle:"Genuine Reusable Pet Hair Remover Brush",
+   catalogMatchVerified:true,independentIdentityReviewed:true,
+   listingEvidenceUrl:"https://app.hypersku.com/products/test-record",
+   manualSourcingQuoteFromAuthenticatedDashboard:true,
+   stock:{units:15,warehouseCountry:"CN",checkedAt:stamp},
+   usFreight:{costUsd:4.5,destinationCountry:"US",exampleZip:"10001",tracked:true,checkedAt:stamp},
+   unitCostUsd:3.5,targetRetailUsd:19.95,
+   fulfillment:{mode:"manual",fulfillmentConfirmed:true,trackedShippingConfirmed:true,
+    returnTermsAccepted:true,termsUrl:"https://www.hypersku.com/returns/"},
+   media:{commercialReuseApproved:true,exactVariantPhotoReviewed:true,
+    url:"https://images.example.com/test-product.jpg",
+    rightsEvidenceUrl:"https://app.hypersku.com/rights/test-evidence"},
+   approvedAt:stamp}]
+ };
+ const checked=currentPublicProducts({checkedAt:"2020-01-01T00:00:00.000Z",candidates:[]},manual,research);
+ assert.equal(checked.length,1);
+ assert.equal(checked[0].slug,"pethair");
+ assert.equal(checked[0].source,"HyperSKU");
+ assert.equal(checked[0].photoUrl,"https://images.example.com/test-product.jpg");
+ // Test fixture is never inserted into real supplier registry, page or images.
+});
