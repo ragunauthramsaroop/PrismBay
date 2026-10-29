@@ -8,10 +8,15 @@ export function validateSourcingQueue(data,shortlist,nowMs=Date.now()) {
  if(data?.schemaVersion!==1||!Array.isArray(data.requests))
   return {valid:false,errors:['invalid_queue_schema'],submitted:0,readyToSubmit:0};
  // The research queue must never authorize paid sourcing, automatic uploads or physical checkout.
- if(data?.requestQuota?.paidLinksAuthorized===true||data?.paidLinksAuthorized===true)
+ // Reject non-boolean and string-encoded authorizations as well as positive flags.
+ // Only absent, false, or numeric zero are unambiguously disabled.
+ const disabled=value=>value===undefined||value===false||value===0;
+ if(!disabled(data?.requestQuota?.paidLinksAuthorized)||!disabled(data?.paidLinksAuthorized))
   errors.push('paid_sourcing_not_authorized');
- if(data?.orderImportAuthorized===true||data?.physicalCheckoutEnabled===true||
-    data?.automaticallySubmitted===true||Number(data?.automaticallySubmitted||0)>0)
+ if([data?.orderImportAuthorized,data?.physicalCheckoutEnabled,
+     data?.automaticallySubmitted,data?.manualCsvOrdersEnabled,
+     data?.manualCsvOrderSubmissionAuthorized,data?.walletFundingAuthorized,
+     data?.automaticOrdersEnabled].some(value=>!disabled(value)))
   errors.push('unsafe_execution_flag');
  for(const row of data.requests){
   if(!allowed.has(row.slug))errors.push('unknown_slug');
