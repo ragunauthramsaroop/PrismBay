@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-29T17:56:00Z",
+  "updatedAt": "2026-10-29T18:55:00Z",
   "channel": {
     "id": "UCw2hs85TzIpdKwJtG-BSxzQ",
     "handle": "@PrismBayAI",
@@ -11,11 +11,20 @@
   "monetization": {
     "subscribersLastVerified": 7,
     "verifiedFrom": "Metricool evolution 2026-10-29",
-    "countryEligibility": "UNVERIFIED_IN_STUDIO",
+    "countryEligibility": "STUDIO_UNVERIFIED_GUYANA_NOT_LISTED_IN_OFFICIAL_STANDARD_OR_EXPANDED_YPP_TERRITORIES",
     "eligibleWatchHours": "UNAVAILABLE",
     "qualifiedShortsViews": "UNAVAILABLE",
     "revenueMilestone": "NONE_VERIFIED",
-    "paidSpendUSD": 0
+    "paidSpendUSD": 0,
+    "countryRisk": {
+      "checkedDate": "2026-10-29",
+      "channelRegisteredCountry": "UNVERIFIED",
+      "studioEarnStatus": "UNVERIFIED",
+      "standardList": "https://support.google.com/youtube/answer/7101720?hl=en",
+      "expandedList": "https://support.google.com/youtube/answer/13429240?hl=en",
+      "countryChangeAuthorized": false,
+      "trackingIssue": 509
+    }
   },
   "analytics": {
     "dailyViewsKnown": {
@@ -28,7 +37,7 @@
     "trafficSources": "NO_ROWS",
     "scheduledMetricoolPosts": {
       "from": "2026-10-29",
-      "to": "2026-11-07",
+      "to": "2026-11-12",
       "count": 0
     },
     "nativeStudioSchedule": "UNVERIFIED_BROWSER_AUTH",
@@ -43,7 +52,7 @@
     "activeDescriptJobs": 0,
     "freeAIAgentCredits": "PREVIOUSLY_EXHAUSTED",
     "fallback": "GitHub Actions FFmpeg Piper open-TTS",
-    "operaStudio": "BROWSER_ORIGIN_AUTH_REQUIRED",
+    "operaStudio": "INTERACTIVE_AUTHORIZATION_REQUIRED_NONINTERACTIVE_RUN",
     "exa": "CREDITS_EXHAUSTED_NO_PURCHASE"
   },
   "releaseQueue": [
@@ -83,7 +92,12 @@
         "artifactExpiresAt": "2026-11-12T17:55:05Z",
         "fullNarrationListening": "PENDING",
         "publicationApproved": false,
-        "uploadPermitted": false
+        "uploadPermitted": false,
+        "independentLocalTechnicalAudit": "PASS_2026_10_29",
+        "technicalGateReport": "youtube-growth/analytics/2026-10-29-1455-nist-independent-artifact-audit.md",
+        "audioPeakDbFS": -3.009,
+        "blackIntervalsOver0p2Seconds": 0,
+        "silenceIntervalsOver0p4Seconds": 4
       }
     },
     {
@@ -197,5 +211,23 @@
     "scriptsCopied": 2,
     "publicationApproval": false,
     "purpose": "Provide full narration audio and targeted video clips for NIST caption drift and procurement quiet intervals; no human review claimed"
+  },
+  "qualityGate": {
+    "script": "scripts/youtube_release_gate.py",
+    "type": "READ_ONLY_NO_PUBLISH",
+    "independentReport": "youtube-growth/analytics/2026-10-29-1455-nist-independent-artifact-audit.md",
+    "candidateSHA256": "dadebd0ecbdfb4201dbc734deb415d68c38865068d8b5ebcd888189ef7326418",
+    "testedOn": "2026-10-29",
+    "candidateTechnicalResult": "PASS",
+    "fullHumanReview": "PENDING",
+    "publicationApproved": false,
+    "uploadPermitted": false,
+    "verifiedSilenceIntervalsSeconds": [
+      0.579,
+      0.418,
+      0.488,
+      0.404
+    ],
+    "maxCaptionWPM": 159.07
   }
 }
