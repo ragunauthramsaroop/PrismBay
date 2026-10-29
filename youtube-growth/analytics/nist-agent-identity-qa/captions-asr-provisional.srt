@@ -7,15 +7,15 @@ you revoked your AI agent's access. Does its
 next tool call still work? Test this before
 
 3
-00:00:06,060 --> 00:00:10,180
+00:00:06,060 --> 00:00:10,160
 deployment on October 27th. This proposed 10 agent
 
 4
-00:00:10,120 --> 00:00:13,640
+00:00:10,100 --> 00:00:13,640
 identity design tenets. Here are three practical operator
 
 5
-00:00:13,580 --> 00:00:17,380
+00:00:13,580 --> 00:00:17,340
 tests. First, give each agent a distinct identity.
 
 6
@@ -23,37 +23,37 @@ tests. First, give each agent a distinct identity.
 Never share an administrator login. Link actions to
 
 7
-00:00:20,820 --> 00:00:23,960
+00:00:20,820 --> 00:00:23,980
 an accountable owner. Second, revoke a short -lived
 
 8
-00:00:23,900 --> 00:00:26,860
+00:00:23,920 --> 00:00:26,860
 permission mid -task. The next protected tool call
 
 9
-00:00:26,800 --> 00:00:29,100
+00:00:26,800 --> 00:00:29,120
 must fail at the service. Not merely in
 
 10
-00:00:29,040 --> 00:00:32,040
+00:00:29,060 --> 00:00:32,040
 the prompt. Third, keep independent evidence of who
 
 11
 00:00:31,980 --> 00:00:35,220
-authorized the task, when access ended, and what
+authorized the task. When access ended, and what
 
 12
-00:00:35,160 --> 00:00:37,920
-the agent tried next. Prevent the agent editing
+00:00:35,160 --> 00:00:37,900
+the agent tried next, prevent the agent editing
 
 13
-00:00:37,860 --> 00:00:41,380
-those records. Use fictional data. These are prism
+00:00:37,840 --> 00:00:40,980
+those records. Use a fictional beta. These are
 
 14
-00:00:41,320 --> 00:00:44,840
-bay tests inspired by NIST proposal, not an
+00:00:40,920 --> 00:00:44,680
+prism bay tests inspired by NIST proposal, not
 
 15
-00:00:44,780 --> 00:00:48,120
-official checklist. Follow prism bay AI.
+00:00:44,620 --> 00:00:48,120
+an official checklist. Follow prism bay AI.

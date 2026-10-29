@@ -3,20 +3,20 @@
   "sourceVideoSHA256": "a7a3f3469d6f2ec6d620d50c5ff1e32f8075cddd271fd1b2b3c1eae541387dc4",
   "durationSeconds": 48.279,
   "exactScriptWords": 115,
-  "recognizedASRWords": 118,
-  "directASRWordMatchRatio": 0.9217,
+  "recognizedASRWords": 119,
+  "directASRWordMatchRatio": 0.913,
   "cueCount": 21,
-  "maximumWPM": 159.89,
+  "maximumWPM": 159.74,
   "maximumWordsPerCue": 7,
   "asrAnchorWeight": 0.5,
-  "maximumSmoothedWordCenterDisplacementSeconds": 1.011,
+  "maximumSmoothedWordCenterDisplacementSeconds": 1.001,
   "largestWordTimingAdjustments": [
     {
       "wordIndex": 97,
       "scriptWord": "records.",
-      "asrAnchoredCenterSeconds": 38.49,
-      "smoothedCenterSeconds": 39.501,
-      "estimatedAbsoluteDisplacementSeconds": 1.011
+      "asrAnchoredCenterSeconds": 38.51,
+      "smoothedCenterSeconds": 39.511,
+      "estimatedAbsoluteDisplacementSeconds": 1.001
     },
     {
       "wordIndex": 96,
@@ -28,30 +28,30 @@
     {
       "wordIndex": 95,
       "scriptWord": "editing",
-      "asrAnchoredCenterSeconds": 37.76,
-      "smoothedCenterSeconds": 38.716,
-      "estimatedAbsoluteDisplacementSeconds": 0.956
-    },
-    {
-      "wordIndex": 94,
-      "scriptWord": "agent",
-      "asrAnchoredCenterSeconds": 37.39,
-      "smoothedCenterSeconds": 38.321,
-      "estimatedAbsoluteDisplacementSeconds": 0.931
+      "asrAnchoredCenterSeconds": 37.77,
+      "smoothedCenterSeconds": 38.721,
+      "estimatedAbsoluteDisplacementSeconds": 0.951
     },
     {
       "wordIndex": 91,
       "scriptWord": "next.",
-      "asrAnchoredCenterSeconds": 36.14,
-      "smoothedCenterSeconds": 37.067,
-      "estimatedAbsoluteDisplacementSeconds": 0.927
+      "asrAnchoredCenterSeconds": 36.16,
+      "smoothedCenterSeconds": 37.077,
+      "estimatedAbsoluteDisplacementSeconds": 0.917
+    },
+    {
+      "wordIndex": 94,
+      "scriptWord": "agent",
+      "asrAnchoredCenterSeconds": 37.42,
+      "smoothedCenterSeconds": 38.336,
+      "estimatedAbsoluteDisplacementSeconds": 0.916
     },
     {
       "wordIndex": 93,
       "scriptWord": "the",
-      "asrAnchoredCenterSeconds": 37.0,
-      "smoothedCenterSeconds": 37.916,
-      "estimatedAbsoluteDisplacementSeconds": 0.916
+      "asrAnchoredCenterSeconds": 37.02,
+      "smoothedCenterSeconds": 37.926,
+      "estimatedAbsoluteDisplacementSeconds": 0.906
     },
     {
       "wordIndex": 90,
@@ -68,13 +68,6 @@
       "estimatedAbsoluteDisplacementSeconds": 0.851
     },
     {
-      "wordIndex": 92,
-      "scriptWord": "Prevent",
-      "asrAnchoredCenterSeconds": 36.73,
-      "smoothedCenterSeconds": 37.571,
-      "estimatedAbsoluteDisplacementSeconds": 0.841
-    },
-    {
       "wordIndex": 98,
       "scriptWord": "Use",
       "asrAnchoredCenterSeconds": 39.25,
@@ -82,20 +75,38 @@
       "estimatedAbsoluteDisplacementSeconds": 0.841
     },
     {
-      "wordIndex": 99,
-      "scriptWord": "fictional",
-      "asrAnchoredCenterSeconds": 39.7,
-      "smoothedCenterSeconds": 40.526,
-      "estimatedAbsoluteDisplacementSeconds": 0.826
+      "wordIndex": 92,
+      "scriptWord": "Prevent",
+      "asrAnchoredCenterSeconds": 36.75,
+      "smoothedCenterSeconds": 37.581,
+      "estimatedAbsoluteDisplacementSeconds": 0.831
     },
     {
-      "wordIndex": 100,
-      "scriptWord": "data.",
-      "asrAnchoredCenterSeconds": 40.12,
-      "smoothedCenterSeconds": 40.946,
-      "estimatedAbsoluteDisplacementSeconds": 0.826
+      "wordIndex": 89,
+      "scriptWord": "agent",
+      "asrAnchoredCenterSeconds": 35.53,
+      "smoothedCenterSeconds": 36.342,
+      "estimatedAbsoluteDisplacementSeconds": 0.812
+    },
+    {
+      "wordIndex": 103,
+      "scriptWord": "PrismBay",
+      "asrAnchoredCenterSeconds": 41.42,
+      "smoothedCenterSeconds": 42.225,
+      "estimatedAbsoluteDisplacementSeconds": 0.805
     }
   ],
+  "timingFirstDiagnostic": {
+    "status": "REVIEW_ONLY_NOT_RELEASE_APPROVED",
+    "cueCount": 22,
+    "maximumWPM": 182.93,
+    "maximumSmoothedWordCenterDisplacementSeconds": 0.0,
+    "asrAnchorWeight": 1.0,
+    "cuesOver160WPM": 7,
+    "cuesUnder1_5Seconds": 1,
+    "candidateFilename": "captions-timing-first-review-only.srt",
+    "publicationApproved": false
+  },
   "cuesOver160WPM": 0,
   "cuesUnder1_5Seconds": 0,
   "captionTiming": "ASR_WORD_ANCHORED_INTERPOLATED_CANDIDATE_NOT_HUMAN_VERIFIED",
@@ -111,50 +122,50 @@
     {
       "index": 1,
       "start": 0.0,
-      "end": 2.614,
+      "end": 2.612,
       "text": "You revoked your AI agent's access.",
       "words": 6,
-      "wpm": 137.7
+      "wpm": 137.83
     },
     {
       "index": 2,
-      "start": 2.614,
-      "end": 4.519,
+      "start": 2.612,
+      "end": 4.521,
       "text": "Does its next tool call",
       "words": 5,
-      "wpm": 157.52
+      "wpm": 157.11
     },
     {
       "index": 3,
-      "start": 4.519,
-      "end": 6.461,
+      "start": 4.521,
+      "end": 6.456,
       "text": "still work? Test this before",
       "words": 5,
-      "wpm": 154.48
+      "wpm": 155.08
     },
     {
       "index": 4,
-      "start": 6.461,
-      "end": 8.665,
+      "start": 6.456,
+      "end": 8.667,
       "text": "deployment. On October twenty seventh,",
       "words": 5,
-      "wpm": 136.12
+      "wpm": 135.7
     },
     {
       "index": 5,
-      "start": 8.665,
-      "end": 10.793,
+      "start": 8.667,
+      "end": 10.79,
       "text": "NIST proposed ten agent identity",
       "words": 5,
-      "wpm": 141.0
+      "wpm": 141.29
     },
     {
       "index": 6,
-      "start": 10.793,
+      "start": 10.79,
       "end": 12.917,
       "text": "design tenets. Here are three",
       "words": 5,
-      "wpm": 141.21
+      "wpm": 141.04
     },
     {
       "index": 7,
@@ -167,98 +178,98 @@
     {
       "index": 8,
       "start": 15.284,
-      "end": 17.289,
+      "end": 17.281,
       "text": "each agent a distinct identity.",
       "words": 5,
-      "wpm": 149.66
+      "wpm": 150.22
     },
     {
       "index": 9,
-      "start": 17.289,
+      "start": 17.281,
       "end": 19.473,
       "text": "Never share an administrator login.",
       "words": 5,
-      "wpm": 137.33
+      "wpm": 136.86
     },
     {
       "index": 10,
       "start": 19.473,
-      "end": 21.993,
+      "end": 21.998,
       "text": "Link actions to an accountable owner.",
       "words": 6,
-      "wpm": 142.89
+      "wpm": 142.61
     },
     {
       "index": 11,
-      "start": 21.993,
-      "end": 24.662,
+      "start": 21.998,
+      "end": 24.666,
       "text": "Second, revoke a short-lived permission mid-task.",
       "words": 6,
-      "wpm": 134.86
+      "wpm": 134.92
     },
     {
       "index": 12,
-      "start": 24.662,
+      "start": 24.666,
       "end": 27.301,
       "text": "The next protected tool call must fail",
       "words": 7,
-      "wpm": 159.13
+      "wpm": 159.36
     },
     {
       "index": 13,
       "start": 27.301,
-      "end": 28.821,
+      "end": 28.841,
       "text": "at the service, not",
       "words": 4,
-      "wpm": 157.93
+      "wpm": 155.88
     },
     {
       "index": 14,
-      "start": 28.821,
-      "end": 31.55,
+      "start": 28.841,
+      "end": 31.545,
       "text": "merely in the prompt. Third, keep independent",
       "words": 7,
-      "wpm": 153.88
+      "wpm": 155.31
     },
     {
       "index": 15,
-      "start": 31.55,
-      "end": 33.882,
+      "start": 31.545,
+      "end": 33.88,
       "text": "evidence of who authorized the task,",
       "words": 6,
-      "wpm": 154.38
+      "wpm": 154.21
     },
     {
       "index": 16,
-      "start": 33.882,
+      "start": 33.88,
       "end": 36.509,
       "text": "when access ended, and what the agent",
       "words": 7,
-      "wpm": 159.89
+      "wpm": 159.74
     },
     {
       "index": 17,
       "start": 36.509,
-      "end": 38.914,
+      "end": 38.916,
       "text": "tried next. Prevent the agent editing",
       "words": 6,
-      "wpm": 149.72
+      "wpm": 149.57
     },
     {
       "index": 18,
-      "start": 38.914,
-      "end": 41.203,
+      "start": 38.916,
+      "end": 41.237,
       "text": "those records. Use fictional data.",
       "words": 5,
-      "wpm": 131.03
+      "wpm": 129.27
     },
     {
       "index": 19,
-      "start": 41.203,
+      "start": 41.237,
       "end": 43.39,
       "text": "These are PrismBay tests inspired",
       "words": 5,
-      "wpm": 137.17
+      "wpm": 139.32
     },
     {
       "index": 20,

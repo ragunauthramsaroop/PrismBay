@@ -13,18 +13,18 @@
   ],
   "originalSceneCount": 6,
   "sampledFrames": [
-    3.28,
-    10.425,
+    3.275,
+    10.41,
     18.285,
-    26.06,
-    34.23,
+    26.075,
+    34.24,
     43.495
   ],
   "sceneSamplePlan": [
     {
       "index": 1,
       "scene": "hook",
-      "second": 3.28,
+      "second": 3.275,
       "matchedWords": 18,
       "expectedWords": 18,
       "method": "ASR_MATCHED_WORD_SPAN"
@@ -32,7 +32,7 @@
     {
       "index": 2,
       "scene": "source",
-      "second": 10.425,
+      "second": 10.41,
       "matchedWords": 13,
       "expectedWords": 17,
       "method": "ASR_MATCHED_WORD_SPAN"
@@ -48,7 +48,7 @@
     {
       "index": 4,
       "scene": "revoke",
-      "second": 26.06,
+      "second": 26.075,
       "matchedWords": 23,
       "expectedWords": 23,
       "method": "ASR_MATCHED_WORD_SPAN"
@@ -56,7 +56,7 @@
     {
       "index": 5,
       "scene": "evidence",
-      "second": 34.23,
+      "second": 34.24,
       "matchedWords": 24,
       "expectedWords": 24,
       "method": "ASR_MATCHED_WORD_SPAN"
@@ -65,7 +65,7 @@
       "index": 6,
       "scene": "close",
       "second": 43.495,
-      "matchedWords": 16,
+      "matchedWords": 15,
       "expectedWords": 19,
       "method": "ASR_MATCHED_WORD_SPAN"
     }
@@ -73,10 +73,10 @@
   "sceneSamplingMethod": "SIX_AUTHORED_SCENES_ASR_WORD_ANCHORED",
   "sceneCoverageStatus": "SIX_DISTINCT_SCRIPT_SEGMENTS_SAMPLED_NOT_FULL_PLAYBACK",
   "captionCueCount": 15,
-  "maxCaptionWPM": 208.7,
-  "cuesOver160WPM": 5,
+  "maxCaptionWPM": 206.9,
+  "cuesOver160WPM": 6,
   "cuesUnder1_5Seconds": 0,
-  "transcriptSequenceSimilarity": 0.9412,
+  "transcriptSequenceSimilarity": 0.9289,
   "captionSource": "Faster-Whisper tiny.en provisional recognition",
   "manualNarrationReview": "NOT_PERFORMED",
   "captionSynchronization": "PROVISIONAL_ASR_ONLY",

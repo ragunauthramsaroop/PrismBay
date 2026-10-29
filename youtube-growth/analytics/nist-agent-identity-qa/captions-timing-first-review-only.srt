@@ -1,0 +1,88 @@
+1
+00:00:00,000 --> 00:00:02,705
+You revoked your AI agent's access.
+
+2
+00:00:02,705 --> 00:00:05,315
+Does its next tool call still work?
+
+3
+00:00:05,315 --> 00:00:07,070
+Test this before deployment. On
+
+4
+00:00:07,070 --> 00:00:09,438
+October twenty seventh, NIST proposed
+
+5
+00:00:09,438 --> 00:00:11,680
+ten agent identity design tenets.
+
+6
+00:00:11,680 --> 00:00:13,710
+Here are three practical operator
+
+7
+00:00:13,710 --> 00:00:16,075
+tests. First, give each agent
+
+8
+00:00:16,075 --> 00:00:18,165
+a distinct identity. Never share
+
+9
+00:00:18,165 --> 00:00:20,505
+an administrator login. Link actions
+
+10
+00:00:20,505 --> 00:00:22,960
+to an accountable owner. Second,
+
+11
+00:00:22,960 --> 00:00:24,983
+revoke a short-lived permission mid-task.
+
+12
+00:00:24,983 --> 00:00:27,315
+The next protected tool call must fail
+
+13
+00:00:27,315 --> 00:00:28,715
+at the service, not
+
+14
+00:00:28,715 --> 00:00:30,700
+merely in the prompt. Third, keep
+
+15
+00:00:30,700 --> 00:00:32,820
+independent evidence of who authorized the
+
+16
+00:00:32,820 --> 00:00:35,245
+task, when access ended, and what
+
+17
+00:00:35,245 --> 00:00:36,885
+the agent tried next. Prevent
+
+18
+00:00:36,885 --> 00:00:38,880
+the agent editing those records.
+
+19
+00:00:38,880 --> 00:00:41,165
+Use fictional data. These are
+
+20
+00:00:41,165 --> 00:00:43,502
+PrismBay tests inspired by NIST's
+
+21
+00:00:43,502 --> 00:00:45,950
+proposal, not an official checklist.
+
+22
+00:00:45,950 --> 00:00:48,279
+Follow PrismBay AI.
+
