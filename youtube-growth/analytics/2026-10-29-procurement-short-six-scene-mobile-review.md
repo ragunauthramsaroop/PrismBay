@@ -34,3 +34,8 @@ These findings are from six selected frames. They do not constitute full-frame p
 **MODIFY / HOLD.** The raw 15-cue ASR captions still contain three cues above 160 words/minute. The separate 22-cue ASR-anchored exact-script candidate passes mechanical pacing but is not approved without listening. No publication or Metricool scheduling. `publicationApproved=false`, `uploadPermitted=false`, `paidSpendUSD=0`.
 
 The remaining release work is a mobile typography pass, full narration listening, caption synchronization and final voice/dependency license verification. Use the existing source and project; do not produce or publish a near-duplicate.
+
+
+## Source remediation completed after this inspection
+
+Updated the procurement visual renderer in [commit 929b8bc](https://github.com/ragunauthramsaroop/PrismBay/commit/929b8bc6f0bf91cb310a5eef08bcf444e5ec053b) to increase secondary text, explanatory copy and the final CTA, with pixel-measured wrapping. Added six-scene layout smoke tests in [commit d5a9a8d](https://github.com/ragunauthramsaroop/PrismBay/commit/d5a9a8d2f3f6b383c450d4414d686dad1a2d0cc7). [Independent QA run 40845313219](https://github.com/ragunauthramsaroop/PrismBay/actions/runs/40845313219) succeeded, including all six revised renderer layout tests. These checks validate source layout generation, not a new MP4. The previously inspected video hash and its publication hold are unchanged.
