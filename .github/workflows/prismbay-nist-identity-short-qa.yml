@@ -1,0 +1,126 @@
+name: PrismBay NIST Agent Identity Short Independent QA
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/prismbay-nist-identity-short-qa.yml'
+      - 'public/youtube/nist-agent-identity-revocation-2026-10-29.mp4'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: prismbay-nist-identity-short-qa-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - name: Checkout sole authorized PrismBay channel source
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Wait for zero-cost render without any publishing
+        shell: bash
+        run: |
+          set -euo pipefail
+          media=public/youtube/nist-agent-identity-revocation-2026-10-29.mp4
+          manifest=public/youtube/nist-agent-identity-revocation-2026-10-29.json
+          for i in $(seq 1 30); do
+            git fetch origin main
+            if git cat-file -e "origin/main:$media" 2>/dev/null && git cat-file -e "origin/main:$manifest" 2>/dev/null; then
+              git reset --hard origin/main
+              exit 0
+            fi
+            echo "Original render pending: $i/30"
+            sleep 15
+          done
+          echo "No render artifact yet. Publication remains closed."
+          exit 1
+      - name: Install free media and speech QA tools
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg
+          python3 -m pip install --disable-pip-version-check --no-input faster-whisper numpy pillow
+      - name: Confirm channel and original editorial constraints
+        run: |
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          slug='nist-agent-identity-revocation-2026-10-29'
+          s=json.loads(Path(f'content/youtube/requests/{slug}.json').read_text())
+          m=json.loads(Path(f'public/youtube/{slug}.json').read_text())
+          assert s['targetChannelId']==m['channelId']=='UCw2hs85TzIpdKwJtG-BSxzQ'
+          assert s['metricoolBrandId']==6945443
+          assert s['visualStyle']=='nist_agent_identity_v1'
+          assert len(s['segments'])==6
+          assert s['publicationApproved'] is False and s['uploadPermitted'] is False and s['published'] is False
+          assert m['publicationApproved'] is False and m['uploadPermitted'] is False and m['published'] is False
+          assert m['paidSpend']==s['paidSpendUSD']==0
+          assert 'not an official NIST checklist' in s['sourceAttribution']
+          PY
+      - name: Independently sample six original scenes and check ASR
+        run: |
+          python3 scripts/prismbay_procurement_short_qa.py \
+            --video public/youtube/nist-agent-identity-revocation-2026-10-29.mp4 \
+            --manifest public/youtube/nist-agent-identity-revocation-2026-10-29.json \
+            --spec content/youtube/requests/nist-agent-identity-revocation-2026-10-29.json \
+            --output youtube-growth/analytics/nist-agent-identity-qa
+      - name: Generate exact-script word-aligned caption candidate
+        run: |
+          python3 scripts/prismbay_procurement_caption_alignment.py \
+            --min-pace 1.0 \
+            --video public/youtube/nist-agent-identity-revocation-2026-10-29.mp4 \
+            --manifest public/youtube/nist-agent-identity-revocation-2026-10-29.json \
+            --spec content/youtube/requests/nist-agent-identity-revocation-2026-10-29.json \
+            --output youtube-growth/analytics/nist-agent-identity-qa
+      - name: Verify QA never authorizes publication
+        run: |
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          base=Path('youtube-growth/analytics/nist-agent-identity-qa')
+          qa=json.loads((base/'qa-report.json').read_text())
+          cap=json.loads((base/'captions-asr-anchored-script-report.json').read_text())
+          assert qa['channelId']==cap['channelId']=='UCw2hs85TzIpdKwJtG-BSxzQ'
+          assert qa['sha256']==cap['sourceVideoSHA256']
+          assert qa['originalSceneCount']==6 and len(qa['sceneSamplePlan'])==6
+          assert cap['cuesOver160WPM']==0 and cap['cuesUnder1_5Seconds']==0
+          assert cap['maximumWordsPerCue']<=7
+          assert qa['publicationApproved'] is False and qa['uploadPermitted'] is False
+          assert cap['publicationApproved'] is False and cap['uploadPermitted'] is False
+          assert qa['paidSpendUSD']==cap['paidSpendUSD']==0
+          print('Machine QA passed; narration listening, mobile playback, license and final sync remain unapproved.')
+          PY
+      - name: Archive unpublished QA artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: prismbay-nist-agent-identity-qa-${{ github.run_id }}
+          path: youtube-growth/analytics/nist-agent-identity-qa/
+          retention-days: 14
+          if-no-files-found: error
+      - name: Commit only review evidence
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name prismbay-ai-qa-bot
+          git config user.email actions@users.noreply.github.com
+          git add youtube-growth/analytics/nist-agent-identity-qa/
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m 'Record unpublished NIST agent identity short QA evidence'
+          for i in 1 2 3 4; do
+            git fetch origin main
+            git rebase origin/main
+            if git push origin HEAD:main; then exit 0; fi
+            sleep $((i * 3))
+          done
+          exit 1
+      - name: Keep publication gate closed
+        if: always()
+        run: |
+          echo 'Authorized channel: UCw2hs85TzIpdKwJtG-BSxzQ / @PrismBayAI.' >> "$GITHUB_STEP_SUMMARY"
+          echo 'This job never publishes, schedules, buys ads, or approves final editorial QA.' >> "$GITHUB_STEP_SUMMARY"
