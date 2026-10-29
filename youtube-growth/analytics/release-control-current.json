@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-29T22:41:16Z",
+  "updatedAt": "2026-10-29T23:46:37Z",
   "channel": {
     "id": "UCw2hs85TzIpdKwJtG-BSxzQ",
     "handle": "@PrismBayAI",
@@ -61,7 +61,7 @@
     "trafficSources": "NO_ROWS_2026_10_01_TO_2026_10_29",
     "scheduledMetricoolPosts": {
       "from": "2026-10-29",
-      "to": "2026-11-08",
+      "to": "2026-11-12",
       "count": 0,
       "scope": "Metricool only; native Studio schedule unverified"
     },
@@ -71,7 +71,7 @@
     "observedViewDatesArePartial": true,
     "allVideosConnector": "NO_ROWS_2026_09_19_TO_2026_10_29",
     "publishedInRangeConnector": "NO_ROWS_2026_10_01_TO_2026_10_29",
-    "lastMetricoolCheck": "2026-10-29T22:41Z",
+    "lastMetricoolCheck": "2026-10-29T23:46Z",
     "latestSevenDayObservation": {
       "window": "2026-10-23 through 2026-10-29 18:41 America/Guyana",
       "subscribers": 7,
@@ -117,7 +117,7 @@
     "fallback": "GitHub Actions FFmpeg Piper open-TTS",
     "operaStudio": "INTERACTIVE_AUTHORIZATION_REQUIRED_NONINTERACTIVE_RUN",
     "exa": "CREDITS_EXHAUSTED_NO_PURCHASE",
-    "descriptProjectInspection": "2026-10-29T22:41Z",
+    "descriptProjectInspection": "2026-10-29T23:46Z",
     "descriptImportedMedia": {
       "name": "PrismBay Procurement Mobile V2 QA 2026-10-29.mp4",
       "durationSeconds": 51.133333,
@@ -343,10 +343,19 @@
       "status": "ORIGINAL_COMPANION_CREATED_NOT_LINKED_TO_UNPUBLISHED_VIDEO",
       "videoExperiment": "PB-NIST-IDENTITY-20261029-S04",
       "videoPublicationApproved": false
+    },
+    "aiVendorProcurementDecisionCard": {
+      "path": "youtube-growth/companion/2026-10-29-ai-vendor-procurement-decision-card.md",
+      "videoExperiment": "PB-PROC-GATE-20261029-S03",
+      "sourceFramework": "NIST AI RMF MAP 4 and MANAGE 3; NIST AI 600-1",
+      "weightedScoreExample": 65,
+      "hardGates": 4,
+      "status": "ORIGINAL_COMPANION_CREATED_UNPUBLISHED_VIDEO",
+      "publicationApproved": false
     }
   },
   "lastOperationalCycle": {
-    "at": "2026-10-29T22:41:16Z",
+    "at": "2026-10-29T23:46:37Z",
     "connectedChannelVerified": "UCw2hs85TzIpdKwJtG-BSxzQ",
     "scheduledPostsChecked": 0,
     "subscriberCount": 7,
@@ -355,12 +364,13 @@
       "2026-10-25": 62,
       "2026-10-26": 7
     },
-    "allVideosRows": 0,
-    "trafficSourceRows": 0,
+    "missingViewsNotZero": true,
     "descriptJobsRunning": 0,
     "companionCreated": true,
+    "companionPath": "youtube-growth/companion/2026-10-29-ai-vendor-procurement-decision-card.md",
     "publicUploadVerified": false,
     "paidSpendUSD": 0,
-    "publicationHoldMaintained": true
+    "publicationHoldMaintained": true,
+    "studioAccess": "USER_AUTH_REQUIRED"
   }
 }
