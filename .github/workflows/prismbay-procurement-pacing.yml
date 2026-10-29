@@ -1,0 +1,104 @@
+name: PrismBay Procurement Short Pacing Repair
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/prismbay_procurement_pacing.py'
+      - '.github/workflows/prismbay-procurement-pacing.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: prismbay-procurement-pacing-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  pace:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout sole authorized PrismBay channel repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install free local video tools
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg
+
+      - name: Validate pacing script
+        run: python3 -m py_compile scripts/prismbay_procurement_pacing.py
+
+      - name: Slow narration without pitch shift and prepare corrected editorial captions
+        run: |
+          python3 scripts/prismbay_procurement_pacing.py \
+            --video public/youtube/ai-vendor-procurement-acceptance-test-2026-10-29.mp4 \
+            --manifest public/youtube/ai-vendor-procurement-acceptance-test-2026-10-29.json \
+            --spec content/youtube/requests/ai-vendor-procurement-acceptance-test-2026-10-29.json \
+            --captions youtube-growth/analytics/procurement-qa/captions-editorial-paced-candidate.srt \
+            --report youtube-growth/analytics/procurement-qa/pacing-candidate-report.json
+
+      - name: Verify no publication authorization and safe candidate pacing
+        run: |
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          p=Path('youtube-growth/analytics/procurement-qa/pacing-candidate-report.json')
+          m=json.loads(p.read_text())
+          assert m['targetChannelId']=='UCw2hs85TzIpdKwJtG-BSxzQ'
+          assert m['cuesOver160WPM']==0
+          assert m['cuesUnder1_5Seconds']==0
+          assert m['captionCueCount']>0
+          assert m['published'] is False and m['publicationApproved'] is False
+          assert m['uploadPermitted'] is False and m['paidSpendUSD']==0
+          assert m['captionTiming']=='PROPORTIONAL_EDITORIAL_CANDIDATE_NOT_WORD_ALIGNED'
+          print('Caption candidate paced. Full listening and mobile QA still required.')
+          PY
+
+      - name: Preserve QA and media artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: prismbay-procurement-paced-candidate-${{ github.run_id }}
+          path: |
+            public/youtube/ai-vendor-procurement-acceptance-test-2026-10-29.mp4
+            public/youtube/ai-vendor-procurement-acceptance-test-2026-10-29.json
+            youtube-growth/analytics/procurement-qa/captions-editorial-paced-candidate.srt
+            youtube-growth/analytics/procurement-qa/pacing-candidate-report.json
+          retention-days: 14
+
+      - name: Commit paced unpublished draft and provisional captions
+        run: |
+          set -euo pipefail
+          git config user.name 'prismbay-ai-pacing-bot'
+          git config user.email 'actions@users.noreply.github.com'
+          git add public/youtube/ai-vendor-procurement-acceptance-test-2026-10-29.mp4
+          git add public/youtube/ai-vendor-procurement-acceptance-test-2026-10-29.json
+          git add youtube-growth/analytics/procurement-qa/captions-editorial-paced-candidate.srt
+          git add youtube-growth/analytics/procurement-qa/pacing-candidate-report.json
+          if git diff --cached --quiet; then
+            echo 'No new pacing changes.'
+            exit 0
+          fi
+          git commit -m 'Pace original procurement Short and record non-approved caption candidate'
+          for attempt in 1 2 3 4; do
+            git fetch origin main
+            git rebase origin/main
+            if git push origin HEAD:main; then
+              echo 'Paced candidate committed.'
+              exit 0
+            fi
+            sleep $((attempt * 3))
+          done
+          exit 1
+
+      - name: Keep publication release gate closed
+        if: always()
+        run: |
+          echo 'Target channel UCw2hs85TzIpdKwJtG-BSxzQ only.' >> "$GITHUB_STEP_SUMMARY"
+          echo 'No upload or schedule. Captions are not word-aligned.' >> "$GITHUB_STEP_SUMMARY"
+          echo 'Full listening, visual review, caption synchronization, and mobile playback remain required.' >> "$GITHUB_STEP_SUMMARY"
