@@ -121,7 +121,11 @@ def main():
     ap = argparse.ArgumentParser()
     for field in ("video", "manifest", "spec", "output"):
         ap.add_argument("--" + field, required=True)
+    ap.add_argument("--min-pace", type=float, default=1.20,
+                    help="Minimum pitch-preserving playback duration factor; procurement default remains 1.20")
     args = ap.parse_args()
+    if not 1.0 <= args.min_pace <= 1.30:
+        raise ValueError("min-pace must be in [1.0, 1.30]")
     video = Path(args.video)
     manifest = json.loads(Path(args.manifest).read_text())
     spec = json.loads(Path(args.spec).read_text())
@@ -130,7 +134,7 @@ def main():
     assert manifest["publicationApproved"] is False
     assert manifest["uploadPermitted"] is False
     assert manifest["paidSpend"] == 0 and spec["paidSpendUSD"] == 0
-    assert float(manifest.get("pacedFactor", manifest.get("playbackDurationFactor", 0))) >= 1.20, "Require revised 50-second narration"
+    assert float(manifest.get("pacedFactor", manifest.get("playbackDurationFactor", 0))) >= args.min_pace, "Narration pacing below required minimum"
     import hashlib
     sha = hashlib.sha256(video.read_bytes()).hexdigest()
     assert sha == manifest["sha256"], "Source video integrity failure"
