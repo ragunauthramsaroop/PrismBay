@@ -1,11 +1,12 @@
 {
   "schemaVersion": 1,
-  "notes": "Manual HyperSKU sourcing plan. Research-only; no product is published, no sourcing request sent, no order or payment authorized. Only exact real AliExpress item URLs, no affiliate/tracking parameters.",
+  "notes": "No live products or uploads. Apply strictest published quota: official pricing says three free requests in 48 hours; agent reported three per day and ten per week. Paid overages not authorized.",
   "requestQuota": {
     "freeRequestsPerDay": 3,
     "freeLinksPerSevenDays": 10,
     "payPerExtraLinkUsd": 1,
-    "paidLinksAuthorized": false
+    "paidLinksAuthorized": false,
+    "freeRequestsPer48Hours": 3
   },
   "requests": []
 }
