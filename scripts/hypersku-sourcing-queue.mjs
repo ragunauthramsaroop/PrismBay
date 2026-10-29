@@ -16,7 +16,11 @@ export function validateSourcingQueue(data,shortlist,nowMs=Date.now()) {
  const executionKeys=['orderImportAuthorized','physicalCheckoutEnabled',
   'automaticallySubmitted','manualCsvOrdersEnabled',
   'manualCsvOrderSubmissionAuthorized','walletFundingAuthorized',
-  'automaticOrdersEnabled'];
+  'automaticOrdersEnabled','automaticSupplierOrderingEnabled',
+  'supplierPurchasesEnabled','supplierPaymentsEnabled',
+  'walletTopupAuthorized','physicalPaymentLinksEnabled',
+  'orderSubmissionAuthorized','autoFulfillmentEnabled',
+  'paidSourcingEnabled'];
  const unsafeExecution=scope=>executionKeys.some(key=>!disabled(scope?.[key]));
  // Quota metadata is not an authority to order, import, charge, or enable checkout.
  if(unsafeExecution(data)||unsafeExecution(data.requestQuota))
