@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-29T18:55:00Z",
+  "updatedAt": "2026-10-29T19:44:10Z",
   "channel": {
     "id": "UCw2hs85TzIpdKwJtG-BSxzQ",
     "handle": "@PrismBayAI",
@@ -37,7 +37,7 @@
     "trafficSources": "NO_ROWS",
     "scheduledMetricoolPosts": {
       "from": "2026-10-29",
-      "to": "2026-11-12",
+      "to": "2026-11-15",
       "count": 0
     },
     "nativeStudioSchedule": "UNVERIFIED_BROWSER_AUTH",
@@ -45,7 +45,8 @@
     "observedOctoberDays": 16,
     "observedViewDatesArePartial": true,
     "allVideosConnector": "NO_ROWS_2026_10_01_TO_2026_10_29",
-    "publishedInRangeConnector": "NO_ROWS_2026_10_01_TO_2026_10_29"
+    "publishedInRangeConnector": "NO_ROWS_2026_10_01_TO_2026_10_29",
+    "lastMetricoolCheck": "2026-10-29T19:42Z"
   },
   "connectedProduction": {
     "descriptProjectId": "3de30d73-71c8-4e9d-9ccf-72faf3fb5d11",
@@ -228,6 +229,30 @@
       0.488,
       0.404
     ],
-    "maxCaptionWPM": 159.07
+    "maxCaptionWPM": 159.07,
+    "regressionSuite": {
+      "workflow": "https://github.com/ragunauthramsaroop/PrismBay/actions/runs/40942692974",
+      "status": "SUCCESS_2026_10_29",
+      "source": "tests/test_youtube_release_gate.py",
+      "cases": [
+        "wrong channel",
+        "published true",
+        "approval true",
+        "upload true",
+        "missing upload flag",
+        "nonzero spend",
+        "missing spend",
+        "missing media digest",
+        "invalid subtitle times",
+        "empty subtitle",
+        "manifest SHA256 mismatch",
+        "valid digest does not approve upload"
+      ],
+      "manifestGuard": "FAIL_CLOSED",
+      "originalSha256KeyEnforced": true,
+      "editorialReview": "STILL_PENDING",
+      "publicationApproved": false,
+      "uploadPermitted": false
+    }
   }
 }
