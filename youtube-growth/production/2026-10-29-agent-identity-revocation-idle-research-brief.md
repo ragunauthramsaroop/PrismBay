@@ -55,3 +55,17 @@ No derivative should reuse the same narration or opening shot. Maintain at least
 
 ## Release and policy controls
 Research only. No video produced by this document, no scheduled publication, no ad spend. All numbers are illustrative. Source-check every dated statement before scripting and verify production rights, captions, narration and mobile playback before upload. Preserve channel identity and all existing public history.
+
+## October 27, 2026 NIST design-tenets update, independently source-checked October 29
+
+NIST published a blog on October 27 proposing **ten initial design tenets** for agent identity management: distinct agent identification; linking/delegation; least and zero standing privilege; short-lived revocable authorization; human-in-the-loop triggers; signed mandates; architectural separation of policy from reasoning; deterministic access decisions; continuous monitoring; and immutable evidence. This is an initial proposal, not a certification scheme or final mandatory standard. Primary source: https://www.nist.gov/blogs/cybersecurity-insights/design-tenets-agent-identity-management-systems
+
+PrismBay's original IDLE framework maps to NIST's proposals without implying NIST endorsement:
+- **Identity**: tenet 1, distinct agent identification and traceable workload identity.
+- **Delegation**: tenets 2, 3 and 4, attenuated scope, zero standing privilege and time-bounded access.
+- **Logging**: tenets 9 and 10, continuous monitoring and independent tamper-evident evidence.
+- **Emergency stop**: tenets 4, 7 and 8, service-enforced revocation, policy separate from the reasoning engine, and deterministic access decisions.
+
+Add an original demonstration to the long-form video: with synthetic records and a test agent, grant a short-lived read permission, revoke the grant during a queued tool call, then show the service denying the next protected action. Record the exact denial event and accountable human. Do not claim revocation is instant in every vendor product; measure actual propagation delay and test cached credentials. Show a FAIL outcome when the tool still accepts the revoked credential. Do not use production tokens or customer data.
+
+Related original vertical Short: [NIST agent identity revocation request](https://github.com/ragunauthramsaroop/PrismBay/blob/main/content/youtube/requests/nist-agent-identity-revocation-2026-10-29.json). The three operator tests in the Short are PrismBay editorial interpretations, not NIST's official checklist. Publication remains subject to full audiovisual review.
