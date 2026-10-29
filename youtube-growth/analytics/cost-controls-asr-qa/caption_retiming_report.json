@@ -1,0 +1,21 @@
+{
+  "channelId": "UCw2hs85TzIpdKwJtG-BSxzQ",
+  "sourceVideoSha256": "c8da6a5fa46bb1e7ea9dfd6abf82b55d44b80d7fc63fdf515db7362d58be6a72",
+  "source": "caption_asr_cues.csv from independent faster-whisper QA",
+  "method": "80% ASR-adjacent-boundary estimate, 20% original boundary, initial movement capped at 2 seconds, forward/backward monotonic projection enforcing >=1.5 seconds and <=160 WPM",
+  "cueCount": 134,
+  "originalMedianAbsBoundaryDriftSeconds": 0.958,
+  "candidateMedianAbsBoundaryDriftSeconds": 0.2945999999999458,
+  "originalBoundariesOverOneSecond": 125,
+  "candidateBoundariesOverOneSecond": 20,
+  "candidateCuesOverOneSecond": 16,
+  "candidateCuesOver160Wpm": 0,
+  "maximumBoundaryMovementSeconds": 2,
+  "machineAlignedCandidateOnly": true,
+  "humanListeningReview": "PENDING",
+  "mobilePlaybackReview": "PENDING",
+  "publicationApproved": false,
+  "uploadPermitted": false,
+  "paidSpendUSD": 0,
+  "limitations": "ASR word timestamps are estimates. The SRT is a candidate and has not been checked against full spoken audio by a human. No video upload or scheduling authorized."
+}
