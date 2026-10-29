@@ -1,0 +1,11 @@
+{
+  "schemaVersion": 1,
+  "notes": "Manual HyperSKU sourcing plan. Research-only; no product is published, no sourcing request sent, no order or payment authorized. Only exact real AliExpress item URLs, no affiliate/tracking parameters.",
+  "requestQuota": {
+    "freeRequestsPerDay": 3,
+    "freeLinksPerSevenDays": 10,
+    "payPerExtraLinkUsd": 1,
+    "paidLinksAuthorized": false
+  },
+  "requests": []
+}
