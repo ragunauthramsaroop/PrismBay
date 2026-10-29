@@ -243,3 +243,44 @@ test('malformed object fields fail closed without throwing or reporting sourcing
   assert.equal(result.physicalCheckoutEnabled,false);
  }
 });
+
+test('inflated or malformed quota metadata cannot claim free sourcing readiness',()=>{
+ const caps={freeRequestsPerDay:4,freeRequestsPer48Hours:4,freeLinksPerSevenDays:11};
+ for(const [key,value] of Object.entries(caps)){
+  const x=validateSourcingQueue({schemaVersion:1,requestQuota:{[key]:value},requests:[]},short);
+  assert.equal(x.valid,false,key);
+  assert.ok(x.errors.includes('invalid_free_sourcing_quota:'+key),key);
+  assert.equal(x.readyToSubmit,0);
+ }
+ for(const value of ['3',null,-1,3.5,Infinity,NaN]){
+  const x=validateSourcingQueue({schemaVersion:1,requestQuota:{freeRequestsPerDay:value},requests:[]},short);
+  assert.equal(x.valid,false,String(value));
+  assert.ok(x.errors.includes('invalid_free_sourcing_quota:freeRequestsPerDay'));
+ }
+ for(const value of ['0',null,-1,Infinity,NaN]){
+  const x=validateSourcingQueue({schemaVersion:1,requestQuota:{payPerExtraLinkUsd:value},requests:[]},short);
+  assert.equal(x.valid,false,String(value));
+  assert.ok(x.errors.includes('invalid_paid_sourcing_unit_cost'));
+ }
+});
+
+test('merchant-specific stricter free quotas prevent submitted activity from being approved',()=>{
+ const row={slug:'pethair',aliExpressUrl:link(1),status:'submitted',
+  submittedAt:'2026-10-28T11:00:00Z'};
+ for(const key of ['freeRequestsPerDay','freeRequestsPer48Hours','freeLinksPerSevenDays']){
+  const x=validateSourcingQueue({schemaVersion:1,requestQuota:{[key]:0},
+   requests:[row]},short,Date.parse('2026-10-29T12:00:00Z'));
+  assert.equal(x.valid,false,key);
+  assert.equal(x.submitted,0);
+  assert.equal(x.readyToSubmit,0);
+  assert.equal(x.automaticallySubmitted,0);
+  assert.equal(x.physicalCheckoutEnabled,false);
+  assert.ok(x.errors.some(e=>e.includes('sourcing_limit_exceeded')),key);
+ }
+ const stricter=validateSourcingQueue({schemaVersion:1,
+  requestQuota:{freeRequestsPerDay:1},
+  requests:[row,{slug:'crevice',aliExpressUrl:link(2),status:'submitted',
+   submittedAt:'2026-10-28T12:00:00Z'}]},short,Date.parse('2026-10-29T12:00:00Z'));
+ assert.equal(stricter.valid,false);
+ assert.ok(stricter.errors.some(e=>e.startsWith('free_daily_sourcing_limit_exceeded')));
+});
