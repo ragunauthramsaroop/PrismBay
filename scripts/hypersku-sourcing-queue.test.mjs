@@ -33,3 +33,15 @@ test('quote received never equates to website sale',()=>{
  assert.equal(x.physicalCheckoutEnabled,false);
  assert.equal(x.orderImportAuthorized,false);
 });
+
+test('a second day cannot exceed stricter published three-free-per-48-hours cap',()=>{
+ const r=[
+  {slug:'pethair',aliExpressUrl:link(1),status:'submitted',submittedAt:'2026-10-27T09:00:00Z'},
+  {slug:'crevice',aliExpressUrl:link(2),status:'submitted',submittedAt:'2026-10-27T11:00:00Z'},
+  {slug:'mini-mop',aliExpressUrl:link(3),status:'submitted',submittedAt:'2026-10-28T09:00:00Z'},
+  {slug:'drain-catcher',aliExpressUrl:link(4),status:'submitted',submittedAt:'2026-10-28T11:00:00Z'}
+ ];
+ const x=validateSourcingQueue({schemaVersion:1,requests:r},short);
+ assert.equal(x.valid,false);
+ assert.ok(x.errors.includes('free_48hour_sourcing_limit_exceeded'));
+});
