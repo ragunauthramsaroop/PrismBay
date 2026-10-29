@@ -1,0 +1,79 @@
+{
+  "slug": "nist-agent-identity-revocation-2026-10-29",
+  "title": "Your AI Agent Still Works After Revocation? Test This | PrismBay AI",
+  "visualStyle": "nist_agent_identity_v1",
+  "voice": "en_US-norman-medium",
+  "voiceLicenseBasis": "Piper Norman model provenance and redistribution terms require final pre-publication review; eSpeak-ng zero-cost fallback",
+  "sourceAttribution": "NIST, Design Tenets for Agent Identity Management Systems, 27 October 2026. https://www.nist.gov/blogs/cybersecurity-insights/design-tenets-agent-identity-management-systems. Three tests are PrismBay's original interpretation, not an official NIST checklist.",
+  "targetChannelId": "UCw2hs85TzIpdKwJtG-BSxzQ",
+  "handle": "@PrismBayAI",
+  "metricoolBrandId": 6945443,
+  "experimentId": "PB-NIST-IDENTITY-20261029-S04",
+  "targetAudience": "Founders, IT operations managers, security leads, procurement officers and executive AI sponsors",
+  "hypothesis": "A concrete mid-task access-revocation test linked to NIST's October 27 proposal will outperform generic AI security lists on qualified watch time and attributable subscribers.",
+  "hookType": "Revoked permission versus still-working next tool call",
+  "format": "short_vertical_1080x1920",
+  "titleCandidates": [
+    "Your AI Agent Still Works After Revocation? Test This",
+    "NIST's New AI Agent Identity Proposal: 3 Operator Tests",
+    "Revoke an AI Agent Mid-Task. Does the Next Call Fail?"
+  ],
+  "thumbnailConcepts": [
+    "Large REVOKED stamp above a glowing NEXT CALL? panel",
+    "Three colored checkpoints: ID / REVOKE / EVIDENCE",
+    "One red denied tool call after an orange revoke switch"
+  ],
+  "cta": "Follow PrismBay AI for practical AI business systems.",
+  "publishTime": "UNASSIGNED_PENDING_FULL_QA_AND_CALENDAR_CHECK",
+  "successThreshold": "At 72h SCALE only with at least 1.5x median qualified watch minutes of five comparable Shorts and at least one attributable subscriber. If baseline unavailable, mark INSUFFICIENT_DATA.",
+  "reviewHoursAfterPublish": [
+    6,
+    24,
+    72,
+    168
+  ],
+  "playbackDurationFactor": 1.1,
+  "paidSpendUSD": 0,
+  "published": false,
+  "publicationApproved": false,
+  "uploadPermitted": false,
+  "qualityGate": "CLOSED_PENDING_INDEPENDENT_AUDIO_CAPTION_MOBILE_LICENSE_QA",
+  "segments": [
+    {
+      "scene": "hook",
+      "headline": "REVOKED ACCESS. NEXT ACTION?",
+      "body": "Revocation must stop the next protected tool call.",
+      "spoken": "You revoked your AI agent's access. Does its next tool call still work? Test this before deployment."
+    },
+    {
+      "scene": "source",
+      "headline": "NIST proposed ten design tenets",
+      "body": "October 27, 2026. These three operator tests are PrismBay's interpretation.",
+      "spoken": "On October twenty seventh, NIST proposed ten agent identity design tenets. Here are three practical operator tests."
+    },
+    {
+      "scene": "identity",
+      "headline": "01 / Distinct agent identity",
+      "body": "Do not share administrator logins.",
+      "spoken": "First, give each agent a distinct identity. Never share an administrator login. Link actions to an accountable owner."
+    },
+    {
+      "scene": "revoke",
+      "headline": "02 / Mid-task revocation",
+      "body": "The next protected action must fail at the service.",
+      "spoken": "Second, revoke a short-lived permission mid-task. The next protected tool call must fail at the service, not merely in the prompt."
+    },
+    {
+      "scene": "evidence",
+      "headline": "03 / Independent evidence",
+      "body": "Log the owner, revocation time and denied action.",
+      "spoken": "Third, keep independent evidence of who authorized the task, when access ended, and what the agent tried next. Prevent the agent editing those records."
+    },
+    {
+      "scene": "close",
+      "headline": "Test the stop before launch",
+      "body": "Original PrismBay operator framework. Not an official NIST checklist.",
+      "spoken": "Use fictional data. These are PrismBay tests inspired by NIST's proposal, not an official checklist. Follow PrismBay AI."
+    }
+  ]
+}
