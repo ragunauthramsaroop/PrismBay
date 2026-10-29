@@ -1,0 +1,94 @@
+name: PrismBay Procurement Short ASR-Anchored Caption Candidate
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/prismbay_procurement_caption_alignment.py'
+      - '.github/workflows/prismbay-procurement-caption-alignment.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: prismbay-procurement-caption-alignment-\${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  align:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - name: Checkout sole authorized PrismBay repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Install free speech alignment tools
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg
+          python3 -m pip install --disable-pip-version-check --no-input faster-whisper numpy
+      - name: Validate caption script
+        run: python3 -m py_compile scripts/prismbay_procurement_caption_alignment.py
+      - name: Generate original-script captions anchored to recognized speech
+        run: |
+          python3 scripts/prismbay_procurement_caption_alignment.py \
+            --video public/youtube/ai-vendor-procurement-acceptance-test-2026-10-29.mp4 \
+            --manifest public/youtube/ai-vendor-procurement-acceptance-test-2026-10-29.json \
+            --spec content/youtube/requests/ai-vendor-procurement-acceptance-test-2026-10-29.json \
+            --output youtube-growth/analytics/procurement-qa
+      - name: Verify integrity and enforce unpublished status
+        run: |
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          p=Path('youtube-growth/analytics/procurement-qa/captions-asr-anchored-script-report.json')
+          m=json.loads(p.read_text())
+          assert m['channelId']=='UCw2hs85TzIpdKwJtG-BSxzQ'
+          assert m['directASRWordMatchRatio'] >= 0.78
+          assert m['cuesOver160WPM']==0 and m['cuesUnder1_5Seconds']==0
+          assert m['publicationApproved'] is False
+          assert m['uploadPermitted'] is False and m['published'] is False
+          assert m['paidSpendUSD']==0
+          assert m['releaseDecision']=='HOLD_PENDING_FULL_EDITORIAL_REVIEW'
+          print('ASR-anchored caption candidate passed mechanical checks, not manual review.')
+          PY
+      - name: Archive non-publishable caption evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: prismbay-procurement-asr-caption-candidate-\${{ github.run_id }}
+          path: |
+            youtube-growth/analytics/procurement-qa/captions-asr-anchored-script-candidate.srt
+            youtube-growth/analytics/procurement-qa/captions-asr-anchored-script-report.json
+          retention-days: 14
+          if-no-files-found: error
+      - name: Commit only caption candidate and QA report
+        run: |
+          set -euo pipefail
+          git config user.name 'prismbay-ai-caption-qa-bot'
+          git config user.email 'actions@users.noreply.github.com'
+          git add youtube-growth/analytics/procurement-qa/captions-asr-anchored-script-candidate.srt
+          git add youtube-growth/analytics/procurement-qa/captions-asr-anchored-script-report.json
+          if git diff --cached --quiet; then
+            echo 'Caption candidate already recorded.'
+            exit 0
+          fi
+          git commit -m 'Record ASR-anchored script-exact procurement captions, hold publication'
+          for attempt in 1 2 3 4; do
+            git fetch origin main
+            git rebase origin/main
+            if git push origin HEAD:main; then
+              echo 'Caption evidence committed.'
+              exit 0
+            fi
+            sleep $((attempt * 3))
+          done
+          exit 1
+      - name: Publication remains forbidden
+        if: always()
+        run: |
+          echo '## PrismBay AI procurement caption alignment' >> "$GITHUB_STEP_SUMMARY"
+          echo 'Target: UCw2hs85TzIpdKwJtG-BSxzQ / @PrismBayAI.' >> "$GITHUB_STEP_SUMMARY"
+          echo 'No publishing or scheduling. Candidate still requires full listening, sync and mobile review.' >> "$GITHUB_STEP_SUMMARY"
