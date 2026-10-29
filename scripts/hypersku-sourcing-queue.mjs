@@ -18,6 +18,24 @@ export function validateSourcingQueue(data,shortlist,nowMs=Date.now()) {
     typeof data.requestQuota!=='object'||Array.isArray(data.requestQuota)))
   return failSchema('invalid_request_quota_schema');
  const allowed=new Set(shortlist.candidates.map(x=>x.slug));
+ // Quota metadata is evidence, not a license to raise conservative free-plan limits.
+ // Zero is permitted when the merchant dashboard confirms no free allowance.
+ const quota=data.requestQuota||{};
+ const conservativeCaps={freeRequestsPerDay:3,freeRequestsPer48Hours:3,freeLinksPerSevenDays:10};
+ for(const [key,cap] of Object.entries(conservativeCaps)){
+  if(Object.hasOwn(quota,key)&&
+     (!Number.isInteger(quota[key])||quota[key]<0||quota[key]>cap))
+   errors.push('invalid_free_sourcing_quota:'+key);
+ }
+ if(Object.hasOwn(quota,'payPerExtraLinkUsd')&&
+    (typeof quota.payPerExtraLinkUsd!=='number'||
+     !Number.isFinite(quota.payPerExtraLinkUsd)||quota.payPerExtraLinkUsd<0))
+  errors.push('invalid_paid_sourcing_unit_cost');
+ const effectiveCap=key=>Number.isInteger(quota[key])&&quota[key]>=0
+  ?Math.min(conservativeCaps[key],quota[key]):conservativeCaps[key];
+ const dailyCap=effectiveCap('freeRequestsPerDay');
+ const rolling48hCap=effectiveCap('freeRequestsPer48Hours');
+ const weeklyCap=effectiveCap('freeLinksPerSevenDays');
  const counts=new Map(),weeks=[];
  // The research queue must never authorize paid sourcing, automatic uploads or physical checkout.
  // Reject non-boolean and string-encoded authorizations as well as positive flags.
@@ -70,12 +88,12 @@ export function validateSourcingQueue(data,shortlist,nowMs=Date.now()) {
    else {counts.set(day,(counts.get(day)||0)+1);weeks.push(date);}
   }else if(row.submittedAt)errors.push('unsubmitted_request_must_not_claim_submission');
  }
- for(const [day,n] of counts)if(n>3)errors.push('free_daily_sourcing_limit_exceeded:'+day);
+ for(const [day,n] of counts)if(n>dailyCap)errors.push('free_daily_sourcing_limit_exceeded:'+day);
  // Public HyperSKU pricing states three free sourcing requests within 48h,
  // which is stricter than the chat-agent's three-per-day wording.
- for(const t of weeks)if(weeks.filter(u=>u>=t&&u<t+48*3600000).length>3)
+ for(const t of weeks)if(weeks.filter(u=>u>=t&&u<t+48*3600000).length>rolling48hCap)
   {errors.push('free_48hour_sourcing_limit_exceeded');break;}
- for(const t of weeks)if(weeks.filter(u=>u>=t&&u<t+7*86400000).length>10)
+ for(const t of weeks)if(weeks.filter(u=>u>=t&&u<t+7*86400000).length>weeklyCap)
   {errors.push('free_weekly_sourcing_limit_exceeded');break;}
  // Never advertise actionable sourcing readiness from an invalid queue.
  // Preserve the diagnostic errors, but fail closed on both activity counters.
