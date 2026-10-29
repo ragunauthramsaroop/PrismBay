@@ -95,3 +95,38 @@ test("commercial media URL rejects private networks and internal hosts",()=>{
  const valid=verifyProviderProducts(sample(),shortlist,now);
  assert.equal(valid.approved.length,1,"Public HTTPS CDN fixture must remain eligible");
 });
+
+test("verified manual HyperSKU sourcing can qualify for a quote-only product without Open API",()=>{
+ const data=sample();
+ data.providers.hypersku={
+  basePlanUsdMonthly:0,apiStatus:"open_api_not_available_low_volume",
+  customStoreRoute:"manual_csv_batch_upload_only",
+  manualCsvRouteIndependentlyConfirmed:true,
+  manualCsvOrderSubmissionAvailable:true
+ };
+ data.candidates[0].fulfillment.mode="manual";
+ data.candidates[0].manualSourcingQuoteFromAuthenticatedDashboard=true;
+ const out=verifyProviderProducts(data,shortlist,now);
+ assert.equal(out.approved.length,1);
+ assert.equal(out.approved[0].sourcingRoute,"merchant_verified_manual");
+ assert.equal(out.approved[0].physicalCheckoutAuthorized,false);
+ assert.equal(out.approved[0].automaticSupplierOrdering,false);
+});
+test("supplier email claims alone never enable manual sourcing publication",()=>{
+ const data=sample();
+ data.providers.hypersku={
+  basePlanUsdMonthly:0,apiStatus:"open_api_not_available_low_volume",
+  customStoreRoute:"manual_csv_batch_upload_only",
+  manualCsvRouteIndependentlyConfirmed:false,
+  manualCsvOrderSubmissionAvailable:false
+ };
+ data.candidates[0].fulfillment.mode="manual";
+ data.candidates[0].manualSourcingQuoteFromAuthenticatedDashboard=true;
+ const rejected=verifyProviderProducts(data,shortlist,now).rejected;
+ assert.equal(rejected.length,1);
+ assert.ok(rejected[0].reasons.includes("provider_api_not_active"));
+ data.providers.hypersku.manualCsvRouteIndependentlyConfirmed=true;
+ data.providers.hypersku.manualCsvOrderSubmissionAvailable=true;
+ data.candidates[0].manualSourcingQuoteFromAuthenticatedDashboard=false;
+ assert.equal(verifyProviderProducts(data,shortlist,now).approved.length,0);
+});
