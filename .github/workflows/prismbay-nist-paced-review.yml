@@ -1,0 +1,64 @@
+name: PrismBay NIST Pitch-Preserved Pacing Review (No Publishing)
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/prismbay_nist_paced_review.py'
+      - '.github/workflows/prismbay-nist-paced-review.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: prismbay-nist-paced-review-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  review-pacing:
+    runs-on: ubuntu-latest
+    timeout-minutes: 18
+    steps:
+      - name: Checkout sole-channel original assets and caption diagnostics
+        uses: actions/checkout@v4
+      - name: Install free pitch-preserving media tools
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg
+      - name: Generate 1.15x unpublished video and exact ASR-timed captions
+        run: python3 scripts/prismbay_nist_paced_review.py
+      - name: Enforce channel identity, readability and publication hold
+        run: |
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          root=Path('youtube-growth/analytics/nist-paced-review')
+          r=json.loads((root/'report.json').read_text())
+          assert r['channelId']=='UCw2hs85TzIpdKwJtG-BSxzQ'
+          assert r['metricoolBrandId']==6945443
+          assert r['paidSpendUSD']==0
+          assert r['publicationApproved'] is False
+          assert r['uploadPermitted'] is False
+          assert r['published'] is False
+          assert r['maximumCaptionWPM']<=160
+          assert r['cuesUnder1p5Seconds']==0
+          assert r['captionEstimatedMaxDisplacementSeconds']<=0.2
+          assert r['audioVisualFullDecode']=='PASS'
+          assert len(list(root.glob('*.mp4')))==1
+          assert len(list(root.glob('*.srt')))==1
+          print('Unpublished pacing candidate verified. Full editorial approval still required.')
+          PY
+      - name: Archive review-only video, subtitles and report
+        uses: actions/upload-artifact@v4
+        with:
+          name: prismbay-nist-paced-review-${{ github.run_id }}
+          path: youtube-growth/analytics/nist-paced-review/
+          retention-days: 14
+          if-no-files-found: error
+      - name: Keep release and publishing gates closed
+        if: always()
+        run: |
+          echo 'Sole authorized channel: UCw2hs85TzIpdKwJtG-BSxzQ.' >> "$GITHUB_STEP_SUMMARY"
+          echo 'No YouTube upload, no Metricool schedule, no spending.' >> "$GITHUB_STEP_SUMMARY"
+          echo 'Full listening, continuous mobile playback and rights checks remain pending.' >> "$GITHUB_STEP_SUMMARY"
