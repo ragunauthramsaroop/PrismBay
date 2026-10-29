@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-29T20:45:00Z",
+  "updatedAt": "2026-10-29T21:49:00Z",
   "channel": {
     "id": "UCw2hs85TzIpdKwJtG-BSxzQ",
     "handle": "@PrismBayAI",
@@ -37,8 +37,9 @@
     "trafficSources": "NO_ROWS",
     "scheduledMetricoolPosts": {
       "from": "2026-10-29",
-      "to": "2026-11-18",
-      "count": 0
+      "to": "2026-11-08",
+      "count": 0,
+      "scope": "Metricool only; native Studio schedule unverified"
     },
     "nativeStudioSchedule": "UNVERIFIED_BROWSER_AUTH",
     "observedOctoberViews": 364,
@@ -46,7 +47,44 @@
     "observedViewDatesArePartial": true,
     "allVideosConnector": "NO_ROWS_2026_10_01_TO_2026_10_29",
     "publishedInRangeConnector": "NO_ROWS_2026_10_01_TO_2026_10_29",
-    "lastMetricoolCheck": "2026-10-29T20:42Z"
+    "lastMetricoolCheck": "2026-10-29T21:48Z",
+    "latestSevenDayObservation": {
+      "window": "2026-10-23 through 2026-10-29 17:45 America/Guyana",
+      "subscribers": 7,
+      "knownViews": {
+        "2026-10-24": 83,
+        "2026-10-25": 62,
+        "2026-10-26": 7
+      },
+      "viewsOnOtherDates": null,
+      "subscriberGainsKnownDates": 0,
+      "subscriberLossesKnownDates": 0,
+      "revenueOnKnownDatesUSD": 0,
+      "videoPublicationCountOn20261029": 0,
+      "missingDatesNotZero": true
+    },
+    "candidatePublishWindows": {
+      "source": "Metricool recommendation score, not observed performance",
+      "timezone": "America/Guyana",
+      "options": [
+        {
+          "date": "2026-10-30",
+          "localTime": "16:00",
+          "score": 10698
+        },
+        {
+          "date": "2026-11-04",
+          "localTime": "16:00",
+          "score": 12033
+        },
+        {
+          "date": "2026-11-05",
+          "localTime": "16:00",
+          "score": 11979
+        }
+      ],
+      "status": "RESEARCH_ONLY_NO_SCHEDULE"
+    }
   },
   "connectedProduction": {
     "descriptProjectId": "3de30d73-71c8-4e9d-9ccf-72faf3fb5d11",
@@ -54,7 +92,17 @@
     "freeAIAgentCredits": "PREVIOUSLY_EXHAUSTED",
     "fallback": "GitHub Actions FFmpeg Piper open-TTS",
     "operaStudio": "INTERACTIVE_AUTHORIZATION_REQUIRED_NONINTERACTIVE_RUN",
-    "exa": "CREDITS_EXHAUSTED_NO_PURCHASE"
+    "exa": "CREDITS_EXHAUSTED_NO_PURCHASE",
+    "descriptProjectInspection": "2026-10-29T21:48Z",
+    "descriptImportedMedia": {
+      "name": "PrismBay Procurement Mobile V2 QA 2026-10-29.mp4",
+      "durationSeconds": 51.133333,
+      "projectId": "3de30d73-71c8-4e9d-9ccf-72faf3fb5d11",
+      "importSucceeded": true,
+      "createdCompositions": 0,
+      "existingProjectCompositions": 2,
+      "editingComplete": false
+    }
   },
   "releaseQueue": [
     {
