@@ -1,33 +1,33 @@
 1
-00:00:00,000 --> 00:00:03,240
-your AI vendors demo worked, that does not
+00:00:00,000 --> 00:00:03,260
+your AI vendors demo worked. That does not
 
 2
-00:00:03,180 --> 00:00:06,120
-mean your business should sign, run through acceptance
+00:00:03,200 --> 00:00:06,080
+mean your business should sign. Run through acceptance
 
 3
-00:00:06,060 --> 00:00:09,980
+00:00:06,020 --> 00:00:09,980
 tests before approval. First, use a fictional invoice
 
 4
 00:00:09,920 --> 00:00:13,640
-with synthetic customer details, confirm where the data
+with synthetic customer details. Confirm where the data
 
 5
-00:00:13,580 --> 00:00:16,160
-goes, who keeps it, and when it gets
+00:00:13,580 --> 00:00:16,140
+goes, who keeps it? And when it gets
 
 6
-00:00:16,100 --> 00:00:20,100
-deleted. Second, submit an invoice above the allowed
+00:00:16,080 --> 00:00:20,100
+deleted, second, submit and invoice above the allowed
 
 7
-00:00:20,040 --> 00:00:23,600
-approval limit. The agent must stop and wrote
+00:00:20,040 --> 00:00:23,580
+approval limit. The agent must stop, in route
 
 8
-00:00:23,540 --> 00:00:26,500
+00:00:23,520 --> 00:00:26,500
 the decision to a person. Third, make a
 
 9
@@ -39,16 +39,16 @@ tool fails twice. Check whether the agent stops
 safely, avoids endless retries, and records the field
 
 11
-00:00:33,540 --> 00:00:36,840
+00:00:33,540 --> 00:00:36,860
 actions. Put the evidence for all three tests
 
 12
-00:00:36,780 --> 00:00:40,240
+00:00:36,800 --> 00:00:40,240
 in your purchased decision. A polished demo is
 
 13
-00:00:40,180 --> 00:00:44,200
-not an acceptance test, follow prism, bay, AI,
+00:00:40,180 --> 00:00:44,140
+not an acceptance test. Follow prism, bay, AI,
 
 14
 00:00:44,620 --> 00:00:48,280
