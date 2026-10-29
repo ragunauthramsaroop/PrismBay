@@ -160,6 +160,22 @@ def main():
     assert all(row["end"] - row["start"] >= 1.49 for row in rows)
     assert all(row["wpm"] <= 160 and row["words"] <= 7 for row in rows)
     assert all(rows[i]["end"] <= rows[i + 1]["start"] for i in range(len(rows) - 1))
+    # Expose exact high-drift words for targeted human listening instead of
+    # treating a single aggregate maximum as editorial approval.
+    timing_adjustments = sorted((
+        {
+            "wordIndex": i + 1,
+            "scriptWord": word,
+            "asrAnchoredCenterSeconds": round(centers[i], 3),
+            "smoothedCenterSeconds": round(
+                anchor_weight * centers[i] + (1 - anchor_weight) * (i + 0.5) * duration / len(expected), 3
+            ),
+            "estimatedAbsoluteDisplacementSeconds": round(
+                abs((1 - anchor_weight) * ((i + 0.5) * duration / len(expected) - centers[i])), 3
+            ),
+        }
+        for i, word in enumerate(expected)
+    ), key=lambda row: row["estimatedAbsoluteDisplacementSeconds"], reverse=True)[:12]
     out = Path(args.output)
     out.mkdir(parents=True, exist_ok=True)
     (out / "captions-asr-anchored-script-candidate.srt").write_text(make_srt(rows))
@@ -172,6 +188,7 @@ def main():
         "maximumWordsPerCue": max(row["words"] for row in rows),
         "asrAnchorWeight": anchor_weight,
         "maximumSmoothedWordCenterDisplacementSeconds": round(max_drift, 3),
+        "largestWordTimingAdjustments": timing_adjustments,
         "cuesOver160WPM": sum(row["wpm"] > 160 for row in rows),
         "cuesUnder1_5Seconds": sum(row["end"] - row["start"] < 1.5 for row in rows),
         "captionTiming": "ASR_WORD_ANCHORED_INTERPOLATED_CANDIDATE_NOT_HUMAN_VERIFIED",
