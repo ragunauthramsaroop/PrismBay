@@ -38,7 +38,6 @@ export function currentPublicProducts(review){
 
 export function renderCards(products){
  return products.map((p,i)=>{
-  const link="https://prismbay-clean-global.floot.app/quote?product="+encodeURIComponent(p.slug)+"&amp;utm_source=verified-catalog&amp;variantSku="+encodeURIComponent(p.variant);
   return '<article class="product" data-category="'+esc(p.category)+'" data-evidence-expires-at="'+esc(p.expiresAt)+'" data-search="'+esc((p.name+" "+p.originalName+" "+p.sku+" "+p.category).toLowerCase())+'">\n'+
    '<div class="product-content"><div class="tag-row"><span class="tag">'+esc(p.category)+' · Supplier record</span><span class="state">Checkout not yet approved</span></div>\n'+
    '<p class="supplier-label">EXACT SOURCE-MATCHED PRODUCT '+String(i+1).padStart(2,"0")+'</p>\n'+
@@ -46,7 +45,7 @@ export function renderCards(products){
    '<p class="product-reason">'+esc(p.spec)+'</p>\n'+
    '<div class="evidence"><div><span>Authentic CJ supplier SKU</span><strong>'+esc(p.sku)+'</strong></div><div><span>Physical stock-checked variant</span><strong>'+esc(p.variant)+'</strong></div></div>\n'+
    '<p class="source-name"><strong>Supplier listing:</strong> '+esc(p.originalName)+'</p>\n'+
-   '<div class="product-footer"><span><b>Final delivered price</b><small>Requires buyer ZIP and supplier sign-off</small></span><a class="quote" href="'+link+'" aria-label="Request a supplier-verified price for '+esc(p.name)+'">Request exact quote</a></div>\n'+
+   '<div class="product-footer"><span><b>Final delivered price</b><small>Requires buyer ZIP and supplier sign-off</small></span><span class="state" role="status">Quote requests paused</span></div>\n'+
    '</div></article>';
  }).join("\n");
 }
