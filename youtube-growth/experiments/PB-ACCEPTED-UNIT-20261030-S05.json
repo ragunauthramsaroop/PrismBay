@@ -97,6 +97,21 @@
     "noDuplicateUploads": true,
     "noEngagementManipulation": true
   },
-  "portfolioDecision": "EDITORIAL_HOLD_DO_NOT_PUBLISH_OR_RENDER_MORE_WITHOUT_NEW_DEFECT",
-  "issue": "https://github.com/ragunauthramsaroop/PrismBay/issues/532"
+  "portfolioDecision": "REVIEW_ANIMATED_S05_CANDIDATE_DO_NOT_PUBLISH_UNTIL_EDITORIAL_GATES",
+  "issue": "https://github.com/ragunauthramsaroop/PrismBay/issues/532",
+  "retentionRevision": {
+    "createdAt": "2026-10-30T11:45:00-04:00",
+    "status": "RENDERED_TECHNICAL_QA_PASS_EDITORIAL_HOLD",
+    "sourceVideoSha256": "4e1d83146ab1e454a0f3a7080e5c709fa74ad1e54abc98aa48b336961ecb9295",
+    "revisedVideoSha256": "edf26241f621936d4237f508bc4e15219394e99155407a0d1277b29b4ad3027d",
+    "motionCueCount": 12,
+    "motionVerified": true,
+    "sourceAudioIdentical": true,
+    "fullDecodePass": true,
+    "actualMobilePlaybackVerified": false,
+    "fullListeningVerified": false,
+    "editorialApproved": false,
+    "technicalReport": "youtube-growth/analytics/2026-10-30-1145-S05-retention-motion-private-review.md",
+    "localReviewZipSha256": "617849c233d00934541a6c1aceb07ef1c93b8c0f12d6ba1355ce4a78d4697fc7"
+  }
 }
