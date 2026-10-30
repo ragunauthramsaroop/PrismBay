@@ -46,8 +46,8 @@ jobs:
       - name: Independent media, caption and audio verification
         run: |
           python - <<'PY'
-          import hashlib, json, pathlib, subprocess
-          src=pathlib.Path('out/source/prismbay-ai-accepted-output-cost-short-review.mp4')
+          import hashlib, json, os, pathlib, subprocess
+          src=pathlib.Path(os.environ['SOURCE_VIDEO'])
           out=pathlib.Path('out/review/prismbay-s05-animated-private-review.mp4')
           manifest=json.loads(out.with_suffix('.json').read_text())
           assert manifest['channelId']=='UCw2hs85TzIpdKwJtG-BSxzQ'
@@ -61,7 +61,7 @@ jobs:
           def audio_bytes(path):
               return subprocess.check_output(['ffmpeg','-v','error','-i',str(path),'-map','0:a:0','-c','copy','-f','adts','-'])
           assert hashlib.sha256(audio_bytes(src)).digest()==hashlib.sha256(audio_bytes(out)).digest()
-          srt=pathlib.Path('out/source/captions-phrase-synchronous.srt')
+          srt=pathlib.Path(os.environ['SOURCE_SRT'])
           assert srt.read_text().count(' --> ')==12
           print('PRIVATE S05 RETENTION REVIEW: full decode, original audio and release hold PASS')
           PY
@@ -72,5 +72,5 @@ jobs:
           path: |
             out/review/prismbay-s05-animated-private-review.mp4
             out/review/prismbay-s05-animated-private-review.json
-            out/source/captions-phrase-synchronous.srt
+            out/source/**/captions-phrase-synchronous.srt
           retention-days: 7
