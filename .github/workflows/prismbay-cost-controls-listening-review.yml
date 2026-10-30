@@ -68,6 +68,13 @@ jobs:
           print("Verified one source MP4 with matching SHA256")
           PY
 
+      - name: Install free FFmpeg runtime and verify subtitle filter
+        run: |
+          sudo apt-get update -qq
+          sudo DEBIAN_FRONTEND=noninteractive apt-get install -y -qq ffmpeg
+          ffmpeg -hide_banner -filters | grep -E ' subtitles '
+          ffmpeg -hide_banner -encoders | grep -E ' libx264 '
+
       - name: Generate eight captioned excerpts covering sixteen estimated timing exceptions
         run: |
           python youtube-growth/qa/build_cost_controls_review_clips.py \
