@@ -16,6 +16,11 @@ Improved the previously static 43.8-second accepted-output-cost Short with origi
 - No full-screen black interval >= 0.5 seconds detected.
 - Fictional math preserved: ($40 tools + $60 review) / 80 accepted = $1.25 per accepted result.
 
+## Reproducible zero-cost production
+
+- [Committed motion renderer](https://github.com/ragunauthramsaroop/PrismBay/blob/main/youtube-growth/production/animate_accepted_output_short.py).
+- [Private GitHub Actions workflow](https://github.com/ragunauthramsaroop/PrismBay/blob/main/.github/workflows/prismbay-accepted-output-retention-review.yml) retrieves the original verified review artifact, adds animation, checks unchanged audio and the publication hold, and stores an unpublished artifact. Workflow completion has **not yet been independently verified**. Local motion render and its full technical QA are complete.
+
 ## Voice rights and synthetic-content policy evidence
 
 Upstream Piper voices repository declares MIT; the specific `en_US-norman-medium` model card lists LibriVox public-domain training data. Original text and programmatic visuals, with no external music or stock footage, are recorded in the prior production QA. This evidence supports the voice provenance review but does not replace final editorial/legal approval.
