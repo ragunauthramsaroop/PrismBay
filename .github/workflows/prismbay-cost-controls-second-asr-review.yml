@@ -47,20 +47,9 @@ jobs:
       - name: Verify exact video hash and run independent base.en speech review
         run: |
           set -euo pipefail
-          python - <<'PY'
-          import hashlib, os
-          from pathlib import Path
-          root=Path(os.environ["RUNNER_TEMP"])/"prismbay-review"
-          expected="a58927dcc5cfe89dbda52b667cfd1b04e13daad05e79b8858aea188f0a8a8117"
-          files=[]
-          for p in root.rglob("*.mp4"):
-              h=hashlib.sha256(p.read_bytes()).hexdigest()
-              if h==expected: files.append(p)
-          if len(files)!=1: raise SystemExit("Exact revised video not found")
-          with open(os.environ["GITHUB_ENV"],"a") as f:
-              f.write("PRISMBAY_REVIEW_VIDEO="+str(files[0])+"\n")
-          print("Exact unpublished revision SHA256 verified")
-          PY
+          PRISMBAY_REVIEW_VIDEO=$(find "$RUNNER_TEMP/prismbay-review" -type f -name 'ai-agent-cost-controls-retention-review.mp4' -print -quit)
+          test -n "$PRISMBAY_REVIEW_VIDEO"
+          echo "a58927dcc5cfe89dbda52b667cfd1b04e13daad05e79b8858aea188f0a8a8117  $PRISMBAY_REVIEW_VIDEO" | sha256sum -c -
           python youtube-growth/qa/dual_asr_caption_triage.py \
             --video "$PRISMBAY_REVIEW_VIDEO" \
             --srt youtube-growth/analytics/cost-controls-asr-qa/captions-asr-candidate.srt \
