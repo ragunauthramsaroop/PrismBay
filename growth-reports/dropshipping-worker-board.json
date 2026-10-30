@@ -1,10 +1,10 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-10-30T15:05:02.406Z",
+  "generatedAt": "2026-10-30T20:50:45.263Z",
   "researchCandidates": 12,
   "publishedResearchSignals": 12,
   "verifiedCJStatus": {
-    "checkedAt": "2026-10-30T15:05:00.405Z",
+    "checkedAt": "2026-10-30T20:50:43.650Z",
     "validSupplierMatches": 0,
     "variantStock": 0,
     "freightEstimates": 0,
@@ -27,6 +27,27 @@
       "executionMode": "scheduled_cj_and_manual_review",
       "candidateCount": 9,
       "blockers": [
+        {
+          "slug": "travel-packing-cubes",
+          "status": "supplier_api_retry_required",
+          "sku": null,
+          "shippingDiagnostic": null,
+          "zeroPricedMethods": 0
+        },
+        {
+          "slug": "roll-up-dish-rack",
+          "status": "supplier_api_retry_required",
+          "sku": null,
+          "shippingDiagnostic": null,
+          "zeroPricedMethods": 0
+        },
+        {
+          "slug": "hanging-closet-organizer",
+          "status": "supplier_api_retry_required",
+          "sku": null,
+          "shippingDiagnostic": null,
+          "zeroPricedMethods": 0
+        },
         {
           "slug": "cordless-handheld-vacuum",
           "status": "supplier_api_retry_required",
@@ -64,27 +85,6 @@
         },
         {
           "slug": "garment-steamer",
-          "status": "supplier_api_retry_required",
-          "sku": null,
-          "shippingDiagnostic": null,
-          "zeroPricedMethods": 0
-        },
-        {
-          "slug": "travel-packing-cubes",
-          "status": "supplier_api_retry_required",
-          "sku": null,
-          "shippingDiagnostic": null,
-          "zeroPricedMethods": 0
-        },
-        {
-          "slug": "roll-up-dish-rack",
-          "status": "supplier_api_retry_required",
-          "sku": null,
-          "shippingDiagnostic": null,
-          "zeroPricedMethods": 0
-        },
-        {
-          "slug": "hanging-closet-organizer",
           "status": "supplier_api_retry_required",
           "sku": null,
           "shippingDiagnostic": null,
