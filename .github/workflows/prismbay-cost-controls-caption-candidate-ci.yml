@@ -1,0 +1,34 @@
+name: PrismBay AI Cost Controls Candidate Caption Integrity
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/prismbay-cost-controls-caption-candidate-ci.yml'
+      - 'youtube-growth/qa/validate_cost_controls_caption_candidate.py'
+      - 'youtube-growth/analytics/cost-controls-asr-qa/captions-asr-candidate.srt'
+      - 'youtube-growth/analytics/cost-controls-asr-qa/caption_asr_cues.csv'
+      - 'youtube-growth/analytics/cost-controls-asr-qa/caption_retiming_report.json'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify-review-only-captions:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout existing sole-channel repository
+        uses: actions/checkout@v4
+      - name: Verify caption validator syntax
+        run: python -m py_compile youtube-growth/qa/validate_cost_controls_caption_candidate.py
+      - name: Check all 134 cues against original text and 160 WPM threshold
+        run: python youtube-growth/qa/validate_cost_controls_caption_candidate.py
+      - name: Preserve publication prohibition
+        if: always()
+        run: |
+          echo '## Review-only caption candidate' >> "$GITHUB_STEP_SUMMARY"
+          echo 'Sole channel UCw2hs85TzIpdKwJtG-BSxzQ, @PrismBayAI.' >> "$GITHUB_STEP_SUMMARY"
+          echo 'Passing the automated pacing check does not verify speech synchronization, narration listening, mobile playback, media rights, or YouTube eligibility.' >> "$GITHUB_STEP_SUMMARY"
+          echo 'No upload, no scheduling, no paid advertising. Publication remains blocked.' >> "$GITHUB_STEP_SUMMARY"
