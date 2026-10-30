@@ -1,7 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import fs from "node:fs";
-import {currentPublicProducts,refresh,publicRules} from "./top15-real-source-sync.mjs";
+import {currentPublicProducts,refresh,publicRules,renderCards} from "./top15-real-source-sync.mjs";
 
 const html=fs.readFileSync(new URL("../storefront/top-15/index.html",import.meta.url),"utf8");
 const review=JSON.parse(fs.readFileSync(new URL("../growth-reports/cj-worker-review.json",import.meta.url),"utf8"));
@@ -32,10 +32,9 @@ test("every visible physical item has an authentic CJ variant and its true suppl
   assert.ok(html.includes(item.variant),item.slug+" has no physically stocked variant SKU");
   assert.ok(html.includes('data-evidence-expires-at="'+item.expiresAt+'"'),item.slug+" has no deterministic evidence expiry");
   assert.ok(html.includes(item.originalName.replace(/&/g,"&amp;")),item.slug+" supplier listing missing");
-  assert.ok(html.includes("quote?product="+item.slug+"&amp;utm_source=verified-catalog"),item.slug+" does not open the correct inquiry");
+  assert.ok(html.includes(item.variant),item.slug+" must show the exact supplier variant");
  }
- assert.equal((html.match(/class="quote"/g)||[]).length,count);
- assert.equal((html.match(/quote\?product=/g)||[]).length,count);
+ assert.doesNotMatch(html,/prismbay-clean-global\.floot\.app|quote\?product=/i,"No unverified third-party quote collection");
 });
 test("unapproved physical purchases are impossible through the catalog; four digital payments stay live",()=>{
  assert.equal((html.match(/class="ready-buy"/g)||[]).length,4);
@@ -105,4 +104,11 @@ test("supplier variant must belong to the exact observed product SKU",()=>{
  const report={checkedAt,authenticationVerified:true,candidates:[candidate]};
  assert.deepEqual(currentPublicProducts(report).map(x=>x.slug),["screen-protector"]);
  assert.deepEqual(currentPublicProducts({...report,candidates:[{...candidate,observedVariantSku:"CJYD245844002BY"}]}),[]);
+});
+
+// Never route future approved research cards to an unverified third-party lead collector.
+test("supplier research cards keep inquiry intake disabled until first-party approval",()=>{
+ const card=renderCards([{slug:"screen-protector",name:"Screen Protector",category:"Tech",originalName:"Supplier listing",sku:"CJPB2377299",variant:"CJPB237729905EV",expiresAt:"2026-10-31T00:00:00Z",desc:"Supplier description",spec:"Buyer verification required"}]);
+ assert.match(card,/Quote requests paused/);
+ assert.doesNotMatch(card,/prismbay-clean-global\.floot\.app|quote\?product=|<a\b[^>]*class="quote"/i);
 });
