@@ -85,5 +85,42 @@ class ReleaseGateTests(unittest.TestCase):
                 self.assertFalse(result["publicationApproved"])
                 self.assertFalse(result["uploadPermitted"])
 
+    def test_longform_gate_requires_landscape_and_never_approves(self):
+        def fake_run(*args):
+            if args[0] == "ffprobe":
+                return (json.dumps({"streams": [
+                    {"codec_type": "video", "codec_name": "h264", "width": 1920, "height": 1080},
+                    {"codec_type": "audio", "codec_name": "aac"}],
+                    "format": {"duration": "559.503"}}), "")
+            if "silencedetect" in " ".join(args):
+                return ("", "Peak level dB: -3.0")
+            return ("", "")
+        with tempfile.TemporaryDirectory() as d:
+            base = Path(d)
+            video = base / "longform.mp4"
+            video.write_bytes(b"synthetic landscape test fixture")
+            captions = base / "captions.srt"
+            captions.write_text("1\\n00:00:00,000 --> 00:00:04,000\\nLong form review\\n")
+            manifest = base / "manifest.json"
+            report = base / "report.json"
+            manifest.write_text(json.dumps({**GOOD, "sha256": hashlib.sha256(video.read_bytes()).hexdigest()}))
+            args = ["gate", "--format", "longform", "--video", str(video), "--srt", str(captions),
+                    "--manifest", str(manifest), "--report", str(report)]
+            with patch.object(gate, "run", fake_run), patch.object(sys, "argv", args):
+                gate.main()
+                result = json.loads(report.read_text())
+                self.assertTrue(result["technicalChecksPass"])
+                self.assertEqual(result["format"], "longform")
+                self.assertEqual(result["resolution"], [1920, 1080])
+                self.assertFalse(result["publicationApproved"])
+                self.assertFalse(result["uploadPermitted"])
+            args[2] = "shorts"
+            with patch.object(gate, "run", fake_run), patch.object(sys, "argv", args):
+                with self.assertRaises(SystemExit) as error:
+                    gate.main()
+                self.assertEqual(error.exception.code, 2)
+                self.assertIn("1080x1920 Shorts frame required",
+                              json.loads(report.read_text())["technicalIssues"])
+
 if __name__ == "__main__":
     unittest.main()
