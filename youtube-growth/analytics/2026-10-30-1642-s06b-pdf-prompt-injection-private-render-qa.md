@@ -10,6 +10,7 @@ Produced a new 53.973-second original vertical Short, **A PDF Is Not Your Boss**
 - SHA256: `7d7e598690a7cccccb73ea0762288091f6d97bf8bb37b7e70525c44bb7da3077`.
 - Complete FFmpeg media decode: PASS. Ten scenes visually inspected in contact sheet.
 - Ten caption segments, no planned overlaps. Initial narration measured 185.65 WPM; slowed audio and video by 20 percent. Final maximum segment rate: 154.71 WPM.
+- Audio measurement: -19.28 LUFS integrated, -3.06 dBTP true peak, 2.60 LU loudness range. No silences longer than one second below -45 dB detected in the automated check.
 - ZIP integrity: PASS. Includes MP4, SRT, contact sheet, QA JSON, original renderer and postprocessing scripts.
 - Not verified: full human listening/pronunciation, exact spoken-word alignment, real-device Shorts playback, final editorial and rights sign-off. `publicationApproved=false`, `uploadPermitted=false`.
 
