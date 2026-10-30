@@ -102,11 +102,12 @@ def main():
   wav=out/f'voice-{i:02d}.wav';png=out/f'card-{i:02d}.png';mp4=out/f'clip-{i:02d}.mp4'
   if a.voice=='piper':cmd([sys.executable,'-m','piper','-m',VOICE,'--data-dir',voices,'-f',wav,'--',spoken])
   else:cmd(['espeak','-v','en-us','-s','145','-w',wav,spoken])
-  duration=wav_seconds(wav)+0.18
+  tempo=0.75 if i==8 else 0.90  # Keep every burned-in caption at or below 160 WPM.
+  duration=wav_seconds(wav)/tempo+0.18
   card(scene,spoken,png,i)
   cmd(['ffmpeg','-hide_banner','-loglevel','error','-y','-loop','1','-framerate','24','-i',png,'-i',wav,'-t',f'{duration:.3f}',
        '-vf','format=yuv420p','-c:v','libx264','-preset','veryfast','-crf','22','-r','24',
-       '-c:a','aac','-b:a','128k','-af','apad=pad_dur=0.18,volume=-2dB','-movflags','+faststart',mp4])
+       '-c:a','aac','-b:a','128k','-af',f'atempo={tempo},apad=pad_dur=0.18,volume=-2dB','-movflags','+faststart',mp4])
   clips.append(mp4);cues.append((t,t+duration,spoken));t+=duration
  playlist=out/'concat.txt';playlist.write_text(''.join("file '"+p.resolve().as_posix()+"'\n" for p in clips))
  video=out/'prismbay-ai-accepted-output-cost-short-review.mp4'
