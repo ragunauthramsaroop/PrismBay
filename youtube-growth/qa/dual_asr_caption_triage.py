@@ -154,6 +154,19 @@ def main():
     pending = [r for r in results if r["secondModelDecision"] != "SECOND_MODEL_WITHIN_ONE_SECOND"]
     old = [r for r in results if r["previousTinyModelFlag"]]
     resolved_proxy = [r["cue"] for r in old if r["secondModelDecision"] == "SECOND_MODEL_WITHIN_ONE_SECOND"]
+    # Preserve speech context, especially for number words and the survey claim.
+    priority = sorted(PREVIOUS_FLAGS | {30, 31, 32, 34, 35, 46})
+    review_context = {}
+    for index in priority:
+        cue = cues[index - 1]
+        near = [w["word"].strip() for w in recognized
+                if w["end"] >= cue["start"] - 3 and w["start"] <= cue["end"] + 3]
+        review_context[str(index)] = {
+            "captionText": cue["text"],
+            "asrWordsNearCaption": " ".join(near[:65]),
+            "windowStart": max(0, round(cue["start"] - 3, 2)),
+            "windowEnd": round(cue["end"] + 3, 2),
+        }
     output = Path(args.output)
     output.mkdir(parents=True, exist_ok=True)
     payload = {
@@ -163,6 +176,7 @@ def main():
         "previousTinyModelFlags": sorted(PREVIOUS_FLAGS),
         "previousFlagsNotRepeatedByBaseProxy": resolved_proxy,
         "baseModelReviewCueCount": len(pending),
+        "prioritySpeechContext": review_context,
         "publicationApproved": False, "uploadPermitted": False, "paidSpendUSD": 0,
         "caveat": "ASR timing and text are fallible. No human listening or rights review.",
         "cues": results,
@@ -188,6 +202,12 @@ def main():
         if r["secondModelDecision"] == "SECOND_MODEL_WITHIN_ONE_SECOND" and not r["previousTinyModelFlag"]:
             continue
         rows.append("| {cue} | {previousTinyModelFlag} | {matchedTokenFraction:.0%} | {startDriftSeconds} | {endDriftSeconds} | {secondModelDecision} |".format(**r))
+    rows += ["", "## Recognized speech near critical cues", ""]
+    for index in (16, 30, 31, 32, 33, 34, 35, 98, 99, 132, 133, 134):
+        item = review_context[str(index)]
+        rows.extend(["### Cue " + str(index),
+                     "Caption: " + item["captionText"],
+                     "Base.en speech proxy: " + item["asrWordsNearCaption"], ""])
     rows += ["", "This report prioritizes listening. It does not approve speech, captions, mobile playback, licenses or publication.",
              "publicationApproved=false; uploadPermitted=false; paidSpendUSD=0."]
     (output / "dual-asr-review.md").write_text("\n".join(rows) + "\n")
