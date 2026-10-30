@@ -150,6 +150,21 @@ def main():
                                        "end": word.end})
     if len(recognized) < 300:
         raise SystemExit("ASR returned too few words for reliable triage")
+    # Resolve the most consequential model disagreement with a third, stronger
+    # open model on a short excerpt, not an invented human listening approval.
+    survey_start, survey_end = 120, 160
+    survey_pcm = pcm[survey_start * 16000:survey_end * 16000]
+    if len(survey_pcm) != (survey_end - survey_start) * 16000:
+        raise SystemExit("Survey excerpt incomplete")
+    survey_rms = []
+    for second in range(130, 153, 2):
+        sample = pcm[second * 16000:(second + 2) * 16000]
+        survey_rms.append({"startSecond": second,
+                           "rms": round(float(np.sqrt(np.mean(sample * sample))), 6)})
+    small_model = WhisperModel("small.en", device="cpu", compute_type="int8", cpu_threads=4)
+    survey_segments, _ = small_model.transcribe(survey_pcm, beam_size=3,
+                      condition_on_previous_text=False, vad_filter=False, language="en")
+    survey_text = " ".join(segment.text.strip() for segment in survey_segments)
     results = align(cues, recognized)
     pending = [r for r in results if r["secondModelDecision"] != "SECOND_MODEL_WITHIN_ONE_SECOND"]
     old = [r for r in results if r["previousTinyModelFlag"]]
@@ -177,6 +192,12 @@ def main():
         "previousFlagsNotRepeatedByBaseProxy": resolved_proxy,
         "baseModelReviewCueCount": len(pending),
         "prioritySpeechContext": review_context,
+        "surveyAudioProbe": {
+            "model": "faster-whisper small.en CPU int8",
+            "startSecond": survey_start, "endSecond": survey_end,
+            "transcript": survey_text, "twoSecondRms": survey_rms,
+            "interpretation": "Independent ASR and signal check only, not listening approval"
+        },
         "publicationApproved": False, "uploadPermitted": False, "paidSpendUSD": 0,
         "caveat": "ASR timing and text are fallible. No human listening or rights review.",
         "cues": results,
@@ -202,7 +223,12 @@ def main():
         if r["secondModelDecision"] == "SECOND_MODEL_WITHIN_ONE_SECOND" and not r["previousTinyModelFlag"]:
             continue
         rows.append("| {cue} | {previousTinyModelFlag} | {matchedTokenFraction:.0%} | {startDriftSeconds} | {endDriftSeconds} | {secondModelDecision} |".format(**r))
-    rows += ["", "## Recognized speech near critical cues", ""]
+    rows += ["", "## Independent small.en survey audio probe",
+             "Window: 120 to 160 seconds of the verified unpublished video.",
+             "Recognized text: " + survey_text,
+             "RMS signal samples: " + ", ".join(str(x["startSecond"]) + "s=" + str(x["rms"]) for x in survey_rms),
+             "ASR and RMS are not human listening approval.", "",
+             "## Recognized speech near critical cues", ""]
     for index in (16, 30, 31, 32, 33, 34, 35, 98, 99, 132, 133, 134):
         item = review_context[str(index)]
         rows.extend(["### Cue " + str(index),
