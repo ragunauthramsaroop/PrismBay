@@ -121,5 +121,21 @@
     "githubActionsArtifactIndependentDecodePass": true,
     "githubActionsDecodedFramesIdenticalToLocal": true,
     "githubActionsAudioIdenticalToOriginal": true
+  },
+  "companionDistribution": {
+    "path": "digital/ai-cost-per-accepted-result.html",
+    "repository": "ragunauthramsaroop/PrismBay",
+    "branch": "gh-pages",
+    "intendedUrl": "https://clean.prismbayai.com/digital/ai-cost-per-accepted-result.html",
+    "createdAt": "2026-10-30T13:48:00-04:00",
+    "gitHubCommitted": true,
+    "gitHubVerified": true,
+    "linkedFrom": "https://clean.prismbayai.com/digital/",
+    "listedInSitemap": true,
+    "publicHttpReachabilityVerified": false,
+    "publicHttpVerificationNote": "Direct HTTP verification blocked by network/DNS access in this runtime. GitHub branch content verified.",
+    "standaloneResource": true,
+    "tracking": "No cookies, external analytics or paid ads; organic traffic and conversions not yet observed.",
+    "publishedVideo": false
   }
 }
