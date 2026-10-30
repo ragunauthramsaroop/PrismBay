@@ -38,6 +38,14 @@ jobs:
           assert 25<m['durationSeconds']<100
           s=(p/'captions-phrase-synchronous.srt').read_text()
           assert s.count(' --> ')==12
+          def sec(t):
+            h,mi,rest=t.split(':'); ss,ms=rest.split(',')
+            return int(h)*3600+int(mi)*60+int(ss)+int(ms)/1000
+          for block in s.strip().split('\n\n'):
+            lines=block.splitlines()
+            start,end=lines[1].split(' --> ')
+            words=len(' '.join(lines[2:]).split())
+            assert 60*words/(sec(end)-sec(start)) <= 160.1, (lines[0],words)
           v=p/'prismbay-ai-accepted-output-cost-short-review.mp4'
           subprocess.run(['ffmpeg','-hide_banner','-loglevel','error','-xerror','-i',str(v),'-f','null','-'],check=True)
           print('Short draft media and guardrails verified. No publication.')
