@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-30T01:45:47Z",
+  "updatedAt": "2026-10-30T02:45:24Z",
   "channel": {
     "id": "UCw2hs85TzIpdKwJtG-BSxzQ",
     "handle": "@PrismBayAI",
@@ -69,7 +69,7 @@
     "trafficSources": "NO_ROWS_2026_10_01_TO_2026_10_29",
     "scheduledMetricoolPosts": {
       "from": "2026-10-29",
-      "to": "2026-11-12",
+      "to": "2026-11-22",
       "count": 0,
       "scope": "Metricool only; native Studio schedule unverified"
     },
@@ -79,7 +79,7 @@
     "observedViewDatesArePartial": true,
     "allVideosConnector": "NO_ROWS_2026_09_19_TO_2026_10_29",
     "publishedInRangeConnector": "NO_ROWS_2026_10_01_TO_2026_10_29",
-    "lastMetricoolCheck": "2026-10-30T01:45Z",
+    "lastMetricoolCheck": "2026-10-30T02:45Z",
     "latestSevenDayObservation": {
       "window": "2026-10-23 through 2026-10-29 18:41 America/Guyana",
       "subscribers": 7,
@@ -123,9 +123,9 @@
     "activeDescriptJobs": 0,
     "freeAIAgentCredits": "PREVIOUSLY_EXHAUSTED",
     "fallback": "GitHub Actions FFmpeg Piper open-TTS",
-    "operaStudio": "USER_INPUT_REQUIRED_NONINTERACTIVE",
+    "operaStudio": "USER_INPUT_REQUIRED_NONINTERACTIVE_2026_10_29",
     "exa": "CREDITS_EXHAUSTED_NO_PURCHASE",
-    "descriptProjectInspection": "2026-10-30T01:45Z",
+    "descriptProjectInspection": "2026-10-30T02:45Z",
     "descriptImportedMedia": {
       "name": "PrismBay Procurement Mobile V2 QA 2026-10-29.mp4",
       "durationSeconds": 51.133333,
@@ -226,12 +226,15 @@
         "fullNarrationListening": "PENDING",
         "continuousMobilePlayback": "PENDING",
         "completeVoiceAndDependencyRights": "PENDING",
-        "longformABTest": "UNAVAILABLE_UNTIL_STUDIO_ACCESS"
+        "longformABTest": "UNAVAILABLE_UNTIL_STUDIO_ACCESS",
+        "survey72PercentSource": "PASS_PRIMARY_COGNIZANT_PRESS_RELEASE_2026_10_22_N250_US_UK_INDIA_SCOPE_QUALIFIER_REQUIRED",
+        "survey72PercentSpokenContext": "PENDING_FULL_AUDIO_AND_CUE_33"
       },
       "publicationApproved": false,
       "uploadPermitted": false,
       "publicYouTubeUrl": null,
-      "nextAction": "Review 16 caption exceptions against audio, inspect full video pacing, then verify complete rights and eligible native A/B."
+      "nextAction": "Review 16 caption exceptions against audio, inspect full video pacing, then verify complete rights and eligible native A/B.",
+      "sourceEvidence": "youtube-growth/analytics/2026-10-29-cost-controls-72-percent-primary-source-verification.md"
     }
   ],
   "specialistAgents": [
@@ -277,7 +280,9 @@
     "nistSource": "https://www.nist.gov/blogs/cybersecurity-insights/design-tenets-agent-identity-management-systems",
     "voiceModelCard": "https://huggingface.co/rhasspy/piper-voices/blob/main/en/en_US/norman/medium/MODEL_CARD",
     "pacedCaptionedReview": "youtube-growth/analytics/2026-10-29-nist-paced-captioned-review-candidate.md",
-    "nistSecondBySecondFrameAndScriptAudit": "youtube-growth/analytics/2026-10-29-1641-nist-full-second-frame-and-script-coverage-audit.md"
+    "nistSecondBySecondFrameAndScriptAudit": "youtube-growth/analytics/2026-10-29-1641-nist-full-second-frame-and-script-coverage-audit.md",
+    "costControls72PercentPrimary": "https://news.cognizant.com/2026-10-22-Introducing-Cognizant-AI-Nexus-helping-enterprises-govern-the-cost%2C-quality-and-results-of-AI",
+    "costControls72PercentVerification": "youtube-growth/analytics/2026-10-29-cost-controls-72-percent-primary-source-verification.md"
   },
   "noNotificationUnless": [
     "public_upload_success",
