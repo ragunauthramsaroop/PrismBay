@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-30T05:48:00Z",
+  "updatedAt": "2026-10-30T06:46:23Z",
   "channel": {
     "id": "UCw2hs85TzIpdKwJtG-BSxzQ",
     "handle": "@PrismBayAI",
@@ -79,7 +79,7 @@
     "observedViewDatesArePartial": true,
     "allVideosConnector": "NO_ROWS_2026_09_19_TO_2026_10_29",
     "publishedInRangeConnector": "NO_ROWS_2026_10_01_TO_2026_10_29",
-    "lastMetricoolCheck": "2026-10-30T05:46:00Z",
+    "lastMetricoolCheck": "2026-10-30T06:43:00Z",
     "latestSevenDayObservation": {
       "window": "2026-10-23 through 2026-10-30 00:45 America/Guyana",
       "subscribers": 7,
@@ -236,7 +236,7 @@
       "publicationApproved": false,
       "uploadPermitted": false,
       "publicYouTubeUrl": null,
-      "nextAction": "Use CI-validated candidate SRT for uninterrupted spoken-word and mobile synchronization review; 16 ASR exceptions and narration/rights checks remain. Original embedded SRT fails pacing; do not upload.",
+      "nextAction": "Eight captioned listening-review clips now generated for all 16 estimated ASR timing exceptions. Listen to clips and entire 9m19s source, correct spoken sync, inspect mobile playback and rights. Keep unpublished.",
       "sourceEvidence": "youtube-growth/analytics/2026-10-29-cost-controls-72-percent-primary-source-verification.md",
       "independentArtifactGate": {
         "checkedAt": "2026-10-30T04:50:05.733Z",
@@ -275,6 +275,23 @@
         "overlapCount": 0,
         "originalCaptionWordingPreserved": true,
         "speechSynchronization": "PENDING_16_ASR_ESTIMATED_EXCEPTIONS",
+        "fullNarrationListening": "PENDING",
+        "mobilePlayback": "PENDING",
+        "completeRightsReview": "PENDING",
+        "publicationApproved": false,
+        "uploadPermitted": false
+      },
+      "listeningReviewPack": {
+        "workflowRunId": 41015924760,
+        "workflowUrl": "https://github.com/ragunauthramsaroop/PrismBay/actions/runs/41015924760",
+        "artifactId": 12958564902,
+        "artifactName": "prismbay-cost-controls-unpublished-listening-review",
+        "artifactExpiresAt": "2026-11-06T06:46:22Z",
+        "sourceVideoSha256": "c8da6a5fa46bb1e7ea9dfd6abf82b55d44b80d7fc63fdf515db7362d58be6a72",
+        "reviewClipCount": 8,
+        "estimatedExceptionCueCount": 16,
+        "captionedClipGeneration": "PASS_CI_2026_10_30",
+        "humanListening": "PENDING",
         "fullNarrationListening": "PENDING",
         "mobilePlayback": "PENDING",
         "completeRightsReview": "PENDING",
