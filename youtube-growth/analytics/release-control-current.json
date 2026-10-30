@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-30T03:51:38.428Z",
+  "updatedAt": "2026-10-30T04:50:05.733Z",
   "channel": {
     "id": "UCw2hs85TzIpdKwJtG-BSxzQ",
     "handle": "@PrismBayAI",
@@ -68,8 +68,8 @@
     "videoLevelData": "NO_ROWS",
     "trafficSources": "NO_ROWS_2026_10_01_TO_2026_10_29",
     "scheduledMetricoolPosts": {
-      "from": "2026-10-29",
-      "to": "2026-11-08",
+      "from": "2026-10-30",
+      "to": "2026-11-15",
       "count": 0,
       "scope": "Metricool only; native Studio schedule unverified"
     },
@@ -79,9 +79,9 @@
     "observedViewDatesArePartial": true,
     "allVideosConnector": "NO_ROWS_2026_09_19_TO_2026_10_29",
     "publishedInRangeConnector": "NO_ROWS_2026_10_01_TO_2026_10_29",
-    "lastMetricoolCheck": "2026-10-30T03:51:38.428Z",
+    "lastMetricoolCheck": "2026-10-30T04:47:00Z",
     "latestSevenDayObservation": {
-      "window": "2026-10-23 through 2026-10-29 23:49 America/Guyana",
+      "window": "2026-10-23 through 2026-10-30 00:45 America/Guyana",
       "subscribers": 7,
       "knownViews": {
         "2026-10-24": 83,
@@ -92,7 +92,6 @@
       "subscriberGainsKnownDates": 0,
       "subscriberLossesKnownDates": 0,
       "revenueOnKnownDatesUSD": 0,
-      "videoPublicationCountOn20261029": null,
       "missingDatesNotZero": true
     },
     "candidatePublishWindows": {
@@ -123,7 +122,7 @@
     "activeDescriptJobs": 0,
     "freeAIAgentCredits": "PREVIOUSLY_EXHAUSTED",
     "fallback": "GitHub Actions FFmpeg Piper open-TTS",
-    "operaStudio": "USER_INPUT_REQUIRED_NONINTERACTIVE_2026_10_29",
+    "operaStudio": "USER_INPUT_REQUIRED_NONINTERACTIVE_2026_10_30",
     "exa": "CREDITS_EXHAUSTED_NO_PURCHASE",
     "descriptProjectInspection": "2026-10-30T02:45Z",
     "descriptImportedMedia": {
@@ -221,20 +220,47 @@
       "durationSeconds": 559.503,
       "experiment": "PB-AI-COST-CTRL-20261028-LF01",
       "gates": {
-        "technicalStream": "PASS_PREVIOUS_CHECKPOINT",
+        "technicalStream": "FAIL_INDEPENDENT_ARTIFACT_GATE_2026_10_30_SEVEN_CAPTION_CUES_OVER_160_WPM",
         "captionSync": "PENDING_16_ESTIMATED_EXCEPTIONS",
         "fullNarrationListening": "PENDING",
         "continuousMobilePlayback": "PENDING",
         "completeVoiceAndDependencyRights": "PENDING",
         "longformABTest": "UNAVAILABLE_UNTIL_STUDIO_ACCESS",
         "survey72PercentSource": "PASS_PRIMARY_COGNIZANT_PRESS_RELEASE_2026_10_22_N250_US_UK_INDIA_SCOPE_QUALIFIER_REQUIRED",
-        "survey72PercentSpokenContext": "PENDING_FULL_AUDIO_AND_CUE_33"
+        "survey72PercentSpokenContext": "PENDING_FULL_AUDIO_AND_CUE_33",
+        "captionReadability": "FAIL_CUES_46_55_56_57_100_101_102_MAX_174P55_WPM",
+        "fullStreamDecode": "PASS_13426_FRAMES_1920X1080_H264_AAC_559P503_SECONDS",
+        "videoSha256": "PASS_MANIFEST_MATCH_C8DA6A5F..."
       },
       "publicationApproved": false,
       "uploadPermitted": false,
       "publicYouTubeUrl": null,
-      "nextAction": "Review 16 caption exceptions against audio, inspect full video pacing, then verify complete rights and eligible native A/B.",
-      "sourceEvidence": "youtube-growth/analytics/2026-10-29-cost-controls-72-percent-primary-source-verification.md"
+      "nextAction": "Fix seven over-160-WPM cues using actual spoken-word alignment; review 16 ASR exceptions and full narration, mobile playback and rights. No public upload.",
+      "sourceEvidence": "youtube-growth/analytics/2026-10-29-cost-controls-72-percent-primary-source-verification.md",
+      "independentArtifactGate": {
+        "checkedAt": "2026-10-30T04:50:05.733Z",
+        "status": "FAIL",
+        "sourceArtifactId": 12866038124,
+        "workflowRunId": 40802160968,
+        "sha256": "c8da6a5fa46bb1e7ea9dfd6abf82b55d44b80d7fc63fdf515db7362d58be6a72",
+        "fullDecode": "PASS",
+        "captionCueCount": 134,
+        "fastCueCount": 7,
+        "fastCueIds": [
+          46,
+          55,
+          56,
+          57,
+          100,
+          101,
+          102
+        ],
+        "maxWPM": 174.55,
+        "estimatedASRExceptions": 16,
+        "report": "youtube-growth/analytics/2026-10-30-0050-cost-controls-artifact-technical-gate.md",
+        "publicationApproved": false,
+        "uploadPermitted": false
+      }
     }
   ],
   "specialistAgents": [
