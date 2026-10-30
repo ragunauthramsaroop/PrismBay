@@ -8,7 +8,10 @@ const shortlist=JSON.parse(fs.readFileSync(new URL("../config/top15-merchandisin
 const now=Date.parse("2026-10-27T11:00:00.000Z");
 function sample(){
  return {schemaVersion:1,
-  providers:{hypersku:{basePlanUsdMonthly:0,apiStatus:"api_active",approvedApiDocumentation:true,authenticatedApiVerified:true,supplierConnected:true}},
+  providers:{hypersku:{basePlanUsdMonthly:0,apiStatus:"api_active",approvedApiDocumentation:true,authenticatedApiVerified:true,supplierConnected:true,
+   apiConnectivityProof:{method:"authenticated_read_only_api_request",result:"success",
+    merchantAccountMatched:true,reviewer:"merchant-auditor",auditRef:"gh-run:40951096657",
+    checkedAt:"2026-10-27T10:55:00Z"}}},
   candidates:[{slug:"pethair",provider:"hypersku",supplierProductId:"hyper-1234",supplierVariantId:"hyper-1234-medium",
    supplierTitle:"Genuine Reusable Pet Hair Remover Brush",
    catalogMatchVerified:true,independentIdentityReviewed:true,
@@ -41,19 +44,42 @@ test("declared API status without authenticated connection never approves source
  const data=sample();
  const provider=data.providers.hypersku;
  provider.authenticatedApiVerified=false;
- assert.equal(apiVerified(provider),false);
+ assert.equal(apiVerified(provider,now),false);
  assert.equal(verifyProviderProducts(data,shortlist,now).approved.length,0);
  assert.ok(verifyProviderProducts(data,shortlist,now).rejected[0].reasons.includes("provider_api_not_active"));
  provider.authenticatedApiVerified=true;
  provider.supplierConnected=false;
- assert.equal(apiVerified(provider),false);
+ assert.equal(apiVerified(provider,now),false);
  assert.equal(verifyProviderProducts(data,shortlist,now).approved.length,0);
  provider.supplierConnected=true;
  provider.approvedApiDocumentation=false;
- assert.equal(apiVerified(provider),false);
+ assert.equal(apiVerified(provider,now),false);
  assert.equal(verifyProviderProducts(data,shortlist,now).approved.length,0);
  provider.approvedApiDocumentation=true;
- assert.equal(apiVerified(provider),true);
+ assert.equal(apiVerified(provider,now),true);
+ assert.equal(verifyProviderProducts(data,shortlist,now).approved.length,1);
+});
+
+test("repository connection flags without audited authenticated API proof remain blocked",()=>{
+ const data=sample();const provider=data.providers.hypersku;
+ delete provider.apiConnectivityProof;
+ assert.equal(apiVerified(provider,now),false);
+ assert.equal(verifyProviderProducts(data,shortlist,now).approved.length,0);
+ provider.apiConnectivityProof={method:"authenticated_read_only_api_request",result:"success",
+  merchantAccountMatched:true,reviewer:"merchant-auditor",auditRef:"gh-run:40951096657",
+  checkedAt:"2026-10-25T10:55:00Z"};
+ assert.equal(apiVerified(provider,now),false,"Stale API evidence must expire");
+ provider.apiConnectivityProof.checkedAt="2026-10-27T10:55:00Z";
+ provider.apiConnectivityProof.merchantAccountMatched=false;
+ assert.equal(apiVerified(provider,now),false,"Another merchant's account is insufficient");
+ provider.apiConnectivityProof.merchantAccountMatched=true;
+ provider.apiConnectivityProof.auditRef="https://attacker.example/secret?token=abc";
+ assert.equal(apiVerified(provider,now),false,"No arbitrary URL or secret-bearing audit ref");
+ provider.apiConnectivityProof.auditRef="gh-run:40951096657";
+ provider.apiConnectivityProof.method="configured_key_only";
+ assert.equal(apiVerified(provider,now),false,"Configured credentials are not authenticated requests");
+ provider.apiConnectivityProof.method="authenticated_read_only_api_request";
+ assert.equal(apiVerified(provider,now),true);
  assert.equal(verifyProviderProducts(data,shortlist,now).approved.length,1);
 });
 
