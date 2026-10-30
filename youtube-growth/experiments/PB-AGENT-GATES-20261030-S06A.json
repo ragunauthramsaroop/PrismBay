@@ -1,0 +1,39 @@
+{
+  "id": "PB-AGENT-GATES-20261030-S06A",
+  "channelId": "UCw2hs85TzIpdKwJtG-BSxzQ",
+  "handle": "@PrismBayAI",
+  "metricoolBrandId": 6945443,
+  "title": "The AI Agent Payment Trap",
+  "audience": "Founders, finance operators, automation owners",
+  "hypothesis": "A specific payment-permission risk hook will improve Shorts completion and substantive comments versus generic agent-safety content.",
+  "hook": "Your AI agent should never approve its own payment.",
+  "format": "Short",
+  "durationSeconds": 47.759,
+  "thumbnailConcept": "Original payment approval screen with red permission stop; no deceptive provider screenshots",
+  "cta": "Which action stays human in your business?",
+  "publishTimeCandidate": "16:00 America/Guyana, pending approval and audience evidence",
+  "successThresholds": {
+    "averagePercentageViewed72h": 0.6,
+    "substantiveComments7d": 1,
+    "attributableSubscribers7d": 1
+  },
+  "reviewHours": [
+    6,
+    24,
+    72,
+    168
+  ],
+  "status": "PRIVATE_REVIEW",
+  "publicationApproved": false,
+  "uploadPermitted": false,
+  "paidSpendUSD": 0,
+  "mediaSHA256": "132e84b19c03a0c8b39258f576969c6f52ae8bfc36ce9ab570a7a79ce16f7109",
+  "qualityGates": {
+    "fullDecode": true,
+    "captionMaxWPM": 148.44,
+    "fullHumanListening": false,
+    "realDevicePlayback": false,
+    "rightsApproval": false
+  },
+  "classification": "RETEST_PENDING_PUBLIC_DATA"
+}
