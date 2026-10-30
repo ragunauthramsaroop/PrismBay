@@ -105,6 +105,7 @@ function WatchPage() {
           <div className="mt-7 flex flex-wrap gap-3">
             <a href={interactiveScorecard} target="_blank" rel="noopener noreferrer" className="rounded-lg bg-teal-800 px-5 py-3 font-semibold text-white hover:bg-teal-900">Try the interactive evidence review</a>
             <a href={freeVendorGuide} target="_blank" rel="noopener noreferrer" className="rounded-lg border border-teal-700 px-5 py-3 font-semibold text-teal-900 hover:bg-teal-100">Read the free worksheet</a>
+            <Link to="/resources/$slug" params={{ slug: "ai-vendor-procurement-four-evidence-gates" }} className="rounded-lg border border-teal-700 px-5 py-3 font-semibold text-teal-900 hover:bg-teal-100">Read the four-gate AI vendor decision card</Link>
             <a href={researchSupport} target="_blank" rel="noopener noreferrer" className="rounded-lg border border-teal-700 px-5 py-3 font-semibold text-teal-900 hover:bg-teal-100">Support free research (optional)</a>
           </div>
           <p className="mt-5 text-sm leading-6 text-neutral-600">Optional one-time $3–$100 USD commercial support is processed by Studysmartz LLC. It is not a charitable donation or a paid content purchase; the complete worksheet remains free for everyone.</p>
