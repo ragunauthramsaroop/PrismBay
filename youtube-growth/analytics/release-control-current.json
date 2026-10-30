@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-30T07:43:54.219Z",
+  "updatedAt": "2026-10-30T08:54:48.238Z",
   "channel": {
     "id": "UCw2hs85TzIpdKwJtG-BSxzQ",
     "handle": "@PrismBayAI",
@@ -69,7 +69,7 @@
     "trafficSources": "NO_ROWS_2026_10_01_TO_2026_10_29",
     "scheduledMetricoolPosts": {
       "from": "2026-10-30",
-      "to": "2026-11-15",
+      "to": "2026-11-13",
       "count": 0,
       "scope": "Metricool only; native Studio schedule unverified"
     },
@@ -79,9 +79,9 @@
     "observedViewDatesArePartial": true,
     "allVideosConnector": "NO_ROWS_2026_09_19_TO_2026_10_29",
     "publishedInRangeConnector": "NO_ROWS_2026_10_01_TO_2026_10_29",
-    "lastMetricoolCheck": "2026-10-30T07:43:54.219Z",
+    "lastMetricoolCheck": "2026-10-30T08:54:48.238Z",
     "latestSevenDayObservation": {
-      "window": "2026-10-23 through 2026-10-30 00:45 America/Guyana",
+      "window": "2026-10-23 to 2026-10-30 04:45 America/Guyana",
       "subscribers": 7,
       "knownViews": {
         "2026-10-24": 83,
@@ -224,7 +224,7 @@
         "captionSync": "PENDING_16_ESTIMATED_EXCEPTIONS",
         "fullNarrationListening": "PENDING",
         "continuousMobilePlayback": "PENDING",
-        "completeVoiceAndDependencyRights": "PENDING",
+        "completeVoiceAndDependencyRights": "PENDING_FULL_DEPENDENCY_REVIEW_UPSTREAM_NORMAN_MODEL_CARD_PUBLIC_DOMAIN_LIBRIVOX_DATASET_REPOSITORY_MIT",
         "longformABTest": "UNAVAILABLE_UNTIL_STUDIO_ACCESS",
         "survey72PercentSource": "PASS_PRIMARY_COGNIZANT_PRESS_RELEASE_2026_10_22_N250_US_UK_INDIA_SCOPE_QUALIFIER_REQUIRED",
         "survey72PercentSpokenContext": "PENDING_FULL_AUDIO_AND_CUE_33",
@@ -236,7 +236,7 @@
       "publicationApproved": false,
       "uploadPermitted": false,
       "publicYouTubeUrl": null,
-      "nextAction": "Eight captioned listening-review clips now generated for all 16 estimated ASR timing exceptions. Listen to clips and entire 9m19s source, correct spoken sync, inspect mobile playback and rights. Keep unpublished.",
+      "nextAction": "Verify GitHub retention-review workflow artifact and full audio preservation, listen to complete revised narration, align corrected 134-cue SRT with speech, inspect mobile playback and remaining rights before release. Do not upload.",
       "sourceEvidence": "youtube-growth/analytics/2026-10-29-cost-controls-72-percent-primary-source-verification.md",
       "independentArtifactGate": {
         "checkedAt": "2026-10-30T04:50:05.733Z",
@@ -295,6 +295,65 @@
         "fullNarrationListening": "PENDING",
         "mobilePlayback": "PENDING",
         "completeRightsReview": "PENDING",
+        "publicationApproved": false,
+        "uploadPermitted": false
+      },
+      "visualPacingAudit": {
+        "reviewDate": "2026-10-30",
+        "sourceVideoSha256": "c8da6a5fa46bb1e7ea9dfd6abf82b55d44b80d7fc63fdf515db7362d58be6a72",
+        "sampledFramesAtOneSecond": 560,
+        "detectedHardSceneTransitions": 37,
+        "originalSceneCountFromManifest": 38,
+        "longestStaticHoldSeconds": 26,
+        "staticHoldsAtLeast21Seconds": [
+          [
+            123,
+            149
+          ],
+          [
+            390,
+            414
+          ],
+          [
+            159,
+            181
+          ],
+          [
+            292,
+            314
+          ],
+          [
+            444,
+            465
+          ]
+        ],
+        "method": "1fps mean absolute difference, top 74% excluding subtitle region",
+        "retentionConcern": "Original slide holds of 21-26 seconds may reduce viewer retention; requires measured audience data after publication."
+      },
+      "retentionRevision": {
+        "script": "youtube-growth/production/build_cost_controls_retention_review.py",
+        "workflow": ".github/workflows/prismbay-cost-controls-retention-review.yml",
+        "scriptCommit": "c7ea422e1614a4c9986b3f01683439b671d596bd",
+        "workflowCommit": "9aa1945077e705cb0e5e6a767830eaf9e3afcc7d",
+        "sourceSha256": "c8da6a5fa46bb1e7ea9dfd6abf82b55d44b80d7fc63fdf515db7362d58be6a72",
+        "overlayCards": 6,
+        "sourceContextSlides": [
+          123,
+          137,
+          145,
+          149
+        ],
+        "illustrativeCostSlides": [
+          390,
+          400,
+          407,
+          414
+        ],
+        "localFirst151SecondsPreview": "PASS_FRAME_141_2026_10_30",
+        "fullRevisionCI": "UNVERIFIED",
+        "fullRevisionArtifact": "UNVERIFIED",
+        "originalAudioPreservation": "PENDING_FULL_ARTIFACT_CI",
+        "captionCandidate": "134_CUES_MAX_160_WPM_REVIEW_ONLY",
         "publicationApproved": false,
         "uploadPermitted": false
       }
