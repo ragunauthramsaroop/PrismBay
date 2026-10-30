@@ -284,3 +284,48 @@ test('merchant-specific stricter free quotas prevent submitted activity from bei
  assert.equal(stricter.valid,false);
  assert.ok(stricter.errors.some(e=>e.startsWith('free_daily_sourcing_limit_exceeded')));
 });
+
+test('free sourcing readiness never exceeds the remaining rolling 48-hour allowance',()=>{
+ const now=Date.parse('2026-10-30T13:00:00Z');
+ const submitted=(slug,n,at)=>({slug,aliExpressUrl:link(n),status:'submitted',submittedAt:at});
+ const ready=(slug,n)=>({slug,aliExpressUrl:link(n),status:'ready_to_submit'});
+ const two=validateSourcingQueue({schemaVersion:1,requests:[
+  submitted('pethair',1,'2026-10-29T15:00:00Z'),
+  submitted('crevice',2,'2026-10-30T09:00:00Z'),
+  ready('mini-mop',3),ready('drain-catcher',4)
+ ]},short,now);
+ assert.equal(two.valid,true);
+ assert.equal(two.submitted,2);
+ assert.equal(two.readyToSubmit,1,'Two prior requests leave only one free slot');
+ assert.equal(two.automaticallySubmitted,0);
+ const exhausted=validateSourcingQueue({schemaVersion:1,requests:[
+  submitted('pethair',1,'2026-10-29T15:00:00Z'),
+  submitted('crevice',2,'2026-10-30T09:00:00Z'),
+  submitted('mini-mop',3,'2026-10-30T10:00:00Z'),
+  ready('drain-catcher',4)
+ ]},short,now);
+ assert.equal(exhausted.valid,true);
+ assert.equal(exhausted.readyToSubmit,0,'A fourth link must not be presented as free and ready');
+ assert.equal(exhausted.physicalCheckoutEnabled,false);
+});
+
+test('unsubmitted sourcing links never claim more free slots than published caps',()=>{
+ const now=Date.parse('2026-10-30T13:00:00Z');
+ const queue={schemaVersion:1,requests:[
+  {slug:'pethair',aliExpressUrl:link(1),status:'ready_to_submit'},
+  {slug:'crevice',aliExpressUrl:link(2),status:'ready_to_submit'},
+  {slug:'mini-mop',aliExpressUrl:link(3),status:'ready_to_submit'},
+  {slug:'drain-catcher',aliExpressUrl:link(4),status:'ready_to_submit'}
+ ]};
+ const x=validateSourcingQueue(queue,short,now);
+ assert.equal(x.valid,true);
+ assert.equal(x.readyToSubmit,3,'Four queued links do not create a fourth free request');
+ assert.equal(x.submitted,0);
+ assert.equal(x.automaticallySubmitted,0);
+ const restricted=validateSourcingQueue({...queue,requestQuota:{freeRequestsPer48Hours:1}},short,now);
+ assert.equal(restricted.valid,true);
+ assert.equal(restricted.readyToSubmit,1,'Merchant-specific stricter allowance takes precedence');
+ const zero=validateSourcingQueue({...queue,requestQuota:{freeRequestsPer48Hours:0}},short,now);
+ assert.equal(zero.valid,true);
+ assert.equal(zero.readyToSubmit,0);
+});
