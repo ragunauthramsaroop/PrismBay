@@ -1,0 +1,42 @@
+{
+  "id": "PB-AGENT-GATES-20261030-S06B",
+  "channelId": "UCw2hs85TzIpdKwJtG-BSxzQ",
+  "handle": "@PrismBayAI",
+  "metricoolBrandId": 6945443,
+  "series": "AI Systems That Survive Contact With Operations",
+  "title": "A PDF Is Not Your Boss",
+  "audience": "Founders, finance operators, procurement and AI automation owners",
+  "hypothesis": "A concrete untrusted-invoice demonstration with enforced tool-policy controls will earn higher meaningful comments and completion than a generic AI security list.",
+  "hook": "An invoice PDF should never give orders to your AI agent.",
+  "format": "Short",
+  "durationSeconds": 53.973,
+  "thumbnailConcept": "Fictional invoice with a red instruction box, a crossed-out bank change and a software policy gate; no third-party branding.",
+  "cta": "Follow PrismBay AI for practical AI operating controls.",
+  "publishTimeCandidate": "2026-11-03T16:00:00-04:00, tentative only; no scheduling without release QA",
+  "successThresholds": {
+    "averagePercentageViewed72h": 0.6,
+    "substantiveComments7d": 1,
+    "attributableSubscribers7d": 1
+  },
+  "reviewHours": [
+    6,
+    24,
+    72,
+    168
+  ],
+  "classification": "RETEST_PENDING_PUBLIC_DATA",
+  "status": "PRIVATE_REVIEW",
+  "publicationApproved": false,
+  "uploadPermitted": false,
+  "paidSpendUSD": 0,
+  "mediaSHA256": "7d7e598690a7cccccb73ea0762288091f6d97bf8bb37b7e70525c44bb7da3077",
+  "qualityGates": {
+    "fullDecode": true,
+    "captionMaxWPM": 154.71,
+    "originalSceneCount": 10,
+    "completeHumanListening": false,
+    "realDevicePlayback": false,
+    "finalRightsApproval": false
+  },
+  "notes": "Fictional supplier document, no actual supplier, bank account, provider screenshots, music or stock footage. Distinct from S06A payment-approval Short. Caption WPM is calculated by narration segment, not a word-by-word alignment audit. Video privately delivered in conversation ZIP. No public upload."
+}
