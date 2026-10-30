@@ -130,9 +130,17 @@ def main():
         subprocess.run(["ffmpeg", "-nostdin", "-hide_banner", "-loglevel", "error",
                         "-y", "-i", args.video, "-vn", "-ac", "1", "-ar", "16000",
                         wav], check=True)
+        # Pass decoded PCM directly. PyAV decoder versions differ on metadata_errors.
+        import wave
+        import numpy as np
         from faster_whisper import WhisperModel
+        with wave.open(wav, "rb") as audio_file:
+            if (audio_file.getframerate(), audio_file.getnchannels(), audio_file.getsampwidth()) != (16000, 1, 2):
+                raise SystemExit("Unexpected audio format")
+            pcm = np.frombuffer(audio_file.readframes(audio_file.getnframes()),
+                                dtype=np.int16).astype(np.float32) / 32768.0
         model = WhisperModel("base.en", device="cpu", compute_type="int8", cpu_threads=4)
-        segments, info = model.transcribe(wav, beam_size=3, word_timestamps=True,
+        segments, info = model.transcribe(pcm, beam_size=3, word_timestamps=True,
                                           vad_filter=False, language="en")
         recognized = []
         for segment in segments:
