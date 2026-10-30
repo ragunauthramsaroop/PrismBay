@@ -15,7 +15,7 @@ ROOT = Path(__file__).resolve().parents[2]
 BASE = ROOT / "youtube-growth/analytics/cost-controls-asr-qa"
 CHANNEL = "UCw2hs85TzIpdKwJtG-BSxzQ"
 SOURCE_SHA256 = "c8da6a5fa46bb1e7ea9dfd6abf82b55d44b80d7fc63fdf515db7362d58be6a72"
-TIMESTAMP = re.compile(r"^(\\d{2}):(\\d{2}):(\\d{2}),(\\d{3})$")
+TIMESTAMP = re.compile(r"^(\d{2}):(\d{2}):(\d{2}),(\d{3})$")
 
 
 def seconds(value: str) -> float:
@@ -30,7 +30,7 @@ def seconds(value: str) -> float:
 
 def parse_srt(content: str) -> list[dict]:
     cues = []
-    for block in re.split(r"\\n\\s*\\n", content.strip()):
+    for block in re.split(r"\n\s*\n", content.strip()):
         lines = [line.strip() for line in block.splitlines() if line.strip()]
         if len(lines) < 3 or " --> " not in lines[1]:
             raise ValueError("Malformed SRT cue")
@@ -56,7 +56,7 @@ def verify(cues: list[dict], expected: list[dict], report: dict) -> dict:
     for index, (cue, original) in enumerate(zip(cues, expected), start=1):
         if cue["index"] != index or int(original["cue"]) != index:
             raise ValueError(f"Cue order mismatch at {index}")
-        normalize = lambda s: re.sub(r"\\s+", " ", s).strip()
+        normalize = lambda s: re.sub(r"\s+", " ", s).strip()
         if normalize(cue["text"]) != normalize(original["text"]):
             raise ValueError(f"Caption wording changed at cue {index}")
         if index > 1 and cue["start"] < cues[index - 2]["end"] - 0.001:
@@ -97,10 +97,10 @@ def self_test() -> None:
             raise AssertionError("Invalid timestamp accepted")
         except ValueError:
             pass
-    sample = parse_srt("1\\n00:00:00,000 --> 00:00:02,000\\nTwo clear words\\n")
+    sample = parse_srt("1\n00:00:00,000 --> 00:00:02,000\nTwo clear words\n")
     assert len(sample) == 1 and sample[0]["text"] == "Two clear words"
     try:
-        parse_srt("1\\n00:00:02,000 --> 00:00:01,000\\nBackwards\\n")
+        parse_srt("1\n00:00:02,000 --> 00:00:01,000\nBackwards\n")
         raise AssertionError("Backwards cue accepted")
     except ValueError:
         pass
