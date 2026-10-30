@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-30T02:45:24Z",
+  "updatedAt": "2026-10-30T03:51:38.428Z",
   "channel": {
     "id": "UCw2hs85TzIpdKwJtG-BSxzQ",
     "handle": "@PrismBayAI",
@@ -69,7 +69,7 @@
     "trafficSources": "NO_ROWS_2026_10_01_TO_2026_10_29",
     "scheduledMetricoolPosts": {
       "from": "2026-10-29",
-      "to": "2026-11-22",
+      "to": "2026-11-08",
       "count": 0,
       "scope": "Metricool only; native Studio schedule unverified"
     },
@@ -79,9 +79,9 @@
     "observedViewDatesArePartial": true,
     "allVideosConnector": "NO_ROWS_2026_09_19_TO_2026_10_29",
     "publishedInRangeConnector": "NO_ROWS_2026_10_01_TO_2026_10_29",
-    "lastMetricoolCheck": "2026-10-30T02:45Z",
+    "lastMetricoolCheck": "2026-10-30T03:51:38.428Z",
     "latestSevenDayObservation": {
-      "window": "2026-10-23 through 2026-10-29 18:41 America/Guyana",
+      "window": "2026-10-23 through 2026-10-29 23:49 America/Guyana",
       "subscribers": 7,
       "knownViews": {
         "2026-10-24": 83,
@@ -92,7 +92,7 @@
       "subscriberGainsKnownDates": 0,
       "subscriberLossesKnownDates": 0,
       "revenueOnKnownDatesUSD": 0,
-      "videoPublicationCountOn20261029": 0,
+      "videoPublicationCountOn20261029": null,
       "missingDatesNotZero": true
     },
     "candidatePublishWindows": {
@@ -348,6 +348,22 @@
       "editorialReview": "STILL_PENDING",
       "publicationApproved": false,
       "uploadPermitted": false
+    },
+    "longformFormatSupport": {
+      "implementedAt": "2026-10-30T03:51:38.428Z",
+      "script": "scripts/youtube_release_gate.py",
+      "regressionTests": "tests/test_youtube_release_gate.py",
+      "formatArgument": "--format longform",
+      "expectedResolution": "1920x1080",
+      "minimumDurationSeconds": 60,
+      "defaultFormat": "shorts",
+      "technicalTestStatus": "COMMITTED_AWAIT_CI_VERIFICATION",
+      "scriptCommit": "7f0cf8c60ae86555afd10e65fe9a311e7a20d1f1",
+      "testCommit": "8ed4abfe7e03113a09474ddbc1fda1d941efe008",
+      "videoArtifactRerun": "NOT_PERFORMED",
+      "editorialApproval": "NOT_GRANTED",
+      "publicationApproved": false,
+      "uploadPermitted": false
     }
   },
   "companionResources": {
@@ -376,7 +392,10 @@
     "publicUploadsVerified": 0,
     "deliverable": "LONGFORM_3_VARIANT_AB_PACKAGING_READY_FOR_EDITORIAL_REVIEW",
     "productionJobsRunning": 0,
-    "paidSpendUSD": 0
+    "paidSpendUSD": 0,
+    "checkedAt": "2026-10-30T03:51:38.428Z",
+    "work": "Extended read-only release QA to 1920x1080 long-form, added fail-closed regression coverage, checked channel schedule and analytics; no publishing authorization.",
+    "publicUploadVerified": false
   },
   "siteDistribution": {
     "companionArticleSlug": "ai-vendor-procurement-four-evidence-gates",
