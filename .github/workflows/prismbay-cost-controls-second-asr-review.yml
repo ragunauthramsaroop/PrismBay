@@ -1,0 +1,100 @@
+name: PrismBay Cost Controls independent second-ASR review only
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'youtube-growth/qa/dual_asr_caption_triage.py'
+      - '.github/workflows/prismbay-cost-controls-second-asr-review.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  actions: read
+
+concurrency:
+  group: prismbay-cost-controls-second-asr
+  cancel-in-progress: false
+
+jobs:
+  review-existing-unpublished-video:
+    if: github.repository == 'ragunauthramsaroop/PrismBay'
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Install free speech and media dependencies
+        run: |
+          sudo apt-get update -qq
+          sudo DEBIAN_FRONTEND=noninteractive apt-get install -y -qq ffmpeg
+          python -m pip install --disable-pip-version-check --no-input faster-whisper
+          python -m py_compile youtube-growth/qa/dual_asr_caption_triage.py
+          python youtube-growth/qa/dual_asr_caption_triage.py --self-test
+      - name: Retrieve existing exact unpublished retention revision
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          mkdir -p "$RUNNER_TEMP/prismbay-review"
+          curl -fLsS --retry 3 \
+            -H "Authorization: Bearer $GH_TOKEN" \
+            -H "Accept: application/vnd.github+json" \
+            "https://api.github.com/repos/$GITHUB_REPOSITORY/actions/artifacts/12964703964/zip" \
+            -o "$RUNNER_TEMP/prismbay-review/source.zip"
+          unzip -oq "$RUNNER_TEMP/prismbay-review/source.zip" -d "$RUNNER_TEMP/prismbay-review"
+      - name: Verify exact video hash and run independent base.en speech review
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import hashlib, os
+          from pathlib import Path
+          root=Path(os.environ["RUNNER_TEMP"])/"prismbay-review"
+          expected="a58927dcc5cfe89dbda52b667cfd1b04e13daad05e79b8858aea188f0a8a8117"
+          files=[]
+          for p in root.rglob("*.mp4"):
+              h=hashlib.sha256(p.read_bytes()).hexdigest()
+              if h==expected: files.append(p)
+          if len(files)!=1: raise SystemExit("Exact revised video not found")
+          with open(os.environ["GITHUB_ENV"],"a") as f:
+              f.write("PRISMBAY_REVIEW_VIDEO="+str(files[0])+"\n")
+          print("Exact unpublished revision SHA256 verified")
+          PY
+          python youtube-growth/qa/dual_asr_caption_triage.py \
+            --video "$PRISMBAY_REVIEW_VIDEO" \
+            --srt youtube-growth/analytics/cost-controls-asr-qa/captions-asr-candidate.srt \
+            --output "$RUNNER_TEMP/prismbay-review-output"
+      - name: Preserve review evidence in repository
+        run: |
+          set -euo pipefail
+          mkdir -p youtube-growth/analytics/cost-controls-second-asr
+          cp "$RUNNER_TEMP/prismbay-review-output/"* youtube-growth/analytics/cost-controls-second-asr/
+          git config user.name prismbay-ai-qa-bot
+          git config user.email actions@users.noreply.github.com
+          git add youtube-growth/analytics/cost-controls-second-asr/
+          if git diff --cached --quiet; then
+            echo "No new QA evidence to commit."
+            exit 0
+          fi
+          git commit -m "Record independent second-ASR caption triage without publication"
+          for attempt in 1 2 3 4; do
+            git fetch origin main
+            git rebase origin/main
+            if git push origin HEAD:main; then exit 0; fi
+            sleep $((attempt * 3))
+          done
+          exit 1
+      - name: Keep an unpublished review artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: prismbay-cost-controls-second-asr-unpublished
+          path: ${{ runner.temp }}/prismbay-review-output/
+          if-no-files-found: ignore
+          retention-days: 7
+      - name: Release safeguards
+        if: always()
+        run: |
+          echo "No YouTube upload, Metricool schedule or payment occurred." >> "$GITHUB_STEP_SUMMARY"
+          echo "All ASR flags require actual listening. publicationApproved=false, uploadPermitted=false." >> "$GITHUB_STEP_SUMMARY"
