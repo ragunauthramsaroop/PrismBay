@@ -11,10 +11,18 @@ Updated `youtube-growth/production/build_cost_controls_retention_review.py` in c
 - Increased body type to 66–72px, headline type to 165px, and the two concise disclaimer lines to 51px.
 - Removed long, single-line 27px disclaimers and the small competing footer URL. Replaced them with two readable, source-specific lines inside the card.
 - Shortened each explanatory line without changing the survey scope or the fictional arithmetic. The 72% finding still explicitly applies to surveyed organizations and is labeled non-global.
-- Shifted text above the lower player-control region. The source cards remain 1920x1080.
+- The first mobile-scale revision exposed a collision between two-line subtitles and the survey disclaimer. A second revision reserved the entire lower region for subtitles, with all six overlay cards ending at y=760 in a 1080px frame. The source cards remain 1920x1080.
 - Independently rasterized and inspected a six-card mobile-scale contact sheet at 640px width before committing. Measured all content lines within the 1,680px maximum layout width, with a minimum type size of 51px for the disclosure lines. The 360px equivalent of 51px is approximately 9.6px, still requiring real-device inspection.
 
-The automated [full-length review workflow run 41058231733](https://github.com/ragunauthramsaroop/PrismBay/actions/runs/41058231733) completed **successfully** on 2026-10-30. Its workflow includes source-file fingerprint validation, corrected-SRT mechanical validation, a complete new render, and bit-for-bit AAC stream comparison with the original narration. This is an unpublished review artifact. An independent download/decode of the *new* complete MP4 is not claimed here.
+The first [mobile-type workflow run 41058231733](https://github.com/ragunauthramsaroop/PrismBay/actions/runs/41058231733) completed successfully, but a simulated two-line subtitle overlay at 640x360 exposed a footer collision. Corrected the layout in [commit 6b4c811](https://github.com/ragunauthramsaroop/PrismBay/commit/6b4c811155b1dff41a8600f4e2e06d2769a8407f). The final [caption-safe full-length workflow run 41058898850](https://github.com/ragunauthramsaroop/PrismBay/actions/runs/41058898850) completed **successfully** on 2026-10-30. The workflow validated the source SHA256 and corrected SRT, rendered all six revised cards, and compared the extracted AAC streams bit-for-bit with the original narration. This is an unpublished review artifact.
+
+## Independent final-artifact verification, 2026-10-30
+
+Downloaded unpublished Actions artifact `12977294852` from run `41058898850`, expiring 2026-11-06 at 12:56 UTC. The final MP4 SHA256 is `c74bbd1ee371b79918074f4bcfe9eb9cb2f691c086224d1def9134766012f6c0`, matching the render manifest. Duration 559.500 seconds, 1920x1080, H.264, 24 fps, 13,428 decoded frames. A complete independent FFmpeg decode reported no errors.
+
+Independently verified all six overlay PNGs: each is 1920x1080, and pixels below y=770 are uniformly background-colored, leaving at least 310px of blank lower space for subtitles. Sampled an actual frame from each card interval and compared against the original card PNG. Mean per-channel absolute pixel difference was 1.306–1.354 on the 0–255 scale, consistent with video encoding. At 640x360, simulated two-line captions at 139s and 403s without colliding with survey or fictional-example disclosures. This is a desktop simulation, not real-device YouTube playback.
+
+The separate corrected SRT contains 134 cues, zero overlaps, minimum duration 1.687 seconds and maximum 160.0 WPM. Spoken-word synchronization remains unapproved.
 
 ## Rights and provenance evidence, not a final clearance
 
@@ -28,6 +36,6 @@ On 2026-10-30, Metricool confirmed the exact YouTube channel ID and seven subscr
 
 ## Release decision
 
-**MODIFY / HOLD.** The mobile overlay improvement passed CI, but a full uninterrupted narration listening review, 29 flagged/critical cue checks against spoken audio, uninterrupted mobile playback, an independent final-artifact inspection, and final media/voice/dependency rights sign-off remain open. No public upload, A/B test, scheduled post, paid ad spend or revenue event is claimed.
+**MODIFY / HOLD.** The caption-safe overlay revision passed CI and an independent final-artifact technical inspection. Full uninterrupted narration listening, 29 flagged/critical cue checks against spoken audio, uninterrupted real-device mobile playback, and final media/voice/dependency rights sign-off remain open. No public upload, A/B test, scheduled post, paid ad spend or revenue event is claimed.
 
 `publicationApproved=false`; `uploadPermitted=false`; `paidSpendUSD=0`.
