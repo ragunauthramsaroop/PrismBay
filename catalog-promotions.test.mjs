@@ -76,6 +76,6 @@ test('steamer guides remain educational while physical fulfillment is unapproved
   const guide = fs.readFileSync(new URL('./guides/' + filename, import.meta.url), 'utf8');
   assert.match(guide, /does not currently offer/i, filename);
   assert.match(guide, /href="\/top-15\/"/, filename);
-  assert.doesNotMatch(guide, /USD 29\.95|href="\/garment-steamer\/|buy\.stripe\.com|live supplier stock|checkout is released|verified supplier identity|ZIP check and manual inquiry/i, filename);
+  assert.doesNotMatch(guide, /USD 29\.95|href="\/garment-steamer\/|buy\.stripe\.com|live supplier stock|checkout is released|verified supplier identity|ZIP check and manual inquiry|which is why PrismBay verifies|What the check does not do|Launch physical orders/i, filename);
  }
 });
