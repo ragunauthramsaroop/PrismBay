@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-30T04:50:05.733Z",
+  "updatedAt": "2026-10-30T05:48:00Z",
   "channel": {
     "id": "UCw2hs85TzIpdKwJtG-BSxzQ",
     "handle": "@PrismBayAI",
@@ -79,7 +79,7 @@
     "observedViewDatesArePartial": true,
     "allVideosConnector": "NO_ROWS_2026_09_19_TO_2026_10_29",
     "publishedInRangeConnector": "NO_ROWS_2026_10_01_TO_2026_10_29",
-    "lastMetricoolCheck": "2026-10-30T04:47:00Z",
+    "lastMetricoolCheck": "2026-10-30T05:46:00Z",
     "latestSevenDayObservation": {
       "window": "2026-10-23 through 2026-10-30 00:45 America/Guyana",
       "subscribers": 7,
@@ -230,12 +230,13 @@
         "survey72PercentSpokenContext": "PENDING_FULL_AUDIO_AND_CUE_33",
         "captionReadability": "FAIL_CUES_46_55_56_57_100_101_102_MAX_174P55_WPM",
         "fullStreamDecode": "PASS_13426_FRAMES_1920X1080_H264_AAC_559P503_SECONDS",
-        "videoSha256": "PASS_MANIFEST_MATCH_C8DA6A5F..."
+        "videoSha256": "PASS_MANIFEST_MATCH_C8DA6A5F...",
+        "captionCandidateTechnicalIntegrity": "PASS_CI_41010366541_134_CUES_MAX_160_WPM_TEXT_PRESERVED_REVIEW_ONLY"
       },
       "publicationApproved": false,
       "uploadPermitted": false,
       "publicYouTubeUrl": null,
-      "nextAction": "Fix seven over-160-WPM cues using actual spoken-word alignment; review 16 ASR exceptions and full narration, mobile playback and rights. No public upload.",
+      "nextAction": "Use CI-validated candidate SRT for uninterrupted spoken-word and mobile synchronization review; 16 ASR exceptions and narration/rights checks remain. Original embedded SRT fails pacing; do not upload.",
       "sourceEvidence": "youtube-growth/analytics/2026-10-29-cost-controls-72-percent-primary-source-verification.md",
       "independentArtifactGate": {
         "checkedAt": "2026-10-30T04:50:05.733Z",
@@ -258,6 +259,25 @@
         "maxWPM": 174.55,
         "estimatedASRExceptions": 16,
         "report": "youtube-growth/analytics/2026-10-30-0050-cost-controls-artifact-technical-gate.md",
+        "publicationApproved": false,
+        "uploadPermitted": false
+      },
+      "pacedSrtCandidate": {
+        "path": "youtube-growth/analytics/cost-controls-asr-qa/captions-asr-candidate.srt",
+        "sourceVideoSha256": "c8da6a5fa46bb1e7ea9dfd6abf82b55d44b80d7fc63fdf515db7362d58be6a72",
+        "automatedValidator": "youtube-growth/qa/validate_cost_controls_caption_candidate.py",
+        "ciWorkflow": ".github/workflows/prismbay-cost-controls-caption-candidate-ci.yml",
+        "ciRunId": 41010366541,
+        "ciStatus": "SUCCESS_2026_10_30_REVIEW_ONLY",
+        "captionCues": 134,
+        "maxWpm": 160,
+        "minCueSeconds": 1.687,
+        "overlapCount": 0,
+        "originalCaptionWordingPreserved": true,
+        "speechSynchronization": "PENDING_16_ASR_ESTIMATED_EXCEPTIONS",
+        "fullNarrationListening": "PENDING",
+        "mobilePlayback": "PENDING",
+        "completeRightsReview": "PENDING",
         "publicationApproved": false,
         "uploadPermitted": false
       }
