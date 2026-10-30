@@ -117,6 +117,9 @@
     "githubActionsConclusion": "success",
     "githubActionsArtifactId": 12990434667,
     "githubActionsArtifactExpiresAt": "2026-11-06T15:54:30Z",
-    "githubActionsArtifactSha256": "NOT_INDEPENDENTLY_DOWNLOADED"
+    "githubActionsArtifactSha256": "a07358edb0565a973a7841f1410be49a4fb47f7492a07ea7edaba66fc4c98e6b",
+    "githubActionsArtifactIndependentDecodePass": true,
+    "githubActionsDecodedFramesIdenticalToLocal": true,
+    "githubActionsAudioIdenticalToOriginal": true
   }
 }
