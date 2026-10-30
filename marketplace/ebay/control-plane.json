@@ -1,6 +1,6 @@
 {
   "schemaVersion": 6,
-  "checkedAt": "2026-10-29T22:55:37.963Z",
+  "checkedAt": "2026-10-30T00:13:05.692Z",
   "status": "API_ACCESS_DISABLED",
   "nextAction": "Restore CJ API authorization in the CJ account; otherwise inspect the seller packet offline. Seller, stock, and dispatch location remain unverified.",
   "product": {
