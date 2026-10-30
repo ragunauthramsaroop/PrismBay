@@ -1,0 +1,92 @@
+{
+  "channelId": "UCw2hs85TzIpdKwJtG-BSxzQ",
+  "handle": "@PrismBayAI",
+  "metricoolBrandId": 6945443,
+  "createdAt": "2026-10-30T10:54:00-04:00",
+  "paidSpendUSD": 0,
+  "published": false,
+  "publicationApproved": false,
+  "uploadPermitted": false,
+  "publicWatchUrl": null,
+  "publishAt": null,
+  "timezone": "America/Guyana",
+  "experimentId": "PB-ACCEPTED-UNIT-20261030-S05",
+  "status": "RENDERING_PIPER_UNPUBLISHED",
+  "targetAudience": [
+    "founders",
+    "finance leaders",
+    "operations managers",
+    "AI implementation owners"
+  ],
+  "hypothesis": "A denominator-error example contrasting attempted AI tasks with accepted work improves qualified retention and subscriber conversion versus generic AI tips.",
+  "format": "short_vertical_1080x1920",
+  "durationSeconds": null,
+  "hookType": "Outcome discrepancy",
+  "openingHook": "Your AI agent reports one hundred completed tasks. But finance should count accepted work, not attempts.",
+  "titleCandidates": [
+    "Your AI Agent's $1.00 Task Really Costs $1.25 | AI ROI",
+    "The AI ROI Number Finance Should Reject",
+    "100 AI Tasks. Only 80 Count. Here's the Cost."
+  ],
+  "coverConcepts": [
+    "100 ≠ 80 with 80% acceptance bar",
+    "$1.00 / ATTEMPT vs $1.25 / ACCEPTED",
+    "$100 ÷ 80 = $1.25"
+  ],
+  "cta": "Subscribe to PrismBay AI for practical, measurable AI business systems.",
+  "source": {
+    "qualification": "All numbers are fictional teaching examples, not actual vendor pricing, industry averages, or verified customer outcomes.",
+    "arithmetic": "100 attempts, 80 accepted, $40 tools + $60 review = $100; $100/80 = $1.25 per accepted result."
+  },
+  "asset": {
+    "renderer": "youtube-growth/production/render_accepted_output_short.py",
+    "workflow": ".github/workflows/prismbay-accepted-output-short-review.yml",
+    "runId": 41075708267,
+    "localESpeakQADurationSeconds": 48.747,
+    "localESpeakFullDecodePass": true,
+    "localESpeakIsNotPublishable": true,
+    "voice": "Piper en_US-norman-medium",
+    "captionMode": "Burned-in per phrase, source audio rendered per phrase",
+    "videoSha256": null
+  },
+  "experimentReviewHours": [
+    6,
+    24,
+    72,
+    168
+  ],
+  "currentClassification": "INSUFFICIENT_DATA",
+  "shortsNativeABTest": false,
+  "releaseGates": {
+    "piperRender": "IN_PROGRESS",
+    "fullNarrationListening": "PENDING",
+    "mobilePlayback": "PENDING",
+    "voiceAssetRights": "PENDING_FINAL",
+    "syntheticDataDisclosure": "PENDING_FINAL",
+    "exactChannelRecheck": "REQUIRED_PRE_PUBLISH",
+    "metricoolCalendarRecheck": "REQUIRED_PRE_PUBLISH",
+    "editorialApproval": "PENDING"
+  },
+  "success": {
+    "scaleAt72Hours": "At least 1.5 times median qualified watch minutes of five comparable Shorts and at least one attributable subscriber.",
+    "ifNoComparableBaseline": "INSUFFICIENT_DATA",
+    "otherMetrics": [
+      "views",
+      "watchMinutes",
+      "averageViewDuration",
+      "shares",
+      "comments",
+      "subscribersGained",
+      "subscribersLost",
+      "trafficSources"
+    ]
+  },
+  "safety": {
+    "soleChannel": "UCw2hs85TzIpdKwJtG-BSxzQ",
+    "minimumHoursBetweenShorts": 4,
+    "noPaidAds": true,
+    "noDuplicateUploads": true,
+    "noEngagementManipulation": true
+  },
+  "portfolioDecision": "PROCEED_TO_PIPER_RENDER_QA_THEN_EDITORIAL_REVIEW_NO_AUTO_UPLOAD"
+}
