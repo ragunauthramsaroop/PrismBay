@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-30T00:58:00Z",
+  "updatedAt": "2026-10-30T01:45:47Z",
   "channel": {
     "id": "UCw2hs85TzIpdKwJtG-BSxzQ",
     "handle": "@PrismBayAI",
@@ -69,7 +69,7 @@
     "trafficSources": "NO_ROWS_2026_10_01_TO_2026_10_29",
     "scheduledMetricoolPosts": {
       "from": "2026-10-29",
-      "to": "2026-11-20",
+      "to": "2026-11-12",
       "count": 0,
       "scope": "Metricool only; native Studio schedule unverified"
     },
@@ -79,7 +79,7 @@
     "observedViewDatesArePartial": true,
     "allVideosConnector": "NO_ROWS_2026_09_19_TO_2026_10_29",
     "publishedInRangeConnector": "NO_ROWS_2026_10_01_TO_2026_10_29",
-    "lastMetricoolCheck": "2026-10-30T00:52Z",
+    "lastMetricoolCheck": "2026-10-30T01:45Z",
     "latestSevenDayObservation": {
       "window": "2026-10-23 through 2026-10-29 18:41 America/Guyana",
       "subscribers": 7,
@@ -125,7 +125,7 @@
     "fallback": "GitHub Actions FFmpeg Piper open-TTS",
     "operaStudio": "USER_INPUT_REQUIRED_NONINTERACTIVE",
     "exa": "CREDITS_EXHAUSTED_NO_PURCHASE",
-    "descriptProjectInspection": "2026-10-29T23:46Z",
+    "descriptProjectInspection": "2026-10-30T01:45Z",
     "descriptImportedMedia": {
       "name": "PrismBay Procurement Mobile V2 QA 2026-10-29.mp4",
       "durationSeconds": 51.133333,
@@ -364,13 +364,12 @@
     }
   },
   "lastOperationalCycle": {
-    "at": "2026-10-30T00:58:00Z",
+    "at": "2026-10-30T01:45:47Z",
     "connectedChannelVerified": "UCw2hs85TzIpdKwJtG-BSxzQ",
     "subscribers": 7,
     "scheduledPostsChecked": 0,
     "publicUploadsVerified": 0,
-    "siteCompanionBuild": "PASS",
-    "siteDeploy": "BLOCKED_MISSING_VERCEL_TOKEN",
+    "deliverable": "LONGFORM_3_VARIANT_AB_PACKAGING_READY_FOR_EDITORIAL_REVIEW",
     "productionJobsRunning": 0,
     "paidSpendUSD": 0
   },
@@ -389,5 +388,17 @@
     "paidSpendUSD": 0,
     "publicSourceAvailable": true,
     "channelVideoPublicationStatus": "NONE_NEW"
+  },
+  "longformPackaging": {
+    "experiment": "PB-AI-COST-CTRL-20261028-LF01",
+    "path": "youtube-growth/production/2026-10-29-cost-controls-longform-ab-publishing-package.md",
+    "titleVariants": 3,
+    "existingThumbnailVariants": 3,
+    "nativeABStarted": false,
+    "descriptionAndPinnedCommentPrepared": true,
+    "chapters": "TIMESTAMPS_UNVERIFIED",
+    "editorialApproval": false,
+    "uploadPermitted": false,
+    "commit": "13c74100b2616009022fdc694aaf157e7cbddca6"
   }
 }
