@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Read-only PrismBay AI media release gate. No publishing actions.
 
-Usage: python scripts/youtube_release_gate.py --video FILE.mp4 --srt FILE.srt --manifest FILE.json --report OUT.json
+Usage: python scripts/youtube_release_gate.py --format shorts|longform --video FILE.mp4 --srt FILE.srt --manifest FILE.json --report OUT.json
 Requires only Python 3, ffmpeg and ffprobe. Technical PASS is never editorial approval.
 """
 import argparse
@@ -67,6 +67,8 @@ def sha256(path):
 
 def main():
     ap = argparse.ArgumentParser()
+    ap.add_argument("--format", choices=("shorts", "longform"), default="shorts",
+                    help="Expected YouTube format; default retains the original Shorts gate")
     for arg in ("video", "srt", "manifest", "report"):
         ap.add_argument("--" + arg, required=True)
     a = ap.parse_args()
@@ -83,8 +85,10 @@ def main():
             problems.append(message)
     check(video.get("codec_name") == "h264", "H.264 video required")
     check(audio.get("codec_name") == "aac", "AAC audio required")
-    check((video.get("width"), video.get("height")) == (1080, 1920), "1080x1920 Shorts frame required")
-    check(duration > 10, "Video duration invalid")
+    expected_frame = (1080, 1920) if a.format == "shorts" else (1920, 1080)
+    check((video.get("width"), video.get("height")) == expected_frame,
+          "1080x1920 Shorts frame required" if a.format == "shorts" else "1920x1080 long-form frame required")
+    check(duration > (10 if a.format == "shorts" else 60), "Video duration invalid")
     check(cues[0][0] <= 0.15, "Late first caption")
     check(cues[-1][1] <= duration + 0.12, "Captions exceed video")
     max_wpm = 0
@@ -119,6 +123,7 @@ def main():
     check(not black, "Black video interval detected")
     result = {
         "checkedAtUTC": datetime.now(timezone.utc).isoformat(), "channelId": CHANNEL,
+        "format": a.format,
         "videoSHA256": digest, "durationSeconds": round(duration,3),
         "codec": video.get("codec_name"), "audioCodec": audio.get("codec_name"),
         "resolution": [video.get("width"),video.get("height")],
