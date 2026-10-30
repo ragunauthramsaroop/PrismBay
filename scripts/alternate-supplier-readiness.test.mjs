@@ -6,11 +6,12 @@ import {verifyProviderProducts,apiVerified} from "./alternate-supplier-readiness
 const vendors=JSON.parse(fs.readFileSync(new URL("../config/alternate-supplier-evidence.json",import.meta.url)));
 const shortlist=JSON.parse(fs.readFileSync(new URL("../config/top15-merchandising.json",import.meta.url)));
 const now=Date.parse("2026-10-27T11:00:00.000Z");
+// Synthetic GitHub-run references below test format only, never authenticated supplier connectivity.
 function sample(){
  return {schemaVersion:1,
   providers:{hypersku:{basePlanUsdMonthly:0,apiStatus:"api_active",approvedApiDocumentation:true,authenticatedApiVerified:true,supplierConnected:true,
    apiConnectivityProof:{method:"authenticated_read_only_api_request",result:"success",
-    merchantAccountMatched:true,reviewer:"merchant-auditor",auditRef:"gh-run:40951096657",
+    merchantAccountMatched:true,reviewer:"merchant-auditor",auditRef:"gh-run:999999999999",
     checkedAt:"2026-10-27T10:55:00Z"}}},
   candidates:[{slug:"pethair",provider:"hypersku",supplierProductId:"hyper-1234",supplierVariantId:"hyper-1234-medium",
    supplierTitle:"Genuine Reusable Pet Hair Remover Brush",
@@ -68,7 +69,7 @@ test("repository connection flags without audited authenticated API proof remain
  assert.equal(apiVerified(provider,now),false);
  assert.equal(verifyProviderProducts(data,shortlist,now).approved.length,0);
  provider.apiConnectivityProof={method:"authenticated_read_only_api_request",result:"success",
-  merchantAccountMatched:true,reviewer:"merchant-auditor",auditRef:"gh-run:40951096657",
+  merchantAccountMatched:true,reviewer:"merchant-auditor",auditRef:"gh-run:999999999999",
   checkedAt:"2026-10-25T10:55:00Z"};
  assert.equal(apiVerified(provider,now),false,"Stale API evidence must expire");
  provider.apiConnectivityProof.checkedAt="2026-10-27T10:55:00Z";
@@ -77,7 +78,7 @@ test("repository connection flags without audited authenticated API proof remain
  provider.apiConnectivityProof.merchantAccountMatched=true;
  provider.apiConnectivityProof.auditRef="https://attacker.example/secret?token=abc";
  assert.equal(apiVerified(provider,now),false,"No arbitrary URL or secret-bearing audit ref");
- provider.apiConnectivityProof.auditRef="gh-run:40951096657";
+ provider.apiConnectivityProof.auditRef="gh-run:999999999999";
  provider.apiConnectivityProof.method="configured_key_only";
  assert.equal(apiVerified(provider,now),false,"Configured credentials are not authenticated requests");
  provider.apiConnectivityProof.method="authenticated_read_only_api_request";
