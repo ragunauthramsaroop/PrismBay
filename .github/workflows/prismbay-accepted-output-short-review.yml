@@ -1,0 +1,53 @@
+name: PrismBay accepted-output Short review only
+on:
+  push:
+    paths:
+      - youtube-growth/production/render_accepted_output_short.py
+      - .github/workflows/prismbay-accepted-output-short-review.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  short-render:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install free local production dependencies
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y ffmpeg
+          python -m pip install --disable-pip-version-check pillow piper-tts
+      - name: Render original voiceover and 1080x1920 video
+        run: |
+          python youtube-growth/production/render_accepted_output_short.py --voice piper --output-dir out/youtube/accepted-output-short
+      - name: Verify channel, claims, media and unpublished state
+        run: |
+          python - <<'PY'
+          import json, pathlib, subprocess
+          p=pathlib.Path('out/youtube/accepted-output-short')
+          m=json.loads((p/'manifest.json').read_text())
+          assert m['channelId']=='UCw2hs85TzIpdKwJtG-BSxzQ'
+          assert m['brandId']=='6945443'
+          assert m['publicationApproved'] is False and m['uploadPermitted'] is False
+          assert m['paidSpendUSD']==0 and m['fictionalExample'] is True
+          assert m['narrationSegments']==12 and m['sceneCount']==6
+          assert 25<m['durationSeconds']<100
+          s=(p/'captions-phrase-synchronous.srt').read_text()
+          assert s.count(' --> ')==12
+          v=p/'prismbay-ai-accepted-output-cost-short-review.mp4'
+          subprocess.run(['ffmpeg','-hide_banner','-loglevel','error','-xerror','-i',str(v),'-f','null','-'],check=True)
+          print('Short draft media and guardrails verified. No publication.')
+          PY
+      - name: Store unpublished review artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: prismbay-accepted-output-short-unpublished
+          path: |
+            out/youtube/accepted-output-short/prismbay-ai-accepted-output-cost-short-review.mp4
+            out/youtube/accepted-output-short/captions-phrase-synchronous.srt
+            out/youtube/accepted-output-short/manifest.json
+          retention-days: 7
