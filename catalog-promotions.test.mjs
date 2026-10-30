@@ -66,6 +66,7 @@ test('legacy physical product listing is withdrawn without checkout or unlicense
  assert.doesNotMatch(home, /ZIP shipping inquiry|Enter your ZIP|Home-product shipping inquiries remain available|Explore real supplier-matched products/i);
  assert.doesNotMatch(sitemap, /<loc>https:\/\/clean\.prismbayai\.com\/garment-steamer\/<\/loc>/);
  assert.match(sitemap, /<loc>https:\/\/clean\.prismbayai\.com\/digital\/ai-cost-per-accepted-result\.html<\/loc>/, 'Preserve live digital calculator sitemap entry');
+ assert.match(sitemap, /<loc>https:\/\/clean\.prismbayai\.com\/digital\/ai-agent-permission-audit\.html<\/loc>/, 'Preserve live agent permission audit sitemap entry');
 });
 
 // Keep educational pages without an unverified physical offer or misleading ZIP preflight.
