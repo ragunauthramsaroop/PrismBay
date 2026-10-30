@@ -112,6 +112,11 @@
     "fullListeningVerified": false,
     "editorialApproved": false,
     "technicalReport": "youtube-growth/analytics/2026-10-30-1145-S05-retention-motion-private-review.md",
-    "localReviewZipSha256": "617849c233d00934541a6c1aceb07ef1c93b8c0f12d6ba1355ce4a78d4697fc7"
+    "localReviewZipSha256": "617849c233d00934541a6c1aceb07ef1c93b8c0f12d6ba1355ce4a78d4697fc7",
+    "githubActionsRunId": 41084800908,
+    "githubActionsConclusion": "success",
+    "githubActionsArtifactId": 12990434667,
+    "githubActionsArtifactExpiresAt": "2026-11-06T15:54:30Z",
+    "githubActionsArtifactSha256": "NOT_INDEPENDENTLY_DOWNLOADED"
   }
 }
