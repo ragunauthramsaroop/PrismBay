@@ -33,8 +33,8 @@ test("real production registry is empty rather than invented",()=>{
  assert.equal(vendors.providers.hypersku.manualCsvRouteIndependentlyConfirmed,false);
  assert.equal(verifyProviderProducts(vendors,shortlist,now).approved.length,0);
 });
-test("strict complete provider evidence allows a real product source, but not checkout",()=>{
- const out=verifyProviderProducts(sample(),shortlist,now);
+test("synthetic complete API fixture needs trusted runtime attestation and still forbids checkout",()=>{
+ const out=verifyProviderProducts(sample(),shortlist,now,new Set(["hypersku:api"]));
  assert.equal(out.approved.length,1);
  assert.equal(out.rejected.length,0);
  assert.equal(out.approved[0].physicalCheckoutAuthorized,false);
@@ -56,8 +56,10 @@ test("declared API status without authenticated connection never approves source
  assert.equal(apiVerified(provider,now),false);
  assert.equal(verifyProviderProducts(data,shortlist,now).approved.length,0);
  provider.approvedApiDocumentation=true;
- assert.equal(apiVerified(provider,now),true);
- assert.equal(verifyProviderProducts(data,shortlist,now).approved.length,1);
+ assert.equal(apiVerified(provider,now),false,"A self-declared audit pointer is insufficient");
+ assert.equal(apiVerified(provider,now,true),true);
+ assert.equal(verifyProviderProducts(data,shortlist,now).approved.length,0);
+ assert.equal(verifyProviderProducts(data,shortlist,now,new Set(["hypersku:api"])).approved.length,1);
 });
 
 test("repository connection flags without audited authenticated API proof remain blocked",()=>{
@@ -79,14 +81,24 @@ test("repository connection flags without audited authenticated API proof remain
  provider.apiConnectivityProof.method="configured_key_only";
  assert.equal(apiVerified(provider,now),false,"Configured credentials are not authenticated requests");
  provider.apiConnectivityProof.method="authenticated_read_only_api_request";
- assert.equal(apiVerified(provider,now),true);
- assert.equal(verifyProviderProducts(data,shortlist,now).approved.length,1);
+ assert.equal(apiVerified(provider,now),false,"Even a well-formed GitHub run ID does not authenticate a supplier");
+ assert.equal(verifyProviderProducts(data,shortlist,now).approved.length,0);
+ assert.equal(apiVerified(provider,now,true),true);
+ assert.equal(verifyProviderProducts(data,shortlist,now,new Set(["hypersku:api"])).approved.length,1);
 });
 
 test("provider status, documents and a secret without authenticated API proof are insufficient",()=>{
  assert.equal(apiVerified({apiStatus:"api_active",approvedApiDocumentation:true,apiKeyConfigured:true}),false);
  assert.equal(apiVerified({apiStatus:"api_active",approvedApiDocumentation:true,authenticatedApiVerified:true}),false);
  assert.equal(apiVerified({apiStatus:"api_active",approvedApiDocumentation:true,supplierConnected:true}),false);
+});
+
+test("self-declared supplier evidence never qualifies without an independent runtime attestation",()=>{
+ const data=sample();
+ assert.equal(apiVerified(data.providers.hypersku,now),false);
+ assert.equal(verifyProviderProducts(data,shortlist,now).approved.length,0);
+ assert.ok(verifyProviderProducts(data,shortlist,now).rejected[0].reasons.includes("provider_api_not_active"));
+ assert.equal(verifyProviderProducts(data,shortlist,now,new Set(["eprolo:api"])).approved.length,0);
 });
 
 test("provisional provider credentials never authorize source evidence",()=>{
@@ -144,7 +156,7 @@ test("commercial media URL rejects private networks and internal hosts",()=>{
   assert.equal(out.approved.length,0,url);
   assert.ok(out.rejected[0].reasons.includes("commercial_image_rights_not_proven"),url);
  }
- const valid=verifyProviderProducts(sample(),shortlist,now);
+ const valid=verifyProviderProducts(sample(),shortlist,now,new Set(["hypersku:api"]));
  assert.equal(valid.approved.length,1,"Public HTTPS CDN fixture must remain eligible");
 });
 
@@ -158,7 +170,8 @@ test("verified manual HyperSKU sourcing can qualify for a quote-only product wit
  };
  data.candidates[0].fulfillment.mode="manual";
  data.candidates[0].manualSourcingQuoteFromAuthenticatedDashboard=true;
- const out=verifyProviderProducts(data,shortlist,now);
+ assert.equal(verifyProviderProducts(data,shortlist,now).approved.length,0,"Manual dashboard flags alone are not proof");
+ const out=verifyProviderProducts(data,shortlist,now,new Set(["hypersku:manual"]));
  assert.equal(out.approved.length,1);
  assert.equal(out.approved[0].sourcingRoute,"merchant_verified_manual");
  assert.equal(out.approved[0].physicalCheckoutAuthorized,false);
