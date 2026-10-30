@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-30T08:54:48.238Z",
+  "updatedAt": "2026-10-30T09:47:42Z",
   "channel": {
     "id": "UCw2hs85TzIpdKwJtG-BSxzQ",
     "handle": "@PrismBayAI",
@@ -69,7 +69,7 @@
     "trafficSources": "NO_ROWS_2026_10_01_TO_2026_10_29",
     "scheduledMetricoolPosts": {
       "from": "2026-10-30",
-      "to": "2026-11-13",
+      "to": "2026-11-14",
       "count": 0,
       "scope": "Metricool only; native Studio schedule unverified"
     },
@@ -79,7 +79,7 @@
     "observedViewDatesArePartial": true,
     "allVideosConnector": "NO_ROWS_2026_09_19_TO_2026_10_29",
     "publishedInRangeConnector": "NO_ROWS_2026_10_01_TO_2026_10_29",
-    "lastMetricoolCheck": "2026-10-30T08:54:48.238Z",
+    "lastMetricoolCheck": "2026-10-30T09:47:42Z",
     "latestSevenDayObservation": {
       "window": "2026-10-23 to 2026-10-30 04:45 America/Guyana",
       "subscribers": 7,
@@ -236,7 +236,7 @@
       "publicationApproved": false,
       "uploadPermitted": false,
       "publicYouTubeUrl": null,
-      "nextAction": "Verify GitHub retention-review workflow artifact and full audio preservation, listen to complete revised narration, align corrected 134-cue SRT with speech, inspect mobile playback and remaining rights before release. Do not upload.",
+      "nextAction": "Review complete 559.5s retention revision from artifact 12964703964 before expiry, listen to all narration, verify 16 estimated caption timing exceptions against speech, inspect continuous mobile playback, complete media and voice rights review. Do not upload.",
       "sourceEvidence": "youtube-growth/analytics/2026-10-29-cost-controls-72-percent-primary-source-verification.md",
       "independentArtifactGate": {
         "checkedAt": "2026-10-30T04:50:05.733Z",
@@ -350,12 +350,20 @@
           414
         ],
         "localFirst151SecondsPreview": "PASS_FRAME_141_2026_10_30",
-        "fullRevisionCI": "UNVERIFIED",
+        "fullRevisionCI": "PASS_RUN_41029444992_2026_10_30",
         "fullRevisionArtifact": "UNVERIFIED",
-        "originalAudioPreservation": "PENDING_FULL_ARTIFACT_CI",
-        "captionCandidate": "134_CUES_MAX_160_WPM_REVIEW_ONLY",
+        "originalAudioPreservation": "PASS_EXTRACTED_AAC_BITSTREAM_CMP_CI",
+        "captionCandidate": "134_CUES_TECHNICAL_PASS_SPOKEN_SYNC_PENDING",
         "publicationApproved": false,
-        "uploadPermitted": false
+        "uploadPermitted": false,
+        "fullRevisionWorkflowRunId": 41029444992,
+        "fullRevisionWorkflowUrl": "https://github.com/ragunauthramsaroop/PrismBay/actions/runs/41029444992",
+        "fullRevisionArtifactId": 12964703964,
+        "fullRevisionArtifactName": "prismbay-cost-controls-retention-review-unpublished",
+        "fullRevisionArtifactExpiresAt": "2026-11-06T08:54:27Z",
+        "fullRevisionSha256": "a58927dcc5cfe89dbda52b667cfd1b04e13daad05e79b8858aea188f0a8a8117",
+        "fullRevisionDurationSeconds": 559.5,
+        "auditReport": "youtube-growth/analytics/2026-10-30-0547-cost-controls-retention-full-ci-verification.md"
       }
     }
   ],
