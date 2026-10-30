@@ -39,10 +39,18 @@ function httpsUrl(url){
 function nonEmptyId(v){return typeof v==="string"&&/^[A-Za-z0-9][A-Za-z0-9._:-]{3,100}$/.test(v);}
 function num(v){return typeof v==="number"&&Number.isFinite(v)&&v>0;}
 
-// Declared API status or configured credentials alone never establish a live supplier.
-export function apiVerified(provider){
+// Repository flags alone do not establish supplier connectivity. Require a recent,
+// non-secret audit pointer to a merchant-authorized, authenticated read-only API
+// request. The referenced run must still be independently reviewed before release.
+export function apiVerified(provider,now=Date.now()){
+ const proof=provider?.apiConnectivityProof;
  return provider?.apiStatus==="api_active"&&provider?.approvedApiDocumentation===true&&
-  provider?.authenticatedApiVerified===true&&provider?.supplierConnected===true;
+  provider?.authenticatedApiVerified===true&&provider?.supplierConnected===true&&
+  proof?.method==="authenticated_read_only_api_request"&&proof?.result==="success"&&
+  proof?.merchantAccountMatched===true&&
+  typeof proof?.reviewer==="string"&&/^[A-Za-z0-9_.-]{3,80}$/.test(proof.reviewer)&&
+  typeof proof?.auditRef==="string"&&/^gh-run:[1-9][0-9]{5,19}$/.test(proof.auditRef)&&
+  fresh(proof?.checkedAt,now,24*3600000);
 }
 
 export function verifyProviderProducts(data,catalog,now=Date.now()){
@@ -55,7 +63,7 @@ export function verifyProviderProducts(data,catalog,now=Date.now()){
   const code=String(row?.slug||"");
   const original=allowed.get(code);
   const provider=data?.providers?.[origin];
-  const apiSource=apiVerified(provider)&&row?.fulfillment?.mode==="api";
+  const apiSource=apiVerified(provider,now)&&row?.fulfillment?.mode==="api";
   // HyperSKU's low-volume path is manual: confirmed merchant dashboard source
   // records may qualify for quote-only listings, never automated ordering.
   const manualSource=origin==="hypersku"&&
@@ -128,7 +136,7 @@ export async function writeReport(
   verifiedSourceProducts:approved,blockedCandidateReasons:rejected,
   publicAlternateSourceCount:approved.length,customerCheckoutEnabled:false,
   automaticOrdersEnabled:false,monthlySubscriptionCommitmentUsd:0,
-  note:"API status requires approved documentation and independently recorded authenticated connectivity. This report does not perform a live supplier API call. Supplier-linked public media appears only with explicit reuse rights; checkout also requires buyer-specific final delivery, refundable order-routing terms, and separately authorized funding."};
+  note:"API status requires approved documentation and a recent non-secret authenticated API request audit reference. Repository declarations and CI fixtures alone are not proof of supplier connectivity. This report does not perform a live supplier API call. Supplier-linked public media appears only with explicit reuse rights; checkout also requires buyer-specific final delivery, refundable order-routing terms, and separately authorized funding."};
  await fs.mkdir("growth-reports",{recursive:true});
  await fs.writeFile(destination,JSON.stringify(output,null,2)+"\n");
  console.log(JSON.stringify({liveAPIs:output.liveSupplierAPIs,sourceApproved:approved.length,rejected:rejected.length,checkoutEnabled:false}));
