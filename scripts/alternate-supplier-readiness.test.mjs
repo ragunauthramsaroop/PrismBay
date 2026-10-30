@@ -196,3 +196,60 @@ test("supplier email claims alone never enable manual sourcing publication",()=>
  data.candidates[0].manualSourcingQuoteFromAuthenticatedDashboard=false;
  assert.equal(verifyProviderProducts(data,shortlist,now).approved.length,0);
 });
+
+
+test("malformed supplier timestamps and audit proof fail closed without throwing",()=>{
+ const hostile={toString:null,valueOf:null};
+ const data=sample();
+ data.providers.hypersku.apiConnectivityProof.checkedAt=hostile;
+ assert.equal(apiVerified(data.providers.hypersku,now,true),false);
+ assert.equal(verifyProviderProducts(data,shortlist,now,new Set(["hypersku:api"])).approved.length,0);
+ data.providers.hypersku.apiConnectivityProof.checkedAt="2026-10-27T10:55:00Z";
+ data.candidates[0].stock.checkedAt=hostile;
+ const stock=verifyProviderProducts(data,shortlist,now,new Set(["hypersku:api"]));
+ assert.equal(stock.approved.length,0);
+ assert.ok(stock.rejected[0].reasons.includes("current_physical_stock_unverified"));
+ data.candidates[0].stock.checkedAt="2026-10-27T10:55:00Z";
+ data.candidates[0].usFreight.checkedAt=hostile;
+ const freight=verifyProviderProducts(data,shortlist,now,new Set(["hypersku:api"]));
+ assert.equal(freight.approved.length,0);
+ assert.ok(freight.rejected[0].reasons.includes("us_shipping_quote_missing_or_stale"));
+ data.candidates[0].usFreight.checkedAt="2026-10-27T10:55:00Z";
+ data.candidates[0].approvedAt=hostile;
+ assert.equal(verifyProviderProducts(data,shortlist,now,new Set(["hypersku:api"])).approved.length,0);
+});
+
+test("malformed candidate and shortlist records never approve supplier products",()=>{
+ const hostile={toString:null,valueOf:null};
+ for(const bad of [null,hostile,{slug:hostile,provider:"hypersku"},{slug:"pethair",provider:hostile}]){
+  const data=sample();
+  data.candidates=[bad];
+  const out=verifyProviderProducts(data,shortlist,now,new Set(["hypersku:api"]));
+  assert.equal(out.approved.length,0);
+ }
+ for(const bad of [null,hostile,{slug:hostile},{slug:""}]){
+  const data=sample();
+  const out=verifyProviderProducts(data,{candidates:[bad]},now,new Set(["hypersku:api"]));
+  assert.equal(out.approved.length,0);
+  assert.deepEqual(out.rejected,[{reason:"invalid_registry"}]);
+ }
+});
+
+test("ZIP evidence requires a literal five-digit string and canonical UTC dates",()=>{
+ const hostile={toString:null,valueOf:null};
+ for(const bad of [hostile,10001,"1000","100001"]){
+  const data=sample();
+  data.candidates[0].usFreight.exampleZip=bad;
+  const out=verifyProviderProducts(data,shortlist,now,new Set(["hypersku:api"]));
+  assert.equal(out.approved.length,0);
+  assert.ok(out.rejected[0].reasons.includes("us_shipping_quote_missing_or_stale"));
+ }
+ for(const bad of ["2026-02-30T10:55:00Z","2026-10-27T10:55:00+00:00",
+                   "2026-10-27T10:55:00","2026-10-27T10:55:00.1Z"]){
+  const data=sample();
+  data.candidates[0].stock.checkedAt=bad;
+  const out=verifyProviderProducts(data,shortlist,now,new Set(["hypersku:api"]));
+  assert.equal(out.approved.length,0,bad);
+  assert.ok(out.rejected[0].reasons.includes("current_physical_stock_unverified"),bad);
+ }
+});
