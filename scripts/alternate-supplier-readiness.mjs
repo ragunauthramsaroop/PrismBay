@@ -42,9 +42,11 @@ function num(v){return typeof v==="number"&&Number.isFinite(v)&&v>0;}
 // Repository flags alone do not establish supplier connectivity. Require a recent,
 // non-secret audit pointer to a merchant-authorized, authenticated read-only API
 // request. The referenced run must still be independently reviewed before release.
-export function apiVerified(provider,now=Date.now()){
+export function apiVerified(provider,now=Date.now(),independentRuntimeAttestation=false){
  const proof=provider?.apiConnectivityProof;
- return provider?.apiStatus==="api_active"&&provider?.approvedApiDocumentation===true&&
+ // A repository-declared audit pointer is not independent supplier authentication.
+ // Only a separately verified runtime caller supplies the attestation.
+ return independentRuntimeAttestation===true&&provider?.apiStatus==="api_active"&&provider?.approvedApiDocumentation===true&&
   provider?.authenticatedApiVerified===true&&provider?.supplierConnected===true&&
   proof?.method==="authenticated_read_only_api_request"&&proof?.result==="success"&&
   proof?.merchantAccountMatched===true&&
@@ -53,7 +55,7 @@ export function apiVerified(provider,now=Date.now()){
   fresh(proof?.checkedAt,now,24*3600000);
 }
 
-export function verifyProviderProducts(data,catalog,now=Date.now()){
+export function verifyProviderProducts(data,catalog,now=Date.now(),independentlyAttestedRoutes=new Set()){
  if(data?.schemaVersion!==1||!Array.isArray(data.candidates)||!catalog?.candidates)return {approved:[],rejected:[{reason:"invalid_registry"}]};
  const allowed=new Map(catalog.candidates.map(p=>[p.slug,p]));
  const approved=[],rejected=[],seen=new Set();
@@ -63,10 +65,11 @@ export function verifyProviderProducts(data,catalog,now=Date.now()){
   const code=String(row?.slug||"");
   const original=allowed.get(code);
   const provider=data?.providers?.[origin];
-  const apiSource=apiVerified(provider,now)&&row?.fulfillment?.mode==="api";
+  const apiSource=apiVerified(provider,now,independentlyAttestedRoutes instanceof Set&&independentlyAttestedRoutes.has(origin+":api"))&&row?.fulfillment?.mode==="api";
   // HyperSKU's low-volume path is manual: confirmed merchant dashboard source
   // records may qualify for quote-only listings, never automated ordering.
-  const manualSource=origin==="hypersku"&&
+  const manualSource=independentlyAttestedRoutes instanceof Set&&
+    independentlyAttestedRoutes.has(origin+":manual")&&origin==="hypersku"&&
     provider?.apiStatus==="open_api_not_available_low_volume"&&
     provider?.customStoreRoute==="manual_csv_batch_upload_only"&&
     provider?.manualCsvRouteIndependentlyConfirmed===true&&
@@ -136,7 +139,7 @@ export async function writeReport(
   verifiedSourceProducts:approved,blockedCandidateReasons:rejected,
   publicAlternateSourceCount:approved.length,customerCheckoutEnabled:false,
   automaticOrdersEnabled:false,monthlySubscriptionCommitmentUsd:0,
-  note:"API status requires approved documentation and a recent non-secret authenticated API request audit reference. Repository declarations and CI fixtures alone are not proof of supplier connectivity. This report does not perform a live supplier API call. Supplier-linked public media appears only with explicit reuse rights; checkout also requires buyer-specific final delivery, refundable order-routing terms, and separately authorized funding."};
+  note:"This report has no independently attested supplier API or manual-dashboard session. Repository flags, audit pointers, and CI fixtures cannot approve source products or liveSupplierAPIs. An authenticated, merchant-matched, independently reviewed runtime adapter is required before supplier approval. No live supplier API call occurs here. Media reuse, buyer-specific freight, returns, margin and authorized funding remain separate gates."};
  await fs.mkdir("growth-reports",{recursive:true});
  await fs.writeFile(destination,JSON.stringify(output,null,2)+"\n");
  console.log(JSON.stringify({liveAPIs:output.liveSupplierAPIs,sourceApproved:approved.length,rejected:rejected.length,checkoutEnabled:false}));
