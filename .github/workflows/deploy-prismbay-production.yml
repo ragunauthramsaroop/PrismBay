@@ -7,6 +7,9 @@ on:
     paths:
       - 'src/routes/clean.tsx'
       - 'src/routes/contact.tsx'
+      - 'src/routes/watch.tsx'
+      - 'src/data/articles.ts'
+      - 'src/data/articles/**'
       - 'src/routes/api/clean-quote.ts'
       - 'config/clean-live-quote.json'
       - 'services/physical-orders/shipping-quote.mjs'
