@@ -1,0 +1,76 @@
+name: PrismBay S05 animated retention review only
+on:
+  push:
+    paths:
+      - youtube-growth/production/animate_accepted_output_short.py
+      - .github/workflows/prismbay-accepted-output-retention-review.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: prismbay-s05-retention-review
+  cancel-in-progress: true
+jobs:
+  private-review:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install free video tools
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y ffmpeg
+          python -m pip install --disable-pip-version-check pillow
+      - name: Download existing private source artifact
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          mkdir -p out/source
+          gh run download 41076235401 --repo "${{ github.repository }}" --name prismbay-accepted-output-short-unpublished --dir out/source
+          find out/source -type f -maxdepth 3 -print
+          SRC="$(find out/source -name 'prismbay-ai-accepted-output-cost-short-review.mp4' -print -quit)"
+          SRT="$(find out/source -name 'captions-phrase-synchronous.srt' -print -quit)"
+          test -n "$SRC" && test -n "$SRT"
+          echo "SOURCE_VIDEO=$SRC" >> "$GITHUB_ENV"
+          echo "SOURCE_SRT=$SRT" >> "$GITHUB_ENV"
+      - name: Verify source SHA256 and release hold
+        run: |
+          echo "4e1d83146ab1e454a0f3a7080e5c709fa74ad1e54abc98aa48b336961ecb9295  $SOURCE_VIDEO" | sha256sum --check
+      - name: Render cue-synchronous motion without changing audio
+        run: |
+          python youtube-growth/production/animate_accepted_output_short.py --input "$SOURCE_VIDEO" --srt "$SOURCE_SRT" --out out/review/prismbay-s05-animated-private-review.mp4
+      - name: Independent media, caption and audio verification
+        run: |
+          python - <<'PY'
+          import hashlib, json, pathlib, subprocess
+          src=pathlib.Path('out/source/prismbay-ai-accepted-output-cost-short-review.mp4')
+          out=pathlib.Path('out/review/prismbay-s05-animated-private-review.mp4')
+          manifest=json.loads(out.with_suffix('.json').read_text())
+          assert manifest['channelId']=='UCw2hs85TzIpdKwJtG-BSxzQ'
+          assert manifest['metricoolBrandId']==6945443
+          assert manifest['publicationApproved'] is False
+          assert manifest['uploadPermitted'] is False
+          assert manifest['paidSpendUSD']==0
+          assert manifest['sourceCaptionCues']==12 and manifest['animatedCueCount']==12
+          assert manifest['sourceVideoSha256']=='4e1d83146ab1e454a0f3a7080e5c709fa74ad1e54abc98aa48b336961ecb9295'
+          subprocess.run(['ffmpeg','-hide_banner','-loglevel','error','-xerror','-i',str(out),'-f','null','-'],check=True)
+          def audio_bytes(path):
+              return subprocess.check_output(['ffmpeg','-v','error','-i',str(path),'-map','0:a:0','-c','copy','-f','adts','-'])
+          assert hashlib.sha256(audio_bytes(src)).digest()==hashlib.sha256(audio_bytes(out)).digest()
+          srt=pathlib.Path('out/source/captions-phrase-synchronous.srt')
+          assert srt.read_text().count(' --> ')==12
+          print('PRIVATE S05 RETENTION REVIEW: full decode, original audio and release hold PASS')
+          PY
+      - name: Store private review candidate, not a public upload
+        uses: actions/upload-artifact@v4
+        with:
+          name: prismbay-s05-animated-retention-review-unpublished
+          path: |
+            out/review/prismbay-s05-animated-private-review.mp4
+            out/review/prismbay-s05-animated-private-review.json
+            out/source/captions-phrase-synchronous.srt
+          retention-days: 7
