@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-30T10:55:00Z",
+  "updatedAt": "2026-10-30T11:50:27.992Z",
   "channel": {
     "id": "UCw2hs85TzIpdKwJtG-BSxzQ",
     "handle": "@PrismBayAI",
@@ -238,7 +238,7 @@
       "publicationApproved": false,
       "uploadPermitted": false,
       "publicYouTubeUrl": null,
-      "nextAction": "Review the independent base.en and small.en speech report. Listen to the 72% survey sentence and vendor-sponsored qualifier near 02:18, verify 26 ASR-proxy flagged cues without treating them as confirmed errors, then complete full narration, mobile playback and media rights review. Publication remains blocked.",
+      "nextAction": "Review the 11 local review clips covering 26 base.en flagged cues plus critical cues 19, 33, 34, especially the vendor-sponsored survey qualifier at 02:18; then complete uninterrupted narration listening, full mobile playback, and voice/dependency rights approval. Independent full video decode and 134-cue SRT pacing passed, but spoken sync remains unapproved.",
       "sourceEvidence": "youtube-growth/analytics/2026-10-29-cost-controls-72-percent-primary-source-verification.md",
       "independentArtifactGate": {
         "checkedAt": "2026-10-30T04:50:05.733Z",
@@ -353,7 +353,7 @@
         ],
         "localFirst151SecondsPreview": "PASS_FRAME_141_2026_10_30",
         "fullRevisionCI": "PASS_RUN_41029444992_2026_10_30",
-        "fullRevisionArtifact": "UNVERIFIED",
+        "fullRevisionArtifact": "INDEPENDENTLY_DOWNLOADED_HASH_VERIFIED_FULL_DECODE_PASS_2026_10_30",
         "originalAudioPreservation": "PASS_EXTRACTED_AAC_BITSTREAM_CMP_CI",
         "captionCandidate": "134_CUES_TECHNICAL_PASS_SPOKEN_SYNC_PENDING",
         "publicationApproved": false,
@@ -365,7 +365,37 @@
         "fullRevisionArtifactExpiresAt": "2026-11-06T08:54:27Z",
         "fullRevisionSha256": "a58927dcc5cfe89dbda52b667cfd1b04e13daad05e79b8858aea188f0a8a8117",
         "fullRevisionDurationSeconds": 559.5,
-        "auditReport": "youtube-growth/analytics/2026-10-30-0547-cost-controls-retention-full-ci-verification.md"
+        "auditReport": "youtube-growth/analytics/2026-10-30-0547-cost-controls-retention-full-ci-verification.md",
+        "independentArtifactAudit": {
+          "date": "2026-10-30",
+          "report": "youtube-growth/analytics/2026-10-30-independent-retention-26-cue-review-audit.md",
+          "artifactId": 12964703964,
+          "sha256": "a58927dcc5cfe89dbda52b667cfd1b04e13daad05e79b8858aea188f0a8a8117",
+          "framesDecoded": 13428,
+          "totalFrames": 13428,
+          "frameDecode": "PASS",
+          "sampledVisualFrames": 35,
+          "blackIntervalsAtLeast0p5s": 0,
+          "silenceIntervalsAtLeast1s": 0,
+          "integratedLoudnessLUFS": -21.5,
+          "truePeakDBFS": -2.7,
+          "srtCueCount": 134,
+          "maxSrtWPM": 160,
+          "srtOverlapCount": 0,
+          "secondAsrFlaggedCues": 26,
+          "additionalCriticalCues": [
+            19,
+            33,
+            34
+          ],
+          "reviewClipCount": 11,
+          "spokenSync": "PENDING",
+          "fullNarrationListening": "PENDING",
+          "continuousMobilePlayback": "PENDING",
+          "rightsReview": "PENDING",
+          "publicationApproved": false,
+          "uploadPermitted": false
+        }
       },
       "secondAsrReview": {
         "report": "youtube-growth/analytics/cost-controls-second-asr/dual-asr-review.md",
