@@ -65,6 +65,7 @@ test('legacy physical product listing is withdrawn without checkout or unlicense
  assert.match(home, /No physical purchases or shipping inquiries are accepted/);
  assert.doesNotMatch(home, /ZIP shipping inquiry|Enter your ZIP|Home-product shipping inquiries remain available|Explore real supplier-matched products/i);
  assert.doesNotMatch(sitemap, /<loc>https:\/\/clean\.prismbayai\.com\/garment-steamer\/<\/loc>/);
+ assert.match(sitemap, /<loc>https:\/\/clean\.prismbayai\.com\/digital\/ai-cost-per-accepted-result\.html<\/loc>/, 'Preserve live digital calculator sitemap entry');
 });
 
 // Keep educational pages without an unverified physical offer or misleading ZIP preflight.
