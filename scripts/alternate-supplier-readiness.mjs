@@ -8,8 +8,14 @@ const baseDomains={hypersku:["hypersku.com","www.hypersku.com","support.hypersku
 const thresholdMs=36*60*60*1000;
 
 function fresh(date,now,limit=thresholdMs){
- const epoch=Date.parse(String(date||""));
- return Number.isFinite(epoch)&&epoch<=now+120000&&now-epoch<=limit;
+ // Supplier timestamps must be valid, unambiguous UTC strings. Malformed JSON
+ // objects and calendar rollover dates must never crash or qualify evidence.
+ if(typeof date!=="string"||!/^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(?:\.[0-9]{3})?Z$/.test(date))return false;
+ const epoch=Date.parse(date);
+ if(!Number.isFinite(epoch))return false;
+ const canonical=new Date(epoch).toISOString();
+ if(canonical!==(date.includes(".")?date:date.replace("Z",".000Z")))return false;
+ return epoch<=now+120000&&now-epoch<=limit;
 }
 function officialEvidence(url,provider){
  if(typeof url!=="string")return false;
@@ -56,13 +62,16 @@ export function apiVerified(provider,now=Date.now(),independentRuntimeAttestatio
 }
 
 export function verifyProviderProducts(data,catalog,now=Date.now(),independentlyAttestedRoutes=new Set()){
- if(data?.schemaVersion!==1||!Array.isArray(data.candidates)||!catalog?.candidates)return {approved:[],rejected:[{reason:"invalid_registry"}]};
+ if(data?.schemaVersion!==1||!Array.isArray(data.candidates)||!Array.isArray(catalog?.candidates)||
+   catalog.candidates.some(x=>!x||typeof x!=="object"||Array.isArray(x)||
+     typeof x.slug!=="string"||!x.slug.trim()))
+  return {approved:[],rejected:[{reason:"invalid_registry"}]};
  const allowed=new Map(catalog.candidates.map(p=>[p.slug,p]));
  const approved=[],rejected=[],seen=new Set();
  for(const row of data.candidates){
   const reasons=[];
-  const origin=String(row?.provider||"");
-  const code=String(row?.slug||"");
+  const origin=typeof row?.provider==="string"?row.provider:"";
+  const code=typeof row?.slug==="string"?row.slug:"";
   const original=allowed.get(code);
   const provider=data?.providers?.[origin];
   const apiSource=apiVerified(provider,now,independentlyAttestedRoutes instanceof Set&&independentlyAttestedRoutes.has(origin+":api"))&&row?.fulfillment?.mode==="api";
@@ -90,7 +99,7 @@ export function verifyProviderProducts(data,catalog,now=Date.now(),independently
     !fresh(row.stock.checkedAt,now)||!row.stock.warehouseCountry)
     reasons.push("current_physical_stock_unverified");
   if(!row?.usFreight||!num(row.usFreight.costUsd)||row.usFreight.destinationCountry!=="US"||
-    !/^\d{5}$/.test(String(row.usFreight.exampleZip||""))||row.usFreight.tracked!==true||
+    (typeof row.usFreight.exampleZip!=="string"||!/^\d{5}$/.test(row.usFreight.exampleZip))||row.usFreight.tracked!==true||
     !fresh(row.usFreight.checkedAt,now,24*3600000))
     reasons.push("us_shipping_quote_missing_or_stale");
   if(!num(row?.unitCostUsd)||!num(row?.targetRetailUsd))reasons.push("no_verified_unit_or_retail_price");
