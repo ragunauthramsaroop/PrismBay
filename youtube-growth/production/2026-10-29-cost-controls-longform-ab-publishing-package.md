@@ -38,7 +38,7 @@ PrismBay AI helps founders, operators and executives implement practical AI busi
 - Category: Education or Science & Technology, choose based on the channel's existing taxonomy. No misleading category.
 - Audience: Not made for kids, if confirmed appropriate to actual content.
 - Synthetic disclosure: review current YouTube altered/synthetic content policy against the final video. Do not imply real footage, people or transactions when graphics and narration are synthetic.
-- Source citation: add only independently verified links used in the final narration; do not repeat the unverified 72% survey figure in the description.
+- Source citation: Cognizant's October 22, 2026 primary release reports 72% of organizations in a survey of 250 senior FinOps leaders exceeded AI budgets in the preceding 12 months. Sample: US 150, UK 50, India 50; firms with annual revenue of at least US$500 million; fielded Aug 27–Sep 5, 2026; reported margin of error ±6.2 percentage points. Cite https://news.cognizant.com/2026-10-22-Introducing-Cognizant-AI-Nexus-helping-enterprises-govern-the-cost%2C-quality-and-results-of-AI and qualify the statistic as vendor-sponsored survey evidence, not a global prevalence rate. Check the full spoken cue 33 and on-screen context before publishing. Evidence review: `youtube-growth/analytics/2026-10-29-cost-controls-72-percent-primary-source-verification.md`.
 - Chapters: eight chapters exist in the render manifest, but their exact boundaries are not verified in this package. Do not invent chapter timestamps. Extract from final manifest and inspect against video before adding.
 - Pinned comment: “Which control is missing from your AI workflow: a spending cap, a retry limit, or proof of accepted results? Share the specific bottleneck. We use those questions to choose the next practical teardown.”
 - Subscriber CTA: use the channel promise only after the worked example, not in the first seconds.
@@ -52,7 +52,7 @@ After publication only: capture verified YouTube URL and video ID; inspect 6h, 2
 1. Listen to the entire final narration and verify all numerical claims and qualifiers.
 2. Review the 16 caption-boundary exceptions in `youtube-growth/analytics/2026-10-29-cost-controls-16-caption-exceptions-review.md` and correct seven cues measured above 160 WPM.
 3. Inspect continuous 9:19 playback on a mobile-sized screen and shorten static holds where needed.
-4. Verify all voice/model, media and dependency rights, source claims and synthetic disclosure.
+4. Verify all voice/model, media and dependency rights, other source claims and synthetic disclosure. The 72% survey figure has a primary source, but its sample qualifier and spoken context still require final-render inspection.
 5. Confirm the sole authorized channel and no duplicate Metricool or native Studio schedule immediately before any eventual upload.
 
 Do not schedule, upload or mark approved while any blocker is open. Zero paid spend. No alternate channel.
