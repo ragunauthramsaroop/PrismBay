@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-30T13:38:06.687Z",
+  "updatedAt": "2026-10-30T22:39:42.001Z",
   "market": "US",
   "methodology": "Public-news attention, freshness, and short-form demonstration fit. This is not PrismBay sales data and is not a TikTok, Amazon, Google, or Bing product ranking.",
   "refreshTargetHours": 6,
@@ -21,16 +21,16 @@
       },
       "sampleSignals": [
         {
-          "title": "I tested the Feppo mattress vacuum, and I was shocked by what it picked up - Daily American",
+          "title": "I tested the Feppo mattress vacuum, and I was shocked by what it picked up - Savannah Morning News",
           "source": "Google News",
-          "publishedAt": "2026-10-27T11:41:29.000Z",
-          "url": "https://news.google.com/rss/articles/CBMipAFBVV95cUxNOXdyYXhKbmQ2SGV5NE05YVNUWGhTMTJ6VHFaNjVlUW5xMjhhd1ZjaVBhLWxNdEFvMEp6R3poVmpzNmdNRjlLVU91RWF0SWlTTVhLYnBvWFVWZVBaQXhXQjVOMUZlQXU0bUoxeU5VeF9aQjd3ZmdSQXFRSGpkOGpQODlFTjdjOWNDVDc0Z2tXd3ozTC1wdlJvN2ZMcWRUdFFGQ0dFQw?oc=5"
+          "publishedAt": "2026-10-27T11:41:42.000Z",
+          "url": "https://news.google.com/rss/articles/CBMiogFBVV95cUxPUFE2SG5JQ251UXNoXzE5N3BUT0p3TU9YRHhBZzhWUS1PZVdSLUVGYTBjU1BmRDFNYlVaaFJUekJLTU0xTkZmX0pRVW1PZlhiLWVKWDh6M2ZPZngtVEw1MVhOalY3QVM0TFFSSDJ6VklIeXZ0dFNKV0w4TENOMW93X0Rsaml0VDMyUU9yWHpvTk5idkduZ2drb0FIb3htbkNkOWc?oc=5"
         },
         {
-          "title": "This $55 mattress vacuum showed me just how dirty my clean mattress really was - Columbia Daily Tribune",
+          "title": "This $55 mattress vacuum showed me just how dirty my clean mattress really was - The Poughkeepsie Journal",
           "source": "Google News",
-          "publishedAt": "2026-10-26T15:41:07.000Z",
-          "url": "https://news.google.com/rss/articles/CBMivAFBVV95cUxNaEhIR0ROUzBObnBNbDk5REpTSGFUYzJuMU13M2ZfQlotMjlEa0xLYTJGUzhtVWJvTW4wTkVOeVhTNEhVS0NYU2VkdEdpbGFmSThYbklrcktYZmlWSUQ3azVzbXJhOHk2U2hFSEZlaTVDbVpDSmRqOEpUVDd0OVRBS2NFWFF2ZGNUWEdJVC1MVFVwYnlUbmlBRjVaR3ZMYzEwMHVVUzh1QVA5WXp0WU9DUlRMeG9XcUVrUGpVOA?oc=5"
+          "publishedAt": "2026-10-26T15:41:22.000Z",
+          "url": "https://news.google.com/rss/articles/CBMiwwFBVV95cUxNTjIzOTBPUHlyS0ZDMnRGQUREN0gzNlMzRnRMZmloQjBGcnk3LTZRdUVIc25qTWRCVWlPRXA4TkVScG82M25BNEJRdkt4Ull1VG1rUFVpa1h3X2EtcHQ0YmY5MTZaTUl3Z2ZxdmQ5eWN1dDhQQ0VVNE5sMXZzclEzdXQ5RDg1Z21jMExiM3M4YmdJVk5JNHdzaVpCQUkyTWtFOFNaaEVMeXVsTFljTXFWM1Mtbko0SkhZMmxTeUlZN2hndVk?oc=5"
         },
         {
           "title": "I Finally Got a Bed Vacuum, and Now I’m Never Going to Be Without One Again (and It’s on Sale for Prime!) - Apartment Therapy",
@@ -56,12 +56,12 @@
     {
       "slug": "scrubber",
       "name": "5-in-1 Electric Spin Scrubber",
-      "signalScore": 85,
+      "signalScore": 86.5,
       "signalLabel": "high-attention",
       "evidence": {
-        "publicMentions": 66,
-        "mentionsLast7Days": 3,
-        "mentionsLast30Days": 4,
+        "publicMentions": 78,
+        "mentionsLast7Days": 2,
+        "mentionsLast30Days": 7,
         "sourcesAvailable": [
           "Google News",
           "Bing News"
@@ -104,12 +104,12 @@
     {
       "slug": "pressure-washer",
       "name": "Cordless Pressure Washer",
-      "signalScore": 80,
+      "signalScore": 78.5,
       "signalLabel": "high-attention",
       "evidence": {
-        "publicMentions": 100,
-        "mentionsLast7Days": 2,
-        "mentionsLast30Days": 3,
+        "publicMentions": 50,
+        "mentionsLast7Days": 1,
+        "mentionsLast30Days": 4,
         "sourcesAvailable": [
           "Google News",
           "Bing News"
@@ -135,16 +135,16 @@
           "url": "https://news.google.com/rss/articles/CBMihAFBVV95cUxPVUxYNWVJWVFYUWRES0d1Y2plUHV6b0poQ1dfOEpadkNmM3ZSbnpYZ2FiZDNQaXRRRHB1dVg4Q0ljWDJTdnM0WFJGY3dlUTRDU2x5dnptYjktcDByUnd6NDFPX3YwX3dJRDI4b1hrQ1NSU0hoLVlnVzIxTjJsVHktSUU2cHjSAZgBQVVfeXFMT1EzOF9iaGQxYzk4RUdyUGZVb0pjM0xQUGlQU3l3ZjNBSWFyS2pjQXBOOWpLY2xuS2NLSVBFdHRhWDBNdVdOdkgySHJkcHc5NXg2S3laUEdjU1A5QTdWeEJGQVExWE5DdENTaE5QbEhtWWJPdkVza2FUMjd0Qko4Mk1yR2VJeWhfaGZyTVNiUGJ2X2NEOVBYVjY?oc=5"
         },
         {
-          "title": "EGO’s Newest Pressure Washer is Made for Your Car - Pro Tool Reviews",
-          "source": "Google News",
-          "publishedAt": "2026-10-22T11:00:00.000Z",
-          "url": "https://news.google.com/rss/articles/CBMihwFBVV95cUxNRjZKSi00T1NneWpZcjNHb0pkR0l4VHN2RHlyUW84cXB6TmotQk9XTkJKQmdfb1lvdVl0aGZKQ1JaNVNPSFlBbEUxRTJxZ0hWTE1nS1NVcDBiSzhaUndRd3JSVk9FTTRlcURvY09BQ2NWYnIwdkJRNTlCZ0RnSmZ2SEtXb1Boem8?oc=5"
-        },
-        {
           "title": "Ego Power+ Cordless Pressure Washer Review: Powerful but Pricey - BobVila.com",
           "source": "Google News",
           "publishedAt": "2026-09-12T07:00:00.000Z",
           "url": "https://news.google.com/rss/articles/CBMid0FVX3lxTE1OVkM4ZWhzQmpyUlZ5Z3Jmc3pyel9STTVDZnF1VEdHdERlM21OcUt0UFlUTlVhZG5pUWhyS2hBRTdGZHRNUjhJWGhmQ01EZGZxSXZBcXVPT0Uweno4WXdwbzluUUJYeC1ySUNQTjJXVlE3Umo1YzVN?oc=5"
+        },
+        {
+          "title": "In a Decade of Testing Pressure Washers, These Are the Smallest, Most Powerful Models Yet - The New York Times",
+          "source": "Google News",
+          "publishedAt": "2026-06-05T07:00:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMickFVX3lxTE12V2hOQ2d1Z0xiSU0ySWNYbmpaS0ZaOC1oc3QzazB3WU5oRHcxV1B1RjNhdHFmckxHc0pEdlRFUGQtN2dkUWtoTHZiQWVWSi02ZV9xTElkQ0xTNWw1MjFnakpCT0pkUTliaWh1aGVWN0RUdw?oc=5"
         }
       ],
       "rank": 3
@@ -155,7 +155,7 @@
       "signalScore": 78.5,
       "signalLabel": "high-attention",
       "evidence": {
-        "publicMentions": 34,
+        "publicMentions": 33,
         "mentionsLast7Days": 0,
         "mentionsLast30Days": 8,
         "sourcesAvailable": [
