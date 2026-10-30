@@ -95,12 +95,24 @@ export function validateSourcingQueue(data,shortlist,nowMs=Date.now()) {
   {errors.push('free_48hour_sourcing_limit_exceeded');break;}
  for(const t of weeks)if(weeks.filter(u=>u>=t&&u<t+7*86400000).length>weeklyCap)
   {errors.push('free_weekly_sourcing_limit_exceeded');break;}
+ // The count of queued links is not the number of free sourcing slots.
+ // Apply the strictest remaining UTC-day, rolling 48-hour and rolling 7-day
+ // allowance. This is a conservative ceiling, NOT merchant dashboard approval.
+ const todayUtc=new Date(nowMs).toISOString().slice(0,10);
+ const recent48h=weeks.filter(t=>t>nowMs-48*3600000).length;
+ const recent7d=weeks.filter(t=>t>nowMs-7*86400000).length;
+ const freeSlots=Math.max(0,Math.min(
+  dailyCap-(counts.get(todayUtc)||0),
+  rolling48hCap-recent48h,
+  weeklyCap-recent7d
+ ));
  // Never advertise actionable sourcing readiness from an invalid queue.
  // Preserve the diagnostic errors, but fail closed on both activity counters.
  const valid=errors.length===0;
+ const queuedReady=data.requests.filter(x=>x&&typeof x==='object'&&!Array.isArray(x)&&x.status==='ready_to_submit').length;
  return {valid,errors:[...new Set(errors)],
   submitted:valid?weeks.length:0,
-  readyToSubmit:valid?data.requests.filter(x=>x&&typeof x==='object'&&!Array.isArray(x)&&x.status==='ready_to_submit').length:0,
+  readyToSubmit:valid?Math.min(queuedReady,freeSlots):0,
   automaticallySubmitted:0,paidLinksAuthorized:false,
   orderImportAuthorized:false,physicalCheckoutEnabled:false};
 }
