@@ -1,4 +1,5 @@
 // ── Static imports for all article body HTML ──
+import { bodyHtml as body_ai_vendor_procurement_four_evidence_gates } from './articles/ai-vendor-procurement-four-evidence-gates';
 import { bodyHtml as body_how_ai_business_systems_save_smbs_time } from './articles/how-ai-business-systems-save-smbs-time';
 import { bodyHtml as body_procurement_intelligence_cfo_guide } from './articles/procurement-intelligence-cfo-guide';
 import { bodyHtml as body_ai_powered_decision_support_executive_guide } from './articles/ai-powered-decision-support-executive-guide';
@@ -33,6 +34,7 @@ import { bodyHtml as body_ai_integration_guide_connecting_existing_tools } from 
 import { bodyHtml as body_ai_business_models_build_monetize_ai_platform } from './articles/ai-business-models-build-monetize-ai-platform';
 
 const _bodyHtmlByFile: Record<string, string> = {
+  'ai-vendor-procurement-four-evidence-gates': body_ai_vendor_procurement_four_evidence_gates,
   'how-ai-business-systems-save-smbs-time': body_how_ai_business_systems_save_smbs_time,
   'procurement-intelligence-cfo-guide': body_procurement_intelligence_cfo_guide,
   'ai-powered-decision-support-executive-guide': body_ai_powered_decision_support_executive_guide,
@@ -109,6 +111,21 @@ export const CATEGORIES = [
 ];
 
 export const ARTICLES: Article[] = [
+  // ── ORIGINAL PRISMBAY AI VIDEO COMPANION: procurement evidence gates ──
+  {
+    slug: "ai-vendor-procurement-four-evidence-gates",
+    title: "AI Vendor Due Diligence: Four Evidence Gates Before Buying an Agent",
+    description: "A free buyer scorecard with four production access gates, eight weighted criteria, a fictional 65/100 example and a 30-day cost-per-accepted-result pilot.",
+    category: "ai-procurement",
+    readTime: 8,
+    linkedProducts: [],
+    keywords: ["AI vendor due diligence checklist", "AI agent procurement checklist", "AI supplier risk assessment", "cost per accepted AI task", "AI agent permission revocation"],
+    seoTitle: "AI Vendor Due Diligence Checklist: Four Evidence Gates | PrismBay AI",
+    metaDescription: "Assess AI vendors with four hard gates, an eight-factor scorecard, permission-revocation tests and a worked cost-per-accepted-result pilot.",
+    bodyHtmlFile: "ai-vendor-procurement-four-evidence-gates",
+    published: "2026-10-29",
+    modified: "2026-10-29",
+  },
   // ── PUBLISHED: Article 1 ──
   {
     slug: "how-ai-business-systems-save-smbs-time",
