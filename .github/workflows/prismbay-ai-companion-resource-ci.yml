@@ -1,0 +1,52 @@
+name: PrismBay AI Companion Resource Build Check
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'src/data/articles.ts'
+      - 'src/data/articles/**'
+      - 'src/routes/watch.tsx'
+      - '.github/workflows/prismbay-ai-companion-resource-ci.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: prismbay-ai-companion-resource-build-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  verify-site-build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout original PrismBay site
+        uses: actions/checkout@v4
+      - name: Install Bun without paid services
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+      - name: Install locked dependencies
+        run: bun install --frozen-lockfile
+      - name: Validate exact channel and original guide registration
+        run: |
+          node --input-type=module -e "
+            import fs from 'node:fs';
+            const article=fs.readFileSync('src/data/articles/ai-vendor-procurement-four-evidence-gates.ts','utf8');
+            const registry=fs.readFileSync('src/data/articles.ts','utf8');
+            const hub=fs.readFileSync('src/routes/watch.tsx','utf8');
+            if(!article.includes('UCw2hs85TzIpdKwJtG-BSxzQ')) throw Error('Wrong channel');
+            if(!registry.includes('ai-vendor-procurement-four-evidence-gates')) throw Error('Article missing');
+            if(!hub.includes('ai-vendor-procurement-four-evidence-gates')) throw Error('Hub link missing');
+            if(!article.includes('65/100') || !article.includes('1.76 per accepted result')) throw Error('Decision math missing');
+            console.log('PrismBay AI channel, guide and hub link verified.');
+          "
+      - name: Build complete existing site without deployment
+        run: bun run build
+      - name: Preserve release safety
+        if: always()
+        run: |
+          echo 'No YouTube upload, no new channel, no paid advertising.' >> "$GITHUB_STEP_SUMMARY"
+          echo 'Build-only check. Production site availability requires a separate verified deployment.' >> "$GITHUB_STEP_SUMMARY"
