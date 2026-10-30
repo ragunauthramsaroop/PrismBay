@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-30T09:47:42Z",
+  "updatedAt": "2026-10-30T10:55:00Z",
   "channel": {
     "id": "UCw2hs85TzIpdKwJtG-BSxzQ",
     "handle": "@PrismBayAI",
@@ -79,7 +79,7 @@
     "observedViewDatesArePartial": true,
     "allVideosConnector": "NO_ROWS_2026_09_19_TO_2026_10_29",
     "publishedInRangeConnector": "NO_ROWS_2026_10_01_TO_2026_10_29",
-    "lastMetricoolCheck": "2026-10-30T09:47:42Z",
+    "lastMetricoolCheck": "2026-10-30T10:42:00Z",
     "latestSevenDayObservation": {
       "window": "2026-10-23 to 2026-10-30 04:45 America/Guyana",
       "subscribers": 7,
@@ -120,7 +120,7 @@
   "connectedProduction": {
     "descriptProjectId": "3de30d73-71c8-4e9d-9ccf-72faf3fb5d11",
     "activeDescriptJobs": 0,
-    "freeAIAgentCredits": "PREVIOUSLY_EXHAUSTED",
+    "freeAIAgentCredits": "CONFIRMED_INSUFFICIENT_AI_CREDITS_2026_10_30_NO_PURCHASE",
     "fallback": "GitHub Actions FFmpeg Piper open-TTS",
     "operaStudio": "USER_INPUT_REQUIRED_NONINTERACTIVE_2026_10_30",
     "exa": "CREDITS_EXHAUSTED_402_NO_PURCHASE_2026_10_30",
@@ -227,16 +227,18 @@
         "completeVoiceAndDependencyRights": "PENDING_FULL_DEPENDENCY_REVIEW_UPSTREAM_NORMAN_MODEL_CARD_PUBLIC_DOMAIN_LIBRIVOX_DATASET_REPOSITORY_MIT",
         "longformABTest": "UNAVAILABLE_UNTIL_STUDIO_ACCESS",
         "survey72PercentSource": "PASS_PRIMARY_COGNIZANT_PRESS_RELEASE_2026_10_22_N250_US_UK_INDIA_SCOPE_QUALIFIER_REQUIRED",
-        "survey72PercentSpokenContext": "PENDING_FULL_AUDIO_AND_CUE_33",
+        "survey72PercentSpokenContext": "SUPPORTED_BY_TINY_EN_AND_SMALL_EN_ASR_72_PERCENT_SAMPLE_CUE33_BASE_EN_SKIPPED_PENDING_FULL_LISTENING",
         "captionReadability": "FAIL_CUES_46_55_56_57_100_101_102_MAX_174P55_WPM",
         "fullStreamDecode": "PASS_13426_FRAMES_1920X1080_H264_AAC_559P503_SECONDS",
         "videoSha256": "PASS_MANIFEST_MATCH_C8DA6A5F...",
-        "captionCandidateTechnicalIntegrity": "PASS_CI_41010366541_134_CUES_MAX_160_WPM_TEXT_PRESERVED_REVIEW_ONLY"
+        "captionCandidateTechnicalIntegrity": "PASS_CI_41010366541_134_CUES_MAX_160_WPM_TEXT_PRESERVED_REVIEW_ONLY",
+        "surveyVendorSponsoredPronunciation": "REVIEW_SMALL_EN_HEARD_THEN_DISSPONSORED_ASR_UNCERTAIN",
+        "secondAsrCaptionProxy": "BASE_EN_26_OF_134_CUES_FLAGGED_AS_ESTIMATES_NOT_CONFIRMED_ERRORS"
       },
       "publicationApproved": false,
       "uploadPermitted": false,
       "publicYouTubeUrl": null,
-      "nextAction": "Review complete 559.5s retention revision from artifact 12964703964 before expiry, listen to all narration, verify 16 estimated caption timing exceptions against speech, inspect continuous mobile playback, complete media and voice rights review. Do not upload.",
+      "nextAction": "Review the independent base.en and small.en speech report. Listen to the 72% survey sentence and vendor-sponsored qualifier near 02:18, verify 26 ASR-proxy flagged cues without treating them as confirmed errors, then complete full narration, mobile playback and media rights review. Publication remains blocked.",
       "sourceEvidence": "youtube-growth/analytics/2026-10-29-cost-controls-72-percent-primary-source-verification.md",
       "independentArtifactGate": {
         "checkedAt": "2026-10-30T04:50:05.733Z",
@@ -364,6 +366,24 @@
         "fullRevisionSha256": "a58927dcc5cfe89dbda52b667cfd1b04e13daad05e79b8858aea188f0a8a8117",
         "fullRevisionDurationSeconds": 559.5,
         "auditReport": "youtube-growth/analytics/2026-10-30-0547-cost-controls-retention-full-ci-verification.md"
+      },
+      "secondAsrReview": {
+        "report": "youtube-growth/analytics/cost-controls-second-asr/dual-asr-review.md",
+        "json": "youtube-growth/analytics/cost-controls-second-asr/dual-asr-review.json",
+        "workflow": ".github/workflows/prismbay-cost-controls-second-asr-review.yml",
+        "workflowRunId": 41043747959,
+        "workflowUrl": "https://github.com/ragunauthramsaroop/PrismBay/actions/runs/41043747959",
+        "status": "PASS_REVIEW_ONLY",
+        "sourceRevisedSha256": "a58927dcc5cfe89dbda52b667cfd1b04e13daad05e79b8858aea188f0a8a8117",
+        "baseEnRecognizedWords": 1257,
+        "baseEnFlaggedCueCount": 26,
+        "priorTinyEnFlaggedCueCount": 16,
+        "thirdModelSurveyProbe": "SMALL_EN_HEARD_72_PERCENT_SURVEY_SAMPLE_AND_VENDOR_SPONSORED_APPROXIMATE",
+        "surveyAudioRms": "NONZERO_130_TO_154_SECONDS",
+        "caution": "Base.en omitted survey sentence, small.en and earlier tiny.en recognized it. ASR models disagree. Listen before publication.",
+        "publicationApproved": false,
+        "uploadPermitted": false,
+        "paidSpendUSD": 0
       }
     }
   ],
