@@ -9,12 +9,12 @@ EXPECTED_SHA = "c8da6a5fa46bb1e7ea9dfd6abf82b55d44b80d7fc63fdf515db7362d58be6a72
 FONT = "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf"
 BOLD = "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf"
 CARDS = [
- ("survey-scope",123,137,"SURVEY SCOPE","250","Senior financial operations leaders","United States  |  United Kingdom  |  India","Cognizant announcement, 22 October 2026. Vendor-sponsored survey."),
- ("survey-finding",137,145,"SURVEY FINDING","72%","of surveyed organizations exceeded AI budgets","in the preceding 12 months","Sample: 250 senior FinOps leaders. Not a global prevalence rate."),
- ("survey-caveat",145,149,"INTERPRET THE EVIDENCE","NOT GLOBAL","The survey describes its sampled organizations.","Measure your own costs before scaling an agent.","Vendor-sponsored research. Not a global business-wide estimate."),
- ("math-acceptance",390,400,"FICTIONAL WORKED EXAMPLE","100  >  80","100 attempted tasks","80 accepted results after quality review","Illustrative figures. No measured customer savings claimed."),
- ("math-costs",400,407,"COUNT THE FULL OPERATING COST","$40 + $60","Model and tool charges  +  human review","Total operating cost: $100","Illustrative figures. Include rework and review."),
- ("math-result",407,414,"COST PER ACCEPTED RESULT","$1.25","$100 total operating cost  /  80 accepted outputs","Only results passing the quality gate count.","Illustrative example, not a real customer invoice.")
+ ("survey-scope",123,137,"SURVEY SCOPE","250","Senior financial operations leaders","United States  |  United Kingdom  |  India","Cognizant survey, 22 Oct 2026","Vendor-sponsored research"),
+ ("survey-finding",137,145,"SURVEY FINDING","72%","of surveyed organizations exceeded","AI budgets in the preceding year","Surveyed 250 senior FinOps leaders","Not a global prevalence rate"),
+ ("survey-caveat",145,149,"INTERPRET THE EVIDENCE","NOT GLOBAL","Survey findings describe the sample","Measure your own costs before scaling","Vendor-sponsored research","US, UK and India sample"),
+ ("math-acceptance",390,400,"FICTIONAL WORKED EXAMPLE","100 → 80","100 attempted tasks","80 accepted after quality review","Illustrative figures only","No measured customer savings claimed"),
+ ("math-costs",400,407,"COUNT THE FULL OPERATING COST","$40 + $60","Model and tool charges + human review","Total operating cost: $100","Illustrative figures","Include rework and review"),
+ ("math-result",407,414,"COST PER ACCEPTED RESULT","$1.25","$100 operating cost ÷ 80 accepted outputs","Count only results passing quality review","Illustrative example","Not a real customer invoice")
 ]
 
 def digest(path):
@@ -26,31 +26,32 @@ def digest(path):
 def face(n,bold=False):
     return ImageFont.truetype(BOLD if bold else FONT,n)
 
-def centered(draw, txt, y, n, color, bold=False):
+def centered(draw, txt, y, n, color, bold=False, max_width=1680, min_size=48):
     f = face(n,bold)
-    while draw.textbbox((0,0),txt,font=f)[2] > 1700 and n > 28:
+    while draw.textbbox((0,0),txt,font=f)[2] > max_width and n > min_size:
         n -= 2
         f = face(n,bold)
     w = draw.textbbox((0,0),txt,font=f)[2]
+    if w > max_width:
+        raise ValueError(f"Mobile-safe text does not fit at {min_size}px: {txt}")
     draw.text(((1920-w)/2,y),txt,font=f,fill=color)
 
 def card_png(card,path):
-    _,_,_,label,hero,one,two,footer = card
+    _,_,_,label,hero,one,two,foot1,foot2 = card
     im = Image.new("RGB",(1920,1080),"#061c30")
     d = ImageDraw.Draw(im)
     d.rectangle((0,0,1920,16),fill="#23d3c7")
-    d.rounded_rectangle((80,66,140,126),radius=13,fill="#23d3c7")
-    d.text((98,74),"P",font=face(42,True),fill="#04202b")
-    d.text((158,78),"PRISMBAY AI",font=face(35,True),fill="white")
-    d.text((1450,84),"AI SYSTEMS UNDER CONTROL",font=face(24),fill="#7fabc3")
-    d.rounded_rectangle((115,215,1805,880),radius=34,fill="#10334a",outline="#1e7887",width=3)
-    centered(d,label,263,47,"#23d3c7",True)
-    centered(d,hero,365,158,"white",True)
-    centered(d,one,638,50,"#eaf6fb",True)
-    centered(d,two,718,43,"#9fc9da")
-    d.line((110,950,1810,950),fill="#1b6978",width=2)
-    d.text((116,970),footer,font=face(27),fill="#9dc2d2")
-    d.text((1630,970),"prismbayai.com",font=face(25),fill="#9dc2d2")
+    d.rounded_rectangle((84,58,145,119),radius=13,fill="#23d3c7")
+    d.text((104,66),"P",font=face(42,True),fill="#04202b")
+    d.text((164,70),"PRISMBAY AI",font=face(38,True),fill="white")
+    d.rounded_rectangle((110,178,1810,948),radius=35,fill="#10334a",outline="#1e7887",width=3)
+    centered(d,label,210,55,"#23d3c7",True)
+    centered(d,hero,313,165,"white",True)
+    centered(d,one,535,72,"#eaf6fb",True)
+    centered(d,two,643,66,"#9fc9da")
+    d.line((180,790,1740,790),fill="#1b6978",width=2)
+    centered(d,foot1,819,51,"#d3e8f0")
+    centered(d,foot2,884,51,"#d3e8f0")
     im.save(path,optimize=True)
 
 def main():
