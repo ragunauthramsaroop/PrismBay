@@ -19,7 +19,7 @@ Improved the previously static 43.8-second accepted-output-cost Short with origi
 ## Reproducible zero-cost production
 
 - [Committed motion renderer](https://github.com/ragunauthramsaroop/PrismBay/blob/main/youtube-growth/production/animate_accepted_output_short.py).
-- [Private GitHub Actions workflow](https://github.com/ragunauthramsaroop/PrismBay/blob/main/.github/workflows/prismbay-accepted-output-retention-review.yml) retrieves the original verified review artifact, adds animation, checks unchanged audio and the publication hold, and stores an unpublished artifact. Workflow completion has **not yet been independently verified**. Local motion render and its full technical QA are complete.
+- [Private GitHub Actions workflow](https://github.com/ragunauthramsaroop/PrismBay/blob/main/.github/workflows/prismbay-accepted-output-retention-review.yml) retrieves the original verified review artifact, adds animation, checks unchanged audio and the publication hold, and stores an unpublished artifact. **GitHub Actions run [41084800908](https://github.com/ragunauthramsaroop/PrismBay/actions/runs/41084800908) completed successfully**, including source fingerprint, full decode, unchanged AAC audio, release hold, and artifact upload. Private artifact **12990434667** expires **2026-11-06 15:54 UTC**. The CI-produced MP4 uses a different encoder preset from the independently inspected local revision, so do not substitute the local SHA256 for the CI artifact SHA256. Local motion render and its independent full technical QA are complete.
 
 ## Voice rights and synthetic-content policy evidence
 
