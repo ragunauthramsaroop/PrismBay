@@ -1,0 +1,94 @@
+name: PrismBay AI Cost Controls Unpublished Listening Review Pack
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/prismbay-cost-controls-listening-review.yml'
+      - 'youtube-growth/qa/build_cost_controls_review_clips.py'
+      - 'youtube-growth/analytics/cost-controls-asr-qa/captions-asr-candidate.srt'
+      - 'youtube-growth/analytics/cost-controls-asr-qa/caption_asr_cues.csv'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: read
+
+concurrency:
+  group: prismbay-cost-controls-listening-review
+  cancel-in-progress: false
+
+jobs:
+  generate-unpublished-listening-excerpts:
+    if: github.repository == 'ragunauthramsaroop/PrismBay'
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout exact authorized-channel repository
+        uses: actions/checkout@v4
+
+      - name: Self-test read-only review pack builder
+        run: |
+          python -m py_compile youtube-growth/qa/build_cost_controls_review_clips.py
+          python youtube-growth/qa/build_cost_controls_review_clips.py --self-test
+
+      - name: Download existing unapproved Cost Controls artifact
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          curl --fail --location --retry 3 --silent --show-error \
+            -H "Authorization: Bearer ${GH_TOKEN}" \
+            -H "Accept: application/vnd.github+json" \
+            -o "${RUNNER_TEMP}/cost-controls-original.zip" \
+            "https://api.github.com/repos/${GITHUB_REPOSITORY}/actions/artifacts/12866038124/zip"
+          mkdir -p "${RUNNER_TEMP}/cost-controls-original"
+          unzip -q "${RUNNER_TEMP}/cost-controls-original.zip" -d "${RUNNER_TEMP}/cost-controls-original"
+
+      - name: Find exact source MP4 by SHA256, not filename
+        id: source
+        run: |
+          python - <<'PY'
+          import hashlib, os
+          from pathlib import Path
+          root = Path(os.environ["RUNNER_TEMP"]) / "cost-controls-original"
+          expected = "c8da6a5fa46bb1e7ea9dfd6abf82b55d44b80d7fc63fdf515db7362d58be6a72"
+          matches = []
+          for p in root.rglob("*.mp4"):
+              h = hashlib.sha256()
+              with p.open("rb") as f:
+                  for part in iter(lambda: f.read(1048576), b""):
+                      h.update(part)
+              if h.hexdigest() == expected:
+                  matches.append(p.resolve())
+          if len(matches) != 1:
+              raise SystemExit(f"Expected one matching source MP4, found {len(matches)}")
+          with open(os.environ["GITHUB_OUTPUT"], "a", encoding="utf-8") as f:
+              f.write(f"video_path={matches[0]}\n")
+          print("Verified one source MP4 with matching SHA256")
+          PY
+
+      - name: Generate eight captioned excerpts covering sixteen estimated timing exceptions
+        run: |
+          python youtube-growth/qa/build_cost_controls_review_clips.py \
+            --video "${{ steps.source.outputs.video_path }}" \
+            --srt youtube-growth/analytics/cost-controls-asr-qa/captions-asr-candidate.srt \
+            --asr youtube-growth/analytics/cost-controls-asr-qa/caption_asr_cues.csv \
+            --output "${RUNNER_TEMP}/cost-controls-listening-review"
+
+      - name: Retain private review artifact for seven days
+        uses: actions/upload-artifact@v4
+        with:
+          name: prismbay-cost-controls-unpublished-listening-review
+          path: ${{ runner.temp }}/cost-controls-listening-review/
+          if-no-files-found: error
+          retention-days: 7
+
+      - name: Preserve explicit non-publication status
+        if: always()
+        run: |
+          echo '## PrismBay AI Cost Controls listening review' >> "${GITHUB_STEP_SUMMARY}"
+          echo 'Authorized channel: UCw2hs85TzIpdKwJtG-BSxzQ, @PrismBayAI.' >> "${GITHUB_STEP_SUMMARY}"
+          echo 'This workflow creates review-only excerpts. It does not listen, approve, upload, schedule or publish.' >> "${GITHUB_STEP_SUMMARY}"
+          echo 'All sixteen ASR timing flags remain pending spoken-word confirmation. Full 9m19s listening, mobile playback and media rights are separate mandatory gates.' >> "${GITHUB_STEP_SUMMARY}"
+          echo 'publicationApproved=false; uploadPermitted=false; paid advertising $0.' >> "${GITHUB_STEP_SUMMARY}"
