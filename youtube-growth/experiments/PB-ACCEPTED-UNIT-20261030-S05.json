@@ -11,7 +11,7 @@
   "publishAt": null,
   "timezone": "America/Guyana",
   "experimentId": "PB-ACCEPTED-UNIT-20261030-S05",
-  "status": "RENDERING_PIPER_UNPUBLISHED",
+  "status": "RENDERED_TECHNICAL_QA_PASS_EDITORIAL_HOLD",
   "targetAudience": [
     "founders",
     "finance leaders",
@@ -20,7 +20,7 @@
   ],
   "hypothesis": "A denominator-error example contrasting attempted AI tasks with accepted work improves qualified retention and subscriber conversion versus generic AI tips.",
   "format": "short_vertical_1080x1920",
-  "durationSeconds": null,
+  "durationSeconds": 43.799,
   "hookType": "Outcome discrepancy",
   "openingHook": "Your AI agent reports one hundred completed tasks. But finance should count accepted work, not attempts.",
   "titleCandidates": [
@@ -41,13 +41,20 @@
   "asset": {
     "renderer": "youtube-growth/production/render_accepted_output_short.py",
     "workflow": ".github/workflows/prismbay-accepted-output-short-review.yml",
-    "runId": 41075708267,
+    "runId": 41076235401,
     "localESpeakQADurationSeconds": 48.747,
     "localESpeakFullDecodePass": true,
     "localESpeakIsNotPublishable": true,
     "voice": "Piper en_US-norman-medium",
     "captionMode": "Burned-in per phrase, source audio rendered per phrase",
-    "videoSha256": null
+    "videoSha256": "4e1d83146ab1e454a0f3a7080e5c709fa74ad1e54abc98aa48b336961ecb9295",
+    "artifactId": 12988395130,
+    "fullDecodePass": true,
+    "captionCues": 12,
+    "maxCaptionWPM": 151.94,
+    "integratedLUFS": -20.48,
+    "truePeakDBTP": -1.83,
+    "qaReport": "youtube-growth/analytics/2026-10-30-1100-accepted-output-short-piper-qa.md"
   },
   "experimentReviewHours": [
     6,
@@ -58,14 +65,16 @@
   "currentClassification": "INSUFFICIENT_DATA",
   "shortsNativeABTest": false,
   "releaseGates": {
-    "piperRender": "IN_PROGRESS",
+    "piperRender": "PASS",
     "fullNarrationListening": "PENDING",
     "mobilePlayback": "PENDING",
     "voiceAssetRights": "PENDING_FINAL",
     "syntheticDataDisclosure": "PENDING_FINAL",
     "exactChannelRecheck": "REQUIRED_PRE_PUBLISH",
     "metricoolCalendarRecheck": "REQUIRED_PRE_PUBLISH",
-    "editorialApproval": "PENDING"
+    "editorialApproval": "PENDING",
+    "captionMechanical": "PASS",
+    "factualArithmetic": "PASS_FICTIONAL"
   },
   "success": {
     "scaleAt72Hours": "At least 1.5 times median qualified watch minutes of five comparable Shorts and at least one attributable subscriber.",
@@ -88,5 +97,6 @@
     "noDuplicateUploads": true,
     "noEngagementManipulation": true
   },
-  "portfolioDecision": "PROCEED_TO_PIPER_RENDER_QA_THEN_EDITORIAL_REVIEW_NO_AUTO_UPLOAD"
+  "portfolioDecision": "EDITORIAL_HOLD_DO_NOT_PUBLISH_OR_RENDER_MORE_WITHOUT_NEW_DEFECT",
+  "issue": "https://github.com/ragunauthramsaroop/PrismBay/issues/532"
 }
