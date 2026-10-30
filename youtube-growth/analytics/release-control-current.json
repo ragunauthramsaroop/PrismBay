@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-30T11:50:27.992Z",
+  "updatedAt": "2026-10-30T12:58:06.290Z",
   "channel": {
     "id": "UCw2hs85TzIpdKwJtG-BSxzQ",
     "handle": "@PrismBayAI",
@@ -69,7 +69,7 @@
     "trafficSources": "NO_ROWS_2026_10_01_TO_2026_10_29",
     "scheduledMetricoolPosts": {
       "from": "2026-10-30",
-      "to": "2026-11-14",
+      "to": "2026-11-15",
       "count": 0,
       "scope": "Metricool only; native Studio schedule unverified"
     },
@@ -79,9 +79,9 @@
     "observedViewDatesArePartial": true,
     "allVideosConnector": "NO_ROWS_2026_09_19_TO_2026_10_29",
     "publishedInRangeConnector": "NO_ROWS_2026_10_01_TO_2026_10_29",
-    "lastMetricoolCheck": "2026-10-30T10:42:00Z",
+    "lastMetricoolCheck": "2026-10-30T12:58:06.290Z",
     "latestSevenDayObservation": {
-      "window": "2026-10-23 to 2026-10-30 04:45 America/Guyana",
+      "window": "2026-10-23 to 2026-10-30 08:46 America/Guyana",
       "subscribers": 7,
       "knownViews": {
         "2026-10-24": 83,
@@ -233,12 +233,13 @@
         "videoSha256": "PASS_MANIFEST_MATCH_C8DA6A5F...",
         "captionCandidateTechnicalIntegrity": "PASS_CI_41010366541_134_CUES_MAX_160_WPM_TEXT_PRESERVED_REVIEW_ONLY",
         "surveyVendorSponsoredPronunciation": "REVIEW_SMALL_EN_HEARD_THEN_DISSPONSORED_ASR_UNCERTAIN",
-        "secondAsrCaptionProxy": "BASE_EN_26_OF_134_CUES_FLAGGED_AS_ESTIMATES_NOT_CONFIRMED_ERRORS"
+        "secondAsrCaptionProxy": "BASE_EN_26_OF_134_CUES_FLAGGED_AS_ESTIMATES_NOT_CONFIRMED_ERRORS",
+        "mobileOverlayReadability": "PASS_FINAL_2026_10_30_SIX_CAPTION_SAFE_CARDS_INDEPENDENT_FULL_VIDEO_DECODE_REAL_DEVICE_PENDING"
       },
       "publicationApproved": false,
       "uploadPermitted": false,
       "publicYouTubeUrl": null,
-      "nextAction": "Review the 11 local review clips covering 26 base.en flagged cues plus critical cues 19, 33, 34, especially the vendor-sponsored survey qualifier at 02:18; then complete uninterrupted narration listening, full mobile playback, and voice/dependency rights approval. Independent full video decode and 134-cue SRT pacing passed, but spoken sync remains unapproved.",
+      "nextAction": "Review 29 flagged/critical spoken-caption cues and uninterrupted narration; verify real-device mobile playback and final voice/media/dependency rights. Caption-safe visual overlays, full decode, SRT mechanics, source fingerprint and audio preservation pass. Do not publish until editorial gates close.",
       "sourceEvidence": "youtube-growth/analytics/2026-10-29-cost-controls-72-percent-primary-source-verification.md",
       "independentArtifactGate": {
         "checkedAt": "2026-10-30T04:50:05.733Z",
@@ -393,6 +394,33 @@
           "fullNarrationListening": "PENDING",
           "continuousMobilePlayback": "PENDING",
           "rightsReview": "PENDING",
+          "publicationApproved": false,
+          "uploadPermitted": false
+        },
+        "captionSafeRevision": {
+          "sourceCommit": "6b4c811155b1dff41a8600f4e2e06d2769a8407f",
+          "runId": 41058898850,
+          "runUrl": "https://github.com/ragunauthramsaroop/PrismBay/actions/runs/41058898850",
+          "artifactId": 12977294852,
+          "artifactExpiresAt": "2026-11-06T12:56:08Z",
+          "mp4Sha256": "c74bbd1ee371b79918074f4bcfe9eb9cb2f691c086224d1def9134766012f6c0",
+          "durationSeconds": 559.5,
+          "decodedFrames": 13428,
+          "fullDecode": "PASS_INDEPENDENT",
+          "mobileSafeCardCount": 6,
+          "bottomBlankRegionStartY": 770,
+          "lowerCaptionSafePixels": 310,
+          "actualFrameMeanAbsolutePixelDifferenceRange": "1.306_TO_1.354",
+          "simulatedTwoLineSubtitleCollisionAt139sAnd403s": "NONE_AT_640x360",
+          "originalAACPreservation": "PASS_CI_BIT_FOR_BIT",
+          "captionCueCount": 134,
+          "captionMaxWPM": 160,
+          "captionOverlapCount": 0,
+          "independentAudit": "youtube-growth/analytics/2026-10-30-mobile-safe-cost-controls-retention-provenance.md",
+          "spokenCaptionSync": "PENDING",
+          "realDevicePlayback": "PENDING",
+          "rightsSignoff": "PENDING",
+          "fullNarrationListening": "PENDING",
           "publicationApproved": false,
           "uploadPermitted": false
         }
