@@ -66,3 +66,16 @@ test('legacy physical product listing is withdrawn without checkout or unlicense
  assert.doesNotMatch(home, /ZIP shipping inquiry|Enter your ZIP|Home-product shipping inquiries remain available|Explore real supplier-matched products/i);
  assert.doesNotMatch(sitemap, /<loc>https:\/\/clean\.prismbayai\.com\/garment-steamer\/<\/loc>/);
 });
+
+// Keep educational pages without an unverified physical offer or misleading ZIP preflight.
+test('steamer guides remain educational while physical fulfillment is unapproved', () => {
+ for (const filename of [
+  'portable-garment-steamer.html', 'how-to-use-a-garment-steamer.html',
+  'garment-steamer-vs-iron.html', 'travel-garment-steamer-guide.html'
+ ]) {
+  const guide = fs.readFileSync(new URL('./guides/' + filename, import.meta.url), 'utf8');
+  assert.match(guide, /does not currently offer/i, filename);
+  assert.match(guide, /href="\/top-15\/"/, filename);
+  assert.doesNotMatch(guide, /USD 29\.95|href="\/garment-steamer\/|buy\.stripe\.com|live supplier stock|checkout is released|verified supplier identity|ZIP check and manual inquiry/i, filename);
+ }
+});
