@@ -1,0 +1,56 @@
+{
+  "experiment_id": "PB-AGENT-GATES-20261030-S06C",
+  "target_channel_id": "UCw2hs85TzIpdKwJtG-BSxzQ",
+  "target_handle": "@PrismBayAI",
+  "metricool_brand_id": 6945443,
+  "series": "AI Systems That Survive Contact With Operations",
+  "parent_longform": "PB-AGENT-GATES-20261030-L01",
+  "status": "PRIVATE_RENDER_EDITORIAL_HOLD",
+  "title": "Your AI Agent Passed the Demo. Now Break It.",
+  "audience": "Founders, operators and automation owners preparing live agent deployments",
+  "hypothesis": "A three-test failure rehearsal provides a distinct implementation payoff and more qualified viewer discussion than generic AI safety advice",
+  "hook_type": "contrarian failure-first",
+  "format": "original 9:16 Short",
+  "duration_seconds": 45.883,
+  "visual_concept": "Ten original illustrated test scenes: permission denial, stale source evidence and emergency stop",
+  "cta": "Which failure test would your workflow fail?",
+  "planned_publish_time": "Only after full editorial sign-off and rechecking the sole target channel; at least 4 hours from any other Short",
+  "success_thresholds": {
+    "at_72h": "Provisional >=50 organic views, >=60% average percentage viewed, >=1 substantive comment; replace with channel-relative benchmarks when reliable per-video data exists",
+    "at_7d": "Subscriber conversion and qualified comments; no paid reach"
+  },
+  "reviews": [
+    "6h",
+    "24h",
+    "72h",
+    "7d"
+  ],
+  "decision_classes": [
+    "SCALE",
+    "RETEST",
+    "MODIFY",
+    "STOP"
+  ],
+  "source_claims": "Original hypothetical test scenarios, not a real incident or certification",
+  "qa": {
+    "resolution": "1080x1920",
+    "codec": "H.264/AAC",
+    "decode": "PASS",
+    "captions": 10,
+    "max_caption_words_per_minute": 152.1,
+    "sha256": "121977bffa3517a389de1bd5488037204611852472f816c8ad30a2efbbfe1584",
+    "audio": "offline FFmpeg flite voice, synthetic narration",
+    "visuals": "10 original illustrated scenes, no stock footage"
+  },
+  "release_gates": {
+    "mechanical_media_decode": true,
+    "originality_and_fictional_disclosure": true,
+    "full_narration_listening": false,
+    "exact_spoken_caption_review": false,
+    "real_device_playback": false,
+    "final_rights_approval": false,
+    "publicationApproved": false,
+    "uploadPermitted": false
+  },
+  "paidSpendUSD": 0
+}
