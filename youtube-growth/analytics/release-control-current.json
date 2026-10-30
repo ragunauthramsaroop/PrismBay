@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-29T23:46:37Z",
+  "updatedAt": "2026-10-30T00:58:00Z",
   "channel": {
     "id": "UCw2hs85TzIpdKwJtG-BSxzQ",
     "handle": "@PrismBayAI",
@@ -47,7 +47,15 @@
         "qualifiedShortsViews90Days": 10000000
       },
       "countryEligibilityStillUnverified": true,
-      "accountSettingsChanged": false
+      "accountSettingsChanged": false,
+      "updatedActivityFrom20270201": {
+        "qualifiedWatchHours365Days": 1000,
+        "qualifiedShortsViews90Days": 1000000,
+        "orLongFormUploads90Days": 2,
+        "orShortsUploads90Days": 5,
+        "source": "https://support.google.com/youtube/answer/12843009",
+        "note": "Applies to active YPP status; not a replacement for entry thresholds"
+      }
     }
   },
   "analytics": {
@@ -61,7 +69,7 @@
     "trafficSources": "NO_ROWS_2026_10_01_TO_2026_10_29",
     "scheduledMetricoolPosts": {
       "from": "2026-10-29",
-      "to": "2026-11-12",
+      "to": "2026-11-20",
       "count": 0,
       "scope": "Metricool only; native Studio schedule unverified"
     },
@@ -71,7 +79,7 @@
     "observedViewDatesArePartial": true,
     "allVideosConnector": "NO_ROWS_2026_09_19_TO_2026_10_29",
     "publishedInRangeConnector": "NO_ROWS_2026_10_01_TO_2026_10_29",
-    "lastMetricoolCheck": "2026-10-29T23:46Z",
+    "lastMetricoolCheck": "2026-10-30T00:52Z",
     "latestSevenDayObservation": {
       "window": "2026-10-23 through 2026-10-29 18:41 America/Guyana",
       "subscribers": 7,
@@ -115,7 +123,7 @@
     "activeDescriptJobs": 0,
     "freeAIAgentCredits": "PREVIOUSLY_EXHAUSTED",
     "fallback": "GitHub Actions FFmpeg Piper open-TTS",
-    "operaStudio": "INTERACTIVE_AUTHORIZATION_REQUIRED_NONINTERACTIVE_RUN",
+    "operaStudio": "USER_INPUT_REQUIRED_NONINTERACTIVE",
     "exa": "CREDITS_EXHAUSTED_NO_PURCHASE",
     "descriptProjectInspection": "2026-10-29T23:46Z",
     "descriptImportedMedia": {
@@ -126,7 +134,8 @@
       "createdCompositions": 0,
       "existingProjectCompositions": 2,
       "editingComplete": false
-    }
+    },
+    "heygenFreePlan": "VERIFIED_FREE_PLAN_BALANCE_NOT_DISCLOSED_NO_GENERATION"
   },
   "releaseQueue": [
     {
@@ -355,22 +364,30 @@
     }
   },
   "lastOperationalCycle": {
-    "at": "2026-10-29T23:46:37Z",
+    "at": "2026-10-30T00:58:00Z",
     "connectedChannelVerified": "UCw2hs85TzIpdKwJtG-BSxzQ",
+    "subscribers": 7,
     "scheduledPostsChecked": 0,
-    "subscriberCount": 7,
-    "observedViews": {
-      "2026-10-24": 83,
-      "2026-10-25": 62,
-      "2026-10-26": 7
-    },
-    "missingViewsNotZero": true,
-    "descriptJobsRunning": 0,
-    "companionCreated": true,
-    "companionPath": "youtube-growth/companion/2026-10-29-ai-vendor-procurement-decision-card.md",
-    "publicUploadVerified": false,
+    "publicUploadsVerified": 0,
+    "siteCompanionBuild": "PASS",
+    "siteDeploy": "BLOCKED_MISSING_VERCEL_TOKEN",
+    "productionJobsRunning": 0,
+    "paidSpendUSD": 0
+  },
+  "siteDistribution": {
+    "companionArticleSlug": "ai-vendor-procurement-four-evidence-gates",
+    "repoArticleBody": "src/data/articles/ai-vendor-procurement-four-evidence-gates.ts",
+    "registry": "src/data/articles.ts",
+    "learningHub": "src/routes/watch.tsx",
+    "siteTarget": "https://www.prismbayai.com/resources/ai-vendor-procurement-four-evidence-gates",
+    "sourceCommit": "8eb29b7efe00ed2c5fcd4e1bc99a7c285f38e7cc",
+    "buildStatus": "PASS_BUILD_ONLY",
+    "buildWorkflow": "https://github.com/ragunauthramsaroop/PrismBay/actions/runs/40982746493",
+    "deploymentStatus": "BLOCKED_MISSING_GITHUB_ACTIONS_VERCEL_TOKEN",
+    "deploymentWorkflow": "https://github.com/ragunauthramsaroop/PrismBay/actions/runs/40982549721",
+    "siteLiveStatus": "UNVERIFIED_NOT_CLAIMED",
     "paidSpendUSD": 0,
-    "publicationHoldMaintained": true,
-    "studioAccess": "USER_AUTH_REQUIRED"
+    "publicSourceAvailable": true,
+    "channelVideoPublicationStatus": "NONE_NEW"
   }
 }
