@@ -1,14 +1,18 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import fs from "node:fs";
-import {verifyProviderProducts} from "./alternate-supplier-readiness.mjs";
+import {verifyProviderProducts,apiVerified} from "./alternate-supplier-readiness.mjs";
 
 const vendors=JSON.parse(fs.readFileSync(new URL("../config/alternate-supplier-evidence.json",import.meta.url)));
 const shortlist=JSON.parse(fs.readFileSync(new URL("../config/top15-merchandising.json",import.meta.url)));
 const now=Date.parse("2026-10-27T11:00:00.000Z");
+// Synthetic GitHub-run references below test format only, never authenticated supplier connectivity.
 function sample(){
  return {schemaVersion:1,
-  providers:{hypersku:{basePlanUsdMonthly:0,apiStatus:"api_active"}},
+  providers:{hypersku:{basePlanUsdMonthly:0,apiStatus:"api_active",approvedApiDocumentation:true,authenticatedApiVerified:true,supplierConnected:true,
+   apiConnectivityProof:{method:"authenticated_read_only_api_request",result:"success",
+    merchantAccountMatched:true,reviewer:"merchant-auditor",auditRef:"gh-run:999999999999",
+    checkedAt:"2026-10-27T10:55:00Z"}}},
   candidates:[{slug:"pethair",provider:"hypersku",supplierProductId:"hyper-1234",supplierVariantId:"hyper-1234-medium",
    supplierTitle:"Genuine Reusable Pet Hair Remover Brush",
    catalogMatchVerified:true,independentIdentityReviewed:true,
@@ -30,13 +34,74 @@ test("real production registry is empty rather than invented",()=>{
  assert.equal(vendors.providers.hypersku.manualCsvRouteIndependentlyConfirmed,false);
  assert.equal(verifyProviderProducts(vendors,shortlist,now).approved.length,0);
 });
-test("strict complete provider evidence allows a real product source, but not checkout",()=>{
- const out=verifyProviderProducts(sample(),shortlist,now);
+test("synthetic complete API fixture needs trusted runtime attestation and still forbids checkout",()=>{
+ const out=verifyProviderProducts(sample(),shortlist,now,new Set(["hypersku:api"]));
  assert.equal(out.approved.length,1);
  assert.equal(out.rejected.length,0);
  assert.equal(out.approved[0].physicalCheckoutAuthorized,false);
  assert.equal(out.approved[0].automaticSupplierOrdering,false);
 });
+test("declared API status without authenticated connection never approves source products",()=>{
+ const data=sample();
+ const provider=data.providers.hypersku;
+ provider.authenticatedApiVerified=false;
+ assert.equal(apiVerified(provider,now),false);
+ assert.equal(verifyProviderProducts(data,shortlist,now).approved.length,0);
+ assert.ok(verifyProviderProducts(data,shortlist,now).rejected[0].reasons.includes("provider_api_not_active"));
+ provider.authenticatedApiVerified=true;
+ provider.supplierConnected=false;
+ assert.equal(apiVerified(provider,now),false);
+ assert.equal(verifyProviderProducts(data,shortlist,now).approved.length,0);
+ provider.supplierConnected=true;
+ provider.approvedApiDocumentation=false;
+ assert.equal(apiVerified(provider,now),false);
+ assert.equal(verifyProviderProducts(data,shortlist,now).approved.length,0);
+ provider.approvedApiDocumentation=true;
+ assert.equal(apiVerified(provider,now),false,"A self-declared audit pointer is insufficient");
+ assert.equal(apiVerified(provider,now,true),true);
+ assert.equal(verifyProviderProducts(data,shortlist,now).approved.length,0);
+ assert.equal(verifyProviderProducts(data,shortlist,now,new Set(["hypersku:api"])).approved.length,1);
+});
+
+test("repository connection flags without audited authenticated API proof remain blocked",()=>{
+ const data=sample();const provider=data.providers.hypersku;
+ delete provider.apiConnectivityProof;
+ assert.equal(apiVerified(provider,now),false);
+ assert.equal(verifyProviderProducts(data,shortlist,now).approved.length,0);
+ provider.apiConnectivityProof={method:"authenticated_read_only_api_request",result:"success",
+  merchantAccountMatched:true,reviewer:"merchant-auditor",auditRef:"gh-run:999999999999",
+  checkedAt:"2026-10-25T10:55:00Z"};
+ assert.equal(apiVerified(provider,now),false,"Stale API evidence must expire");
+ provider.apiConnectivityProof.checkedAt="2026-10-27T10:55:00Z";
+ provider.apiConnectivityProof.merchantAccountMatched=false;
+ assert.equal(apiVerified(provider,now),false,"Another merchant's account is insufficient");
+ provider.apiConnectivityProof.merchantAccountMatched=true;
+ provider.apiConnectivityProof.auditRef="https://attacker.example/secret?token=abc";
+ assert.equal(apiVerified(provider,now),false,"No arbitrary URL or secret-bearing audit ref");
+ provider.apiConnectivityProof.auditRef="gh-run:999999999999";
+ provider.apiConnectivityProof.method="configured_key_only";
+ assert.equal(apiVerified(provider,now),false,"Configured credentials are not authenticated requests");
+ provider.apiConnectivityProof.method="authenticated_read_only_api_request";
+ assert.equal(apiVerified(provider,now),false,"Even a well-formed GitHub run ID does not authenticate a supplier");
+ assert.equal(verifyProviderProducts(data,shortlist,now).approved.length,0);
+ assert.equal(apiVerified(provider,now,true),true);
+ assert.equal(verifyProviderProducts(data,shortlist,now,new Set(["hypersku:api"])).approved.length,1);
+});
+
+test("provider status, documents and a secret without authenticated API proof are insufficient",()=>{
+ assert.equal(apiVerified({apiStatus:"api_active",approvedApiDocumentation:true,apiKeyConfigured:true}),false);
+ assert.equal(apiVerified({apiStatus:"api_active",approvedApiDocumentation:true,authenticatedApiVerified:true}),false);
+ assert.equal(apiVerified({apiStatus:"api_active",approvedApiDocumentation:true,supplierConnected:true}),false);
+});
+
+test("self-declared supplier evidence never qualifies without an independent runtime attestation",()=>{
+ const data=sample();
+ assert.equal(apiVerified(data.providers.hypersku,now),false);
+ assert.equal(verifyProviderProducts(data,shortlist,now).approved.length,0);
+ assert.ok(verifyProviderProducts(data,shortlist,now).rejected[0].reasons.includes("provider_api_not_active"));
+ assert.equal(verifyProviderProducts(data,shortlist,now,new Set(["eprolo:api"])).approved.length,0);
+});
+
 test("provisional provider credentials never authorize source evidence",()=>{
  const data=sample();data.providers.hypersku.apiStatus="pending";
  assert.deepEqual(verifyProviderProducts(data,shortlist,now).rejected[0].reasons,["provider_api_not_active"]);
@@ -92,7 +157,7 @@ test("commercial media URL rejects private networks and internal hosts",()=>{
   assert.equal(out.approved.length,0,url);
   assert.ok(out.rejected[0].reasons.includes("commercial_image_rights_not_proven"),url);
  }
- const valid=verifyProviderProducts(sample(),shortlist,now);
+ const valid=verifyProviderProducts(sample(),shortlist,now,new Set(["hypersku:api"]));
  assert.equal(valid.approved.length,1,"Public HTTPS CDN fixture must remain eligible");
 });
 
@@ -106,7 +171,8 @@ test("verified manual HyperSKU sourcing can qualify for a quote-only product wit
  };
  data.candidates[0].fulfillment.mode="manual";
  data.candidates[0].manualSourcingQuoteFromAuthenticatedDashboard=true;
- const out=verifyProviderProducts(data,shortlist,now);
+ assert.equal(verifyProviderProducts(data,shortlist,now).approved.length,0,"Manual dashboard flags alone are not proof");
+ const out=verifyProviderProducts(data,shortlist,now,new Set(["hypersku:manual"]));
  assert.equal(out.approved.length,1);
  assert.equal(out.approved[0].sourcingRoute,"merchant_verified_manual");
  assert.equal(out.approved[0].physicalCheckoutAuthorized,false);
@@ -129,4 +195,61 @@ test("supplier email claims alone never enable manual sourcing publication",()=>
  data.providers.hypersku.manualCsvOrderSubmissionAvailable=true;
  data.candidates[0].manualSourcingQuoteFromAuthenticatedDashboard=false;
  assert.equal(verifyProviderProducts(data,shortlist,now).approved.length,0);
+});
+
+
+test("malformed supplier timestamps and audit proof fail closed without throwing",()=>{
+ const hostile={toString:null,valueOf:null};
+ const data=sample();
+ data.providers.hypersku.apiConnectivityProof.checkedAt=hostile;
+ assert.equal(apiVerified(data.providers.hypersku,now,true),false);
+ assert.equal(verifyProviderProducts(data,shortlist,now,new Set(["hypersku:api"])).approved.length,0);
+ data.providers.hypersku.apiConnectivityProof.checkedAt="2026-10-27T10:55:00Z";
+ data.candidates[0].stock.checkedAt=hostile;
+ const stock=verifyProviderProducts(data,shortlist,now,new Set(["hypersku:api"]));
+ assert.equal(stock.approved.length,0);
+ assert.ok(stock.rejected[0].reasons.includes("current_physical_stock_unverified"));
+ data.candidates[0].stock.checkedAt="2026-10-27T10:55:00Z";
+ data.candidates[0].usFreight.checkedAt=hostile;
+ const freight=verifyProviderProducts(data,shortlist,now,new Set(["hypersku:api"]));
+ assert.equal(freight.approved.length,0);
+ assert.ok(freight.rejected[0].reasons.includes("us_shipping_quote_missing_or_stale"));
+ data.candidates[0].usFreight.checkedAt="2026-10-27T10:55:00Z";
+ data.candidates[0].approvedAt=hostile;
+ assert.equal(verifyProviderProducts(data,shortlist,now,new Set(["hypersku:api"])).approved.length,0);
+});
+
+test("malformed candidate and shortlist records never approve supplier products",()=>{
+ const hostile={toString:null,valueOf:null};
+ for(const bad of [null,hostile,{slug:hostile,provider:"hypersku"},{slug:"pethair",provider:hostile}]){
+  const data=sample();
+  data.candidates=[bad];
+  const out=verifyProviderProducts(data,shortlist,now,new Set(["hypersku:api"]));
+  assert.equal(out.approved.length,0);
+ }
+ for(const bad of [null,hostile,{slug:hostile},{slug:""}]){
+  const data=sample();
+  const out=verifyProviderProducts(data,{candidates:[bad]},now,new Set(["hypersku:api"]));
+  assert.equal(out.approved.length,0);
+  assert.deepEqual(out.rejected,[{reason:"invalid_registry"}]);
+ }
+});
+
+test("ZIP evidence requires a literal five-digit string and canonical UTC dates",()=>{
+ const hostile={toString:null,valueOf:null};
+ for(const bad of [hostile,10001,"1000","100001"]){
+  const data=sample();
+  data.candidates[0].usFreight.exampleZip=bad;
+  const out=verifyProviderProducts(data,shortlist,now,new Set(["hypersku:api"]));
+  assert.equal(out.approved.length,0);
+  assert.ok(out.rejected[0].reasons.includes("us_shipping_quote_missing_or_stale"));
+ }
+ for(const bad of ["2026-02-30T10:55:00Z","2026-10-27T10:55:00+00:00",
+                   "2026-10-27T10:55:00","2026-10-27T10:55:00.1Z"]){
+  const data=sample();
+  data.candidates[0].stock.checkedAt=bad;
+  const out=verifyProviderProducts(data,shortlist,now,new Set(["hypersku:api"]));
+  assert.equal(out.approved.length,0,bad);
+  assert.ok(out.rejected[0].reasons.includes("current_physical_stock_unverified"),bad);
+ }
 });

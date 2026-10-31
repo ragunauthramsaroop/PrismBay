@@ -8,8 +8,14 @@ const baseDomains={hypersku:["hypersku.com","www.hypersku.com","support.hypersku
 const thresholdMs=36*60*60*1000;
 
 function fresh(date,now,limit=thresholdMs){
- const epoch=Date.parse(String(date||""));
- return Number.isFinite(epoch)&&epoch<=now+120000&&now-epoch<=limit;
+ // Supplier timestamps must be valid, unambiguous UTC strings. Malformed JSON
+ // objects and calendar rollover dates must never crash or qualify evidence.
+ if(typeof date!=="string"||!/^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(?:\.[0-9]{3})?Z$/.test(date))return false;
+ const epoch=Date.parse(date);
+ if(!Number.isFinite(epoch))return false;
+ const canonical=new Date(epoch).toISOString();
+ if(canonical!==(date.includes(".")?date:date.replace("Z",".000Z")))return false;
+ return epoch<=now+120000&&now-epoch<=limit;
 }
 function officialEvidence(url,provider){
  if(typeof url!=="string")return false;
@@ -39,20 +45,40 @@ function httpsUrl(url){
 function nonEmptyId(v){return typeof v==="string"&&/^[A-Za-z0-9][A-Za-z0-9._:-]{3,100}$/.test(v);}
 function num(v){return typeof v==="number"&&Number.isFinite(v)&&v>0;}
 
-export function verifyProviderProducts(data,catalog,now=Date.now()){
- if(data?.schemaVersion!==1||!Array.isArray(data.candidates)||!catalog?.candidates)return {approved:[],rejected:[{reason:"invalid_registry"}]};
+// Repository flags alone do not establish supplier connectivity. Require a recent,
+// non-secret audit pointer to a merchant-authorized, authenticated read-only API
+// request. The referenced run must still be independently reviewed before release.
+export function apiVerified(provider,now=Date.now(),independentRuntimeAttestation=false){
+ const proof=provider?.apiConnectivityProof;
+ // A repository-declared audit pointer is not independent supplier authentication.
+ // Only a separately verified runtime caller supplies the attestation.
+ return independentRuntimeAttestation===true&&provider?.apiStatus==="api_active"&&provider?.approvedApiDocumentation===true&&
+  provider?.authenticatedApiVerified===true&&provider?.supplierConnected===true&&
+  proof?.method==="authenticated_read_only_api_request"&&proof?.result==="success"&&
+  proof?.merchantAccountMatched===true&&
+  typeof proof?.reviewer==="string"&&/^[A-Za-z0-9_.-]{3,80}$/.test(proof.reviewer)&&
+  typeof proof?.auditRef==="string"&&/^gh-run:[1-9][0-9]{5,19}$/.test(proof.auditRef)&&
+  fresh(proof?.checkedAt,now,24*3600000);
+}
+
+export function verifyProviderProducts(data,catalog,now=Date.now(),independentlyAttestedRoutes=new Set()){
+ if(data?.schemaVersion!==1||!Array.isArray(data.candidates)||!Array.isArray(catalog?.candidates)||
+   catalog.candidates.some(x=>!x||typeof x!=="object"||Array.isArray(x)||
+     typeof x.slug!=="string"||!x.slug.trim()))
+  return {approved:[],rejected:[{reason:"invalid_registry"}]};
  const allowed=new Map(catalog.candidates.map(p=>[p.slug,p]));
  const approved=[],rejected=[],seen=new Set();
  for(const row of data.candidates){
   const reasons=[];
-  const origin=String(row?.provider||"");
-  const code=String(row?.slug||"");
+  const origin=typeof row?.provider==="string"?row.provider:"";
+  const code=typeof row?.slug==="string"?row.slug:"";
   const original=allowed.get(code);
   const provider=data?.providers?.[origin];
-  const apiSource=provider?.apiStatus==="api_active"&&row?.fulfillment?.mode==="api";
+  const apiSource=apiVerified(provider,now,independentlyAttestedRoutes instanceof Set&&independentlyAttestedRoutes.has(origin+":api"))&&row?.fulfillment?.mode==="api";
   // HyperSKU's low-volume path is manual: confirmed merchant dashboard source
   // records may qualify for quote-only listings, never automated ordering.
-  const manualSource=origin==="hypersku"&&
+  const manualSource=independentlyAttestedRoutes instanceof Set&&
+    independentlyAttestedRoutes.has(origin+":manual")&&origin==="hypersku"&&
     provider?.apiStatus==="open_api_not_available_low_volume"&&
     provider?.customStoreRoute==="manual_csv_batch_upload_only"&&
     provider?.manualCsvRouteIndependentlyConfirmed===true&&
@@ -73,7 +99,7 @@ export function verifyProviderProducts(data,catalog,now=Date.now()){
     !fresh(row.stock.checkedAt,now)||!row.stock.warehouseCountry)
     reasons.push("current_physical_stock_unverified");
   if(!row?.usFreight||!num(row.usFreight.costUsd)||row.usFreight.destinationCountry!=="US"||
-    !/^\d{5}$/.test(String(row.usFreight.exampleZip||""))||row.usFreight.tracked!==true||
+    (typeof row.usFreight.exampleZip!=="string"||!/^\d{5}$/.test(row.usFreight.exampleZip))||row.usFreight.tracked!==true||
     !fresh(row.usFreight.checkedAt,now,24*3600000))
     reasons.push("us_shipping_quote_missing_or_stale");
   if(!num(row?.unitCostUsd)||!num(row?.targetRetailUsd))reasons.push("no_verified_unit_or_retail_price");
@@ -118,11 +144,11 @@ export async function writeReport(
  const [data,catalog]=await Promise.all([fs.readFile(registry,"utf8").then(JSON.parse),fs.readFile(shortlist,"utf8").then(JSON.parse)]);
  const {approved,rejected}=verifyProviderProducts(data,catalog);
  const output={schemaVersion:1,asOf:new Date().toISOString(),
-  liveSupplierAPIs:Object.entries(data.providers||{}).filter(([,v])=>v.apiStatus==="api_active").map(([k])=>k),
+  liveSupplierAPIs:Object.entries(data.providers||{}).filter(([key,v])=>supported.has(key)&&apiVerified(v)).map(([k])=>k),
   verifiedSourceProducts:approved,blockedCandidateReasons:rejected,
   publicAlternateSourceCount:approved.length,customerCheckoutEnabled:false,
   automaticOrdersEnabled:false,monthlySubscriptionCommitmentUsd:0,
-  note:"Supplier-linked public media appears only with explicit reuse rights; checkout also requires buyer-specific final delivery, refundable order-routing terms, and separately authorized funding."};
+  note:"This report has no independently attested supplier API or manual-dashboard session. Repository flags, audit pointers, and CI fixtures cannot approve source products or liveSupplierAPIs. An authenticated, merchant-matched, independently reviewed runtime adapter is required before supplier approval. No live supplier API call occurs here. Media reuse, buyer-specific freight, returns, margin and authorized funding remain separate gates."};
  await fs.mkdir("growth-reports",{recursive:true});
  await fs.writeFile(destination,JSON.stringify(output,null,2)+"\n");
  console.log(JSON.stringify({liveAPIs:output.liveSupplierAPIs,sourceApproved:approved.length,rejected:rejected.length,checkoutEnabled:false}));
