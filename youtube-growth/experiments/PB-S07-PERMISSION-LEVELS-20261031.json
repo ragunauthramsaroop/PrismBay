@@ -1,0 +1,39 @@
+{
+  "id": "PB-S07-PERMISSION-LEVELS-20261031",
+  "channelId": "UCw2hs85TzIpdKwJtG-BSxzQ",
+  "handle": "@PrismBayAI",
+  "metricoolBrandId": 6945443,
+  "createdAt": "2026-10-31",
+  "asset": "S07 Four Permission Levels",
+  "format": "Short",
+  "durationSeconds": 44.864,
+  "source": "Owned L01-V7 narration, reordered for independent payoff",
+  "visuals": "Nine original vertical diagrams, 1080x1920",
+  "title": "Never Give an AI Agent Your Finance Login",
+  "alternateTitle": "4 AI Agent Permissions, and Which Ones to Block",
+  "audience": "Founders, finance leaders, operators, and IT leads",
+  "hypothesis": "A concrete permissions ladder improves retention and subscriber conversion compared with generic AI-agent risk commentary",
+  "hook": "Do not give the agent the finance manager's shared login",
+  "cta": "Follow PrismBay AI for practical AI business systems",
+  "thumbnailConcept": "Read/Draft/Write/Execute ladder, Execute highlighted red",
+  "publishTime": null,
+  "published": false,
+  "publicationApproved": false,
+  "paidSpendUSD": 0,
+  "successThreshold": "At least one subscriber per 100 organic views or 1.5x reliable channel 24-hour median views after enough observations",
+  "reviewWindows": [
+    "6h",
+    "24h",
+    "72h",
+    "7d"
+  ],
+  "status": "RETEST_PENDING_RELEASE_QA",
+  "qa": {
+    "decode": "PASS",
+    "resolution": "PASS",
+    "captions": 22,
+    "editorialListening": "PENDING",
+    "physicalMobilePlayback": "PENDING"
+  },
+  "sha256": "69808df64376d4e13433ed70d3593cf4f2aea9fcf619a5e8c6b8211887570330"
+}
