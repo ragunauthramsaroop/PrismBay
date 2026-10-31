@@ -8,7 +8,7 @@
   "format": "Short",
   "durationSeconds": 44.864,
   "source": "Owned L01-V7 narration, reordered for independent payoff",
-  "visuals": "Nine original vertical diagrams, 1080x1920",
+  "visuals": "Nine original vertical diagrams, revised mobile-safe footer, 1080x1920",
   "title": "Never Give an AI Agent Your Finance Login",
   "alternateTitle": "4 AI Agent Permissions, and Which Ones to Block",
   "audience": "Founders, finance leaders, operators, and IT leads",
@@ -27,13 +27,22 @@
     "72h",
     "7d"
   ],
-  "status": "RETEST_PENDING_RELEASE_QA",
+  "status": "MODIFY_COMPLETED_PENDING_RELEASE_QA",
   "qa": {
     "decode": "PASS",
     "resolution": "PASS",
-    "captions": 22,
+    "captions": 18,
     "editorialListening": "PENDING",
-    "physicalMobilePlayback": "PENDING"
+    "physicalMobilePlayback": "PENDING",
+    "minimumCueSeconds": 2.049,
+    "maximumCaptionWPM": 175.8,
+    "wordsPreserved": 123,
+    "audioCorrelation": 1,
+    "mobileSafeFooter": "PASS"
   },
-  "sha256": "69808df64376d4e13433ed70d3593cf4f2aea9fcf619a5e8c6b8211887570330"
+  "sha256": "42bfac0f79e776ac8c542f0745110e4934be06cb80288ae2f1941d3f8c92457b",
+  "version": "S07-V2",
+  "uploadPermitted": false,
+  "releaseAudit": "youtube-growth/analytics/2026-10-31-0842-s07-v2-mobile-safe-captions-and-trend-audit.md",
+  "timingRecommendation": "Provisional Wed 16:00 Guyana based on Metricool weekly scores, not scheduled"
 }
