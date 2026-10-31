@@ -37,3 +37,9 @@ Guyana is absent from the published expanded-YPP territory list. Channel-specifi
 `publicationApproved=false`, `uploadPermitted=false`, `youtubePublished=false`, `paidSpendUSD=0`.
 
 Next: verify GitHub render outcome and file hashes; run full audio listening and independent ASR; inspect visual/caption safe zones and physical-device playback; replace existing private draft media only after technical QA; complete editorial approval and first-party channel verification before any public release. Record a public watch URL and 6h/24h/72h/7d metrics only after publication.
+
+## Post-request verification
+
+- GitHub Actions `YouTube Zero-Cost Render` run `41254281772` finished **successfully**. The rendered MP4 is at `public/youtube/ai-agent-monitoring-2026-10-31-retention-release-candidate.mp4`. GitHub metadata reports SHA256 `2aac28b27512320b5ffab0cadf2ce3b722d4683e71d44dc1bcdfe480b0e10b35`, Piper-only narration and the verified voice-model SHA256. Publication flags are all false. Run: https://github.com/ragunauthramsaroop/PrismBay/actions/runs/41254281772
+- Created fail-closed independent private QA workflow `.github/workflows/prismbay-monitoring-retention-private-qa.yml`, commit `98486a468dd180d995db22c6310080e7a1a34726`. QA run `41254433278` passed source accuracy, exact channel, verified voice, zero spend and private-gate checks. FFmpeg full decode and contact sheet were still running at last observation. Run: https://github.com/ragunauthramsaroop/PrismBay/actions/runs/41254433278
+- The existing Metricool draft is unchanged. The new MP4 is not a public YouTube upload. Audio listening, independent ASR, captions, mobile playback and final editorial approval remain pending.
