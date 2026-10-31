@@ -11,7 +11,7 @@
   "thumbnailConcept": "Original monitor status graphic, one OFFLINE warning, no faces",
   "cta": "PrismBay AI helps founders, operators and executives implement practical AI business systems.",
   "plannedLocalPublishTime": "UNSET; Nov 4 16:00 is an inactive private-draft placeholder",
-  "status": "MODIFY_PRIVATE_RENDER_COMPLETE_QA_IN_PROGRESS",
+  "status": "MODIFY_PRIVATE_TECHNICAL_QA_PASS_EDITORIAL_HOLD",
   "metricoolPostId": 412495293,
   "metricoolPostUuid": "4812359205726866079",
   "descriptCompositionId": "a597a812-49d3-4554-9c0a-e1639c47da81",
@@ -79,7 +79,16 @@
     "metadataPath": "public/youtube/ai-agent-monitoring-2026-10-31-retention-release-candidate.json",
     "voiceModelVerified": true,
     "privateQaRunId": 41254433278,
-    "privateQaStatus": "IN_PROGRESS_AT_LAST_CHECK; source/channel/closed-gate step PASS; full FFmpeg decode pending",
-    "privateQaUrl": "https://github.com/ragunauthramsaroop/PrismBay/actions/runs/41254433278"
+    "privateQaStatus": "SUCCESS: source, exact channel, SHA256, licensed Piper voice, 1080x1920 H264/AAC, full decode, private release flags",
+    "privateQaUrl": "https://github.com/ragunauthramsaroop/PrismBay/actions/runs/41254433278",
+    "privateQaArtifactId": 13061624447,
+    "remainingGates": [
+      "full narration listening",
+      "independent ASR",
+      "caption sync and safe-area QA",
+      "physical-device playback",
+      "final editorial approval",
+      "YouTube Studio Earn verification"
+    ]
   }
 }
