@@ -48,5 +48,37 @@
   "uploadPermitted": false,
   "releaseAudit": "youtube-growth/analytics/2026-10-31-0947-s07-v3-conversion-cta-and-ypp-policy-check.md",
   "timingRecommendation": "Provisional Wed 16:00 Guyana based on Metricool weekly scores, not scheduled",
-  "lastCheckedAt": "2026-10-31T09:47:00-04:00"
+  "lastCheckedAt": "2026-10-31T10:45:00-04:00",
+  "independentReleaseAudit": "youtube-growth/analytics/2026-10-31-1045-s07-v3-independent-release-preflight-and-channel-check.md",
+  "independentTechnicalQA": {
+    "fullDecode": "PASS",
+    "resolution": "1080x1920",
+    "frames": 1076,
+    "frameRate": 24,
+    "captionCount": 18,
+    "captionWords": 123,
+    "captionOverlaps": 0,
+    "maxCaptionWPM": 175.8,
+    "integratedLUFS": -17.02,
+    "truePeakDBTP": -2.93,
+    "blackSequencesOver120ms": 0,
+    "silenceOver400msBelowMinus42dB": 0,
+    "editorialListening": "PENDING",
+    "physicalDevicePlayback": "PENDING"
+  },
+  "latestChannelCheck": {
+    "observedSubscribers": 7,
+    "observedViewsOct24toOct31": 153,
+    "observedViewDates": 4,
+    "missingViewDates": [
+      "2026-10-27",
+      "2026-10-29",
+      "2026-10-30",
+      "2026-10-31"
+    ],
+    "scheduledPostsThrough": "2026-11-15",
+    "scheduledCount": 0,
+    "perVideoMetrics": "NO_ROWS",
+    "browser": "UNAVAILABLE"
+  }
 }
