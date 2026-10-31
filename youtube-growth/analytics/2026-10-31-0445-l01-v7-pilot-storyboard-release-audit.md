@@ -8,9 +8,9 @@ Improved the existing 8:05.125 long-form private review, *Five Gates Before an A
 - SHA256: `9737cb89f1926649c781d06071132feec0acfc26adcfbc2db97432ada6269b9c`.
 - Full FFmpeg decode: PASS.
 - Audio bitstream hash is identical to V6: `9518546d85d440e090b6270804f259065d5fc858826f3d8ccb13777f5d609f8f`.
-- Five new scenes visually inspected in a contact sheet. 360-pixel phone-width simulation reviewed across 12 timestamps. A simulation is not physical-device playback.
+- Five new scenes visually inspected in a contact sheet. 360-pixel phone-width V7 simulation reviewed across 15 timestamps, including all five new pilot scenes. A simulation is not physical-device playback.
 - Existing 157 subtitle cues: 0 overlaps, 0 outside the timeline; 7 cues exceed 180 WPM, with a maximum of 199 WPM. These are improvement opportunities, not grounds to claim exact speech alignment.
-- Private ZIP: `PrismBay_L01_V7_Pilot_Storyboard_Private_Review_2026-10-31.zip`, SHA256 `0733e1e788e592b5ac3402385d63c8a35442b6335805967db7f087c4848e8d4b`. ZIP integrity test PASS. The package is retained as a private ChatGPT artifact, not committed as public video media.
+- Private ZIP: `PrismBay_L01_V7_Pilot_Storyboard_Private_Review_2026-10-31.zip`, SHA256 `8921a5bcfaf17f339d04fc4ca52e1d39054e6b91a55316d2e2f18c5f9b4820cc`. ZIP integrity test PASS. The package is retained as a private ChatGPT artifact, not committed as public video media.
 
 ## Connected channel and experiment status
 - Metricool brand settings confirm the sole YouTube channel ID `UCw2hs85TzIpdKwJtG-BSxzQ`.
