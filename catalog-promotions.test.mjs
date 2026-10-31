@@ -81,3 +81,15 @@ test('steamer guides remain educational while physical fulfillment is unapproved
   assert.doesNotMatch(guide, /USD 29\.95|href="\/garment-steamer\/|buy\.stripe\.com|live supplier stock|checkout is released|verified supplier identity|ZIP check and manual inquiry|which is why PrismBay verifies|What the check does not do|Launch physical orders/i, filename);
  }
 });
+
+
+test('zero-stock Top 15 metadata does not advertise available physical inventory', () => {
+ const html = fs.readFileSync(new URL('./top-15/index.html', import.meta.url), 'utf8');
+ assert.match(html, /<title>Supplier Verification Status &amp; Digital Toolkits \| PrismBay Clean<\/title>/);
+ assert.match(html, /Review current supplier verification status and four existing digital toolkits/);
+ assert.match(html, /Supplier verification status is not a claim of available stock/);
+ assert.doesNotMatch(html, /Browse real supplier-matched products|Real Supplier Products and Available Digital Tools|Authentic Supplier-Matched Products/);
+ assert.match(html, /"numberOfItems":0/);
+ assert.equal((html.match(/class="ready-buy"/g) || []).length, 4, 'Preserve four existing digital offers');
+ assert.match(html, /No physical-product orders or payments are accepted on this page/);
+});
