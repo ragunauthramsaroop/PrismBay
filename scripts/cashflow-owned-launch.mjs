@@ -24,21 +24,21 @@ export function buildCashflowBuyerPage() {
       availability: 'https://schema.org/InStock'
     }
   }).replaceAll('<', '\\u003c');
-  return \`<!doctype html>
+  return `<!doctype html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Cash Flow Tracker Excel Template for Small Businesses | PrismBay $5.99</title>
-<meta name="description" content="\${description}">
+<meta name="description" content="${description}">
 <meta name="robots" content="index,follow">
-<link rel="canonical" href="\${CASHFLOW_GUIDE_URL}">
+<link rel="canonical" href="${CASHFLOW_GUIDE_URL}">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Small Business Cash Flow Tracker Excel Template | PrismBay">
-<meta property="og:description" content="\${description}">
-<meta property="og:url" content="\${CASHFLOW_GUIDE_URL}">
+<meta property="og:description" content="${description}">
+<meta property="og:url" content="${CASHFLOW_GUIDE_URL}">
 <link rel="stylesheet" href="../buyer-guides.css">
-<script type="application/ld+json">\${structured}</script>
+<script type="application/ld+json">${structured}</script>
 <style>
 .compare-table{border-collapse:collapse;width:100%;margin:18px 0 8px;background:#fff}
 .compare-table th,.compare-table td{border:1px solid #d5e3dd;padding:12px;text-align:left}
@@ -56,15 +56,15 @@ export function buildCashflowBuyerPage() {
 <body>
 <a href="#main" class="skip">Skip to content</a>
 <header class="nav"><div class="wrap"><a class="brand" href="../">PrismBay <em>AI</em></a>
-<nav class="navlinks"><a href="./">Free buyer guides</a><a href="\${CASHFLOW_PRODUCT_URL}">Product details</a><a href="../toolkits.html">Executive tools</a></nav>
+<nav class="navlinks"><a href="./">Free buyer guides</a><a href="${CASHFLOW_PRODUCT_URL}">Product details</a><a href="../toolkits.html">Executive tools</a></nav>
 </div></header>
 <section class="hero"><div class="wrap">
 <p class="eyebrow">Original digital spreadsheet | One-time purchase</p>
 <h1>A simple way to track money coming into and leaving your business.</h1>
 <p class="lead">Use an editable Excel cash flow tracker for a clearer view of monthly income, expenses and cash balances. Designed for freelancers, independent consultants and small business operators.</p>
 <div class="buttons">
-<a class="btn primary" href="\${CASHFLOW_PRODUCT_URL}">Review the Excel workbook</a>
-<a class="btn outline" href="\${CASHFLOW_CHECKOUT_URL}?client_reference_id=organic_cashflow_guide" rel="noopener noreferrer">Purchase for $5.99 USD</a>
+<a class="btn primary" href="${CASHFLOW_PRODUCT_URL}">Review the Excel workbook</a>
+<a class="btn outline" href="${CASHFLOW_CHECKOUT_URL}?client_reference_id=organic_cashflow_guide" rel="noopener noreferrer">Purchase for $5.99 USD</a>
 </div>
 <p class="facts">One-time payment. No subscription. Requires Excel or compatible spreadsheet software. Not accounting, tax or financial advice.</p>
 </div></section>
@@ -108,8 +108,8 @@ export function buildCashflowBuyerPage() {
 <div class="cashflow-action">
 <h2>PrismBay Cashflow Studio v1</h2>
 <p>Original editable Excel tracker, fictional examples and getting-started guide. $5.99 USD, paid once.</p>
-<a href="\${CASHFLOW_CHECKOUT_URL}?client_reference_id=organic_cashflow_guide_footer" rel="noopener noreferrer">Continue to Stripe checkout</a>
-<p class="cashflow-minor">See the <a href="\${CASHFLOW_PRODUCT_URL}" style="color:#daf8e6">product details</a> before purchase.</p>
+<a href="${CASHFLOW_CHECKOUT_URL}?client_reference_id=organic_cashflow_guide_footer" rel="noopener noreferrer">Continue to Stripe checkout</a>
+<p class="cashflow-minor">See the <a href="${CASHFLOW_PRODUCT_URL}" style="color:#daf8e6">product details</a> before purchase.</p>
 </div>
 </article>
 <aside class="aside">
@@ -118,10 +118,10 @@ export function buildCashflowBuyerPage() {
 <div class="price">$5.99<small> USD, one time</small></div>
 <p>5 Excel worksheets. One private ZIP download after verified payment.</p>
 <ul><li>Monthly cash view</li><li>300 transaction rows</li><li>Editable workbook and instructions</li></ul>
-<a class="btn dark" href="\${CASHFLOW_PRODUCT_URL}">View product details</a>
+<a class="btn dark" href="${CASHFLOW_PRODUCT_URL}">View product details</a>
 <p class="disclosure">Payments use Stripe-hosted checkout. <a href="https://www.prismbayai.com/refunds">Refund information</a> · <a href="https://www.prismbayai.com/contact">Contact support</a>.</p>
 </aside>
 </div></div></main>
-<footer><div class="wrap">PrismBay original digital tools. <a href="./">Free guides</a> · <a href="\${CASHFLOW_PRODUCT_URL}">Cashflow Studio</a> · <a href="../toolkits.html">Executive document systems</a></div></footer>
-</body></html>\`;
+<footer><div class="wrap">PrismBay original digital tools. <a href="./">Free guides</a> · <a href="${CASHFLOW_PRODUCT_URL}">Cashflow Studio</a> · <a href="../toolkits.html">Executive document systems</a></div></footer>
+</body></html>`;
 }
