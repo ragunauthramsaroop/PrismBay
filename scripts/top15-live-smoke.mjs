@@ -63,6 +63,47 @@ const homeHtml=await homepage.text();
 assert.doesNotMatch(homeHtml,/oss-cf\.cjdropshipping\.com\/product/,'Homepage has no rights-cleared supplier image');
 assert.doesNotMatch(homeHtml,/"@type":"Product","name":"Portable Garment Steamer"/,'No outdated physical Product structured data');
 assert.ok(homeHtml.includes('https://buy.stripe.com/eVqfZi5Lo7pV31Ea4MgnK0t'),'Featured purchasable digital bundle remains available');
+// Historical product links and guide prices also require withdrawal. Checking only
+// the legacy product route misses misleading links retained in indexed guides.
+const oldPhysicalRoute=/href\s*=\s*["'][^"']*\/garment-steamer\/(?:\?[^"']*)?["']/i;
+assert.doesNotMatch(homeHtml,oldPhysicalRoute,'Homepage must not link to withdrawn physical listing');
+const legacyGuidePaths=[
+ 'guides/garment-steamer-vs-iron.html',
+ 'guides/how-to-use-a-garment-steamer.html',
+ 'guides/portable-garment-steamer.html',
+ 'guides/travel-garment-steamer-guide.html'
+];
+const legacyGuideResponses=await Promise.all(legacyGuidePaths.map(path=>request(home+path)));
+for(let i=0;i<legacyGuidePaths.length;i++){
+ const path=legacyGuidePaths[i],response=legacyGuideResponses[i];
+ assert.equal(response.status,200,'Historical buyer guide must respond 200: '+path);
+ const guideHtml=await response.text();
+ assert.doesNotMatch(guideHtml,oldPhysicalRoute,'Historical guide links to withdrawn physical offer: '+path);
+ assert.doesNotMatch(guideHtml,/\b(?:USD|US\$)\s*\d+(?:\.\d{2})?\b|(?:listed\s+(?:price|at)|priced\s+at)\s*[:\-]?\s*\$\s*\d+(?:\.\d{2})?|\$\s*\d+(?:\.\d{2})?/i,
+  'Historical guide retains unsupported product price: '+path);
+}
+// Legacy routes and catalog feeds require independent trust checks. A clean
+// /top-15/ page alone does not prove old product offers were withdrawn.
+const legacy=await request(home+'garment-steamer/');
+assert.ok([200,404,410].includes(legacy.status),'Unexpected legacy product route status');
+if(legacy.status===200){
+ const legacyHtml=await legacy.text();
+ assert.match(legacyHtml,/<meta[^>]*name=["']robots["'][^>]*content=["']noindex,nofollow["']/i,
+  'Legacy product route must be excluded from indexing');
+ assert.match(legacyHtml,/not currently offered/i,'Legacy product route must show an unavailable notice');
+ // A changed price or a different image host must not evade the withdrawal gate.
+ assert.doesNotMatch(legacyHtml,/(?:\b(?:USD|US\$)\s*\d+(?:\.\d{2})?|\$\s*\d+(?:\.\d{2})?|\bpriceUsd\b|product:price|<img\b|<picture\b|<form\b|<video\b|<script\b[^>]*type=["']application\/ld\+json["']|schema\.org\/Product|buy\.stripe\.com|add to cart|buy now)/i,
+  'Legacy route must not contain any physical offer price, supplier image, form, video, Product schema or checkout');
+}
+const legacyCatalog=await request(home+'products.json');
+assert.equal(legacyCatalog.status,200,'Legacy physical catalog JSON must remain accessible');
+const legacyCatalogJson=await legacyCatalog.json();
+assert.ok(Array.isArray(legacyCatalogJson.products),'Legacy physical catalog must contain a products array');
+assert.equal(legacyCatalogJson.products.length,0,'Legacy physical catalog must not advertise unverified products');
+const publicSitemap=await request(home+'sitemap.xml');
+assert.equal(publicSitemap.status,200,'Public sitemap must respond 200');
+assert.doesNotMatch(await publicSitemap.text(),/<loc>https:\/\/clean\.prismbayai\.com\/garment-steamer\/<\/loc>/i,
+ 'Legacy unverified physical product route must not remain in the sitemap');
 const quote=await request(intake+'/quote?product=screen-protector&utm_source=verified-catalog');
 assert.equal(quote.status,200,'Consent-backed product inquiry route');
 const inbox=await request(intake+'/_api/quote-inbox');
