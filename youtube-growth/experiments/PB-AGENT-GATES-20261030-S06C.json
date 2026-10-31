@@ -5,13 +5,13 @@
   "metricool_brand_id": 6945443,
   "series": "AI Systems That Survive Contact With Operations",
   "parent_longform": "PB-AGENT-GATES-20261030-L01",
-  "status": "PRIVATE_RENDER_EDITORIAL_HOLD",
+  "status": "PRIVATE_RENDER_V3_EDITORIAL_HOLD",
   "title": "Your AI Agent Passed the Demo. Now Break It.",
   "audience": "Founders, operators and automation owners preparing live agent deployments",
   "hypothesis": "A three-test failure rehearsal provides a distinct implementation payoff and more qualified viewer discussion than generic AI safety advice",
   "hook_type": "contrarian failure-first",
   "format": "original 9:16 Short",
-  "duration_seconds": 45.883,
+  "duration_seconds": 48.173,
   "visual_concept": "Ten original illustrated test scenes: permission denial, stale source evidence and emergency stop",
   "cta": "Which failure test would your workflow fail?",
   "planned_publish_time": "Only after full editorial sign-off and rechecking the sole target channel; at least 4 hours from any other Short",
@@ -38,9 +38,13 @@
     "decode": "PASS",
     "captions": 10,
     "max_caption_words_per_minute": 152.1,
-    "sha256": "121977bffa3517a389de1bd5488037204611852472f816c8ad30a2efbbfe1584",
+    "sha256": "fb8284a9a41dae338d618db89bc57456740c4dd23608b43eff0ad9e21fb88ee2",
     "audio": "offline FFmpeg flite voice, synthetic narration",
-    "visuals": "10 original illustrated scenes, no stock footage"
+    "visuals": "10 original illustrated scenes, no stock footage",
+    "version": "v3 corrected safety response and burned captions",
+    "full_decode": "PASS",
+    "editorial_correction": "If a test fails, stop the agent. Investigate and retest before restoring access. Visual holds READ, DRAFT, PAY.",
+    "audit_url": "https://github.com/ragunauthramsaroop/PrismBay/blob/main/youtube-growth/analytics/2026-10-30-2044-s06c-v3-editorial-safety-correction.md"
   },
   "release_gates": {
     "mechanical_media_decode": true,
@@ -50,7 +54,9 @@
     "real_device_playback": false,
     "final_rights_approval": false,
     "publicationApproved": false,
-    "uploadPermitted": false
+    "uploadPermitted": false,
+    "visual_contact_sheet_inspected": true
   },
-  "paidSpendUSD": 0
+  "paidSpendUSD": 0,
+  "portfolio_decision": "MODIFY"
 }
