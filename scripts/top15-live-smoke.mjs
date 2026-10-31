@@ -65,7 +65,7 @@ assert.doesNotMatch(homeHtml,/"@type":"Product","name":"Portable Garment Steamer
 assert.ok(homeHtml.includes('https://buy.stripe.com/eVqfZi5Lo7pV31Ea4MgnK0t'),'Featured purchasable digital bundle remains available');
 // Historical product links and guide prices also require withdrawal. Checking only
 // the legacy product route misses misleading links retained in indexed guides.
-const oldPhysicalRoute=/href\\s*=\\s*["'][^"']*\\/garment-steamer\\/(?:\\?[^"']*)?["']/i;
+const oldPhysicalRoute=/href\s*=\s*["'][^"']*\/garment-steamer\/(?:\?[^"']*)?["']/i;
 assert.doesNotMatch(homeHtml,oldPhysicalRoute,'Homepage must not link to withdrawn physical listing');
 const legacyGuidePaths=[
  'guides/garment-steamer-vs-iron.html',
@@ -79,7 +79,7 @@ for(let i=0;i<legacyGuidePaths.length;i++){
  assert.equal(response.status,200,'Historical buyer guide must respond 200: '+path);
  const guideHtml=await response.text();
  assert.doesNotMatch(guideHtml,oldPhysicalRoute,'Historical guide links to withdrawn physical offer: '+path);
- assert.doesNotMatch(guideHtml,/\\b(?:USD|US\\$)\\s*\\d+(?:\\.\\d{2})?\\b|(?:listed\\s+(?:price|at)|priced\\s+at)\\s*[:\\-]?\\s*\\$\\s*\\d+(?:\\.\\d{2})?/i,
+ assert.doesNotMatch(guideHtml,/\b(?:USD|US\$)\s*\d+(?:\.\d{2})?\b|(?:listed\s+(?:price|at)|priced\s+at)\s*[:\-]?\s*\$\s*\d+(?:\.\d{2})?/i,
   'Historical guide retains unsupported product price: '+path);
 }
 // Legacy routes and catalog feeds require independent trust checks. A clean
