@@ -23,18 +23,18 @@ The five-gate checklist is PrismBay AI's original educational framework, not an 
 
 PrismBay AI helps founders, operators and executives implement practical AI business systems. Subscribe for tested workflows, cost models and operational controls."
 
-Proposed chapters, subject to exact finished cut:
+Verified L01-V2 chapter timestamps derived from the rendered 56-beat timeline (504.458 seconds). These replace the earlier proposed timestamps, which exceeded the finished video's duration:
 00:00 Why agent permissions matter
-00:35 Recommendation versus action
-01:15 Gate 1: Scope
-02:35 Gate 2: Permission
-03:50 Gate 3: Evidence
-05:05 Gate 4: Approval
-06:15 Gate 5: Recovery
-07:30 Worked permission matrix
-08:30 Launch checklist
-Do not publish chapters until actual exported timestamps are verified.
-
+00:36 Advice versus action
+01:12 Gate 1: Scope
+02:06 Gate 2: Permission
+02:52 Gate 3: Evidence
+03:46 Gate 4: Approval
+04:33 Gate 5: Recovery
+05:22 Pilot implementation
+07:00 Worked permission matrix
+07:40 Final five-gate checklist
+The timestamps apply ONLY to L01-V2. Recalculate after any edit; do not copy to a later cut.
 Tags: AI agent permissions, AI automation, business AI, AI governance, least privilege, accounts payable automation, agentic AI, workflow controls, human approval, AI risk management, PrismBay AI.
 
 Proposed pinned comment: "Which action should your business never let an AI agent complete without independent approval? Our free ten-control worksheet is here: https://clean.prismbayai.com/digital/ai-agent-permission-audit.html . The examples in this video are fictional."
