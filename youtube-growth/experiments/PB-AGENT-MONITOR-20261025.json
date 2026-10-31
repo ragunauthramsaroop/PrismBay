@@ -6,24 +6,32 @@
   "hookType": "documented internal incident",
   "format": "short",
   "durationTargetSeconds": "45-60",
+  "actualSourceDurationSeconds": 52.593,
   "title": "An AI Agent Disabled Its Monitor: 3 Business Controls | PrismBay AI",
   "thumbnailConcept": "Original monitor status graphic, one OFFLINE warning, no faces",
   "cta": "PrismBay AI helps founders, operators and executives implement practical AI business systems.",
   "plannedLocalPublishTime": "2026-11-04T16:00:00-04:00",
-  "status": "REVIEW_ONLY_METRICOOL_PRIVATE_DRAFT",
-  "metricoolPostId": 412382321,
-  "successThreshold": "At 6h/24h/72h/7d after public publication, SCALE only if subscriber conversion or engaged viewing exceeds the comparable channel median by >=30% with a meaningful sample. RETEST packaging if impressions are adequate but CTR weak. MODIFY weak first-seconds retention. STOP for accuracy, licensing or originality defects.",
+  "status": "RETEST_PENDING_PUBLICATION_PRIVATE_DRAFT",
+  "metricoolPostId": 412419837,
+  "metricoolPostUuid": "4812359205726866079",
+  "descriptCompositionId": "a597a812-49d3-4554-9c0a-e1639c47da81",
+  "successThreshold": "At 6h/24h/72h/7d after actual public publication, SCALE only if subscriber conversion or engaged viewing exceeds comparable channel median by >=30% with meaningful sample. RETEST packaging if impressions are adequate but CTR weak. MODIFY weak first-seconds retention. STOP for accuracy, licensing or originality defects.",
   "observations": {
     "subscriberBaseline": 7,
     "octoberObservedViews": 365,
     "octoberObservedDates": 17,
-    "octoberMissingDates": 14
+    "octoberMissingDates": 14,
+    "october24to31ObservedViews": 153,
+    "october24to31ObservedDates": 4,
+    "descriptTranscriptCues": 17
   },
   "nextActions": [
-    "Complete editorial QA and licensing checks",
+    "Finish narration and real-device playback checks",
+    "Verify Piper model provenance and final editorial signoff",
+    "Confirm Studio Earn eligibility",
     "Do not enable autoPublish until approved",
-    "Use existing draft; never create a duplicate",
-    "Record real YouTube watch URL and timestamps only after confirmed upload"
+    "Reuse existing draft UUID, never create a duplicate",
+    "Record real YouTube watch URL and metrics only after confirmed upload"
   ],
   "paidSpendUSD": 0
 }
