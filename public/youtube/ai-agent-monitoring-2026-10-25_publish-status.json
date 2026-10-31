@@ -3,9 +3,9 @@
   "handle": "@PrismBayAI",
   "metricoolBrandId": 6945443,
   "experimentId": "PB-AGENT-MONITOR-20261025",
-  "checkedAt": "2026-10-31T14:49:00-04:00",
-  "state": "METRICOOL_PRIVATE_DRAFT_CREATED_REVIEW_HOLD",
-  "metricoolPostId": 412382321,
+  "checkedAt": "2026-10-31T15:48:00-04:00",
+  "state": "METRICOOL_PRIVATE_DRAFT_SOURCE_VERIFIED_DESCRIPT_TRANSCRIBED_REVIEW_HOLD",
+  "metricoolPostId": 412419837,
   "metricoolPostUuid": "4812359205726866079",
   "metricoolPlannerUrl": "https://app.metricool.com/planner/calendar?blogId=6945443&openWithPostUuid=4812359205726866079",
   "mediaSource": "https://raw.githubusercontent.com/ragunauthramsaroop/PrismBay/main/public/youtube/ai-agent-monitoring-2026-10-25.mp4",
@@ -19,17 +19,33 @@
   "publicVideoUrl": null,
   "releaseApproved": false,
   "uploadPermitted": false,
+  "descript": {
+    "projectId": "3de30d73-71c8-4e9d-9ccf-72faf3fb5d11",
+    "compositionId": "a597a812-49d3-4554-9c0a-e1639c47da81",
+    "importStatus": "success",
+    "durationSeconds": 52.593,
+    "transcriptCues": 17,
+    "transcriptExported": true
+  },
+  "voiceRights": {
+    "identifiedVoice": "en_US-norman-medium",
+    "upstreamModelCard": "https://huggingface.co/rhasspy/piper-voices/blob/main/en/en_US/norman/medium/MODEL_CARD",
+    "upstreamDatasetLicense": "public domain",
+    "upstreamRepositoryLicense": "MIT",
+    "exactModelArtifactProvenanceVerified": false
+  },
   "blockers": [
     "Full narration listening",
-    "Native mobile playback",
-    "Piper voice license/provenance confirmation",
-    "Final source and originality review",
+    "Real mobile playback",
+    "Exact Piper model artifact provenance and final editorial signoff",
     "YouTube Studio Earn territory verification"
   ],
   "observations": [
-    "Metricool accepted and ingested public MP4 URL into an authorized YouTube-channel draft",
-    "Scheduled inventory read-back shows exactly this pending draft",
-    "Draft status does not establish a YouTube upload or publication"
+    "Private draft description updated with official report source and internal-deployment distinction",
+    "Post ID changed to 412419837; UUID unchanged",
+    "Metricool read-back confirms one draft, autoPublish=false, privacy=private",
+    "Descript original media import and 17-cue transcript completed",
+    "No public YouTube upload or revenue verified"
   ],
   "paidSpendUSD": 0
 }
