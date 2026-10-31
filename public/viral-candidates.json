@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-30T10:28:51.540Z",
+  "updatedAt": "2026-10-31T09:58:17.566Z",
   "market": "US",
   "supplierIntegration": "awaiting-cj-auth",
   "methodology": "Public attention and recency identify candidates. Supplier promotion requires verified US inventory and product-level checks. Freight and checkout creation occur only after supplier validation.",
@@ -9,40 +9,40 @@
       "slug": "cordless-handheld-vacuum",
       "name": "Cordless Handheld Vacuum",
       "query": "cordless handheld vacuum",
-      "attentionScore": 95.8,
+      "attentionScore": 99.5,
       "attentionLabel": "high-attention",
       "evidence": {
-        "publicMentions": 100,
-        "mentionsLast7Days": 2,
-        "mentionsLast30Days": 10,
+        "publicMentions": 53,
+        "mentionsLast7Days": 4,
+        "mentionsLast30Days": 11,
         "sourcesAvailable": [
           "Google News",
           "Bing News"
         ],
         "sampleSignals": [
           {
+            "title": "Best Shark deal: Save $20 on the Shark UltraCyclone Pet Pro Plus - Mashable",
+            "source": "Google News",
+            "publishedAt": "2026-10-30T23:24:14.000Z",
+            "url": "https://news.google.com/rss/articles/CBMimgFBVV95cUxPUU9hV2VtcnFoNjdZcDBqbGhEeE5WbWpZSjJuUzc1aW5NdUZHakJtTm9YNlBPcE1KY1VqQm10UGJwZS11ejlHRndMU3Fnb1ZaNmx0cXl0RS1RbUZKUHRaUGhrX3Z1Ykg5ZUY4Z243T2YwXy1VMUNlRVZETGFYdXNwM1AzaWJIeTdHT29jcUE3RVB3XzBWUE9ta1BB?oc=5"
+          },
+          {
+            "title": "We Tested 53 Handheld Vacuums—These Are the 11 Best Ones for Every Mess - Real Simple",
+            "source": "Google News",
+            "publishedAt": "2026-10-28T07:00:00.000Z",
+            "url": "https://news.google.com/rss/articles/CBMiZ0FVX3lxTE1SOVA4VlF2dENBOE81cWdOQThiZ2JLNmtqTENyQUxpQWZIaGZyTlNiRlVNeHhKSGk4Z0R6Qy1zY3lYVVJSaEI0YURjNUJmck9IRjQ3b3pCTzd3UFZwcVpoRTBQX3J1alE?oc=5"
+          },
+          {
+            "title": "The 4 Best Handheld Vacuums of 2026 - RTINGS.com",
+            "source": "Google News",
+            "publishedAt": "2026-10-29T07:00:00.000Z",
+            "url": "https://news.google.com/rss/articles/CBMiYEFVX3lxTE84a0VVS2hreWhELTRiSElBQlROblJicHJnYlhJa1VHdEx0X1dHUFVtZFpjZFY3ekRpWDF6MmY3VFhCMnNwa1prWEUxM05tbC1nN2Nmd0xDSjRPQS1FdThaUQ?oc=5"
+          },
+          {
             "title": "Amazon Canada has a Nespresso machine for 50% off, a cordless handheld vacuum for under $90 and 28 more mega deals to shop this week - Yahoo Lifestyle Canada",
             "source": "Google News",
             "publishedAt": "2026-10-26T16:30:00.000Z",
             "url": "https://news.google.com/rss/articles/CBMigAJBVV95cUxOaWpyOXJDUzFDSGtGaENfWG5ZTlU3TEc5ZzY5NWdLZUlmNkdGVXFyV2VCODFncUJXVmlzdXFPLVNuQ2lGdjBxYVEyQVE2R1I2eDZDb29tc3Q5Rm1VVVJET1BMYXo3amtJNlJHNkIxbllwdjE2Qi1Cdk1zZ0E1c2p5aGhDeHhBdngtUm1MemhPeXkwMXozeGs2a0gyeC1GczNlZGttMm5sNUxzd2NldE05WG42UW1sRThGUXFPTWEzcGdiMktlR0tIQ1B6ajVMWGRuUDlTejl6dG5LM080TGpXZnJFUTBRdXRhMXdxOG9naG5TeGQ3dlc5ZHl2R2toWVJF?oc=5"
-          },
-          {
-            "title": "Best Shark deal: Save $20 on the Shark UltraCyclone Pet Pro Plus - Mashable",
-            "source": "Google News",
-            "publishedAt": "2026-10-23T10:54:36.000Z",
-            "url": "https://news.google.com/rss/articles/CBMimgFBVV95cUxPUU9hV2VtcnFoNjdZcDBqbGhEeE5WbWpZSjJuUzc1aW5NdUZHakJtTm9YNlBPcE1KY1VqQm10UGJwZS11ejlHRndMU3Fnb1ZaNmx0cXl0RS1RbUZKUHRaUGhrX3Z1Ykg5ZUY4Z243T2YwXy1VMUNlRVZETGFYdXNwM1AzaWJIeTdHT29jcUE3RVB3XzBWUE9ta1BB?oc=5"
-          },
-          {
-            "title": "Amazon's Choice Shark pet vacuum is 20% off and selling fast - USA Today",
-            "source": "Google News",
-            "publishedAt": "2026-10-21T16:03:00.000Z",
-            "url": "https://news.google.com/rss/articles/CBMi1gFBVV95cUxQa2N3NUFFQWlpbWN3SEp3aDRJZDUwZE03Ml9JbGlZYTI5dC1WR0FzNDk0M05lenozcHhQQ25ZZ2tsWkZRRWJJUFZUeHl4bFlVcG5fQUFOand1alVuSXptYUhibjJkd1FCMEF5X0wtSzBQakd0MUdwMGZLVWNOVkJPZ1RPMUNpSThib0hpNEs5VDdobnZGaVhWMVkyRGJfMWFXRDJKdjNyQ0hhQkhUd2owRGhvVmFpd0lTQ1pUYnRFaGtNUXZKSjdLYzl1ZFl2NC1YQU45MEVn?oc=5"
-          },
-          {
-            "title": "This Lightweight $80 Cordless Vacuum Is a Prime-Exclusive Deal — and Shoppers Say It’s “Better Than Any Dyson” - People.com",
-            "source": "Google News",
-            "publishedAt": "2026-08-31T07:00:00.000Z",
-            "url": "https://news.google.com/rss/articles/CBMif0FVX3lxTE9CaUxlM1d0cmZyeGdEZkxLSW5iLWUyN3ZZbzQ5LUd5WTR2Sll4LS1HTnlCZW9UQ3I1ODJMYWFVbWZYcXhkbWVDMF91U0VVdm9PQ0RkMjAwTk5zVUt0bXI4cG90U1RyLWhhaEpLWktuU3pYZnllbTBJLTNCdGM2eVk?oc=5"
           }
         ]
       },
@@ -61,12 +61,12 @@
       "slug": "roll-up-dish-rack",
       "name": "Roll-Up Dish Drying Rack",
       "query": "roll up dish drying rack",
-      "attentionScore": 80.5,
+      "attentionScore": 78.6,
       "attentionLabel": "high-attention",
       "evidence": {
-        "publicMentions": 26,
+        "publicMentions": 25,
         "mentionsLast7Days": 1,
-        "mentionsLast30Days": 6,
+        "mentionsLast30Days": 5,
         "sourcesAvailable": [
           "Google News",
           "Bing News"
@@ -79,22 +79,22 @@
             "url": "https://news.google.com/rss/articles/CBMiigFBVV95cUxNR0JTUXhTQzhpWWlKelBCT1ZRRWVwR0pRdy1Eb2lHanM4cDNqV2N4ek81bUNhblNqQl9QRWczdVk5OXIxMU9pQ3FXVXkzRXFQU3ZpR083RGRrWG54WDdHOHAtai1ZU2huMXJDZC1SZ0xTMlE1MWk3bzNNUFpCQmJabHBSc1hjSjhBaHc?oc=5"
           },
           {
+            "title": "Your Dish Rack Is Dirtier Than You Think — Here’s How to Clean It, Plus Our Top-Tested Picks - Food & Wine",
+            "source": "Google News",
+            "publishedAt": "2026-10-23T07:00:00.000Z",
+            "url": "https://news.google.com/rss/articles/CBMiYEFVX3lxTE5TUGNuSC1rX1FtUnpfZkRteUstbTBIalRVdzA3Q2JTX3FKSDNMcVJLUmVfU0Z3Mk1tSFhmbGpxZzMyRnRvYlNCLTRZS0FyNEJvWkdTUktsQU5MMGxKbVViOQ?oc=5"
+          },
+          {
             "title": "I Put a Dish Rack in My Tiny Bathroom, and It Changed Everything - Apartment Therapy",
             "source": "Google News",
             "publishedAt": "2026-10-10T07:00:00.000Z",
             "url": "https://news.google.com/rss/articles/CBMiggFBVV95cUxNX3hDa2V2RHM3N2FBLXg3Y181T3Y2alpkbF9zeHMxS0cwVUhaQjVwNDBiaW5rdWVaUGZaZ1NWU29iSXhxX2xfNG1uMXZLb19Yck1sRi1wUk9HSnhRVmpla3NwTHVlRHdITkJMZXp5MjBIUXZBLVd0U0wydlZPRTBtZF9R?oc=5"
           },
           {
-            "title": "I Put a Dish Rack in My Tiny Bathroom, and It Changed Everything - Yahoo Lifestyle Canada",
+            "title": "The 11 Very Best Dish Racks - New York Magazine",
             "source": "Google News",
-            "publishedAt": "2026-10-10T07:00:00.000Z",
-            "url": "https://news.google.com/rss/articles/CBMieEFVX3lxTE5PSDNxWDhTYlRZSUN2X0ctNlNPeGgzenE1MUdvaGRUWGt0SjNZc19BWnd4MEs3OXR0ZFBTaFlkRG1MbVJZdDN3a3RwYkZMLVBIcU9RM1ZiMmQ4ODRQbGFxYmdyMkxmdS0xa0JLbU8xWkJMaXRscHVCcA?oc=5"
-          },
-          {
-            "title": "Your Dish Rack Is Dirtier Than You Think — Here’s How to Clean It, Plus Our Top-Tested Picks - Food & Wine",
-            "source": "Google News",
-            "publishedAt": "2026-10-23T07:00:00.000Z",
-            "url": "https://news.google.com/rss/articles/CBMiYEFVX3lxTE5TUGNuSC1rX1FtUnpfZkRteUstbTBIalRVdzA3Q2JTX3FKSDNMcVJLUmVfU0Z3Mk1tSFhmbGpxZzMyRnRvYlNCLTRZS0FyNEJvWkdTUktsQU5MMGxKbVViOQ?oc=5"
+            "publishedAt": "2026-09-17T07:00:00.000Z",
+            "url": "https://news.google.com/rss/articles/CBMiaEFVX3lxTE8xNGhfekNqcklvNmFnN1NuTWVuWFJwLW5TWkxqakRXZVQxNk8yTlhWaGtubTRIT094Y09uNS16TFJoeGFJZ0VPYkVMNnpuRElpXzRjNVRQVG5JQWkzT0hBMnhfcm9FaF9M?oc=5"
           }
         ]
       },
@@ -113,12 +113,12 @@
       "slug": "hanging-closet-organizer",
       "name": "Hanging Closet Organizer",
       "query": "hanging closet organizer",
-      "attentionScore": 69.4,
-      "attentionLabel": "promotion-watch",
+      "attentionScore": 71.3,
+      "attentionLabel": "high-attention",
       "evidence": {
-        "publicMentions": 25,
+        "publicMentions": 44,
         "mentionsLast7Days": 0,
-        "mentionsLast30Days": 3,
+        "mentionsLast30Days": 4,
         "sourcesAvailable": [
           "Google News",
           "Bing News"
@@ -165,10 +165,10 @@
       "slug": "dryer-vent-cleaner-kit",
       "name": "Dryer Vent Cleaner Kit",
       "query": "dryer vent cleaner kit",
-      "attentionScore": 52.3,
+      "attentionScore": 48.7,
       "attentionLabel": "research",
       "evidence": {
-        "publicMentions": 16,
+        "publicMentions": 14,
         "mentionsLast7Days": 0,
         "mentionsLast30Days": 0,
         "sourcesAvailable": [
@@ -217,12 +217,12 @@
       "slug": "appliance-cord-organizer",
       "name": "Appliance Cord Organizer",
       "query": "appliance cord organizer",
-      "attentionScore": 36.2,
+      "attentionScore": 43.6,
       "attentionLabel": "research",
       "evidence": {
-        "publicMentions": 9,
-        "mentionsLast7Days": 0,
-        "mentionsLast30Days": 0,
+        "publicMentions": 10,
+        "mentionsLast7Days": 1,
+        "mentionsLast30Days": 1,
         "sourcesAvailable": [
           "Google News",
           "Bing News"
@@ -247,10 +247,10 @@
             "url": "https://news.google.com/rss/articles/CBMib0FVX3lxTFA2VHZmbDExRHlEdnRBa2RmWUI3REc1RUkyX05RWlB1QWlQVWVVVjZIbzlRMXY5Qm9UaDlOZDlHNF8tcXIzNzlWMFFxN0dDeXAyMGYwNmNVVnB5UWh0WnBEN2MxR1RWc2hnZTdpc1l5cw?oc=5"
           },
           {
-            "title": "The 7 Best Under‑Cabinet Lighting Options for Bright, Functional Kitchens - The Spruce",
+            "title": "65 Freakishly Clever New Things You Probably Haven’t Heard About - inkl",
             "source": "Google News",
-            "publishedAt": "2026-08-14T07:00:00.000Z",
-            "url": "https://news.google.com/rss/articles/CBMibkFVX3lxTE1fUDFObWNzQ29yWnJsRkw0OW01ZmxNbm1pbGVVZEh6MEZfRFZaWUlfdFgza0RFM2xSWXYwdndIZmRGcmNNZ3RSM0RkWXdsdmw1blNkUl9HTFltVXYxQ2dCaUNVYnREeUJtTU9sSDRB?oc=5"
+            "publishedAt": "2026-10-25T01:15:07.000Z",
+            "url": "https://news.google.com/rss/articles/CBMikwFBVV95cUxOTlJGQVBjMm9RbFlqOVlUUVR0dGw3aEJVYmpkaHU5RHJlc09FcDI0TFRzdTZsQVRYU1Y1eGI0bzktV0RmYkxWcHRQUy1EY2R1eWJXWjJuNmpQdWtNNUo5QWI1SGhvaGk2bHhsN1NXX0M0cWM2OWpJMFBxTG94Ul9nMTViMm5Zc0ZRYVhYYUNPMWRvS1k?oc=5"
           }
         ]
       },
