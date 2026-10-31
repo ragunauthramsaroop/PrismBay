@@ -1,19 +1,67 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-31T13:07:01.750Z",
+  "updatedAt": "2026-10-31T21:53:32.327Z",
   "market": "US",
   "methodology": "Public-news attention, freshness, and short-form demonstration fit. This is not PrismBay sales data and is not a TikTok, Amazon, Google, or Bing product ranking.",
   "refreshTargetHours": 6,
   "products": [
     {
-      "slug": "scrubber",
-      "name": "5-in-1 Electric Spin Scrubber",
-      "signalScore": 89.5,
+      "slug": "mattress-vacuum",
+      "name": "Mattress Vacuum",
+      "signalScore": 91,
       "signalLabel": "high-attention",
       "evidence": {
-        "publicMentions": 87,
-        "mentionsLast7Days": 3,
+        "publicMentions": 56,
+        "mentionsLast7Days": 4,
         "mentionsLast30Days": 7,
+        "sourcesAvailable": [
+          "Google News",
+          "Bing News"
+        ]
+      },
+      "sampleSignals": [
+        {
+          "title": "I tested the Feppo mattress vacuum, and I was shocked by what it picked up - Savannah Morning News",
+          "source": "Google News",
+          "publishedAt": "2026-10-27T11:41:42.000Z",
+          "url": "https://news.google.com/rss/articles/CBMiogFBVV95cUxPUFE2SG5JQ251UXNoXzE5N3BUT0p3TU9YRHhBZzhWUS1PZVdSLUVGYTBjU1BmRDFNYlVaaFJUekJLTU0xTkZmX0pRVW1PZlhiLWVKWDh6M2ZPZngtVEw1MVhOalY3QVM0TFFSSDJ6VklIeXZ0dFNKV0w4TENOMW93X0Rsaml0VDMyUU9yWHpvTk5idkduZ2drb0FIb3htbkNkOWc?oc=5"
+        },
+        {
+          "title": "I Finally Got a Bed Vacuum, and Now I’m Never Going to Be Without One Again (and It’s on Sale for Prime!) - Apartment Therapy",
+          "source": "Google News",
+          "publishedAt": "2026-10-06T07:00:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMikAFBVV95cUxNbkpkQUFEYVRYc3gzc0Q0MUdkdE1pb2VORTFxbi1XbXk5OXBDYWg0Rmk3R01ZSUt6ZzNlRzRRWGR2RzRGQ09FQVNJNlZOMHk2eU9zZ0p1c1Q1dHpLbXZLZ29RcDQyX1JDZWpPME1pSlRyOG1XUTV2TlRYcDhLUWpXbFFJQkFvS09tb2YyQi1HYnE?oc=5"
+        },
+        {
+          "title": "Is a Mattress Vacuum the Allergy Solution We’ve Been Needing? I Tested One to Find Out - CNET",
+          "source": "Google News",
+          "publishedAt": "2026-06-27T07:00:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMisAFBVV95cUxQcmFNWEdvTUxuY1RES2k4bXh1T0U2ci1nTHBJRXVud3F4ekF2NHF4NkF4LTlKR3lRWTNObHBGcjUzOGlLNUlHNXd1dGdOQXBYcEN6QllhNGZyVDFja2h1R3AzX1hIaFk4RUpsZ3JQT05Ga2pkelRscFRTaVJ0NFhyX0c3cVllQzIxTXoyeGhKcTNvLUJuRWNLd0g3Si1mYnRoUjEzZExKZGEtUXlsVlV3dQ?oc=5"
+        },
+        {
+          "title": "I Was Skeptical of This Automatic, Hands-Free Mattress Vacuum, but It Cleaned My Whole Bed Without Falling Off - Better Homes & Gardens",
+          "source": "Google News",
+          "publishedAt": "2026-08-29T07:00:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMikgFBVV95cUxPVWFJRTBGeGx6dWJiRWEzdWNmYmZEeFQ1NGNTei1fQkVrcGoyS2hXVEp2dFh6TWZXMUV1ZHVOd1BzTkNKZ2U4c3Utbm1hcnlsRUROSXhoakJCeVJjMGhTX1l5Z2hEaUxsSWVNcGo3RDZnRzlLQndxaVhwb1NyNVduTHk1UVpicWhfZmVGejJJY1N2Zw?oc=5"
+        },
+        {
+          "title": "As a sinusitis sufferer, I implore you to consider Aldi's £19 UV mattress vacuum — it's not about bed bugs, it's about dust - TechRadar",
+          "source": "Google News",
+          "publishedAt": "2026-06-12T07:00:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMi9gFBVV95cUxOOTZqRGZuMWZJTVh2VUhXOHgzMUdhVUhjYTdxeXl6QWVqbkxCb2R2bU45Wl9ERHVFaklYajJWa0JSd2RtdDNpdksyR1IwVV9QeUUyTmcySXJvcnltUDcxazNHaF85ZzZTYnYwNy1yZ1ZjNlhIWGVBRzc2aUtKNDhBbk85UHFueGtRY2JVaXpTMzNxX3dOUl9OazRUVloyVkRscXhwQ2kxSmg4T01BVUZERGlLR3I0b0NhOFJYdVdMTE0xdVY1cjdWYi11MndYbFZZYUpPLVl0LTh2NlhDV3g4aWRYcDZydWtORU01eS1RVWhEZjNQU2c?oc=5"
+        }
+      ],
+      "rank": 1
+    },
+    {
+      "slug": "scrubber",
+      "name": "5-in-1 Electric Spin Scrubber",
+      "signalScore": 85,
+      "signalLabel": "high-attention",
+      "evidence": {
+        "publicMentions": 66,
+        "mentionsLast7Days": 3,
+        "mentionsLast30Days": 4,
         "sourcesAvailable": [
           "Google News",
           "Bing News"
@@ -51,54 +99,6 @@
           "url": "https://news.google.com/rss/articles/CBMihgFBVV95cUxPOF92S3dDMlBWc1ptWEpxX0pxNWd5emtEbHdyMXg4NkxhUWxweGVsR1pGMXotcElFNGQtWldFRkNtUzdRWGE5aFdFNFl3NW5NYVdlbzhJVk9YMUpsLUF0Mkp4MGFfVlVXVll1Qmo5Yl9sRnhrdkJwMVpxRjlNc2NFc0E5NmhQZw?oc=5"
         }
       ],
-      "rank": 1
-    },
-    {
-      "slug": "mattress-vacuum",
-      "name": "Mattress Vacuum",
-      "signalScore": 88,
-      "signalLabel": "high-attention",
-      "evidence": {
-        "publicMentions": 99,
-        "mentionsLast7Days": 2,
-        "mentionsLast30Days": 9,
-        "sourcesAvailable": [
-          "Google News",
-          "Bing News"
-        ]
-      },
-      "sampleSignals": [
-        {
-          "title": "I tested the Feppo mattress vacuum, and I was shocked by what it picked up - Savannah Morning News",
-          "source": "Google News",
-          "publishedAt": "2026-10-27T11:41:42.000Z",
-          "url": "https://news.google.com/rss/articles/CBMiogFBVV95cUxPUFE2SG5JQ251UXNoXzE5N3BUT0p3TU9YRHhBZzhWUS1PZVdSLUVGYTBjU1BmRDFNYlVaaFJUekJLTU0xTkZmX0pRVW1PZlhiLWVKWDh6M2ZPZngtVEw1MVhOalY3QVM0TFFSSDJ6VklIeXZ0dFNKV0w4TENOMW93X0Rsaml0VDMyUU9yWHpvTk5idkduZ2drb0FIb3htbkNkOWc?oc=5"
-        },
-        {
-          "title": "I Finally Got a Bed Vacuum, and Now I’m Never Going to Be Without One Again (and It’s on Sale for Prime!) - Apartment Therapy",
-          "source": "Google News",
-          "publishedAt": "2026-10-06T07:00:00.000Z",
-          "url": "https://news.google.com/rss/articles/CBMikAFBVV95cUxNbkpkQUFEYVRYc3gzc0Q0MUdkdE1pb2VORTFxbi1XbXk5OXBDYWg0Rmk3R01ZSUt6ZzNlRzRRWGR2RzRGQ09FQVNJNlZOMHk2eU9zZ0p1c1Q1dHpLbXZLZ29RcDQyX1JDZWpPME1pSlRyOG1XUTV2TlRYcDhLUWpXbFFJQkFvS09tb2YyQi1HYnE?oc=5"
-        },
-        {
-          "title": "Is a Mattress Vacuum the Allergy Solution We’ve Been Needing? I Tested One to Find Out - CNET",
-          "source": "Google News",
-          "publishedAt": "2026-06-27T07:00:00.000Z",
-          "url": "https://news.google.com/rss/articles/CBMisAFBVV95cUxQcmFNWEdvTUxuY1RES2k4bXh1T0U2ci1nTHBJRXVud3F4ekF2NHF4NkF4LTlKR3lRWTNObHBGcjUzOGlLNUlHNXd1dGdOQXBYcEN6QllhNGZyVDFja2h1R3AzX1hIaFk4RUpsZ3JQT05Ga2pkelRscFRTaVJ0NFhyX0c3cVllQzIxTXoyeGhKcTNvLUJuRWNLd0g3Si1mYnRoUjEzZExKZGEtUXlsVlV3dQ?oc=5"
-        },
-        {
-          "title": "As a sinusitis sufferer, I implore you to consider Aldi's £19 UV mattress vacuum — it's not about bed bugs, it's about dust - TechRadar",
-          "source": "Google News",
-          "publishedAt": "2026-06-12T07:00:00.000Z",
-          "url": "https://news.google.com/rss/articles/CBMi9gFBVV95cUxOOTZqRGZuMWZJTVh2VUhXOHgzMUdhVUhjYTdxeXl6QWVqbkxCb2R2bU45Wl9ERHVFaklYajJWa0JSd2RtdDNpdksyR1IwVV9QeUUyTmcySXJvcnltUDcxazNHaF85ZzZTYnYwNy1yZ1ZjNlhIWGVBRzc2aUtKNDhBbk85UHFueGtRY2JVaXpTMzNxX3dOUl9OazRUVloyVkRscXhwQ2kxSmg4T01BVUZERGlLR3I0b0NhOFJYdVdMTE0xdVY1cjdWYi11MndYbFZZYUpPLVl0LTh2NlhDV3g4aWRYcDZydWtORU01eS1RVWhEZjNQU2c?oc=5"
-        },
-        {
-          "title": "Amazon’s mattress vacuum uses UV light and heat to deep clean beds - AL.com",
-          "source": "Google News",
-          "publishedAt": "2026-07-31T07:00:00.000Z",
-          "url": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxNbzVTWEJoMDJjVjhXZDI0Y3pidGdOVVpsYmk2b2YwNnBWN21RbnJlMFEzOFFDb0luZUpsZHQ5TEJkR0NLY1I4TE5xbXJWcGVZbjN2UE41b085WmhBNnpKQmhRSGJ3Q3FjdlRjRTR3b2pNWm8taDM1Rjkza0ZqdDlfXzZaWV9TN1dEVDNNZXZqak9oY1FoSUVxaGVXTDJHRTIwYlRiTDBrS1Q5UdIBvgFBVV95cUxQSmFCYUJJckRseEt2Ql8xalZQUHV0VVg0cldzQ0MybUUzMDlES25DWGZ3cjR2cFlPUnBDdi1VMlVyQnRRaEhfeFlfYl9LZW5qX1BEczFxZE1aYV9LZl9yTFF0N2d6ZEpLRG9DODlKdDU4NGtlUUxUc0hmQmhpWnZBeUtoU2k3OFJGOURxcE1nNENjZm43RGJjeWZ6NFN0N0NCaTR0N0VKMkVOSjlFOWJnNnA1dEh1SHIwa3lCdVFn?oc=5"
-        }
-      ],
       "rank": 2
     },
     {
@@ -107,7 +107,7 @@
       "signalScore": 78.5,
       "signalLabel": "high-attention",
       "evidence": {
-        "publicMentions": 34,
+        "publicMentions": 35,
         "mentionsLast7Days": 0,
         "mentionsLast30Days": 8,
         "sourcesAvailable": [
@@ -155,7 +155,7 @@
       "signalScore": 77,
       "signalLabel": "high-attention",
       "evidence": {
-        "publicMentions": 100,
+        "publicMentions": 104,
         "mentionsLast7Days": 1,
         "mentionsLast30Days": 3,
         "sourcesAvailable": [
@@ -200,12 +200,12 @@
     {
       "slug": "pethair",
       "name": "Reusable Pet Hair Remover",
-      "signalScore": 41,
+      "signalScore": 44,
       "signalLabel": "watch",
       "evidence": {
-        "publicMentions": 10,
+        "publicMentions": 11,
         "mentionsLast7Days": 0,
-        "mentionsLast30Days": 2,
+        "mentionsLast30Days": 3,
         "sourcesAvailable": [
           "Google News",
           "Bing News"
@@ -231,16 +231,16 @@
           "url": "https://news.google.com/rss/articles/CBMid0FVX3lxTE9TRHBxazJndGdPZkxWeW5xUGRibHc4aGJjUjBRN2tueTdCU1I1dEx2N1RXSGYteThUejc1cWlBcnNiOGhDYmNYSVVRUk0wN1djTE9Ub2VZYzV5VGJYczFLTHo2MHhWdEpXckdnX3V5U0pyOUNTVFpN?oc=5"
         },
         {
+          "title": "Best Prime Big Deal Days Sales on Pet Products - Consumer Reports",
+          "source": "Google News",
+          "publishedAt": "2026-10-07T07:00:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMiugFBVV95cUxPNUFvYlVIOURkSktJaEk1ZUV3STQtbmhWaU4teXdfZDBvUzR6bFNhX1RBM1h4TEFWUUNaYkgxWjU2bFZXSl9SRnZTbXRtaFJSXzdReWN2N0pzR05pdWxyOVFHTTRKcVE4R29oZlhlU3VLaVRtYXNqWWx0X2JyX091OUluaGJMSWF1YmR6UVMySGxTdk9zczFTY2dMc3ktaDViUUZfMjZMSVp5MkpCQ2VjZTVTcGlFWnBnTUE?oc=5"
+        },
+        {
           "title": "Uproot Clean Promo Code LOUISAWARWICK10 – Get 10% Off Sitewide on Viral Pet Hair Removal Tools - Muzique Magazine",
           "source": "Google News",
           "publishedAt": "2026-05-26T07:00:00.000Z",
           "url": "https://news.google.com/rss/articles/CBMivAFBVV95cUxNdDdxTXg5VTljRFBmTDlNd0VXaDV5eUJlbHp4NGxpT3RQdk1sUmVhM3RydDJ3OXJGR3dMalAxemlVYjhzT2NZZ2pLYlBSM2F0Rk1zVDNrR2x0NGJyb3FJOUNDY2x0eEVnRk90aGtvdENXX01MMUhSNTIzOEhnZHVHWHByRW1hYmpCa0tTcXc3clBKTjVNMkdkNmR4blJtYng3cVhkRTdoRHBuZEczeWNENUhST0hsY2pRcU9Udw?oc=5"
-        },
-        {
-          "title": "Best Pet Hair Remover Tools - Consumer Reports",
-          "source": "Google News",
-          "publishedAt": "2025-02-10T08:00:00.000Z",
-          "url": "https://news.google.com/rss/articles/CBMikwFBVV95cUxOdFp5djVaTWsxTXVTeFlpcWdPTXNhNHlHUU5icHMxUFlWWVJab0lDMVpPUHhqbV9MaVh4bGJwLXJMSlB6OGQ5ajlWOThPOXJ2VS0xT2dsWVl4OHZKWm14ZW1JZmVvUlRUWFBlTXZSVzYzZUJzWG9KeEJYUXkzSlp2NWFLSlpad2U1eVRxRVV0QWt4dHc?oc=5"
         }
       ],
       "rank": 5
