@@ -64,5 +64,5 @@ jobs:
           grep -q 'PrismBay Executive Intelligence Bundle' "$RUNNER_TEMP/owned-sales-pages/executive-intelligence-bundle.html"
           grep -q '\$179' "$RUNNER_TEMP/owned-sales-pages/executive-intelligence-bundle.html"
           grep -q 'eVqfZi5Lo7pV31Ea4MgnK0t' "$RUNNER_TEMP/owned-sales-pages/executive-intelligence-bundle.html"
-          test "$(find "$RUNNER_TEMP/owned-sales-pages" -maxdepth 1 -name '*.html' | wc -l)" -eq 6
+          test "$(find "$RUNNER_TEMP/owned-sales-pages" -maxdepth 1 -name '*.html' | wc -l)" -eq 7
           test -s "$RUNNER_TEMP/owned-sales-pages/board-briefing-readiness-checklist.html"

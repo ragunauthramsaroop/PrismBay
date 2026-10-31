@@ -42,11 +42,12 @@ test('owned sales pages include search and conversion metadata', () => {
 test('buyer guide hub links all four offer pages', () => {
   const hub = buildHub();
   const urls = ownedSalesUrls();
-  assert.equal(urls.length, 6);
+  assert.equal(urls.length, 7);
   assert.ok(urls.includes('https://clean.prismbayai.com/learn/board-briefing-readiness-checklist.html'));
   assert.match(buildHub(), /Try the free assessment/);
   assert.match(buildOfferPage(ACTIVE_DIGITAL_OFFERS.find(x=>x.slug==='whitepaper')), /Check my board brief for free/);
   assert.match(urls[0], /\/learn\/$/);
+  assert.match(hub, /cash-flow-tracker-spreadsheet\.html/);
   assert.match(hub, /executive-intelligence-bundle\.html/);
   assert.match(hub, /stakeholder-mapping-toolkit\.html/);
   assert.match(hub, /esg-reporting-toolkit\.html/);

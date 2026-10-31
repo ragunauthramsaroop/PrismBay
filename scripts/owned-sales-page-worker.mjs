@@ -4,6 +4,7 @@ import { pathToFileURL } from 'node:url';
 import { ACTIVE_DIGITAL_OFFERS } from './digital-conversion-campaign.mjs';
 import { guidedSalesPlan } from './freellm-sales-worker.mjs';
 import { writeAssessment, URL as ASSESSMENT_URL } from './first-sale-assessment.mjs';
+import { CASHFLOW_GUIDE_URL, CASHFLOW_PRODUCT_URL, CASHFLOW_PRICE_USD, buildCashflowBuyerPage } from './cashflow-owned-launch.mjs';
 
 const ROOT = 'https://clean.prismbayai.com/';
 const LEARN = ROOT + 'learn/';
@@ -190,6 +191,7 @@ ${offer.slug === 'whitepaper' ? '<h2>Free board paper readiness assessment</h2><
 }
 
 export function buildHub() {
+  const starter = `<article class="article" style="margin-bottom:22px;border:2px solid #8fceb7"><p class="eyebrow">Affordable starter | Small businesses</p><h2>Cashflow Studio, ${CASHFLOW_PRICE_USD.toFixed(2)} USD</h2><p>A one-time Excel cash-flow template with 12-month summaries and a 300-row transaction register. Learn with a free fictional example before deciding.</p><p><a class="btn dark" href="./cash-flow-tracker-spreadsheet.html">Read the free cash flow guide</a> · <a href="${CASHFLOW_PRODUCT_URL}">See the workbook</a></p></article>`;
   const cards = ACTIVE_DIGITAL_OFFERS.map(offer => `
 <article class="article" style="margin-bottom:22px">
 <p class="eyebrow">${esc(offer.audience)}</p>
@@ -205,7 +207,7 @@ export function buildHub() {
 <link rel="stylesheet" href="../buyer-guides.css"></head>
 <body><header class="nav"><div class="wrap"><a class="brand" href="../">PrismBay <em>AI</em></a><nav class="navlinks"><a href="../toolkits.html">Toolkit catalog</a><a href="../scorecard.html">Free assessment</a></nav></div></header>
 <section class="hero"><div class="wrap"><p class="eyebrow">Buyer guides</p><h1>Choose the professional document system that fits the work.</h1><p class="lead">Review the existing individual systems or compare the complete bundle before deciding whether editable Excel, Word and PDF files fit your workflow.</p></div></section>
-<main class="main"><div class="wrap"><div class="more"><h2>Start with the free board paper readiness check</h2><p>Answer seven readiness questions and download a practical action plan.</p><a href="${ASSESSMENT_URL}">Try the free assessment →</a></div>${cards}
+<main class="main"><div class="wrap">${starter}<div class="more"><h2>Start with the free board paper readiness check</h2><p>Answer seven readiness questions and download a practical action plan.</p><a href="${ASSESSMENT_URL}">Try the free assessment →</a></div>${cards}
 <div class="more"><h2>Want to compare the full catalog?</h2><p>The toolkit hub lists all individual systems and the complete-bundle option.</p><a href="../toolkits.html">Compare all toolkits →</a></div>
 </div></main>
 <footer><div class="wrap">PrismBay professional document systems. No hosted AI software or bespoke consulting is included in these document packages.</div></footer>
@@ -215,6 +217,7 @@ export function buildHub() {
 export function ownedSalesUrls() {
   return [
     LEARN,
+    CASHFLOW_GUIDE_URL,
     ASSESSMENT_URL,
     ...ACTIVE_DIGITAL_OFFERS.map(offer => LEARN + pageSlugs[offer.slug])
   ];
@@ -226,6 +229,7 @@ export async function main(outputDir = process.argv[2] || 'growth-reports/owned-
   const strategies = {};
   await fs.writeFile(path.join(outputDir, 'index.html'), buildHub());
   await writeAssessment(outputDir);
+  await fs.writeFile(path.join(outputDir, 'cash-flow-tracker-spreadsheet.html'), buildCashflowBuyerPage());
   for (const offer of ACTIVE_DIGITAL_OFFERS) {
     const salesPlan = salesPlanFromReport(offer, salesReport);
     strategies[offer.slug] = salesPlan?.llmStrategy || 'baseline';
