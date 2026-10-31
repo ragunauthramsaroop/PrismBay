@@ -3,13 +3,13 @@
   "handle": "@PrismBayAI",
   "metricoolBrandId": 6945443,
   "experimentId": "PB-AGENT-MONITOR-20261025",
-  "checkedAt": "2026-10-31T16:42:12-04:00",
-  "state": "PRIVATE_DRAFT_FACT_PRECISION_MODIFY_HOLD_DESCRIPT_CREDITS_EXHAUSTED",
-  "metricoolPostId": 412419837,
+  "checkedAt": "2026-10-31T17:56:30-04:00",
+  "state": "PRIVATE_DRAFT_SOURCE_CORRECTED_RENDER_AND_FULL_DECODE_QA_PASSED_RELEASE_HOLD",
+  "metricoolPostId": 412495293,
   "metricoolPostUuid": "4812359205726866079",
   "metricoolPlannerUrl": "https://app.metricool.com/planner/calendar?blogId=6945443&openWithPostUuid=4812359205726866079",
-  "mediaSource": "https://raw.githubusercontent.com/ragunauthramsaroop/PrismBay/main/public/youtube/ai-agent-monitoring-2026-10-25.mp4",
-  "metricoolIngestedMedia": "https://static.metricool.com/planner/202610/6945443-file-16495092968268720903.mp4",
+  "mediaSource": "https://raw.githubusercontent.com/ragunauthramsaroop/PrismBay/main/public/youtube/ai-agent-monitoring-2026-10-31-source-corrected.mp4",
+  "metricoolIngestedMedia": "https://static.metricool.com/planner/202610/6945443-file-3195223468080973174.mp4",
   "publicationDate": "2026-11-04T16:00:00-04:00",
   "draft": true,
   "autoPublish": false,
@@ -32,14 +32,15 @@
     "upstreamModelCard": "https://huggingface.co/rhasspy/piper-voices/blob/main/en/en_US/norman/medium/MODEL_CARD",
     "upstreamDatasetLicense": "public domain",
     "upstreamRepositoryLicense": "MIT",
-    "exactModelArtifactProvenanceVerified": false
+    "exactModelArtifactProvenanceVerified": true,
+    "modelSha256": "b9739443232a80a59c7d18810dd856899bf16a7964725f5ab81ea49b1351cb71",
+    "provenanceScope": "New corrected render only; original October 25 model artifact not independently hashed"
   },
   "blockers": [
-    "Verify and correct cue 3 source-precision mismatch before release",
-    "Full narration listening",
-    "Real mobile playback",
-    "Exact Piper model artifact provenance and final editorial signoff",
-    "YouTube Studio Earn territory verification"
+    "Listen to complete corrected 51.616-second narration and verify pronunciation, claims and pacing",
+    "Review private contact sheet and play corrected media on a physical mobile device",
+    "Final editorial and originality signoff",
+    "Verify YouTube Studio Earn country eligibility through authorized Studio session"
   ],
   "observations": [
     "Private draft description updated with official report source and internal-deployment distinction",
@@ -47,7 +48,9 @@
     "Metricool read-back confirms one draft, autoPublish=false, privacy=private",
     "Descript original media import and 17-cue transcript completed",
     "No public YouTube upload or revenue verified",
-    "2026-10-31 16:42: source precision discrepancy flagged from Descript SRT; private draft unchanged; no Descript paid upgrade"
+    "2026-10-31 16:42: source precision discrepancy flagged from Descript SRT; private draft unchanged; no Descript paid upgrade",
+    "2026-10-31 17:56: new 51.616s corrected Short rendered through existing zero-cost GitHub Actions pipeline; Piper Norman model SHA256 matched official upstream hash; full H264/AAC decode passed.",
+    "2026-10-31 17:56: existing Metricool draft UUID retained, media replaced and title corrected; new post ID 412495293, draft=true, autoPublish=false, privacy=private; no public upload."
   ],
   "paidSpendUSD": 0,
   "transcriptReview": {
@@ -57,7 +60,29 @@
     "recommendedCorrection": "These were internal deployments, not customer incidents.",
     "audioEarVerified": false,
     "cue7PunctuationNeedsListening": true,
-    "editingAgent": "Blocked: insufficient free AI credits; no upgrade purchased"
+    "editingAgent": "Blocked: insufficient free AI credits; no upgrade purchased",
+    "correctedSpec": "content/youtube/requests/ai-agent-monitoring-2026-10-31-source-corrected.json",
+    "correctedSourcePhrase": true,
+    "correctedAudioEarVerified": false,
+    "oldDescriptTranscriptScope": "Original October 25 file only; do not treat as transcript of corrected October 31 render"
   },
-  "auditReport": "youtube-growth/analytics/2026-10-31-1642-monitoring-source-precision-and-zero-cost-release-hold.md"
+  "auditReport": "youtube-growth/analytics/2026-10-31-1756-source-corrected-render-private-draft-and-qa.md",
+  "correctedRender": {
+    "slug": "ai-agent-monitoring-2026-10-31-source-corrected",
+    "title": "An AI Agent Removed Its Monitor: 3 Business Controls | PrismBay AI",
+    "durationSeconds": 51.615669,
+    "mediaSha256": "8e633b4ae7d2964da96f09ff24d0646a407226d0ddbd0a90951df760672f0b9e",
+    "ttsEngine": "piper",
+    "verifiedVoiceModelSha256": "b9739443232a80a59c7d18810dd856899bf16a7964725f5ab81ea49b1351cb71",
+    "correctedWording": "These were internal deployments, not customer incidents.",
+    "correctedClaim": "One agent later denied removing monitoring, despite having removed it.",
+    "renderRun": "https://github.com/ragunauthramsaroop/PrismBay/actions/runs/41245398468",
+    "qaRun": "https://github.com/ragunauthramsaroop/PrismBay/actions/runs/41245828432",
+    "qaArtifact": "https://github.com/ragunauthramsaroop/PrismBay/actions/runs/41245828432/artifacts/13059133379",
+    "fullDecodePassed": true,
+    "sourceAndVoiceChecksPassed": true,
+    "mobilePlaybackVerified": false,
+    "fullNarrationListeningVerified": false,
+    "releaseApproved": false
+  }
 }
