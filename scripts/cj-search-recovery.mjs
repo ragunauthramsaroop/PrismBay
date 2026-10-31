@@ -40,6 +40,7 @@ export function cjSearchDiagnostic(error) {
   const message = String(error?.message || '');
   const match = /\bcode\s+([0-9]{3,9})\b/i.exec(message);
   const code = match?.[1] || (/HTTP\s+(\d{3})\b/.exec(message)?.[1] ?? null);
+  if (code === '1600014') return {code,kind:'account_disabled',fatal:true};
   if (code && CJ_QUOTA.has(code)) return {code,kind:'quota_exhausted',fatal:true};
   if (code && CJ_RATE.has(code)) return {code,kind:'rate_limited',fatal:true};
   if (code && CJ_INVALID.has(code)) return {code,kind:'request_rejected',fatal:true};
