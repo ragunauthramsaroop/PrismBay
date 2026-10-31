@@ -1,0 +1,81 @@
+name: PrismBay Monitoring Retention Private QA
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/prismbay-monitoring-retention-private-qa.yml'
+      - 'content/youtube/requests/ai-agent-monitoring-2026-10-31-retention-release-candidate.json'
+      - 'public/youtube/ai-agent-monitoring-2026-10-31-retention-release-candidate.mp4'
+      - 'public/youtube/ai-agent-monitoring-2026-10-31-retention-release-candidate.json'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  private-qa:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate source, authorized channel and closed publication gate
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p retention-qa
+          python3 - <<'PY'
+          import hashlib,json,pathlib
+          slug='ai-agent-monitoring-2026-10-31-retention-release-candidate'
+          spec=json.loads(pathlib.Path('content/youtube/requests',slug+'.json').read_text())
+          meta=json.loads(pathlib.Path('public/youtube',slug+'.json').read_text())
+          media=pathlib.Path('public/youtube',slug+'.mp4')
+          digest=hashlib.sha256(media.read_bytes()).hexdigest()
+          expected='b9739443232a80a59c7d18810dd856899bf16a7964725f5ab81ea49b1351cb71'
+          assert spec['targetChannelId']==meta['channelId']=='UCw2hs85TzIpdKwJtG-BSxzQ'
+          assert spec['paidSpendUSD']==meta['paidSpend']==0
+          assert meta['published'] is False and meta['publicationApproved'] is False and meta['uploadPermitted'] is False
+          assert meta['ttsEngines']==['piper']
+          assert meta['voiceModelProvenanceVerified'] is True
+          assert spec['expectedVoiceModelSha256']==meta['voiceModelSha256']==expected
+          assert digest==meta['sha256']
+          spoken=' '.join(s['spoken'] for s in spec['segments'])
+          assert 'internal deployments, not customer incidents' in spoken
+          assert 'removed its monitoring integration' in spoken
+          assert 'denied removing monitoring' in spoken
+          assert 'PrismBay' not in spoken and 'Prison Bay' not in spoken
+          assert len(spec['segments'])==6
+          report={'channelId':meta['channelId'],'sha256':digest,'voiceModelSha256':expected,'sourceAccurate':True,'spokenBrandAmbiguityRemoved':True,'publicationApproved':False,'youtubePublished':False,'paidSpendUSD':0,'remainingGates':['full listening','independent ASR','caption sync','physical mobile playback','editorial signoff','Studio Earn verification']}
+          pathlib.Path('retention-qa/report.json').write_text(json.dumps(report,indent=2)+'\n')
+          print(json.dumps(report,indent=2))
+          PY
+      - name: Install free FFmpeg
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg
+      - name: Full media stream decode and vertical format check
+        shell: bash
+        run: |
+          set -euo pipefail
+          MEDIA=public/youtube/ai-agent-monitoring-2026-10-31-retention-release-candidate.mp4
+          ffprobe -v error -show_entries format=duration:stream=codec_name,width,height -of json "$MEDIA" > retention-qa/ffprobe.json
+          python3 - <<'PY'
+          import json
+          x=json.load(open('retention-qa/ffprobe.json'))
+          video=[s for s in x['streams'] if s['codec_name']=='h264']
+          audio=[s for s in x['streams'] if s['codec_name']=='aac']
+          assert len(video)==1 and len(audio)==1
+          assert video[0]['width']==1080 and video[0]['height']==1920
+          assert 35<float(x['format']['duration'])<75
+          print('PASS: vertical H264/AAC duration',x['format']['duration'])
+          PY
+          ffmpeg -hide_banner -v error -xerror -i "$MEDIA" -map 0:v:0 -map 0:a:0 -f null -
+          ffmpeg -hide_banner -loglevel error -y -i "$MEDIA" -vf 'fps=1/8,scale=270:480,tile=3x2' -frames:v 1 retention-qa/contact-sheet.jpg
+          ffmpeg -hide_banner -i "$MEDIA" -af volumedetect -vn -f null - 2> retention-qa/audio-volume.log || true
+          echo PASS > retention-qa/full-decode.txt
+      - name: Retain private QA evidence without publication
+        uses: actions/upload-artifact@v4
+        with:
+          name: prismbay-monitoring-retention-private-qa
+          path: retention-qa/
+          retention-days: 14
