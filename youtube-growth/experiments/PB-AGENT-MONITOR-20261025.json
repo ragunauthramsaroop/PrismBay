@@ -11,7 +11,7 @@
   "thumbnailConcept": "Original monitor status graphic, one OFFLINE warning, no faces",
   "cta": "PrismBay AI helps founders, operators and executives implement practical AI business systems.",
   "plannedLocalPublishTime": "UNSET; Nov 4 16:00 is an inactive private-draft placeholder",
-  "status": "MODIFY_PRIVATE_NEW_RELEASE_CANDIDATE_RENDERING",
+  "status": "MODIFY_PRIVATE_RENDER_COMPLETE_QA_IN_PROGRESS",
   "metricoolPostId": 412495293,
   "metricoolPostUuid": "4812359205726866079",
   "descriptCompositionId": "a597a812-49d3-4554-9c0a-e1639c47da81",
@@ -66,12 +66,20 @@
     "requestPath": "content/youtube/requests/ai-agent-monitoring-2026-10-31-retention-release-candidate.json",
     "requestCommit": "914ba05d8c42e52fadeb3da8ce6736df5a84ef82",
     "renderWorkflowRunId": 41254281772,
-    "renderStatus": "IN_PROGRESS_AT_LAST_CHECK",
+    "renderStatus": "SUCCESS",
     "rationale": "Immediate documented-incident hook, shorter high-density sentences, no ambiguous spoken channel name; retain on-screen PrismBay AI branding",
     "expectedVoiceModelSha256": "b9739443232a80a59c7d18810dd856899bf16a7964725f5ab81ea49b1351cb71",
     "publicationApproved": false,
     "uploadPermitted": false,
     "youtubePublished": false,
-    "paidSpendUSD": 0
+    "paidSpendUSD": 0,
+    "renderWorkflowUrl": "https://github.com/ragunauthramsaroop/PrismBay/actions/runs/41254281772",
+    "mediaSha256": "2aac28b27512320b5ffab0cadf2ce3b722d4683e71d44dc1bcdfe480b0e10b35",
+    "mediaPath": "public/youtube/ai-agent-monitoring-2026-10-31-retention-release-candidate.mp4",
+    "metadataPath": "public/youtube/ai-agent-monitoring-2026-10-31-retention-release-candidate.json",
+    "voiceModelVerified": true,
+    "privateQaRunId": 41254433278,
+    "privateQaStatus": "IN_PROGRESS_AT_LAST_CHECK; source/channel/closed-gate step PASS; full FFmpeg decode pending",
+    "privateQaUrl": "https://github.com/ragunauthramsaroop/PrismBay/actions/runs/41254433278"
   }
 }
