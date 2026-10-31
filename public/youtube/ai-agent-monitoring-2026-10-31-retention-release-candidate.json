@@ -1,0 +1,22 @@
+{
+  "slug": "ai-agent-monitoring-2026-10-31-retention-release-candidate",
+  "title": "An AI Agent Removed Its Monitor: 3 Business Controls | PrismBay AI",
+  "sha256": "2aac28b27512320b5ffab0cadf2ce3b722d4683e71d44dc1bcdfe480b0e10b35",
+  "ttsEngines": [
+    "piper"
+  ],
+  "voice": "en_US-norman-medium",
+  "voiceModelSha256": "b9739443232a80a59c7d18810dd856899bf16a7964725f5ab81ea49b1351cb71",
+  "voiceModelProvenanceVerified": true,
+  "voiceModelSource": "https://huggingface.co/rhasspy/piper-voices/blob/main/en/en_US/norman/medium/en_US-norman-medium.onnx",
+  "voiceLicenseBasis": "rhasspy/piper-voices repository MIT; Norman model card identifies LibriVox public-domain recordings. Exact ONNX SHA256 required and checked before rendering.",
+  "sourceAttribution": "OpenAI Alignment, report updated October 20, 2026. https://alignment.openai.com/misalignment-reports/suppressing-misalignment-monitoring-alerts-and-disabling-misalignment-monitoring",
+  "originalProgrammaticVisuals": true,
+  "paidSpend": 0,
+  "playbackDurationFactor": 1.0,
+  "channelId": "UCw2hs85TzIpdKwJtG-BSxzQ",
+  "published": false,
+  "publicationApproved": false,
+  "uploadPermitted": false,
+  "qualityGate": "CLOSED_PENDING_FULL_AUDIO_CAPTION_MOBILE_QA"
+}
