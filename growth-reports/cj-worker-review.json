@@ -1,6 +1,6 @@
 {
   "schemaVersion": 3,
-  "checkedAt": "2026-10-31T20:00:52.232Z",
+  "checkedAt": "2026-10-31T23:25:34.681Z",
   "market": "US",
   "authenticationVerified": true,
   "sourceCandidateCount": 18,
@@ -47,7 +47,7 @@
       "checkoutAllowed": false,
       "promotionPolicyAuthorized": true,
       "automaticPromotionAllowed": false,
-      "observedAt": "2026-10-31T20:00:52.232Z"
+      "observedAt": "2026-10-31T23:25:34.681Z"
     },
     {
       "slug": "roll-up-dish-rack",
@@ -75,7 +75,7 @@
       "checkoutAllowed": false,
       "promotionPolicyAuthorized": true,
       "automaticPromotionAllowed": false,
-      "observedAt": "2026-10-31T20:00:52.232Z"
+      "observedAt": "2026-10-31T23:25:34.681Z"
     },
     {
       "slug": "hanging-closet-organizer",
@@ -103,7 +103,7 @@
       "checkoutAllowed": false,
       "promotionPolicyAuthorized": true,
       "automaticPromotionAllowed": false,
-      "observedAt": "2026-10-31T20:00:52.232Z"
+      "observedAt": "2026-10-31T23:25:34.681Z"
     },
     {
       "slug": "scrubber",
