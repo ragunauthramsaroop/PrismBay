@@ -47,3 +47,49 @@ test('non-finite prices cannot produce an infinite discount', () => {
 test('percentage savings are never rounded above the actual discount', () => {
   assert.equal(api.validatePromotion({ ...promotion, regularPriceUsd: 29.95 }, 20, now).percentOff, 33);
 });
+
+test('legacy physical product listing is withdrawn without checkout or unlicensed media', () => {
+ const page = fs.readFileSync(new URL('./garment-steamer/index.html', import.meta.url), 'utf8');
+ const home = fs.readFileSync(new URL('./index.html', import.meta.url), 'utf8');
+ const sitemap = fs.readFileSync(new URL('./sitemap.xml', import.meta.url), 'utf8');
+ const catalog = JSON.parse(fs.readFileSync(new URL('./products.json', import.meta.url), 'utf8'));
+ assert.match(page, /not currently offered/i);
+ assert.match(page, /noindex,nofollow/);
+ assert.doesNotMatch(page, /oss-cf\.cjdropshipping\.com|29\.95|schema\.org\/Product|buy\.stripe\.com|quote\?product=/i);
+ assert.equal(catalog.products.length, 0);
+ assert.doesNotMatch(page, /<form\b|<video\b|<img\b|<input\b/i);
+ assert.match(home, /<title>PrismBay Clean \| Professional Digital Toolkits<\/title>/);
+ assert.doesNotMatch(home, /professional systems &amp; home tools|Home Products/i);
+ assert.doesNotMatch(home, /href="\/garment-steamer\/"/);
+ assert.match(home, /Physical goods unavailable/);
+ assert.match(home, /No physical purchases or shipping inquiries are accepted/);
+ assert.doesNotMatch(home, /ZIP shipping inquiry|Enter your ZIP|Home-product shipping inquiries remain available|Explore real supplier-matched products/i);
+ assert.doesNotMatch(sitemap, /<loc>https:\/\/clean\.prismbayai\.com\/garment-steamer\/<\/loc>/);
+ assert.match(sitemap, /<loc>https:\/\/clean\.prismbayai\.com\/digital\/ai-cost-per-accepted-result\.html<\/loc>/, 'Preserve live digital calculator sitemap entry');
+ assert.match(sitemap, /<loc>https:\/\/clean\.prismbayai\.com\/digital\/ai-agent-permission-audit\.html<\/loc>/, 'Preserve live agent permission audit sitemap entry');
+});
+
+// Keep educational pages without an unverified physical offer or misleading ZIP preflight.
+test('steamer guides remain educational while physical fulfillment is unapproved', () => {
+ for (const filename of [
+  'portable-garment-steamer.html', 'how-to-use-a-garment-steamer.html',
+  'garment-steamer-vs-iron.html', 'travel-garment-steamer-guide.html'
+ ]) {
+  const guide = fs.readFileSync(new URL('./guides/' + filename, import.meta.url), 'utf8');
+  assert.match(guide, /does not currently offer/i, filename);
+  assert.match(guide, /href="\/top-15\/"/, filename);
+  assert.doesNotMatch(guide, /USD 29\.95|href="\/garment-steamer\/|buy\.stripe\.com|live supplier stock|checkout is released|verified supplier identity|ZIP check and manual inquiry|which is why PrismBay verifies|What the check does not do|Launch physical orders/i, filename);
+ }
+});
+
+
+test('zero-stock Top 15 metadata does not advertise available physical inventory', () => {
+ const html = fs.readFileSync(new URL('./top-15/index.html', import.meta.url), 'utf8');
+ assert.match(html, /<title>Supplier Verification Status &amp; Digital Toolkits \| PrismBay Clean<\/title>/);
+ assert.match(html, /Review current supplier verification status and four existing digital toolkits/);
+ assert.match(html, /Supplier verification status is not a claim of available stock/);
+ assert.doesNotMatch(html, /Browse real supplier-matched products|Real Supplier Products and Available Digital Tools|Authentic Supplier-Matched Products/);
+ assert.match(html, /"numberOfItems":0/);
+ assert.equal((html.match(/class="ready-buy"/g) || []).length, 4, 'Preserve four existing digital offers');
+ assert.match(html, /No physical-product orders or payments are accepted on this page/);
+});
