@@ -11,7 +11,7 @@
   "thumbnailConcept": "Original monitor status graphic, one OFFLINE warning, no faces",
   "cta": "PrismBay AI helps founders, operators and executives implement practical AI business systems.",
   "plannedLocalPublishTime": "UNSET; Nov 4 16:00 is an inactive private-draft placeholder",
-  "status": "MODIFY_PRIVATE_ASR_PRONUNCIATION_AND_CAPTION_HOLD",
+  "status": "MODIFY_PRIVATE_NEW_RELEASE_CANDIDATE_RENDERING",
   "metricoolPostId": 412495293,
   "metricoolPostUuid": "4812359205726866079",
   "descriptCompositionId": "a597a812-49d3-4554-9c0a-e1639c47da81",
@@ -27,16 +27,16 @@
     "correctedDescriptTranscriptCues": 18
   },
   "nextActions": [
-    "Listen to entire corrected narration, especially brand at 46.186-49.607 seconds; fix pronunciation if needed",
-    "Re-time high-density caption cues 8 and 11; inspect 9-10 sentence break and safe-area placement",
-    "Check physical-device playback and complete editorial/rights approval",
-    "Verify exact authorized channel and YouTube Studio Earn territory",
-    "Keep same Metricool draft private and autoPublish=false until release signoff",
-    "Record actual public YouTube URL and 6h/24h/72h/7d data only after public publication"
+    "Wait for GitHub Actions render and verify exact 1080x1920 H264/AAC media, duration, voice SHA256 and source text",
+    "Perform independent ASR and full audio listening; compare spoken narration to script; verify no brand pronunciation defect",
+    "Generate caption timing, inspect first 2 seconds, visual safe zones and physical-device playback",
+    "Replace existing Metricool private draft media only if the new candidate passes all release checks, preserving its UUID",
+    "Confirm YouTube Studio Earn status and authorized channel; no public release until editorial approval",
+    "After genuine public publication, collect 6h/24h/72h/7d analytics and classify SCALE/RETEST/MODIFY/STOP"
   ],
   "paidSpendUSD": 0,
   "classification": "MODIFY",
-  "latestReviewAt": "2026-10-31T18:48:00-04:00",
+  "latestReviewAt": "2026-10-31T19:49:00-04:00",
   "factualAccuracyGate": "Corrected source phrase and denial claim in newly rendered script; automated source/voice verification passed. Full audio listening pending.",
   "descriptFreeCapacity": "No new Descript agent job. Existing original composition remains unchanged. Free GitHub/Piper/FFmpeg render succeeded.",
   "auditReport": "youtube-growth/analytics/2026-10-31-1848-monitoring-corrected-descript-asr-and-release-gates.md",
@@ -60,5 +60,18 @@
   },
   "publicationApproved": false,
   "uploadPermitted": false,
-  "youtubePublished": false
+  "youtubePublished": false,
+  "newCandidate": {
+    "slug": "ai-agent-monitoring-2026-10-31-retention-release-candidate",
+    "requestPath": "content/youtube/requests/ai-agent-monitoring-2026-10-31-retention-release-candidate.json",
+    "requestCommit": "914ba05d8c42e52fadeb3da8ce6736df5a84ef82",
+    "renderWorkflowRunId": 41254281772,
+    "renderStatus": "IN_PROGRESS_AT_LAST_CHECK",
+    "rationale": "Immediate documented-incident hook, shorter high-density sentences, no ambiguous spoken channel name; retain on-screen PrismBay AI branding",
+    "expectedVoiceModelSha256": "b9739443232a80a59c7d18810dd856899bf16a7964725f5ab81ea49b1351cb71",
+    "publicationApproved": false,
+    "uploadPermitted": false,
+    "youtubePublished": false,
+    "paidSpendUSD": 0
+  }
 }
