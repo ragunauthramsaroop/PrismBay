@@ -1,41 +1,118 @@
 import fs from 'node:fs/promises';
 import {pathToFileURL} from 'node:url';
 
-export function validateSourcingQueue(data,shortlist) {
+export function validateSourcingQueue(data,shortlist,nowMs=Date.now()) {
  const errors=[],ids=new Set(),links=new Set();
- const allowed=new Set((shortlist?.candidates||[]).map(x=>x.slug));
+ // Every invalid input must return an explicit no-execution result.
+ const failSchema=reason=>({valid:false,errors:[reason],submitted:0,readyToSubmit:0,
+  automaticallySubmitted:0,paidLinksAuthorized:false,orderImportAuthorized:false,
+  physicalCheckoutEnabled:false});
+ if(!data||typeof data!=='object'||Array.isArray(data)||
+    data.schemaVersion!==1||!Array.isArray(data.requests))
+  return failSchema('invalid_queue_schema');
+ if(!shortlist||!Array.isArray(shortlist.candidates)||
+    shortlist.candidates.some(x=>!x||typeof x!=='object'||Array.isArray(x)||
+      typeof x.slug!=='string'||!x.slug.trim()))
+  return failSchema('invalid_shortlist_schema');
+ if(data.requestQuota!==undefined&&(!data.requestQuota||
+    typeof data.requestQuota!=='object'||Array.isArray(data.requestQuota)))
+  return failSchema('invalid_request_quota_schema');
+ const allowed=new Set(shortlist.candidates.map(x=>x.slug));
+ // Quota metadata is evidence, not a license to raise conservative free-plan limits.
+ // Zero is permitted when the merchant dashboard confirms no free allowance.
+ const quota=data.requestQuota||{};
+ const conservativeCaps={freeRequestsPerDay:3,freeRequestsPer48Hours:3,freeLinksPerSevenDays:10};
+ for(const [key,cap] of Object.entries(conservativeCaps)){
+  if(Object.hasOwn(quota,key)&&
+     (!Number.isInteger(quota[key])||quota[key]<0||quota[key]>cap))
+   errors.push('invalid_free_sourcing_quota:'+key);
+ }
+ if(Object.hasOwn(quota,'payPerExtraLinkUsd')&&
+    (typeof quota.payPerExtraLinkUsd!=='number'||
+     !Number.isFinite(quota.payPerExtraLinkUsd)||quota.payPerExtraLinkUsd<0))
+  errors.push('invalid_paid_sourcing_unit_cost');
+ const effectiveCap=key=>Number.isInteger(quota[key])&&quota[key]>=0
+  ?Math.min(conservativeCaps[key],quota[key]):conservativeCaps[key];
+ const dailyCap=effectiveCap('freeRequestsPerDay');
+ const rolling48hCap=effectiveCap('freeRequestsPer48Hours');
+ const weeklyCap=effectiveCap('freeLinksPerSevenDays');
  const counts=new Map(),weeks=[];
- if(data?.schemaVersion!==1||!Array.isArray(data.requests))
-  return {valid:false,errors:['invalid_queue_schema'],submitted:0,readyToSubmit:0};
+ // The research queue must never authorize paid sourcing, automatic uploads or physical checkout.
+ // Reject non-boolean and string-encoded authorizations as well as positive flags.
+ // Only absent, false, or numeric zero are unambiguously disabled.
+ const disabled=value=>value===undefined||value===false||value===0;
+ if(!disabled(data?.requestQuota?.paidLinksAuthorized)||!disabled(data?.paidLinksAuthorized))
+  errors.push('paid_sourcing_not_authorized');
+ const executionKeys=['orderImportAuthorized','physicalCheckoutEnabled',
+  'automaticallySubmitted','manualCsvOrdersEnabled',
+  'manualCsvOrderSubmissionAuthorized','walletFundingAuthorized',
+  'automaticOrdersEnabled','automaticSupplierOrderingEnabled',
+  'supplierPurchasesEnabled','supplierPaymentsEnabled',
+  'walletTopupAuthorized','physicalPaymentLinksEnabled',
+  'orderSubmissionAuthorized','autoFulfillmentEnabled',
+  'paidSourcingEnabled'];
+ const unsafeExecution=scope=>executionKeys.some(key=>!disabled(scope?.[key]));
+ // Quota metadata is not an authority to order, import, charge, or enable checkout.
+ if(unsafeExecution(data)||unsafeExecution(data.requestQuota))
+  errors.push('unsafe_execution_flag');
  for(const row of data.requests){
+  // Malformed entries must produce an auditable rejection, not crash the readiness gate.
+  if(!row||typeof row!=='object'||Array.isArray(row)){
+   errors.push('invalid_sourcing_request');
+   continue;
+  }
+  // Per-request flags must never override queue-wide no-spend controls.
+  if(!disabled(row?.paidLinksAuthorized))errors.push('paid_sourcing_not_authorized');
+  if(unsafeExecution(row))errors.push('unsafe_execution_flag');
   if(!allowed.has(row.slug))errors.push('unknown_slug');
   if(ids.has(row.slug))errors.push('duplicate_product_slug');
   ids.add(row.slug);
-  const url=String(row.aliExpressUrl||'');
+  const url=typeof row.aliExpressUrl==='string'?row.aliExpressUrl:'';
   const good=/^https:\/\/(?:www\.)?aliexpress\.com\/item\/[0-9]{8,25}\.html$/.test(url);
   if(!good)errors.push('invalid_direct_aliexpress_item_url');
   if(links.has(url))errors.push('duplicate_product_link');
   links.add(url);
-  const state=String(row.status||'');
+  const state=typeof row.status==='string'?row.status:'';
   if(!['candidate','ready_to_submit','submitted','quote_received','no_source'].includes(state))
    errors.push('invalid_sourcing_state');
   if(['submitted','quote_received','no_source'].includes(state)){
-   const day=String(row.submittedAt||'').slice(0,10);
-   const date=Date.parse(String(row.submittedAt||''));
-   if(!/^\d{4}-\d{2}-\d{2}$/.test(day)||!Number.isFinite(date))
-    errors.push('missing_valid_submission_timestamp');
+   const submittedAt=typeof row.submittedAt==='string'?row.submittedAt:'';
+   const day=submittedAt.slice(0,10);
+   const date=Date.parse(submittedAt);
+   // Strict UTC ISO dates reject rollover dates and ambiguous local timestamps.
+   const isUtc=/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d{3})?Z$/.test(submittedAt);
+   const canonical=isUtc&&Number.isFinite(date)&&
+    new Date(date).toISOString()===(submittedAt.includes('.')?submittedAt:submittedAt.replace('Z','.000Z'));
+   if(!canonical)errors.push('missing_valid_submission_timestamp');
+   else if(date>nowMs)errors.push('future_submission_timestamp');
    else {counts.set(day,(counts.get(day)||0)+1);weeks.push(date);}
   }else if(row.submittedAt)errors.push('unsubmitted_request_must_not_claim_submission');
  }
- for(const [day,n] of counts)if(n>3)errors.push('free_daily_sourcing_limit_exceeded:'+day);
+ for(const [day,n] of counts)if(n>dailyCap)errors.push('free_daily_sourcing_limit_exceeded:'+day);
  // Public HyperSKU pricing states three free sourcing requests within 48h,
  // which is stricter than the chat-agent's three-per-day wording.
- for(const t of weeks)if(weeks.filter(u=>u>=t&&u<t+48*3600000).length>3)
+ for(const t of weeks)if(weeks.filter(u=>u>=t&&u<t+48*3600000).length>rolling48hCap)
   {errors.push('free_48hour_sourcing_limit_exceeded');break;}
- for(const t of weeks)if(weeks.filter(u=>u>=t&&u<t+7*86400000).length>10)
+ for(const t of weeks)if(weeks.filter(u=>u>=t&&u<t+7*86400000).length>weeklyCap)
   {errors.push('free_weekly_sourcing_limit_exceeded');break;}
- return {valid:errors.length===0,errors:[...new Set(errors)],
-  submitted:weeks.length,readyToSubmit:data.requests.filter(x=>x.status==='ready_to_submit').length,
+ // The count of queued links is not the number of free sourcing slots.
+ // Apply the strictest remaining UTC-day, rolling 48-hour and rolling 7-day
+ // allowance. This is a conservative ceiling, NOT merchant dashboard approval.
+ const todayUtc=new Date(nowMs).toISOString().slice(0,10);
+ const recent48h=weeks.filter(t=>t>nowMs-48*3600000).length;
+ const recent7d=weeks.filter(t=>t>nowMs-7*86400000).length;
+ const freeSlots=Math.max(0,Math.min(
+  dailyCap-(counts.get(todayUtc)||0),
+  rolling48hCap-recent48h,
+  weeklyCap-recent7d
+ ));
+ // Never advertise actionable sourcing readiness from an invalid queue.
+ // Preserve the diagnostic errors, but fail closed on both activity counters.
+ const valid=errors.length===0;
+ const queuedReady=data.requests.filter(x=>x&&typeof x==='object'&&!Array.isArray(x)&&x.status==='ready_to_submit').length;
+ return {valid,errors:[...new Set(errors)],
+  submitted:valid?weeks.length:0,
+  readyToSubmit:valid?Math.min(queuedReady,freeSlots):0,
   automaticallySubmitted:0,paidLinksAuthorized:false,
   orderImportAuthorized:false,physicalCheckoutEnabled:false};
 }

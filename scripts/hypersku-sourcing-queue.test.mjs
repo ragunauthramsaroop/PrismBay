@@ -45,3 +45,287 @@ test('a second day cannot exceed stricter published three-free-per-48-hours cap'
  assert.equal(x.valid,false);
  assert.ok(x.errors.includes('free_48hour_sourcing_limit_exceeded'));
 });
+
+test('future-dated submissions never count as verified sourcing activity',()=>{
+ const x=validateSourcingQueue({schemaVersion:1,requests:[
+  {slug:'pethair',aliExpressUrl:link(1),status:'submitted',submittedAt:'2026-10-30T11:00:00Z'}
+ ]},short,Date.parse('2026-10-29T03:00:00Z'));
+ assert.equal(x.valid,false);
+ assert.ok(x.errors.includes('future_submission_timestamp'));
+ assert.equal(x.submitted,0);
+});
+test('rollover dates and timezone-ambiguous timestamps fail closed',()=>{
+ for(const submittedAt of ['2026-02-30T11:00:00Z','2026-10-28T11:00:00','2026-10-28T11:00:00+00:00']){
+  const x=validateSourcingQueue({schemaVersion:1,requests:[
+   {slug:'pethair',aliExpressUrl:link(1),status:'submitted',submittedAt}
+  ]},short,Date.parse('2026-10-29T03:00:00Z'));
+  assert.equal(x.valid,false,submittedAt);
+  assert.ok(x.errors.includes('missing_valid_submission_timestamp'),submittedAt);
+  assert.equal(x.submitted,0);
+ }
+});
+test('paid sourcing and execution flags are rejected rather than silently ignored',()=>{
+ const x=validateSourcingQueue({schemaVersion:1,requestQuota:{paidLinksAuthorized:true},
+  automaticallySubmitted:1,orderImportAuthorized:true,physicalCheckoutEnabled:true,requests:[]},short);
+ assert.equal(x.valid,false);
+ assert.ok(x.errors.includes('paid_sourcing_not_authorized'));
+ assert.ok(x.errors.includes('unsafe_execution_flag'));
+ assert.equal(x.automaticallySubmitted,0);
+ assert.equal(x.physicalCheckoutEnabled,false);
+});
+
+test('string-encoded and malformed authorizations cannot bypass the no-spend gate',()=>{
+ for(const flag of ['true','0',-1,null,1]){
+  const paid=validateSourcingQueue({schemaVersion:1,paidLinksAuthorized:flag,requests:[]},short);
+  assert.equal(paid.valid,false,String(flag));
+  assert.ok(paid.errors.includes('paid_sourcing_not_authorized'));
+  const auto=validateSourcingQueue({schemaVersion:1,automaticallySubmitted:flag,requests:[]},short);
+  assert.equal(auto.valid,false,String(flag));
+  assert.ok(auto.errors.includes('unsafe_execution_flag'));
+ }
+});
+test('manual order, wallet funding and supplier-order flags remain disabled',()=>{
+ for(const key of ['manualCsvOrdersEnabled','manualCsvOrderSubmissionAuthorized',
+                    'walletFundingAuthorized','automaticOrdersEnabled']){
+  const x=validateSourcingQueue({schemaVersion:1,requests:[],[key]:true},short);
+  assert.equal(x.valid,false,key);
+  assert.ok(x.errors.includes('unsafe_execution_flag'),key);
+ }
+});
+
+test('per-request execution flags cannot override queue-wide supplier restrictions',()=>{
+ const base={slug:'pethair',aliExpressUrl:link(1),status:'ready_to_submit'};
+ for(const key of ['orderImportAuthorized','physicalCheckoutEnabled',
+   'automaticallySubmitted','manualCsvOrdersEnabled',
+   'manualCsvOrderSubmissionAuthorized','walletFundingAuthorized',
+   'automaticOrdersEnabled']){
+  for(const flag of [true,'false',1,null]){
+   const x=validateSourcingQueue({schemaVersion:1,requests:[{...base,[key]:flag}]},short);
+   assert.equal(x.valid,false,key+':'+String(flag));
+   assert.ok(x.errors.includes('unsafe_execution_flag'),key);
+   assert.equal(x.physicalCheckoutEnabled,false);
+  }
+ }
+ for(const flag of [true,'false',1,null]){
+  const x=validateSourcingQueue({schemaVersion:1,requests:[{...base,paidLinksAuthorized:flag}]},short);
+  assert.equal(x.valid,false,String(flag));
+  assert.ok(x.errors.includes('paid_sourcing_not_authorized'));
+ }
+});
+
+test('malformed sourcing rows fail closed with a structured error instead of crashing',()=>{
+ for(const malformed of [null,false,0,'invalid',[]]){
+  const result=validateSourcingQueue({schemaVersion:1,requests:[malformed]},short);
+  assert.equal(result.valid,false,String(malformed));
+  assert.ok(result.errors.includes('invalid_sourcing_request'),String(malformed));
+  assert.equal(result.submitted,0);
+  assert.equal(result.readyToSubmit,0);
+  assert.equal(result.physicalCheckoutEnabled,false);
+ }
+});
+
+
+test('invalid sourcing evidence never exposes an actionable ready-to-submit count',()=>{
+ const validRow={slug:'pethair',aliExpressUrl:link(1),status:'ready_to_submit'};
+ const invalidRow={slug:'crevice',aliExpressUrl:'https://example.invalid/item/1',status:'ready_to_submit'};
+ const result=validateSourcingQueue({schemaVersion:1,requests:[validRow,invalidRow]},short);
+ assert.equal(result.valid,false);
+ assert.ok(result.errors.includes('invalid_direct_aliexpress_item_url'));
+ assert.equal(result.readyToSubmit,0);
+ assert.equal(result.submitted,0);
+ assert.equal(result.physicalCheckoutEnabled,false);
+});
+
+test('unauthorized execution flag invalidates all sourcing readiness counters',()=>{
+ const result=validateSourcingQueue({schemaVersion:1,automaticOrdersEnabled:true,requests:[
+  {slug:'pethair',aliExpressUrl:link(1),status:'ready_to_submit'},
+  {slug:'crevice',aliExpressUrl:link(2),status:'submitted',submittedAt:'2026-10-28T11:00:00Z'}
+ ]},short,Date.parse('2026-10-29T10:00:00Z'));
+ assert.equal(result.valid,false);
+ assert.ok(result.errors.includes('unsafe_execution_flag'));
+ assert.equal(result.readyToSubmit,0);
+ assert.equal(result.submitted,0);
+ assert.equal(result.automaticallySubmitted,0);
+});
+
+test('supplier purchase, payment and fulfillment aliases cannot enable spending',()=>{
+ const aliases=['automaticSupplierOrderingEnabled','supplierPurchasesEnabled',
+  'supplierPaymentsEnabled','walletTopupAuthorized','physicalPaymentLinksEnabled',
+  'orderSubmissionAuthorized','autoFulfillmentEnabled','paidSourcingEnabled'];
+ const row={slug:'pethair',aliExpressUrl:link(1),status:'ready_to_submit'};
+ for(const key of aliases){
+  for(const scope of ['queue','quota','request']){
+   const queue={schemaVersion:1,requests:[{...row}]};
+   if(scope==='queue')queue[key]=true;
+   if(scope==='quota')queue.requestQuota={[key]:true};
+   if(scope==='request')queue.requests[0][key]=true;
+   const result=validateSourcingQueue(queue,short);
+   assert.equal(result.valid,false,scope+':'+key);
+   assert.ok(result.errors.includes('unsafe_execution_flag'),scope+':'+key);
+   assert.equal(result.readyToSubmit,0);
+   assert.equal(result.automaticallySubmitted,0);
+   assert.equal(result.physicalCheckoutEnabled,false);
+  }
+ }
+});
+
+test('nested request-quota execution flags cannot authorize supplier actions',()=>{
+ for(const key of ['orderImportAuthorized','physicalCheckoutEnabled',
+  'automaticallySubmitted','manualCsvOrdersEnabled',
+  'manualCsvOrderSubmissionAuthorized','walletFundingAuthorized',
+  'automaticOrdersEnabled']){
+  for(const flag of [true,'false',1,null]){
+   const x=validateSourcingQueue({schemaVersion:1,
+    requestQuota:{paidLinksAuthorized:false,[key]:flag},
+    requests:[{slug:'pethair',aliExpressUrl:link(1),status:'ready_to_submit'}]},short);
+   assert.equal(x.valid,false,key+':'+String(flag));
+   assert.ok(x.errors.includes('unsafe_execution_flag'),key);
+   assert.equal(x.readyToSubmit,0);
+   assert.equal(x.submitted,0);
+   assert.equal(x.automaticallySubmitted,0);
+   assert.equal(x.physicalCheckoutEnabled,false);
+  }
+ }
+});
+
+test('malformed shortlist evidence returns disabled controls instead of throwing',()=>{
+ const validQueue={schemaVersion:1,requests:[]};
+ for(const malformed of [null,{}, {candidates:null}, {candidates:{}},
+   {candidates:[null]}, {candidates:['crevice']}, {candidates:[{slug:''}]}]){
+  const x=validateSourcingQueue(validQueue,malformed);
+  assert.equal(x.valid,false,JSON.stringify(malformed));
+  assert.ok(x.errors.includes('invalid_shortlist_schema'));
+  assert.equal(x.readyToSubmit,0);
+  assert.equal(x.submitted,0);
+  assert.equal(x.automaticallySubmitted,0);
+  assert.equal(x.paidLinksAuthorized,false);
+  assert.equal(x.orderImportAuthorized,false);
+  assert.equal(x.physicalCheckoutEnabled,false);
+ }
+});
+test('malformed request quota never authorizes sourcing or checkout',()=>{
+ for(const requestQuota of [null,[],true,'3',3]){
+  const x=validateSourcingQueue({schemaVersion:1,requests:[],requestQuota},short);
+  assert.equal(x.valid,false,JSON.stringify(requestQuota));
+  assert.ok(x.errors.includes('invalid_request_quota_schema'));
+  assert.equal(x.readyToSubmit,0);
+  assert.equal(x.physicalCheckoutEnabled,false);
+ }
+});
+test('invalid queue schema returns complete no-execution result',()=>{
+ for(const data of [null,[],{}, {schemaVersion:1,requests:{}}]){
+  const x=validateSourcingQueue(data,short);
+  assert.equal(x.valid,false);
+  assert.ok(x.errors.includes('invalid_queue_schema'));
+  assert.equal(x.submitted,0);
+  assert.equal(x.readyToSubmit,0);
+  assert.equal(x.automaticallySubmitted,0);
+  assert.equal(x.paidLinksAuthorized,false);
+  assert.equal(x.orderImportAuthorized,false);
+  assert.equal(x.physicalCheckoutEnabled,false);
+ }
+});
+
+test('malformed object fields fail closed without throwing or reporting sourcing readiness',()=>{
+ const hostile={toString:null,valueOf:null};
+ const cases=[
+  {slug:'pethair',aliExpressUrl:hostile,status:'candidate'},
+  {slug:'pethair',aliExpressUrl:link(1),status:hostile},
+  {slug:'pethair',aliExpressUrl:link(1),status:'submitted',submittedAt:hostile},
+  {slug:'pethair',aliExpressUrl:link(1),status:'candidate',submittedAt:hostile}
+ ];
+ for(const [index,row] of cases.entries()){
+  const result=validateSourcingQueue({schemaVersion:1,requests:[row]},short);
+  assert.equal(result.valid,false,'malformed case '+index);
+  assert.equal(result.submitted,0);
+  assert.equal(result.readyToSubmit,0);
+  assert.equal(result.automaticallySubmitted,0);
+  assert.equal(result.physicalCheckoutEnabled,false);
+ }
+});
+
+test('inflated or malformed quota metadata cannot claim free sourcing readiness',()=>{
+ const caps={freeRequestsPerDay:4,freeRequestsPer48Hours:4,freeLinksPerSevenDays:11};
+ for(const [key,value] of Object.entries(caps)){
+  const x=validateSourcingQueue({schemaVersion:1,requestQuota:{[key]:value},requests:[]},short);
+  assert.equal(x.valid,false,key);
+  assert.ok(x.errors.includes('invalid_free_sourcing_quota:'+key),key);
+  assert.equal(x.readyToSubmit,0);
+ }
+ for(const value of ['3',null,-1,3.5,Infinity,NaN]){
+  const x=validateSourcingQueue({schemaVersion:1,requestQuota:{freeRequestsPerDay:value},requests:[]},short);
+  assert.equal(x.valid,false,String(value));
+  assert.ok(x.errors.includes('invalid_free_sourcing_quota:freeRequestsPerDay'));
+ }
+ for(const value of ['0',null,-1,Infinity,NaN]){
+  const x=validateSourcingQueue({schemaVersion:1,requestQuota:{payPerExtraLinkUsd:value},requests:[]},short);
+  assert.equal(x.valid,false,String(value));
+  assert.ok(x.errors.includes('invalid_paid_sourcing_unit_cost'));
+ }
+});
+
+test('merchant-specific stricter free quotas prevent submitted activity from being approved',()=>{
+ const row={slug:'pethair',aliExpressUrl:link(1),status:'submitted',
+  submittedAt:'2026-10-28T11:00:00Z'};
+ for(const key of ['freeRequestsPerDay','freeRequestsPer48Hours','freeLinksPerSevenDays']){
+  const x=validateSourcingQueue({schemaVersion:1,requestQuota:{[key]:0},
+   requests:[row]},short,Date.parse('2026-10-29T12:00:00Z'));
+  assert.equal(x.valid,false,key);
+  assert.equal(x.submitted,0);
+  assert.equal(x.readyToSubmit,0);
+  assert.equal(x.automaticallySubmitted,0);
+  assert.equal(x.physicalCheckoutEnabled,false);
+  assert.ok(x.errors.some(e=>e.includes('sourcing_limit_exceeded')),key);
+ }
+ const stricter=validateSourcingQueue({schemaVersion:1,
+  requestQuota:{freeRequestsPerDay:1},
+  requests:[row,{slug:'crevice',aliExpressUrl:link(2),status:'submitted',
+   submittedAt:'2026-10-28T12:00:00Z'}]},short,Date.parse('2026-10-29T12:00:00Z'));
+ assert.equal(stricter.valid,false);
+ assert.ok(stricter.errors.some(e=>e.startsWith('free_daily_sourcing_limit_exceeded')));
+});
+
+test('free sourcing readiness never exceeds the remaining rolling 48-hour allowance',()=>{
+ const now=Date.parse('2026-10-30T13:00:00Z');
+ const submitted=(slug,n,at)=>({slug,aliExpressUrl:link(n),status:'submitted',submittedAt:at});
+ const ready=(slug,n)=>({slug,aliExpressUrl:link(n),status:'ready_to_submit'});
+ const two=validateSourcingQueue({schemaVersion:1,requests:[
+  submitted('pethair',1,'2026-10-29T15:00:00Z'),
+  submitted('crevice',2,'2026-10-30T09:00:00Z'),
+  ready('mini-mop',3),ready('drain-catcher',4)
+ ]},short,now);
+ assert.equal(two.valid,true);
+ assert.equal(two.submitted,2);
+ assert.equal(two.readyToSubmit,1,'Two prior requests leave only one free slot');
+ assert.equal(two.automaticallySubmitted,0);
+ const exhausted=validateSourcingQueue({schemaVersion:1,requests:[
+  submitted('pethair',1,'2026-10-29T15:00:00Z'),
+  submitted('crevice',2,'2026-10-30T09:00:00Z'),
+  submitted('mini-mop',3,'2026-10-30T10:00:00Z'),
+  ready('drain-catcher',4)
+ ]},short,now);
+ assert.equal(exhausted.valid,true);
+ assert.equal(exhausted.readyToSubmit,0,'A fourth link must not be presented as free and ready');
+ assert.equal(exhausted.physicalCheckoutEnabled,false);
+});
+
+test('unsubmitted sourcing links never claim more free slots than published caps',()=>{
+ const now=Date.parse('2026-10-30T13:00:00Z');
+ const queue={schemaVersion:1,requests:[
+  {slug:'pethair',aliExpressUrl:link(1),status:'ready_to_submit'},
+  {slug:'crevice',aliExpressUrl:link(2),status:'ready_to_submit'},
+  {slug:'mini-mop',aliExpressUrl:link(3),status:'ready_to_submit'},
+  {slug:'drain-catcher',aliExpressUrl:link(4),status:'ready_to_submit'}
+ ]};
+ const x=validateSourcingQueue(queue,short,now);
+ assert.equal(x.valid,true);
+ assert.equal(x.readyToSubmit,3,'Four queued links do not create a fourth free request');
+ assert.equal(x.submitted,0);
+ assert.equal(x.automaticallySubmitted,0);
+ const restricted=validateSourcingQueue({...queue,requestQuota:{freeRequestsPer48Hours:1}},short,now);
+ assert.equal(restricted.valid,true);
+ assert.equal(restricted.readyToSubmit,1,'Merchant-specific stricter allowance takes precedence');
+ const zero=validateSourcingQueue({...queue,requestQuota:{freeRequestsPer48Hours:0}},short,now);
+ assert.equal(zero.valid,true);
+ assert.equal(zero.readyToSubmit,0);
+});
