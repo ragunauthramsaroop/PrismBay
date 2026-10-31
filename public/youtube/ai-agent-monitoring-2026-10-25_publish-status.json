@@ -1,0 +1,35 @@
+{
+  "channelId": "UCw2hs85TzIpdKwJtG-BSxzQ",
+  "handle": "@PrismBayAI",
+  "metricoolBrandId": 6945443,
+  "experimentId": "PB-AGENT-MONITOR-20261025",
+  "checkedAt": "2026-10-31T14:49:00-04:00",
+  "state": "METRICOOL_PRIVATE_DRAFT_CREATED_REVIEW_HOLD",
+  "metricoolPostId": 412382321,
+  "metricoolPostUuid": "4812359205726866079",
+  "metricoolPlannerUrl": "https://app.metricool.com/planner/calendar?blogId=6945443&openWithPostUuid=4812359205726866079",
+  "mediaSource": "https://raw.githubusercontent.com/ragunauthramsaroop/PrismBay/main/public/youtube/ai-agent-monitoring-2026-10-25.mp4",
+  "metricoolIngestedMedia": "https://static.metricool.com/planner/202610/6945443-file-16495092968268720903.mp4",
+  "publicationDate": "2026-11-04T16:00:00-04:00",
+  "draft": true,
+  "autoPublish": false,
+  "youtubePrivacy": "private",
+  "youtubePublished": false,
+  "publicUploadVerified": false,
+  "publicVideoUrl": null,
+  "releaseApproved": false,
+  "uploadPermitted": false,
+  "blockers": [
+    "Full narration listening",
+    "Native mobile playback",
+    "Piper voice license/provenance confirmation",
+    "Final source and originality review",
+    "YouTube Studio Earn territory verification"
+  ],
+  "observations": [
+    "Metricool accepted and ingested public MP4 URL into an authorized YouTube-channel draft",
+    "Scheduled inventory read-back shows exactly this pending draft",
+    "Draft status does not establish a YouTube upload or publication"
+  ],
+  "paidSpendUSD": 0
+}
