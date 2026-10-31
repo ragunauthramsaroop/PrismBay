@@ -1,0 +1,58 @@
+{
+  "experiment_id": "PB-AGENT-GATES-20261030-L01",
+  "channel_id": "UCw2hs85TzIpdKwJtG-BSxzQ",
+  "handle": "@PrismBayAI",
+  "metricool_brand_id": "6945443",
+  "series": "AI Systems That Survive Contact With Operations",
+  "video_title": "Five Gates Before an AI Agent Gets Permission to Act",
+  "hypothesis": "A practical permission architecture and tested supplier-payment example will produce higher-intent long-form viewers and attributable subscribers than generic AI-tool lists.",
+  "target_audience": [
+    "founders",
+    "COOs",
+    "finance leads",
+    "automation owners"
+  ],
+  "hook_type": "consequential payment-risk scenario",
+  "format": "long-form educational video",
+  "duration_seconds": 504.458,
+  "version": "L01-V2-private-rough-cut",
+  "titles": [
+    "Before You Give an AI Agent Access, Run These 5 Tests",
+    "The AI Agent Permission System Every Small Business Needs",
+    "Your AI Agent Wants to Send Payments. Who Approves Them?"
+  ],
+  "thumbnail_concepts": [
+    "ADMIN ACCESS? red denied toggle",
+    "5 GATES with one failed control",
+    "WHO SIGNS? fictional $4,800 approval"
+  ],
+  "cta": "Subscribe to PrismBay AI for tested AI workflows, cost models and operating controls.",
+  "publish_time_hypothesis": "16:00 America/Guyana on a weekday, provisional account-level score only",
+  "success_threshold_72h": {
+    "organic_views_at_least": 50,
+    "average_percentage_viewed_at_least": 30,
+    "attributable_subscribers_at_least": 1
+  },
+  "review_windows_hours": [
+    6,
+    24,
+    72,
+    168
+  ],
+  "portfolio_status": "MODIFY",
+  "release_status": "PRIVATE_ROUGH_CUT",
+  "publicationApproved": false,
+  "uploadPermitted": false,
+  "source_references": [
+    "https://genai.owasp.org/2026/09/01/owasp-genai-security-project-unveils-2026-top-10-for-llm-applications-new-agent-control-standard-and-sponsors-as-community-tops-30000-members/",
+    "https://www.nist.gov/publications/artificial-intelligence-risk-management-framework-generative-artificial-intelligence"
+  ],
+  "sha256": "5dd6d442d9b94bd17a9f34ea61f1fd8f9855b3c69c63f6084fedc11412e42b80",
+  "metrics_observed": {
+    "subscribers": 7,
+    "known_views_oct_24_26": 152,
+    "later_views": null,
+    "scheduled_posts_oct30_nov30": 0
+  },
+  "paidSpendUSD": 0
+}
