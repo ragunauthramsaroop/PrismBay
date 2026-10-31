@@ -2,6 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { ACTIVE_DIGITAL_OFFERS } from './digital-conversion-campaign.mjs';
 import { buildOfferPage, buildHub, ownedSalesUrls, salesPlanFromReport } from './owned-sales-page-worker.mjs';
+import { buildCashflowBuyerPage } from './cashflow-owned-launch.mjs';
 
 const htmlText = value => String(value).replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;').replaceAll("'",'&#39;');
 
@@ -82,4 +83,12 @@ test('buyer page falls back when the FreeLLM report is not verified for that off
   }), null);
   const html = buildOfferPage(offer);
   assert.match(html, /data-sales-strategy="baseline"/);
+});
+
+test('cashflow starter guide uses verified first-party purchase terms and direct support', () => {
+  const html = buildCashflowBuyerPage();
+  assert.match(html, /https:\/\/clean\.prismbayai\.com\/digital\/cashflow-studio\/purchase-information\.html/);
+  assert.match(html, /mailto:support@prismbayai\.com/);
+  assert.match(html, /eVqaEYddQ6lRgSu1yggnK0v/);
+  assert.doesNotMatch(html, /www\.prismbayai\.com\/(?:contact|refunds)/);
 });
