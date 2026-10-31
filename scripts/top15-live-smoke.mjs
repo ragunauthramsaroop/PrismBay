@@ -72,8 +72,9 @@ if(legacy.status===200){
  assert.match(legacyHtml,/<meta[^>]*name=["']robots["'][^>]*content=["']noindex,nofollow["']/i,
   'Legacy product route must be excluded from indexing');
  assert.match(legacyHtml,/not currently offered/i,'Legacy product route must show an unavailable notice');
- assert.doesNotMatch(legacyHtml,/29\.95|oss-cf\.cjdropshipping\.com|schema\.org\/Product|<form\b|<video\b|buy\.stripe\.com/i,
-  'Legacy product route must not present an unverified offer, supplier media, customer form or checkout');
+ // A changed price or a different image host must not evade the withdrawal gate.
+ assert.doesNotMatch(legacyHtml,/(?:\b(?:USD|US\$)\s*\d+(?:\.\d{2})?|\$\s*\d+(?:\.\d{2})?|\bpriceUsd\b|product:price|<img\b|<picture\b|<form\b|<video\b|<script\b[^>]*type=["']application\/ld\+json["']|schema\.org\/Product|buy\.stripe\.com|add to cart|buy now)/i,
+  'Legacy route must not contain any physical offer price, supplier image, form, video, Product schema or checkout');
 }
 const legacyCatalog=await request(home+'products.json');
 assert.equal(legacyCatalog.status,200,'Legacy physical catalog JSON must remain accessible');
