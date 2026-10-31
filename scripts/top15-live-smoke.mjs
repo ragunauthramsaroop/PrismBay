@@ -72,7 +72,7 @@ if(legacy.status===200){
  assert.match(legacyHtml,/<meta[^>]*name=["']robots["'][^>]*content=["']noindex,nofollow["']/i,
   'Legacy product route must be excluded from indexing');
  assert.match(legacyHtml,/not currently offered/i,'Legacy product route must show an unavailable notice');
- assert.doesNotMatch(legacyHtml,/29\\.95|oss-cf\\.cjdropshipping\\.com|schema\\.org\\/Product|<form\\b|<video\\b|buy\\.stripe\\.com/i,
+ assert.doesNotMatch(legacyHtml,/29\.95|oss-cf\.cjdropshipping\.com|schema\.org\/Product|<form\b|<video\b|buy\.stripe\.com/i,
   'Legacy product route must not present an unverified offer, supplier media, customer form or checkout');
 }
 const legacyCatalog=await request(home+'products.json');
@@ -82,7 +82,7 @@ assert.ok(Array.isArray(legacyCatalogJson.products),'Legacy physical catalog mus
 assert.equal(legacyCatalogJson.products.length,0,'Legacy physical catalog must not advertise unverified products');
 const publicSitemap=await request(home+'sitemap.xml');
 assert.equal(publicSitemap.status,200,'Public sitemap must respond 200');
-assert.doesNotMatch(await publicSitemap.text(),/<loc>https:\\/\\/clean\\.prismbayai\\.com\\/garment-steamer\\/<\\/loc>/i,
+assert.doesNotMatch(await publicSitemap.text(),/<loc>https:\/\/clean\.prismbayai\.com\/garment-steamer\/<\/loc>/i,
  'Legacy unverified physical product route must not remain in the sitemap');
 const quote=await request(intake+'/quote?product=screen-protector&utm_source=verified-catalog');
 assert.equal(quote.status,200,'Consent-backed product inquiry route');
