@@ -271,11 +271,24 @@ def main():
     out_dir.mkdir(parents=True, exist_ok=True)
 
     voice = spec.get('voice', 'en_US-norman-medium')
+    expected_voice_hash = str(spec.get('expectedVoiceModelSha256', '')).lower().strip()
+    require_verified_voice = bool(spec.get('requireVerifiedVoiceModel', False))
+    if require_verified_voice and len(expected_voice_hash) != 64:
+        raise ValueError('Verified-voice renders require a 64-character model SHA256')
+    voice_model_hash = None
     engine = 'espeak-ng'
     try:
         run(['python3', '-m', 'piper.download_voices', '--data-dir', str(voice_dir), voice])
+        model_file = voice_dir / f'{voice}.onnx'
+        if not model_file.is_file():
+            raise RuntimeError(f'Piper model missing: {model_file}')
+        voice_model_hash = hashlib.sha256(model_file.read_bytes()).hexdigest()
+        if expected_voice_hash and voice_model_hash != expected_voice_hash:
+            raise RuntimeError('Piper voice model SHA256 differs from the verified upstream model')
         engine = 'piper'
     except Exception as exc:
+        if require_verified_voice:
+            raise RuntimeError('Verified Piper voice required; refusing silent TTS fallback') from exc
         print(f'Piper voice download failed, eSpeak remains available: {exc}', file=sys.stderr)
 
     segment_files = []
@@ -288,6 +301,8 @@ def main():
         spoken = str(segment['spoken']).strip()
         used = synthesize(spoken, wav, voice, voice_dir) if engine == 'piper' else synthesize(spoken, wav, '__missing__', voice_dir)
         used_engines.add(used)
+        if require_verified_voice and used != 'piper':
+            raise RuntimeError('Verified-voice render unexpectedly used a fallback engine')
         duration = max(1.0, wav_duration(wav) + 0.18)
         frame = (render_frame_nist_identity(segment, i, len(segments), spec.get('sourceAttribution', ''))
                  if spec.get('visualStyle') == 'nist_agent_identity_v1'
@@ -344,6 +359,9 @@ def main():
         'sha256': digest,
         'ttsEngines': sorted(used_engines),
         'voice': voice if 'piper' in used_engines else None,
+        'voiceModelSha256': voice_model_hash if 'piper' in used_engines else None,
+        'voiceModelProvenanceVerified': bool(expected_voice_hash and voice_model_hash == expected_voice_hash),
+        'voiceModelSource': spec.get('voiceModelSource', ''),
         'voiceLicenseBasis': spec.get('voiceLicenseBasis', ''),
         'sourceAttribution': spec.get('sourceAttribution', ''),
         'originalProgrammaticVisuals': True,
