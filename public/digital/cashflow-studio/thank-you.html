@@ -1,0 +1,21 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow,noarchive"><meta name="referrer" content="no-referrer"><meta name="theme-color" content="#123b32"><title>Verify your purchase | PrismBay Digital</title><link rel="stylesheet" href="./style.css"><link rel="icon" href="/favicon.svg" type="image/svg+xml"></head>
+<body><a class="skip" href="#main">Skip to content</a><div class="announcement">PRISMBAY DIGITAL &nbsp; · &nbsp; Private, payment-verified delivery</div><header class="header"><nav class="nav wrap"><a class="wordmark" href="/digital/"><span class="mark" aria-hidden="true"></span>PrismBay<em>Digital</em></a><a class="nav-help" href="mailto:support@prismbayai.com">Contact support ↗</a></nav></header>
+<main id="main" class="receipt"><div class="wrap"><div class="receipt-card"><div class="receipt-icon" aria-hidden="true">↓</div><div class="eyebrow" style="margin-top:18px">Protected digital download</div><h1>Complete your download.</h1><p>Your receipt link identifies a checkout session. We still need to verify Stripe's payment status and confirm you purchased Cashflow Studio before a file becomes available.</p>
+<div id="valid-session" class="hidden"><a id="download" class="button" href="#" rel="noreferrer noopener">Verify payment and download ZIP ↗</a><p class="fine">The service checks your live Stripe purchase and provides a short-lived private download link. If the download fails, email support@prismbayai.com with your receipt reference. Do not send card details.</p></div>
+<div id="invalid-session" class="hidden"><p><strong>No valid receipt link was provided.</strong> If you completed a purchase, use the redirect from Stripe or contact support with the receipt reference.</p><a class="button button-light" href="./">Return to product page</a></div>
+<noscript><p>Please enable JavaScript to access the receipt-verified download button or contact support@prismbayai.com for assistance.</p></noscript>
+<p class="fine">This page does not confirm a successful charge by itself. Only the protected delivery service verifies paid orders.</p>
+</div></div></main><footer class="footer"><div class="wrap footer-bottom" style="margin-top:0"><span>PrismBay Digital · operated by STUDYSMARTZ LLC</span><span><a href="./purchase-information.html">Purchase information</a> · <a href="mailto:support@prismbayai.com">Support</a></span></div></footer>
+<script>
+(function () {
+  "use strict";
+  const id = new URLSearchParams(window.location.search).get("session_id") || "";
+  const valid = /^cs_live_[A-Za-z0-9_]{10,180}$/.test(id);
+  document.getElementById(valid ? "valid-session" : "invalid-session").classList.remove("hidden");
+  if (valid) {
+    const endpoint = "https://prismbay-clean-global.floot.app/_api/digital-paid-download?session_id=" + encodeURIComponent(id);
+    document.getElementById("download").href = endpoint;
+    if (window.history && window.history.replaceState) window.history.replaceState(null, "", window.location.pathname);
+  }
+}());
+</script></body></html>
