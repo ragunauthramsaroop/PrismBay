@@ -27,7 +27,7 @@
     "72h",
     "7d"
   ],
-  "status": "MODIFY_COMPLETED_PENDING_RELEASE_QA",
+  "status": "MODIFY_COMPLETED_PENDING_FINAL_RELEASE_QA",
   "qa": {
     "decode": "PASS",
     "resolution": "PASS",
@@ -38,11 +38,15 @@
     "maximumCaptionWPM": 175.8,
     "wordsPreserved": 123,
     "audioCorrelation": 1,
-    "mobileSafeFooter": "PASS"
+    "mobileSafeFooter": "PASS",
+    "audioBitstreamIdentical": true,
+    "finalVisualCTA": "Follow PrismBay AI, shown 40.65s to end, no narration or subtitle change",
+    "mobileCaptionOverlap": "No overlap in inspected final frames"
   },
-  "sha256": "42bfac0f79e776ac8c542f0745110e4934be06cb80288ae2f1941d3f8c92457b",
-  "version": "S07-V2",
+  "sha256": "f8def50a6e86db0ab75da5e2ffa3a550c5a6964b8ff4f8e2aaf44a4a8066c0e6",
+  "version": "S07-V3",
   "uploadPermitted": false,
-  "releaseAudit": "youtube-growth/analytics/2026-10-31-0842-s07-v2-mobile-safe-captions-and-trend-audit.md",
-  "timingRecommendation": "Provisional Wed 16:00 Guyana based on Metricool weekly scores, not scheduled"
+  "releaseAudit": "youtube-growth/analytics/2026-10-31-0947-s07-v3-conversion-cta-and-ypp-policy-check.md",
+  "timingRecommendation": "Provisional Wed 16:00 Guyana based on Metricool weekly scores, not scheduled",
+  "lastCheckedAt": "2026-10-31T09:47:00-04:00"
 }
