@@ -7,6 +7,7 @@ on:
       - 'scripts/digital-growth-pages.mjs'
       - 'scripts/digital-organic-campaign.mjs'
       - 'scripts/digital-organic-campaign.test.mjs'
+      - 'scripts/cashflow-storefront.test.mjs'
       - '.github/workflows/publish-digital-offers.yml'
   push:
     branches: [main]
@@ -42,6 +43,7 @@ jobs:
         shell: bash
         run: |
           node --test scripts/digital-organic-campaign.test.mjs
+          node --test scripts/cashflow-storefront.test.mjs
           node scripts/digital-growth-pages.mjs
           node scripts/digital-organic-campaign.mjs
           test "$(find public/digital/guides -maxdepth 1 -name '*.html' | wc -l)" -eq 4
@@ -93,6 +95,9 @@ jobs:
           mkdir -p "$target/digital"
           cp -R public/digital/. "$target/digital/"
           test "$(cat "$target/CNAME")" = 'clean.prismbayai.com'
+          test -f "$target/digital/cashflow-studio/index.html"
+          test -f "$target/digital/cashflow-studio/thank-you.html"
+          test -f "$target/digital/cashflow-studio/purchase-information.html"
 
           python3 - "$target" <<'PY'
           from pathlib import Path
@@ -131,6 +136,8 @@ jobs:
               '/digital/guides/esg-monthly-reporting-checklist.html',
               '/digital/guides/board-briefing-evidence-checklist.html',
               '/digital/guides/consultant-service-pricing-guide.html',
+              '/digital/cashflow-studio/',
+              '/digital/cashflow-studio/purchase-information.html',
           ]:
               target_url = 'https://clean.prismbayai.com' + relative
               if '<loc>' + target_url + '</loc>' not in xml:
