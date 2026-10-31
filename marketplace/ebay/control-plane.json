@@ -1,8 +1,6 @@
 {
   "schemaVersion": 6,
-  "checkedAt": "2026-10-31T17:53:09.541Z",
-  "status": "API_ACCESS_DISABLED",
-  "nextAction": "Restore CJ API authorization in the CJ account; otherwise inspect the seller packet offline. Seller, stock, and dispatch location remain unverified.",
+  "checkedAt": "2026-10-31T20:14:42.744Z",
   "product": {
     "slug": "garment-steamer",
     "variantId": "2508160953561608700",
@@ -40,21 +38,67 @@
     "checkedAt": "2026-10-10"
   },
   "cj": {
-    "authenticated": false,
-    "shopCount": 0,
-    "shops": [],
+    "authenticated": true,
+    "shopCount": 1,
+    "shops": [
+      {
+        "id": "2609261627283520400",
+        "name": "PrismBay-Cloud",
+        "type": "api",
+        "status": 1,
+        "authorized": true,
+        "marketplace": "",
+        "countryCode": "",
+        "storeCountry": "",
+        "currencyCode": ""
+      }
+    ],
     "ebayShopCount": 0,
     "ebaySellerAuthenticated": false,
     "authorizedEbayShop": null,
-    "liveStockVerified": false,
-    "routeSummary": null,
-    "warehouse": null,
+    "liveStockVerified": true,
+    "routeSummary": {
+      "countryCode": "CN",
+      "inventory": 1,
+      "nestedStockIds": [
+        "2991a224-737b-42a3-a1d9-8ccd2936b341",
+        "6709CCD7-0DC7-43B1-B310-17AB499E9B0A"
+      ],
+      "warehouseCandidateIds": [
+        "2991a224-737b-42a3-a1d9-8ccd2936b341",
+        "6709CCD7-0DC7-43B1-B310-17AB499E9B0A"
+      ]
+    },
+    "warehouse": {
+      "id": "2991a224-737b-42a3-a1d9-8ccd2936b341",
+      "name": "CN Dong Guan Ⅱ Warehouse",
+      "countryCode": "CN",
+      "city": "Dongguan",
+      "province": "Guangdong",
+      "postalCode": "523690",
+      "address1": "Elevator No. 3, F4, Building F, Fengzhimei Industrial Zone, Jinfenghuang Avenue, Fenggang Town, Dongguan City, Guangdong Province, 523689, China"
+    },
     "warehouseDiscovery": {
-      "attempted": false,
-      "source": "API_BLOCKED",
-      "candidateIds": [],
+      "attempted": true,
+      "source": "queryByVid",
+      "candidateIds": [
+        "2991a224-737b-42a3-a1d9-8ccd2936b341",
+        "6709CCD7-0DC7-43B1-B310-17AB499E9B0A"
+      ],
       "pidInventoryFallbackAttempted": false,
-      "candidatesChecked": [],
+      "candidatesChecked": [
+        {
+          "id": "2991a224-737b-42a3-a1d9-8ccd2936b341",
+          "name": "CN Dong Guan Ⅱ Warehouse",
+          "countryCode": "CN",
+          "city": "Dongguan",
+          "province": "Guangdong",
+          "postalCode": "523690",
+          "address1": "Elevator No. 3, F4, Building F, Fengzhimei Industrial Zone, Jinfenghuang Avenue, Fenggang Town, Dongguan City, Guangdong Province, 523689, China",
+          "evidenceVerified": true,
+          "evidenceMode": "postal_country"
+        }
+      ],
       "errors": []
     },
     "confirmationDiscovery": {
@@ -64,10 +108,10 @@
       "quantity": 1,
       "candidates": [],
       "exactStockMatches": [],
-      "error": "CJ_API_UNAVAILABLE"
+      "error": null
     },
-    "dispatchLocationVerified": false,
-    "dispatchEvidenceMode": null
+    "dispatchLocationVerified": true,
+    "dispatchEvidenceMode": "postal_country"
   },
   "gates": {
     "economicsPass": true,
@@ -77,8 +121,8 @@
     "marketplacePolicyReviewed": true,
     "wholesaleSupplierConfigured": true,
     "ebaySellerAuthenticated": false,
-    "liveStockVerified": false,
-    "dispatchLocationVerified": false,
+    "liveStockVerified": true,
+    "dispatchLocationVerified": true,
     "directStripeAbsent": true,
     "automaticSupplierOrderingDisabled": true
   },
