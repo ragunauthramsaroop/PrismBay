@@ -1,0 +1,73 @@
+{
+  "id": "PB-L02-APPROVAL-EVIDENCE-20261031",
+  "channelId": "UCw2hs85TzIpdKwJtG-BSxzQ",
+  "handle": "@PrismBayAI",
+  "metricoolBrandId": 6945443,
+  "createdAt": "2026-10-31",
+  "asset": "L02 Who Approved the AI Agent?",
+  "format": "long-form",
+  "targetDurationMinutes": "8-10",
+  "targetAudience": [
+    "founders",
+    "operators",
+    "engineering leaders",
+    "procurement and compliance executives"
+  ],
+  "hypothesis": "A concrete documented gap between account identity and decision authority will outperform generic agent governance videos on qualified retention and subscriber conversion.",
+  "researchSources": [
+    "https://arxiv.org/abs/2610.28683",
+    "https://www.nist.gov/news-events/news/2026/02/new-concept-paper-identity-and-authority-software-agents",
+    "https://www.nist.gov/artificial-intelligence/ai-agent-standards-initiative",
+    "https://dsomm.owasp.org/mapping"
+  ],
+  "titles": [
+    "71 AI Approvals Looked Human. Here's the Audit Problem.",
+    "Your AI Approval Log Might Be Misleading",
+    "The 5 Checks Every AI Approval Workflow Needs"
+  ],
+  "thumbnailConcepts": [
+    "APPROVED stamp plus WHO DECIDED?",
+    "HUMAN ACCOUNT versus DECISION UNKNOWN",
+    "Five checkboxes with DECISION OWNER missing"
+  ],
+  "hook": "The approval account was human. The decision was not necessarily human.",
+  "formatStrategy": "One original long-form and two differentiated Shorts after release.",
+  "cta": "PrismBay AI helps founders, operators and executives implement practical AI business systems.",
+  "publishTime": null,
+  "successThreshold": "At least 1 subscriber per 100 organic views or 1.5x reliable 24-hour median views after enough observations.",
+  "reviewWindows": [
+    "6h",
+    "24h",
+    "72h",
+    "7d"
+  ],
+  "classification": "RESEARCHED_SCRIPT_READY",
+  "status": "SCRIPT_READY",
+  "productionPackage": "youtube-growth/production/2026-10-31-l02-who-approved-the-ai-agent-original-package.md",
+  "productionQuality": "Script and storyboard only, no audio/video created",
+  "published": false,
+  "publicationApproved": false,
+  "uploadPermitted": false,
+  "paidSpendUSD": 0,
+  "releaseGates": [
+    "source check",
+    "record narration",
+    "build original visuals",
+    "caption QA",
+    "full listening",
+    "real device playback",
+    "authorized media transfer",
+    "confirm exact channel and Studio status"
+  ],
+  "sourceScopeNote": "Single-company observational study, not an industry rate.",
+  "latestChannelObservation": {
+    "subscribers": 7,
+    "observedOctoberViews": 365,
+    "viewDatesWithData": 17,
+    "missingOctoberDates": 14,
+    "perVideoRows": 0,
+    "scheduledThrough": "2026-11-16",
+    "scheduledPosts": 0
+  },
+  "lastCheckedAt": "2026-10-31T12:43:55-04:00"
+}
