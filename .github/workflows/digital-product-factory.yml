@@ -6,6 +6,8 @@ on:
       - 'data/global-digital-products-2026.json'
       - 'scripts/digital-product-factory.mjs'
       - 'scripts/digital-product-factory.test.mjs'
+      - 'scripts/build-cashflow-studio.py'
+      - 'tests/test_build_cashflow_studio.py'
       - 'scripts/render-digital-product-previews.py'
       - 'public/digital/free-pricing-calculator.html'
       - '.github/workflows/digital-product-factory.yml'
@@ -45,6 +47,23 @@ jobs:
           assert manifest['postsPublished'] is False
           assert all(p['status']=='prototype_not_for_sale' for p in manifest['products'])
           print('Ten original prototypes; no unauthorized checkout or publishing.')
+          PY
+      - name: Independently test original cashflow workbook
+        run: python3 -m unittest discover -s tests -p 'test_build_cashflow_studio.py' -v
+      - name: Build $5.99 cashflow product review package
+        run: python3 scripts/build-cashflow-studio.py
+      - name: Verify no payment or public-download authorization
+        run: |
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          p=Path('growth-reports/digital-prototypes/cashflow-studio')
+          m=json.loads((p/'manifest.json').read_text())
+          assert m['status']=='review_only_not_for_sale'
+          assert m['paidDeliveryVerified'] is False
+          assert m['publicDownloadAllowed'] is False
+          assert (p/'PrismBay_Cashflow_Studio_v1.zip').stat().st_size > 3000
+          print('Original cashflow ZIP staged, payment verification gate intact')
           PY
       - name: Prepare local preview rendering dependencies
         run: |
