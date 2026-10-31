@@ -11,7 +11,7 @@
   "thumbnailConcept": "Original monitor status graphic, one OFFLINE warning, no faces",
   "cta": "PrismBay AI helps founders, operators and executives implement practical AI business systems.",
   "plannedLocalPublishTime": "UNSET; Nov 4 16:00 is an inactive private-draft placeholder",
-  "status": "MODIFY_PRIVATE_SOURCE_CORRECTED_RENDER_QA_PASSED",
+  "status": "MODIFY_PRIVATE_ASR_PRONUNCIATION_AND_CAPTION_HOLD",
   "metricoolPostId": 412495293,
   "metricoolPostUuid": "4812359205726866079",
   "descriptCompositionId": "a597a812-49d3-4554-9c0a-e1639c47da81",
@@ -23,24 +23,42 @@
     "octoberMissingDates": 14,
     "october24to31ObservedViews": 153,
     "october24to31ObservedDates": 4,
-    "descriptTranscriptCues": 17
+    "descriptTranscriptCues": 17,
+    "correctedDescriptTranscriptCues": 18
   },
   "nextActions": [
-    "Listen to entire corrected narration and verify spoken claims, pronunciation and pacing",
-    "Inspect private QA contact sheet and physical-device mobile playback",
-    "Complete editorial/originality approval",
-    "Verify YouTube Studio Earn territory and exact authorized channel",
-    "Keep existing Metricool draft private and autoPublish=false until approved",
-    "After genuine public publication, record URL and review 6h/24h/72h/7d metrics"
+    "Listen to entire corrected narration, especially brand at 46.186-49.607 seconds; fix pronunciation if needed",
+    "Re-time high-density caption cues 8 and 11; inspect 9-10 sentence break and safe-area placement",
+    "Check physical-device playback and complete editorial/rights approval",
+    "Verify exact authorized channel and YouTube Studio Earn territory",
+    "Keep same Metricool draft private and autoPublish=false until release signoff",
+    "Record actual public YouTube URL and 6h/24h/72h/7d data only after public publication"
   ],
   "paidSpendUSD": 0,
   "classification": "MODIFY",
-  "latestReviewAt": "2026-10-31T17:56:30-04:00",
+  "latestReviewAt": "2026-10-31T18:48:00-04:00",
   "factualAccuracyGate": "Corrected source phrase and denial claim in newly rendered script; automated source/voice verification passed. Full audio listening pending.",
   "descriptFreeCapacity": "No new Descript agent job. Existing original composition remains unchanged. Free GitHub/Piper/FFmpeg render succeeded.",
-  "auditReport": "youtube-growth/analytics/2026-10-31-1756-source-corrected-render-private-draft-and-qa.md",
+  "auditReport": "youtube-growth/analytics/2026-10-31-1848-monitoring-corrected-descript-asr-and-release-gates.md",
   "correctedRenderSlug": "ai-agent-monitoring-2026-10-31-source-corrected",
   "correctedMediaSha256": "8e633b4ae7d2964da96f09ff24d0646a407226d0ddbd0a90951df760672f0b9e",
   "verifiedPiperModelSha256": "b9739443232a80a59c7d18810dd856899bf16a7964725f5ab81ea49b1351cb71",
-  "technicalQA": "PASS, full H264/AAC decode, 1080x1920, 51.616s, GitHub Actions run 41245828432"
+  "technicalQA": "PASS, full H264/AAC decode, 1080x1920, 51.616s, GitHub Actions run 41245828432",
+  "correctedDescriptCompositionId": "acb2a07d-0bd9-43ae-8f4b-3b9c99dbfe29",
+  "correctedDescriptImportJobId": "project-media-import-07ef7343-0703-46b3-8f07-f6b0e2bce5fe",
+  "correctedDescriptTranscriptCues": 18,
+  "correctedTranscriptReviewSrt": "youtube-growth/production/ai-agent-monitoring-2026-10-31-corrected-review.srt",
+  "subtitleReview": {
+    "maxWpm": 237.7,
+    "fastCues": [
+      8,
+      11
+    ],
+    "minCueSeconds": 1.201,
+    "brandRecognition": "Descript ASR heard Prison Bay AI at 46.186-49.607s; human listening required before release",
+    "srtIsEditorialDraft": true
+  },
+  "publicationApproved": false,
+  "uploadPermitted": false,
+  "youtubePublished": false
 }
