@@ -7,7 +7,6 @@ Date: 2026-10-31 (Guyana). Authorized channel only: `UCw2hs85TzIpdKwJtG-BSxzQ` /
 - New graphics illustrate the action boundary, risk ladder, bounded scope, least privilege, fictional $4,800 versus $4,300 mismatch, independent approval, failure tests, pilot metrics, allowed versus blocked actions, and five-gate final test.
 - V6 MP4: 1280×720, 24 fps, 11,643 frames, duration 485.125 s, SHA256 `2420ee847391b302c16cbf809ff04fdb19c66e381fd83ccdaef41675321fcad5`.
 - Full decode PASS; all 10 replacement points inspected on a contact sheet; original AAC bitstream and V6 AAC bitstream SHA256 identical: `7c9c58f53243fee52891a51519fabfa560d01482e2da74b2538ec8e2a821b78e` [see correction below].
-- Correct AAC SHA256, independently verified for both files: `7c9c58f53243fee52891a51519fabfa560d01482e2da74b2538ec8e2a821b78e`. 
 - ZIP private review bundle includes video, captions, chapters, visual contact sheet, QA manifest, ten original graphics, and reproducible build scripts. ZIP SHA256 `64de58cd17099ae69dcae7b0b07e2940604d5966512a71895bf69c417380e1d9`. Archive integrity PASS. Bundle remains in private ChatGPT artifact storage, not public GitHub.
 
 ## Nine-agent decision
@@ -26,6 +25,3 @@ Date: 2026-10-31 (Guyana). Authorized channel only: `UCw2hs85TzIpdKwJtG-BSxzQ` /
 
 ## Policy
 YouTube's [August 2026 announcement](https://blog.youtube/news-and-events/youtube-partner-program-updates-2027-new-opportunities-earn/) confirms higher full YPP entry requirements for new applicants starting February 1, 2027, and a separate 10M/90-day qualified Shorts threshold for Shorts revenue sharing. Channel-specific Earn and territory eligibility remain unverified. Do not bypass territory rules.
-
-## QA correction
-The audio SHA256 repeated above is `7c9c58f53243fee52891a51519fabfa560d01482e2da74b2538ec8e2a821b78e` for both AAC streams; this value is derived from the actual ADTS extraction and is not a video-file hash.
