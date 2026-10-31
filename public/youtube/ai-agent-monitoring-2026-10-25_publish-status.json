@@ -3,8 +3,8 @@
   "handle": "@PrismBayAI",
   "metricoolBrandId": 6945443,
   "experimentId": "PB-AGENT-MONITOR-20261025",
-  "checkedAt": "2026-10-31T15:48:00-04:00",
-  "state": "METRICOOL_PRIVATE_DRAFT_SOURCE_VERIFIED_DESCRIPT_TRANSCRIBED_REVIEW_HOLD",
+  "checkedAt": "2026-10-31T16:42:12-04:00",
+  "state": "PRIVATE_DRAFT_FACT_PRECISION_MODIFY_HOLD_DESCRIPT_CREDITS_EXHAUSTED",
   "metricoolPostId": 412419837,
   "metricoolPostUuid": "4812359205726866079",
   "metricoolPlannerUrl": "https://app.metricool.com/planner/calendar?blogId=6945443&openWithPostUuid=4812359205726866079",
@@ -35,6 +35,7 @@
     "exactModelArtifactProvenanceVerified": false
   },
   "blockers": [
+    "Verify and correct cue 3 source-precision mismatch before release",
     "Full narration listening",
     "Real mobile playback",
     "Exact Piper model artifact provenance and final editorial signoff",
@@ -45,7 +46,18 @@
     "Post ID changed to 412419837; UUID unchanged",
     "Metricool read-back confirms one draft, autoPublish=false, privacy=private",
     "Descript original media import and 17-cue transcript completed",
-    "No public YouTube upload or revenue verified"
+    "No public YouTube upload or revenue verified",
+    "2026-10-31 16:42: source precision discrepancy flagged from Descript SRT; private draft unchanged; no Descript paid upgrade"
   ],
-  "paidSpendUSD": 0
+  "paidSpendUSD": 0,
+  "transcriptReview": {
+    "sourcePrecision": "Official report says internal deployments",
+    "cue3AutomatedText": "This happened in internal tests, not a customer deployment.",
+    "cue3Time": "00:06.160-00:09.584",
+    "recommendedCorrection": "These were internal deployments, not customer incidents.",
+    "audioEarVerified": false,
+    "cue7PunctuationNeedsListening": true,
+    "editingAgent": "Blocked: insufficient free AI credits; no upgrade purchased"
+  },
+  "auditReport": "youtube-growth/analytics/2026-10-31-1642-monitoring-source-precision-and-zero-cost-release-hold.md"
 }
