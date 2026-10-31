@@ -1,14 +1,14 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-10-31T18:51:44.374Z",
+  "generatedAt": "2026-10-31T18:56:47.685Z",
   "researchCandidates": 12,
   "publishedResearchSignals": 12,
   "verifiedCJStatus": {
-    "checkedAt": "2026-10-31T18:51:42.576Z",
-    "validSupplierMatches": 0,
-    "variantStock": 0,
-    "freightEstimates": 0,
-    "countryFreightEstimates": 0,
+    "checkedAt": "2026-10-31T18:56:46.441Z",
+    "validSupplierMatches": 5,
+    "variantStock": 1,
+    "freightEstimates": 1,
+    "countryFreightEstimates": 1,
     "illustrativeZipFreightEstimates": 0,
     "falseMatches": 0
   },
@@ -29,126 +29,126 @@
       "blockers": [
         {
           "slug": "scrubber",
-          "status": "supplier_api_retry_required",
+          "status": "supplier_search_needed",
           "sku": null,
           "shippingDiagnostic": null,
           "zeroPricedMethods": 0
         },
         {
           "slug": "pethair",
-          "status": "supplier_api_retry_required",
-          "sku": null,
-          "shippingDiagnostic": null,
+          "status": "variant_stock_required",
+          "sku": "CJMY2103657",
+          "shippingDiagnostic": "variant_stock_unverified",
           "zeroPricedMethods": 0
         },
         {
           "slug": "crevice",
-          "status": "supplier_api_retry_required",
+          "status": "supplier_search_needed",
           "sku": null,
           "shippingDiagnostic": null,
           "zeroPricedMethods": 0
         },
         {
           "slug": "pressure-washer",
-          "status": "supplier_api_retry_required",
+          "status": "supplier_search_needed",
           "sku": null,
           "shippingDiagnostic": null,
           "zeroPricedMethods": 0
         },
         {
           "slug": "mattress-vacuum",
-          "status": "supplier_api_retry_required",
+          "status": "supplier_search_needed",
           "sku": null,
           "shippingDiagnostic": null,
           "zeroPricedMethods": 0
         },
         {
           "slug": "garment-steamer",
-          "status": "supplier_api_retry_required",
-          "sku": null,
-          "shippingDiagnostic": null,
+          "status": "variant_stock_required",
+          "sku": "CJQX1124259",
+          "shippingDiagnostic": "variant_stock_unverified",
           "zeroPricedMethods": 0
         },
         {
           "slug": "mini-mop",
-          "status": "supplier_api_retry_required",
+          "status": "supplier_search_needed",
           "sku": null,
           "shippingDiagnostic": null,
           "zeroPricedMethods": 0
         },
         {
           "slug": "drain-catcher",
-          "status": "supplier_api_retry_required",
+          "status": "supplier_search_needed",
           "sku": null,
           "shippingDiagnostic": null,
           "zeroPricedMethods": 0
         },
         {
           "slug": "home-caddy",
-          "status": "supplier_api_retry_required",
+          "status": "supplier_search_needed",
           "sku": null,
           "shippingDiagnostic": null,
           "zeroPricedMethods": 0
         },
         {
           "slug": "cordless-handheld-vacuum",
-          "status": "supplier_api_retry_required",
+          "status": "supplier_search_needed",
           "sku": null,
           "shippingDiagnostic": null,
           "zeroPricedMethods": 0
         },
         {
           "slug": "insulated-tumbler",
-          "status": "supplier_api_retry_required",
+          "status": "supplier_search_needed",
           "sku": null,
           "shippingDiagnostic": null,
           "zeroPricedMethods": 0
         },
         {
           "slug": "screen-protector",
-          "status": "supplier_api_retry_required",
-          "sku": null,
-          "shippingDiagnostic": null,
+          "status": "final_zip_freight_required",
+          "sku": "CJPB237729905EV",
+          "shippingDiagnostic": "priced_estimate_available",
           "zeroPricedMethods": 0
         },
         {
           "slug": "multiport-charger",
-          "status": "supplier_api_retry_required",
+          "status": "supplier_search_needed",
           "sku": null,
           "shippingDiagnostic": null,
           "zeroPricedMethods": 0
         },
         {
           "slug": "motion-sensor-cabinet-lights",
-          "status": "supplier_api_retry_required",
-          "sku": null,
-          "shippingDiagnostic": null,
+          "status": "variant_stock_required",
+          "sku": "CJYD2030514",
+          "shippingDiagnostic": "variant_stock_unverified",
           "zeroPricedMethods": 0
         },
         {
           "slug": "car-phone-mount",
-          "status": "supplier_api_retry_required",
-          "sku": null,
-          "shippingDiagnostic": null,
+          "status": "variant_stock_required",
+          "sku": "CJSJ2077898",
+          "shippingDiagnostic": "variant_stock_unverified",
           "zeroPricedMethods": 0
         },
         {
           "slug": "travel-packing-cubes",
-          "status": "supplier_api_retry_required",
+          "status": "supplier_search_needed",
           "sku": null,
           "shippingDiagnostic": null,
           "zeroPricedMethods": 0
         },
         {
           "slug": "roll-up-dish-rack",
-          "status": "supplier_api_retry_required",
+          "status": "supplier_search_needed",
           "sku": null,
           "shippingDiagnostic": null,
           "zeroPricedMethods": 0
         },
         {
           "slug": "hanging-closet-organizer",
-          "status": "supplier_api_retry_required",
+          "status": "supplier_search_needed",
           "sku": null,
           "shippingDiagnostic": null,
           "zeroPricedMethods": 0
