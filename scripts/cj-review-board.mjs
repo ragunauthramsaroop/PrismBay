@@ -96,6 +96,8 @@ export function buildCJReview(report, authorization = null) {
         !fulfillmentRouteVerified ? 'fulfillment_route_required' :
         !commercial.automaticPromotionAllowed ? 'promotion_approval_required' :
         'commercial_review_required';
+    } else if (row.status === 'supplier_account_disabled') {
+      status = 'supplier_account_reactivation_required';
     } else if (row.status === 'search_error') {
       status = 'supplier_api_retry_required';
     }
