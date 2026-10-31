@@ -2,9 +2,7 @@
   "status": "blocked",
   "reason": "control_plane_not_ready",
   "blockers": [
-    "ebaySellerAuthenticated",
-    "liveStockVerified",
-    "dispatchLocationVerified"
+    "ebaySellerAuthenticated"
   ],
-  "checkedAt": "2026-10-31T18:52:23.012Z"
+  "checkedAt": "2026-10-31T21:26:28.379Z"
 }
