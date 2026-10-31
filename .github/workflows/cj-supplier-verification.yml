@@ -11,6 +11,7 @@ on:
     paths:
       - 'scripts/cj-search-recovery.mjs'
       - 'scripts/cj-search-recovery.test.mjs'
+      - 'scripts/cj-account-suspension.test.mjs'
       - '.github/workflows/cj-supplier-verification.yml'
   push:
     branches: [main]
@@ -24,6 +25,7 @@ on:
       - 'scripts/cj-search-strategy.mjs'
       - 'scripts/cj-search-recovery.mjs'
       - 'scripts/cj-search-recovery.test.mjs'
+      - 'scripts/cj-account-suspension.test.mjs'
       - 'scripts/cj-search-strategy.test.mjs'
       - 'scripts/cj-freight-policy.mjs'
       - 'scripts/cj-freight-policy.test.mjs'
@@ -45,7 +47,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - run: node --test scripts/cj-search-recovery.test.mjs scripts/cj-search-strategy.test.mjs scripts/cj-api-limiter.test.mjs
+      - run: node --test scripts/cj-search-recovery.test.mjs scripts/cj-account-suspension.test.mjs scripts/cj-search-strategy.test.mjs scripts/cj-api-limiter.test.mjs
   verify-cj:
     if: github.event_name != 'pull_request'
     runs-on: ubuntu-latest
@@ -194,6 +196,7 @@ jobs:
           }
           
           const results = [];
+          let supplierAccountDisabled = false;
           for (const candidate of candidates) {
             const base = {
               slug:String(candidate?.slug || ''), candidate: String(candidate?.name || ''), query: String(candidate?.query || ''),
@@ -202,6 +205,12 @@ jobs:
               supplierVerified: false, variantInventoryVerified: false,
               freightVerified: false, fulfillmentReady: false,
             };
+            if (supplierAccountDisabled) {
+              results.push({...base, status:'supplier_account_disabled',
+                searchFailureCodes:['1600014'], searchesAttempted:0, searchErrors:0,
+                reason:'CJ account API suspended. Reactivation required on the account that owns the API key.'});
+              continue;
+            }
             if (!hasApprovedProductClass(candidate?.slug)) {
               results.push({...base, status:'manual_category_review', reason:'Candidate has no approved product-class validation rule.'});
               continue;
@@ -225,6 +234,7 @@ jobs:
                 searchErrors += 1;
                 const diagnostic = cjSearchDiagnostic(error);
                 searchFailureCodes.push(diagnostic.code || diagnostic.kind);
+                if (diagnostic.kind === 'account_disabled') supplierAccountDisabled = true;
                 if (diagnostic.fatal) break;
                 continue;
               }
@@ -249,6 +259,7 @@ jobs:
                   searchErrors += 1;
                   const diagnostic = cjSearchDiagnostic(error);
                   searchFailureCodes.push(diagnostic.code || diagnostic.kind);
+                  if (diagnostic.kind === 'account_disabled') supplierAccountDisabled = true;
                   if (diagnostic.fatal) break;
                   continue;
                 }
@@ -262,7 +273,7 @@ jobs:
             const eligible = uniqueEligibleProducts(eligibleGroups, 3);
             if (!eligible.length) {
               results.push({...base,
-                status: searchErrors === searchesAttempted ? 'search_error' : 'manual_supplier_match_required',
+                status: supplierAccountDisabled ? 'supplier_account_disabled' : searchErrors === searchesAttempted ? 'search_error' : 'manual_supplier_match_required',
                 candidatesReturned, searchesAttempted, searchErrors,
                 searchFailureCodes: [...new Set(searchFailureCodes)], globalFallbackAttempted,
                 reason: searchErrors === searchesAttempted ?
