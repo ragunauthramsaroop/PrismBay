@@ -29,9 +29,11 @@ const report = {
     checkout:{url:offer.checkout,httpStatus:checkout.status,finalUrl:checkout.finalUrl}
   },
   nextDistributionAssets:{
-    youtubeDescription: campaign.editorialDraft + '\n\nProfessional files: ' + campaign.checkoutUrl + '\nRefunds/support: https://www.prismbayai.com/refunds',
-    linkedinDraft: campaign.educationalAngle + '\n\n' + campaign.editorialDraft,
-    originalVideoBrief: campaign.videoBrief
+    retailChannelDraft: campaign.editorialDraft + '\n\nFree guide: ' + campaign.guideUrl + '\nCheckout: ' + campaign.checkoutUrl,
+    originalVideoBrief: campaign.videoBrief,
+    educationalYouTubeAllowed: false,
+    personalLinkedInAllowed: false,
+    retailPublishingApprovalRequired: true
   },
   commercialTruth:{
     paymentObserved:false,
@@ -49,7 +51,7 @@ await fs.writeFile('growth-reports/buyer-acquisition-latest.md',[
   '**Checkout:** '+campaign.checkoutUrl,
   '',
   '## Distribution draft','',
-  report.nextDistributionAssets.youtubeDescription,
+  report.nextDistributionAssets.retailChannelDraft,
   '',
   '> '+report.commercialTruth.claim,''
 ].join('\n'));
