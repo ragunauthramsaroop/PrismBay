@@ -1,0 +1,84 @@
+name: PrismBay Monitoring Corrected Private QA
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/prismbay-monitoring-corrected-private-qa.yml'
+      - 'content/youtube/requests/ai-agent-monitoring-2026-10-31-source-corrected.json'
+      - 'public/youtube/ai-agent-monitoring-2026-10-31-source-corrected.mp4'
+      - 'public/youtube/ai-agent-monitoring-2026-10-31-source-corrected.json'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  private-qa:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify corrected source, target channel, and exact licensed voice artifact
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p monitoring-qa
+          python3 - <<'PY'
+          import hashlib, json, pathlib
+          slug='ai-agent-monitoring-2026-10-31-source-corrected'
+          root=pathlib.Path('public/youtube')
+          spec=json.loads(pathlib.Path('content/youtube/requests',slug+'.json').read_text())
+          meta=json.loads((root/(slug+'.json')).read_text())
+          media=root/(slug+'.mp4')
+          digest=hashlib.sha256(media.read_bytes()).hexdigest()
+          expected='b9739443232a80a59c7d18810dd856899bf16a7964725f5ab81ea49b1351cb71'
+          assert spec['targetChannelId']==meta['channelId']=='UCw2hs85TzIpdKwJtG-BSxzQ'
+          assert meta['published'] is False and meta['publicationApproved'] is False and meta['uploadPermitted'] is False
+          assert spec['requireVerifiedVoiceModel'] is True
+          assert spec['expectedVoiceModelSha256']==meta['voiceModelSha256']==expected
+          assert meta['voiceModelProvenanceVerified'] is True
+          assert meta['ttsEngines']==['piper']
+          assert digest==meta['sha256']
+          spoken=' '.join(s['spoken'] for s in spec['segments'])
+          assert 'These were internal deployments, not customer incidents.' in spoken
+          assert 'internal tests' not in spoken.lower()
+          assert 'One agent later denied removing monitoring, despite having removed it.' in spoken
+          report={
+            'channelId':meta['channelId'],'media':str(media),'mediaSha256':digest,
+            'voiceModelSha256':meta['voiceModelSha256'],'voiceVerified':True,
+            'sourcePrecisionCorrected':True,'rendered':True,'fullDecodePassed':None,
+            'publicationApproved':False,'youtubePublished':False,'paidSpendUSD':0,
+            'remainingGates':['full listening','physical mobile playback','final editorial approval','Studio Earn eligibility']
+          }
+          pathlib.Path('monitoring-qa/report.json').write_text(json.dumps(report,indent=2)+'\n')
+          print(json.dumps(report,indent=2))
+          PY
+      - name: Full media decode and stream validation
+        shell: bash
+        run: |
+          set -euo pipefail
+          MEDIA='public/youtube/ai-agent-monitoring-2026-10-31-source-corrected.mp4'
+          ffprobe -v error -show_entries format=duration:stream=codec_name,width,height -of json "$MEDIA" | tee monitoring-qa/ffprobe.json
+          python3 - <<'PY'
+          import json
+          d=json.load(open('monitoring-qa/ffprobe.json'))
+          video=[x for x in d['streams'] if x['codec_name']=='h264']
+          audio=[x for x in d['streams'] if x['codec_name']=='aac']
+          assert len(video)==1 and len(audio)==1
+          assert video[0]['width']==1080 and video[0]['height']==1920
+          assert 35 < float(d['format']['duration']) < 75
+          PY
+          ffmpeg -hide_banner -v error -xerror -i "$MEDIA" -map 0:v:0 -map 0:a:0 -f null -
+          echo 'PASS: complete audio/video decode' | tee monitoring-qa/decode.txt
+          ffmpeg -hide_banner -i "$MEDIA" -af volumedetect -vn -f null - 2> monitoring-qa/volume.log || true
+      - name: Generate private visual review contact sheet
+        shell: bash
+        run: |
+          ffmpeg -hide_banner -loglevel error -y -i public/youtube/ai-agent-monitoring-2026-10-31-source-corrected.mp4 -vf 'fps=1/8,scale=270:480,tile=3x2' -frames:v 1 monitoring-qa/contact-sheet.jpg
+      - name: Retain private technical evidence without publishing
+        uses: actions/upload-artifact@v4
+        with:
+          name: prismbay-monitoring-corrected-private-qa
+          path: monitoring-qa/
+          retention-days: 14
