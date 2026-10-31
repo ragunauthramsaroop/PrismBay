@@ -1,10 +1,10 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-10-30T22:40:22.672Z",
+  "generatedAt": "2026-10-31T05:49:29.641Z",
   "researchCandidates": 12,
   "publishedResearchSignals": 12,
   "verifiedCJStatus": {
-    "checkedAt": "2026-10-30T20:50:43.650Z",
+    "checkedAt": "2026-10-31T05:49:28.123Z",
     "validSupplierMatches": 0,
     "variantStock": 0,
     "freightEstimates": 0,
@@ -27,6 +27,27 @@
       "executionMode": "scheduled_cj_and_manual_review",
       "candidateCount": 9,
       "blockers": [
+        {
+          "slug": "pressure-washer",
+          "status": "supplier_api_retry_required",
+          "sku": null,
+          "shippingDiagnostic": null,
+          "zeroPricedMethods": 0
+        },
+        {
+          "slug": "mattress-vacuum",
+          "status": "supplier_api_retry_required",
+          "sku": null,
+          "shippingDiagnostic": null,
+          "zeroPricedMethods": 0
+        },
+        {
+          "slug": "garment-steamer",
+          "status": "supplier_api_retry_required",
+          "sku": null,
+          "shippingDiagnostic": null,
+          "zeroPricedMethods": 0
+        },
         {
           "slug": "travel-packing-cubes",
           "status": "supplier_api_retry_required",
@@ -64,27 +85,6 @@
         },
         {
           "slug": "screen-protector",
-          "status": "supplier_api_retry_required",
-          "sku": null,
-          "shippingDiagnostic": null,
-          "zeroPricedMethods": 0
-        },
-        {
-          "slug": "pressure-washer",
-          "status": "supplier_api_retry_required",
-          "sku": null,
-          "shippingDiagnostic": null,
-          "zeroPricedMethods": 0
-        },
-        {
-          "slug": "mattress-vacuum",
-          "status": "supplier_api_retry_required",
-          "sku": null,
-          "shippingDiagnostic": null,
-          "zeroPricedMethods": 0
-        },
-        {
-          "slug": "garment-steamer",
           "status": "supplier_api_retry_required",
           "sku": null,
           "shippingDiagnostic": null,
