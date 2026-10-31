@@ -63,6 +63,25 @@ const homeHtml=await homepage.text();
 assert.doesNotMatch(homeHtml,/oss-cf\.cjdropshipping\.com\/product/,'Homepage has no rights-cleared supplier image');
 assert.doesNotMatch(homeHtml,/"@type":"Product","name":"Portable Garment Steamer"/,'No outdated physical Product structured data');
 assert.ok(homeHtml.includes('https://buy.stripe.com/eVqfZi5Lo7pV31Ea4MgnK0t'),'Featured purchasable digital bundle remains available');
+// Historical product links and guide prices also require withdrawal. Checking only
+// the legacy product route misses misleading links retained in indexed guides.
+const oldPhysicalRoute=/href\\s*=\\s*["'][^"']*\\/garment-steamer\\/(?:\\?[^"']*)?["']/i;
+assert.doesNotMatch(homeHtml,oldPhysicalRoute,'Homepage must not link to withdrawn physical listing');
+const legacyGuidePaths=[
+ 'guides/garment-steamer-vs-iron.html',
+ 'guides/how-to-use-a-garment-steamer.html',
+ 'guides/portable-garment-steamer.html',
+ 'guides/travel-garment-steamer-guide.html'
+];
+const legacyGuideResponses=await Promise.all(legacyGuidePaths.map(path=>request(home+path)));
+for(let i=0;i<legacyGuidePaths.length;i++){
+ const path=legacyGuidePaths[i],response=legacyGuideResponses[i];
+ assert.equal(response.status,200,'Historical buyer guide must respond 200: '+path);
+ const guideHtml=await response.text();
+ assert.doesNotMatch(guideHtml,oldPhysicalRoute,'Historical guide links to withdrawn physical offer: '+path);
+ assert.doesNotMatch(guideHtml,/\\b(?:USD|US\\$)\\s*\\d+(?:\\.\\d{2})?\\b|(?:listed\\s+(?:price|at)|priced\\s+at)\\s*[:\\-]?\\s*\\$\\s*\\d+(?:\\.\\d{2})?/i,
+  'Historical guide retains unsupported product price: '+path);
+}
 // Legacy routes and catalog feeds require independent trust checks. A clean
 // /top-15/ page alone does not prove old product offers were withdrawn.
 const legacy=await request(home+'garment-steamer/');
