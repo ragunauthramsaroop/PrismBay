@@ -1,10 +1,10 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-10-31T19:14:19.005Z",
+  "generatedAt": "2026-10-31T20:00:53.421Z",
   "researchCandidates": 12,
   "publishedResearchSignals": 12,
   "verifiedCJStatus": {
-    "checkedAt": "2026-10-31T18:58:27.669Z",
+    "checkedAt": "2026-10-31T20:00:52.232Z",
     "validSupplierMatches": 5,
     "variantStock": 1,
     "freightEstimates": 1,
@@ -28,6 +28,27 @@
       "candidateCount": 18,
       "blockers": [
         {
+          "slug": "travel-packing-cubes",
+          "status": "supplier_search_needed",
+          "sku": null,
+          "shippingDiagnostic": null,
+          "zeroPricedMethods": 0
+        },
+        {
+          "slug": "roll-up-dish-rack",
+          "status": "supplier_search_needed",
+          "sku": null,
+          "shippingDiagnostic": null,
+          "zeroPricedMethods": 0
+        },
+        {
+          "slug": "hanging-closet-organizer",
+          "status": "supplier_search_needed",
+          "sku": null,
+          "shippingDiagnostic": null,
+          "zeroPricedMethods": 0
+        },
+        {
           "slug": "scrubber",
           "status": "supplier_search_needed",
           "sku": null,
@@ -36,7 +57,7 @@
         },
         {
           "slug": "pethair",
-          "status": "variant_stock_required",
+          "status": "fresh_commercial_evidence_required",
           "sku": "CJMY2103657",
           "shippingDiagnostic": "variant_stock_unverified",
           "zeroPricedMethods": 0
@@ -64,7 +85,7 @@
         },
         {
           "slug": "garment-steamer",
-          "status": "variant_stock_required",
+          "status": "fresh_commercial_evidence_required",
           "sku": "CJQX1124259",
           "shippingDiagnostic": "variant_stock_unverified",
           "zeroPricedMethods": 0
@@ -106,7 +127,7 @@
         },
         {
           "slug": "screen-protector",
-          "status": "final_zip_freight_required",
+          "status": "fresh_commercial_evidence_required",
           "sku": "CJPB237729905EV",
           "shippingDiagnostic": "priced_estimate_available",
           "zeroPricedMethods": 0
@@ -120,37 +141,16 @@
         },
         {
           "slug": "motion-sensor-cabinet-lights",
-          "status": "variant_stock_required",
+          "status": "fresh_commercial_evidence_required",
           "sku": "CJYD2030514",
           "shippingDiagnostic": "variant_stock_unverified",
           "zeroPricedMethods": 0
         },
         {
           "slug": "car-phone-mount",
-          "status": "variant_stock_required",
+          "status": "fresh_commercial_evidence_required",
           "sku": "CJSJ2077898",
           "shippingDiagnostic": "variant_stock_unverified",
-          "zeroPricedMethods": 0
-        },
-        {
-          "slug": "travel-packing-cubes",
-          "status": "supplier_search_needed",
-          "sku": null,
-          "shippingDiagnostic": null,
-          "zeroPricedMethods": 0
-        },
-        {
-          "slug": "roll-up-dish-rack",
-          "status": "supplier_search_needed",
-          "sku": null,
-          "shippingDiagnostic": null,
-          "zeroPricedMethods": 0
-        },
-        {
-          "slug": "hanging-closet-organizer",
-          "status": "supplier_search_needed",
-          "sku": null,
-          "shippingDiagnostic": null,
           "zeroPricedMethods": 0
         }
       ]
