@@ -54,6 +54,10 @@ jobs:
           pathlib.Path('monitoring-qa/report.json').write_text(json.dumps(report,indent=2)+'\n')
           print(json.dumps(report,indent=2))
           PY
+      - name: Install free FFmpeg validation tools
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg
       - name: Full media decode and stream validation
         shell: bash
         run: |
