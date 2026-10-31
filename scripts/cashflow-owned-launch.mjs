@@ -1,0 +1,127 @@
+// Organic, accessible buyer guide for the existing privately delivered product.
+// Price/product/checkout IDs verified live in PrismBay Clean Stripe on 2026-10-31.
+// Educational page only: no fake orders, tracking pixels, paid traffic or email sends.
+export const CASHFLOW_GUIDE_URL = 'https://clean.prismbayai.com/learn/cash-flow-tracker-spreadsheet.html';
+export const CASHFLOW_PRODUCT_URL = 'https://prismbay-clean-global.floot.app/digital/cashflow';
+export const CASHFLOW_CHECKOUT_URL = 'https://buy.stripe.com/eVqaEYddQ6lRgSu1yggnK0v';
+export const CASHFLOW_PRICE_USD = 5.99;
+
+export function buildCashflowBuyerPage() {
+  const name = 'PrismBay Cashflow Studio v1';
+  const description = 'Editable 12-month cash flow Excel template for freelancers and small businesses. A dashboard, monthly income and expense summaries, 300 transaction rows, setup guide and fictional examples. One-time $5.99 USD.';
+  const structured = JSON.stringify({
+    '@context': 'https://schema.org',
+    '@type': 'Product',
+    name,
+    description,
+    brand: { '@type': 'Brand', name: 'PrismBay' },
+    category: 'Digital spreadsheet template',
+    offers: {
+      '@type': 'Offer',
+      price: CASHFLOW_PRICE_USD.toFixed(2),
+      priceCurrency: 'USD',
+      url: CASHFLOW_CHECKOUT_URL,
+      availability: 'https://schema.org/InStock'
+    }
+  }).replaceAll('<', '\\u003c');
+  return \`<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Cash Flow Tracker Excel Template for Small Businesses | PrismBay $5.99</title>
+<meta name="description" content="\${description}">
+<meta name="robots" content="index,follow">
+<link rel="canonical" href="\${CASHFLOW_GUIDE_URL}">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Small Business Cash Flow Tracker Excel Template | PrismBay">
+<meta property="og:description" content="\${description}">
+<meta property="og:url" content="\${CASHFLOW_GUIDE_URL}">
+<link rel="stylesheet" href="../buyer-guides.css">
+<script type="application/ld+json">\${structured}</script>
+<style>
+.compare-table{border-collapse:collapse;width:100%;margin:18px 0 8px;background:#fff}
+.compare-table th,.compare-table td{border:1px solid #d5e3dd;padding:12px;text-align:left}
+.compare-table th{background:#eaf4ee;color:#143d36}
+.compare-table td:last-child{text-align:right;font-variant-numeric:tabular-nums}
+.cashflow-intro{background:#eef8f3;border:1px solid #d1e7db;border-radius:14px;padding:20px;margin:24px 0}
+.cashflow-action{border-radius:15px;background:#103e36;color:#fff;padding:26px;margin:28px 0}
+.cashflow-action a{display:inline-block;padding:13px 22px;border-radius:8px;background:#daf8e6;color:#103e36;font-weight:700;text-decoration:none}
+.cashflow-action a:focus-visible{outline:3px solid #ffe585;outline-offset:3px}
+.cashflow-action p{color:#edf8f0}
+.cashflow-minor{font-size:14px;line-height:1.6}
+@media(max-width:620px){.compare-table th,.compare-table td{padding:8px;font-size:13px}}
+</style>
+</head>
+<body>
+<a href="#main" class="skip">Skip to content</a>
+<header class="nav"><div class="wrap"><a class="brand" href="../">PrismBay <em>AI</em></a>
+<nav class="navlinks"><a href="./">Free buyer guides</a><a href="\${CASHFLOW_PRODUCT_URL}">Product details</a><a href="../toolkits.html">Executive tools</a></nav>
+</div></header>
+<section class="hero"><div class="wrap">
+<p class="eyebrow">Original digital spreadsheet | One-time purchase</p>
+<h1>A simple way to track money coming into and leaving your business.</h1>
+<p class="lead">Use an editable Excel cash flow tracker for a clearer view of monthly income, expenses and cash balances. Designed for freelancers, independent consultants and small business operators.</p>
+<div class="buttons">
+<a class="btn primary" href="\${CASHFLOW_PRODUCT_URL}">Review the Excel workbook</a>
+<a class="btn outline" href="\${CASHFLOW_CHECKOUT_URL}?client_reference_id=organic_cashflow_guide" rel="noopener noreferrer">Purchase for $5.99 USD</a>
+</div>
+<p class="facts">One-time payment. No subscription. Requires Excel or compatible spreadsheet software. Not accounting, tax or financial advice.</p>
+</div></section>
+<main id="main" class="main"><div class="wrap"><div class="layout">
+<article class="article">
+<h2>Start with one useful habit: record each transaction.</h2>
+<p>Cash flow describes when money enters and leaves your business. A positive sales month does not necessarily mean enough cash is available to pay current expenses. Use the transaction register consistently, then review the monthly totals before committing new spending.</p>
+<h2>Free worked cash flow example</h2>
+<p>These fictional figures illustrate the calculation. They are not customer results and do not appear in your blank transaction register.</p>
+<table class="compare-table"><thead><tr><th scope="col">Item</th><th scope="col">Example USD</th></tr></thead><tbody>
+<tr><td>Opening balance</td><td>$1,500.00</td></tr>
+<tr><td>Customer receipts</td><td>+$3,200.00</td></tr>
+<tr><td>Rent</td><td>-$850.00</td></tr>
+<tr><td>Software expense</td><td>-$120.00</td></tr>
+<tr><th scope="row">Closing balance</th><th scope="row">$3,730.00</th></tr>
+</tbody></table>
+<p class="cashflow-minor">Calculation: opening balance + receipts - expenses = closing cash. This cash balance is not a measure of net profit, accounts receivable, outstanding liabilities or tax due.</p>
+<h2>What the $5.99 workbook includes</h2>
+<ul>
+<li>Dashboard with annual cash movement and year-end balance</li>
+<li>Twelve monthly income, expense and closing-cash calculations</li>
+<li>Up to 300 dated transaction entries with editable categories and notes</li>
+<li>Dropdown selections, separate fictional sample records and setup instructions</li>
+<li>One Excel XLSX workbook, a plain-text guide and an internal-use license inside one ZIP file</li>
+</ul>
+<div class="cashflow-intro"><h2>Who should consider this template?</h2>
+<p>Freelancers who bill clients, side-business operators who receive irregular payments and small teams wanting a basic manual cash register. You supply your own transaction data. No bank account connection or hosted accounting service is provided.</p></div>
+<h2>How to use the workbook</h2>
+<ol>
+<li>Enter your reporting year and starting cash balance on the Start Here sheet.</li>
+<li>Record each income or expense on the Transactions sheet with a valid date and positive USD amount.</li>
+<li>Select Income or Expense and an appropriate category.</li>
+<li>Review the Monthly Cashflow sheet and dashboard to identify months with negative cash movement.</li>
+<li>Compare your records with bank statements and consult a qualified professional for tax or accounting decisions.</li>
+</ol>
+<h2>Frequently asked questions</h2>
+<h3>Is the price monthly?</h3><p>No. The listed price is $5.99 USD for a one-time purchase.</p>
+<h3>Do I need an Excel subscription?</h3><p>An application able to open and recalculate XLSX spreadsheets is required. Compatibility and formula calculations vary by software. Google Sheets import is not independently certified.</p>
+<h3>Does this replace bookkeeping software?</h3><p>No. This is an offline planning worksheet. It does not reconcile bank accounts, send invoices, file taxes or offer professional accounting advice.</p>
+<h3>How is the file delivered?</h3><p>Payment is handled on Stripe's secure checkout. The associated PrismBay download service checks the paid checkout session before issuing a short-lived file link. Contact support if access fails.</p>
+<div class="cashflow-action">
+<h2>PrismBay Cashflow Studio v1</h2>
+<p>Original editable Excel tracker, fictional examples and getting-started guide. $5.99 USD, paid once.</p>
+<a href="\${CASHFLOW_CHECKOUT_URL}?client_reference_id=organic_cashflow_guide_footer" rel="noopener noreferrer">Continue to Stripe checkout</a>
+<p class="cashflow-minor">See the <a href="\${CASHFLOW_PRODUCT_URL}" style="color:#daf8e6">product details</a> before purchase.</p>
+</div>
+</article>
+<aside class="aside">
+<p class="eyebrow">Affordable starter template</p>
+<h2>Cashflow Studio</h2>
+<div class="price">$5.99<small> USD, one time</small></div>
+<p>5 Excel worksheets. One private ZIP download after verified payment.</p>
+<ul><li>Monthly cash view</li><li>300 transaction rows</li><li>Editable workbook and instructions</li></ul>
+<a class="btn dark" href="\${CASHFLOW_PRODUCT_URL}">View product details</a>
+<p class="disclosure">Payments use Stripe-hosted checkout. <a href="https://www.prismbayai.com/refunds">Refund information</a> · <a href="https://www.prismbayai.com/contact">Contact support</a>.</p>
+</aside>
+</div></div></main>
+<footer><div class="wrap">PrismBay original digital tools. <a href="./">Free guides</a> · <a href="\${CASHFLOW_PRODUCT_URL}">Cashflow Studio</a> · <a href="../toolkits.html">Executive document systems</a></div></footer>
+</body></html>\`;
+}
