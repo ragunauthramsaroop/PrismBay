@@ -7,6 +7,11 @@ on:
   schedule:
     - cron: '17 0,4,8,12,16,20 * * *' # Six bounded supplier-research batches/day: 9 live candidates + the Top 15 shortlist + research alternates
   workflow_dispatch:
+  pull_request:
+    paths:
+      - 'scripts/cj-search-recovery.mjs'
+      - 'scripts/cj-search-recovery.test.mjs'
+      - '.github/workflows/cj-supplier-verification.yml'
   push:
     branches: [main]
     paths:
@@ -17,6 +22,8 @@ on:
       - 'scripts/cj-match-policy.test.mjs'
       - 'scripts/cj-review-board.mjs'
       - 'scripts/cj-search-strategy.mjs'
+      - 'scripts/cj-search-recovery.mjs'
+      - 'scripts/cj-search-recovery.test.mjs'
       - 'scripts/cj-search-strategy.test.mjs'
       - 'scripts/cj-freight-policy.mjs'
       - 'scripts/cj-freight-policy.test.mjs'
@@ -29,7 +36,18 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
+  cj-recovery-unit-tests:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node --test scripts/cj-search-recovery.test.mjs scripts/cj-search-strategy.test.mjs scripts/cj-api-limiter.test.mjs
   verify-cj:
+    if: github.event_name != 'pull_request'
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
@@ -52,7 +70,8 @@ jobs:
           import {hasApprovedProductClass, matchesIntendedProduct} from './scripts/cj-match-policy.mjs';
           import { parseCJFreight, parseCJFreightTip, freightRequest, freightTipRequest, chooseQuote } from './scripts/cj-freight-policy.mjs';
           import { createCJReadOnlyClient } from './scripts/cj-api-limiter.mjs';
-          import { candidateSearches, uniqueEligibleProducts, selectBestInspection } from './scripts/cj-search-strategy.mjs';
+          import { uniqueEligibleProducts, selectBestInspection } from './scripts/cj-search-strategy.mjs';
+          import { boundedCJQueries, buildCJProductSearchUrl, cjSearchDiagnostic } from './scripts/cj-search-recovery.mjs';
           
           // Explicit product-class requirements prevent CJ's fuzzy search from selecting
           // unrelated merchandise. New categories remain unverified until reviewed.
@@ -192,27 +211,21 @@ jobs:
             let searchesAttempted = 0;
             let searchErrors = 0;
             let globalFallbackAttempted = false;
-            const searches = candidateSearches(candidate);
+            const searches = boundedCJQueries(candidate);
+            const searchFailureCodes = [];
 
             // Prefer CJ-held US stock. This is the fastest and lowest-risk route.
             for (const query of searches) {
               searchesAttempted += 1;
-              const url = new URL(BASE + '/product/listV2');
-              url.searchParams.set('page', '1');
-              url.searchParams.set('size', '40');
-              url.searchParams.set('keyWord', query);
-              url.searchParams.set('countryCode', 'US');
-              url.searchParams.set('startWarehouseInventory', '10');
-              url.searchParams.set('verifiedWarehouse', '1');
-              url.searchParams.set('sort', 'desc');
-              url.searchParams.set('orderBy', '0');
-              url.searchParams.append('features', 'enable_category');
+              const url = buildCJProductSearchUrl(query, 'US');
               let search;
               try {
                 search = await jsonFetch(url, { headers: headers(token) });
               } catch (error) {
                 searchErrors += 1;
-                if (String(error?.message || '').includes('1600201')) break;
+                const diagnostic = cjSearchDiagnostic(error);
+                searchFailureCodes.push(diagnostic.code || diagnostic.kind);
+                if (diagnostic.fatal) break;
                 continue;
               }
               const products = flatten(search);
@@ -226,21 +239,17 @@ jobs:
             // inventory and the freight check must price delivery to the US.
             if (!uniqueEligibleProducts(eligibleGroups, 3).length && searchErrors < searchesAttempted) {
               globalFallbackAttempted = true;
-              for (const query of searches.slice(0, 2)) {
+              for (const query of searches) {
                 searchesAttempted += 1;
-                const url = new URL(BASE + '/product/listV2');
-                url.searchParams.set('page', '1');
-                url.searchParams.set('size', '40');
-                url.searchParams.set('keyWord', query);
-                url.searchParams.set('sort', 'desc');
-                url.searchParams.set('orderBy', '0');
-                url.searchParams.append('features', 'enable_category');
+                const url = buildCJProductSearchUrl(query, null);
                 let search;
                 try {
                   search = await jsonFetch(url, { headers: headers(token) });
                 } catch (error) {
                   searchErrors += 1;
-                  if (String(error?.message || '').includes('1600201')) break;
+                  const diagnostic = cjSearchDiagnostic(error);
+                  searchFailureCodes.push(diagnostic.code || diagnostic.kind);
+                  if (diagnostic.fatal) break;
                   continue;
                 }
                 const products = flatten(search);
@@ -254,7 +263,8 @@ jobs:
             if (!eligible.length) {
               results.push({...base,
                 status: searchErrors === searchesAttempted ? 'search_error' : 'manual_supplier_match_required',
-                candidatesReturned, searchesAttempted, searchErrors, globalFallbackAttempted,
+                candidatesReturned, searchesAttempted, searchErrors,
+                searchFailureCodes: [...new Set(searchFailureCodes)], globalFallbackAttempted,
                 reason: searchErrors === searchesAttempted ?
                   'All bounded CJ supplier searches failed; await a fresh read-only run.' :
                   'No approved query returned a matching on-sale product with a positive price after US and bounded global sourcing checks.',
