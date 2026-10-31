@@ -33,9 +33,9 @@ test('retail distribution assets never target educational YouTube or personal Li
   const { readFile } = await import('node:fs/promises');
   const source = await readFile(new URL('./buyer-acquisition-worker.mjs', import.meta.url), 'utf8');
   assert.match(source, /retailChannelDraft:/);
-  assert.match(source, /educationalYouTubeAllowed:\\s*false/);
-  assert.match(source, /personalLinkedInAllowed:\\s*false/);
-  assert.match(source, /retailPublishingApprovalRequired:\\s*true/);
+  assert.match(source, /educationalYouTubeAllowed:\s*false/);
+  assert.match(source, /personalLinkedInAllowed:\s*false/);
+  assert.match(source, /retailPublishingApprovalRequired:\s*true/);
   assert.doesNotMatch(source, /youtubeDescription:|linkedinDraft:/);
-  assert.match(source, /report\\.nextDistributionAssets\\.retailChannelDraft/);
+  assert.match(source, /report\.nextDistributionAssets\.retailChannelDraft/);
 });
