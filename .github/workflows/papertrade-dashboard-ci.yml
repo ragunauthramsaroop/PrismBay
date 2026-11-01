@@ -25,6 +25,9 @@ jobs:
           node --check papertrade/dashboard/api/spot.js
           node --check papertrade/dashboard/live-core.js
           node --check papertrade/dashboard/live-runtime.js
+          node --check papertrade/dashboard/replay-core.js
+          node --check papertrade/dashboard/replay-ui.js
+          node --check papertrade/dashboard/api/replay.js
       - name: Test read-only dashboard API
         run: node --test papertrade/dashboard/tests/*.test.cjs
       - name: Probe public Coinbase WebSocket ticker feed
