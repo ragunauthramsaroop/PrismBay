@@ -11,7 +11,7 @@
   "thumbnailConcept": "Original monitor status graphic, one OFFLINE warning, no faces",
   "cta": "PrismBay AI helps founders, operators and executives implement practical AI business systems.",
   "plannedLocalPublishTime": "UNSET; Nov 4 16:00 is an inactive private-draft placeholder",
-  "status": "MODIFY_PRIVATE_CAPTION_CI_PASS_EDITORIAL_HOLD",
+  "status": "MODIFY_PRIVATE_ASR_CAPTION_CI_PASS_EDITORIAL_HOLD",
   "metricoolPostId": 412495293,
   "metricoolPostUuid": "4812359205726866079",
   "descriptCompositionId": "a597a812-49d3-4554-9c0a-e1639c47da81",
@@ -35,7 +35,7 @@
   ],
   "paidSpendUSD": 0,
   "classification": "MODIFY",
-  "latestReviewAt": "2026-10-31T22:49:20-04:00",
+  "latestReviewAt": "2026-10-31T23:46:00-04:00",
   "factualAccuracyGate": "Corrected source phrase and denial claim in newly rendered script; automated source/voice verification passed. Full audio listening pending.",
   "descriptFreeCapacity": "No new Descript agent job. Existing original composition remains unchanged. Free GitHub/Piper/FFmpeg render succeeded.",
   "auditReport": "youtube-growth/analytics/2026-10-31-1848-monitoring-corrected-descript-asr-and-release-gates.md",
@@ -82,11 +82,11 @@
     "privateQaUrl": "https://github.com/ragunauthramsaroop/PrismBay/actions/runs/41254433278",
     "privateQaArtifactId": 13061624447,
     "remainingGates": [
-      "confirm proposed subtitle timing and safe areas against actual burned captions",
-      "complete human full-audio listening",
+      "full human listening to exact 46.961-second media",
+      "verify rendered/burned captions and mobile safe-zone placement",
       "physical-device playback",
       "final editorial approval",
-      "YouTube Studio Earn verification"
+      "first-party Studio channel-country and Earn verification"
     ],
     "actualDurationSeconds": 46.96127,
     "descriptCompositionId": "b90abc77-867c-4a30-994c-fe21b6a22a15",
@@ -112,7 +112,23 @@
       "ciConclusion": "SUCCESS",
       "ciArtifactId": 13067392036,
       "regressionTestsPassed": 7,
-      "note": "Mechanical preflight only. Does not establish alignment with audible words, embedded caption placement, or physical mobile playback."
+      "note": "Mechanical preflight only. Does not establish alignment with audible words, embedded caption placement, or physical mobile playback.",
+      "independentAsrCheck": {
+        "status": "PASS",
+        "runId": 41270427475,
+        "runUrl": "https://github.com/ragunauthramsaroop/PrismBay/actions/runs/41270427475",
+        "artifactId": 13068369402,
+        "editorialCues": 15,
+        "asrCues": 16,
+        "matchingWords": 105,
+        "estimatedWordMidpointViolations": 0,
+        "timingToleranceSeconds": 0.35,
+        "regressionTestsAdded": 8,
+        "method": "Uniform interpolation within independent Descript ASR cue timestamps; not forced alignment",
+        "limitations": "No actual human audio listening, phoneme-level sync, burned-caption safe-zone, or physical-device playback",
+        "referenceSrt": "youtube-growth/production/ai-agent-monitoring-2026-10-31-retention-independent-descript-asr.srt",
+        "validator": "youtube-growth/tools/check_caption_against_asr.py"
+      }
     },
     "captionEditorialCandidate": "youtube-growth/production/ai-agent-monitoring-2026-10-31-retention-candidate-15cue-2line-review.srt"
   }
