@@ -1,0 +1,35 @@
+name: Whop agency forensic release gate
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '22 12 * * *'
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/whop-agency-forensic-audit.mjs'
+      - 'scripts/whop-agency-forensic-audit.test.mjs'
+      - '.github/agents/whop-*.agent.md'
+      - '.github/workflows/whop-agency-forensics.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  whop-four-role-audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Run agency forensic and existing Whop security regression tests
+        run: node --test scripts/whop-agency-forensic-audit.test.mjs scripts/whop-public-access-audit.test.mjs scripts/whop-merchant-readiness.test.mjs scripts/whop-sales-readiness.test.mjs
+      - name: Four-role live Whop read-only preflight
+        if: github.event_name != 'pull_request'
+        env:
+          WHOP_COMPANY_API_KEY: ${{ secrets.WHOP_COMPANY_API_KEY }}
+          WHOP_COMPANY_ID: ${{ vars.WHOP_COMPANY_ID }}
+          PRISMBAY_WHOP_ANON_FILE_URL: ${{ secrets.PRISMBAY_WHOP_ANON_FILE_URL }}
+        run: node scripts/whop-agency-forensic-audit.mjs
