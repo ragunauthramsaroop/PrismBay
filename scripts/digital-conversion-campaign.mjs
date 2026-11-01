@@ -98,7 +98,7 @@ export function auditPublicStripeLinks(html) {
   // This detects HTML-encoded checkout links, ports and Stripe Checkout URLs.
   const candidates = [...normalized.matchAll(/(?:https?:)?\/\/[^\s"'<>]+/gi)]
     .map(match => match[0]);
-  const approvedPaths = new Set(ACTIVE_DIGITAL_OFFERS.map(offer => new URL(offer.checkout).pathname));
+  const approvedPaths = new Set([...ACTIVE_DIGITAL_OFFERS, FIRST_SALE_CASHFLOW_OFFER].map(offer => new URL(offer.checkout).pathname));
   let directStripeLinkCount = 0;
   let approvedDigitalStripeLinkCount = 0;
   let unapprovedDirectStripeLinkCount = 0;
@@ -109,7 +109,7 @@ export function auditPublicStripeLinks(html) {
     const host = parsed.hostname.toLowerCase().replace(/\.$/, '');
     if (host !== 'buy.stripe.com' && host !== 'checkout.stripe.com') continue;
     directStripeLinkCount += 1;
-    // Only the four existing HTTPS digital Payment Link paths are approved.
+    // Only the four legacy offers plus verified Cashflow HTTPS Payment Link paths are approved.
     // Noncanonical host spelling, plain HTTP and Checkout Session links fail closed.
     if (parsed.protocol === 'https:' && parsed.hostname === 'buy.stripe.com' &&
         !parsed.username && !parsed.password && parsed.port === '' &&
