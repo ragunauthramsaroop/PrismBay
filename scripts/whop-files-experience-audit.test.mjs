@@ -76,6 +76,7 @@ test('unmatched product filter reports only safe account experience diagnostics'
  assert.equal(r.status,'PAID_PRODUCT_FILES_UNVERIFIED');
  assert.equal(r.diagnostics.companyExperienceCount,1);
  assert.equal(r.diagnostics.recognizedFilesExperienceCount,1);
+ assert.deepEqual(r.diagnostics.observedAppIdentities,[{appId:'app_5UWRrs7haZZeiQ',appName:'Files',isPublic:null}]);
  assert.equal(r.diagnostics.filesExperiencePaidProductLinked,true);
  assert.equal(r.releaseApproved,false);
  assert.ok(!JSON.stringify(r).includes('apik_test_restricted'));
