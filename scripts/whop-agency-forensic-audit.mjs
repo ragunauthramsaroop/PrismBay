@@ -47,14 +47,20 @@ export function assessReleaseEvidence({seller,anonymous,checkout,storefront}){
 async function readWhopCheckout({env,fetchImpl}){
  if(!env.WHOP_COMPANY_API_KEY||!/^biz_[A-Za-z0-9]+$/.test(env.WHOP_COMPANY_ID||''))return 'NOT_CONFIGURED';
  try{
-  const url=BASE+'/variants?account_id='+encodeURIComponent(env.WHOP_COMPANY_ID)+'&first=100';
-  const response=await fetchImpl(url,{method:'GET',redirect:'manual',
-   signal:AbortSignal.timeout(12000),
-   headers:{Authorization:'Bearer '+env.WHOP_COMPANY_API_KEY,Accept:'application/json','Api-Version-Date':VERSION}});
-  if(!response.ok)return 'WHOP_API_DENIED';
-  const data=await response.json();
-  if(!Array.isArray(data.data)||data.page_info?.has_next_page)return 'INCOMPLETE';
-  const targets=data.data.filter(x=>x?.product?.title===TITLE&&
+  const scoped=endpoint=>BASE+'/'+endpoint+'?account_id='+encodeURIComponent(env.WHOP_COMPANY_ID)+'&first=100';
+  const getScoped=async(endpoint)=>{
+   const response=await fetchImpl(scoped(endpoint),{method:'GET',redirect:'manual',
+    signal:AbortSignal.timeout(12000),
+    headers:{Authorization:'Bearer '+env.WHOP_COMPANY_API_KEY,Accept:'application/json','Api-Version-Date':VERSION}});
+   if(!response.ok)throw Error('Whop scoped read denied');
+   const data=await response.json();
+   if(!Array.isArray(data?.data)||data.page_info?.has_next_page)throw Error('Whop pagination incomplete');
+   return data.data;
+  };
+  const [products,variants]=await Promise.all([getScoped('products'),getScoped('variants')]);
+  const productIds=products.filter(p=>p?.title===TITLE).map(p=>p.id);
+  if(productIds.length!==1)return 'INCOMPLETE';
+  const targets=variants.filter(x=>(x?.product?.id===productIds[0]||x?.product_id===productIds[0])&&
     x?.currency?.toLowerCase()==='usd'&&Number(x?.initial_price)===19&&x?.billing_type==='one_time');
   if(targets.length!==1)return 'INCOMPLETE';
   const u=new URL(targets[0].purchase_url);
