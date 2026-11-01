@@ -35,7 +35,7 @@ export function commitInvoiceImport(csvText, existingInvoices, options = {}) {
   const preview = previewInvoiceImport(csvText, existingInvoices);
   if (!preview.ok) return { ...rejected('Import validation failed.'), errors: preview.errors };
 
-  const idFactory = options.idFactory ?? (() => globalThis.crypto.randomUUID());
+  const idFactory = Object.hasOwn(options, 'idFactory') ? options.idFactory : (() => globalThis.crypto.randomUUID());
   if (typeof idFactory !== 'function') return rejected('Invalid invoice ID generator.');
 
   const ids = new Set();
