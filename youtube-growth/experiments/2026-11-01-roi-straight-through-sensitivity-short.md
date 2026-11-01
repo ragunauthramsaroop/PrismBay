@@ -43,3 +43,12 @@ https://support.google.com/youtube/answer/7101720?hl=en
 
 ## Status
 NEW ORIGINAL SHORT RENDER REQUESTED / PRIVATE RELEASE HOLD. No confirmed public upload, subscriber milestone, external revenue or ad spend.
+
+## Verified outcome, 2026-11-01
+- v1 rejected after desktop contact-sheet inspection found clipped headline. No public upload.
+- v2 render complete, 54.240340 seconds, 1080x1920 H.264/AAC, SHA256 7b9d35774bf5c46a4a17e17b696325ef1369b282268962776a9162c9a91a50a4. Original pixel-measured headline fix and 1.15x pacing.
+- Independent QA passed: https://github.com/ragunauthramsaroop/PrismBay/actions/runs/41278506471. Six-panel visual review shows no clipped headlines.
+- Descript composition 8505f3d7-43b4-4f90-9b23-dacb45dc8e8a; editorial SRT 17 cues, 122/122 words matching source after punctuation normalization, maximum 195.76 WPM, 41 characters per line, 2 lines per cue.
+- Private Metricool draft created and independently read back: post 412685334, UUID 7374897894676317580, draft=true, autoPublish=false, YouTube privacy=private. November 2 16:00 Guyana is an inactive placeholder, not a public publication.
+- Experiment status MODIFY / PRIVATE RELEASE HOLD until human narration listening, mobile playback and final editorial signoff. Do not count as public upload or growth.
+- Detailed evidence: youtube-growth/analytics/2026-11-01-0155-roi-sensitivity-v2-render-asr-private-draft.md.
