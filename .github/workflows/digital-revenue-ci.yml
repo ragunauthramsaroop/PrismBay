@@ -19,6 +19,8 @@ on:
       - 'scripts/sales-sitemap-sync.test.mjs'
       - 'scripts/revenue-health-check.mjs'
       - 'scripts/revenue-health-check.test.mjs'
+      - 'scripts/whop-public-access-audit.mjs'
+      - 'scripts/whop-public-access-audit.test.mjs'
       - '.github/workflows/digital-revenue-ci.yml'
   push:
     branches: [main]
@@ -39,6 +41,8 @@ on:
       - 'scripts/sales-sitemap-sync.test.mjs'
       - 'scripts/revenue-health-check.mjs'
       - 'scripts/revenue-health-check.test.mjs'
+      - 'scripts/whop-public-access-audit.mjs'
+      - 'scripts/whop-public-access-audit.test.mjs'
       - '.github/workflows/digital-revenue-ci.yml'
 
 permissions:
@@ -54,7 +58,7 @@ jobs:
         with:
           node-version: '22'
       - name: Run digital revenue tests
-        run: node --test scripts/digital-conversion-campaign.test.mjs scripts/buyer-acquisition-worker.test.mjs scripts/freellm-sales-worker.test.mjs scripts/owned-sales-page-worker.test.mjs scripts/first-sale-assessment.test.mjs scripts/revenue-evidence-gates.test.mjs scripts/sales-sitemap-sync.test.mjs scripts/revenue-health-check.test.mjs
+        run: node --test scripts/digital-conversion-campaign.test.mjs scripts/buyer-acquisition-worker.test.mjs scripts/freellm-sales-worker.test.mjs scripts/owned-sales-page-worker.test.mjs scripts/first-sale-assessment.test.mjs scripts/revenue-evidence-gates.test.mjs scripts/sales-sitemap-sync.test.mjs scripts/revenue-health-check.test.mjs scripts/whop-public-access-audit.test.mjs
       - name: Generate owned-search offer pages
         run: node scripts/owned-sales-page-worker.mjs "$RUNNER_TEMP/owned-sales-pages"
       - name: Verify bundle output
@@ -66,3 +70,9 @@ jobs:
           grep -q 'eVqfZi5Lo7pV31Ea4MgnK0t' "$RUNNER_TEMP/owned-sales-pages/executive-intelligence-bundle.html"
           test "$(find "$RUNNER_TEMP/owned-sales-pages" -maxdepth 1 -name '*.html' | wc -l)" -eq 7
           test -s "$RUNNER_TEMP/owned-sales-pages/board-briefing-readiness-checklist.html"
+
+      - name: Whop anonymous file exposure probe (only after merge, read-only)
+        if: github.event_name == 'push'
+        env:
+          PRISMBAY_WHOP_ANON_FILE_URL: ${{ secrets.PRISMBAY_WHOP_ANON_FILE_URL }}
+        run: node scripts/whop-public-access-audit.mjs
