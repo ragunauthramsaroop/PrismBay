@@ -1,5 +1,5 @@
 User-agent: *
-Allow: /
+Allow: /learn/cash-flow-tracker-spreadsheet.html
 Disallow: /ai/
 Disallow: /free/
 Disallow: /learn/
@@ -10,4 +10,5 @@ Disallow: /toolkits.html
 Disallow: /board-briefing-white-paper-template.html
 Disallow: /esg-monthly-reporting-template.html
 Disallow: /stakeholder-engagement-plan-template.html
+Allow: /
 Sitemap: https://clean.prismbayai.com/sitemap.xml
