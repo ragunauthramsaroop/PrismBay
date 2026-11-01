@@ -11,7 +11,7 @@
   "thumbnailConcept": "Original monitor status graphic, one OFFLINE warning, no faces",
   "cta": "PrismBay AI helps founders, operators and executives implement practical AI business systems.",
   "plannedLocalPublishTime": "UNSET; Nov 4 16:00 is an inactive private-draft placeholder",
-  "status": "MODIFY_PRIVATE_CAPTION_MECHANICAL_PASS_EDITORIAL_HOLD",
+  "status": "MODIFY_PRIVATE_CAPTION_CI_PASS_EDITORIAL_HOLD",
   "metricoolPostId": 412495293,
   "metricoolPostUuid": "4812359205726866079",
   "descriptCompositionId": "a597a812-49d3-4554-9c0a-e1639c47da81",
@@ -35,7 +35,7 @@
   ],
   "paidSpendUSD": 0,
   "classification": "MODIFY",
-  "latestReviewAt": "2026-10-31T22:44:00-04:00",
+  "latestReviewAt": "2026-10-31T22:49:20-04:00",
   "factualAccuracyGate": "Corrected source phrase and denial claim in newly rendered script; automated source/voice verification passed. Full audio listening pending.",
   "descriptFreeCapacity": "No new Descript agent job. Existing original composition remains unchanged. Free GitHub/Piper/FFmpeg render succeeded.",
   "auditReport": "youtube-growth/analytics/2026-10-31-1848-monitoring-corrected-descript-asr-and-release-gates.md",
@@ -106,7 +106,13 @@
       "validator": "youtube-growth/tools/validate_shorts_srt.py",
       "unitTestsPassed": 7,
       "mechanicalStatus": "PASS",
-      "humanAudioAndMobileStatus": "PENDING"
+      "humanAudioAndMobileStatus": "PENDING",
+      "ciWorkflowRunId": 41266716206,
+      "ciWorkflowUrl": "https://github.com/ragunauthramsaroop/PrismBay/actions/runs/41266716206",
+      "ciConclusion": "SUCCESS",
+      "ciArtifactId": 13067392036,
+      "regressionTestsPassed": 7,
+      "note": "Mechanical preflight only. Does not establish alignment with audible words, embedded caption placement, or physical mobile playback."
     },
     "captionEditorialCandidate": "youtube-growth/production/ai-agent-monitoring-2026-10-31-retention-candidate-15cue-2line-review.srt"
   }
