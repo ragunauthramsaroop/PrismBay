@@ -52,10 +52,10 @@ export async function inspectWhop({env=process.env,fetchImpl=fetch}={}){
  if(id&&!validateCompanyId(id))return {status:STATUSES.CONFIG_NEEDED,releaseApproved:false,reason:'Invalid Whop business ID.'};
  try{
   if(!id){
-   const accounts=onlyPage(await apiGet('/accounts?first=100',token,fetchImpl));
-   const matches=accounts.filter(x=>(x?.title==='Clean'||x?.name==='Clean')&&validateCompanyId(x?.id));
-   if(matches.length!==1)return {status:STATUSES.CONFIG_NEEDED,releaseApproved:false,reason:'Whop company ID could not be inferred uniquely; set WHOP_COMPANY_ID as GitHub Actions variable.'};
-   id=matches[0].id;
+   // Account-scoped API keys use /accounts/me. Listing all accounts requires an extra scope.
+   const account=await apiGet('/accounts/me',token,fetchImpl);
+   if(!validateCompanyId(account?.id))return {status:STATUSES.CONFIG_NEEDED,releaseApproved:false,reason:'Whop /accounts/me did not provide a business ID; set WHOP_COMPANY_ID in GitHub Actions variables.'};
+   id=account.id;
   }
   const [products,plans]=await Promise.all([
    apiGet('/products?account_id='+encodeURIComponent(id)+'&first=100',token,fetchImpl),
@@ -65,7 +65,7 @@ export async function inspectWhop({env=process.env,fetchImpl=fetch}={}){
  }catch(error){
   const code=Number(error?.httpStatus)||0;
   return {status:code===401||code===403?STATUSES.AUTH_ERROR:STATUSES.API_ERROR,releaseApproved:false,
-   reason:code===401||code===403?'Whop API key denied this read-only request. Check company key and permissions.':
+   reason:code===401||code===403?'Whop denied a read-only request. If product/plan scopes are present, also grant company:basic:read for /accounts/me or set WHOP_COMPANY_ID to skip that lookup.':
    'Whop API request failed or returned an incomplete/unexpected response.',
    httpStatus:code||undefined};
  }
