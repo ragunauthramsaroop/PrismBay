@@ -1,0 +1,35 @@
+name: Paper Trading Dashboard Safety Tests
+on:
+  push:
+    branches: ["experiment/ai-paper-trading"]
+    paths:
+      - "papertrade/dashboard/**"
+      - ".github/workflows/papertrade-dashboard-ci.yml"
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  dashboard-check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Check frontend and backend syntax
+        run: |
+          node --check papertrade/dashboard/app.js
+          node --check papertrade/dashboard/api/status.js
+      - name: Test read-only dashboard API
+        run: node --test papertrade/dashboard/tests/status.test.cjs
+      - name: Enforce no authenticated trading interfaces
+        run: |
+          node - <<'JS'
+          const fs=require('node:fs');
+          const api=fs.readFileSync('papertrade/dashboard/api/status.js','utf8');
+          const html=fs.readFileSync('papertrade/dashboard/index.html','utf8');
+          if(!html.includes('PAPER') || !api.includes("realOrders: 0"))process.exit(1);
+          if(/\/orders|privateKey|apiSecret|placeOrder|withdrawalKey/.test(api))process.exit(1);
+          console.log('Dashboard has no live trading interface');
+          JS
