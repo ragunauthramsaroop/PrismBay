@@ -19,7 +19,7 @@ function buttonState(){
     $('simPlay').disabled=session.finished;
     $('simPlay').textContent=session.finished?'✓ Simulation complete':active?'⏸ Pause replay':'▶ Play replay';
     $('simStep').disabled=active||session.finished;
-    $('simFinish').disabled=active||session.finished;
+    $('simFinish').disabled=session.finished;
   }
 }
 function stop(){if(timer){clearInterval(timer);timer=null;}if(session)session.paused=true;buttonState();}
@@ -27,7 +27,7 @@ async function load(){
   stop();loading=true;session=null;lastDataset=null;eventsRendered=0;buttonState();
   const hours=Number($('simPeriod').value);
   set('simDatasetStatus','Retrieving actual Coinbase BTC-USD 1-minute prices...');
-  set('simDatasetDetail','No synthetic prices. Historical orders will use estimated spreads and transaction costs.');
+  set('simDatasetDetail','Genuine historical prices. Every virtual transaction is hypothetical and includes estimated trading costs.');
   set('simDecision','Waiting for verified price history');
   set('simProgressText','Loading '+hours+' historical hours');
   const controller=new AbortController();
