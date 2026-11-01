@@ -119,7 +119,7 @@ export function buildCashflowBuyerPage() {
 <p>5 Excel worksheets. One private ZIP download after verified payment.</p>
 <ul><li>Monthly cash view</li><li>300 transaction rows</li><li>Editable workbook and instructions</li></ul>
 <a class="btn dark" href="${CASHFLOW_PRODUCT_URL}">View product details</a>
-<p class="disclosure">Payments use Stripe-hosted checkout. <a href="https://www.prismbayai.com/refunds">Refund information</a> · <a href="https://www.prismbayai.com/contact">Contact support</a>.</p>
+<p class="disclosure">Payments use Stripe-hosted checkout. <a href="https://clean.prismbayai.com/digital/cashflow-studio/purchase-information.html">Refund information</a> · <a href="mailto:support@prismbayai.com">Contact support</a>.</p>
 </aside>
 </div></div></main>
 <footer><div class="wrap">PrismBay original digital tools. <a href="./">Free guides</a> · <a href="${CASHFLOW_PRODUCT_URL}">Cashflow Studio</a> · <a href="../toolkits.html">Executive document systems</a></div></footer>

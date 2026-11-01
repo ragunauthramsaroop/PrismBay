@@ -10,6 +10,7 @@ on:
     branches: [main]
     paths:
       - 'scripts/prismbay_live_storefront_audit.py'
+      - 'scripts/prismbay_live_storefront_audit_test.py'
       - '.github/workflows/prismbay-live-storefront-qa.yml'
   push:
     branches: [main]
@@ -39,6 +40,8 @@ jobs:
           python -m playwright install --with-deps chromium
       - name: Validate QA syntax
         run: python -m py_compile scripts/prismbay_live_storefront_audit.py
+      - name: Test digital checkout allowlist and physical-product denial
+        run: python -m unittest discover -s scripts -p 'prismbay_live_storefront_audit_test.py' -v
       - name: Audit GitHub Pages storefront and guarded Floot shipping inquiry
         run: python scripts/prismbay_live_storefront_audit.py
       - name: Upload machine-readable QA report
