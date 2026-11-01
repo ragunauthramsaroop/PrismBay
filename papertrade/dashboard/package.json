@@ -1,0 +1,10 @@
+{
+  "name": "papertrade-research-live",
+  "private": true,
+  "version": "1.0.0",
+  "type": "commonjs",
+  "description": "Read-only simulated trading monitoring dashboard",
+  "scripts": {
+    "test": "node --test tests/status.test.cjs"
+  }
+}
