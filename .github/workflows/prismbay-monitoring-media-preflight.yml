@@ -1,0 +1,77 @@
+name: PrismBay monitoring candidate media preflight
+on:
+  push:
+    paths:
+      - '.github/workflows/prismbay-monitoring-media-preflight.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  audio-visual-mechanical-check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Retrieve existing original video
+        run: |
+          curl --fail --location --retry 3 --retry-delay 2 \
+            'https://raw.githubusercontent.com/ragunauthramsaroop/PrismBay/main/public/youtube/ai-agent-monitoring-2026-10-31-retention-release-candidate.mp4' \
+            --output candidate.mp4
+          echo '2aac28b27512320b5ffab0cadf2ce3b722d4683e71d44dc1bcdfe480b0e10b35  candidate.mp4' | sha256sum --check
+      - name: Inspect media format and decode
+        run: |
+          ffprobe -v error -show_format -show_streams -of json candidate.mp4 > media-probe.json
+          ffmpeg -v error -i candidate.mp4 -f null - 2> decode-errors.txt
+          test ! -s decode-errors.txt
+      - name: Inspect audio loudness, silence and video black intervals
+        run: |
+          ffmpeg -hide_banner -nostats -i candidate.mp4 -af 'silencedetect=noise=-42dB:d=1.5' -f null - 2> silence-analysis.txt
+          ffmpeg -hide_banner -nostats -i candidate.mp4 -filter_complex 'ebur128=peak=true' -f null - 2> loudness-analysis.txt
+          ffmpeg -hide_banner -nostats -i candidate.mp4 -vf 'blackdetect=d=1.2:pix_th=0.10' -an -f null - 2> black-analysis.txt
+      - name: Create mobile-layout review frames
+        run: |
+          ffmpeg -hide_banner -loglevel error -i candidate.mp4 -vf 'fps=1/6,scale=270:-1,tile=3x3' -frames:v 1 contact-sheet.jpg
+          ffmpeg -hide_banner -loglevel error -ss 1 -i candidate.mp4 -frames:v 1 frame-01.jpg
+          ffmpeg -hide_banner -loglevel error -ss 23 -i candidate.mp4 -frames:v 1 frame-23.jpg
+          ffmpeg -hide_banner -loglevel error -ss 43 -i candidate.mp4 -frames:v 1 frame-43.jpg
+      - name: Print mechanical summary
+        run: |
+          python - <<'PY'
+          import json,re
+          data=json.load(open('media-probe.json'))
+          fmt=data.get('format',{})
+          streams=data.get('streams',[])
+          video=next((s for s in streams if s.get('codec_type')=='video'),{})
+          audio=next((s for s in streams if s.get('codec_type')=='audio'),{})
+          assert video.get('width')==1080 and video.get('height')==1920, 'Expected 1080x1920'
+          assert video.get('codec_name')=='h264', 'Expected H.264'
+          assert audio.get('codec_name')=='aac', 'Expected AAC'
+          duration=float(fmt.get('duration',0))
+          assert 46.8 < duration < 47.2, 'Unexpected video duration'
+          silence=open('silence-analysis.txt').read()
+          black=open('black-analysis.txt').read()
+          silence_spans=[float(x) for x in re.findall(r'silence_duration:\\s*([0-9.]+)',silence)]
+          black_spans=[float(x) for x in re.findall(r'black_duration:([0-9.]+)',black)]
+          result={'duration_seconds':duration,'video_codec':video.get('codec_name'),'audio_codec':audio.get('codec_name'),'width':video.get('width'),'height':video.get('height'),'silence_intervals_over_1_5_seconds':silence_spans,'black_intervals_over_1_2_seconds':black_spans,'mechanical_decode':'PASS','human_listening':'NOT_PERFORMED','mobile_playback':'NOT_PERFORMED','publication_approved':False}
+          open('mechanical-summary.json','w').write(json.dumps(result,indent=2)+'\\n')
+          print(json.dumps(result,indent=2))
+          PY
+      - name: Upload media review evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: prismbay-monitoring-retention-media-preflight
+          path: |
+            media-probe.json
+            decode-errors.txt
+            silence-analysis.txt
+            loudness-analysis.txt
+            black-analysis.txt
+            mechanical-summary.json
+            contact-sheet.jpg
+            frame-01.jpg
+            frame-23.jpg
+            frame-43.jpg
+          if-no-files-found: ignore
+          retention-days: 7
