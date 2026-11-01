@@ -36,6 +36,7 @@
       <div class="sidebar-label">WORKSPACE</div>
       <nav class="navigation" aria-label="Dashboard navigation">
         <button data-section="overview" class="nav-item active"><svg><use href="#i-grid"/></svg>Overview</button>
+        <button data-section="live" class="nav-item"><svg><use href="#i-activity"/></svg><span>Live paper terminal</span><span class="nav-live-dot"></span></button>
         <button data-section="market" class="nav-item"><svg><use href="#i-chart"/></svg>Market intelligence</button>
         <button data-section="strategies" class="nav-item"><svg><use href="#i-activity"/></svg>Strategy lab</button>
         <button data-section="operations" class="nav-item"><svg><use href="#i-server"/></svg>Operations log</button>
@@ -59,6 +60,13 @@
       <div class="top-intro"><div><div class="eyebrow"><span class="eyebrow-rule"></span>PERSONAL TRADING RESEARCH <span class="muted">/</span> CONTROL CENTER</div><h1 id="pageTitle">Command overview<span class="title-period">.</span></h1><p id="pageDesc">A clear view of your research system, simulated portfolio, and market activity.</p></div><div class="last-sync"><span class="small-muted">LAST DATA REFRESH</span><b id="lastUpdate">Connecting...</b><span class="sync-indicator" id="syncIndicator"><span class="pulse-dot"></span>Fetching sources</span></div></div>
       <div class="warning-strip"><svg><use href="#i-info"/></svg><span><b>Research environment.</b> Prices are public market quotes. Account figures are independent paper-only estimates from completed daily candles, not funds held at an exchange.</span></div>
       <div class="section-view active" id="view-overview">
+        <article class="live-banner" id="liveHero">
+          <div class="live-banner-main"><div class="live-banner-kicker"><span class="pulse-dot"></span> REAL-TIME PAPER TRADING <span class="live-mini-tag">BROWSER SESSION</span></div>
+            <h2 id="liveMiniEquity">$10,000.00</h2><p id="liveMiniPnl">Connecting to real-time market...</p><div class="live-banner-source" id="liveMiniSource">Establishing Coinbase market feed</div>
+          </div>
+          <div class="live-banner-aside"><span class="live-pills"><span>Streaming BTC quotes</span><span>Simulated execution</span><span>Local trade journal</span></span><button id="goLiveTerminal" type="button" class="open-live-btn" data-goto="live">Open live terminal <span>↗</span></button></div>
+        </article>
+
         <div class="kpi-grid">
           <article class="kpi-card"><div class="kpi-top"><span>SIMULATED EQUITY</span><span class="icon-tile"><svg><use href="#i-wallet"/></svg></span></div><div class="kpi-value" id="equityValue">···</div><div class="kpi-bottom"><span class="metric-tag" id="equityChange">No forward data</span><span id="equityFoot">From $10,000 starting cash</span></div></article>
           <article class="kpi-card"><div class="kpi-top"><span>BITCOIN / USD</span><span class="icon-tile"><svg><use href="#i-chart"/></svg></span></div><div class="kpi-value" id="btcValue">···</div><div class="kpi-bottom"><span class="metric-tag muted-tag" id="priceType">LIVE MARKET</span><span id="btcFoot">Coinbase public ticker</span></div></article>
@@ -80,6 +88,47 @@
           <article class="panel"><div class="panel-heading"><div><div class="panel-kicker">RECENT ACTIVITY</div><h2>Automation timeline</h2><p>Most recent public GitHub workflow runs</p></div><button class="text-button" data-goto="operations">All activity <span>›</span></button></div><div class="timeline" id="recentRuns"><div class="empty-state small">Loading workflow activity...</div></div></article>
         </div>
       </div>
+
+      <div class="section-view" id="view-live">
+        <div class="live-terminal-header">
+          <div><div class="live-kicker"><span class="pulse-dot"></span> STREAMING / BTC-USD / RESEARCH ONLY</div><h2>Realtime paper trading terminal</h2><p>Live public exchange ticks, simulated trades, and mark-to-market profit and loss. No real orders.</p></div>
+          <div class="live-terminal-controls"><span class="realtime-pill" id="liveConnection">CONNECTING</span><button class="live-control" id="livePause">Pause session</button><button class="live-control" id="liveResumeGap" disabled>Resume after gap</button><button class="live-control" id="liveExport">Export journal</button><button class="live-control danger-control" id="liveReset">Reset</button></div>
+        </div>
+        <div class="live-warning" id="liveWarning">Connecting to real market data. Orders are simulations only.</div>
+        <div class="live-kpi-grid">
+          <article class="panel live-kpi"><div class="panel-kicker">LIVE SIMULATED EQUITY</div><strong id="liveBalance">—</strong><small>Mark to market using current public BTC bid</small></article>
+          <article class="panel live-kpi"><div class="panel-kicker">LIVE TOTAL P/L</div><strong id="liveProfit">—</strong><small id="liveProfitPercent">—</small></article>
+          <article class="panel live-kpi"><div class="panel-kicker">BTC-USD STREAM</div><strong id="liveMarkPrice">—</strong><small id="liveUpdated">Waiting for quotes</small></article>
+          <article class="panel live-kpi"><div class="panel-kicker">PAPER ENGINE STATE</div><strong class="engine-state" id="liveStatus">INITIALIZING</strong><small id="liveLastDecision">Waiting for signal</small></article>
+        </div>
+        <div class="live-two-column">
+          <article class="panel live-chart-panel">
+            <div class="panel-heading"><div><div class="panel-kicker">STREAMING PORTFOLIO MARKS</div><h2>Realtime simulated equity</h2><p>Updates as public prices change, only while this browser session is active</p></div></div>
+            <div id="liveSpark" class="realtime-chart">Waiting for market stream...</div>
+            <div class="live-chart-note"><span>Bid/ask price quotes and assumed transaction costs</span><span id="liveTicks">0</span> recent samples</div>
+          </article>
+          <article class="panel live-info-panel">
+            <div class="panel-heading"><div><div class="panel-kicker">ACCOUNT SIMULATION</div><h2>Virtual portfolio details</h2><p>Browser-local simulated balances</p></div></div>
+            <div class="realtime-facts">
+              <div><span>Virtual cash</span><strong id="liveCash">—</strong></div>
+              <div><span>BTC units</span><strong id="liveQty">—</strong></div>
+              <div><span>Position market value</span><strong id="livePosition">—</strong></div>
+              <div><span>Unrealized P/L after estimated exit costs</span><strong id="liveUnrealized">—</strong></div>
+              <div><span>Realized P/L</span><strong id="liveRealized">—</strong></div>
+              <div><span>Accumulated simulated fees</span><strong id="liveFees">—</strong></div>
+              <div><span>Completed virtual trades</span><strong id="liveTrades">0</strong></div>
+              <div><span>Last momentum signal</span><strong id="liveLastSignal">Pending</strong></div>
+              <div><span>Public bid / ask</span><strong><span id="liveMarketBid">—</span> / <span id="liveMarketAsk">—</span></strong></div>
+            </div>
+          </article>
+        </div>
+        <article class="panel live-trades-panel">
+          <div class="panel-heading"><div><div class="panel-kicker">AUTOMATED SIMULATED DECISIONS</div><h2>Realtime virtual transaction journal</h2><p>Each transaction is timestamped and saved in this browser. No brokerage order is placed.</p></div></div>
+          <div class="table-wrap"><table class="strategy-table live-table"><thead><tr><th>Guyana time</th><th>Action</th><th>Virtual BTC</th><th>Simulated fill</th><th>Decision</th></tr></thead><tbody id="liveTransactions"><tr><td colspan="5" class="no-data">Waiting for live signal...</td></tr></tbody></table></div>
+          <div class="live-disclaimer" id="liveStateDetail">The browser needs to remain open for tick-by-tick paper simulation. Export the journal for a permanent copy. No trade occurs on your exchange account.</div>
+        </article>
+        <div class="risk-live-foot"><span>Price feed: public Coinbase WebSocket</span><span>8/21 one-minute SMA, max 10% paper allocation, 0.8% virtual stop, 1.5% take profit, 2.5% daily drawdown gate, 10% total drawdown halt</span></div>
+      </div>
       <div class="section-view" id="view-market"><div class="section-grid"><article class="panel"><div class="panel-heading"><div><div class="panel-kicker">SPOT MARKET</div><h2>BTC / USD market watch</h2><p>Public ticker updated approximately every 45 seconds</p></div></div><div class="market-hero"><span class="small-muted">LATEST BTC QUOTE</span><div id="marketHeroPrice" class="market-hero-price">—</div><span id="marketQuoteTime" class="small-muted">Waiting for market response</span></div><div class="facts-grid"><div><span>Best bid</span><strong id="bestBid">—</strong></div><div><span>Best ask</span><strong id="bestAsk">—</strong></div><div><span>Bid / ask spread</span><strong id="spread">—</strong></div><div><span>Quote source</span><strong>Coinbase Exchange</strong></div></div></article><article class="panel"><div class="panel-heading"><div><div class="panel-kicker">PRICE SERIES</div><h2>Daily BTC price action</h2><p>Closing prices, not intraday candles</p></div></div><div class="chart-wrap" id="marketChart"></div></article></div></div>
       <div class="section-view" id="view-strategies"><div class="panel"><div class="panel-heading"><div><div class="panel-kicker">RESEARCH LAB</div><h2>Model and benchmark comparison</h2><p>Walk-forward research. Historical outcomes do not predict live results.</p></div><a class="text-button" target="_blank" rel="noopener" href="https://github.com/ragunauthramsaroop/PrismBay/actions/runs/41358736461">Research evidence ↗</a></div><div class="table-wrap"><table class="strategy-table"><thead><tr><th>Strategy</th><th>Avg. return / period</th><th>Positive periods</th><th>Assessment</th></tr></thead><tbody id="strategyRows"></tbody></table></div><div class="insight-box"><strong>Why this matters</strong><p>The ML baseline was negative in all 12 evaluated periods. The moving-average baseline was positive in only 3. Both require deeper testing and forward evidence before any decision involving money.</p></div></div><div class="panel" style="margin-top:18px"><div class="panel-heading"><div><div class="panel-kicker">RESEARCH METHODOLOGY</div><h2>Evaluation rules</h2></div></div><div class="method-grid"><div><strong>Train only on past data</strong><p>No future target-day values are fed to the model.</p></div><div><strong>Non-overlapping periods</strong><p>Each held-out period covers 45 days.</p></div><div><strong>Risk-first simulation</strong><p>Fee, slippage, stop and drawdown assumptions apply.</p></div><div><strong>Real-money gate remains shut</strong><p>No live broker, withdrawal permission or capital deployment.</p></div></div></div></div>
       <div class="section-view" id="view-operations"><div class="panel"><div class="panel-heading"><div><div class="panel-kicker">GITHUB ACTIONS</div><h2>Automated workflow history</h2><p>Read-only GitHub workflow run metadata, refreshed with each dashboard update</p></div><a class="text-button" target="_blank" rel="noopener" href="https://github.com/ragunauthramsaroop/PrismBay/actions/workflows/papertrade-daily.yml">Open GitHub ↗</a></div><div class="table-wrap"><table class="strategy-table"><thead><tr><th>Workflow</th><th>Started</th><th>Status</th><th>View</th></tr></thead><tbody id="runTable"></tbody></table></div></div><div class="panel" style="margin-top:18px"><div class="panel-heading"><div><div class="panel-kicker">PAPER TRANSACTIONS</div><h2>Simulated account events</h2><p>Independently reconstructed from completed candles. Not actual exchange orders.</p></div></div><div class="table-wrap"><table class="strategy-table"><thead><tr><th>UTC date</th><th>Simulation action</th><th>Estimated equity</th><th>Fees</th></tr></thead><tbody id="eventTable"></tbody></table></div></div></div>
@@ -88,6 +137,8 @@
     </div>
   </main>
 </div>
+<script src="/live-core.cjs" defer></script>
+<script src="/live-runtime.js" defer></script>
 <script src="/app.js" defer></script>
 </body>
 </html>
