@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-31T21:53:32.327Z",
+  "updatedAt": "2026-11-01T06:52:53.464Z",
   "market": "US",
   "methodology": "Public-news attention, freshness, and short-form demonstration fit. This is not PrismBay sales data and is not a TikTok, Amazon, Google, or Bing product ranking.",
   "refreshTargetHours": 6,
@@ -8,12 +8,12 @@
     {
       "slug": "mattress-vacuum",
       "name": "Mattress Vacuum",
-      "signalScore": 91,
+      "signalScore": 97,
       "signalLabel": "high-attention",
       "evidence": {
-        "publicMentions": 56,
+        "publicMentions": 110,
         "mentionsLast7Days": 4,
-        "mentionsLast30Days": 7,
+        "mentionsLast30Days": 11,
         "sourcesAvailable": [
           "Google News",
           "Bing News"
@@ -56,12 +56,12 @@
     {
       "slug": "scrubber",
       "name": "5-in-1 Electric Spin Scrubber",
-      "signalScore": 85,
+      "signalScore": 89.5,
       "signalLabel": "high-attention",
       "evidence": {
-        "publicMentions": 66,
+        "publicMentions": 85,
         "mentionsLast7Days": 3,
-        "mentionsLast30Days": 4,
+        "mentionsLast30Days": 7,
         "sourcesAvailable": [
           "Google News",
           "Bing News"
@@ -69,16 +69,16 @@
       },
       "sampleSignals": [
         {
-          "title": "Back or knee pain? This electric scrubber 'saves your back' — it's on sale for $41, and Amazon shoppers say it makes them 'almost look forward to cleaning' - Yahoo Lifestyle Canada",
-          "source": "Google News",
-          "publishedAt": "2026-10-27T18:58:45.000Z",
-          "url": "https://news.google.com/rss/articles/CBMilwJBVV95cUxNOU9aN2ZwTmdMaHNFN0xRUjV0djd5TzVFUkRlNHJsS1pEU2RhT3ppemJwTzlGdHROMlh1VldxQ1ZnbTlld1pab2hRZ0k4VzhTNk9JSWc5bzRWbERVMThzd1dSeEZiSWdLd0VqeGxmbE5ObEItLWs5RGM1YzI1azlndGVKMGFPVUFEUm1MZVpwcF9UWmJqcElTRXNaUHRlUTFEeHZ4X3VvbVJYTkJFdVBXcUY0ekU0TGpaYVFiX2lmQy1iWHh5emtIUnJTdnpRUUszaHZaN3ZZdUk1LWZBOFZiRWZfT0p4MngybXBZSzAyLTcwakIyOE5pRkpjTE01ZGVqclNmcFNSRFlNUXNhRllmSHhXeXoyVzA?oc=5"
-        },
-        {
           "title": "Yes, You Can Get ‘Excited to Clean’ Your Bathroom with This Back-Saving Electric Scrubber Brush — Shop It for $26 - People.com",
           "source": "Google News",
           "publishedAt": "2026-10-27T07:00:00.000Z",
           "url": "https://news.google.com/rss/articles/CBMiigFBVV95cUxPZEdtZ3NuU1dxY2xBakxlZEExb1EzYnB5b2drMUdZNWNSejZBRHBXenNqbVdvc2dpTUpUM1c4eVgtbmFFMWtxZlZ1clo4T3FIRk5JSG82RWZqMG52VlRuUjZzZFhWOUV0M0dxVlRUZVhNY212SHByMGpjNG1MWFpKdE95c3BaRXNkemc?oc=5"
+        },
+        {
+          "title": "Back or knee pain? This electric scrubber 'saves your back' — it's on sale for $41, and Amazon shoppers say it makes them 'almost look forward to cleaning' - Yahoo Lifestyle Canada",
+          "source": "Google News",
+          "publishedAt": "2026-10-27T18:58:45.000Z",
+          "url": "https://news.google.com/rss/articles/CBMilwJBVV95cUxNOU9aN2ZwTmdMaHNFN0xRUjV0djd5TzVFUkRlNHJsS1pEU2RhT3ppemJwTzlGdHROMlh1VldxQ1ZnbTlld1pab2hRZ0k4VzhTNk9JSWc5bzRWbERVMThzd1dSeEZiSWdLd0VqeGxmbE5ObEItLWs5RGM1YzI1azlndGVKMGFPVUFEUm1MZVpwcF9UWmJqcElTRXNaUHRlUTFEeHZ4X3VvbVJYTkJFdVBXcUY0ekU0TGpaYVFiX2lmQy1iWHh5emtIUnJTdnpRUUszaHZaN3ZZdUk1LWZBOFZiRWZfT0p4MngybXBZSzAyLTcwakIyOE5pRkpjTE01ZGVqclNmcFNSRFlNUXNhRllmSHhXeXoyVzA?oc=5"
         },
         {
           "title": "These electric spin scrubbers clean grout, tubs, and floors with ease - Business Insider",
@@ -102,12 +102,60 @@
       "rank": 2
     },
     {
+      "slug": "pressure-washer",
+      "name": "Cordless Pressure Washer",
+      "signalScore": 80,
+      "signalLabel": "high-attention",
+      "evidence": {
+        "publicMentions": 51,
+        "mentionsLast7Days": 1,
+        "mentionsLast30Days": 5,
+        "sourcesAvailable": [
+          "Google News",
+          "Bing News"
+        ]
+      },
+      "sampleSignals": [
+        {
+          "title": "Walmart Sells a Cordless Pressure Washer for 54% Off, and It's 'Ideal for Car and Yard Cleaning' - Autoblog",
+          "source": "Google News",
+          "publishedAt": "2026-10-30T00:21:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMijAFBVV95cUxPcjlUdG9TRDNuSkFhREtDcFVIdXJrZUt4UThXVEZGMkFNWUNoVzRqQld1RzZWelFXSk1HTjZ3X0Nqd05vV3Vua0g0NTRQY3dIYVNpZkszLThOUlZxdVVXT0JrZUxrWk5rclJHdmVpLUZHRFZEbnZQenJHTTNUV2M5Y1lqcktMaWI1MDM0NQ?oc=5"
+        },
+        {
+          "title": "If You'd Rather Wash Your Car Than Strip Its Paint, These Cordless Power Washers Are The Tool You Want - Popular Mechanics",
+          "source": "Google News",
+          "publishedAt": "2026-07-24T07:00:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMiggFBVV95cUxQZzA5TzBxdm5yX1RYc3RkUHpOV0FRdmF2YnV6Vk9ma3cweHFkM0xoTzAxQXo5OThsS3BVZ2hOWTdXOWVlQUZnYTBXaHZfUkRmN1BsMVc5RlR1YngtdVNIdWZfZGJpRmd0dDBuMXNJLXlFRllZREJWYktndWYyWVJJU0Zn?oc=5"
+        },
+        {
+          "title": "Does it work? Hydro X5 cordless pressure washer - KY3",
+          "source": "Google News",
+          "publishedAt": "2026-08-12T07:00:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMihAFBVV95cUxPVUxYNWVJWVFYUWRES0d1Y2plUHV6b0poQ1dfOEpadkNmM3ZSbnpYZ2FiZDNQaXRRRHB1dVg4Q0ljWDJTdnM0WFJGY3dlUTRDU2x5dnptYjktcDByUnd6NDFPX3YwX3dJRDI4b1hrQ1NSU0hoLVlnVzIxTjJsVHktSUU2cHjSAZgBQVVfeXFMT1EzOF9iaGQxYzk4RUdyUGZVb0pjM0xQUGlQU3l3ZjNBSWFyS2pjQXBOOWpLY2xuS2NLSVBFdHRhWDBNdVdOdkgySHJkcHc5NXg2S3laUEdjU1A5QTdWeEJGQVExWE5DdENTaE5QbEhtWWJPdkVza2FUMjd0Qko4Mk1yR2VJeWhfaGZyTVNiUGJ2X2NEOVBYVjY?oc=5"
+        },
+        {
+          "title": "EGO’s Newest Pressure Washer is Made for Your Car - Pro Tool Reviews",
+          "source": "Google News",
+          "publishedAt": "2026-10-22T11:00:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMihwFBVV95cUxNRjZKSi00T1NneWpZcjNHb0pkR0l4VHN2RHlyUW84cXB6TmotQk9XTkJKQmdfb1lvdVl0aGZKQ1JaNVNPSFlBbEUxRTJxZ0hWTE1nS1NVcDBiSzhaUndRd3JSVk9FTTRlcURvY09BQ2NWYnIwdkJRNTlCZ0RnSmZ2SEtXb1Boem8?oc=5"
+        },
+        {
+          "title": "Ego Power+ Cordless Pressure Washer Review: Powerful but Pricey - BobVila.com",
+          "source": "Google News",
+          "publishedAt": "2026-09-12T07:00:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMid0FVX3lxTE1OVkM4ZWhzQmpyUlZ5Z3Jmc3pyel9STTVDZnF1VEdHdERlM21OcUt0UFlUTlVhZG5pUWhyS2hBRTdGZHRNUjhJWGhmQ01EZGZxSXZBcXVPT0Uweno4WXdwbzluUUJYeC1ySUNQTjJXVlE3Umo1YzVN?oc=5"
+        }
+      ],
+      "rank": 3
+    },
+    {
       "slug": "garment-steamer",
       "name": "Portable Garment Steamer",
       "signalScore": 78.5,
       "signalLabel": "high-attention",
       "evidence": {
-        "publicMentions": 35,
+        "publicMentions": 34,
         "mentionsLast7Days": 0,
         "mentionsLast30Days": 8,
         "sourcesAvailable": [
@@ -145,54 +193,6 @@
           "source": "Google News",
           "publishedAt": "2026-01-08T08:00:00.000Z",
           "url": "https://news.google.com/rss/articles/CBMirwFBVV95cUxQdkdwdjFkSnptM0JmTmpLYWRPTjUwZEhjOEI3YTlCT2VmOG1GUVJ1dklzUnV5LTROeXJKQ3QzRnEyakRLQWRrUUhPNUJvZWZ2dlhWaXFoajlpTFkwdXhDaTZjT3M4LThxM3d4bXI0X1ZMUmtSdmZXN1A0ZkM4eWF0amE3ZkxJUEVsUXVuQlM4Zk91andHSk15YVRaUHJLN1JUVGlEc2hVajBRMlRYU0h3?oc=5"
-        }
-      ],
-      "rank": 3
-    },
-    {
-      "slug": "pressure-washer",
-      "name": "Cordless Pressure Washer",
-      "signalScore": 77,
-      "signalLabel": "high-attention",
-      "evidence": {
-        "publicMentions": 104,
-        "mentionsLast7Days": 1,
-        "mentionsLast30Days": 3,
-        "sourcesAvailable": [
-          "Google News",
-          "Bing News"
-        ]
-      },
-      "sampleSignals": [
-        {
-          "title": "Walmart Sells a Cordless Pressure Washer for 54% Off, and It's 'Ideal for Car and Yard Cleaning' - Autoblog",
-          "source": "Google News",
-          "publishedAt": "2026-10-30T00:21:00.000Z",
-          "url": "https://news.google.com/rss/articles/CBMijAFBVV95cUxPcjlUdG9TRDNuSkFhREtDcFVIdXJrZUt4UThXVEZGMkFNWUNoVzRqQld1RzZWelFXSk1HTjZ3X0Nqd05vV3Vua0g0NTRQY3dIYVNpZkszLThOUlZxdVVXT0JrZUxrWk5rclJHdmVpLUZHRFZEbnZQenJHTTNUV2M5Y1lqcktMaWI1MDM0NQ?oc=5"
-        },
-        {
-          "title": "If You'd Rather Wash Your Car Than Strip Its Paint, These Cordless Power Washers Are The Tool You Want - Popular Mechanics",
-          "source": "Google News",
-          "publishedAt": "2026-07-24T07:00:00.000Z",
-          "url": "https://news.google.com/rss/articles/CBMiggFBVV95cUxQZzA5TzBxdm5yX1RYc3RkUHpOV0FRdmF2YnV6Vk9ma3cweHFkM0xoTzAxQXo5OThsS3BVZ2hOWTdXOWVlQUZnYTBXaHZfUkRmN1BsMVc5RlR1YngtdVNIdWZfZGJpRmd0dDBuMXNJLXlFRllZREJWYktndWYyWVJJU0Zn?oc=5"
-        },
-        {
-          "title": "Does it work? Hydro X5 cordless pressure washer - KY3",
-          "source": "Google News",
-          "publishedAt": "2026-08-12T07:00:00.000Z",
-          "url": "https://news.google.com/rss/articles/CBMihAFBVV95cUxPVUxYNWVJWVFYUWRES0d1Y2plUHV6b0poQ1dfOEpadkNmM3ZSbnpYZ2FiZDNQaXRRRHB1dVg4Q0ljWDJTdnM0WFJGY3dlUTRDU2x5dnptYjktcDByUnd6NDFPX3YwX3dJRDI4b1hrQ1NSU0hoLVlnVzIxTjJsVHktSUU2cHjSAZgBQVVfeXFMT1EzOF9iaGQxYzk4RUdyUGZVb0pjM0xQUGlQU3l3ZjNBSWFyS2pjQXBOOWpLY2xuS2NLSVBFdHRhWDBNdVdOdkgySHJkcHc5NXg2S3laUEdjU1A5QTdWeEJGQVExWE5DdENTaE5QbEhtWWJPdkVza2FUMjd0Qko4Mk1yR2VJeWhfaGZyTVNiUGJ2X2NEOVBYVjY?oc=5"
-        },
-        {
-          "title": "EGO’s Newest Pressure Washer is Made for Your Car - Pro Tool Reviews",
-          "source": "Google News",
-          "publishedAt": "2026-10-22T11:00:00.000Z",
-          "url": "https://news.google.com/rss/articles/CBMihwFBVV95cUxNRjZKSi00T1NneWpZcjNHb0pkR0l4VHN2RHlyUW84cXB6TmotQk9XTkJKQmdfb1lvdVl0aGZKQ1JaNVNPSFlBbEUxRTJxZ0hWTE1nS1NVcDBiSzhaUndRd3JSVk9FTTRlcURvY09BQ2NWYnIwdkJRNTlCZ0RnSmZ2SEtXb1Boem8?oc=5"
-        },
-        {
-          "title": "Ego Power+ Cordless Pressure Washer Review: Powerful but Pricey - BobVila.com",
-          "source": "Google News",
-          "publishedAt": "2026-09-12T07:00:00.000Z",
-          "url": "https://news.google.com/rss/articles/CBMid0FVX3lxTE1OVkM4ZWhzQmpyUlZ5Z3Jmc3pyel9STTVDZnF1VEdHdERlM21OcUt0UFlUTlVhZG5pUWhyS2hBRTdGZHRNUjhJWGhmQ01EZGZxSXZBcXVPT0Uweno4WXdwbzluUUJYeC1ySUNQTjJXVlE3Umo1YzVN?oc=5"
         }
       ],
       "rank": 4
@@ -248,12 +248,12 @@
     {
       "slug": "crevice",
       "name": "3-in-1 Crevice Cleaning Brush",
-      "signalScore": 39,
+      "signalScore": 40.5,
       "signalLabel": "watch",
       "evidence": {
         "publicMentions": 10,
         "mentionsLast7Days": 0,
-        "mentionsLast30Days": 1,
+        "mentionsLast30Days": 2,
         "sourcesAvailable": [
           "Google News",
           "Bing News"
@@ -285,10 +285,10 @@
           "url": "https://news.google.com/rss/articles/CBMi7wFBVV95cUxQMllzbFMyWUc4SVdwd1E1QmJFbXpmc1VnYjFzZnh4SkhxbDVhRldvYjAzZDJKVUZLYVBwSEFOeEMxcl92cGMwMENVRkVKTU9Xbnp5YmkyUk1UTnNETGVNeXo2RWRJZ2ViUnZ3WjRadUtaeUN5SXFlY3I5aHJfYm1qazFKQWQ4Q1FTVUQteHgxX3FNNUJrT2FSc0J6SnFkOHdGeHJVQm5RWWg5dm83OXh0QWFRSlJVdjRPeF9NcEpaMU5CRGhtdGxyY0ZyeDRDVmdBX21xQmtQb0xqTzJXLVdTNlpJQzFsNGtTOGpQdDdfOA?oc=5"
         },
         {
-          "title": "The $3 Tool That Gets Rid of All the Grime and Leaves Surfaces Spotless - Apartment Therapy",
+          "title": "Amazon Shoppers Bought This $10 Cleaning Tool More Than 2,000 Times Last Month (You'll Use It in Every Room!) - Apartment Therapy",
           "source": "Google News",
-          "publishedAt": "2023-08-24T07:00:00.000Z",
-          "url": "https://news.google.com/rss/articles/CBMijwFBVV95cUxQMEt5emphY3dTem5yN3NXMmN3QWJSU1lSZzExN2oyeVZjUUJ1NjZKaFpXMlNFbEROd21PR3l2VkZMLVdSYmpoWTVlcmZsRldVcDcwSlA4VE1JSmZTWFVxbEJicXQ0NmY4aXdLWF9oSUs0eUhIazdITk0yU1lweTFfTmZLbDd3bTRjdWVxdlQzaw?oc=5"
+          "publishedAt": "2024-06-04T07:00:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMigwFBVV95cUxNaEppZ1kxQmNqdm1LbTVfVTdmMmlkTU0zekl1c1BSdVBmSTZUMi1YUTdfRWlxUlR6ZGlRZEZ1Sk9Uc0JvLTJyUDRHc1hNRnNmRllKTjRvbmxyNlUzcmx4SzlzOWdVRXBQbWxyZ25VX2VlbDJrdmMxU3Z0b0hyXzN5SVpXOA?oc=5"
         }
       ],
       "rank": 6
