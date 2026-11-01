@@ -59,6 +59,21 @@ export const ACTIVE_DIGITAL_OFFERS = Object.freeze([
     deliverables: ['Executive Stakeholder Mapping Toolkit', 'ESG & Social Performance Operating Pack', 'Executive White Paper & Board Briefing System']
   })
 ]);
+// Verified digital-first priority, kept separate from secondary offer rotation.
+export const FIRST_SALE_CASHFLOW_OFFER = Object.freeze({
+  slug: 'cashflow',
+  name: 'PrismBay Cashflow Studio v1',
+  priceUsd: 5.99,
+  guide: ROOT + 'learn/cash-flow-tracker-spreadsheet.html',
+  guideLead: 'Free worked example',
+  guideCta: 'Read the free cash flow guide',
+  checkout: 'https://buy.stripe.com/eVqaEYddQ6lRgSu1yggnK0v',
+  audience: 'Freelancers, independent consultants and small-business operators',
+  problem: 'Sales do not guarantee enough cash to cover the next bill.',
+  educationalHook: 'Track incoming payments and outgoing costs month by month before committing new spending.',
+  actionableTip: 'Record each transaction, then review twelve-month cash movement and closing balances. The guide uses fictional examples.',
+  deliverables: ['editable 12-month Excel cash flow workbook', 'setup instructions and fictional examples', 'internal-use license']
+});
 // Audit public checkout URLs against the existing digital-offer registry.
 // An unrecognized Stripe link is not assumed to be a physical or digital product.
 // Treat it as unapproved until independently reconciled with live Stripe.
@@ -114,9 +129,7 @@ export function auditPublicStripeLinks(html) {
 }
 
 const safeSegment = s => String(s).replace(/[^a-z0-9_]/gi,'_').slice(0,64);
-export function campaignForSlot(slot) {
-  if (!Number.isSafeInteger(slot) || slot < 0) throw new TypeError('A nonnegative six-hour slot is required');
-  const offer = ACTIVE_DIGITAL_OFFERS[slot % ACTIVE_DIGITAL_OFFERS.length];
+function campaignForOffer(offer, slot) {
   const campaign = 'organic_' + offer.slug + '_' + String(slot);
   const guide = new URL(offer.guide);
   guide.searchParams.set('utm_source','github_cloud');
@@ -159,6 +172,14 @@ export function campaignForSlot(slot) {
       authorizationsNeeded: ['channel-specific publishing approval','original media and accurate commercial disclosure']
     }
   };
+}
+export function campaignForSlot(slot) {
+  if (!Number.isSafeInteger(slot) || slot < 0) throw new TypeError('A nonnegative six-hour slot is required');
+  return campaignForOffer(ACTIVE_DIGITAL_OFFERS[slot % ACTIVE_DIGITAL_OFFERS.length], slot);
+}
+export function firstSaleCampaignForSlot(slot) {
+  if (!Number.isSafeInteger(slot) || slot < 0) throw new TypeError('A nonnegative six-hour slot is required');
+  return campaignForOffer(FIRST_SALE_CASHFLOW_OFFER, slot);
 }
 export function currentSixHourSlot(nowMs = Date.now()) {
   if (!Number.isFinite(nowMs) || nowMs < 0) throw new TypeError('Valid timestamp required');
