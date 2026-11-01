@@ -50,6 +50,14 @@ jobs:
           mkdir -p artifacts
           if [ ! -f artifacts/ledger.json ]; then
             cp papertrade/state/ledger.json artifacts/ledger.json
+            python - <<'PYSEED'
+          import json
+          from datetime import datetime, timedelta, timezone
+          state=json.load(open('artifacts/ledger.json'))
+          expected=(datetime.now(timezone.utc).date()-timedelta(days=1)).isoformat()
+          if state['last_date'] != expected or state['events']:
+              raise RuntimeError('Rolling ledger cache missing after initialization. Fail closed; restore verified prior artifact before resuming.')
+          PYSEED
           fi
           python - <<'PY'
           import json
