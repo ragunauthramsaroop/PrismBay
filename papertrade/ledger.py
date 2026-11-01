@@ -154,8 +154,9 @@ def advance(candles: list[Candle], ledger: dict) -> dict:
             "equity": round(equity, 8), "daily_fees": round(fee_paid, 8),
             "halted": copy["halted"], "drawdown_pct": round(dd_close * 100, 4)
         }
+        record_hash = _event_hash(copy["last_hash"], event)
         event["prev_hash"] = copy["last_hash"]
-        event["hash"] = _event_hash(copy["last_hash"], event)
+        event["hash"] = record_hash
         copy["events"].append(event)
         copy["last_hash"] = event["hash"]
     verify(copy)
