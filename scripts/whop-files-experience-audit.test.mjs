@@ -63,3 +63,20 @@ test('incomplete pagination cannot prove product association',async()=>{
  fetchImpl:async()=>({ok:true,status:200,json:async()=>({data:[paid,free],page_info:{has_next_page:true}})})});
  assert.equal(r.status,'API_INCONCLUSIVE');
 });
+
+test('unmatched product filter reports only safe account experience diagnostics',async()=>{
+ const responses=url=>{
+  if(url.includes('/products?'))return [paid,free];
+  if(url.includes('product_id='))return [];
+  if(url.includes('/experiences?'))return [{id:'exp_1',app:{id:'app_5UWRrs7haZZeiQ',name:'Files'},products:[paid]}];
+  throw Error('unexpected URL');
+ };
+ const r=await inspectFiles({env:{WHOP_COMPANY_API_KEY:'apik_test_restricted',WHOP_COMPANY_ID:'biz_test'},
+ fetchImpl:async url=>({ok:true,status:200,json:async()=>({data:responses(url),page_info:{has_next_page:false}})})});
+ assert.equal(r.status,'PAID_PRODUCT_FILES_UNVERIFIED');
+ assert.equal(r.diagnostics.companyExperienceCount,1);
+ assert.equal(r.diagnostics.recognizedFilesExperienceCount,1);
+ assert.equal(r.diagnostics.filesExperiencePaidProductLinked,true);
+ assert.equal(r.releaseApproved,false);
+ assert.ok(!JSON.stringify(r).includes('apik_test_restricted'));
+});
