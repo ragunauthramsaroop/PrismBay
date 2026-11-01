@@ -1,0 +1,54 @@
+name: PrismBay YouTube Growth Decision Gate
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'youtube-growth/tools/score_growth_cycle.py'
+      - 'youtube-growth/tools/test_score_growth_cycle.py'
+      - 'youtube-growth/analytics/2026-11-01-1747-growth-state.json'
+      - '.github/workflows/prismbay-youtube-growth-decision-gate.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify fail-closed growth scoring
+        run: |
+          python -m py_compile youtube-growth/tools/score_growth_cycle.py
+          python -m unittest discover -s youtube-growth/tools -p 'test_score_growth_cycle.py' -v
+      - name: Score verified connected snapshot
+        run: |
+          mkdir -p review
+          python youtube-growth/tools/score_growth_cycle.py \
+            youtube-growth/analytics/2026-11-01-1747-growth-state.json \
+            --output review/growth-decision.json
+          python - <<'PY'
+          import json
+          r=json.load(open('review/growth-decision.json'))
+          assert r['channel_id']=='UCw2hs85TzIpdKwJtG-BSxzQ'
+          assert r['observed_subscribers']==7
+          assert r['observed_view_sum']==366
+          assert r['days_with_view_data']==18
+          assert r['days_with_missing_view_data']==14
+          assert not r['view_sum_is_complete']
+          assert len(r['private_unpublished_draft_ids'])==2
+          assert not r['public_uploads_verified_by_this_snapshot']
+          assert all(v=='HOLD_NO_VIDEO_LEVEL_DATA' for v in r['experiment_decisions'].values())
+          assert r['paid_spend_usd']==0
+          print('PASS: exact channel, incomplete metrics preserved, no invented public upload')
+          PY
+      - name: Save decision evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: prismbay-youtube-growth-decision-private
+          path: review/growth-decision.json
+          retention-days: 14
+      - name: Confirm no publication
+        if: always()
+        run: |
+          echo 'No publishing or scheduling action in this workflow.' >> "$GITHUB_STEP_SUMMARY"
+          echo 'Sole channel UCw2hs85TzIpdKwJtG-BSxzQ; paid spend USD 0.' >> "$GITHUB_STEP_SUMMARY"
