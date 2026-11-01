@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { campaignForSlot, ACTIVE_DIGITAL_OFFERS } from './digital-conversion-campaign.mjs';
+import { campaignForSlot, firstSaleCampaignForSlot, ACTIVE_DIGITAL_OFFERS } from './digital-conversion-campaign.mjs';
 
 test('buyer acquisition rotation always points to existing paid digital offers',()=>{
   assert.equal(ACTIVE_DIGITAL_OFFERS.length,4);
@@ -38,4 +38,15 @@ test('retail distribution assets never target educational YouTube or personal Li
   assert.match(source, /retailPublishingApprovalRequired:\s*true/);
   assert.doesNotMatch(source, /youtubeDescription:|linkedinDraft:/);
   assert.match(source, /report\.nextDistributionAssets\.retailChannelDraft/);
+});
+
+test('existing buyer acquisition worker targets Cashflow with safe support links', async () => {
+  const { readFile } = await import('node:fs/promises');
+  const source = await readFile(new URL('./buyer-acquisition-worker.mjs', import.meta.url), 'utf8');
+  assert.ok(source.includes('firstSaleCampaignForSlot(currentSixHourSlot(now))'));
+  assert.ok(source.includes('FIRST_SALE_CASHFLOW_OFFER'));
+  assert.ok(source.includes('mailto:support@prismbayai.com'));
+  assert.ok(source.includes('purchase-information.html'));
+  assert.ok(!source.includes('www.prismbayai.com/refunds'));
+  assert.equal(firstSaleCampaignForSlot(0).offer.priceUsd, 5.99);
 });
