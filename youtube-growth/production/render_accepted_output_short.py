@@ -45,9 +45,17 @@ def fit(d,t,maximum,start=90,minimum=38,bold=True):
   if d.textbbox((0,0),t,font=f)[2]<=maximum:return f
  raise ValueError('Unfittable text: '+t)
 def center(d,t,y,n,color='#f5fbff',maxwidth=945):
+ # YouTube Shorts action controls occupy the right edge below the hero.
+ # Keep all critical detail and footer text inside a 900px right boundary.
+ protected = 800 <= y < 1600
+ maxwidth = min(maxwidth,790) if protected else maxwidth
+ anchor = 470 if protected else W/2
  f=fit(d,t,maxwidth,n)
  width=d.textbbox((0,0),t,font=f)[2]
- d.text(((W-width)/2,y),t,font=f,fill=color)
+ left=anchor-width/2
+ if protected:
+  assert left >= 48 and left+width <= 900, f'Right UI text collision: {t}'
+ d.text((left,y),t,font=f,fill=color)
 def wrap(d,text,limit,size=56):
  f=font(size,True); lines=[];line=''
  for word in text.split():
@@ -70,21 +78,23 @@ def card(scene,spoken,path,number):
  d.rounded_rectangle((55,420,1025,1220),radius=54,fill='#12334b',outline='#266d79',width=4)
  center(d,hero,570,192,'#ffffff')
  center(d,detail,930,54,'#f1f8fc')
- d.line((155,1070,925,1070),fill='#367e88',width=3)
+ d.line((145,1070,860,1070),fill='#367e88',width=3)
  center(d,foot,1100,52,'#9ccad6')
  if scene=='quality':
-  d.rounded_rectangle((145,1170,935,1210),radius=18,fill='#823c4a')
-  d.rounded_rectangle((145,1170,777,1210),radius=18,fill='#2bd4c8')
- d.text((62,1280),'ILLUSTRATIVE EXAMPLE  •  NOT CUSTOMER DATA',font=font(28,True),fill='#a4c1ce')
+  d.rounded_rectangle((145,1170,860,1210),radius=18,fill='#823c4a')
+  d.rounded_rectangle((145,1170,717,1210),radius=18,fill='#2bd4c8')
+ d.text((62,1250),'ILLUSTRATIVE EXAMPLE  •  NOT CUSTOMER DATA',font=font(28,True),fill='#a4c1ce')
  # Keep text above typical bottom and right-side Shorts interface controls.
- d.rounded_rectangle((48,1360,910,1650),radius=40,fill='#030d18',outline='#205365',width=3)
- lines=wrap(d,spoken,770,56)
+ d.rounded_rectangle((48,1305,900,1580),radius=40,fill='#030d18',outline='#205365',width=3)
+ lines=wrap(d,spoken,760,56)
  if len(lines)>3: raise ValueError('Caption exceeds three lines: '+spoken)
- y=1390+(3-len(lines))*37
+ y=1335+(3-len(lines))*37
  for line in lines:
   f=font(56,True); width=d.textbbox((0,0),line,font=f)[2]
-  d.text(((958-width)/2,y),line,font=f,fill='#ffffff');y+=76
- d.text((55,1710),'PRISMBAY AI  |  AI OPERATIONS',font=font(27,True),fill='#2bd4c8')
+  x=(940-width)/2
+  assert x >= 48 and x+width <= 900 and y+65 < 1600, f'Short caption UI collision: {spoken}'
+  d.text((x,y),line,font=f,fill='#ffffff');y+=76
+ # Footer omitted because Shorts lower UI overlays this region; branding remains in header.
  im.save(path,optimize=True)
 
 def wav_seconds(path):
@@ -152,6 +162,7 @@ def main():
   'captionTimelineDriftSeconds':round(dur-t,3),'maxCaptionWordsPerMinute':round(max(caption_wpm),1),
   'captionPacingMethod':'WAV-measured adaptive tempo, 150 WPM target, encoded WPM asserted',
   'fictionalExample':True,
+  'mobileSafeArea':{'rightControlsStartX':916,'bottomControlsStartY':1600,'criticalTextMaxX':900,'captionBoxBottomY':1580,'verifiedBy':'render-time text bounding box assertions; device playback still required'},
   'reviewOnly':True,'publicationApproved':False,'uploadPermitted':False,'paidSpendUSD':0,
   'outstanding':['Independent full listening','Real-device YouTube UI playback','Editorial approval'] +
                 (['Fallback voice rights review'] if a.voice!='piper' else [])}
