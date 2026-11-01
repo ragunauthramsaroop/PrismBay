@@ -35,6 +35,15 @@ jobs:
           assert m['publicationApproved'] is False and m['uploadPermitted'] is False
           assert m['paidSpendUSD']==0 and m['fictionalExample'] is True
           assert m['narrationSegments']==12 and m['sceneCount']==6
+          rights=m['voiceRightsReview']
+          assert m['voice']=='en_US-norman-medium'
+          assert rights['status']=='SOURCE_REVIEWED_NOT_LEGAL_OPINION'
+          assert rights['voiceModel']==m['voice']
+          assert rights['dataset']=='LibriVox public-domain recordings'
+          assert rights['upstreamModelCard'].endswith('/en/en_US/norman/medium/MODEL_CARD')
+          assert rights['limitation'] and 'Editorial approval' in m['outstanding']
+          assert 'Independent full listening' in m['outstanding']
+          assert 'Real-device YouTube UI playback' in m['outstanding']
           assert 25<m['durationSeconds']<100
           s=(p/'captions-phrase-synchronous.srt').read_text()
           assert s.count(' --> ')==12
