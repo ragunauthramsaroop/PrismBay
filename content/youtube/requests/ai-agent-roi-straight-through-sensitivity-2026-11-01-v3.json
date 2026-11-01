@@ -1,0 +1,65 @@
+{
+  "slug": "ai-agent-roi-straight-through-sensitivity-2026-11-01-v3",
+  "title": "Same AI Agent: 3.5 vs 9.7 Months of Payback | PrismBay AI",
+  "targetChannelId": "UCw2hs85TzIpdKwJtG-BSxzQ",
+  "visualStyle": "roi_sensitivity_v1",
+  "voice": "en_US-norman-medium",
+  "voiceLicenseBasis": "rhasspy/piper-voices MIT repository; Norman voice card references public-domain LibriVox recordings. Verify ONNX SHA256 before render.",
+  "voiceModelSource": "https://huggingface.co/rhasspy/piper-voices/blob/main/en/en_US/norman/medium/en_US-norman-medium.onnx",
+  "expectedVoiceModelSha256": "b9739443232a80a59c7d18810dd856899bf16a7964725f5ab81ea49b1351cb71",
+  "requireVerifiedVoiceModel": true,
+  "sourceAttribution": "Original PrismBay AI hypothetical invoice model. Not observed industry results or realized cash. Detailed arithmetic: youtube-growth/production/2026-11-01-ai-agent-roi-ledger-longform-master.md",
+  "experimentId": "PB-YT-SH-2026-11-01-ROI-STP-REPAIR-V3",
+  "hypothesis": "Shorter, correctly paced original explanations with six distinct illustrative visuals improve readability and retention against the private v2 candidate, without changing its hypothetical arithmetic.",
+  "targetAudience": "Founders, CFOs, procurement directors, operations executives",
+  "hookType": "two numerical payback outcomes with one causal variable",
+  "format": "short",
+  "durationTargetSeconds": "45-65",
+  "thumbnailConcept": "Split-screen 3.5 months in green versus 9.7 months in amber, a single question: WHAT CHANGED?",
+  "cta": "Follow PrismBay AI for measurable AI business systems, after delivering model results.",
+  "publishTime": "UNSET; not authorized for public release; never duplicate the existing private ROI draft",
+  "successThreshold": "Compare after 6h/24h/72h/7d. RETEST if engaged watch time strong but hook weak. SCALE only after meaningful sample with >=30% subscriber conversion or engaged watch-time improvement over matched Shorts median.",
+  "productionStatus": "V3 EDITORIAL REPLACEMENT CANDIDATE. PRIVATE ONLY. Do not upload or schedule until independent ASR, narration listening, caption pacing, mobile UI and rights review. V2 scheduled draft 412685334 stays private and unchanged.",
+  "paidSpendUSD": 0,
+  "segments": [
+    {
+      "scene": "hook",
+      "headline": "SAME AGENT. TWO PAYBACKS.",
+      "body": "3.5 months versus 9.7 months. Why?",
+      "spoken": "One AI agent. Two paybacks: three point five months, or nine point seven. Why? Exceptions."
+    },
+    {
+      "scene": "baseline",
+      "headline": "START WITH THE BASELINE",
+      "body": "Illustrative only: 6,000 invoices; $18,000 manual monthly cost; $30,000 setup.",
+      "spoken": "Hypothetical example. Six thousand monthly invoices. Eighteen thousand dollars in manual cost. Thirty thousand dollars to implement."
+    },
+    {
+      "scene": "low",
+      "headline": "MORE EXCEPTIONS. LESS VALUE.",
+      "body": "60% correct straight-through completion. $3,100 modeled economic benefit per month.",
+      "spoken": "At sixty percent straight-through completion, modeled economic benefit is three thousand one hundred dollars monthly. Payback takes nine point seven months."
+    },
+    {
+      "scene": "high",
+      "headline": "FEWER EXCEPTIONS. MORE VALUE.",
+      "body": "90% correct straight-through completion. $8,500 modeled economic benefit per month.",
+      "spoken": "At ninety percent completion, modeled economic benefit reaches eight thousand five hundred dollars monthly. Payback takes three point five months."
+    },
+    {
+      "scene": "compare",
+      "headline": "KEEP OTHER COSTS CONSTANT",
+      "body": "Review, software, support and risk reserve held fixed. No verified cash savings claimed.",
+      "spoken": "Review, software, support, and risk reserve costs stay fixed. These are projected economic benefits, not verified cash savings."
+    },
+    {
+      "scene": "close",
+      "headline": "MEASURE BEFORE YOU BUY",
+      "body": "Test correct completions and time human exceptions.",
+      "spoken": "Measure correct completions. Time human exceptions. Follow Prism Bay AI for practical business systems."
+    }
+  ],
+  "playbackDurationFactor": 1.2,
+  "supersedes": "ai-agent-roi-straight-through-sensitivity-2026-11-01-v2",
+  "revisionReason": "Independent ASR of the exact Metricool private draft 412685334 confirmed v2 54.24034-second narration; 4 Descript SRT cues below 1.5 seconds and 4 above 160 WPM. Replace the source narration with shorter, naturally paused sentences, preserve illustrative math and review all media before any draft replacement."
+}
