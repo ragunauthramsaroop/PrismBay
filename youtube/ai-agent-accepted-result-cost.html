@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Free PrismBay AI calculator for cost per accepted AI result, acceptance rate, quality thresholds and unit economics.">
+<title>AI Cost per Accepted Result Calculator | PrismBay AI</title>
+<style>
+:root{color-scheme:dark;--bg:#071526;--panel:#10283c;--text:#f4f8fc;--muted:#b3c8d5;--accent:#24d2c1;--warn:#ffb86a}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:16px/1.55 system-ui,-apple-system,Segoe UI,sans-serif}
+main{max-width:1000px;margin:auto;padding:30px 18px 70px}header{border-bottom:1px solid #345065;padding-bottom:24px;margin-bottom:26px}
+.brand{font-weight:800;letter-spacing:.12em;color:var(--accent)}h1{font-size:clamp(1.9rem,5vw,3rem);line-height:1.13;margin:15px 0}
+p{color:var(--muted);max-width:78ch}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.panel{background:var(--panel);border:1px solid #31516b;border-radius:18px;padding:22px}
+label{display:block;font-weight:650;margin-bottom:6px}input{width:100%;padding:13px;border-radius:9px;background:#071a2b;color:#fff;border:1px solid #6b879b;font-size:1rem}
+input:focus,button:focus,a:focus{outline:3px solid var(--accent);outline-offset:2px}
+.field{margin-bottom:15px}.help{font-size:.83rem;color:var(--muted);margin:4px 0 0}
+.result{font-size:clamp(1.5rem,4vw,2.2rem);font-weight:800;color:var(--accent);margin:3px 0}
+.metrics{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}.metric{border-bottom:1px solid #3c5971;padding-bottom:10px}
+.caption{font-size:.84rem;color:var(--muted)}.status{font-weight:750}.good{color:var(--accent)}.bad{color:var(--warn)}
+button,.link{display:inline-block;margin:10px 8px 0 0;padding:12px 18px;border:0;border-radius:9px;background:var(--accent);color:#06202b;font-weight:800;text-decoration:none;cursor:pointer}
+button.secondary{background:#d9e7f1}.note{font-size:.88rem}.wide{margin-top:18px}
+@media(max-width:680px){.grid,.metrics{grid-template-columns:1fr}.panel{padding:18px}}
+</style>
+</head>
+<body><main>
+<header><div class="brand">PRISMBAY AI / OPERATOR TOOLS</div>
+<h1>AI Cost per Accepted Result Calculator</h1>
+<p>Stop treating attempted AI tasks as successful business outcomes. Calculate cost per accepted result, quality yield and the gap between apparent and effective unit cost. All calculations run locally in your browser.</p></header>
+<div class="grid">
+<section class="panel" aria-labelledby="inputs"><h2 id="inputs">Your pilot inputs</h2>
+<div class="field"><label for="attempts">Attempted outputs</label><input id="attempts" type="number" min="1" step="1" value="100"><p class="help">Every attempt, including rejected work.</p></div>
+<div class="field"><label for="accepted">Accepted outputs</label><input id="accepted" type="number" min="0" step="1" value="80"><p class="help">Outputs passing a documented quality check.</p></div>
+<div class="field"><label for="tools">Model and tool charges (USD)</label><input id="tools" type="number" min="0" step=".01" value="40"></div>
+<div class="field"><label for="review">Human review and rework (USD)</label><input id="review" type="number" min="0" step=".01" value="60"></div>
+<div class="field"><label for="other">Other incremental costs (USD)</label><input id="other" type="number" min="0" step=".01" value="0"><p class="help">Include extra infrastructure, exception handling or retry charges not counted above. Avoid double counting.</p></div>
+<div class="field"><label for="target">Minimum acceptance threshold (%)</label><input id="target" type="number" min="0" max="100" step=".1" value="90"></div>
+<button id="reset" class="secondary" type="button">Reset example</button></section>
+<section class="panel" aria-labelledby="results"><h2 id="results">Decision scorecard</h2>
+<div id="error" class="bad" role="alert" aria-live="polite"></div>
+<div class="metrics" id="metrics" aria-live="polite">
+<div class="metric"><div class="caption">Cost per accepted result</div><div id="perAccepted" class="result">$1.25</div></div>
+<div class="metric"><div class="caption">Cost per attempt</div><div id="perAttempt" class="result">$1.00</div></div>
+<div class="metric"><div class="caption">Acceptance rate</div><div id="yield" class="result">80.0%</div></div>
+<div class="metric"><div class="caption">Total pilot cost</div><div id="total" class="result">$100.00</div></div>
+<div class="metric"><div class="caption">Rejected outputs</div><div id="rejected" class="result">20</div></div>
+<div class="metric"><div class="caption">Cost inflation versus per attempt</div><div id="inflation" class="result">25.0%</div></div>
+</div><p id="gate" class="status bad" role="status">Quality threshold not met.</p>
+<p class="note">Cost per accepted result = (model/tools + human review/rework + other incremental costs) / accepted outputs. If accepted outputs are zero, the unit cost is undefined.</p>
+<button id="export" type="button">Export scorecard CSV</button>
+</section></div>
+<section class="panel wide"><h2>How to interpret your result</h2>
+<p>In the fictional starting example, 100 attempts produce 80 accepted outputs. The team spends $40 on tools and $60 on review. Apparent cost is $1 per attempt. Effective cost is $1.25 per accepted result. Acceptance is 80%, below a hypothetical 90% quality gate. Lower unit cost alone does not prove ROI.</p>
+<p>Before approval, define the acceptance test, compare with the current workflow using the same quality standard, count setup and oversight costs, and verify measured savings with actual records. This calculator is an educational decision aid, not a financial forecast or vendor benchmark.</p>
+<a class="link" href="https://www.youtube.com/channel/UCw2hs85TzIpdKwJtG-BSxzQ" rel="noopener noreferrer">PrismBay AI on YouTube</a>
+<p class="note">No login, analytics scripts, advertising or data transmission. Version 2026-10-30. Sole channel: @PrismBayAI.</p></section>
+</main>
+<script>
+(function(){
+'use strict';
+const ids=['attempts','accepted','tools','review','other','target'];
+const $=id=>document.getElementById(id);
+const usd=n=>new Intl.NumberFormat('en-US',{style:'currency',currency:'USD'}).format(n);
+const pct=n=>n.toFixed(1)+'%';
+let last=null;
+function recalc(){
+ const v=Object.fromEntries(ids.map(id=>[id,Number($(id).value)]));
+ const error=$('error');error.textContent='';
+ if(ids.some(id=>$(id).value.trim()===''||!Number.isFinite(v[id]))||v.attempts<1||!Number.isInteger(v.attempts)||v.accepted<0||!Number.isInteger(v.accepted)||v.accepted>v.attempts||['tools','review','other'].some(id=>v[id]<0)||v.target<0||v.target>100){
+  error.textContent='Enter valid nonnegative costs and whole-number outputs. Accepted outputs must not exceed attempts; the threshold must be 0 to 100%.';
+  ids.forEach(id=>$(id).setAttribute('aria-invalid','true'));$('metrics').style.opacity='.35';$('gate').textContent='Invalid inputs';$('export').disabled=true;last=null;return;
+ }
+ ids.forEach(id=>$(id).removeAttribute('aria-invalid'));$('metrics').style.opacity='1';$('export').disabled=false;
+ const total=v.tools+v.review+v.other,yieldPct=100*v.accepted/v.attempts,perAttempt=total/v.attempts,perAccepted=v.accepted?total/v.accepted:null;
+ const inflation=v.accepted?100*(perAccepted/perAttempt-1):null;
+ $('total').textContent=usd(total);$('perAttempt').textContent=usd(perAttempt);$('perAccepted').textContent=perAccepted===null?'Undefined':usd(perAccepted);
+ $('yield').textContent=pct(yieldPct);$('rejected').textContent=String(v.attempts-v.accepted);
+ $('inflation').textContent=inflation===null||!Number.isFinite(inflation)?'Undefined':pct(inflation);
+ const passed=v.accepted>0&&yieldPct>=v.target;
+ $('gate').textContent=passed?'Quality gate passed at '+pct(yieldPct)+'.':'Quality gate failed: '+pct(yieldPct)+' against '+pct(v.target)+' required.';
+ $('gate').className='status '+(passed?'good':'bad');
+ last={...v,total,perAttempt,perAccepted,yieldPct,inflation,qualityGate:passed?'PASS':'FAIL'};
+}
+ids.forEach(id=>$(id).addEventListener('input',recalc));
+$('reset').addEventListener('click',()=>{const defaults=[100,80,40,60,0,90];ids.forEach((id,i)=>$(id).value=defaults[i]);recalc()});
+$('export').addEventListener('click',()=>{
+ if(!last)return;
+ const keys=Object.keys(last);const csv=keys.join(',')+'\n'+keys.map(k=>last[k]===null?'':String(last[k])).join(',')+'\n';
+ const a=document.createElement('a');const url=URL.createObjectURL(new Blob([csv],{type:'text/csv;charset=utf-8'}));
+ a.href=url;a.download='prismbay-ai-accepted-result-scorecard.csv';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);
+});
+recalc();
+})();
+</script>
+</body></html>
