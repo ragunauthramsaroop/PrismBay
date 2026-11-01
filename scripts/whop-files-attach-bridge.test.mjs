@@ -12,6 +12,9 @@ const server=(input={})=>{
  const get=async(url,options)=>{
   calls.push({url,options});
   if(url.includes('/products?'))return response([paid,free]);
+  if(url.includes('product_id=prod_paid123'))return response(
+   input.filteredPaid??(linked?[{...(input.direct||files),products:[paid]}]:[]));
+  if(url.includes('product_id=prod_free123'))return response(input.filteredFree??[]);
   if(url.includes('/experiences?'))return response(input.experiences||[...(linked?[{...files,products:[paid]}]:[files])]);
   if(options.method==='POST'&&url.endsWith('/attach')&&
      (url.includes('exp_files123')||url.includes('exp_Y0vSteSLF9Bdu6'))){
@@ -109,4 +112,50 @@ test('direct Files experience attach rechecks direct GET after approved write',a
  assert.equal(r.status,'ATTACHED_AND_RECHECKED');
  assert.equal(m.calls.filter(x=>x.options.method==='POST').length,1);
  assert.equal(r.releaseApproved,false);
+});
+
+test('a paid-filtered Files experience with stale direct products prevents a duplicate write',async()=>{
+ const stale={...files,id:'exp_Y0vSteSLF9Bdu6',products:[],company:{id:env.WHOP_COMPANY_ID}};
+ const m=server({experiences:[stale],filteredPaid:[stale],filteredFree:[]});
+ const r=await execute({env:{...env,WHOP_FILES_ACTION:'attach',
+  WHOP_FILES_CONFIRM:'ATTACH_EXISTING_PRIVATE_FILES_ONLY',
+  WHOP_FILES_EXPECTED_EXPERIENCE_ID:stale.id,
+  WHOP_FILES_ATTACH_API_KEY:'apik_write_mock123'},fetchImpl:m.get});
+ assert.equal(r.status,'ALREADY_LINKED_FILTERED');
+ assert.equal(r.productFilterVerified,true);
+ assert.equal(r.attached,false);
+ assert.ok(m.calls.every(x=>x.options.method==='GET'));
+});
+test('filtered experience on free product always blocks mutations',async()=>{
+ const e={...files,products:[]};const m=server({experiences:[e],filteredFree:[e]});
+ const r=await execute({env:{...env,WHOP_FILES_ACTION:'attach',
+ WHOP_FILES_CONFIRM:'ATTACH_EXISTING_PRIVATE_FILES_ONLY',
+ WHOP_FILES_EXPECTED_EXPERIENCE_ID:e.id,
+ WHOP_FILES_ATTACH_API_KEY:'apik_write_mock123'},fetchImpl:m.get});
+ assert.equal(r.status,'FILES_LINKED_TO_FREE');
+ assert.equal(r.releaseApproved,false);
+ assert.ok(m.calls.every(x=>x.options.method==='GET'));
+});
+test('Whop filtered paid association verifies after POST even if direct products is stale',async()=>{
+ const e={...files,products:[]};
+ const calls=[];let wrote=false;
+ const fetchImpl=async(url,opts)=>{
+  calls.push({url,opts});
+  if(url.includes('/products?'))return response([paid,free]);
+  if(url.includes('product_id=prod_paid123'))return response(wrote?[e]:[]);
+  if(url.includes('product_id=prod_free123'))return response([]);
+  if(url.includes('/experiences?'))return response([e]);
+  if(url.endsWith('/experiences/exp_files123')&&opts.method==='GET')
+   return {ok:true,status:200,json:async()=>e};
+  if(url.endsWith('/experiences/exp_files123/attach')&&opts.method==='POST'){
+   wrote=true;return {ok:true,status:200};
+  }
+  throw Error('unexpected endpoint');
+ };
+ const r=await execute({env:{...env,WHOP_FILES_ACTION:'attach',
+ WHOP_FILES_CONFIRM:'ATTACH_EXISTING_PRIVATE_FILES_ONLY',
+ WHOP_FILES_EXPECTED_EXPERIENCE_ID:e.id,WHOP_FILES_ATTACH_API_KEY:'apik_write_mock123'},fetchImpl});
+ assert.equal(r.status,'ATTACHED_AND_RECHECKED');
+ assert.equal(r.productFilterVerified,true);assert.equal(r.directProductsLinked,false);
+ assert.equal(calls.filter(x=>x.opts.method==='POST').length,1);
 });
