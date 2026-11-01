@@ -1,0 +1,72 @@
+{
+  "experimentId": "PB-YT-LF-2026-11-01-ROI-LEDGER",
+  "channelId": "UCw2hs85TzIpdKwJtG-BSxzQ",
+  "handle": "@PrismBayAI",
+  "status": "RENDERED_REVIEW_ONLY_NOT_PUBLISHED",
+  "hypothesis": "Worked hypothetical ROI ledger improves qualified watch time and subscriber conversion relative to generic AI lists.",
+  "audience": [
+    "CFOs",
+    "founders",
+    "operations leaders",
+    "procurement teams"
+  ],
+  "format": "longform",
+  "durationSeconds": 495.574,
+  "hook": "An $18,000 gross monthly labor cost does not equal an $18,000 AI saving.",
+  "titles": [
+    "AI Agent ROI: The $18,000 Savings Claim That Falls Apart",
+    "Before You Buy an AI Agent, Run These 5 Numbers",
+    "AI Automation ROI: A CFO's 10-Minute Reality Check"
+  ],
+  "thumbnailConcepts": [
+    "Crossed-out $18,000 vs $5,800 with REAL SAVINGS?",
+    "Five input numbers before procurement",
+    "Illustrative AI agent payback 5.2 months"
+  ],
+  "provisionalPreferredThumbnail": "A",
+  "nativeABTest": "NOT_STARTED_STUDIO_UNVERIFIED",
+  "cta": "Follow PrismBay AI for measurable AI business systems after the worked example.",
+  "proposedPublishTime": "Wednesday 16:00 America/Guyana, only after approval",
+  "reviewMilestonesHours": [
+    6,
+    24,
+    72,
+    168
+  ],
+  "successThresholds": {
+    "minImpressionsForCTR": 200,
+    "ctr": 0.04,
+    "averageViewDurationSeconds": 210,
+    "subscribersPer100Views": 1,
+    "qualification": "provisional test targets, not channel baselines"
+  },
+  "allocation": "MODIFY_PRE_RELEASE",
+  "rationale": "Caption readability passed, but speech alignment, physical playback and visual variation review are incomplete.",
+  "captionReview": {
+    "ciRun": 41286222321,
+    "artifactId": 13075670892,
+    "reviewCues": 144,
+    "words": 1190,
+    "maxWPM": 177.1,
+    "maxLineChars": 39,
+    "wordMatch": "exact script match",
+    "speechAlignment": "unverified",
+    "expiresOn": "2026-11-15"
+  },
+  "publication": {
+    "approved": false,
+    "uploaded": false,
+    "spendUSD": 0
+  },
+  "lastObservedSubscribers": 7,
+  "observedViewsOctober24To28": 153,
+  "analyticsCompleteness": "incomplete daily observations; no confirmed retention, CTR or qualified watch hours",
+  "nextActions": [
+    "independent speech alignment",
+    "full narration listening",
+    "mobile visual and audio playback",
+    "editorial approval",
+    "native Studio A/B eligibility check",
+    "only then public scheduling"
+  ]
+}
