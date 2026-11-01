@@ -86,6 +86,22 @@ export async function execute({env=process.env,fetchImpl=fetch}={}){
     plan={...verified,source:'VERIFIED_DIRECT_GET'};
    }
   }
+  if(plan.status==='READY_TO_ATTACH'){
+   // Whop product-filtered GET shows the Files experience attached to paid
+   // customers even when direct GET /experiences/{id}.products remains [].
+   // Respect the product-filtered view to avoid repeating a successful POST.
+   const filter=id=>'/experiences?account_id='+encodeURIComponent(account)+'&product_id='+encodeURIComponent(id)+'&first=100';
+   const [paidList,freeList]=await Promise.all([
+    whopGet(filter(plan.paidProductId),readKey,fetchImpl),
+    whopGet(filter(plan.freeProductId),readKey,fetchImpl)
+   ]);
+   const paidMatch=paidList.filter(x=>x.id===plan.experienceId&&x.app?.id===FILES_APP&&x.is_public===false);
+   const freeMatch=freeList.filter(x=>x.id===plan.experienceId);
+   if(freeMatch.length)return safe('FILES_LINKED_TO_FREE','The Files experience is attached to the free product');
+   if(paidMatch.length===1)return safe('ALREADY_LINKED_FILTERED',
+    'The paid product filtered GET lists the existing private Files experience; no duplicate POST needed',
+    {productFilterVerified:true});
+  }
  }catch(e){return safe('READ_FAILED','Whop read-only preflight failed',{httpStatus:Number(e.status)||undefined})}
  if(env.WHOP_FILES_ACTION!=='attach')return plan;
  if(plan.status!=='READY_TO_ATTACH')return plan;
@@ -106,13 +122,20 @@ export async function execute({env=process.env,fetchImpl=fetch}={}){
   // Verify the official existing Files experience remains private and free product is excluded.
   const current=await whopGetOneExperience(plan.experienceId,readKey,fetchImpl);
   const linked=Array.isArray(current?.products)?current.products:[];
+  const filter=id=>'/experiences?account_id='+encodeURIComponent(account)+'&product_id='+encodeURIComponent(id)+'&first=100';
+  const [paidList,freeList]=await Promise.all([
+   whopGet(filter(plan.paidProductId),readKey,fetchImpl),
+   whopGet(filter(plan.freeProductId),readKey,fetchImpl)
+  ]);
+  const filteredPaid=paidList.some(x=>x.id===plan.experienceId&&x.app?.id===FILES_APP&&x.is_public===false);
+  const filteredFree=freeList.some(x=>x.id===plan.experienceId);
   if(!current||current.company?.id!==account||current.app?.id!==FILES_APP||
-     current.is_public!==false||
-     !linked.some(x=>x.id===plan.paidProductId)||
-     linked.some(x=>x.id===plan.freeProductId)||
-     linked.some(x=>x.id!==plan.paidProductId))
-   return safe('POST_ATTACH_UNCONFIRMED','Whop accepted request but safe product association not proven');
-  return safe('ATTACHED_AND_RECHECKED','Existing private Files experience now linked only to the paid product. Buyer ZIP still requires confirmation.',{attached:true});
+     current.is_public!==false||!filteredPaid||filteredFree||
+     linked.some(x=>x.id===plan.freeProductId)||linked.some(x=>x.id!==plan.paidProductId))
+   return safe('POST_ATTACH_UNCONFIRMED','Whop accepted request but product-filtered entitlement still not proven');
+  return safe('ATTACHED_AND_RECHECKED',
+   'Paid product filtered GET confirms private Files and free product excludes it; real buyer ZIP delivery is still untested',
+   {attached:true,productFilterVerified:true,directProductsLinked:linked.some(x=>x.id===plan.paidProductId)});
  }catch(e){return safe('ATTACH_UNCONFIRMED','Whop attachment attempt failed or response unavailable; inspect live status before retrying')}
 }
 if(process.argv[1]&&import.meta.url===pathToFileURL(process.argv[1]).href){
