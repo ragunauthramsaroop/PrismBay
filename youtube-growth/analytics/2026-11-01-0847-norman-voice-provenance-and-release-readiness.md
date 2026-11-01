@@ -7,7 +7,9 @@ Sole authorized YouTube channel: `UCw2hs85TzIpdKwJtG-BSxzQ`, `@PrismBayAI`. Metr
 2. Created durable evidence record `youtube-growth/resources/2026-11-01-piper-norman-voice-rights-provenance.md`. Linked the same source to the existing ROI sensitivity experiment, whose independent QA previously verified the Norman voice-model SHA256 `b9739443232a80a59c7d18810dd856899bf16a7964725f5ab81ea49b1351cb71`.
 3. Updated `youtube-growth/production/render_accepted_output_short.py` to embed voice-model identity, upstream model card, training provenance, rights limitations, attribution and review date in each generated manifest. The espeak fallback remains explicitly unreviewed. Editorial listening, physical mobile playback and final approval stay required. Code commit `a87b987f4031832784e8cf59a515d87a0c31bcf7`.
 4. Added CI assertions to `.github/workflows/prismbay-accepted-output-short-review.yml` enforcing exact Norman voice, provenance fields, unchanged channel, no paid spend, no publication, and outstanding editorial gates. Workflow commit `719b8fa543ef5fde9fb929012a647b00edd4f657`.
-5. The initial render after the source change succeeded: https://github.com/ragunauthramsaroop/PrismBay/actions/runs/41308333810 . The expanded CI run `41308364867` was in progress when this checkpoint was written; verify final conclusion before reporting it as successful.
+5. The first render after the voice-source change passed: https://github.com/ragunauthramsaroop/PrismBay/actions/runs/41308333810 . The expanded CI then exposed a genuine pre-existing pacing regression: caption 10 contained 8 words above the enforced 160 WPM limit, failing run https://github.com/ragunauthramsaroop/PrismBay/actions/runs/41308364867 . Diagnosed the failing GitHub Actions job log, rather than weakening the threshold.
+6. Corrected the renderer at commit `6f2b3c0339741c86a0e881c3a7345f2cd06ac657`. Pacing now adapts to measured synthesized WAV duration for each phrase, targeting 150 WPM. Every encoded clip independently checks its own words-per-minute before artifact release. The new manifest records maximum caption speed and the adaptive method.
+7. Independent final workflow https://github.com/ragunauthramsaroop/PrismBay/actions/runs/41308588458 completed **successfully**. Verified from workflow logs: original 43.348-second review video, six scenes, 12 narration/caption segments, maximum 149.6 WPM, caption timeline drift +0.046 seconds, full decode and provenance checks passed. SHA256 `978de2d30a07bb8f5fca709ca3273c59153b5d998e32c2ff22ad128050596a3e`. The artifact remains unpublished, with human listening, mobile playback and editorial approval still outstanding.
 
 ## Live platform read, 2026-11-01
 - Metricool brand settings still map to the exact channel.
@@ -29,7 +31,7 @@ Trend Scout: verified current Gartner Oct 26 agent-cost analysis and YouTube rul
 
 ## Experiment decisions
 - `PB-YT-SH-2026-11-01-ROI-STP`: MODIFY / PRIVATE RELEASE HOLD. Existing corrected 54.24-second draft. Source provenance improved; full listening, real-device safe-zone and final editorial checks outstanding.
-- `PB-YT-S-2026-11-01-ACCEPTED-OUTPUT-COST`: MODIFY_PRE_RELEASE. Independent voice provenance now recorded in generated manifests. Review artifact is unpublished; require completed expanded CI and editorial gates.
+- `PB-YT-S-2026-11-01-ACCEPTED-OUTPUT-COST`: MODIFY_PRE_RELEASE. Independent voice provenance now recorded in generated manifests. Expanded CI passed after correcting the caption-speed regression. Review artifact remains unpublished; require human listening, mobile playback and editorial approval.
 - `PB-YT-LF-2026-11-01-ROI-LEDGER`: RETEST_PRE_RELEASE. 8:15 render and captions previously verified, but speech alignment and physical playback outstanding. No native A/B claim.
 - Review 6h, 24h, 72h and 7d after a verified public upload. Do not assign SCALE or claim monetization without actual attributable performance.
 
