@@ -52,3 +52,7 @@ NEW ORIGINAL SHORT RENDER REQUESTED / PRIVATE RELEASE HOLD. No confirmed public 
 - Private Metricool draft created and independently read back: post 412685334, UUID 7374897894676317580, draft=true, autoPublish=false, YouTube privacy=private. November 2 16:00 Guyana is an inactive placeholder, not a public publication.
 - Experiment status MODIFY / PRIVATE RELEASE HOLD until human narration listening, mobile playback and final editorial signoff. Do not count as public upload or growth.
 - Detailed evidence: youtube-growth/analytics/2026-11-01-0155-roi-sensitivity-v2-render-asr-private-draft.md.
+
+## Voice provenance follow-up, 2026-11-01
+- The v2 render's previously verified Piper Norman model SHA256 is `b9739443232a80a59c7d18810dd856899bf16a7964725f5ab81ea49b1351cb71`. Independent upstream model-card review identifies `en_US-norman-medium` as trained from scratch on recordings described as public domain from LibriVox. Source: https://huggingface.co/rhasspy/piper-voices/blob/main/en/en_US/norman/medium/MODEL_CARD . Repository displays MIT license, but model card does not separately license generated outputs. See `youtube-growth/resources/2026-11-01-piper-norman-voice-rights-provenance.md` for scope and limitations.
+- This improves rights-source documentation only. It does not replace full narration listening, real-device Shorts safe-zone playback or editorial release approval. Keep post `412685334` private and auto-publication disabled until those gates pass.
