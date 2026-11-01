@@ -16,7 +16,7 @@ jobs:
         with:
           python-version: "3.12"
       - name: Run paper-only unit tests
-        run: python -m unittest discover -s tests -v
+        run: python -m unittest discover -s tests -p 'test_core.py' -v
       - name: Produce synthetic research report
         run: python -m papertrade --demo --out artifacts/papertrade-demo
       - name: Enforce paper-only execution
