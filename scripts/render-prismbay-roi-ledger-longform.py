@@ -18,6 +18,7 @@ WORK=ROOT/".roi-ledger-build"
 CHANNEL="UCw2hs85TzIpdKwJtG-BSxzQ"
 VOICE="en_US-norman-medium"
 VOICE_SHA="b9739443232a80a59c7d18810dd856899bf16a7964725f5ab81ea49b1351cb71"
+TEMPO=0.94  # Pitch-preserving 6% slower narration for an 8-12 minute editorial target.
 W,H=1920,1080
 NAVY=(9,19,34); WHITE=(244,249,255); MUTED=(170,193,211)
 CYAN=(69,219,236); GREEN=(120,224,162); GOLD=(251,193,104); RED=(248,117,119)
@@ -193,12 +194,12 @@ def main():
             png=WORK/f"frame_{counter:03d}.png"
             clip=WORK/f"clip_{counter:03d}.mp4"
             run([sys.executable,"-m","piper","-m",VOICE,"--data-dir",voices,"-f",wav,"--",spoken])
-            sec=duration(wav)+0.15
+            sec=duration(wav)/TEMPO+0.15
             frame(ci,si,title,spoken,png)
             run(["ffmpeg","-hide_banner","-loglevel","error","-y","-loop","1","-framerate","24","-i",png,
                  "-i",wav,"-t",f"{sec:.3f}","-vf","format=yuv420p","-c:v","libx264",
                  "-preset","ultrafast","-crf","24","-r","24","-c:a","aac","-b:a","128k",
-                 "-af","apad=pad_dur=0.15,volume=-3dB","-movflags","+faststart",clip])
+                 "-af",f"atempo={TEMPO},apad=pad_dur=0.15,volume=-3dB","-movflags","+faststart",clip])
             playlist.append(clip)
             captions.append((t,t+sec,spoken))
             t+=sec;counter+=1
@@ -219,7 +220,7 @@ def main():
       "published":False,"publicationApproved":False,"uploadPermitted":False,"paidSpendUSD":0,
       "videoSha256":hashlib.sha256(video.read_bytes()).hexdigest(),
       "sourceSha256":hashlib.sha256(SOURCE.read_bytes()).hexdigest(),
-      "voiceModelSha256":VOICE_SHA,"voiceProvenanceVerified":True,
+      "voiceModelSha256":VOICE_SHA,"voiceProvenanceVerified":True,"narrationTempo":TEMPO,
       "durationSeconds":round(actual,3),"wordCount":words,"sceneCount":counter,
       "chapterStarts":chapter_meta,"thumbnailVariants":["A","B","C"],
       "captionStatus":"PROVISIONAL_NOT_SPEECH_ALIGNED",
