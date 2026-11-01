@@ -4,12 +4,12 @@ import {assessMetadata,inspectWhop,STATUSES} from './whop-merchant-readiness.mjs
 const p={id:'prod_example',title:'PrismBay Quote, Margin & Cash Studio',visibility:'hidden'};
 const plan={product:{id:p.id},initial_price:19,plan_type:'one_time',currency:'usd'};
 const mock=(payload,status=200)=>({ok:status>=200&&status<300,status,json:async()=>payload});
-const fixture=[{path:'/accounts',data:[{id:'biz_12345678',title:'Clean'}]},{path:'/products',data:[p]},{path:'/plans',data:[plan]}];
+const fixture=[{path:'/accounts/me',data:{id:'biz_12345678',title:'Clean'}},{path:'/products',data:[p]},{path:'/plans',data:[plan]}];
 const f=(overrides={})=>async(url,opts)=>{
  assert.equal(opts.method,'GET');assert.equal(opts.redirect,'manual');
  assert.ok(opts.headers.Authorization.startsWith('Bearer '));assert.ok(url.startsWith('https://api.whop.com/api/v1/'));
  const item=fixture.find(x=>url.includes(x.path));if(!item)throw Error('unexpected endpoint');
- return mock({data:overrides[item.path]??item.data,page_info:{has_next_page:false}});
+ return item.path==='/accounts/me'?mock(overrides[item.path]??item.data):mock({data:overrides[item.path]??item.data,page_info:{has_next_page:false}});
 };
 test('without API key is CONFIG_NEEDED, never release approved',async()=>{
  const r=await inspectWhop({env:{}});assert.equal(r.status,STATUSES.CONFIG_NEEDED);assert.equal(r.releaseApproved,false);
@@ -33,8 +33,8 @@ test('no match and duplicate products refuse to give false confidence',()=>{
  assert.equal(assessMetadata([],[]).status,STATUSES.REVIEW);
  assert.equal(assessMetadata([p,p],[plan]).status,STATUSES.REVIEW);
 });
-test('if account IDs cannot be inferred, remain blocked',async()=>{
- const r=await inspectWhop({env:{WHOP_COMPANY_API_KEY:'apik_valid_fake_secret'},fetchImpl:f({'/accounts':[]})});
+test('if account ID is absent from /accounts/me, remain blocked',async()=>{
+ const r=await inspectWhop({env:{WHOP_COMPANY_API_KEY:'apik_valid_fake_secret'},fetchImpl:f({'/accounts/me':{id:null}})});
  assert.equal(r.status,STATUSES.CONFIG_NEEDED);
 });
 test('explicit company ID skips account lookup and reads only expected resources',async()=>{
@@ -43,7 +43,7 @@ test('explicit company ID skips account lookup and reads only expected resources
   visited.push(url);return f()(url,opts);
  }});
  assert.equal(r.status,STATUSES.VERIFIED_METADATA);
- assert.equal(visited.length,2);assert.ok(visited.every(x=>!x.includes('/accounts?')));
+ assert.equal(visited.length,2);assert.ok(visited.every(x=>!x.includes('/accounts/me')));
 });
 test('read-only Whop 403 does not leak API token and marks auth error',async()=>{
  const secret='apik_PRIVATE_TEST_123456789';
@@ -51,7 +51,7 @@ test('read-only Whop 403 does not leak API token and marks auth error',async()=>
  assert.equal(r.status,STATUSES.AUTH_ERROR);assert.ok(!JSON.stringify(r).includes(secret));
 });
 test('pagination is not silently ignored and never releases product',async()=>{
- const r=await inspectWhop({env:{WHOP_COMPANY_API_KEY:'apik_valid_fake_secret'},fetchImpl:async()=>mock({data:[p],page_info:{has_next_page:true}})});
+ const r=await inspectWhop({env:{WHOP_COMPANY_API_KEY:'apik_valid_fake_secret',WHOP_COMPANY_ID:'biz_12345678'},fetchImpl:async()=>mock({data:[p],page_info:{has_next_page:true}})});
  assert.equal(r.status,STATUSES.API_ERROR);assert.equal(r.releaseApproved,false);
 });
 test('no POST, no redirects, no secret, and output is sanitized',async()=>{
@@ -62,4 +62,14 @@ test('no POST, no redirects, no secret, and output is sanitized',async()=>{
  }});
  assert.ok(calls.every(x=>x.opts.method==='GET'&&x.opts.redirect==='manual'));
  assert.ok(calls.every(x=>x.url.startsWith('https://api.whop.com/')));
+});
+
+test('scoped account lookup uses /accounts/me and not broad /accounts list',async()=>{
+ const seen=[];
+ const result=await inspectWhop({env:{WHOP_COMPANY_API_KEY:'apik_valid_fake_secret'},fetchImpl:async(url,opts)=>{
+  seen.push(url);return f()(url,opts);
+ }});
+ assert.equal(result.status,STATUSES.VERIFIED_METADATA);
+ assert.ok(seen.some(u=>u.endsWith('/accounts/me')));
+ assert.ok(seen.every(u=>!u.includes('/accounts?')));
 });
