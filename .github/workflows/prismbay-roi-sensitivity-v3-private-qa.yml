@@ -3,6 +3,7 @@ on:
   push:
     branches: [main]
     paths:
+      - '.github/workflows/prismbay-roi-sensitivity-v3-private-qa.yml'
       - 'public/youtube/ai-agent-roi-straight-through-sensitivity-2026-11-01-v3.mp4'
       - 'public/youtube/ai-agent-roi-straight-through-sensitivity-2026-11-01-v3.json'
   workflow_dispatch:
