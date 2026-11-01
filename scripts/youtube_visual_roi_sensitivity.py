@@ -49,7 +49,7 @@ def render_frame_roi(segment,index,total,source):
         lines.append(current)
     if len(lines)>3:
         raise ValueError("Headline needs editorial shortening: "+headline)
-    d.multiline_text((76,286),"\\n".join(lines),font=headfont,fill=WHITE,spacing=16)
+    d.multiline_text((76,286),"\n".join(lines),font=headfont,fill=WHITE,spacing=16)
     scene=segment.get("scene","")
     if scene=="hook":
         center(d,"3.5 MONTHS",730,89,GREEN)
