@@ -1,8 +1,8 @@
-# Aurora Paper Trading Lab (Research Only)
+# Personal Paper Trading Research Lab (Research Only)
 
 STATUS: PAPER ONLY. No broker credentials, no exchange authentication, no deposits, no withdrawals, and no real order endpoint.
 
-This isolated experimental branch is a standalone Python research simulator. Do not merge it into the existing PrismBay production branches. This is not a strategy with established returns or an AI that trades independently. The connected GitHub application cannot create a new private repository. The current experiment branch is PUBLIC, so do not commit secrets or account data. Move it to a private repository before expanding the work.
+This isolated experimental branch is a standalone personal Python research simulator, unrelated to AGM Inc. or any employer. Do not merge it into the existing PrismBay production branches. This is not a strategy with established returns or an AI that trades independently. The connected GitHub application cannot create a new private repository. The current experiment branch is PUBLIC, so do not commit secrets or account data. Move it to a private repository before expanding the work.
 
 ## Quick start
 
