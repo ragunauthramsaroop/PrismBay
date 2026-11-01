@@ -2,7 +2,7 @@
 'use strict';
 const $=id=>document.getElementById(id);
 const repo='https://github.com/ragunauthramsaroop/PrismBay';
-const state={section:'overview',period:30,payload:null,loading:false,lastUpdated:null};
+const state={section:'live',period:30,payload:null,loading:false,lastUpdated:null};
 const usd=(n,d=2)=>Number.isFinite(n)?new Intl.NumberFormat('en-US',{style:'currency',currency:'USD',minimumFractionDigits:d,maximumFractionDigits:d}).format(n):'Unavailable';
 const num=(n,d=2)=>Number.isFinite(n)?new Intl.NumberFormat('en-US',{minimumFractionDigits:d,maximumFractionDigits:d}).format(n):'—';
 const pct=(n,d=2)=>Number.isFinite(n)?((n>0?'+':'')+num(n,d)+'%'):'—';
