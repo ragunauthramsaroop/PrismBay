@@ -128,10 +128,22 @@ def main():
  manifest={'channelId':CHANNEL,'handle':'@PrismBayAI','brandId':'6945443','videoSha256':digest(video),
   'durationSeconds':round(dur,3),'sceneCount':len(CONTENT),'narrationSegments':len(PHRASES),
   'voice':VOICE if a.voice=='piper' else 'ESPEAK_LOCAL_QA_ONLY',
+  'voiceRightsReview':({
+    'status':'SOURCE_REVIEWED_NOT_LEGAL_OPINION',
+    'voiceModel':'en_US-norman-medium',
+    'upstreamModelCard':'https://huggingface.co/rhasspy/piper-voices/blob/main/en/en_US/norman/medium/MODEL_CARD',
+    'upstreamRepository':'https://huggingface.co/rhasspy/piper-voices',
+    'dataset':'LibriVox public-domain recordings',
+    'training':'Trained from scratch according to model card',
+    'reviewDate':'2026-11-01',
+    'attribution':'Piper voice en_US-norman-medium; model card credits its creator and LibriVox recordings',
+    'limitation':'Model card does not independently certify every recording or grant a separate output license'
+   } if a.voice=='piper' else {'status':'UNREVIEWED_ESPEAK_FALLBACK'}),
   'captionMode':'BURNED_IN_PHRASE_SYNCHRONIZED','captionTimingSource':'ffprobe encoded clip duration',
   'captionTimelineDriftSeconds':round(dur-t,3),'fictionalExample':True,
   'reviewOnly':True,'publicationApproved':False,'uploadPermitted':False,'paidSpendUSD':0,
-  'outstanding':['Independent full listening','Real-device YouTube UI playback','Voice model license and attribution verification','Editorial approval']}
+  'outstanding':['Independent full listening','Real-device YouTube UI playback','Editorial approval'] +
+                (['Fallback voice rights review'] if a.voice!='piper' else [])}
  (out/'manifest.json').write_text(json.dumps(manifest,indent=2)+'\n')
  print(json.dumps(manifest,indent=2))
 if __name__=='__main__':main()
