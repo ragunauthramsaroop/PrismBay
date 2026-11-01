@@ -1,0 +1,46 @@
+name: Whop Files existing paid-app attachment (authorized once)
+
+# This is a one-shot migration. It triggers only when this exact workflow file
+# is first merged into main (or deliberately edited later). On repeat, the
+# bridge returns ALREADY_LINKED without submitting a duplicate POST.
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/whop-files-attach-approved-20261101.yml'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: whop-files-attachment-bridge
+  cancel-in-progress: false
+
+jobs:
+  attach-existing-files-to-paid-product:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Validate existing paid-only attachment guard
+        run: node --test scripts/whop-files-attach-bridge.test.mjs
+      - name: Require company-scoped Whop attach key without revealing it
+        env:
+          WHOP_FILES_ATTACH_API_KEY: ${{ secrets.WHOP_FILES_ATTACH_API_KEY }}
+        run: |
+          if [ -z "$WHOP_FILES_ATTACH_API_KEY" ]; then
+            echo "WRITE_SCOPE_MISSING: WHOP_FILES_ATTACH_API_KEY is not configured"
+            exit 1
+          fi
+      - name: Attach existing private Files experience to existing Hidden $19 product
+        env:
+          WHOP_COMPANY_API_KEY: ${{ secrets.WHOP_COMPANY_API_KEY }}
+          WHOP_COMPANY_ID: ${{ vars.WHOP_COMPANY_ID }}
+          WHOP_FILES_ATTACH_API_KEY: ${{ secrets.WHOP_FILES_ATTACH_API_KEY }}
+          WHOP_FILES_ACTION: attach
+          WHOP_FILES_EXPECTED_EXPERIENCE_ID: exp_Y0vSteSLF9Bdu6
+          WHOP_FILES_CONFIRM: ATTACH_EXISTING_PRIVATE_FILES_ONLY
+        run: node scripts/whop-files-attach-bridge.mjs
