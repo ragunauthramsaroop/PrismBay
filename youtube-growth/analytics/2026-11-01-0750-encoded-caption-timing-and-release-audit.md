@@ -6,7 +6,8 @@ Sole authorized YouTube channel: `UCw2hs85TzIpdKwJtG-BSxzQ`, `@PrismBayAI`. Metr
 - Updated `youtube-growth/production/render_accepted_output_short.py` at commit `e0a58b143b59672d9dcc38841ecc96e620a9bd2b`.
 - Prior behavior estimated each caption cue's end from raw WAV duration divided by tempo, without measuring the resulting encoded clip. Across 12 concatenated clips, FFmpeg frame and AAC packet rounding introduces a potential accumulated timestamp mismatch.
 - New behavior probes each encoded MP4 clip using `ffprobe`, advances the SRT cue timeline using actual encoded clip durations, records the difference between assembled media duration and SRT timeline in the manifest, and fails the render if absolute drift exceeds 0.35 seconds.
-- Existing workflow `.github/workflows/prismbay-accepted-output-short-review.yml` automatically started from this commit: https://github.com/ragunauthramsaroop/PrismBay/actions/runs/41303604074 . At the last check the run was in progress. Do not mark the new QA as passed until the workflow concludes successfully.
+- First workflow run 41303604074 failed immediately because escaped newline characters were accidentally inserted into the Python source during the initial edit. The exact syntax error was independently diagnosed from GitHub Actions logs and corrected at commit `58f41052fcac3d4a05793955a8d163f6a94afaf9`.
+- Corrected workflow run: https://github.com/ragunauthramsaroop/PrismBay/actions/runs/41303738102 . This run was in progress at the last check. Do not mark the new QA as passed until the corrected workflow concludes successfully.
 - The resulting asset is REVIEW ONLY. This renderer is not the same as the separately produced motion-enhanced S05 candidate. Do not substitute the older/static render for the motion candidate without editorial comparison. No publication approval is granted by this change.
 
 ## Channel, schedule and performance, freshly checked
