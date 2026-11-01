@@ -11,7 +11,7 @@ Sole authorized YouTube channel: `UCw2hs85TzIpdKwJtG-BSxzQ`, `@PrismBayAI`. Metr
    - ROI Ledger: `bb46497e1525c10373e97e5fd1b6f056674c50eb`.
    - Cost per Accepted Result: `280760799dc7f2d13d6d761615c29b9b9f0b45d4`.
 5. Independently fetched both files from `gh-pages` after the commits. Confirmed both canonical tags, both reciprocal links, both authorized-channel references, and zero literal backslash-n sequences outside the scripts.
-6. The first Pages build was superseded and cancelled by the second commit. Latest Pages build `41294697691` was waiting at the last check, not yet certified as publicly deployed. Check completion before claiming the updated pages are live.
+6. The first Pages build was superseded and cancelled by the second commit. Latest Pages build `41294697691` subsequently completed with `conclusion=success` on November 1, 2026. The updated GitHub Pages branch files were independently read back. Direct public-domain HTTP retrieval was unavailable in this runtime, so public-domain delivery was not independently confirmed.
 
 ## Connected publication and audience audit
 
@@ -33,7 +33,7 @@ Descript Shorts Factory project `3de30d73-71c8-4e9d-9ccf-72faf3fb5d11`: recent j
 4. Script/Research Agent: preserve existing approved research and avoid another routing or accepted-output duplicate. Repository already has model-routing and regression-gate scripts.
 5. Visual/Editing Agent: no new Descript job; existing render and subtitle QA remain intact. Mobile playback and full narration listening remain unverified.
 6. Thumbnail/Packaging Agent: three long-form title/thumbnail candidates exist; native A/B remains unverified.
-7. Publisher/SEO Agent: deployed cross-navigation and canonical improvements on the site branch; Pages build pending. Both private Metricool drafts preserved.
+7. Publisher/SEO Agent: deployed cross-navigation and canonical improvements on the site branch; Pages workflow succeeded, public-domain HTTP retrieval unverified. Both private Metricool drafts preserved.
 8. Analytics Agent: seven last-observed subscribers; only three numeric view dates in current window; no newly published video rows.
 9. Portfolio Allocator: priority is release review of existing 8:15 ROI Ledger and original Shorts. Do not fill the backlog with overlapping new content.
 
