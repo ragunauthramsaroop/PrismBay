@@ -139,7 +139,7 @@ def frame(chapter,scene_index,heading,narration,out):
     d.line((86,194,1830,194),fill=(51,78,101),width=3)
     d.text((86,242),f"{chapter+1:02d}  {CHAPTER_TITLES[chapter]}",font=font(47,True),fill=GOLD)
     sentence=re.split(r"(?<=[.!?])\s+",narration)[0]
-    if len(sentence)>165:sentence=sentence[:160].rsplit(" ",1)[0]+"."
+    if len(sentence)>112:sentence=sentence[:108].rsplit(" ",1)[0]+"..."
     label(d,sentence,90,367,maxwidth=875,size=49)
     diagram(d,chapter,scene_index)
     facts=SCENE_FACTS[chapter]
