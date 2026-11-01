@@ -51,7 +51,9 @@
     "maxLineChars": 39,
     "wordMatch": "exact script match",
     "speechAlignment": "unverified",
-    "expiresOn": "2026-11-15"
+    "expiresOn": "2026-11-15",
+    "durableSrt": "youtube-growth/production/2026-11-01-ai-agent-roi-ledger-captions-mobile-review.srt",
+    "independentFollowupRun": 41286323656
   },
   "publication": {
     "approved": false,
@@ -68,5 +70,12 @@
     "editorial approval",
     "native Studio A/B eligibility check",
     "only then public scheduling"
-  ]
+  ],
+  "companion": {
+    "status": "GITHUB_PAGES_DEPLOYMENT_SUCCESS_EXTERNAL_HTTP_NOT_VERIFIED",
+    "siteUrl": "https://clean.prismbayai.com/youtube/ai-agent-roi-ledger.html",
+    "deploymentRun": 41286384407,
+    "zeroTracking": true,
+    "paidSpendUSD": 0
+  }
 }
