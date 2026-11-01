@@ -26,6 +26,8 @@ on:
       - 'scripts/whop-merchant-readiness.test.mjs'
       - 'scripts/whop-sales-readiness.mjs'
       - 'scripts/whop-sales-readiness.test.mjs'
+      - 'scripts/whop-files-attach-bridge.mjs'
+      - 'scripts/whop-files-attach-bridge.test.mjs'
       - 'scripts/whop-agency-forensic-audit.mjs'
       - 'scripts/whop-agency-forensic-audit.test.mjs'
       - '.github/workflows/digital-revenue-ci.yml'
@@ -54,6 +56,8 @@ on:
       - 'scripts/whop-merchant-readiness.test.mjs'
       - 'scripts/whop-sales-readiness.mjs'
       - 'scripts/whop-sales-readiness.test.mjs'
+      - 'scripts/whop-files-attach-bridge.mjs'
+      - 'scripts/whop-files-attach-bridge.test.mjs'
       - 'scripts/whop-agency-forensic-audit.mjs'
       - 'scripts/whop-agency-forensic-audit.test.mjs'
       - '.github/workflows/digital-revenue-ci.yml'
@@ -71,7 +75,7 @@ jobs:
         with:
           node-version: '22'
       - name: Run digital revenue tests
-        run: node --test scripts/digital-conversion-campaign.test.mjs scripts/buyer-acquisition-worker.test.mjs scripts/freellm-sales-worker.test.mjs scripts/owned-sales-page-worker.test.mjs scripts/first-sale-assessment.test.mjs scripts/revenue-evidence-gates.test.mjs scripts/sales-sitemap-sync.test.mjs scripts/revenue-health-check.test.mjs scripts/whop-public-access-audit.test.mjs scripts/whop-merchant-readiness.test.mjs scripts/whop-sales-readiness.test.mjs scripts/whop-agency-forensic-audit.test.mjs
+        run: node --test scripts/digital-conversion-campaign.test.mjs scripts/buyer-acquisition-worker.test.mjs scripts/freellm-sales-worker.test.mjs scripts/owned-sales-page-worker.test.mjs scripts/first-sale-assessment.test.mjs scripts/revenue-evidence-gates.test.mjs scripts/sales-sitemap-sync.test.mjs scripts/revenue-health-check.test.mjs scripts/whop-public-access-audit.test.mjs scripts/whop-merchant-readiness.test.mjs scripts/whop-sales-readiness.test.mjs scripts/whop-agency-forensic-audit.test.mjs scripts/whop-files-attach-bridge.test.mjs
       - name: Generate owned-search offer pages
         run: node scripts/owned-sales-page-worker.mjs "$RUNNER_TEMP/owned-sales-pages"
       - name: Verify bundle output

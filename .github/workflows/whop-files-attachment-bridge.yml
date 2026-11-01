@@ -1,0 +1,55 @@
+name: Whop Files attachment bridge
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/whop-files-attach-bridge.mjs'
+      - 'scripts/whop-files-attach-bridge.test.mjs'
+      - '.github/workflows/whop-files-attachment-bridge.yml'
+  workflow_dispatch:
+    inputs:
+      action:
+        description: Plan only or attach one verified existing private Files experience
+        type: choice
+        required: true
+        default: plan
+        options:
+          - plan
+          - attach
+      expected_experience_id:
+        description: Required only for attach. Copy verified exp_ id from private Whop admin settings.
+        required: false
+        type: string
+      confirmation:
+        description: For attach, enter ATTACH_EXISTING_PRIVATE_FILES_ONLY exactly
+        required: false
+        type: string
+
+permissions:
+  contents: read
+
+concurrency:
+  group: whop-files-attachment-bridge
+  cancel-in-progress: false
+
+jobs:
+  verify-and-attach-existing-files:
+    runs-on: ubuntu-latest
+    timeout-minutes: 7
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Unit test bridge before any live request
+        run: node --test scripts/whop-files-attach-bridge.test.mjs
+      - name: Preflight and narrowly scoped bridge operation
+        env:
+          WHOP_COMPANY_API_KEY: ${{ secrets.WHOP_COMPANY_API_KEY }}
+          WHOP_COMPANY_ID: ${{ vars.WHOP_COMPANY_ID }}
+          WHOP_FILES_ACTION: ${{ inputs.action }}
+          WHOP_FILES_EXPECTED_EXPERIENCE_ID: ${{ inputs.expected_experience_id }}
+          WHOP_FILES_CONFIRM: ${{ inputs.confirmation }}
+          WHOP_FILES_ATTACH_API_KEY: ${{ secrets.WHOP_FILES_ATTACH_API_KEY }}
+        run: node scripts/whop-files-attach-bridge.mjs
