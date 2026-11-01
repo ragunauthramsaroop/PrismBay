@@ -1,0 +1,128 @@
+{
+  "channel_id": "UCw2hs85TzIpdKwJtG-BSxzQ",
+  "handle": "@PrismBayAI",
+  "brand_id": "6945443",
+  "snapshot_date": "2026-11-01",
+  "timezone": "America/Guyana",
+  "source": "Metricool connected brand settings, scheduled posts, YouTube evolution fields YTEV01-06. 2026-11-01 17:47 Guyana.",
+  "evolution": {
+    "daily_views": {
+      "2026-10-01": 6,
+      "2026-10-02": 20,
+      "2026-10-03": 12,
+      "2026-10-04": 3,
+      "2026-10-05": 5,
+      "2026-10-06": null,
+      "2026-10-07": null,
+      "2026-10-08": 56,
+      "2026-10-09": 100,
+      "2026-10-10": 3,
+      "2026-10-11": 2,
+      "2026-10-12": null,
+      "2026-10-13": 2,
+      "2026-10-14": 1,
+      "2026-10-15": 1,
+      "2026-10-16": null,
+      "2026-10-17": 1,
+      "2026-10-18": null,
+      "2026-10-19": null,
+      "2026-10-20": null,
+      "2026-10-21": null,
+      "2026-10-22": null,
+      "2026-10-23": null,
+      "2026-10-24": 83,
+      "2026-10-25": 62,
+      "2026-10-26": 7,
+      "2026-10-27": null,
+      "2026-10-28": 1,
+      "2026-10-29": 1,
+      "2026-10-30": null,
+      "2026-10-31": null,
+      "2026-11-01": null
+    },
+    "last_observed_subscribers": 7,
+    "last_observation_date": "2026-11-01",
+    "note": "Null is missing data, not zero. Sum is incomplete and not a channel lifetime total."
+  },
+  "scheduled_posts": [
+    {
+      "id": 412685334,
+      "channel_id": "UCw2hs85TzIpdKwJtG-BSxzQ",
+      "title": "Same AI Agent: 3.5 vs 9.7 Month Payback | PrismBay AI",
+      "planned_date": "2026-11-02T16:00:00-04:00",
+      "draft": true,
+      "auto_publish": false,
+      "privacy": "private"
+    },
+    {
+      "id": 412495293,
+      "channel_id": "UCw2hs85TzIpdKwJtG-BSxzQ",
+      "title": "An AI Agent Removed Its Monitor: 3 Business Controls | PrismBay AI",
+      "planned_date": "2026-11-04T16:00:00-04:00",
+      "draft": true,
+      "auto_publish": false,
+      "privacy": "private"
+    }
+  ],
+  "verified_public_upload_ids": [],
+  "experiments": [
+    {
+      "id": "PB-YT-LF-2026-11-01-ROI-LEDGER",
+      "observed_metrics": null
+    },
+    {
+      "id": "PB-YT-SH-2026-11-01-ROI-SENSITIVITY",
+      "observed_metrics": null
+    },
+    {
+      "id": "PB-YT-SH-2026-11-01-CAPACITY-CASH",
+      "observed_metrics": null
+    }
+  ],
+  "release_candidates": [
+    {
+      "id": "ROI_LEDGER_LONGFORM",
+      "release_state": "HOLD_EDITORIAL",
+      "rendered_duration_seconds": 495.574,
+      "provenance_run": 41348518262,
+      "open_gates": [
+        "Independent narration and caption alignment",
+        "Real device playback",
+        "Rights and editorial approval",
+        "YouTube Studio A/B eligibility"
+      ]
+    },
+    {
+      "id": "ROI_SENSITIVITY_V3_SHORT",
+      "release_state": "HOLD_ASR_AMBIGUITIES",
+      "rendered_duration_seconds": 58.968,
+      "provenance_run": 41343822758,
+      "open_gates": [
+        "Listen to two disputed phrases",
+        "Real device playback",
+        "Final editorial approval"
+      ]
+    },
+    {
+      "id": "CAPACITY_VS_CASH_SHORT",
+      "release_state": "HOLD_LISTENING_MOBILE",
+      "rendered_duration_seconds": 54.973,
+      "open_gates": [
+        "Independent full listening",
+        "Real device playback",
+        "Final editorial approval"
+      ]
+    }
+  ],
+  "constraints": {
+    "opera_connected": false,
+    "descript_active_jobs": false,
+    "paid_spend_usd": 0,
+    "ypp_country_eligibility": "UNVERIFIED",
+    "new_2027_thresholds_verified": true
+  },
+  "source_links": [
+    "https://github.com/ragunauthramsaroop/PrismBay/blob/main/youtube-growth/analytics/2026-11-01-1645-longform-release-and-ypp-policy-checkpoint.md",
+    "https://support.google.com/youtube/answer/12843009"
+  ]
+}
