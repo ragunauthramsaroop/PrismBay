@@ -51,21 +51,24 @@ export async function inspectWhop({env=process.env,fetchImpl=fetch}={}){
  let id=env.WHOP_COMPANY_ID||'';
  if(id&&!validateCompanyId(id))return {status:STATUSES.CONFIG_NEEDED,releaseApproved:false,reason:'Invalid Whop business ID.'};
  try{
+  // Whop documents GET /products with an account API key and access_pass:basic:read.
+  // GET /accounts/me was returning 403 even with company:basic:read.
+  // Product details contain company.id; avoid the account-discovery endpoint entirely.
+  const products=onlyPage(await apiGet('/products?first=100',token,fetchImpl));
+  const targets=products.filter(p=>p?.title===TARGET);
+  if(targets.length!==1)return {status:STATUSES.REVIEW,reason:targets.length?'Duplicate target products':'Target product not found',releaseApproved:false};
   if(!id){
-   // Account-scoped API keys use /accounts/me. Listing all accounts requires an extra scope.
-   const account=await apiGet('/accounts/me',token,fetchImpl);
-   if(!validateCompanyId(account?.id))return {status:STATUSES.CONFIG_NEEDED,releaseApproved:false,reason:'Whop /accounts/me did not provide a business ID; set WHOP_COMPANY_ID in GitHub Actions variables.'};
-   id=account.id;
+   const detail=await apiGet('/products/'+encodeURIComponent(targets[0].id),token,fetchImpl);
+   if(detail?.id!==targets[0].id||!validateCompanyId(detail?.company?.id))
+    return {status:STATUSES.CONFIG_NEEDED,reason:'Product detail did not provide verified company ID.',releaseApproved:false};
+   id=detail.company.id;
   }
-  const [products,plans]=await Promise.all([
-   apiGet('/products?account_id='+encodeURIComponent(id)+'&first=100',token,fetchImpl),
-   apiGet('/plans?company_id='+encodeURIComponent(id)+'&first=100',token,fetchImpl)
-  ]);
-  return assessMetadata(onlyPage(products),onlyPage(plans));
+  const plans=onlyPage(await apiGet('/plans?company_id='+encodeURIComponent(id)+'&first=100',token,fetchImpl));
+  return assessMetadata(targets,plans);
  }catch(error){
   const code=Number(error?.httpStatus)||0;
   return {status:code===401||code===403?STATUSES.AUTH_ERROR:STATUSES.API_ERROR,releaseApproved:false,
-   reason:code===401||code===403?'Whop denied a read-only request. If product/plan scopes are present, also grant company:basic:read for /accounts/me or set WHOP_COMPANY_ID to skip that lookup.':
+   reason:code===401||code===403?'Whop denied a read-only product or plan request. Verify that access_pass:basic:read and plan:basic:read belong to the same Clean company key.':
    'Whop API request failed or returned an incomplete/unexpected response.',
    httpStatus:code||undefined};
  }
