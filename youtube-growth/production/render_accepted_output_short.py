@@ -97,13 +97,19 @@ def main():
  out=Path(a.output_dir);out.mkdir(parents=True,exist_ok=True)
  voices=out/'voices';voices.mkdir(exist_ok=True)
  if a.voice=='piper':cmd([sys.executable,'-m','piper.download_voices','--data-dir',voices,VOICE])
- clips=[];cues=[];t=0.0
+ clips=[];cues=[];caption_wpm=[];t=0.0
  for i,(scene,spoken) in enumerate(PHRASES):
   wav=out/f'voice-{i:02d}.wav';png=out/f'card-{i:02d}.png';mp4=out/f'clip-{i:02d}.mp4'
   if a.voice=='piper':cmd([sys.executable,'-m','piper','-m',VOICE,'--data-dir',voices,'-f',wav,'--',spoken])
   else:cmd(['espeak','-v','en-us','-s','145','-w',wav,spoken])
-  tempo=0.75 if i==8 else 0.90  # Keep every burned-in caption at or below 160 WPM.
-  duration=wav_seconds(wav)/tempo+0.18
+  # Set phrase pacing from the actual synthesized WAV, not a fixed phrase index.
+  # Aim for 150 WPM, leaving encoding margin below the 160 WPM release limit.
+  raw_seconds=wav_seconds(wav)
+  required_seconds=len(spoken.split())*60/150
+  base_tempo=0.75 if i==8 else 0.90
+  tempo=min(base_tempo,raw_seconds/max(0.01,required_seconds-0.18))
+  assert 0.5<=tempo<=1.0, f'Unsupported phrase tempo: {i}: {tempo:.3f}'
+  duration=raw_seconds/tempo+0.18
   card(scene,spoken,png,i)
   cmd(['ffmpeg','-hide_banner','-loglevel','error','-y','-loop','1','-framerate','24','-i',png,'-i',wav,'-t',f'{duration:.3f}',
        '-vf','format=yuv420p','-c:v','libx264','-preset','veryfast','-crf','22','-r','24',
@@ -113,6 +119,9 @@ def main():
   encoded_duration=float(json.loads(subprocess.check_output([
    'ffprobe','-v','error','-show_entries','format=duration','-of','json',mp4
   ]))['format']['duration'])
+  measured_wpm=60*len(spoken.split())/encoded_duration
+  assert measured_wpm<=160.1, f'Encoded caption too fast: segment {i+1}: {measured_wpm:.1f} WPM'
+  caption_wpm.append(measured_wpm)
   clips.append(mp4);cues.append((t,t+encoded_duration,spoken));t+=encoded_duration
  playlist=out/'concat.txt';playlist.write_text(''.join("file '"+p.resolve().as_posix()+"'\n" for p in clips))
  video=out/'prismbay-ai-accepted-output-cost-short-review.mp4'
@@ -140,7 +149,9 @@ def main():
     'limitation':'Model card does not independently certify every recording or grant a separate output license'
    } if a.voice=='piper' else {'status':'UNREVIEWED_ESPEAK_FALLBACK'}),
   'captionMode':'BURNED_IN_PHRASE_SYNCHRONIZED','captionTimingSource':'ffprobe encoded clip duration',
-  'captionTimelineDriftSeconds':round(dur-t,3),'fictionalExample':True,
+  'captionTimelineDriftSeconds':round(dur-t,3),'maxCaptionWordsPerMinute':round(max(caption_wpm),1),
+  'captionPacingMethod':'WAV-measured adaptive tempo, 150 WPM target, encoded WPM asserted',
+  'fictionalExample':True,
   'reviewOnly':True,'publicationApproved':False,'uploadPermitted':False,'paidSpendUSD':0,
   'outstanding':['Independent full listening','Real-device YouTube UI playback','Editorial approval'] +
                 (['Fallback voice rights review'] if a.voice!='piper' else [])}
