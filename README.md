@@ -11,6 +11,14 @@ This read-only dashboard displays the five core revenue worker groups, latest Gi
 Dashboard source: [`ops/worker-dashboard/`](ops/worker-dashboard/) · public status generator: [`scripts/public-ops-snapshot.mjs`](scripts/public-ops-snapshot.mjs).
 
 
+## One-time digital purchase: Cashflow Studio
+
+**[PrismBay Cashflow Studio v1 ($5.99, one-time)](https://clean.prismbayai.com/digital/cashflow-studio/?utm_source=github&utm_medium=readme&utm_campaign=cashflow_first_sale)** provides a downloadable, editable Excel workbook for recording up to 300 income and expense transactions and reviewing 12 monthly cash-flow summaries. Includes instructions and clearly labeled fictional examples. This is a spreadsheet download, **not** online banking, professional accounting advice or a recurring SaaS subscription.
+
+**[See workbook details](https://clean.prismbayai.com/digital/cashflow-studio/)** · **[Buy securely through existing Stripe checkout ($5.99)](https://buy.stripe.com/eVqaEYddQ6lRgSu1yggnK0v)** · **[Purchase and delivery information](https://clean.prismbayai.com/digital/cashflow-studio/purchase-information.html)**
+
+Payment verification is required before private delivery. No customer payment or sale is implied by this link.
+
 ## Top 15 demand-led product shortlist
 
 [View the public Top 15 page](https://clean.prismbayai.com/top-15/) | [Maintained static source](storefront/top-15/index.html)
