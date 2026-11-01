@@ -11,7 +11,7 @@
   "thumbnailConcept": "Original monitor status graphic, one OFFLINE warning, no faces",
   "cta": "PrismBay AI helps founders, operators and executives implement practical AI business systems.",
   "plannedLocalPublishTime": "UNSET; Nov 4 16:00 is an inactive private-draft placeholder",
-  "status": "MODIFY_PRIVATE_TECHNICAL_QA_PASS_EDITORIAL_HOLD",
+  "status": "MODIFY_PRIVATE_ASR_PASS_CAPTION_PROPOSAL_EDITORIAL_HOLD",
   "metricoolPostId": 412495293,
   "metricoolPostUuid": "4812359205726866079",
   "descriptCompositionId": "a597a812-49d3-4554-9c0a-e1639c47da81",
@@ -36,7 +36,7 @@
   ],
   "paidSpendUSD": 0,
   "classification": "MODIFY",
-  "latestReviewAt": "2026-10-31T19:49:00-04:00",
+  "latestReviewAt": "2026-10-31T20:49:00-04:00",
   "factualAccuracyGate": "Corrected source phrase and denial claim in newly rendered script; automated source/voice verification passed. Full audio listening pending.",
   "descriptFreeCapacity": "No new Descript agent job. Existing original composition remains unchanged. Free GitHub/Piper/FFmpeg render succeeded.",
   "auditReport": "youtube-growth/analytics/2026-10-31-1848-monitoring-corrected-descript-asr-and-release-gates.md",
@@ -83,12 +83,28 @@
     "privateQaUrl": "https://github.com/ragunauthramsaroop/PrismBay/actions/runs/41254433278",
     "privateQaArtifactId": 13061624447,
     "remainingGates": [
-      "full narration listening",
-      "independent ASR",
-      "caption sync and safe-area QA",
+      "confirm proposed subtitle timing and safe areas against actual burned captions",
+      "complete human full-audio listening",
       "physical-device playback",
       "final editorial approval",
       "YouTube Studio Earn verification"
-    ]
+    ],
+    "actualDurationSeconds": 46.96127,
+    "descriptCompositionId": "b90abc77-867c-4a30-994c-fe21b6a22a15",
+    "descriptImportJobId": "project-media-import-91135d30-2bfe-4238-ac96-d0b2c931159a",
+    "independentAsrStatus": "PASS: Descript 16-cue transcript accurately captures original incident and 3 controls; no spoken channel name; not a substitute for human listening",
+    "subtitleEditorialCandidate": "youtube-growth/production/ai-agent-monitoring-2026-10-31-retention-candidate-14cue-editorial.srt",
+    "captionProposalQA": {
+      "cues": 14,
+      "maxWpm": 170.6,
+      "maxLines": 3,
+      "maxCharsPerLine": 38,
+      "wordForWordPreserved": true,
+      "mergedCueGroups": [
+        "6+7",
+        "9+10"
+      ],
+      "appliedToVideo": false
+    }
   }
 }
