@@ -51,6 +51,7 @@ test('live read-only agent audit checks Whop and checkout without posting or exp
  const r=await runForensicAgency({env,fetchImpl});
  assert.equal(r.status,'LAUNCH_BLOCKED');
  assert.equal(r.roles.sre.status,'REACHABLE_ONLY');
+ assert.equal(r.roles.sre.checkoutProbeOutcome,'REACHABLE');
  assert.equal(r.roles.payments.checkoutMetadataVerified,true);
  assert.equal(r.roles.payments.payoutVerified,false);
  assert.equal(r.launchApproved,false);
@@ -67,4 +68,11 @@ test('summary does not print private URLs or customer data',()=>{
  assert.match(s,/Release: \*\*BLOCKED\*\*/);
  assert.ok(!s.includes('https://'));
  assert.match(s,/PAID_BUYER_FILE_DELIVERY_NOT_VERIFIED/);
+});
+
+test('checkout failure is classified without exposing private purchase URL',()=>{
+ const r=assessReleaseEvidence({seller,anonymous:{outcome:RESULT.NOT_CONFIGURED},checkout:'HTTP_403',storefront:'REACHABLE'});
+ assert.equal(r.roles.sre.checkoutProbeOutcome,'HTTP_403');
+ assert.equal(r.launchApproved,false);
+ assert.ok(!JSON.stringify(r).includes('whop.com/clean/checkout'));
 });

@@ -29,7 +29,7 @@ export function assessReleaseEvidence({seller,anonymous,checkout,storefront}){
     status:checkoutMetadata&&payout?'METADATA_ONLY':'BLOCKED'},
    security:{anonymousDownloadDenied:anon,paidBuyerDownloadVerified:buyer,freeMemberDenied,
     status:exposed?'CRITICAL':anon?'PARTIAL':'BLOCKED'},
-   sre:{checkoutPageReachable:checkout==='REACHABLE',storefrontReachable:storefront==='REACHABLE',
+   sre:{checkoutProbeOutcome:checkout,checkoutPageReachable:checkout==='REACHABLE',storefrontReachable:storefront==='REACHABLE',
     status:checkout==='REACHABLE'&&storefront==='REACHABLE'?'REACHABLE_ONLY':'INCOMPLETE'},
    releaseReviewer:{status:'BLOCKED',reason:'No independent real paid-buyer or free-member entitlement confirmation'}
   },
@@ -71,7 +71,7 @@ async function readWhopCheckout({env,fetchImpl}){
    headers:{Accept:'text/html'}});
   if(checkout.status===200)return 'REACHABLE';
   if([301,302,303,307,308].includes(checkout.status))return 'REDIRECT_REQUIRES_REVIEW';
-  return 'NOT_REACHABLE';
+  return Number.isInteger(checkout.status)?'HTTP_'+checkout.status:'ERROR';
  }catch{return 'ERROR'}
 }
 async function readStorefront(fetchImpl){
