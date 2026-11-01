@@ -81,21 +81,21 @@ async function bootstrap(reason='initial'){
   booting=true;stream='SYNCING';renderAll();
   try{
     const data=await getJson('/api/stream-init');
-    if(data.mode!=='PAPER_ONLY'||!Array.isArray(data.completedMinutes)||data.completedMinutes.length<40)throw Error('Insufficient 1-minute price history');
+    if(data.mode!=='PAPER_ONLY'||!Array.isArray(data.completedMinutes))throw Error('Public minute-price response invalid');
     let clean=data.completedMinutes.filter(b=>Number.isFinite(b.time)&&Number.isFinite(b.close)&&b.close>0).sort((a,b)=>a.time-b.time);
     bars=[...new Map(clean.map(b=>[b.time,b])).values()].slice(-150);
     currentMinute=null;lastBootstrap=Date.now();
     if(!sim){sim=loaded()||Core.create(Date.now());}
     // No replay/backfilled trading during a browser-closed or disconnected interval.
     if(reason==='resume'){
-      sim.lastBar=bars[bars.length-1].time;
-      sim.interruption=false;
-      sim.lastDecision='Resumed from fresh public candles; no missed trades backfilled';
+      sim.lastBar=bars.length?bars[bars.length-1].time:null;
+      sim.interruption=!data.historyFresh;
+      sim.lastDecision=data.historyFresh?'Resumed from fresh public candles; no missed trades backfilled':'Fresh minute history unavailable; virtual orders remain blocked';
       missedSession=false;
     }else if(reason==='reconnect'){
       const gap=Date.now()-sim.updatedAt>180000;
       // Ignore candles missed while disconnected. Never backfill fictitious fills.
-      sim.lastBar=bars[bars.length-1].time;
+      sim.lastBar=bars.length?bars[bars.length-1].time:null;
       if(gap){
         sim.interruption=true;missedSession=true;
         sim.lastDecision='Long price-feed interruption. Review and resume; missed trades were not backfilled.';
@@ -104,11 +104,15 @@ async function bootstrap(reason='initial'){
       const last=sim.updatedAt;
       if(sim.events.length>0 && Date.now()-last>180000){
         sim.interruption=true;missedSession=true;
-        sim.lastBar=bars[bars.length-1].time;
+        sim.lastBar=bars.length?bars[bars.length-1].time:null;
         sim.lastDecision='Browser was closed or inactive. Review gap, then resume.';
       }
     }
     initialized=true;
+    if(!data.historyFresh){
+      sim.interruption=true;missedSession=true;
+      sim.lastDecision='Minute candles delayed ('+(data.historyAgeMinutes==null?'unknown':data.historyAgeMinutes)+' minutes). No paper trades until fresh history is verified.';
+    }
     const q=safeQuote(data.quote||{});
     if(q)consumeQuote(q,'HTTP BOOTSTRAP');
     openSocket();
