@@ -57,6 +57,9 @@ test('reports live market data without live orders',async()=>{
   assert.equal(result.data.realOrders,0);
   assert.equal(result.data.market.price,120.5);
   assert.equal(result.data.portfolio.equity,10000);
+  assert.equal(result.data.portfolio.initial,10000);
+  assert.equal(result.data.portfolio.pnl,0);
+  assert.equal(result.data.portfolio.pnlPct,0);
   assert.equal(result.data.portfolio.authority,'ESTIMATE_NOT_GITHUB_LEDGER');
   assert.equal(result.data.operations.health,'HEALTHY');
   assert.match(result.headers['Cache-Control'],/s-maxage/);
