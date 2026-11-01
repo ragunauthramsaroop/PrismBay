@@ -4,7 +4,10 @@ on:
     paths:
       - 'youtube-growth/tools/validate_shorts_srt.py'
       - 'youtube-growth/tools/test_validate_shorts_srt.py'
+      - 'youtube-growth/tools/check_caption_against_asr.py'
+      - 'youtube-growth/tools/test_check_caption_against_asr.py'
       - 'youtube-growth/production/ai-agent-monitoring-2026-10-31-retention-candidate-15cue-2line-review.srt'
+      - 'youtube-growth/production/ai-agent-monitoring-2026-10-31-retention-independent-descript-asr.srt'
       - '.github/workflows/prismbay-shorts-caption-preflight.yml'
   workflow_dispatch:
 
@@ -18,18 +21,27 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Run regression tests
-        run: python -m unittest discover -s youtube-growth/tools -p 'test_validate_shorts_srt.py' -v
+        run: python -m unittest discover -s youtube-growth/tools -p 'test_*.py' -v
       - name: Check candidate subtitles against known media duration
         run: |
           python youtube-growth/tools/validate_shorts_srt.py \
             youtube-growth/production/ai-agent-monitoring-2026-10-31-retention-candidate-15cue-2line-review.srt \
             --duration 46.96127 \
             --json-output caption-preflight.json
+      - name: Verify spoken-word transcript integrity and estimated timing
+        run: |
+          python youtube-growth/tools/check_caption_against_asr.py \
+            youtube-growth/production/ai-agent-monitoring-2026-10-31-retention-candidate-15cue-2line-review.srt \
+            youtube-growth/production/ai-agent-monitoring-2026-10-31-retention-independent-descript-asr.srt \
+            --tolerance 0.35 \
+            --json-output caption-asr-comparison.json
       - name: Save QA evidence
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: prismbay-monitoring-retention-caption-preflight
-          path: caption-preflight.json
+          path: |
+            caption-preflight.json
+            caption-asr-comparison.json
           if-no-files-found: ignore
           retention-days: 7
