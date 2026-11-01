@@ -108,7 +108,7 @@ def main():
   cmd(['ffmpeg','-hide_banner','-loglevel','error','-y','-loop','1','-framerate','24','-i',png,'-i',wav,'-t',f'{duration:.3f}',
        '-vf','format=yuv420p','-c:v','libx264','-preset','veryfast','-crf','22','-r','24',
        '-c:a','aac','-b:a','128k','-af',f'atempo={tempo},apad=pad_dur=0.18,volume=-2dB','-movflags','+faststart',mp4])
-  clips.append(mp4);cues.append((t,t+duration,spoken));t+=duration
+  # Use the encoded clip duration, not a predicted WAV/tempo duration. This prevents\n  # cumulative caption drift when FFmpeg rounds frame and AAC packet lengths.\n  encoded_duration=float(json.loads(subprocess.check_output([\n   'ffprobe','-v','error','-show_entries','format=duration','-of','json',mp4\n  ]))['format']['duration'])\n  clips.append(mp4);cues.append((t,t+encoded_duration,spoken));t+=encoded_duration
  playlist=out/'concat.txt';playlist.write_text(''.join("file '"+p.resolve().as_posix()+"'\n" for p in clips))
  video=out/'prismbay-ai-accepted-output-cost-short-review.mp4'
  cmd(['ffmpeg','-hide_banner','-loglevel','error','-y','-f','concat','-safe','0','-i',playlist,'-c','copy','-movflags','+faststart',video])
@@ -116,13 +116,13 @@ def main():
  srt.write_text(''.join(f'{i}\n{stamp(s)} --> {stamp(e)}\n{txt}\n\n' for i,(s,e,txt) in enumerate(cues,1)))
  probe=json.loads(subprocess.check_output(['ffprobe','-v','error','-show_entries','format=duration:stream=codec_name,codec_type,width,height','-of','json',video]))
  dur=float(probe['format']['duration'])
- assert 25<dur<100 and len(cues)==12
+ assert 25<dur<100 and len(cues)==12\n assert abs(dur-t)<0.35, f'Caption timeline drift exceeds 350 ms: {dur-t:+.3f}s'
  assert any(x.get('width')==1080 and x.get('height')==1920 for x in probe['streams'])
  assert any(x.get('codec_type')=='audio' for x in probe['streams'])
  manifest={'channelId':CHANNEL,'handle':'@PrismBayAI','brandId':'6945443','videoSha256':digest(video),
   'durationSeconds':round(dur,3),'sceneCount':len(CONTENT),'narrationSegments':len(PHRASES),
   'voice':VOICE if a.voice=='piper' else 'ESPEAK_LOCAL_QA_ONLY',
-  'captionMode':'BURNED_IN_PHRASE_SYNCHRONIZED','fictionalExample':True,
+  'captionMode':'BURNED_IN_PHRASE_SYNCHRONIZED','captionTimingSource':'ffprobe encoded clip duration',\n  'captionTimelineDriftSeconds':round(dur-t,3),'fictionalExample':True,
   'reviewOnly':True,'publicationApproved':False,'uploadPermitted':False,'paidSpendUSD':0,
   'outstanding':['Independent full listening','Real-device YouTube UI playback','Voice model license and attribution verification','Editorial approval']}
  (out/'manifest.json').write_text(json.dumps(manifest,indent=2)+'\n')
