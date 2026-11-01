@@ -1,0 +1,27 @@
+name: Whop Files post-attachment independent read-only verification
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/whop-files-post-attach-verify.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify-product-file-entitlement:
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Test read-only buyer association assertions
+        run: node --test scripts/whop-files-post-attach-read.test.mjs
+      - name: Verify paid and free product association directly from Whop
+        env:
+          WHOP_COMPANY_API_KEY: ${{ secrets.WHOP_COMPANY_API_KEY }}
+          WHOP_COMPANY_ID: ${{ vars.WHOP_COMPANY_ID }}
+        run: node scripts/whop-files-post-attach-read.mjs
