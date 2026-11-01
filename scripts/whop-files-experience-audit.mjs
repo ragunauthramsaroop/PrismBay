@@ -51,7 +51,25 @@ export async function inspectFiles({env=process.env,fetchImpl=fetch}={}){
   if(paid.length!==1||free.length!==1)return fail('PRODUCTS_UNVERIFIED','Paid or free product missing from Whop list');
   const path=id=>'/experiences?account_id='+encodeURIComponent(account)+'&product_id='+encodeURIComponent(id)+'&first=100';
   const [paidExperiences,freeExperiences]=await Promise.all([get(path(paid[0].id)),get(path(free[0].id))]);
-  return assessExperienceGating({products,paidExperiences,freeExperiences});
+  const verdict=assessExperienceGating({products,paidExperiences,freeExperiences});
+  if(verdict.status==='PRODUCT_GATE_VERIFIED'||verdict.status==='FREE_PRODUCT_FILES_ACCESS')return verdict;
+  // Drill into account-wide records only when the filtered query yielded no Files app.
+  // Report response structure and counts only, not confidential Whop account data.
+  const allExperiences=await get('/experiences?account_id='+encodeURIComponent(account)+'&first=100');
+  const sample=allExperiences[0]||{};
+  const files=allExperiences.filter(x=>x?.app?.id===FILES_APP||x?.app?.name==='Files');
+  const productRefs=files.map(x=>Array.isArray(x.products)?x.products:
+      Array.isArray(x.products?.data)?x.products.data:[]).flat();
+  return {...verdict,diagnostics:{
+   paidExperienceCount:paidExperiences.length,
+   freeExperienceCount:freeExperiences.length,
+   companyExperienceCount:allExperiences.length,
+   recognizedFilesExperienceCount:files.length,
+   filesExperiencePaidProductLinked:productRefs.some(p=>p?.id===paid[0].id),
+   filesExperienceFreeProductLinked:productRefs.some(p=>p?.id===free[0].id),
+   experienceFieldNames:Object.keys(sample).sort().slice(0,30),
+   appFieldNames:Object.keys(sample?.app||{}).sort().slice(0,15)
+  }};
  }catch(err){
   const status=Number(err?.httpStatus)||0;
   return {...fail(status===403?'EXPERIENCE_READ_FORBIDDEN':'API_INCONCLUSIVE',
