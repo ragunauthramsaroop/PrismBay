@@ -11,6 +11,16 @@ VIEWPORTS={
   'desktop': {'width':1440,'height':1000},
   'mobile': {'width':390,'height':844},
 }
+# Exact Stripe Payment Links verified against the LIVE PrismBay Clean account on 2026-11-01.
+# Never approve unknown or physical-product checkout links by pattern or domain alone.
+AUTHORIZED_DIGITAL_HOME_CHECKOUTS=frozenset({
+  'https://buy.stripe.com/eVqfZi5Lo7pV31Ea4MgnK0t', # Executive digital bundle
+  'https://buy.stripe.com/eVqaEYddQ6lRgSu1yggnK0v', # Cashflow Studio v1, USD 5.99
+})
+
+def unapproved_home_checkout_links(links):
+  return [url for url in links if url.split('?',1)[0] not in AUTHORIZED_DIGITAL_HOME_CHECKOUTS]
+
 JS=r'''() => {
  const vw=innerWidth;
  const visible=e=>{const s=getComputedStyle(e),r=e.getBoundingClientRect();return s.display!=='none'&&s.visibility!=='hidden'&&+s.opacity!==0&&r.width>1&&r.height>1};
@@ -65,10 +75,8 @@ async def audit(strict=True):
           if path=='/garment-steamer/' and data['stripeLinks']:
             errors.append(f'{path} {name}: physical product checkout exposed before buyer-specific verification')
           if path=='/':
-            # The executive digital bundle is not a physical supplier offer.
-            # Preserve its valid checkout while blocking unapproved home links.
-            authorized_digital={'https://buy.stripe.com/eVqfZi5Lo7pV31Ea4MgnK0t'}
-            unapproved=[url for url in data['stripeLinks'] if url.split('?',1)[0] not in authorized_digital]
+            # Both known digital offers are authorized; unknown/physical links fail closed.
+            unapproved=unapproved_home_checkout_links(data['stripeLinks'])
             if unapproved:
               errors.append(f'{path} {name}: unapproved home checkout link {unapproved[:3]}')
           if path=='/' and name=='desktop':
