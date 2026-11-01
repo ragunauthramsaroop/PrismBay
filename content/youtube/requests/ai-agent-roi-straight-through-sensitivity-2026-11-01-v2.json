@@ -1,0 +1,65 @@
+{
+  "slug": "ai-agent-roi-straight-through-sensitivity-2026-11-01-v2",
+  "title": "Same AI Agent: 3.5 vs 9.7 Month Payback | PrismBay AI",
+  "targetChannelId": "UCw2hs85TzIpdKwJtG-BSxzQ",
+  "visualStyle": "roi_sensitivity_v1",
+  "voice": "en_US-norman-medium",
+  "voiceLicenseBasis": "rhasspy/piper-voices MIT repository; Norman voice card references public-domain LibriVox recordings. Verify ONNX SHA256 before render.",
+  "voiceModelSource": "https://huggingface.co/rhasspy/piper-voices/blob/main/en/en_US/norman/medium/en_US-norman-medium.onnx",
+  "expectedVoiceModelSha256": "b9739443232a80a59c7d18810dd856899bf16a7964725f5ab81ea49b1351cb71",
+  "requireVerifiedVoiceModel": true,
+  "sourceAttribution": "Original PrismBay AI hypothetical invoice model. Not observed industry results or realized cash. Detailed arithmetic: youtube-growth/production/2026-11-01-ai-agent-roi-ledger-longform-master.md",
+  "experimentId": "PB-YT-SH-2026-11-01-ROI-STP",
+  "hypothesis": "Contrasting payback periods using a transparent, original invoice ROI model attracts higher completion and qualified founder/CFO subscribers than generic automation claims.",
+  "targetAudience": "Founders, CFOs, procurement directors, operations executives",
+  "hookType": "two numerical payback outcomes with one causal variable",
+  "format": "short",
+  "durationTargetSeconds": "45-65",
+  "thumbnailConcept": "Split-screen 3.5 months in green versus 9.7 months in amber, a single question: WHAT CHANGED?",
+  "cta": "Follow PrismBay AI for measurable AI business systems, after delivering model results.",
+  "publishTime": "UNSET; private production only; schedule after long-form parent and editorial, audio, mobile, source, and duplicate gates",
+  "successThreshold": "Compare after 6h/24h/72h/7d. RETEST if engaged watch time strong but hook weak. SCALE only after meaningful sample with >=30% subscriber conversion or engaged watch-time improvement over matched Shorts median.",
+  "productionStatus": "V2 RENDER REQUESTED; v1 held for clipping; not scheduled or published",
+  "paidSpendUSD": 0,
+  "segments": [
+    {
+      "scene": "hook",
+      "headline": "SAME AGENT. TWO PAYBACKS.",
+      "body": "What changed? Straight-through completion.",
+      "spoken": "The same AI invoice agent pays back in three and a half months, or nearly ten. What changed? The exception rate."
+    },
+    {
+      "scene": "baseline",
+      "headline": "START WITH REAL COSTS",
+      "body": "6,000 invoices. $18,000 monthly manual baseline. $30,000 setup.",
+      "spoken": "Here is a hypothetical workflow: six thousand invoices monthly, eighteen thousand dollars of manual processing cost, and thirty thousand dollars to implement."
+    },
+    {
+      "scene": "low",
+      "headline": "MORE EXCEPTIONS. SLOWER PAYBACK.",
+      "body": "60% completed without repair. $3,100 monthly economic benefit.",
+      "spoken": "At sixty percent straight-through completion, the model leaves thirty-one hundred dollars in monthly economic benefit. Payback takes nine point seven months."
+    },
+    {
+      "scene": "high",
+      "headline": "FEWER EXCEPTIONS. FASTER PAYBACK.",
+      "body": "90% completed without repair. $8,500 monthly economic benefit.",
+      "spoken": "At ninety percent completion, the model shows eighty-five hundred dollars per month. Payback falls to three point five months."
+    },
+    {
+      "scene": "compare",
+      "headline": "SAME COST ASSUMPTIONS",
+      "body": "Review, software, support and reserve held fixed. Illustrative, not cash savings.",
+      "spoken": "Review, software, support, and risk-reserve assumptions stay fixed. These are projected economic benefits, not verified cash savings."
+    },
+    {
+      "scene": "close",
+      "headline": "TEST BEFORE YOU BUY",
+      "body": "Measure correct straight-through completions and exception handling.",
+      "spoken": "Before buying an agent, measure straight-through completion and time the exceptions. Follow for practical AI business systems."
+    }
+  ],
+  "playbackDurationFactor": 1.15,
+  "supersedes": "ai-agent-roi-straight-through-sensitivity-2026-11-01",
+  "revisionReason": "Pixel-measured headline wrapping after contact-sheet inspection found clipped text, and 15% slower pitch-preserving narration for legibility."
+}
