@@ -264,7 +264,10 @@ document.addEventListener('visibilitychange',()=>{
 document.addEventListener('DOMContentLoaded',()=>{
   $('livePause')?.addEventListener('click',()=>{
     if(!sim)return;
-    sim.paused=!sim.paused;sim.lastDecision=sim.paused?'Session manually paused':'Session resumed';save(true);renderAll();
+    sim.paused=!sim.paused;
+    if(!sim.paused && bars.length)sim.lastBar=bars[bars.length-1].time;
+    sim.lastDecision=sim.paused?'Session manually paused':'Session resumed without backfilled trades';
+    save(true);renderAll();
   });
   $('liveResumeGap')?.addEventListener('click',()=>bootstrap('resume').then(()=>{save(true);renderAll();}));
   $('liveReset')?.addEventListener('click',()=>{
