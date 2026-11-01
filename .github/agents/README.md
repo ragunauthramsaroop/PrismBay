@@ -36,3 +36,14 @@ Whop reference: https://whop.com/blog/whop-files-app/
 Whop payout verification reference: https://whop.com/blog/global-payouts-api/
 Whop payout settings: https://docs.whop.com/manage-your-business/manage-payouts/set-up-payouts
 Release evidence: https://github.com/ragunauthramsaroop/PrismBay/issues/548
+
+## Files experience association audit
+
+Whop product attachment is independently checked through read-only GET /experiences, filtered by paid and free product IDs. HTTP 403 means insufficient API permissions, not a proven vulnerability.
+
+A verified Files association to the $19 product with no free-product association is evidence of configuration. A signed-out visitor test and real buyer fulfillment remain required.
+
+Script: scripts/whop-files-experience-audit.mjs. Test: scripts/whop-files-experience-audit.test.mjs.
+
+Whop Files app ID: app_5UWRrs7haZZeiQ.
+Reference: https://docs.whop.com/api-reference/experiences/list-experiences
