@@ -9,7 +9,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
   actions: read
 
 concurrency:
@@ -59,6 +59,21 @@ jobs:
           assert r['alignment']=='ESTIMATED_WITHIN_SOURCE_PARAGRAPHS_NOT_INDEPENDENT_ASR'
           print('PASS: readable review captions; no speech-alignment or publication approval asserted')
           PY
+      - name: Retain durable review-only captions in the authorized repository
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          FILE=youtube-growth/production/2026-11-01-ai-agent-roi-ledger-captions-mobile-review.srt
+          if gh api "repos/${GH_REPO}/contents/${FILE}" >/dev/null 2>&1; then
+            echo 'Review captions already retained; no duplicate write.'
+          else
+            CONTENT=$(base64 -w0 review/output/captions-mobile-review.srt)
+            gh api -X PUT "repos/${GH_REPO}/contents/${FILE}" \
+              -f message='Retain original longform two-line review captions, not speech-aligned' \
+              -f content="$CONTENT"
+          fi
       - name: Retain review-only caption evidence
         if: always()
         uses: actions/upload-artifact@v4
