@@ -33,13 +33,39 @@ Common synonyms such as Invoice number, Customer, Invoice amount, Due and Paymen
 5. Keep CSV export working, test round-trip export -> import and test on mobile. Verify no accidental upload, duplicate overwrite, partial import or data loss.
 6. Publish the existing Floot project only after typecheck and tests pass. Recheck the live page and document release evidence in issue #544.
 
+## Safe, atomic commit adapter
+
+`invoice-import-commit.mjs` adds a second, explicit step after preview. The browser page must show the validated record count and total before the user presses an Import button. The adapter refuses import in fictional example mode or without `confirmed:true`, rechecks the original CSV against the latest invoice register, generates unique IDs, and returns one complete new array. Invalid files, duplicate invoice numbers, duplicate IDs or ID generation failures return `records:null`. No records change on failure.
+
+```js
+import { previewInvoiceImport } from './invoice-import.mjs';
+import { commitInvoiceImport } from './invoice-import-commit.mjs';
+
+const preview = previewInvoiceImport(csvText, records);
+if (!preview.ok) {
+  showErrors(preview.errors);
+} else {
+  showImportPreview(preview.count, preview.totalAmount, preview.records.slice(0, 5));
+}
+
+// Call only inside the user's explicit confirmation click handler:
+const result = commitInvoiceImport(csvText, records, {
+  personalWorkspace: true,
+  confirmed: true,
+});
+if (result.ok) setRecords(result.records);
+else showErrors(result.errors);
+```
+
+The example names `showErrors`, `showImportPreview`, `records` and `setRecords` are UI placeholders, not functions supplied by this module. In the existing Floot React page, hold the CSV text in local component state until the user confirms or cancels. Never persist the raw CSV to the server, expose its contents in logs or automatically import on file selection. Clear the pending preview after a successful import, cancellation or file change. When changing between example and personal mode, discard any pending import. Test export and reimport in a fresh workspace, reject duplicates when importing twice, and verify mobile layout.
+
 ## Privacy and billing boundary
 
 The current browser pilot stores financial records only in that browser's local storage. There is no hosted user identity, server-side invoice database, automatic email delivery or live SaaS billing. Do not label the import helper a secure multi-tenant cloud product. A separate authenticated SaaS backend and per-tenant authorization remain prerequisites for recurring subscriptions.
 
 ## Verification
 
-Run: node --test services/cashflow-cloud/invoice-import.test.mjs
+Run: node --test services/cashflow-cloud/invoice-import*.test.mjs
 
 The test suite covers export compatibility, CSV quoting, header aliases, duplicates, formula injection, real dates, amount limits, malformed CSV, file and row caps, atomic failure and quoted-newline handling. A GitHub Actions pull-request check runs the same tests without accessing secrets or deploying anything.
 
