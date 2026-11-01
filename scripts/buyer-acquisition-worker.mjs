@@ -1,8 +1,8 @@
 import fs from 'node:fs/promises';
-import { campaignForSlot, currentSixHourSlot, ACTIVE_DIGITAL_OFFERS } from './digital-conversion-campaign.mjs';
+import { firstSaleCampaignForSlot, currentSixHourSlot, FIRST_SALE_CASHFLOW_OFFER } from './digital-conversion-campaign.mjs';
 
 const now = Date.now();
-const campaign = campaignForSlot(currentSixHourSlot(now));
+const campaign = firstSaleCampaignForSlot(currentSixHourSlot(now));
 const timeout = ms => AbortSignal.timeout(ms);
 
 async function inspect(url) {
@@ -10,11 +10,10 @@ async function inspect(url) {
   const body = await r.text();
   return {ok:r.ok,status:r.status,finalUrl:r.url,body};
 }
-const offer = ACTIVE_DIGITAL_OFFERS.find(x=>x.slug===campaign.offer.slug);
-if(!offer) throw new Error('campaign_offer_not_found');
+const offer = FIRST_SALE_CASHFLOW_OFFER;
 const guide = await inspect(offer.guide);
 if(!guide.ok) throw new Error('guide_http_'+guide.status);
-for(const required of [offer.checkout.split('/').at(-1),'$'+offer.priceUsd,'www.prismbayai.com/refunds','<h1>']){
+for(const required of [offer.checkout.split('/').at(-1),'$'+offer.priceUsd,'https://clean.prismbayai.com/digital/cashflow-studio/purchase-information.html','mailto:support@prismbayai.com','<h1>']){
   if(!guide.body.includes(required)) throw new Error('guide_missing_'+required);
 }
 const checkout = await inspect(offer.checkout);
