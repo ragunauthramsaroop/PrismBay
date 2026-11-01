@@ -3,6 +3,7 @@ on:
   push:
     paths:
       - youtube-growth/production/render_accepted_output_short.py
+      - youtube-growth/production/build_mobile_release_review.py
       - .github/workflows/prismbay-accepted-output-short-review.yml
   workflow_dispatch:
 permissions:
@@ -127,6 +128,9 @@ jobs:
           (review/'review-results.json').write_text(json.dumps(report,indent=2)+'\n')
           print(json.dumps(report,indent=2))
           PY
+      - name: Build offline phone playback and editorial checklist
+        run: |
+          python youtube-growth/production/build_mobile_release_review.py
       - name: Store unpublished review artifact
         uses: actions/upload-artifact@v4
         with:
@@ -137,4 +141,5 @@ jobs:
             out/youtube/accepted-output-short/manifest.json
             out/youtube/accepted-output-short/release-review-pack/*.png
             out/youtube/accepted-output-short/release-review-pack/review-results.json
+            out/youtube/accepted-output-short/release-review-pack/mobile-release-review.html
           retention-days: 7
