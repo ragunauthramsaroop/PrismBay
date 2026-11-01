@@ -25,6 +25,17 @@ CYAN=(69,219,236); GREEN=(120,224,162); GOLD=(251,193,104); RED=(248,117,119)
 CHAPTER_TITLES=["THE $18,000 CLAIM","BASELINE COST","STRAIGHT-THROUGH RATE",
                 "THE HIDDEN COSTS","PAYBACK MATH","SENSITIVITY",
                 "THREE SCORECARDS","CAPACITY VS CASH","THE DECISION RULE"]
+SCENE_SUMMARIES=[
+ "Automated work does not automatically become cash savings.",
+ "Start with measured volume, processing time and loaded cost.",
+ "Correct straight-through completion determines exception workload.",
+ "Retained human work and operating costs reduce the net benefit.",
+ "Payback depends on the monthly economic benefit you verify.",
+ "The exception rate changes the economics of the same workflow.",
+ "Quality, economics and governance belong in one decision.",
+ "Released staff capacity differs from verified cash reductions.",
+ "Pilot, measure, verify controls and scale in stages."
+]
 SCENE_FACTS=[
   ["6,000 INVOICES","$18,000 GROSS COST","GROSS IS NOT NET"],
   ["6,000 INVOICES","5 MIN EACH","500 HOURS","$36 / HOUR","$18,000 / MONTH"],
@@ -140,7 +151,7 @@ def frame(chapter,scene_index,heading,narration,out):
     d.line((86,194,1830,194),fill=(51,78,101),width=3)
     d.text((86,242),f"{chapter+1:02d}  {CHAPTER_TITLES[chapter]}",font=font(47,True),fill=GOLD)
     sentence=re.split(r"(?<=[.!?])\s+",narration)[0]
-    if len(sentence)>112:sentence=sentence[:108].rsplit(" ",1)[0]+"..."
+    if len(sentence)>112:sentence=SCENE_SUMMARIES[chapter]
     label(d,sentence,90,367,maxwidth=875,size=49)
     diagram(d,chapter,scene_index)
     facts=SCENE_FACTS[chapter]
