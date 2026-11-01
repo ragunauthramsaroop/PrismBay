@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "checkedAt": "2026-11-01T07:37:23.600Z",
+  "checkedAt": "2026-11-01T14:32:11.716Z",
   "source": "GitHub Actions accountability evidence",
   "refreshPolicy": "Best-effort GitHub schedules. Static snapshot; refresh does not run agents.",
   "summary": {
@@ -22,11 +22,11 @@
       "reason": "fresh_success_with_evidence",
       "consequence": "none",
       "failureStreak": 0,
-      "runId": 41282044820,
-      "runUrl": "https://github.com/ragunauthramsaroop/PrismBay/actions/runs/41282044820",
-      "runAgeMinutes": 53,
-      "artifactName": "buyer-acquisition-41282044820",
-      "artifactBytes": 25749,
+      "runId": 41315096007,
+      "runUrl": "https://github.com/ragunauthramsaroop/PrismBay/actions/runs/41315096007",
+      "runAgeMinutes": 19,
+      "artifactName": "buyer-acquisition-41315096007",
+      "artifactBytes": 25708,
       "remediation": null
     },
     {
@@ -42,7 +42,7 @@
       "failureStreak": 0,
       "runId": 41223431483,
       "runUrl": "https://github.com/ragunauthramsaroop/PrismBay/actions/runs/41223431483",
-      "runAgeMinutes": 865,
+      "runAgeMinutes": 1279,
       "artifactName": "prismbay-external-traffic-41223431483",
       "artifactBytes": 659918,
       "remediation": null
@@ -58,11 +58,11 @@
       "reason": "fresh_success_with_evidence",
       "consequence": "none",
       "failureStreak": 0,
-      "runId": 41281892691,
-      "runUrl": "https://github.com/ragunauthramsaroop/PrismBay/actions/runs/41281892691",
-      "runAgeMinutes": 55,
-      "artifactName": "prismbay-ceo-recovery-41281892691",
-      "artifactBytes": 57673,
+      "runId": 41315008794,
+      "runUrl": "https://github.com/ragunauthramsaroop/PrismBay/actions/runs/41315008794",
+      "runAgeMinutes": 20,
+      "artifactName": "prismbay-ceo-recovery-41315008794",
+      "artifactBytes": 57915,
       "remediation": null
     },
     {
@@ -76,11 +76,11 @@
       "reason": "fresh_success_with_evidence",
       "consequence": "none",
       "failureStreak": 0,
-      "runId": 41280339638,
-      "runUrl": "https://github.com/ragunauthramsaroop/PrismBay/actions/runs/41280339638",
-      "runAgeMinutes": 78,
-      "artifactName": "prismbay-paperclip-revenue-41280339638",
-      "artifactBytes": 6094,
+      "runId": 41315624975,
+      "runUrl": "https://github.com/ragunauthramsaroop/PrismBay/actions/runs/41315624975",
+      "runAgeMinutes": 13,
+      "artifactName": "prismbay-paperclip-revenue-41315624975",
+      "artifactBytes": 6102,
       "remediation": null
     },
     {
@@ -94,11 +94,11 @@
       "reason": "fresh_success_with_evidence",
       "consequence": "none",
       "failureStreak": 0,
-      "runId": 41278709973,
-      "runUrl": "https://github.com/ragunauthramsaroop/PrismBay/actions/runs/41278709973",
-      "runAgeMinutes": 103,
-      "artifactName": "prismbay-commerce-group-41278709973",
-      "artifactBytes": 36931,
+      "runId": 41315012441,
+      "runUrl": "https://github.com/ragunauthramsaroop/PrismBay/actions/runs/41315012441",
+      "runAgeMinutes": 20,
+      "artifactName": "prismbay-commerce-group-41315012441",
+      "artifactBytes": 36994,
       "remediation": null
     }
   ],
