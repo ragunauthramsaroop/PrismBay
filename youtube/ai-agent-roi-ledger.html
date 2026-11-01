@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AI Agent ROI Ledger | PrismBay AI</title>
+<meta name="description" content="Free AI agent ROI calculator for founders and CFOs. Model invoice automation payback, exception handling, operating costs and economic benefit. All example values are hypothetical.">\n<link rel="canonical" href="https://clean.prismbayai.com/youtube/ai-agent-roi-ledger.html">\n<meta name="robots" content="index,follow">
+<style>
+:root{color-scheme:dark;font-family:system-ui,-apple-system,Segoe UI,sans-serif;background:#081525;color:#f4f8fc}
+*{box-sizing:border-box}body{margin:0}main{max-width:1160px;margin:auto;padding:32px 22px 90px}
+header{border-bottom:2px solid #2ac8d6;padding:22px 0 28px}h1{font-size:clamp(2rem,5vw,3.5rem);line-height:1.1;max-width:820px;margin:15px 0}
+p{color:#c0d2e1;line-height:1.6}.eyebrow{color:#62e6ed;font-weight:800;letter-spacing:.12em}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}.panel{border:1px solid #34536c;background:#11283b;border-radius:16px;padding:22px}
+h2{font-size:1.2rem;margin:0 0 20px}.field{display:flex;flex-direction:column;gap:7px;margin-bottom:15px}
+label{color:#d5e4ee;font-weight:650;font-size:.91rem}input{background:#071c2e;color:#fff;border:1px solid #577087;border-radius:8px;padding:12px;font:inherit;width:100%}
+input:focus{outline:2px solid #62e6ed;outline-offset:1px}.number{font-size:clamp(1.7rem,4vw,2.7rem);font-weight:800;margin:8px 0;color:#77e6b0}
+.warning{color:#ffce86}.small{font-size:.85rem}.results{margin-top:18px}
+table{width:100%;border-collapse:collapse;margin-top:12px}th,td{border-bottom:1px solid #34536c;text-align:left;padding:12px 8px}td:last-child,th:last-child{text-align:right}
+button{background:#64e3ed;color:#072030;border:0;border-radius:9px;padding:13px 18px;font:inherit;font-weight:800;cursor:pointer}
+button:hover{background:#b0f5fa}button:focus{outline:3px solid white;outline-offset:2px}
+.callout{border-left:5px solid #e6b66d;padding:12px 20px;background:#1a2d3e;margin:22px 0}
+footer{padding-top:20px;border-top:1px solid #34536c;margin-top:32px}
+@media(max-width:600px){main{padding:16px 15px 70px}.panel{padding:17px}th,td{font-size:.85rem;padding:11px 3px}}
+</style></head>
+<body><main><header><div class="eyebrow">PRISMBAY AI | AI SYSTEMS, MEASURED</div>
+<h1>Before you buy an AI agent, run the numbers.</h1>\n<p><a href="https://www.youtube.com/@PrismBayAI" style="color:#62e6ed;font-weight:700" rel="noopener">PrismBay AI video channel</a></p>
+<p>This original calculator estimates the monthly economic benefit of automating an invoice workflow. Every starting value is illustrative. Replace each input with your own measured data. The result is not a claim of realized cash savings.</p></header>
+<section class="grid" aria-label="Model assumptions" style="margin-top:24px">
+<div class="panel"><h2>1. Manual baseline</h2>
+<div class="field"><label for="volume">Transactions per month</label><input id="volume" type="number" min="1" max="10000000" step="1" value="6000"></div>
+<div class="field"><label for="minutes">Manual minutes per transaction</label><input id="minutes" type="number" min="0.01" max="1440" step=".25" value="5"></div>
+<div class="field"><label for="rate">Fully loaded hourly cost, USD</label><input id="rate" type="number" min="0" max="10000" step=".5" value="36"></div></div>
+<div class="panel"><h2>2. Retained human effort</h2>
+<div class="field"><label for="straight">Correct straight-through completion, %</label><input id="straight" type="number" min="0" max="100" step="1" value="75"></div>
+<div class="field"><label for="review">Oversight seconds per transaction</label><input id="review" type="number" min="0" max="3600" step="5" value="45"></div>
+<p class="small">Straight-through means correct completion without manual repair. Oversight is a separate assumed control cost.</p></div>
+<div class="panel"><h2>3. Technology and launch</h2>
+<div class="field"><label for="compute">Monthly software and integration, USD</label><input id="compute" type="number" min="0" max="10000000" step="100" value="1800"></div>
+<div class="field"><label for="support">Monthly maintenance and support, USD</label><input id="support" type="number" min="0" max="10000000" step="100" value="2200"></div>
+<div class="field"><label for="risk">Monthly risk reserve, USD</label><input id="risk" type="number" min="0" max="10000000" step="100" value="1000"></div>
+<div class="field"><label for="setup">One-time implementation, USD</label><input id="setup" type="number" min="0" max="100000000" step="1000" value="30000"></div></div>
+</section>
+<p id="error" role="alert" class="warning" aria-live="polite"></p>
+<section class="grid results" aria-live="polite">
+<div class="panel"><h2>Monthly manual baseline</h2><div class="number" id="baseline">$18,000</div><p class="small">Reference cost before automation, not automatic savings.</p></div>
+<div class="panel"><h2>Modeled monthly economic benefit</h2><div class="number" id="benefit">$5,800</div><p class="small">After retained human work and recurring operating costs.</p></div>
+<div class="panel"><h2>Simple implementation payback</h2><div class="number" id="payback">5.2 months</div><p class="small">Assumes modeled monthly benefit is stable and realized.</p></div>
+</section>
+<div class="panel" style="margin-top:18px"><h2>Audit ledger</h2>
+<table><tbody><tr><td>Manual baseline</td><td id="rbaseline"></td></tr>
+<tr><td>Exception processing</td><td id="rexceptions"></td></tr>
+<tr><td>Human oversight</td><td id="rover"></td></tr>
+<tr><td>Software, support and risk reserve</td><td id="rother"></td></tr>
+<tr><td>Total post-automation monthly cost</td><td id="rpost"></td></tr>
+<tr><th>Net monthly economic benefit</th><th id="rnet"></th></tr>
+<tr><td>First-year net after implementation</td><td id="ryear"></td></tr></tbody></table></div>
+<div class="panel" style="margin-top:18px"><h2>One-variable sensitivity</h2>
+<p class="small">Only the straight-through completion rate changes. Every other input stays fixed.</p>
+<table><thead><tr><th>Completion</th><th>Net / month</th><th>Payback</th></tr></thead><tbody id="scenarios"></tbody></table></div>
+<div class="callout"><strong>Economic benefit is not verified cash savings.</strong>
+<p>Released staff capacity has economic value only when redeployed or monetized through a documented operational outcome. Cash savings require evidence such as reduced contractor invoices, lower overtime or approved budget changes. Never count the same benefit twice.</p></div>
+<button type="button" id="copy">Copy audit summary</button><span id="copystatus" class="small" role="status" style="margin-left:14px"></span>
+<footer><p>PrismBay AI helps founders, operators and executives implement practical AI business systems. Original educational model, November 2026. <a href="https://www.youtube.com/@PrismBayAI" style="color:#62e6ed" rel="noopener">Follow PrismBay AI for practical AI business systems.</a> No customer data is collected, and calculations run entirely in your browser.</p><p class="small">Model: baseline = volume × manual minutes ÷ 60 × hourly cost. Exception cost = volume × (1 − completion rate) × manual minutes ÷ 60 × hourly cost. Oversight = volume × review seconds ÷ 3600 × hourly cost. Monthly economic benefit = baseline − exceptions − oversight − recurring technology and risk costs. Simple payback = implementation ÷ positive monthly benefit. Real deployments require ramp-up, controls, financing and finance validation.</p></footer>
+</main>
+<script>
+"use strict";
+const ids=["volume","minutes","rate","straight","review","compute","support","risk","setup"];
+const el=id=>document.getElementById(id);
+const usd=n=>new Intl.NumberFormat("en-US",{style:"currency",currency:"USD",maximumFractionDigits:0}).format(n);
+const number=n=>Number.isFinite(n)?n.toFixed(1)+" months":"Not reached";
+let summary="";
+function compute(){
+ const a={};for(const id of ids){a[id]=Number(el(id).value);
+ if(el(id).value===""||!Number.isFinite(a[id])||a[id]<Number(el(id).min)||a[id]>Number(el(id).max)){
+ el("error").textContent="Enter a valid value for "+id+".";return;}}
+ el("error").textContent="";
+ const baseline=a.volume*a.minutes/60*a.rate;
+ const oversight=a.volume*a.review/3600*a.rate;
+ const other=a.compute+a.support+a.risk;
+ function scenario(pct){
+ const exceptions=a.volume*(1-pct/100)*a.minutes/60*a.rate;
+ const post=exceptions+oversight+other;
+ const net=baseline-post;
+ const payback=net>0?a.setup/net:Infinity;
+ return {pct,exceptions,post,net,payback};
+ }
+ const base=scenario(a.straight);
+ const year=12*base.net-a.setup;
+ for(const [id,val] of Object.entries({baseline:usd(baseline),benefit:usd(base.net),payback:number(base.payback),
+ rbaseline:usd(baseline),rexceptions:usd(base.exceptions),rover:usd(oversight),rother:usd(other),
+ rpost:usd(base.post),rnet:usd(base.net),ryear:usd(year)}))el(id).textContent=val;
+ const tbody=el("scenarios");tbody.replaceChildren();
+ for(const pct of [60,75,90]){
+ const r=scenario(pct);const tr=document.createElement("tr");
+ for(const s of [pct+"%",usd(r.net),number(r.payback)]){
+ const td=document.createElement("td");td.textContent=s;tr.append(td);
+ }tbody.append(tr);
+ }
+ summary="PrismBay AI | Hypothetical ROI ledger\nTransactions: "+a.volume+
+ "\nManual baseline: "+usd(baseline)+" / month\nStraight-through: "+a.straight+
+ "%\nExceptions: "+usd(base.exceptions)+"\nOversight: "+usd(oversight)+
+ "\nOther recurring: "+usd(other)+"\nPost-automation: "+usd(base.post)+
+ "\nModeled economic benefit: "+usd(base.net)+" / month\nPayback: "+number(base.payback)+
+ "\nYear-one net after setup: "+usd(year)+"\nNot verified cash savings.";
+}
+ids.forEach(id=>el(id).addEventListener("input",compute));
+el("copy").addEventListener("click",async()=>{try{await navigator.clipboard.writeText(summary);el("copystatus").textContent="Summary copied.";}catch{el("copystatus").textContent="Clipboard unavailable in this browser."; }});
+compute();
+</script></body></html>
