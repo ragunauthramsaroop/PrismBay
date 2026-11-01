@@ -1,0 +1,719 @@
+1
+00:00:00,000 --> 00:00:03,293
+A company processes six
+thousand invoices every month.
+
+2
+00:00:03,293 --> 00:00:05,763
+A vendor offers
+an AI agent
+
+3
+00:00:05,763 --> 00:00:08,645
+and promises to automate
+the entire queue.
+
+4
+00:00:08,645 --> 00:00:12,350
+The finance team calculates
+eighteen thousand dollars in monthly
+
+5
+00:00:12,350 --> 00:00:16,466
+labour cost and starts treating
+the full amount as savings.
+
+6
+00:00:16,466 --> 00:00:20,037
+There is one problem.
+Processing a document is not
+
+7
+00:00:20,037 --> 00:00:23,609
+the same as eliminating
+the cost of processing it.
+
+8
+00:00:23,609 --> 00:00:25,593
+Some invoices
+still need people.
+
+9
+00:00:25,593 --> 00:00:29,164
+Every invoice needs controls.
+The agent has operating costs.
+
+10
+00:00:29,164 --> 00:00:32,367
+And the time released
+from a task does not
+
+11
+00:00:32,367 --> 00:00:35,570
+automatically turn into cash.
+In the next few minutes,
+
+12
+00:00:35,570 --> 00:00:38,773
+we will calculate the actual
+economics, compare three outcomes,
+
+13
+00:00:38,773 --> 00:00:42,332
+and build a decision rule
+a finance leader can audit.
+
+14
+00:00:42,332 --> 00:00:44,704
+Every figure in this
+example is hypothetical.
+
+15
+00:00:44,704 --> 00:00:46,398
+The method is
+the lesson.
+
+16
+00:00:46,398 --> 00:00:49,066
+Start with the work,
+not the software.
+
+17
+00:00:49,066 --> 00:00:53,640
+Six thousand invoices per month, five
+minutes of manual work per invoice.
+
+18
+00:00:53,640 --> 00:00:57,071
+That is thirty thousand
+minutes, or five hundred hours.
+
+19
+00:00:57,071 --> 00:01:00,451
+At a fully loaded labour
+rate of thirty-six dollars
+
+20
+00:01:00,451 --> 00:01:03,830
+per hour, the monthly baseline
+is eighteen thousand dollars.
+
+21
+00:01:03,830 --> 00:01:06,459
+Multiply by twelve
+and the annual baseline
+
+22
+00:01:06,459 --> 00:01:08,711
+is two hundred sixteen
+thousand dollars.
+
+23
+00:01:08,711 --> 00:01:12,091
+This is the reference cost,
+not the agent's benefit.
+
+24
+00:01:12,091 --> 00:01:14,674
+Record the source
+of each input.
+
+25
+00:01:14,674 --> 00:01:19,841
+Does five minutes come from
+a timed sample or a sales slide?
+
+26
+00:01:19,841 --> 00:01:24,147
+Does thirty-six dollars include
+benefits and supervision? Do the six
+
+27
+00:01:24,147 --> 00:01:27,161
+thousand invoices include duplicates,
+cancellations and exceptions?
+
+28
+00:01:27,161 --> 00:01:30,083
+If your baseline is unreliable,
+every ROI percentage
+
+29
+00:01:30,083 --> 00:01:33,004
+built on top of it
+is unreliable too.
+
+30
+00:01:33,004 --> 00:01:36,291
+Put the baseline on screen
+before you discuss automation.
+
+31
+00:01:36,291 --> 00:01:38,438
+The vendor says ninety
+percent accuracy.
+
+32
+00:01:38,438 --> 00:01:42,017
+That is not enough information
+to build a business case.
+
+33
+00:01:42,017 --> 00:01:44,880
+Ask what percentage
+of invoices reaches a correct,
+
+34
+00:01:44,880 --> 00:01:46,670
+approved endpoint
+without manual repair.
+
+35
+00:01:46,670 --> 00:01:49,175
+We will call that
+the straight-through rate.
+
+36
+00:01:49,175 --> 00:01:51,793
+For our base case, assume
+seventy-five percent.
+
+37
+00:01:51,793 --> 00:01:55,907
+Four thousand five hundred invoices
+finish without the full manual process.
+
+38
+00:01:55,907 --> 00:01:59,273
+The other fifteen hundred still
+require five minutes each.
+
+39
+00:01:59,273 --> 00:02:02,639
+That is one hundred twenty-five
+hours of exception handling.
+
+40
+00:02:02,639 --> 00:02:07,312
+At thirty-six dollars per hour,
+exception handling costs four thousand
+
+41
+00:02:07,312 --> 00:02:11,985
+five hundred dollars a month.
+Now add a separate control.
+
+42
+00:02:11,985 --> 00:02:15,256
+Suppose every invoice, including
+successful ones, receives
+
+43
+00:02:15,256 --> 00:02:18,994
+forty-five seconds of human review
+or sampling-equivalent oversight.
+
+44
+00:02:18,994 --> 00:02:22,590
+Six thousand times forty-five
+seconds equals seventy-five hours,
+
+45
+00:02:22,590 --> 00:02:25,287
+or two thousand seven
+hundred dollars.
+
+46
+00:02:25,287 --> 00:02:30,231
+In a real deployment, design
+the review model to match risk.
+
+47
+00:02:30,231 --> 00:02:35,175
+Some workflows use targeted samples
+rather than review of every item.
+
+48
+00:02:35,175 --> 00:02:38,276
+For this teaching example,
+the control assumption
+
+49
+00:02:38,276 --> 00:02:41,377
+stays constant so the arithmetic
+stays transparent.
+
+50
+00:02:41,377 --> 00:02:46,549
+We now have seven thousand two hundred
+dollars in retained human work.
+
+51
+00:02:46,549 --> 00:02:50,427
+Add eighteen hundred dollars
+each month for model calls,
+
+52
+00:02:50,427 --> 00:02:54,306
+hosting and integration. Add twenty-two
+hundred dollars for maintenance,
+
+53
+00:02:54,306 --> 00:02:56,892
+evaluation, exception-rule
+changes and operational support.
+
+54
+00:02:56,892 --> 00:03:00,666
+Add a one-thousand-dollar monthly
+risk reserve for expected remediation
+
+55
+00:03:00,666 --> 00:03:04,439
+and quality incidents. That
+reserve is a planning assumption,
+
+56
+00:03:04,439 --> 00:03:07,374
+not a claim about
+industry incident rates.
+
+57
+00:03:07,374 --> 00:03:11,567
+The post-automation monthly cost is
+twelve thousand two hundred dollars.
+
+58
+00:03:11,567 --> 00:03:13,949
+Subtract that from
+the eighteen-thousand-dollar baseline.
+
+59
+00:03:13,949 --> 00:03:16,728
+The model yields five
+thousand eight hundred
+
+60
+00:03:16,728 --> 00:03:19,904
+dollars in monthly economic
+benefit, not eighteen thousand.
+
+61
+00:03:19,904 --> 00:03:23,080
+That is about thirty-two
+percent of the baseline.
+
+62
+00:03:23,080 --> 00:03:25,859
+It is still a potentially
+worthwhile project.
+
+63
+00:03:25,859 --> 00:03:28,917
+It is simply not
+the result implied by
+
+64
+00:03:28,917 --> 00:03:32,740
+a slide showing six thousand
+invoices multiplied by five minutes.
+
+65
+00:03:32,740 --> 00:03:36,274
+Now include the cost
+of getting into production.
+
+66
+00:03:36,274 --> 00:03:39,367
+Assume thirty thousand dollars
+in one-time integration,
+
+67
+00:03:39,367 --> 00:03:42,460
+testing, process redesign,
+training and launch expense.
+
+68
+00:03:42,460 --> 00:03:45,994
+Divide thirty thousand by
+five thousand eight hundred.
+
+69
+00:03:45,994 --> 00:03:49,576
+Simple payback is about five
+point two months, provided
+
+70
+00:03:49,576 --> 00:03:53,555
+the monthly benefit is realized
+and stable. Over twelve months,
+
+71
+00:03:53,555 --> 00:03:57,137
+the recurring benefit totals sixty-nine
+thousand six hundred dollars.
+
+72
+00:03:57,137 --> 00:04:00,316
+After the initial thirty
+thousand dollars, the first-year
+
+73
+00:04:00,316 --> 00:04:03,893
+net economic benefit is thirty-nine
+thousand six hundred dollars.
+
+74
+00:04:03,893 --> 00:04:07,072
+Relative to the thirty-thousand-dollar
+initial investment, that is
+
+75
+00:04:07,072 --> 00:04:11,046
+a simple first-year net return
+of one hundred thirty-two percent.
+
+76
+00:04:11,046 --> 00:04:14,326
+Do not confuse this
+with accounting profit,
+
+77
+00:04:14,326 --> 00:04:18,544
+internal rate of return
+or a discounted cash flow.
+
+78
+00:04:18,544 --> 00:04:22,293
+A serious investment memo
+would also model ramp-up,
+
+79
+00:04:22,293 --> 00:04:26,511
+taxes, financing, depreciation where
+relevant, and timing of savings.
+
+80
+00:04:26,511 --> 00:04:29,713
+Here is the number that
+changes the decision.
+
+81
+00:04:29,713 --> 00:04:33,315
+If straight-through completion
+falls to sixty percent, two thousand
+
+82
+00:04:33,315 --> 00:04:36,917
+four hundred invoices need the original
+five-minute manual process.
+
+83
+00:04:36,917 --> 00:04:40,519
+That exception work costs seven
+thousand two hundred dollars.
+
+84
+00:04:40,519 --> 00:04:45,578
+Keep the same two thousand seven
+hundred dollars in review and five
+
+85
+00:04:45,578 --> 00:04:49,372
+thousand dollars in combined operating,
+maintenance and reserve costs.
+
+86
+00:04:49,372 --> 00:04:53,588
+Total post-automation cost rises to
+fourteen thousand nine hundred dollars.
+
+87
+00:04:53,588 --> 00:04:57,744
+Savings fall to three thousand
+one hundred dollars a month.
+
+88
+00:04:57,744 --> 00:05:01,070
+Payback stretches to about
+nine point seven months.
+
+89
+00:05:01,070 --> 00:05:04,395
+If completion reaches ninety
+percent, only six hundred
+
+90
+00:05:04,395 --> 00:05:07,720
+invoices need manual processing,
+costing eighteen hundred dollars.
+
+91
+00:05:07,720 --> 00:05:09,814
+With the other
+costs unchanged,
+
+92
+00:05:09,814 --> 00:05:13,163
+the total becomes nine
+thousand five hundred dollars.
+
+93
+00:05:13,163 --> 00:05:17,351
+Savings rise to eight thousand
+five hundred dollars a month.
+
+94
+00:05:17,351 --> 00:05:20,700
+Payback drops to roughly
+three point five months.
+
+95
+00:05:20,700 --> 00:05:24,050
+Same agent concept. Same baseline.
+Different exception rate.
+
+96
+00:05:24,050 --> 00:05:26,558
+A vendor's headline
+model score does not
+
+97
+00:05:26,558 --> 00:05:29,424
+replace measured straight-through
+results in your own workflow.
+
+98
+00:05:29,424 --> 00:05:33,498
+A responsible AI business
+case has three scorecards.
+
+99
+00:05:33,498 --> 00:05:37,063
+First, quality: correct outputs,
+policy exceptions, rework,
+
+100
+00:05:37,063 --> 00:05:41,647
+incident severity and the time
+needed to resolve errors.
+
+101
+00:05:41,647 --> 00:05:45,212
+Second, economics: baseline
+cost, retained human effort,
+
+102
+00:05:45,212 --> 00:05:49,286
+operating cost, implementation
+cost and the net benefit.
+
+103
+00:05:49,286 --> 00:05:53,587
+Third, governance: who authorizes
+actions, which data the agent accesses,
+
+104
+00:05:53,587 --> 00:05:57,459
+whether every consequential
+action is logged, and who stops
+
+105
+00:05:57,459 --> 00:06:01,330
+the workflow when controls fail.
+These measures belong together.
+
+106
+00:06:01,330 --> 00:06:04,742
+An agent with high
+throughput but poor
+
+107
+00:06:04,742 --> 00:06:07,666
+auditability is not
+a successful deployment.
+
+108
+00:06:07,666 --> 00:06:12,539
+The United States National Institute
+of Standards and Technology provides
+
+109
+00:06:12,539 --> 00:06:17,413
+a voluntary AI risk-management
+framework and a generative AI profile.
+
+110
+00:06:17,413 --> 00:06:21,355
+OWASP's 2026 agentic-security
+guidance identifies security risks in
+
+111
+00:06:21,355 --> 00:06:24,805
+agents that plan
+and act through tools.
+
+112
+00:06:24,805 --> 00:06:27,269
+These are useful
+reference points,
+
+113
+00:06:27,269 --> 00:06:31,211
+not proof that any individual
+product is compliant.
+
+114
+00:06:31,211 --> 00:06:34,355
+Now the accounting distinction
+most ROI videos miss.
+
+115
+00:06:34,355 --> 00:06:37,891
+If the team saves hours
+but salaries and contractor
+
+116
+00:06:37,891 --> 00:06:41,035
+bills remain unchanged,
+the company has released capacity.
+
+117
+00:06:41,035 --> 00:06:43,786
+It has not automatically
+reduced cash spending.
+
+118
+00:06:43,786 --> 00:06:47,312
+Released capacity still
+has value if staff
+
+119
+00:06:47,312 --> 00:06:50,838
+handle more invoices, reduce
+backlog, improve service
+
+120
+00:06:50,838 --> 00:06:54,867
+or avoid future hiring. Record
+those outcomes separately.
+
+121
+00:06:54,867 --> 00:06:59,296
+Cash savings need evidence such
+as lower overtime, fewer external
+
+122
+00:06:59,296 --> 00:07:03,282
+processing invoices or a documented
+change in staffing expenditure.
+
+123
+00:07:03,282 --> 00:07:06,382
+Do not count
+the same hour twice
+
+124
+00:07:06,382 --> 00:07:09,925
+as both a cash reduction
+and productivity gain.
+
+125
+00:07:09,925 --> 00:07:12,196
+Ask finance
+to sign off on
+
+126
+00:07:12,196 --> 00:07:14,846
+the value category
+before the pilot starts.
+
+127
+00:07:14,846 --> 00:07:18,632
+Ask operations to sign off
+on the actual exception rate.
+
+128
+00:07:18,632 --> 00:07:22,796
+Ask risk and compliance to sign
+off on the control design.
+
+129
+00:07:22,796 --> 00:07:26,030
+And ask procurement
+to test the exit path,
+
+130
+00:07:26,030 --> 00:07:28,455
+including data export
+and vendor dependency.
+
+131
+00:07:28,455 --> 00:07:30,461
+Here is
+the decision rule.
+
+132
+00:07:30,461 --> 00:07:33,268
+Run the agent on
+a representative sample.
+
+133
+00:07:33,268 --> 00:07:36,878
+Measure the percentage of transactions
+completed correctly without repair.
+
+134
+00:07:36,878 --> 00:07:40,488
+Time every human exception. Record
+review and maintenance effort.
+
+135
+00:07:40,488 --> 00:07:42,895
+Recalculate the model
+with real costs.
+
+136
+00:07:42,895 --> 00:07:47,045
+If the benefit survives the low-case
+scenario, the controls work,
+
+137
+00:07:47,045 --> 00:07:51,611
+and a named owner accepts
+the residual risk, scale in stages.
+
+138
+00:07:51,611 --> 00:07:54,516
+If the economics
+only work when every
+
+139
+00:07:54,516 --> 00:07:57,421
+document is perfect,
+keep the pilot small.
+
+140
+00:07:57,421 --> 00:08:01,864
+In this hypothetical example,
+the honest base case is five
+
+141
+00:08:01,864 --> 00:08:06,307
+thousand eight hundred dollars
+a month, not eighteen thousand. Follow
+
+142
+00:08:06,307 --> 00:08:10,305
+PrismBay AI for practical business
+systems with measurable outcomes.
+
+143
+00:08:10,305 --> 00:08:13,404
+The model and assumptions
+belong in your decision memo,
+
+144
+00:08:13,404 --> 00:08:15,470
+not buried in
+a vendor demonstration.
