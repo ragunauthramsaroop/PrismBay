@@ -1,0 +1,84 @@
+name: PrismBay AI ROI Ledger Original Long-Form Draft
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/render-prismbay-roi-ledger-longform.py'
+      - 'youtube-growth/production/2026-11-01-ai-agent-roi-ledger-longform-master.md'
+      - '.github/workflows/prismbay-roi-ledger-longform-draft.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: prismbay-roi-ledger-longform-draft
+  cancel-in-progress: false
+
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    timeout-minutes: 55
+    steps:
+      - name: Checkout sole authorized PrismBay AI production repository
+        uses: actions/checkout@v4
+      - name: Configure free Python production tools
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install FFmpeg, fonts, and licensed open TTS
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg fonts-dejavu-core
+          python -m pip install --disable-pip-version-check --no-input pillow piper-tts
+      - name: Check source renderer syntax
+        run: python -m py_compile scripts/render-prismbay-roi-ledger-longform.py
+      - name: Produce original narrated video, provisional captions, three thumbnail candidates
+        run: python scripts/render-prismbay-roi-ledger-longform.py
+      - name: Verify exact channel, original arithmetic and closed release gate
+        run: |
+          python - <<'PY'
+          import json,hashlib,subprocess
+          from pathlib import Path
+          p=Path('out/youtube/ai-agent-roi-ledger-2026-11-01')
+          m=json.loads((p/'manifest.json').read_text())
+          v=p/'prismbay-ai-agent-roi-ledger-unapproved.mp4'
+          assert m['channelId']=='UCw2hs85TzIpdKwJtG-BSxzQ'
+          assert m['experimentId']=='PB-YT-LF-2026-11-01-ROI-LEDGER'
+          assert m['paidSpendUSD']==0
+          assert m['published'] is False and m['publicationApproved'] is False and m['uploadPermitted'] is False
+          assert m['voiceProvenanceVerified'] is True
+          assert m['sourceNumbers']=='ILLUSTRATIVE_NOT_REALIZED_CASH'
+          assert m['captionStatus']=='PROVISIONAL_NOT_SPEECH_ALIGNED'
+          assert m['humanNarrationReview']=='PENDING'
+          assert m['physicalMobilePlayback']=='PENDING'
+          assert m['sceneCount']>=24
+          assert 1050<=m['wordCount']<=1650
+          assert all((p/f'thumbnail_{x}.png').stat().st_size>5000 for x in 'ABC')
+          assert (p/'captions-provisional.srt').stat().st_size>1000
+          assert hashlib.sha256(v.read_bytes()).hexdigest()==m['videoSha256']
+          info=json.loads(subprocess.check_output(['ffprobe','-v','error','-show_streams','-show_format','-of','json',str(v)],text=True))
+          assert 400<=float(info['format']['duration'])<=1000
+          assert any(s.get('codec_name')=='h264' and s.get('width')==1920 and s.get('height')==1080 for s in info['streams'])
+          assert any(s.get('codec_name')=='aac' for s in info['streams'])
+          print('PASS: original long-form draft, strict unpublished release gate')
+          PY
+      - name: Decode entire video and build sampled visual review sheet
+        run: |
+          mkdir -p out/youtube/ai-agent-roi-ledger-2026-11-01/qa
+          ffmpeg -hide_banner -v error -xerror -i out/youtube/ai-agent-roi-ledger-2026-11-01/prismbay-ai-agent-roi-ledger-unapproved.mp4 -map 0:v:0 -map 0:a:0 -f null -
+          ffmpeg -hide_banner -loglevel error -y -i out/youtube/ai-agent-roi-ledger-2026-11-01/prismbay-ai-agent-roi-ledger-unapproved.mp4 -vf 'fps=1/65,scale=480:270,tile=3x3' -frames:v 1 out/youtube/ai-agent-roi-ledger-2026-11-01/qa/contact-sheet.jpg
+      - name: Retain review-only production and QA artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: prismbay-roi-ledger-longform-unapproved
+          path: out/youtube/ai-agent-roi-ledger-2026-11-01/
+          retention-days: 14
+          if-no-files-found: warn
+      - name: Report closed publication status
+        if: always()
+        run: |
+          echo 'Sole channel: UCw2hs85TzIpdKwJtG-BSxzQ. Zero paid spend.' >> "$GITHUB_STEP_SUMMARY"
+          echo 'Original long-form ROI video, provisional subtitles and three thumbnail concepts.' >> "$GITHUB_STEP_SUMMARY"
+          echo 'No public upload, no new channel, no scheduling. Human listening and physical mobile review remain pending.' >> "$GITHUB_STEP_SUMMARY"
