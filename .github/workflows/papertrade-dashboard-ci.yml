@@ -27,6 +27,9 @@ jobs:
           node --check papertrade/dashboard/live-runtime.js
       - name: Test read-only dashboard API
         run: node --test papertrade/dashboard/tests/*.test.cjs
+      - name: Probe public Coinbase WebSocket ticker feed
+        timeout-minutes: 1
+        run: node papertrade/dashboard/tests/live-feed-smoke.cjs
       - name: Enforce no authenticated trading interfaces
         run: |
           node - <<'JS'
