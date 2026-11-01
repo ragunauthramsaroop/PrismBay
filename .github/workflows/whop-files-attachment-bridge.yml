@@ -1,6 +1,12 @@
 name: Whop Files attachment bridge
 
 on:
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/whop-files-attach-bridge.mjs'
+      - 'scripts/whop-files-attach-bridge.test.mjs'
+      - '.github/workflows/whop-files-attachment-bridge.yml'
   workflow_dispatch:
     inputs:
       action:
