@@ -10,7 +10,7 @@ Budget constraint: **No new paid spend**. No listing ads, inventory purchases, s
 
 List existing, verified PrismBay Digital files in an established digital-product marketplace with its own buyer discovery and built-in affiliate incentives, rather than waiting for the standalone PrismBay domain to acquire all traffic.
 
-**Priority: Whop**. The platform has a Discover marketplace plus an affiliate marketplace where independent promoters can opt to promote seller products. Standard default affiliate commission is reported by Whop as 30%, adjustable by the creator. Set **30% commission for all five verified offers initially** and reassess net earnings, fee stack and performance after genuine buyer activity. Whop's May 2025 announcement stated Discover marketplace fees had dropped to 0% and listing was instant. Reconfirm latest marketplace and payout terms before activation. Sales and promotion are not guaranteed.
+**Priority: Whop**. The platform has a Discover marketplace plus an affiliate marketplace where independent promoters can opt to promote seller products. Standard default affiliate commission is reported by Whop as 30%, adjustable by the creator. Treat **30% as a proposed affiliate rate, not an activated setting**. Confirm actual processing, affiliate, tax, payout and refund costs in the seller dashboard before enabling commissions for each offer. Do not promise a net margin from a model. Whop's May 2025 announcement stated Discover marketplace fees had dropped to 0% and listing was instant. Reconfirm latest marketplace and payout terms before activation. Sales and promotion are not guaranteed.
 
 Verified sources:
 - https://whop.com/blog/how-to-sell-digital-products/
@@ -18,6 +18,24 @@ Verified sources:
 - https://whop.com/blog/whop-changelog/
 - https://whop.com/network/pricing
 - https://whop.com/seller-terms
+
+## November 1 onboarding and unit-economics checkpoint
+
+- An October 31 Google sign-in notification confirms a Whop login, and the owner-supplied Whop Websites dashboard recorded a live website at `prismbay-clean.whop.site`. This **does not** establish seller KYC, payout approval, product uploads, Discover acceptance, affiliate activation or paid transactions. Do not migrate the canonical `clean.prismbayai.com` domain or replace its existing Stripe checkout without a separate approved release.
+- Whop's public pricing page states a **2.7% + $0.30** domestic card fee, possible **1.5% international-card** and **1% currency-conversion** additions, and a published **1.25% affiliate processing fee** for instant affiliate payout through Whop Payments. The affiliate guide describes a configurable default **30%** commission. These are published standard rates, not merchant-specific invoices. Confirm the precise seller agreement, whether the 1.25% charge applies to this merchant and its calculation base, any additional optional services, tax, refund, dispute, payout rail and payout minimum before activation. Sources: https://whop.com/network/pricing/ and https://whop.com/blog/consumer-affiliates/ and https://whop.com/seller-terms/.
+- The following are **illustrative, not earned** proceeds per single domestic-card affiliate sale, before taxes, refunds, reserves, payout fees, licensing/support costs or other platform fees. Formula: sale price minus 30% affiliate commission minus 2.7% card fee minus $0.30, minus Whop's **published 1.25% affiliate processing rate** modeled as a merchant cost on the gross sale amount. The published rate is source-backed, but its merchant-specific applicability and charging base remain unverified. Do not treat the result as net profit or a payout.
+
+| Product USD | Affiliate 30% | Estimated net USD before other costs | Estimated share |
+| ---: | ---: | ---: | ---: |
+| $5.99 | $1.80 | $3.66 | 61.0% |
+| $49.00 | $14.70 | $32.06 | 65.4% |
+| $79.00 | $23.70 | $51.88 | 65.7% |
+| $99.00 | $29.70 | $65.09 | 65.7% |
+| $179.00 | $53.70 | $117.93 | 65.9% |
+
+- For Cashflow Studio, the same modeled affiliate sale with both international-card and currency-conversion additions would leave about **$3.51** before other costs. Fees and tax treatment are seller-specific. The product's realized contribution margin is **unverified** until a genuine paid order, all fee entries, delivery and payout evidence exist. Small-ticket orders are particularly sensitive to fixed processing and payout charges; confirm payout rail fees, payout minimums and settlement batching before approving any affiliate rate.
+- Keep the 30% proposal **OFF** until seller KYC/payout, private ZIP delivery, purchase license and access duration, refunds, exact fee stack and marketplace listing visibility are verified. Whop's seller terms require a specific access period and prohibit indefinite/lifetime-access claims. Do not claim a Whop Discover listing from a website status or account login.
+- Gumroad Discover currently requires **$100** in genuine sales, completed payout setup and risk review. Payhip marketplace currently requires **$10** genuine sales plus store and product review. Neither is an immediate marketplace-traffic substitute at $0 confirmed revenue. Sources: https://gumroad.com/help/article/79-gumroad-discover and https://help.payhip.com/article/307-marketplace.
 
 ## Launch catalogue, verified existing offers
 
@@ -99,7 +117,7 @@ The details and live link references below were checked against the active Prism
 
 ## Whop activation / publication checklist
 
-1. Access/create **PrismBay Digital** business account at https://whop.com/ and complete account ownership, STUDYSMARTZ LLC verification, banking/payout and applicable tax verification using genuine details. Existing US Stripe and Mercury arrangements are helpful but **do not by themselves constitute Whop seller approval or payout verification**.
+1. Sign in to the existing Whop account, confirm that the **PrismBay Digital** seller business is owned by STUDYSMARTZ LLC, and complete account ownership, business identity, banking/payout and applicable tax verification using genuine details. Existing US Stripe and Mercury arrangements are helpful but **do not by themselves constitute Whop seller approval or payout verification**.
 2. Obtain source ZIP packages from the existing protected PrismBay order-delivery system or authorized owner workspace. **Do not store product archives in public GitHub** or invent public ZIP links.
 3. Inspect each ZIP against the verified SKU and published license, scan files, validate document formats and correct branding.
 4. Use Whop Files app to create a separate one-time product/access offer for each exact SKU. Upload source ZIPs privately, set the documented price, accurately disclose access duration and file contents, and verify the download under a platform test purchase.
