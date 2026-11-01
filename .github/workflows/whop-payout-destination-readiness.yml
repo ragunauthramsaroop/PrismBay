@@ -2,6 +2,11 @@ name: Whop payout destination readiness
 
 on:
   workflow_dispatch:
+  pull_request:
+    paths:
+      - '.github/workflows/whop-payout-destination-readiness.yml'
+      - 'scripts/whop-payout-destination-audit.mjs'
+      - 'scripts/whop-payout-destination-audit.test.mjs'
   push:
     branches: [main]
     paths:
@@ -26,6 +31,7 @@ jobs:
       - name: Test Whop payout preflight safety
         run: node --test scripts/whop-payout-destination-audit.test.mjs
       - name: Check existing Whop payout methods without exposing account details
+        if: github.event_name != 'pull_request'
         env:
           WHOP_COMPANY_API_KEY: ${{ secrets.WHOP_COMPANY_API_KEY }}
           WHOP_COMPANY_ID: ${{ vars.WHOP_COMPANY_ID }}
