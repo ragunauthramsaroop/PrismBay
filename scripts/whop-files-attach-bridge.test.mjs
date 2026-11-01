@@ -13,7 +13,7 @@ const server=(input={})=>{
   calls.push({url,options});
   if(url.includes('/products?'))return response([paid,free]);
   if(url.includes('product_id=prod_paid123'))return response(
-   input.filteredPaid??(linked?[{...files,products:[paid]}]:[]));
+   input.filteredPaid??(linked?[{...(input.direct||files),products:[paid]}]:[]));
   if(url.includes('product_id=prod_free123'))return response(input.filteredFree??[]);
   if(url.includes('/experiences?'))return response(input.experiences||[...(linked?[{...files,products:[paid]}]:[files])]);
   if(options.method==='POST'&&url.endsWith('/attach')&&
