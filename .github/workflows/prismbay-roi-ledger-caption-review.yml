@@ -1,0 +1,75 @@
+name: PrismBay AI ROI Ledger Longform Caption Review
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'youtube-growth/tools/segment_longform_captions.py'
+      - 'youtube-growth/tools/test_segment_longform_captions.py'
+      - '.github/workflows/prismbay-roi-ledger-caption-review.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: read
+
+concurrency:
+  group: prismbay-roi-ledger-caption-review
+  cancel-in-progress: false
+
+jobs:
+  caption-review:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download existing unpublished longform artifact without re-rendering
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          mkdir -p review/input
+          gh run download 41283423812 --name prismbay-roi-ledger-longform-unapproved --dir review/input
+          test -s review/input/captions-provisional.srt
+          test -s review/input/manifest.json
+          test -s review/input/prismbay-ai-agent-roi-ledger-unapproved.mp4
+      - name: Run original caption segmentation regression tests
+        run: python -m unittest youtube-growth/tools/test_segment_longform_captions.py -v
+      - name: Generate readable two-line review-only captions
+        run: |
+          python youtube-growth/tools/segment_longform_captions.py \
+            review/input/captions-provisional.srt \
+            review/output/captions-mobile-review.srt \
+            --json-output review/output/caption-review-report.json
+      - name: Verify artifact provenance, duration, exact channel and closed release gates
+        run: |
+          python - <<'PY'
+          import hashlib,json,re
+          from pathlib import Path
+          m=json.loads(Path('review/input/manifest.json').read_text())
+          r=json.loads(Path('review/output/caption-review-report.json').read_text())
+          v=Path('review/input/prismbay-ai-agent-roi-ledger-unapproved.mp4')
+          assert m['channelId']==r['channelId']=='UCw2hs85TzIpdKwJtG-BSxzQ'
+          assert hashlib.sha256(v.read_bytes()).hexdigest()==m['videoSha256']
+          assert m['published'] is False and m['publicationApproved'] is False and m['uploadPermitted'] is False
+          assert r['publicationApproved'] is False and r['uploadPermitted'] is False and r['paidSpendUSD']==0
+          assert r['spokenWords']==m['wordCount']==1190
+          assert r['reviewCues']>=100 and r['sourceCues']==39
+          assert r['maxWordsPerMinute']<=180.5 and r['maxLineCharacters']<=39 and r['maxLines']<=2
+          assert r['minCueSeconds']>=1.5
+          assert r['alignment']=='ESTIMATED_WITHIN_SOURCE_PARAGRAPHS_NOT_INDEPENDENT_ASR'
+          print('PASS: readable review captions; no speech-alignment or publication approval asserted')
+          PY
+      - name: Retain review-only caption evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: prismbay-roi-ledger-caption-review-unapproved
+          path: review/output/
+          if-no-files-found: warn
+          retention-days: 14
+      - name: Record no-publication release state
+        if: always()
+        run: |
+          echo 'Only UCw2hs85TzIpdKwJtG-BSxzQ. No public upload. Paid spend USD 0.' >> "$GITHUB_STEP_SUMMARY"
+          echo 'Word-faithful two-line review captions are estimated within source paragraph timings.' >> "$GITHUB_STEP_SUMMARY"
+          echo 'Independent ASR, narration listening, physical mobile playback and editorial approval remain pending.' >> "$GITHUB_STEP_SUMMARY"
