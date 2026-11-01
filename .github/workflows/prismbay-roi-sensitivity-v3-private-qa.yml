@@ -6,6 +6,7 @@ on:
       - '.github/workflows/prismbay-roi-sensitivity-v3-private-qa.yml'
       - 'public/youtube/ai-agent-roi-straight-through-sensitivity-2026-11-01-v3.mp4'
       - 'public/youtube/ai-agent-roi-straight-through-sensitivity-2026-11-01-v3.json'
+      - 'youtube-growth/production/ai-agent-roi-straight-through-sensitivity-2026-11-01-v3-editorial-candidate.srt'
   workflow_dispatch:
 permissions:
   contents: read
@@ -73,6 +74,21 @@ jobs:
           if grep -q 'silence_start:' roi-v3-qa/silence.log; then echo 'Extended silence'; exit 1; fi
           if grep -q 'black_start:' roi-v3-qa/black.log; then echo 'Extended black frames'; exit 1; fi
           echo 'Private media passed machine checks. Human release gates remain closed.' > roi-v3-qa/summary.txt
+      - name: Check caption readability, pacing and review status
+        run: |
+          set -euo pipefail
+          SRT=youtube-growth/production/ai-agent-roi-straight-through-sensitivity-2026-11-01-v3-editorial-candidate.srt
+          DURATION=$(python3 -c "import json; print(json.load(open('roi-v3-qa/ffprobe.json'))['format']['duration'])")
+          python3 youtube-growth/tools/validate_shorts_srt.py "$SRT" --duration "$DURATION" --max-wpm 160 --max-chars 38 --json-output roi-v3-qa/captions.json
+          python3 - <<'PY'
+          import json
+          j=json.load(open('roi-v3-qa/captions.json'))
+          assert j['status']=='PASS'
+          assert j['cueCount']==17
+          assert all(x['end']-x['start']>=1.5 for x in j['cues'])
+          assert j['maxObservedWpm']<=160
+          print('Caption pacing passed. Spoken-word ambiguity still requires human listening.')
+          PY
       - name: Retain QA evidence
         uses: actions/upload-artifact@v4
         with:
