@@ -92,6 +92,14 @@ async function bootstrap(reason='initial'){
       sim.interruption=false;
       sim.lastDecision='Resumed from fresh public candles; no missed trades backfilled';
       missedSession=false;
+    }else if(reason==='reconnect'){
+      const gap=Date.now()-sim.updatedAt>180000;
+      // Ignore candles missed while disconnected. Never backfill fictitious fills.
+      sim.lastBar=bars[bars.length-1].time;
+      if(gap){
+        sim.interruption=true;missedSession=true;
+        sim.lastDecision='Long price-feed interruption. Review and resume; missed trades were not backfilled.';
+      }
     }else if(reason==='initial'){
       const last=sim.updatedAt;
       if(sim.events.length>0 && Date.now()-last>180000){
@@ -146,7 +154,7 @@ function planReconnect(){
   retryTimer=setTimeout(()=>{
     retryTimer=null;
     if(document.visibilityState==='visible'){
-      if(!initialized||Date.now()-lastBootstrap>180000)bootstrap('resume');
+      if(!initialized||Date.now()-lastBootstrap>180000)bootstrap('reconnect');
       else openSocket();
     }
     retryDelay=Math.min(retryDelay*1.8,30000);
