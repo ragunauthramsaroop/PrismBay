@@ -129,3 +129,12 @@ test('first-sale campaign stays on the verified $5.99 Cashflow offer across slot
   assert.throws(() => firstSaleCampaignForSlot(-1), TypeError);
   assert.equal(ACTIVE_DIGITAL_OFFERS.length, 4);
 });
+
+test('verified Cashflow checkout is allowlisted while unknown physical links remain blocked', () => {
+  const approved = auditPublicStripeLinks(FIRST_SALE_CASHFLOW_OFFER.checkout);
+  assert.equal(approved.approvedDigitalStripeLinkCount, 1);
+  assert.equal(approved.unapprovedDirectStripeLinkCount, 0);
+  const mixed = auditPublicStripeLinks(FIRST_SALE_CASHFLOW_OFFER.checkout + ' https://buy.stripe.com/UNVERIFIEDPHYSICAL');
+  assert.equal(mixed.approvedDigitalStripeLinkCount, 1);
+  assert.equal(mixed.unapprovedDirectStripeLinkCount, 1);
+});
