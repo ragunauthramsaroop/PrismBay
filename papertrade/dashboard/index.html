@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#0c131e">
+<meta name="robots" content="noindex,nofollow">
+<title>PaperTrade OS | Research Command Center</title>
+<meta name="description" content="Read-only market monitoring, research verification and simulated paper-trading ledger. Never live brokerage execution.">
+<link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+<svg class="svg-defs" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <symbol id="i-grid" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></symbol>
+  <symbol id="i-activity" viewBox="0 0 24 24"><path d="M3 12h4l3-8 4 16 3-8h4"/></symbol>
+  <symbol id="i-chart" viewBox="0 0 24 24"><path d="M4 19V5M4 19h17M7 15l5-5 3 3 5-7"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path d="m12 2 8 4v6c0 5-3 8-8 10-5-2-8-5-8-10V6z"/><path d="m9 12 2 2 4-4"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l4 2"/></symbol>
+  <symbol id="i-external" viewBox="0 0 24 24"><path d="M13 5h6v6M19 5l-9 9"/><path d="M19 13v6H5V5h6"/></symbol>
+  <symbol id="i-refresh" viewBox="0 0 24 24"><path d="M20 11a8 8 0 0 0-14-5L4 8M4 4v4h4M4 13a8 8 0 0 0 14 5l2-2M20 20v-4h-4"/></symbol>
+  <symbol id="i-server" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="7" rx="2"/><rect x="3" y="14" width="18" height="7" rx="2"/><path d="M7 7h.01M7 18h.01"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="m6 12 6-6 6 6M12 6v12"/></symbol>
+  <symbol id="i-wallet" viewBox="0 0 24 24"><path d="M3 8V6a3 3 0 0 1 3-3h13M3 7h16a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7z"/><path d="M17 13h4"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></symbol>
+  <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 10v6M12 7h.01"/></symbol>
+  <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12 5 5 9-9"/></symbol>
+</svg>
+<div class="layout">
+  <aside class="sidebar" id="sidebar">
+    <div class="brand">
+      <span class="brand-mark"><svg><use href="#i-activity"/></svg></span>
+      <div><strong>PaperTrade <em>OS</em></strong><small>RESEARCH TERMINAL</small></div>
+    </div>
+    <div class="sidebar-inner">
+      <div class="sidebar-label">WORKSPACE</div>
+      <nav class="navigation" aria-label="Dashboard navigation">
+        <button data-section="overview" class="nav-item active"><svg><use href="#i-grid"/></svg>Overview</button>
+        <button data-section="market" class="nav-item"><svg><use href="#i-chart"/></svg>Market intelligence</button>
+        <button data-section="strategies" class="nav-item"><svg><use href="#i-activity"/></svg>Strategy lab</button>
+        <button data-section="operations" class="nav-item"><svg><use href="#i-server"/></svg>Operations log</button>
+        <button data-section="risk" class="nav-item"><svg><use href="#i-shield"/></svg>Risk controls</button>
+      </nav>
+      <div class="sidebar-label" style="margin-top:33px">DIRECT LINKS</div>
+      <nav class="external-links" aria-label="Project resources">
+        <a href="https://github.com/ragunauthramsaroop/PrismBay/actions/workflows/papertrade-daily.yml" target="_blank" rel="noopener"><svg><use href="#i-external"/></svg>GitHub automation</a>
+        <a href="https://github.com/ragunauthramsaroop/PrismBay/issues/569" target="_blank" rel="noopener"><svg><use href="#i-external"/></svg>Research tracker</a>
+        <a href="https://github.com/ragunauthramsaroop/PrismBay/tree/experiment/ai-paper-trading/papertrade" target="_blank" rel="noopener"><svg><use href="#i-external"/></svg>Source code</a>
+      </nav>
+    </div>
+    <div class="sidebar-foot"><div class="mode-card"><div class="mode-line"><span class="pulse-dot"></span>RESEARCH MODE</div><strong>Live orders disabled</strong><span>Simulation only. No funds connected.</span></div><span class="version">PaperTrade OS · v1.0</span></div>
+  </aside>
+  <main class="main">
+    <header class="topbar">
+      <div class="topbar-leading"><button class="menu-btn" id="menuBtn" aria-label="Open navigation"><svg><use href="#i-menu"/></svg></button><span class="bread">Workspace <span>/</span> <b id="crumb">Overview</b></span></div>
+      <div class="topbar-right"><span class="header-date" id="clock">Loading time</span><span class="top-sep"></span><span class="live-flag"><span class="pulse-dot"></span>MARKET FEED</span><button class="refresh-btn" id="refreshBtn" title="Refresh dashboard"><svg><use href="#i-refresh"/></svg><span>Refresh</span></button></div>
+    </header>
+    <div class="page-content">
+      <div class="top-intro"><div><div class="eyebrow"><span class="eyebrow-rule"></span>PERSONAL TRADING RESEARCH <span class="muted">/</span> CONTROL CENTER</div><h1 id="pageTitle">Command overview<span class="title-period">.</span></h1><p id="pageDesc">A clear view of your research system, simulated portfolio, and market activity.</p></div><div class="last-sync"><span class="small-muted">LAST DATA REFRESH</span><b id="lastUpdate">Connecting...</b><span class="sync-indicator" id="syncIndicator"><span class="pulse-dot"></span>Fetching sources</span></div></div>
+      <div class="warning-strip"><svg><use href="#i-info"/></svg><span><b>Research environment.</b> Prices are public market quotes. Account figures are independent paper-only estimates from completed daily candles, not funds held at an exchange.</span></div>
+      <div class="section-view active" id="view-overview">
+        <div class="kpi-grid">
+          <article class="kpi-card"><div class="kpi-top"><span>SIMULATED EQUITY</span><span class="icon-tile"><svg><use href="#i-wallet"/></svg></span></div><div class="kpi-value" id="equityValue">···</div><div class="kpi-bottom"><span class="metric-tag" id="equityChange">No forward data</span><span id="equityFoot">From $10,000 starting cash</span></div></article>
+          <article class="kpi-card"><div class="kpi-top"><span>BITCOIN / USD</span><span class="icon-tile"><svg><use href="#i-chart"/></svg></span></div><div class="kpi-value" id="btcValue">···</div><div class="kpi-bottom"><span class="metric-tag muted-tag" id="priceType">LIVE MARKET</span><span id="btcFoot">Coinbase public ticker</span></div></article>
+          <article class="kpi-card"><div class="kpi-top"><span>OPEN PAPER POSITION</span><span class="icon-tile"><svg><use href="#i-activity"/></svg></span></div><div class="kpi-value" id="exposureValue">···</div><div class="kpi-bottom"><span class="metric-tag" id="unitsValue">No data</span><span>of simulated equity</span></div></article>
+          <article class="kpi-card"><div class="kpi-top"><span>AUTOMATION HEALTH</span><span class="icon-tile"><svg><use href="#i-server"/></svg></span></div><div class="kpi-value health-value" id="automationHealth">Checking</div><div class="kpi-bottom"><span class="metric-tag muted-tag" id="ciStatus">GITHUB ACTIONS</span><span id="lastRunAge">Awaiting run</span></div></article>
+        </div>
+        <div class="two-main">
+          <article class="panel chart-panel"><div class="panel-heading"><div><div class="panel-kicker">MARKET OBSERVATION</div><h2>Bitcoin price history</h2><p>Completed BTC-USD daily closes from public exchange data</p></div><div class="period-group" role="group" aria-label="Chart timeframe"><button class="period active" data-days="7">7D</button><button class="period" data-days="30">30D</button><button class="period" data-days="90">90D</button></div></div><div class="chart-stats"><strong id="chartLast">—</strong><span id="chartChange">Waiting for data</span></div><div class="chart-wrap" id="mainChart"><div class="empty-state">Connecting to public market data...</div></div><div class="chart-footer"><span><span class="legend-dot"></span>BTC / USD</span><span id="chartSource">Source: Coinbase Exchange</span></div></article>
+          <article class="panel side-panel"><div class="panel-heading"><div><div class="panel-kicker">OPERATING STATUS</div><h2>System at a glance</h2><p>Latest verified infrastructure activity</p></div></div>
+            <div class="health-row"><span class="status-icon"><svg><use href="#i-server"/></svg></span><div><strong>GitHub Actions runner</strong><small id="runnerDetail">Fetching latest run</small></div><span class="status-pill" id="runnerPill">CHECKING</span></div>
+            <div class="health-row"><span class="status-icon"><svg><use href="#i-chart"/></svg></span><div><strong>Public market data</strong><small id="marketDetail">Checking price feed</small></div><span class="status-pill" id="marketPill">CHECKING</span></div>
+            <div class="health-row"><span class="status-icon"><svg><use href="#i-wallet"/></svg></span><div><strong>Paper-ledger replay</strong><small id="ledgerDetail">Rebuilding read-only estimate</small></div><span class="status-pill" id="ledgerPill">CHECKING</span></div>
+            <div class="health-row"><span class="status-icon"><svg><use href="#i-lock"/></svg></span><div><strong>Live brokerage connection</strong><small>Explicitly not configured</small></div><span class="status-pill neutral">OFF</span></div>
+            <div class="next-run"><span class="small-muted">DAILY TEST SCHEDULE</span><div><svg><use href="#i-clock"/></svg><strong>08:17 AM</strong><span>Guyana time, each day</span></div><p>GitHub schedules are not continuous and might start late.</p></div>
+          </article>
+        </div>
+        <div class="bottom-grid">
+          <article class="panel"><div class="panel-heading"><div><div class="panel-kicker">STRATEGY RESEARCH</div><h2>Walk-forward scorecard</h2><p>12 held-out historical periods · Verified November 1, 2026</p></div><button class="text-button" data-goto="strategies">View details <span>›</span></button></div><div class="score-list" id="scorecard"></div><p class="panel-note">Returns shown are averages per test period, not cumulative portfolio returns. No tested model qualifies for live funding.</p></article>
+          <article class="panel"><div class="panel-heading"><div><div class="panel-kicker">RECENT ACTIVITY</div><h2>Automation timeline</h2><p>Most recent public GitHub workflow runs</p></div><button class="text-button" data-goto="operations">All activity <span>›</span></button></div><div class="timeline" id="recentRuns"><div class="empty-state small">Loading workflow activity...</div></div></article>
+        </div>
+      </div>
+      <div class="section-view" id="view-market"><div class="section-grid"><article class="panel"><div class="panel-heading"><div><div class="panel-kicker">SPOT MARKET</div><h2>BTC / USD market watch</h2><p>Public ticker updated approximately every 45 seconds</p></div></div><div class="market-hero"><span class="small-muted">LATEST BTC QUOTE</span><div id="marketHeroPrice" class="market-hero-price">—</div><span id="marketQuoteTime" class="small-muted">Waiting for market response</span></div><div class="facts-grid"><div><span>Best bid</span><strong id="bestBid">—</strong></div><div><span>Best ask</span><strong id="bestAsk">—</strong></div><div><span>Bid / ask spread</span><strong id="spread">—</strong></div><div><span>Quote source</span><strong>Coinbase Exchange</strong></div></div></article><article class="panel"><div class="panel-heading"><div><div class="panel-kicker">PRICE SERIES</div><h2>Daily BTC price action</h2><p>Closing prices, not intraday candles</p></div></div><div class="chart-wrap" id="marketChart"></div></article></div></div>
+      <div class="section-view" id="view-strategies"><div class="panel"><div class="panel-heading"><div><div class="panel-kicker">RESEARCH LAB</div><h2>Model and benchmark comparison</h2><p>Walk-forward research. Historical outcomes do not predict live results.</p></div><a class="text-button" target="_blank" rel="noopener" href="https://github.com/ragunauthramsaroop/PrismBay/actions/runs/41358736461">Research evidence ↗</a></div><div class="table-wrap"><table class="strategy-table"><thead><tr><th>Strategy</th><th>Avg. return / period</th><th>Positive periods</th><th>Assessment</th></tr></thead><tbody id="strategyRows"></tbody></table></div><div class="insight-box"><strong>Why this matters</strong><p>The ML baseline was negative in all 12 evaluated periods. The moving-average baseline was positive in only 3. Both require deeper testing and forward evidence before any decision involving money.</p></div></div><div class="panel" style="margin-top:18px"><div class="panel-heading"><div><div class="panel-kicker">RESEARCH METHODOLOGY</div><h2>Evaluation rules</h2></div></div><div class="method-grid"><div><strong>Train only on past data</strong><p>No future target-day values are fed to the model.</p></div><div><strong>Non-overlapping periods</strong><p>Each held-out period covers 45 days.</p></div><div><strong>Risk-first simulation</strong><p>Fee, slippage, stop and drawdown assumptions apply.</p></div><div><strong>Real-money gate remains shut</strong><p>No live broker, withdrawal permission or capital deployment.</p></div></div></div></div>
+      <div class="section-view" id="view-operations"><div class="panel"><div class="panel-heading"><div><div class="panel-kicker">GITHUB ACTIONS</div><h2>Automated workflow history</h2><p>Read-only GitHub workflow run metadata, refreshed with each dashboard update</p></div><a class="text-button" target="_blank" rel="noopener" href="https://github.com/ragunauthramsaroop/PrismBay/actions/workflows/papertrade-daily.yml">Open GitHub ↗</a></div><div class="table-wrap"><table class="strategy-table"><thead><tr><th>Workflow</th><th>Started</th><th>Status</th><th>View</th></tr></thead><tbody id="runTable"></tbody></table></div></div><div class="panel" style="margin-top:18px"><div class="panel-heading"><div><div class="panel-kicker">PAPER TRANSACTIONS</div><h2>Simulated account events</h2><p>Independently reconstructed from completed candles. Not actual exchange orders.</p></div></div><div class="table-wrap"><table class="strategy-table"><thead><tr><th>UTC date</th><th>Simulation action</th><th>Estimated equity</th><th>Fees</th></tr></thead><tbody id="eventTable"></tbody></table></div></div></div>
+      <div class="section-view" id="view-risk"><div class="section-grid"><div class="panel"><div class="panel-heading"><div><div class="panel-kicker">SAFETY ARCHITECTURE</div><h2>Paper-only controls</h2><p>Risk limits are simulated, not broker-enforced</p></div></div><div class="risk-list"><div><span>Maximum simulated new position</span><strong id="maxPosition">15%</strong></div><div><span>Maximum simulated portfolio drawdown</span><strong id="maxDrawdown">10%</strong></div><div><span>Leveraged trading</span><strong>Disabled</strong></div><div><span>Short selling</span><strong>Disabled</strong></div><div><span>Live exchange trading keys</span><strong>None</strong></div><div><span>Real-money order submission</span><strong>None</strong></div></div></div><div class="panel"><div class="panel-heading"><div><div class="panel-kicker">ACCOUNT INTEGRITY</div><h2>Research ledger status</h2><p>Independent market-data replay, not a brokerage statement</p></div></div><div class="facts-grid risk-facts"><div><span>Paper starting amount</span><strong>$10,000 USD</strong></div><div><span>Replay as of</span><strong id="ledgerAsOf">—</strong></div><div><span>Completed replay days</span><strong id="eventCount">—</strong></div><div><span>Risk engine</span><strong id="riskState">—</strong></div></div><div class="insight-box"><strong>Data integrity boundary</strong><p>The scheduled GitHub process maintains its own rolling ledger in Actions cache. This screen reconstructs a separate estimate from the public seed and market candles. Differences require investigation. GitHub cache retention is not permanent archival storage.</p></div></div></div></div>
+      <footer class="footer"><span>© 2026 PaperTrade OS · Personal research environment</span><span>No brokerage connection · No guaranteed returns · UTC market bars</span></footer>
+    </div>
+  </main>
+</div>
+<script src="/app.js" defer></script>
+</body>
+</html>
