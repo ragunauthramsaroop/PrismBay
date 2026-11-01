@@ -57,3 +57,13 @@ Release rule: do not switch publicationApproved or uploadPermitted to true until
 The channel remains an original, zero-paid-spend project. Shorts are for discovery and long-form for qualified watch hours. As of November 1, 2026, YouTube's official 2027 policy states 8,000 qualified watch hours or 20 million qualified Shorts views for new full-ads applicants starting February 1, 2027, alongside 1,000 subscribers. The channel's country-based YPP eligibility has not been confirmed in the native Earn tab. Official policy: https://support.google.com/youtube/answer/12843009 and https://support.google.com/youtube/answer/13429240.
 
 Packaging rationale (November 1): changed the primary title to avoid implying a universal measured cost. The example is hypothetical. Keep the on-video disclosure and the description's explicit illustrative assumptions. No Shorts A/B testing is claimed.
+
+## Verified mobile review package completion, November 1, 2026
+
+Follow-up GitHub Actions run 41323279830 completed SUCCESS, including the new offline phone review page generation and artifact upload. Run: https://github.com/ragunauthramsaroop/PrismBay/actions/runs/41323279830. Private review ZIP artifact 13090167119 expires November 8, 2026 at 15:51:58 UTC: https://github.com/ragunauthramsaroop/PrismBay/actions/runs/41323279830/artifacts/13090167119.
+
+The new independently rendered MP4 is 42.855 seconds, 1080 x 1920, H.264/AAC. Its SHA-256 is caea106b290f4db33cfc17b6f5f1721b5ea7e789b79005b51d3ded6c44a46276. This differs from the prior run because the video was re-rendered. The manifest checksum matches the downloaded MP4. The ZIP contains release-review-pack/mobile-release-review.html, the MP4, 12-cue SRT, production manifest, 12 frame samples, and simulated mobile overlays. Offline HTML includes a playable video and five separate physical-device/editorial checkboxes. This is a private review aid, not a public upload.
+
+All CI checks passed: 12 narration phrases match 12 captions, caption timeline drift 46 ms, maximum caption pace 149.4 WPM, average audio -20.7 dBFS, peak -2.0 dBFS, no extended silence, 12 unique sampled frames, and UI-safe bounds. Full human listening, real-device playback, and editorial approval remain open. PublicationApproved=false and uploadPermitted=false remain enforced.
+
+The release review file was created by commit e5ec9635d88682cdc6baa203177cc9359815938c and added to the workflow by commit 03c49fae1307da553c9d4796a61ab6a161b3ce44. Primary title revised to "100 AI Tasks, 80 Accepted: $1.25 per Result | AI ROI" to make the hypothetical scope clear. No new Metricool post was created and the two existing private drafts were preserved.
