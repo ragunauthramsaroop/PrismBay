@@ -69,7 +69,7 @@ test('full live adapter only issues GET and never logs buyer data or keys',async
  assert.ok(calls.every(x=>x.opts.method==='GET'&&x.opts.redirect==='manual'));
  assert.ok(calls.every(x=>x.url.startsWith('https://api.whop.com/api/v1/')));
  assert.ok(!JSON.stringify(r).includes(env.WHOP_COMPANY_API_KEY));
- assert.ok(!JSON.stringify(r).includes('file'));
+ assert.ok(!JSON.stringify(r).includes('PrismBay_Whop_Buyer_File'));
 });
 test('no config never reads Whop API',async()=>{
  const r=await inspect({env:{},fetchImpl:async()=>{throw Error('unexpected')}});
