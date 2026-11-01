@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import {planAttachment,execute} from './whop-files-attach-bridge.mjs';
 const paid={id:'prod_paid123',title:'PrismBay Quote, Margin & Cash Studio',visibility:'hidden'};
 const free={id:'prod_free123',title:'PrismBay Clean',visibility:'hidden'};
-const files={id:'exp_files123',is_public:false,app:{id:'app_5UWRrs7haZZeiQ',name:'Files'},products:[]};
+const files={id:'exp_files123',is_public:false,app:{id:'app_5UWRrs7haZZeiQ',name:'Files'},company:{id:'biz_WHz0YQ6YMckpMO'},products:[]};
 const env={WHOP_COMPANY_ID:'biz_WHz0YQ6YMckpMO',WHOP_COMPANY_API_KEY:'apik_read_key_mock123'};
 const response=(data)=>({ok:true,status:200,json:async()=>({data,page_info:{has_next_page:false}})});
 const server=(input={})=>{
@@ -13,8 +13,16 @@ const server=(input={})=>{
   calls.push({url,options});
   if(url.includes('/products?'))return response([paid,free]);
   if(url.includes('/experiences?'))return response(input.experiences||[...(linked?[{...files,products:[paid]}]:[files])]);
-  if(url.endsWith('/experiences/exp_files123/attach')&&options.method==='POST'){
+  if(options.method==='POST'&&url.endsWith('/attach')&&
+     (url.includes('exp_files123')||url.includes('exp_Y0vSteSLF9Bdu6'))){
    linked=true;return {ok:true,status:200,json:async()=>({...files,products:[paid]})};
+  }
+  if(options.method==='GET'&&url.endsWith('/experiences/exp_files123')){
+   return {ok:true,status:200,json:async()=>({...files,products:linked?[paid]:files.products})};
+  }
+  if(options.method==='GET'&&url.endsWith('/experiences/exp_Y0vSteSLF9Bdu6')){
+   if(!input.direct)return {ok:false,status:404};
+   return {ok:true,status:200,json:async()=>({...input.direct,products:linked?[paid]:input.direct.products})};
   }
   throw Error('unknown URL');
  };
@@ -73,4 +81,32 @@ test('already attached remains no-op to avoid duplicate operations',async()=>{
 test('missing account config never fetches',async()=>{
  const r=await execute({env:{},fetchImpl:async()=>{throw Error('SHOULD_NOT_FETCH')}});
  assert.equal(r.status,'CONFIG_NEEDED');
+});
+test('verified direct Files experience is used when company list omits it',async()=>{
+ const direct={...files,id:'exp_Y0vSteSLF9Bdu6',company:{id:env.WHOP_COMPANY_ID}};
+ const m=server({experiences:[],direct});
+ const r=await execute({env,fetchImpl:m.get});
+ assert.equal(r.status,'READY_TO_ATTACH');
+ assert.equal(r.source,'VERIFIED_DIRECT_GET');
+ assert.equal(r.experienceId,direct.id);
+ assert.equal(r.releaseApproved,false);
+ assert.ok(m.calls.every(x=>x.options.method==='GET'));
+});
+test('direct Files experience still requires separate key and exact manual confirmation',async()=>{
+ const direct={...files,id:'exp_Y0vSteSLF9Bdu6',company:{id:env.WHOP_COMPANY_ID}};
+ const m=server({experiences:[],direct});
+ const r=await execute({env:{...env,WHOP_FILES_ACTION:'attach'},fetchImpl:m.get});
+ assert.equal(r.status,'CONFIRMATION_REQUIRED');
+ assert.ok(m.calls.every(x=>x.options.method==='GET'));
+});
+test('direct Files experience attach rechecks direct GET after approved write',async()=>{
+ const direct={...files,id:'exp_Y0vSteSLF9Bdu6',company:{id:env.WHOP_COMPANY_ID}};
+ const m=server({experiences:[],direct});
+ const r=await execute({env:{...env,WHOP_FILES_ACTION:'attach',
+  WHOP_FILES_CONFIRM:'ATTACH_EXISTING_PRIVATE_FILES_ONLY',
+  WHOP_FILES_EXPECTED_EXPERIENCE_ID:direct.id,
+  WHOP_FILES_ATTACH_API_KEY:'apik_write_mock123'},fetchImpl:m.get});
+ assert.equal(r.status,'ATTACHED_AND_RECHECKED');
+ assert.equal(m.calls.filter(x=>x.options.method==='POST').length,1);
+ assert.equal(r.releaseApproved,false);
 });
