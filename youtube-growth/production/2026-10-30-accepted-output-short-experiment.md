@@ -18,7 +18,7 @@ Format: original 1080x1920 vertical Short, 12 phrase-synchronized narration/capt
 
 ## Packaging
 
-Primary title: "Your AI Agent's $1.00 Task Really Costs $1.25 | AI ROI"
+Primary title: "100 AI Tasks, 80 Accepted: $1.25 per Result | AI ROI"
 Alternate sequential hook test: "The AI ROI Number Finance Should Reject"
 Third candidate: "100 AI Tasks. Only 80 Count. Here's the Cost."
 
@@ -46,7 +46,7 @@ The original Piper en_US-norman-medium render passed GitHub Actions run 41318225
 
 The review artifact from run 41318225176 is private and expires November 8. A follow-up production workflow run 41323279830 was initiated to add an offline mobile playback and editorial checklist to the private artifact. Open release-review-pack/mobile-release-review.html after extracting the ZIP to a phone. The page plays the actual MP4 and shows all 12 spoken captions, the exact video checksum, and five review gates. The page does not publish or approve media.
 
-Staged title: Your AI Agent's $1.00 Task Really Costs $1.25 | AI ROI.
+Staged title: 100 AI Tasks, 80 Accepted: $1.25 per Result | AI ROI.
 
 Staged description: AI ROI starts with accepted work, not raw attempts. In this hypothetical example, 100 attempted tasks yield 80 accepted outcomes. $40 in tool charges plus $60 in human review means $1.25 per accepted result, rather than $1.00 per attempt. Include retries, rework, implementation and approval time before claiming cash savings. Work through the model: https://clean.prismbayai.com/youtube/ai-agent-accepted-result-cost.html. PrismBay AI helps founders, operators and executives implement practical AI business systems.
 
@@ -55,3 +55,5 @@ This is staged copy only; no post was created. Connected Metricool brand 6945443
 Release rule: do not switch publicationApproved or uploadPermitted to true until complete independent listening, real-device playback, original-rights review, and final editorial acceptance have documented results. When the gates pass, verify the exact YouTube destination, inspect Metricool again for duplicates, and choose an open slot at least four hours from other Shorts. The current timing model suggests 16:00 America/Guyana on weekdays but does not establish an audience-conversion optimum. If released, review at 6h, 24h, 72h and 7d. Preserve a measured SCALE / RETEST / MODIFY / STOP decision.
 
 The channel remains an original, zero-paid-spend project. Shorts are for discovery and long-form for qualified watch hours. As of November 1, 2026, YouTube's official 2027 policy states 8,000 qualified watch hours or 20 million qualified Shorts views for new full-ads applicants starting February 1, 2027, alongside 1,000 subscribers. The channel's country-based YPP eligibility has not been confirmed in the native Earn tab. Official policy: https://support.google.com/youtube/answer/12843009 and https://support.google.com/youtube/answer/13429240.
+
+Packaging rationale (November 1): changed the primary title to avoid implying a universal measured cost. The example is hypothetical. Keep the on-video disclosure and the description's explicit illustrative assumptions. No Shorts A/B testing is claimed.
