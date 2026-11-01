@@ -22,12 +22,12 @@ PHRASES=[
  ('close','Measure accepted outcomes. Subscribe to PrismBay AI.'),
 ]
 CONTENT={
-'hook':('THE AI OUTPUT TRAP','100 ≠ 80','COMPLETED TASKS ≠ ACCEPTED WORK','Count results your team approves.'),
+'hook':('THE AI OUTPUT TRAP','100 ≠ 80','COMPLETED ≠ ACCEPTED','Count results your team approves.'),
 'quality':('QUALITY GATE','80 / 100','80 ACCEPTED   •   20 REJECTED','Acceptance rate: 80%'),
 'costs':('COUNT EVERY COST','$40 + $60','$40 TOOLS   +   $60 REVIEW','Total operating cost: $100'),
 'unit':('THE REAL UNIT COST','$1.25','$100 ÷ 80 ACCEPTED RESULTS','Not $1.00 per attempted task'),
-'risk':('THE HIDDEN WORK','RETRIES','REWORK   •   APPROVALS   •   ERRORS','Measure accepted outcomes.'),
-'close':('PRACTICAL AI BUSINESS SYSTEMS','PRISMBAY AI','CONTROL COST   •   MEASURE VALUE','Subscribe for evidence-led AI systems.'),
+'risk':('THE HIDDEN WORK','RETRIES','REWORK • APPROVALS • ERRORS','Measure accepted outcomes.'),
+'close':('PRACTICAL AI BUSINESS SYSTEMS','PRISMBAY AI','CONTROL COST   •   MEASURE VALUE','Evidence-led AI systems.'),
 }
 FONT='/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf'
 BOLD='/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf'
