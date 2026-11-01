@@ -1,0 +1,54 @@
+name: PrismBay YouTube source to ASR review
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - "youtube-growth/tools/check_source_against_asr.py"
+      - "youtube-growth/tools/test_check_source_against_asr.py"
+      - "youtube-growth/production/ai-agent-roi-straight-through-sensitivity-2026-11-01-v3-independent-descript-asr.srt"
+      - "content/youtube/requests/ai-agent-roi-straight-through-sensitivity-2026-11-01-v3.json"
+      - ".github/workflows/prismbay-youtube-source-asr-review.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  review:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run source-to-ASR unit tests
+        run: python -m unittest discover -s youtube-growth/tools -p "test_check_source_against_asr.py" -v
+      - name: Produce private editorial discrepancy report
+        shell: bash
+        run: |
+          set +e
+          python youtube-growth/tools/check_source_against_asr.py \
+            content/youtube/requests/ai-agent-roi-straight-through-sensitivity-2026-11-01-v3.json \
+            youtube-growth/production/ai-agent-roi-straight-through-sensitivity-2026-11-01-v3-independent-descript-asr.srt \
+            --json-output source-asr-review.json
+          code=$?
+          set -e
+          if [ "$code" -eq 2 ]; then
+            echo "Independent ASR discrepancies require human listening. Public release remains blocked."
+          elif [ "$code" -ne 0 ]; then
+            exit "$code"
+          fi
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          report=json.loads(Path('source-asr-review.json').read_text())
+          if report.get('status') == 'BLOCK':
+              raise SystemExit('Source/ASR review blocked by missing or wrong channel evidence')
+          if report.get('publicUploadPermittedByThisCheck') is not False:
+              raise SystemExit('Safety flag regression')
+          print('Review status:', report['status'])
+          print('ASR differences:', len(report['differences']))
+          PY
+      - name: Save evidence, never publish
+        uses: actions/upload-artifact@v4
+        with:
+          name: prismbay-source-asr-editorial-review
+          path: source-asr-review.json
+          retention-days: 14
