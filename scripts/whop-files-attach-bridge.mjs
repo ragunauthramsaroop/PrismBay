@@ -50,7 +50,7 @@ export function planAttachment(products,experiences){
  if(linkedIds.includes(paid[0].id))
   return safe('ALREADY_LINKED','Official Files experience is already attached to $19 product; verify ZIP delivery separately');
  return safe('READY_TO_ATTACH','A unique existing private Files experience is safe to attach to the $19 product only',
-  {paidProductId:paid[0].id,experienceId:exp.id});
+  {paidProductId:paid[0].id,freeProductId:free[0].id,experienceId:exp.id});
 }
 export async function execute({env=process.env,fetchImpl=fetch}={}){
  const account=env.WHOP_COMPANY_ID,readKey=env.WHOP_COMPANY_API_KEY;
@@ -85,7 +85,7 @@ export async function execute({env=process.env,fetchImpl=fetch}={}){
   const linked=Array.isArray(current[0]?.products)?current[0].products:[];
   if(current.length!==1||current[0].is_public!==false||
      !linked.some(x=>x.id===plan.paidProductId)||
-     linked.some(x=>x.title===FREE))
+     linked.some(x=>x.id===plan.freeProductId))
    return safe('POST_ATTACH_UNCONFIRMED','Whop accepted request but safe product association not proven');
   return safe('ATTACHED_AND_RECHECKED','Existing private Files experience now linked only to the paid product. Buyer ZIP still requires confirmation.',{attached:true});
  }catch(e){return safe('ATTACH_UNCONFIRMED','Whop attachment attempt failed or response unavailable; inspect live status before retrying')}
@@ -93,7 +93,7 @@ export async function execute({env=process.env,fetchImpl=fetch}={}){
 if(process.argv[1]&&import.meta.url===pathToFileURL(process.argv[1]).href){
  const result=await execute();
  // Never print private file links, keys, buyer IDs or full Whop payload.
- const {paidProductId,experienceId,...publicSafe}=result;
+ const {paidProductId,freeProductId,experienceId,...publicSafe}=result;
  console.log(JSON.stringify(publicSafe));
  if(['FILES_PUBLIC','FILES_LINKED_TO_FREE','FILES_LINKED_ELSEWHERE','ATTACH_REJECTED','POST_ATTACH_UNCONFIRMED'].includes(result.status))process.exitCode=1;
 }
