@@ -1,0 +1,22 @@
+{
+  "slug": "ai-agent-roi-straight-through-sensitivity-2026-11-01-v3",
+  "title": "Same AI Agent: 3.5 vs 9.7 Months of Payback | PrismBay AI",
+  "sha256": "921cf88dd291e118756e2457fdde5a109a3d4ea49a6691036752ee877af2e052",
+  "ttsEngines": [
+    "piper"
+  ],
+  "voice": "en_US-norman-medium",
+  "voiceModelSha256": "b9739443232a80a59c7d18810dd856899bf16a7964725f5ab81ea49b1351cb71",
+  "voiceModelProvenanceVerified": true,
+  "voiceModelSource": "https://huggingface.co/rhasspy/piper-voices/blob/main/en/en_US/norman/medium/en_US-norman-medium.onnx",
+  "voiceLicenseBasis": "rhasspy/piper-voices MIT repository; Norman voice card references public-domain LibriVox recordings. Verify ONNX SHA256 before render.",
+  "sourceAttribution": "Original PrismBay AI hypothetical invoice model. Not observed industry results or realized cash. Detailed arithmetic: youtube-growth/production/2026-11-01-ai-agent-roi-ledger-longform-master.md",
+  "originalProgrammaticVisuals": true,
+  "paidSpend": 0,
+  "playbackDurationFactor": 1.2,
+  "channelId": "UCw2hs85TzIpdKwJtG-BSxzQ",
+  "published": false,
+  "publicationApproved": false,
+  "uploadPermitted": false,
+  "qualityGate": "CLOSED_PENDING_FULL_AUDIO_CAPTION_MOBILE_QA"
+}
