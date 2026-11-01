@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import {planAttachment,execute} from './whop-files-attach-bridge.mjs';
 const paid={id:'prod_paid123',title:'PrismBay Quote, Margin & Cash Studio',visibility:'hidden'};
 const free={id:'prod_free123',title:'PrismBay Clean',visibility:'hidden'};
-const files={id:'exp_files123',is_public:false,app:{id:'app_5UWRrs7haZZeiQ',name:'Files'},products:[]};
+const files={id:'exp_files123',is_public:false,app:{id:'app_5UWRrs7haZZeiQ',name:'Files'},company:{id:'biz_WHz0YQ6YMckpMO'},products:[]};
 const env={WHOP_COMPANY_ID:'biz_WHz0YQ6YMckpMO',WHOP_COMPANY_API_KEY:'apik_read_key_mock123'};
 const response=(data)=>({ok:true,status:200,json:async()=>({data,page_info:{has_next_page:false}})});
 const server=(input={})=>{
@@ -108,5 +108,5 @@ test('direct Files experience attach rechecks direct GET after approved write',a
   WHOP_FILES_ATTACH_API_KEY:'apik_write_mock123'},fetchImpl:m.get});
  assert.equal(r.status,'ATTACHED_AND_RECHECKED');
  assert.equal(m.calls.filter(x=>x.options.method==='POST').length,1);
- assert.equal(r.launchApproved,false);
+ assert.equal(r.releaseApproved,false);
 });
