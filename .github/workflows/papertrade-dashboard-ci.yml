@@ -33,6 +33,9 @@ jobs:
       - name: Probe public Coinbase WebSocket ticker feed
         timeout-minutes: 1
         run: node papertrade/dashboard/tests/live-feed-smoke.cjs
+      - name: Verify real BTC historical price replay end to end
+        timeout-minutes: 1
+        run: node papertrade/dashboard/tests/production-replay-smoke.cjs
       - name: Enforce no authenticated trading interfaces
         run: |
           node - <<'JS'
