@@ -7,7 +7,7 @@ Authorized channel: `UCw2hs85TzIpdKwJtG-BSxzQ`, `@PrismBayAI`. Metricool brand: 
 - Updated `gh-pages/digital/index.html` to add a clearly identified free AI decision-tools section. Both original calculators have contextual descriptions, internal links and a single direct link to the authorized YouTube channel with a voluntary subscription confirmation. No deceptive claims or invented customer results. Commit `d6da891424e7529415069ddb9adbd6837faf6603`.
 - Updated `gh-pages/sitemap.xml` with one canonical entry per calculator, dated 2026-11-01. Commit `19d4752111cef01908faa0b90b69ee3f91378896`.
 - Independently fetched both updated files from `gh-pages`. Verified both catalog links, the exact authorized channel, one new section, and exactly one XML sitemap entry for each page.
-- Latest GitHub Pages workflow: https://github.com/ragunauthramsaroop/PrismBay/actions/runs/41299309158 . Deployment was still in progress at first verification. The preceding build was cancelled by the newer commit. Do not call the new public deployment successful without a subsequent workflow-success check.
+- Latest GitHub Pages workflow: https://github.com/ragunauthramsaroop/PrismBay/actions/runs/41299309158 . Independent follow-up read confirmed the workflow completed with conclusion=success at 2026-11-01T10:52:01Z. The preceding build was cancelled by the newer commit. Direct public-domain HTTP retrieval remained unavailable, so the successful Pages workflow is verified but external CDN delivery was not independently tested.
 
 ## Organic-discovery experiment
 ID: PB-YT-SITE-2026-11-01-FREE-TOOLS-DISCOVERY.
