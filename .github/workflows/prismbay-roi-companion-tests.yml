@@ -1,0 +1,26 @@
+name: PrismBay AI ROI Companion Regression
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'youtube-growth/companion/2026-11-01-ai-agent-roi-ledger-calculator.html'
+      - 'youtube-growth/tools/test_roi_ledger_companion.mjs'
+      - '.github/workflows/prismbay-roi-companion-tests.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Check original economics, privacy and invalid input handling
+        run: node --test youtube-growth/tools/test_roi_ledger_companion.mjs
+      - name: Confirm authorized channel and no external data collection
+        run: |
+          grep -q 'PRISMBAY AI' youtube-growth/companion/2026-11-01-ai-agent-roi-ledger-calculator.html
+          echo 'Original ROI calculator tested. No external network, no paid spend, no YouTube upload.' >> "$GITHUB_STEP_SUMMARY"
