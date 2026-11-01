@@ -28,3 +28,7 @@ GitHub read-only automation has been installed to reduce repeated manual navigat
 The currently active public GitHub Pages preview is separate from the private buyer ZIP. Do not store the paid application archive in this public repository.
 
 Official Whop documentation: https://whop.com/blog/how-to-use-the-whop-api/ and https://docs.whop.com/api-reference/products/list-products.
+
+## Current API compatibility
+
+The Whop key was created with API version `2026-10-29-8`. For this version, product pricing is represented by **Variants** and read through GET `/variants?account_id=biz_...`, not the legacy GET `/plans?company_id=...`. The connector pins `Api-Version-Date: 2026-10-29-8`, checks `billing_type: one_time`, `initial_price: 19`, and `currency: usd`. Whop still needs explicit authentication and the correct account ID. This metadata check does not verify the Files app permissions, real paid member delivery or payout readiness.
