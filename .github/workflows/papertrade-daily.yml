@@ -5,7 +5,7 @@ on:
     - cron: "17 12 * * *"
   workflow_dispatch:
   push:
-    branches: ["main", "feat/papertrade-daily-readonly"]
+    branches: ["main"]
     paths: [".github/workflows/papertrade-daily.yml"]
 
 permissions:
