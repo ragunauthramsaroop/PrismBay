@@ -1,0 +1,111 @@
+name: Daily Paper Trading Research (Read Only)
+
+on:
+  schedule:
+    - cron: "17 12 * * *"
+  workflow_dispatch:
+  push:
+    branches: ["main"]
+    paths: [".github/workflows/papertrade-daily.yml"]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: papertrade-daily-read-only
+  cancel-in-progress: false
+
+jobs:
+  research-only:
+    if: github.repository == 'ragunauthramsaroop/PrismBay'
+    runs-on: ubuntu-latest
+    timeout-minutes: 18
+    steps:
+      - name: Checkout isolated experimental source only
+        uses: actions/checkout@v4
+        with:
+          ref: experiment/ai-paper-trading
+          persist-credentials: false
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Test research logic and paper ledger invariants
+        run: |
+          python -m unittest discover -s tests -p 'test_core.py' -v
+          python -m unittest discover -s tests -p 'test_paper_research.py' -v
+
+      - name: Retrieve previous daily state from the GitHub Actions cache
+        id: cache
+        uses: actions/cache/restore@v4
+        with:
+          path: artifacts/ledger.json
+          key: papertrade-ledger-${{ github.run_id }}
+          restore-keys: |
+            papertrade-ledger-
+
+      - name: Refuse stale or malformed starting state
+        run: |
+          mkdir -p artifacts
+          if [ ! -f artifacts/ledger.json ]; then
+            cp papertrade/state/ledger.json artifacts/ledger.json
+          fi
+          python - <<'PY'
+          import json
+          from datetime import date, datetime, timezone
+          from papertrade.ledger import verify
+          with open("artifacts/ledger.json") as f:
+              state = json.load(f)
+          verify(state)
+          age = (datetime.now(timezone.utc).date() -
+                 date.fromisoformat(state["last_date"])).days
+          if age > 4:
+              raise RuntimeError("Paper state is stale, possible cache eviction. Manual recovery required.")
+          if state["mode"] != "PAPER_ONLY":
+              raise RuntimeError("Live-mode state is prohibited.")
+          PY
+
+      - name: Advance simulated ledger from completed UTC candles
+        run: python -m papertrade.ledger --coinbase --history-days 900 --state artifacts/ledger.json
+
+      - name: Run independent historical ML walk-forward research
+        run: python -m papertrade.research_cli --coinbase --history-days 900 --out artifacts/research
+
+      - name: Fail closed on compromised state or live-mode status
+        run: |
+          python - <<'PY'
+          import json
+          from papertrade.ledger import verify
+          state = json.load(open("artifacts/ledger.json"))
+          report = json.load(open("artifacts/research/walkforward.json"))
+          verify(state)
+          assert state["mode"] == "PAPER_ONLY"
+          assert all(e["kind"] == "HISTORICAL_BAR_REPLAY" for e in state["events"])
+          assert report["NOT_APPROVED_FOR_LIVE_TRADING"] is True
+          assert report["status"] == "RESEARCH_ONLY_NOT_VALIDATED"
+          assert report["data_source"] == "COINBASE_PUBLIC_COMPLETED_BTC_USD"
+          print("PAPER_DAILY_STATUS=" + json.dumps({
+              "last_candle": state["last_date"],
+              "simulated_cash": round(state["cash"],2),
+              "simulated_equity": round(state["last_equity"],2),
+              "replayed_days": len(state["events"]),
+              "halted": state["halted"],
+              "ml_mean_fold_pct": report["summary"]["mean_ml_return_pct"],
+              "sma_mean_fold_pct": report["summary"]["mean_sma_return_pct"],
+              "live_orders": False
+          }, sort_keys=True))
+          PY
+
+      - name: Save paper ledger to rolling cache
+        uses: actions/cache/save@v4
+        with:
+          path: artifacts/ledger.json
+          key: papertrade-ledger-${{ github.run_id }}
+
+      - name: Publish read-only research report artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: daily-paper-state
+          path: artifacts/
+          retention-days: 30
