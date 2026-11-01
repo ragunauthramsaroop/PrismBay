@@ -1,0 +1,75 @@
+1
+00:00:00,092 --> 00:00:02,364
+One AI agent.
+
+2
+00:00:02,473 --> 00:00:06,303
+Two paybacks, three point five
+months or nine point seven.
+
+3
+00:00:06,641 --> 00:00:09,253
+Uh, exceptions.
+
+4
+00:00:09,424 --> 00:00:10,844
+Hypothetical example.
+
+5
+00:00:11,030 --> 00:00:16,426
+Six thousand monthly invoices, eighteen
+thousand dollars in manual cost,
+
+6
+00:00:16,526 --> 00:00:18,582
+thirty thousand dollars to implement.
+
+7
+00:00:18,784 --> 00:00:23,368
+At sixty percent straight through
+completion, modeled economic
+
+8
+00:00:23,379 --> 00:00:26,650
+benefit is three thousand
+one hundred dollars monthly.
+
+9
+00:00:26,925 --> 00:00:29,488
+Payback takes nine point seven months.
+
+10
+00:00:29,712 --> 00:00:34,808
+At ninety percent completion, modeled
+economic benefit reaches eight
+
+11
+00:00:34,809 --> 00:00:36,763
+thousand five hundred dollars monthly.
+
+12
+00:00:36,951 --> 00:00:39,614
+Payback takes three point five months.
+
+13
+00:00:39,980 --> 00:00:45,616
+Review, software, support, and
+risk reserve costs stay fixed.
+
+14
+00:00:45,721 --> 00:00:51,046
+These are projected economic
+benefits, not verified cash savings.
+
+15
+00:00:51,240 --> 00:00:52,833
+Measure correct completions.
+
+16
+00:00:52,982 --> 00:00:54,599
+Time human exceptions.
+
+17
+00:00:54,766 --> 00:00:58,811
+Follow Prism Bay AI for
+practical business assistance
