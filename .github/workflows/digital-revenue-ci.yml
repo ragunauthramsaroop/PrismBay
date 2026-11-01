@@ -41,6 +41,8 @@ on:
       - 'scripts/sales-sitemap-sync.test.mjs'
       - 'scripts/revenue-health-check.mjs'
       - 'scripts/revenue-health-check.test.mjs'
+      - 'scripts/whop-public-access-audit.mjs'
+      - 'scripts/whop-public-access-audit.test.mjs'
       - '.github/workflows/digital-revenue-ci.yml'
 
 permissions:
