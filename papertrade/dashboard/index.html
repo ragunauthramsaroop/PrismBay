@@ -37,6 +37,7 @@
       <nav class="navigation" aria-label="Dashboard navigation">
         <button data-section="overview" class="nav-item"><svg><use href="#i-grid"/></svg>Overview</button>
         <button data-section="live" class="nav-item active"><svg><use href="#i-activity"/></svg><span>Live paper terminal</span><span class="nav-live-dot"></span></button>
+        <button data-section="simulation" class="nav-item"><svg><use href="#i-chart"/></svg><span>Trade simulation</span><span class="sim-nav-label">REPLAY</span></button>
         <button data-section="market" class="nav-item"><svg><use href="#i-chart"/></svg>Market intelligence</button>
         <button data-section="strategies" class="nav-item"><svg><use href="#i-activity"/></svg>Strategy lab</button>
         <button data-section="operations" class="nav-item"><svg><use href="#i-server"/></svg>Operations log</button>
@@ -129,6 +130,64 @@
         </article>
         <div class="risk-live-foot"><span>Price feed: public Coinbase WebSocket</span><span>8/21 one-minute SMA, max 10% paper allocation, 0.8% virtual stop, 1.5% take profit, 2.5% daily drawdown gate, 10% total drawdown halt</span></div>
       </div>
+      
+      <div class="section-view" id="view-simulation">
+        <div class="sim-intro">
+          <div>
+            <div class="live-kicker"><span class="pulse-dot"></span> MARKET REPLAY / REAL HISTORICAL BTC DATA / 100% VIRTUAL</div>
+            <h2>See every simulated trade.</h2>
+            <p>Watch one-minute BTC market prices unfold. The strategy only sees candles available before each decision, with simulated buys, sells, fees, and portfolio results.</p>
+          </div>
+          <span class="sim-mode">HISTORICAL REPLAY · NOT LIVE TRADING</span>
+        </div>
+        <div class="sim-toolbar">
+          <div class="sim-field"><label for="simPeriod">Historical window</label><select id="simPeriod"><option value="6" selected>Last 6 hours</option><option value="12">Last 12 hours</option><option value="24">Last 24 hours</option></select></div>
+          <div class="sim-field"><label for="simSpeed">Playback speed</label><select id="simSpeed"><option value="1">1 minute / step</option><option value="5" selected>5 minutes / step</option><option value="20">20 minutes / step</option><option value="60">60 minutes / step</option></select></div>
+          <div class="sim-button-group">
+            <button class="open-live-btn" id="simPlay" disabled>▶ Start simulation</button>
+            <button class="live-control" id="simStep" disabled>Next minute</button>
+            <button class="live-control" id="simFinish" disabled>Run full test</button>
+            <button class="live-control" id="simReset" disabled>Restart</button>
+            <button class="live-control" id="simExport" disabled>Export results</button>
+          </div>
+        </div>
+        <div class="sim-source"><svg><use href="#i-info"/></svg><div><strong id="simDatasetStatus">Loading genuine historical BTC-USD prices...</strong><span id="simDatasetDetail">No made-up trades. Results depend on real recorded price movements and the defined strategy.</span></div></div>
+        <div class="sim-progress-row"><span id="simProgressText">Awaiting historical market prices</span><strong id="simTime">—</strong></div>
+        <div class="sim-track"><div class="sim-track-fill" id="simProgressBar" style="width:0%"></div></div>
+        <div class="sim-kpi-grid">
+          <article class="panel sim-kpi"><span>VIRTUAL ACCOUNT EQUITY</span><strong id="simEquity">—</strong><small>Starting fictitious cash: $10,000</small></article>
+          <article class="panel sim-kpi"><span>SIMULATED TOTAL P/L</span><strong id="simPnl">—</strong><small id="simPnlPct">Including virtual trading costs</small></article>
+          <article class="panel sim-kpi"><span>HISTORICAL BTC PRICE</span><strong id="simPrice">—</strong><small id="simLastSignal">Prior-minute strategy signal</small></article>
+          <article class="panel sim-kpi"><span>VIRTUAL TRADE EVENTS</span><strong id="simTrades">0</strong><small id="simWinRate">0 completed trades</small></article>
+        </div>
+        <div class="sim-panels">
+          <article class="panel sim-chart-panel">
+            <div class="panel-heading"><div><div class="panel-kicker">HISTORICAL PRICE AND EXECUTION</div><h2>Trade-by-trade BTC replay</h2><p>The price path appears as time advances. Green B and coral S markers identify simulated orders.</p></div><span class="sim-legend"><span class="sim-up">● BUY</span><span class="sim-down">● SELL</span></span></div>
+            <div id="simPriceChart" class="sim-chart-canvas"><span class="empty-state">Load historical market prices to begin</span></div>
+            <div class="sim-chart-legend">BTC price at each historical minute open · Estimated virtual bid/ask fills · No future candles displayed</div>
+          </article>
+          <article class="panel sim-portfolio-panel">
+            <div class="panel-heading"><div><div class="panel-kicker">VIRTUAL PORTFOLIO</div><h2>Order execution impact</h2><p>Trade costs, holdings, and risk calculated during replay</p></div></div>
+            <div class="realtime-facts">
+              <div><span>Available virtual cash</span><strong id="simCash">—</strong></div>
+              <div><span>BTC position</span><strong id="simUnits">—</strong></div>
+              <div><span>Position market value</span><strong id="simPosition">—</strong></div>
+              <div><span>Virtual transaction fees</span><strong id="simFees">—</strong></div>
+              <div><span>Realized profit / loss</span><strong id="simRealized">—</strong></div>
+              <div><span>Unrealized profit / loss</span><strong id="simUnrealized">—</strong></div>
+              <div><span>Maximum account drawdown</span><strong id="simDrawdown">—</strong></div>
+              <div><span>Buy-and-hold benchmark</span><strong id="simBenchmark">—</strong></div>
+            </div>
+            <div class="sim-decision"><span>CURRENT BOT DECISION</span><strong id="simDecision">Waiting for historical market data</strong><small id="simStage">Paper-only simulation</small></div>
+          </article>
+        </div>
+        <article class="panel sim-journal-panel">
+          <div class="panel-heading"><div><div class="panel-kicker">SIMULATED ORDER EXECUTION LOG</div><h2>Buy and sell transactions</h2><p>Every entry records the historical time, estimated fill price, units, fee, and realized profit or loss after exit.</p></div><span class="sim-journal-status" id="simJournalStatus">0 virtual fills</span></div>
+          <div class="table-wrap"><table class="strategy-table sim-table"><thead><tr><th>Historical UTC time</th><th>Side</th><th>Virtual BTC</th><th>Estimated fill</th><th>Virtual fee</th><th>Closed trade P/L</th><th>Strategy reason</th></tr></thead><tbody id="simJournal"><tr><td colspan="7" class="no-data">Waiting for the first simulated transaction.</td></tr></tbody></table></div>
+        </article>
+        <p class="sim-caveat"><strong>Simulation assumptions:</strong> Real Coinbase one-minute BTC OHLCV prices. Virtual entry and exit at the next historical minute open, 1 basis point estimated spread, 15 bps fee per side, and 10 bps slippage per side. Historical best bid/ask quotes, intraminute stops, outage delays and queue execution are not reconstructed. No real-money transactions, claims of profitability, or future-price lookahead.</p>
+      </div>
+
       <div class="section-view" id="view-market"><div class="section-grid"><article class="panel"><div class="panel-heading"><div><div class="panel-kicker">SPOT MARKET</div><h2>BTC / USD market watch</h2><p>Public ticker updated approximately every 45 seconds</p></div></div><div class="market-hero"><span class="small-muted">LATEST BTC QUOTE</span><div id="marketHeroPrice" class="market-hero-price">—</div><span id="marketQuoteTime" class="small-muted">Waiting for market response</span></div><div class="facts-grid"><div><span>Best bid</span><strong id="bestBid">—</strong></div><div><span>Best ask</span><strong id="bestAsk">—</strong></div><div><span>Bid / ask spread</span><strong id="spread">—</strong></div><div><span>Quote source</span><strong>Coinbase Exchange</strong></div></div></article><article class="panel"><div class="panel-heading"><div><div class="panel-kicker">PRICE SERIES</div><h2>Daily BTC price action</h2><p>Closing prices, not intraday candles</p></div></div><div class="chart-wrap" id="marketChart"></div></article></div></div>
       <div class="section-view" id="view-strategies"><div class="panel"><div class="panel-heading"><div><div class="panel-kicker">RESEARCH LAB</div><h2>Model and benchmark comparison</h2><p>Walk-forward research. Historical outcomes do not predict live results.</p></div><a class="text-button" target="_blank" rel="noopener" href="https://github.com/ragunauthramsaroop/PrismBay/actions/runs/41358736461">Research evidence ↗</a></div><div class="table-wrap"><table class="strategy-table"><thead><tr><th>Strategy</th><th>Avg. return / period</th><th>Positive periods</th><th>Assessment</th></tr></thead><tbody id="strategyRows"></tbody></table></div><div class="insight-box"><strong>Why this matters</strong><p>The ML baseline was negative in all 12 evaluated periods. The moving-average baseline was positive in only 3. Both require deeper testing and forward evidence before any decision involving money.</p></div></div><div class="panel" style="margin-top:18px"><div class="panel-heading"><div><div class="panel-kicker">RESEARCH METHODOLOGY</div><h2>Evaluation rules</h2></div></div><div class="method-grid"><div><strong>Train only on past data</strong><p>No future target-day values are fed to the model.</p></div><div><strong>Non-overlapping periods</strong><p>Each held-out period covers 45 days.</p></div><div><strong>Risk-first simulation</strong><p>Fee, slippage, stop and drawdown assumptions apply.</p></div><div><strong>Real-money gate remains shut</strong><p>No live broker, withdrawal permission or capital deployment.</p></div></div></div></div>
       <div class="section-view" id="view-operations"><div class="panel"><div class="panel-heading"><div><div class="panel-kicker">GITHUB ACTIONS</div><h2>Automated workflow history</h2><p>Read-only GitHub workflow run metadata, refreshed with each dashboard update</p></div><a class="text-button" target="_blank" rel="noopener" href="https://github.com/ragunauthramsaroop/PrismBay/actions/workflows/papertrade-daily.yml">Open GitHub ↗</a></div><div class="table-wrap"><table class="strategy-table"><thead><tr><th>Workflow</th><th>Started</th><th>Status</th><th>View</th></tr></thead><tbody id="runTable"></tbody></table></div></div><div class="panel" style="margin-top:18px"><div class="panel-heading"><div><div class="panel-kicker">PAPER TRANSACTIONS</div><h2>Simulated account events</h2><p>Independently reconstructed from completed candles. Not actual exchange orders.</p></div></div><div class="table-wrap"><table class="strategy-table"><thead><tr><th>UTC date</th><th>Simulation action</th><th>Estimated equity</th><th>Fees</th></tr></thead><tbody id="eventTable"></tbody></table></div></div></div>
@@ -139,6 +198,8 @@
 </div>
 <script src="/live-core.js" defer></script>
 <script src="/live-runtime.js" defer></script>
+<script src="/replay-core.js" defer></script>
+<script src="/replay-ui.js" defer></script>
 <script src="/app.js" defer></script>
 </body>
 </html>
