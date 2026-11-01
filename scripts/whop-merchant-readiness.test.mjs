@@ -2,11 +2,11 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {assessMetadata,inspectWhop,STATUSES} from './whop-merchant-readiness.mjs';
 const p={id:'prod_example',title:'PrismBay Quote, Margin & Cash Studio',visibility:'hidden'};
-const plan={product:{id:p.id},initial_price:19,plan_type:'one_time',currency:'usd'};
+const plan={product:{id:p.id},initial_price:19,billing_type:'one_time',currency:'usd'};
 const mock=(payload,status=200)=>({ok:status>=200&&status<300,status,json:async()=>payload});
-const fixture=[{path:'/products',data:[p]},{path:'/plans',data:[plan]}];
+const fixture=[{path:'/products',data:[p]},{path:'/variants',data:[plan]}];
 const f=(overrides={})=>async(url,opts)=>{
- assert.equal(opts.method,'GET');assert.equal(opts.redirect,'manual');
+ assert.equal(opts.method,'GET');assert.equal(opts.redirect,'manual');assert.equal(opts.headers['Api-Version-Date'],'2026-10-29-8');
  assert.ok(opts.headers.Authorization.startsWith('Bearer '));assert.ok(url.startsWith('https://api.whop.com/api/v1/'));
  const item=fixture.find(x=>url.includes(x.path));if(!item)throw Error('unexpected endpoint');
  return mock({data:overrides[item.path]??item.data,page_info:{has_next_page:false}});
@@ -25,7 +25,7 @@ test('visible product cannot satisfy the hidden-product audit',()=>{
  assert.equal(r.status,STATUSES.REVIEW);assert.equal(r.releaseApproved,false);
 });
 test('wrong price, billing type or currencies fail release metadata',()=>{
- for(const planOverride of [{...plan,initial_price:18},{...plan,plan_type:'renewal'},{...plan,currency:'eur'}]){
+ for(const planOverride of [{...plan,initial_price:18},{...plan,billing_type:'renewal'},{...plan,currency:'eur'}]){
   assert.equal(assessMetadata([p],[planOverride]).status,STATUSES.REVIEW);
  }
 });
@@ -82,4 +82,14 @@ test('failure to retrieve the scoped products keeps the product blocked',async()
  }});
  assert.equal(result.status,STATUSES.AUTH_ERROR);
  assert.equal(result.releaseApproved,false);
+});
+
+test('Whop variant rather than legacy plan API is used for scoped $19 checks',async()=>{
+ const visited=[];
+ const r=await inspectWhop({env:{WHOP_COMPANY_API_KEY:'apik_valid_fake_secret',WHOP_COMPANY_ID:'biz_12345678'},fetchImpl:async(url,opt)=>{
+  visited.push(url);return f()(url,opt);
+ }});
+ assert.equal(r.status,STATUSES.VERIFIED_METADATA);
+ assert.ok(visited.some(u=>u.includes('/variants?account_id=biz_12345678')));
+ assert.ok(visited.every(u=>!u.includes('/plans?')));
 });

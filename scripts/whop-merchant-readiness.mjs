@@ -6,6 +6,7 @@
 import {pathToFileURL} from 'node:url';
 const BASE='https://api.whop.com/api/v1';
 const TARGET='PrismBay Quote, Margin & Cash Studio';
+const API_VERSION='2026-10-29-8';
 export const STATUSES=Object.freeze({CONFIG_NEEDED:'CONFIG_NEEDED',AUTH_ERROR:'AUTH_ERROR',API_ERROR:'API_ERROR',REVIEW:'REVIEW',VERIFIED_METADATA:'VERIFIED_METADATA'});
 function validateCompanyId(id){return typeof id==='string'&&/^biz_[a-zA-Z0-9]+$/.test(id)}
 async function apiGet(path,token,fetchImpl){
@@ -13,7 +14,7 @@ async function apiGet(path,token,fetchImpl){
  if(uri.origin!=='https://api.whop.com'||!uri.pathname.startsWith('/api/v1/'))throw Error('invalid API endpoint');
  const res=await fetchImpl(uri.toString(),{
   method:'GET',redirect:'manual',signal:AbortSignal.timeout(15000),
-  headers:{Authorization:'Bearer '+token,Accept:'application/json'}
+  headers:{Authorization:'Bearer '+token,Accept:'application/json','Api-Version-Date':API_VERSION}
  });
  if(!res.ok)throw Object.assign(Error('Whop API rejected request'),{httpStatus:res.status});
  if(res.status>=300&&res.status<400)throw Object.assign(Error('Whop redirected'),{httpStatus:res.status});
@@ -21,18 +22,18 @@ async function apiGet(path,token,fetchImpl){
 }
 function extractData(value){if(!Array.isArray(value?.data))throw Error('Unexpected Whop collection');return value.data}
 function onlyPage(value){if(value?.page_info?.has_next_page)throw Error('Incomplete Whop pagination');return extractData(value)}
-export function assessMetadata(products,plans){
+export function assessMetadata(products,variants){
  const matches=products.filter(p=>p?.title===TARGET);
  if(matches.length!==1)return {status:STATUSES.REVIEW,reason:matches.length===0?'Target product missing':'Duplicate target products',releaseApproved:false};
  const product=matches[0];
- const relevant=plans.filter(x=>x?.product?.id===product.id||x?.product_id===product.id);
- const exact=relevant.filter(x=>x?.currency?.toLowerCase()==='usd'&&Number(x?.initial_price)===19&&x?.plan_type==='one_time');
+ const relevant=variants.filter(x=>x?.product?.id===product.id||x?.product_id===product.id);
+ const exact=relevant.filter(x=>x?.currency?.toLowerCase()==='usd'&&Number(x?.initial_price)===19&&x?.billing_type==='one_time');
  const visible=product.visibility;
  const result={
   status:STATUSES.REVIEW,
   productFound:true,
   productVisibility:typeof visible==='string'?visible:'unknown',
-  matchingOneTimePlans:exact.length,
+  matchingOneTimeVariants:exact.length,
   releaseApproved:false,
   privateFileAccessVerified:false,
   paidBuyerAccessVerified:false,
@@ -53,15 +54,15 @@ export async function inspectWhop({env=process.env,fetchImpl=fetch}={}){
  try{
   // Whop requires account_id for company-scoped product listing.
   // Never enumerate public marketplace products to find a Hidden seller product.
-  const [products,plans]=await Promise.all([
+  const [products,variants]=await Promise.all([
    apiGet('/products?account_id='+encodeURIComponent(id)+'&first=100',token,fetchImpl),
-   apiGet('/plans?company_id='+encodeURIComponent(id)+'&first=100',token,fetchImpl)
+   apiGet('/variants?account_id='+encodeURIComponent(id)+'&first=100',token,fetchImpl)
   ]);
-  return assessMetadata(onlyPage(products),onlyPage(plans));
+  return assessMetadata(onlyPage(products),onlyPage(variants));
  }catch(error){
   const code=Number(error?.httpStatus)||0;
   return {status:code===401||code===403?STATUSES.AUTH_ERROR:STATUSES.API_ERROR,releaseApproved:false,
-   reason:code===401||code===403?'Whop denied scoped product or plan reading. Verify that the Clean business ID matches the key and product/plan read grants.':
+   reason:code===401||code===403?'Whop denied scoped product or variant reading. Verify that the Clean business ID matches the key and read grants.':
    'Whop API request failed or returned an incomplete/unexpected response.',
    httpStatus:code||undefined};
  }
