@@ -97,6 +97,38 @@ jobs:
           }, sort_keys=True))
           PY
 
+
+      - name: Publish readable daily research summary
+        run: |
+          python - <<'PY'
+          import json
+          import os
+          state = json.load(open("artifacts/ledger.json"))
+          report = json.load(open("artifacts/research/walkforward.json"))
+          metrics = report["summary"]
+          lines = [
+              "## Personal paper-trading research (no live orders)",
+              "",
+              "| Metric | Verified result |",
+              "|---|---|",
+              f"| Completed UTC candle | {state['last_date']} |",
+              f"| Simulated equity | USD {state['last_equity']:.2f} |",
+              f"| Historical bar replay events | {len(state['events'])} |",
+              f"| Risk halted | {state['halted']} |",
+              f"| ML average held-out return per fold | {metrics['mean_ml_return_pct']:.4f}% |",
+              f"| SMA average held-out return per fold | {metrics['mean_sma_return_pct']:.4f}% |",
+              f"| ML positive folds | {metrics['ml_positive_folds']}/{report['fold_count']} |",
+              f"| SMA positive folds | {metrics['sma_positive_folds']}/{report['fold_count']} |",
+              "",
+              "Historical fills are approximations, not real-time orders. No live funding is authorized.",
+              "Rolling state uses a GitHub Actions cache, which is subject to eviction.",
+              "Research profitability has not been established.",
+              ""
+          ]
+          with open(os.environ["GITHUB_STEP_SUMMARY"], "a", encoding="utf-8") as output:
+              output.write("\n".join(lines))
+          PY
+
       - name: Save paper ledger to rolling cache
         uses: actions/cache/save@v4
         with:
