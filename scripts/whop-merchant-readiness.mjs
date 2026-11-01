@@ -48,27 +48,20 @@ export async function inspectWhop({env=process.env,fetchImpl=fetch}={}){
  const token=env.WHOP_COMPANY_API_KEY||'';
  if(!token)return {status:STATUSES.CONFIG_NEEDED,releaseApproved:false,reason:'Add the company-scoped Whop API key in GitHub Actions Secrets.'};
  if(!/^[\x21-\x7E]{10,512}$/.test(token))return {status:STATUSES.CONFIG_NEEDED,releaseApproved:false,reason:'Whop API key format is invalid.'};
- let id=env.WHOP_COMPANY_ID||'';
- if(id&&!validateCompanyId(id))return {status:STATUSES.CONFIG_NEEDED,releaseApproved:false,reason:'Invalid Whop business ID.'};
+ const id=env.WHOP_COMPANY_ID||'';
+ if(!validateCompanyId(id))return {status:STATUSES.CONFIG_NEEDED,releaseApproved:false,reason:'Set non-secret GitHub Actions variable WHOP_COMPANY_ID to the exact Clean business biz_ identifier from Whop.'};
  try{
-  // Whop documents GET /products with an account API key and access_pass:basic:read.
-  // GET /accounts/me was returning 403 even with company:basic:read.
-  // Product details contain company.id; avoid the account-discovery endpoint entirely.
-  const products=onlyPage(await apiGet('/products?first=100',token,fetchImpl));
-  const targets=products.filter(p=>p?.title===TARGET);
-  if(targets.length!==1)return {status:STATUSES.REVIEW,reason:targets.length?'Duplicate target products':'Target product not found',releaseApproved:false};
-  if(!id){
-   const detail=await apiGet('/products/'+encodeURIComponent(targets[0].id),token,fetchImpl);
-   if(detail?.id!==targets[0].id||!validateCompanyId(detail?.company?.id))
-    return {status:STATUSES.CONFIG_NEEDED,reason:'Product detail did not provide verified company ID.',releaseApproved:false};
-   id=detail.company.id;
-  }
-  const plans=onlyPage(await apiGet('/plans?company_id='+encodeURIComponent(id)+'&first=100',token,fetchImpl));
-  return assessMetadata(targets,plans);
+  // Whop requires account_id for company-scoped product listing.
+  // Never enumerate public marketplace products to find a Hidden seller product.
+  const [products,plans]=await Promise.all([
+   apiGet('/products?account_id='+encodeURIComponent(id)+'&first=100',token,fetchImpl),
+   apiGet('/plans?company_id='+encodeURIComponent(id)+'&first=100',token,fetchImpl)
+  ]);
+  return assessMetadata(onlyPage(products),onlyPage(plans));
  }catch(error){
   const code=Number(error?.httpStatus)||0;
   return {status:code===401||code===403?STATUSES.AUTH_ERROR:STATUSES.API_ERROR,releaseApproved:false,
-   reason:code===401||code===403?'Whop denied a read-only product or plan request. Verify that access_pass:basic:read and plan:basic:read belong to the same Clean company key.':
+   reason:code===401||code===403?'Whop denied scoped product or plan reading. Verify that the Clean business ID matches the key and product/plan read grants.':
    'Whop API request failed or returned an incomplete/unexpected response.',
    httpStatus:code||undefined};
  }
