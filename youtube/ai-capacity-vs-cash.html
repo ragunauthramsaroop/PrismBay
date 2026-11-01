@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AI Capacity vs Cash Savings Calculator | PrismBay AI</title>
+<meta name="description" content="Free AI automation ROI worksheet. Separate released staff capacity from verified cash savings, overtime reductions and new software spending.">
+<meta name="robots" content="index,follow">
+<link rel="canonical" href="https://clean.prismbayai.com/youtube/ai-capacity-vs-cash.html">
+<meta property="og:type" content="website">
+<meta property="og:title" content="AI Capacity vs Cash Savings Calculator | PrismBay AI">
+<meta property="og:description" content="100 hours saved does not automatically mean payroll savings. Model capacity and cash separately.">
+<meta property="og:url" content="https://clean.prismbayai.com/youtube/ai-capacity-vs-cash.html">
+<style>
+:root{color-scheme:dark;--bg:#071526;--panel:#10283c;--text:#f4f8fc;--muted:#b8cbd9;--accent:#24d2c1;--warn:#ffbc80;--line:#345065}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:16px/1.55 system-ui,-apple-system,Segoe UI,sans-serif}
+main{max-width:1050px;margin:auto;padding:30px 18px 70px}
+header{border-bottom:1px solid var(--line);padding-bottom:20px;margin-bottom:24px}
+.brand{font-weight:800;letter-spacing:.1em;color:var(--accent)}h1{font-size:clamp(1.9rem,5vw,3rem);line-height:1.13;margin:15px 0}
+p{color:var(--muted);max-width:80ch}h2{margin-top:0;font-size:1.4rem}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:22px}
+.field{margin-bottom:15px}label{display:block;font-weight:650;margin-bottom:5px}
+input{width:100%;padding:12px;border-radius:9px;background:#071a2b;color:#fff;border:1px solid #7b95a9;font-size:1rem}
+input:focus,button:focus,a:focus{outline:3px solid var(--accent);outline-offset:2px}
+.help,.note{font-size:.88rem;color:var(--muted);margin:5px 0}
+.metrics{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.metric{padding-bottom:10px;border-bottom:1px solid var(--line)}
+.value{font-size:clamp(1.45rem,4vw,2.15rem);font-weight:800;color:var(--accent);margin:3px 0}
+.label{font-size:.88rem;color:var(--muted)}.warn{color:var(--warn)}.good{color:var(--accent)}
+button,.link{display:inline-block;margin:10px 8px 0 0;padding:12px 16px;border:0;border-radius:9px;background:var(--accent);color:#06202b;font-weight:800;text-decoration:none;cursor:pointer}
+.secondary{background:#d9e7f1}.wide{margin-top:18px}
+code{color:#e6f6fa;white-space:normal}.error{color:var(--warn);font-weight:700}
+@media(max-width:700px){.grid,.metrics{grid-template-columns:1fr}.panel{padding:18px}}
+</style>
+</head>
+<body><main>
+<header><div class="brand">PRISMBAY AI / FREE OPERATOR WORKSHEET</div>
+<h1>AI capacity is not the same as cash saved</h1>
+<p>Your AI workflow might release 100 staff hours without reducing payroll. Calculate the value of released capacity separately from verified changes in monthly cash spending. No login or tracking.</p></header>
+<div class="grid">
+<section class="panel" aria-labelledby="inputs"><h2 id="inputs">Monthly assumptions</h2>
+<div class="field"><label for="hours">Staff hours released per month</label><input id="hours" type="number" min="0" step=".1" value="100"><p class="help">Measure against the same work volume and quality standard.</p></div>
+<div class="field"><label for="rate">Fully loaded staff cost per hour (USD)</label><input id="rate" type="number" min="0" step=".01" value="36"></div>
+<div class="field"><label for="ai">Incremental AI software and operating costs per month (USD)</label><input id="ai" type="number" min="0" step=".01" value="400"><p class="help">Include additional subscriptions, usage, monitoring and support not counted elsewhere.</p></div>
+<div class="field"><label for="overtime">Verified monthly overtime reduction (USD)</label><input id="overtime" type="number" min="0" step=".01" value="0"></div>
+<div class="field"><label for="contractors">Verified monthly contractor spending reduction (USD)</label><input id="contractors" type="number" min="0" step=".01" value="0"></div>
+<div class="field"><label for="other">Other verified monthly cash spending reductions (USD)</label><input id="other" type="number" min="0" step=".01" value="0"><p class="help">Exclude redeployed staff hours and any reductions already entered above.</p></div>
+<button id="reset" type="button" class="secondary">Load no-cash-savings example</button>
+<button id="alternative" type="button" class="secondary">Load overtime-reduction example</button>
+</section>
+<section class="panel" aria-labelledby="results"><h2 id="results">Two separate scorecards</h2>
+<div id="error" class="error" role="alert" aria-live="polite"></div>
+<div id="metrics" class="metrics" aria-live="polite">
+<div class="metric"><div class="label">Released capacity value, not cash savings</div><div id="capacity" class="value">$3,600.00</div></div>
+<div class="metric"><div class="label">Verified monthly spending reductions</div><div id="reductions" class="value">$0.00</div></div>
+<div class="metric"><div class="label">New monthly AI operating costs</div><div id="costs" class="value">$400.00</div></div>
+<div class="metric"><div class="label">Net monthly cash savings, or spending increase</div><div id="net" class="value warn">-$400.00</div></div>
+</div>
+<p id="decision" role="status" class="warn">Cash spending rises $400.00 per month in this hypothetical scenario.</p>
+<p class="note">Cash savings = verified reductions in overtime, contractors and other spending minus incremental AI costs. A negative result means spending increases. Released capacity is an opportunity measure, not an additional cash saving.</p>
+<button id="export" type="button">Export assumptions as CSV</button>
+</section></div>
+<section class="panel wide">
+<h2>How to use the result</h2>
+<p>In the starting hypothetical example, 100 released hours at $36 per hour represent $3,600 of potential capacity value. Payroll and outside spending remain unchanged, while AI costs $400 per month. The net cash outcome is $400 of additional monthly spending, not $3,600 saved.</p>
+<p>In the alternative hypothetical example, verified overtime spending falls $1,000 per month and AI costs $400. Net monthly cash spending falls $600. Do not add the $3,600 capacity figure to the $600 cash figure. Check whether the same hours drove both estimates.</p>
+<p>Before approving a project, verify a documented pre-AI baseline, accepted output quality, the source of every spending reduction, implementation costs, and whether released hours are redeployed to measurable work. Capacity and cash outcomes serve different decisions.</p>
+<p class="note">Original educational worksheet. Dollar amounts are illustrative, not customer results, financial advice, or promised ROI. All inputs and calculations stay inside your browser.</p>
+<a class="link" href="https://www.youtube.com/channel/UCw2hs85TzIpdKwJtG-BSxzQ" rel="noopener noreferrer">Watch PrismBay AI</a>
+<a class="link" href="/youtube/ai-agent-roi-ledger.html">AI Agent ROI Ledger</a>
+<a class="link" href="/youtube/ai-agent-accepted-result-cost.html">Cost per Accepted Result</a>
+<p class="note">PrismBay AI helps founders, operators and executives implement practical AI business systems. Updated November 1, 2026.</p>
+</section></main>
+<script>
+(function(){
+'use strict';
+const ids=['hours','rate','ai','overtime','contractors','other'];
+const $=id=>document.getElementById(id);
+const money=n=>new Intl.NumberFormat('en-US',{style:'currency',currency:'USD'}).format(n);
+let last=null;
+function calculate(){
+ const v=Object.fromEntries(ids.map(id=>[id,Number($(id).value)]));
+ const valid=ids.every(id=>$(id).value.trim()!==''&&Number.isFinite(v[id])&&v[id]>=0&&v[id]<=1000000000);
+ $('error').textContent=valid?'':'Enter nonnegative finite numbers for every field, up to one billion per field.';
+ ids.forEach(id=>valid?$(id).removeAttribute('aria-invalid'):$(id).setAttribute('aria-invalid','true'));
+ $('metrics').style.opacity=valid?'1':'.35';$('export').disabled=!valid;
+ if(!valid){last=null;$('decision').textContent='Correct the inputs to view results.';return;}
+ const capacity=v.hours*v.rate;
+ const reductions=v.overtime+v.contractors+v.other;
+ const net=reductions-v.ai;
+ $('capacity').textContent=money(capacity);$('reductions').textContent=money(reductions);
+ $('costs').textContent=money(v.ai);$('net').textContent=(net<0?'-':'')+money(Math.abs(net));
+ $('net').className='value '+(net>=0?'good':'warn');
+ $('decision').className=net>=0?'good':'warn';
+ $('decision').textContent=net>0?'Verified reductions exceed AI costs by '+money(net)+' per month.':net<0?'Cash spending rises '+money(-net)+' per month in this scenario.':'No net change in monthly cash spending under these assumptions.';
+ last={...v,capacityValueNotCash:capacity,verifiedCashReductions:reductions,netMonthlyCashSavings:net};
+}
+ids.forEach(id=>$(id).addEventListener('input',calculate));
+function load(overtime){const vals=[100,36,400,overtime,0,0];ids.forEach((id,i)=>$(id).value=vals[i]);calculate();}
+$('reset').addEventListener('click',()=>load(0));
+$('alternative').addEventListener('click',()=>load(1000));
+$('export').addEventListener('click',()=>{
+ if(!last)return;
+ const keys=Object.keys(last);
+ const csv=keys.join(',')+'\n'+keys.map(k=>last[k]).join(',')+'\n';
+ const blob=new Blob([csv],{type:'text/csv;charset=utf-8'});
+ const url=URL.createObjectURL(blob);const a=document.createElement('a');
+ a.href=url;a.download='prismbay-ai-capacity-vs-cash.csv';document.body.appendChild(a);a.click();a.remove();URL.revokeObjectURL(url);
+});
+calculate();
+})();
+</script>
+</body></html>
