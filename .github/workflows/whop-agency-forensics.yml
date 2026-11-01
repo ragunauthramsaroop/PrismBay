@@ -2,6 +2,11 @@ name: Whop agency forensic release gate
 
 on:
   workflow_dispatch:
+  pull_request:
+    paths:
+      - 'scripts/whop-agency-forensic-audit.mjs'
+      - 'scripts/whop-agency-forensic-audit.test.mjs'
+      - '.github/workflows/whop-agency-forensics.yml'
   schedule:
     - cron: '22 12 * * *'
   push:
