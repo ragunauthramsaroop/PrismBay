@@ -68,7 +68,9 @@ export async function inspectFiles({env=process.env,fetchImpl=fetch}={}){
    filesExperiencePaidProductLinked:productRefs.some(p=>p?.id===paid[0].id),
    filesExperienceFreeProductLinked:productRefs.some(p=>p?.id===free[0].id),
    experienceFieldNames:Object.keys(sample).sort().slice(0,30),
-   appFieldNames:Object.keys(sample?.app||{}).sort().slice(0,15)
+   appFieldNames:Object.keys(sample?.app||{}).sort().slice(0,15),
+   observedAppIdentities:allExperiences.slice(0,10).map(x=>({appId:x?.app?.id||'UNKNOWN',appName:x?.app?.name||'UNKNOWN',isPublic:typeof x?.is_public==='boolean'?x.is_public:null})),
+   paidAppIdentities:paidExperiences.slice(0,10).map(x=>({appId:x?.app?.id||'UNKNOWN',appName:x?.app?.name||'UNKNOWN',isPublic:typeof x?.is_public==='boolean'?x.is_public:null}))
   }};
  }catch(err){
   const status=Number(err?.httpStatus)||0;
