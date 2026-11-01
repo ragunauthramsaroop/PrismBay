@@ -11,6 +11,9 @@ const VERSION='2026-10-29-8';
 const TARGET='PrismBay Quote, Margin & Cash Studio';
 const FREE='PrismBay Clean';
 const FILES_APP='app_5UWRrs7haZZeiQ';
+// Direct GET independently verified this existing private Files experience. The
+// account-wide list API omits it, so do not treat list omission as nonexistence.
+const VERIFIED_SUPPORT_FILES_EXPERIENCE='exp_Y0vSteSLF9Bdu6';
 const mustId=(v,prefix)=>typeof v==='string'&&new RegExp('^'+prefix+'_[A-Za-z0-9]+$').test(v);
 const safe=(status,reason,more={})=>({status,reason,attached:false,releaseApproved:false,...more});
 
@@ -23,6 +26,16 @@ async function whopGet(path,key,fetchImpl){
  const out=await response.json();
  if(!Array.isArray(out?.data)||out?.page_info?.has_next_page)throw Error('Whop returned incomplete records');
  return out.data;
+}
+async function whopGetOneExperience(id,key,fetchImpl){
+ if(!mustId(id,'exp'))return null;
+ const response=await fetchImpl(API+'/experiences/'+encodeURIComponent(id),{
+  method:'GET',redirect:'manual',signal:AbortSignal.timeout(12000),
+  headers:{Authorization:'Bearer '+key,Accept:'application/json','Api-Version-Date':VERSION}
+ });
+ if(!response.ok)return null;
+ const x=await response.json();
+ return x?.id===id?x:null;
 }
 const sameFiles=x=>x?.app?.id===FILES_APP&&x?.is_public===false;
 /** Only an already-existing private official Files experience is eligible. */
@@ -62,6 +75,17 @@ export async function execute({env=process.env,fetchImpl=fetch}={}){
    whopGet('/experiences?account_id='+encodeURIComponent(account)+'&first=100',readKey,fetchImpl)
   ]);
   plan=planAttachment(products,experiences);
+  if(plan.status==='EXISTING_FILES_NOT_FOUND'){
+   // The vendor-supplied identifier was independently confirmed through a
+   // Whop direct GET with the read-only key. Revalidate each run, never trust
+   // the email alone. Keep the product Hidden.
+   const direct=await whopGetOneExperience(VERIFIED_SUPPORT_FILES_EXPERIENCE,readKey,fetchImpl);
+   if(direct?.company?.id===account&&direct?.app?.id===FILES_APP&&
+      direct?.is_public===false&&Array.isArray(direct?.products)){
+    const verified=planAttachment(products,[direct]);
+    plan={...verified,source:'VERIFIED_DIRECT_GET'};
+   }
+  }
  }catch(e){return safe('READ_FAILED','Whop read-only preflight failed',{httpStatus:Number(e.status)||undefined})}
  if(env.WHOP_FILES_ACTION!=='attach')return plan;
  if(plan.status!=='READY_TO_ATTACH')return plan;
@@ -80,12 +104,13 @@ export async function execute({env=process.env,fetchImpl=fetch}={}){
   });
   if(!resp.ok)return safe('ATTACH_REJECTED','Whop refused the product association',{httpStatus:resp.status});
   // Verify the official existing Files experience remains private and free product is excluded.
-  const data=await whopGet('/experiences?account_id='+encodeURIComponent(account)+'&first=100',readKey,fetchImpl);
-  const current=data.filter(x=>x.id===plan.experienceId);
-  const linked=Array.isArray(current[0]?.products)?current[0].products:[];
-  if(current.length!==1||current[0].is_public!==false||
+  const current=await whopGetOneExperience(plan.experienceId,readKey,fetchImpl);
+  const linked=Array.isArray(current?.products)?current.products:[];
+  if(!current||current.company?.id!==account||current.app?.id!==FILES_APP||
+     current.is_public!==false||
      !linked.some(x=>x.id===plan.paidProductId)||
-     linked.some(x=>x.id===plan.freeProductId))
+     linked.some(x=>x.id===plan.freeProductId)||
+     linked.some(x=>x.id!==plan.paidProductId))
    return safe('POST_ATTACH_UNCONFIRMED','Whop accepted request but safe product association not proven');
   return safe('ATTACHED_AND_RECHECKED','Existing private Files experience now linked only to the paid product. Buyer ZIP still requires confirmation.',{attached:true});
  }catch(e){return safe('ATTACH_UNCONFIRMED','Whop attachment attempt failed or response unavailable; inspect live status before retrying')}
