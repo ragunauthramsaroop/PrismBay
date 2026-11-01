@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { ACTIVE_DIGITAL_OFFERS, auditPublicStripeLinks, campaignForSlot, currentSixHourSlot } from './digital-conversion-campaign.mjs';
+import { ACTIVE_DIGITAL_OFFERS, auditPublicStripeLinks, campaignForSlot, firstSaleCampaignForSlot, FIRST_SALE_CASHFLOW_OFFER, currentSixHourSlot } from './digital-conversion-campaign.mjs';
 
 test('rotate four verified paid document offers across six-hour cloud runs', () => {
   assert.equal(ACTIVE_DIGITAL_OFFERS.length, 4);
@@ -112,4 +112,20 @@ test('encoded physical link beside an approved digital checkout still fails clos
   assert.equal(audit.approvedDigitalStripeLinkCount, 1);
   assert.equal(audit.unapprovedDirectStripeLinkCount, 1);
   assert.equal(audit.hasUnapprovedDirectStripeLink, true);
+});
+
+test('first-sale campaign stays on the verified $5.99 Cashflow offer across slots', () => {
+  for (const slot of [0,1,2,3,4,15,100000]) {
+    const c = firstSaleCampaignForSlot(slot);
+    assert.equal(c.offer.slug, 'cashflow');
+    assert.equal(c.offer.priceUsd, 5.99);
+    assert.equal(c.offer.title, FIRST_SALE_CASHFLOW_OFFER.name);
+    assert.ok(c.guideUrl.startsWith('https://clean.prismbayai.com/learn/cash-flow-tracker-spreadsheet.html?'));
+    assert.ok(c.checkoutUrl.startsWith('https://buy.stripe.com/eVqaEYddQ6lRgSu1yggnK0v?'));
+    assert.equal(c.guardrails.physicalProductsPromoted, false);
+    assert.equal(c.guardrails.publishedAutomatically, false);
+    assert.doesNotMatch(c.editorialDraft, /guaranteed income|verified customer|best.?seller/i);
+  }
+  assert.throws(() => firstSaleCampaignForSlot(-1), TypeError);
+  assert.equal(ACTIVE_DIGITAL_OFFERS.length, 4);
 });
