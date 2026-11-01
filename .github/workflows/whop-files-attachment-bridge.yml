@@ -6,6 +6,8 @@ on:
     paths:
       - 'scripts/whop-files-attach-bridge.mjs'
       - 'scripts/whop-files-attach-bridge.test.mjs'
+      - 'scripts/whop-files-support-crosscheck.mjs'
+      - 'scripts/whop-files-support-crosscheck.test.mjs'
       - '.github/workflows/whop-files-attachment-bridge.yml'
   workflow_dispatch:
     inputs:
@@ -43,7 +45,7 @@ jobs:
         with:
           node-version: '22'
       - name: Unit test bridge before any live request
-        run: node --test scripts/whop-files-attach-bridge.test.mjs
+        run: node --test scripts/whop-files-attach-bridge.test.mjs scripts/whop-files-support-crosscheck.test.mjs
       - name: Preflight and narrowly scoped bridge operation
         env:
           WHOP_COMPANY_API_KEY: ${{ secrets.WHOP_COMPANY_API_KEY }}
@@ -53,3 +55,9 @@ jobs:
           WHOP_FILES_CONFIRM: ${{ inputs.confirmation }}
           WHOP_FILES_ATTACH_API_KEY: ${{ secrets.WHOP_FILES_ATTACH_API_KEY }}
         run: node scripts/whop-files-attach-bridge.mjs
+
+      - name: Cross-check Whop support Files experience read-only
+        env:
+          WHOP_COMPANY_API_KEY: ${{ secrets.WHOP_COMPANY_API_KEY }}
+          WHOP_COMPANY_ID: ${{ vars.WHOP_COMPANY_ID }}
+        run: node scripts/whop-files-support-crosscheck.mjs
