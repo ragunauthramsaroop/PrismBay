@@ -34,6 +34,9 @@ jobs:
           assert m['brandId']=='6945443'
           assert m['publicationApproved'] is False and m['uploadPermitted'] is False
           assert m['paidSpendUSD']==0 and m['fictionalExample'] is True
+          safe=m['mobileSafeArea']
+          assert safe['rightControlsStartX']==916 and safe['criticalTextMaxX']<=900
+          assert safe['bottomControlsStartY']==1600 and safe['captionBoxBottomY']<1600
           assert m['narrationSegments']==12 and m['sceneCount']==6
           rights=m['voiceRightsReview']
           assert m['voice']=='en_US-norman-medium'
