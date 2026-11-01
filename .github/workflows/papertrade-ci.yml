@@ -1,0 +1,35 @@
+name: Paper-only trading lab checks
+on:
+  push:
+    branches: ["experiment/ai-paper-trading"]
+    paths: ["papertrade/**", "tests/**", ".github/workflows/papertrade-ci.yml", "README-PAPERTRADE.md"]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verify-no-live-trading:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Run paper-only unit tests
+        run: python -m unittest discover -s tests -v
+      - name: Produce synthetic research report
+        run: python -m papertrade --demo --out artifacts/papertrade-demo
+      - name: Enforce paper-only execution
+        run: |
+          python - <<'PY'
+          import json
+          d=json.load(open('artifacts/papertrade-demo/report.json'))
+          assert d['mode']=='PAPER_ONLY'
+          assert d['data_source']=='SYNTHETIC_TEST_ONLY'
+          assert d['not_proof_of_profitability'] is True
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: paper-only-synthetic-demo
+          path: artifacts/papertrade-demo/
+          retention-days: 7
