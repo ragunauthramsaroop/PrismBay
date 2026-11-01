@@ -40,3 +40,16 @@ Audience growth: CONTINUE.
 External monetization: PRIORITIZE legitimate owned offers and qualified partnerships.
 New channel: PROHIBITED.
 Paid spend: PROHIBITED.
+
+
+## November 1, 2026 verification
+
+Primary-source recheck: https://support.google.com/youtube/answer/7101720 and https://support.google.com/youtube/answer/13429240?hl=en continue to omit Guyana and separately include French Guiana. The connected Metricool brand `6945443` still identifies the sole authorized channel `UCw2hs85TzIpdKwJtG-BSxzQ`. Opera remains disconnected, so the registered jurisdiction and the exact Studio Earn decision are unknown. This is a material YPP eligibility risk, not a proven policy breach. Never misstate residence or change the channel.
+
+YouTube's September 2026 official update, https://support.google.com/youtube/blog/451804019/updates-to-the-youtube-partner-program-new-earning-opportunities-changes-to-eligibility , confirms the February 1, 2027 thresholds for **new full ads/Premium applicants**: 1,000 subscribers and 8,000 qualified public long-form watch hours in 365 days OR 20 million qualified Shorts views in 90 days. Early fan funding stays at 500 subscribers, 3 public uploads in 90 days and 3,000 qualified long-form watch hours or 3 million qualified Shorts views. The same update adds a separate **ongoing Shorts ad/Premium revenue-pool requirement** beginning February 1, 2027: maintain 10 million qualified Shorts views over the preceding 90 days for monthly Shorts revenue sharing. Existing YPP participants remain in the program even when they do not meet new-entry thresholds. Do not conflate entry, continuing membership and Shorts payout eligibility. January 31, 2027 is a planning deadline, not a guarantee of approval.
+
+Latest Metricool October 1 to November 1 evolution query returned 7 subscribers on every populated date and 366 reported views across 18 populated daily rows; 14 dates have null view data. Zero reported subscriber gain/loss on populated rows. The separate all-videos and traffic-source connectors returned no rows, so video-level watch time, retention, shares, audience geography and public-upload counts cannot be inferred. Two November private scheduled drafts remain `draft=true`, `autoPublish=false`, `privacy=private`. Prior verified published video `PcK3CvQ5QGo` from October 23 must not be duplicated. This snapshot does not establish current YPP-qualified watch hours or views.
+
+Descript Agent Underlord was attempted for private audio QA but returned `Insufficient AI credits`. No upgrade or paid services were purchased. Opera's browser connector still returned `Browser not connected`. Continue free local and GitHub QA; do not declare audio-listening or physical mobile release gates complete.
+
+Metricool best-time estimates for November 2–8 favor 16:00 Guyana on weekdays, especially Wednesday and Thursday. These are scheduling estimates, not observed video performance. No new public upload or automatic publishing was authorized by this audit. Paid spend: USD 0.
