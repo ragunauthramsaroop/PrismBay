@@ -12,6 +12,7 @@ import wave
 
 from PIL import Image, ImageDraw, ImageFont
 from youtube_visual_ledger import render_frame_ledger
+from youtube_visual_roi_sensitivity import render_frame_roi
 from youtube_incident_visual import render_frame_incident
 from youtube_visual_trust import render_frame_trust
 from youtube_visual_regression import render_frame_regression
@@ -304,7 +305,9 @@ def main():
         if require_verified_voice and used != 'piper':
             raise RuntimeError('Verified-voice render unexpectedly used a fallback engine')
         duration = max(1.0, wav_duration(wav) + 0.18)
-        frame = (render_frame_nist_identity(segment, i, len(segments), spec.get('sourceAttribution', ''))
+        frame = (render_frame_roi(segment, i, len(segments), spec.get('sourceAttribution', ''))
+                 if spec.get('visualStyle') == 'roi_sensitivity_v1'
+                 else render_frame_nist_identity(segment, i, len(segments), spec.get('sourceAttribution', ''))
                  if spec.get('visualStyle') == 'nist_agent_identity_v1'
                  else render_frame_procurement(segment, i, len(segments), spec.get('sourceAttribution', ''))
                  if spec.get('visualStyle') == 'procurement_gate_v1'
