@@ -1,0 +1,76 @@
+1
+00:00:00,030 --> 00:00:05,510
+The same AI invoice agent pays back in
+three and a half months or nearly ten.
+
+2
+00:00:05,636 --> 00:00:06,400
+What changed?
+
+3
+00:00:06,649 --> 00:00:07,842
+The exception rate.
+
+4
+00:00:07,955 --> 00:00:11,934
+Here is a hypothetical workflow,
+six thousand invoices monthly,
+
+5
+00:00:12,514 --> 00:00:16,538
+eighteen thousand dollars of
+manual processing cost, and thirty
+
+6
+00:00:16,538 --> 00:00:18,185
+thousand dollars to implement.
+
+7
+00:00:18,300 --> 00:00:22,032
+At sixty percent straight-through
+completion, the model leaves
+
+8
+00:00:22,174 --> 00:00:25,833
+thirty-one hundred dollars
+in monthly economic benefit.
+
+9
+00:00:26,046 --> 00:00:28,339
+Payback takes nine point seven months.
+
+10
+00:00:28,526 --> 00:00:31,877
+At ninety percent completion,
+the model shows eighty-five
+
+11
+00:00:31,878 --> 00:00:33,104
+hundred dollars per month.
+
+12
+00:00:33,302 --> 00:00:35,803
+Payback falls to three point five months.
+
+13
+00:00:35,979 --> 00:00:40,956
+Review, software, support, and risk
+reserve assumptions stay fixed.
+
+14
+00:00:41,133 --> 00:00:46,008
+These are projected economic
+benefits, not verified cash savings.
+
+15
+00:00:46,220 --> 00:00:49,576
+Before buying an agent, measure
+straight-through completion
+
+16
+00:00:49,610 --> 00:00:51,006
+and time the exceptions.
+
+17
+00:00:51,137 --> 00:00:54,069
+Follow for practical AI business systems.
