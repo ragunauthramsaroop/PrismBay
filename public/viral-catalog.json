@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-11-01T18:08:15.705Z",
+  "updatedAt": "2026-11-01T22:27:31.789Z",
   "market": "US",
   "methodology": "Public-news attention, freshness, and short-form demonstration fit. This is not PrismBay sales data and is not a TikTok, Amazon, Google, or Bing product ranking.",
   "refreshTargetHours": 6,
@@ -8,12 +8,12 @@
     {
       "slug": "mattress-vacuum",
       "name": "Mattress Vacuum",
-      "signalScore": 97,
+      "signalScore": 82,
       "signalLabel": "high-attention",
       "evidence": {
-        "publicMentions": 109,
-        "mentionsLast7Days": 4,
-        "mentionsLast30Days": 11,
+        "publicMentions": 45,
+        "mentionsLast7Days": 2,
+        "mentionsLast30Days": 5,
         "sourcesAvailable": [
           "Google News",
           "Bing News"
@@ -56,12 +56,12 @@
     {
       "slug": "scrubber",
       "name": "5-in-1 Electric Spin Scrubber",
-      "signalScore": 85,
+      "signalScore": 80.5,
       "signalLabel": "high-attention",
       "evidence": {
-        "publicMentions": 65,
-        "mentionsLast7Days": 3,
-        "mentionsLast30Days": 4,
+        "publicMentions": 56,
+        "mentionsLast7Days": 2,
+        "mentionsLast30Days": 3,
         "sourcesAvailable": [
           "Google News",
           "Bing News"
@@ -104,12 +104,12 @@
     {
       "slug": "pressure-washer",
       "name": "Cordless Pressure Washer",
-      "signalScore": 80,
+      "signalScore": 78.5,
       "signalLabel": "high-attention",
       "evidence": {
-        "publicMentions": 55,
+        "publicMentions": 100,
         "mentionsLast7Days": 1,
-        "mentionsLast30Days": 5,
+        "mentionsLast30Days": 4,
         "sourcesAvailable": [
           "Google News",
           "Bing News"
