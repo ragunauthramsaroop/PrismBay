@@ -9,7 +9,7 @@ Audience: CFOs, founders, operations leaders and procurement teams deciding whet
 Original contribution: an auditable five-line unit-economics model, with three straight-through-processing scenarios, and a distinction between capacity release and cash savings. All numerical inputs are an ILLUSTRATIVE scenario, not surveyed industry results.
 
 ## Opening title variants for native long-form A/B testing
-A. AI Agent ROI: The $18,000 Savings Claim That Falls Apart
+A. AI Agent ROI: Why an $18,000 Cost Baseline Is Not $18,000 Saved
 B. Before You Buy an AI Agent, Run These 5 Numbers
 C. AI Automation ROI: A CFO's 10-Minute Reality Check
 Do not imply a real company lost $18,000. The number is the explicitly hypothetical baseline monthly manual processing cost.
@@ -86,3 +86,14 @@ Source data above is background on adoption and risk. NONE of the illustrative i
 
 ## Release gates
 Research script complete, arithmetic cross-checked. No narration, video render, audio listening, mobile playback, caption review, editorial approval, native A/B test, scheduling or publication performed. Exact channel only. No duplicate posts. Zero paid spend.
+
+
+## November 1 source and release verification
+
+Production status: original long-form source ready for a zero-cost, private-only render. This addendum does not alter the nine-chapter spoken script. Publication, scheduling and distribution remain disabled pending complete narration listening, actual mobile and desktop playback, final rights review, and a human editorial release decision. Preserve sole channel `UCw2hs85TzIpdKwJtG-BSxzQ` and zero paid spend. Existing private ROI Short `412685334` and monitoring Short `412495293` are not replacements for this original long-form episode. Do not release a near-duplicate Short until parent publication and uniqueness review.
+
+Originality and evidence controls: The invoice volume, labour rate, 45-second review allowance, risk reserve, setup fee, 60/75/90% straight-through cases, and economic results are hypothetical teaching inputs, not empirical benchmarks or vendor offers. Recalculate the five-line model on screen. No revenue, cash savings, real-world client outcome or independently measured vendor accuracy is claimed. NIST AI RMF and its GenAI profile are voluntary governance references, not product certifications. Official primary source: https://www.nist.gov/itl/ai-risk-management-framework and https://www.nist.gov/publications/artificial-intelligence-risk-management-framework-generative-artificial-intelligence .
+
+Audience experiment: at 6h/24h/72h/7d after verified publication, record impressions, CTR, 30-second retention, average view duration, watch minutes, subscribers gained, comments, and source of traffic. Compare against the channel's long-form median only after a meaningful sample; do not invent a performance baseline. Hypothesis: the worked financial case earns more qualified watch time and subscribers than generic agent-tip videos. Classification: SCALE if watch-time share and subscriber gain materially exceed comparable baseline; RETEST if title/thumbnail click-through is weak but retention is strong; MODIFY if the opening loses viewers; STOP only with repeatable evidence of poor fit. Native YouTube Studio A/B is eligible for long-form only, and only when the signed-in channel shows the feature. Never claim an experiment ran until Studio confirms it.
+
+YouTube's September 2026 official YPP update states new full ads/Premium applicants from February 1, 2027 need 1,000 subscribers plus 8,000 qualified long-form watch hours in 365 days OR 20 million qualified Shorts views in 90 days. Early fan funding still requires 500 subscribers, 3 valid public uploads in 90 days, and 3,000 qualified watch hours or 3 million qualified Shorts views. The update also says Shorts ad/Premium pool revenue from February 1, 2027 requires maintaining 10 million qualified Shorts views in 90 days each month for eligible participants. These figures are program conditions, not guaranteed earnings. Source: https://support.google.com/youtube/blog/451804019/updates-to-the-youtube-partner-program-new-earning-opportunities-changes-to-eligibility . The official eligible-country lists currently omit Guyana, so the registered country and Studio Earn tab must be verified before any monetization-readiness claim. Source: https://support.google.com/youtube/answer/13429240?hl=en and https://support.google.com/youtube/answer/7101720?hl=en . No location or account setting changes are authorized.
