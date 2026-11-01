@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-11-01T06:52:53.464Z",
+  "updatedAt": "2026-11-01T18:08:15.705Z",
   "market": "US",
   "methodology": "Public-news attention, freshness, and short-form demonstration fit. This is not PrismBay sales data and is not a TikTok, Amazon, Google, or Bing product ranking.",
   "refreshTargetHours": 6,
@@ -11,7 +11,7 @@
       "signalScore": 97,
       "signalLabel": "high-attention",
       "evidence": {
-        "publicMentions": 110,
+        "publicMentions": 109,
         "mentionsLast7Days": 4,
         "mentionsLast30Days": 11,
         "sourcesAvailable": [
@@ -56,12 +56,12 @@
     {
       "slug": "scrubber",
       "name": "5-in-1 Electric Spin Scrubber",
-      "signalScore": 89.5,
+      "signalScore": 85,
       "signalLabel": "high-attention",
       "evidence": {
-        "publicMentions": 85,
+        "publicMentions": 65,
         "mentionsLast7Days": 3,
-        "mentionsLast30Days": 7,
+        "mentionsLast30Days": 4,
         "sourcesAvailable": [
           "Google News",
           "Bing News"
@@ -69,16 +69,16 @@
       },
       "sampleSignals": [
         {
-          "title": "Yes, You Can Get ‘Excited to Clean’ Your Bathroom with This Back-Saving Electric Scrubber Brush — Shop It for $26 - People.com",
-          "source": "Google News",
-          "publishedAt": "2026-10-27T07:00:00.000Z",
-          "url": "https://news.google.com/rss/articles/CBMiigFBVV95cUxPZEdtZ3NuU1dxY2xBakxlZEExb1EzYnB5b2drMUdZNWNSejZBRHBXenNqbVdvc2dpTUpUM1c4eVgtbmFFMWtxZlZ1clo4T3FIRk5JSG82RWZqMG52VlRuUjZzZFhWOUV0M0dxVlRUZVhNY212SHByMGpjNG1MWFpKdE95c3BaRXNkemc?oc=5"
-        },
-        {
           "title": "Back or knee pain? This electric scrubber 'saves your back' — it's on sale for $41, and Amazon shoppers say it makes them 'almost look forward to cleaning' - Yahoo Lifestyle Canada",
           "source": "Google News",
           "publishedAt": "2026-10-27T18:58:45.000Z",
           "url": "https://news.google.com/rss/articles/CBMilwJBVV95cUxNOU9aN2ZwTmdMaHNFN0xRUjV0djd5TzVFUkRlNHJsS1pEU2RhT3ppemJwTzlGdHROMlh1VldxQ1ZnbTlld1pab2hRZ0k4VzhTNk9JSWc5bzRWbERVMThzd1dSeEZiSWdLd0VqeGxmbE5ObEItLWs5RGM1YzI1azlndGVKMGFPVUFEUm1MZVpwcF9UWmJqcElTRXNaUHRlUTFEeHZ4X3VvbVJYTkJFdVBXcUY0ekU0TGpaYVFiX2lmQy1iWHh5emtIUnJTdnpRUUszaHZaN3ZZdUk1LWZBOFZiRWZfT0p4MngybXBZSzAyLTcwakIyOE5pRkpjTE01ZGVqclNmcFNSRFlNUXNhRllmSHhXeXoyVzA?oc=5"
+        },
+        {
+          "title": "Yes, You Can Get ‘Excited to Clean’ Your Bathroom with This Back-Saving Electric Scrubber Brush — Shop It for $26 - People.com",
+          "source": "Google News",
+          "publishedAt": "2026-10-27T07:00:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMiigFBVV95cUxPZEdtZ3NuU1dxY2xBakxlZEExb1EzYnB5b2drMUdZNWNSejZBRHBXenNqbVdvc2dpTUpUM1c4eVgtbmFFMWtxZlZ1clo4T3FIRk5JSG82RWZqMG52VlRuUjZzZFhWOUV0M0dxVlRUZVhNY212SHByMGpjNG1MWFpKdE95c3BaRXNkemc?oc=5"
         },
         {
           "title": "These electric spin scrubbers clean grout, tubs, and floors with ease - Business Insider",
@@ -107,7 +107,7 @@
       "signalScore": 80,
       "signalLabel": "high-attention",
       "evidence": {
-        "publicMentions": 51,
+        "publicMentions": 55,
         "mentionsLast7Days": 1,
         "mentionsLast30Days": 5,
         "sourcesAvailable": [
@@ -152,12 +152,12 @@
     {
       "slug": "garment-steamer",
       "name": "Portable Garment Steamer",
-      "signalScore": 78.5,
+      "signalScore": 77,
       "signalLabel": "high-attention",
       "evidence": {
-        "publicMentions": 34,
+        "publicMentions": 35,
         "mentionsLast7Days": 0,
-        "mentionsLast30Days": 8,
+        "mentionsLast30Days": 7,
         "sourcesAvailable": [
           "Google News",
           "Bing News"
@@ -200,10 +200,10 @@
     {
       "slug": "pethair",
       "name": "Reusable Pet Hair Remover",
-      "signalScore": 44,
+      "signalScore": 42.5,
       "signalLabel": "watch",
       "evidence": {
-        "publicMentions": 11,
+        "publicMentions": 10,
         "mentionsLast7Days": 0,
         "mentionsLast30Days": 3,
         "sourcesAvailable": [
@@ -212,12 +212,6 @@
         ]
       },
       "sampleSignals": [
-        {
-          "title": "The 10 Best Pet Hair Removers We Tested, Including Laundry Sheets and Lint Rollers - People.com",
-          "source": "Google News",
-          "publishedAt": "2026-04-29T07:00:00.000Z",
-          "url": "https://news.google.com/rss/articles/CBMiW0FVX3lxTE56STN5dFAtRmlSdG04UW8zZWlkemZwOW4wQTJFeUt5ZU9hYmhrYmJGb1Y1a3p3WDFsaVpkWFBLTkNyR2dMZnNzT2N5UjFoQ0pCZnNTc1hUOUQ3ZE0?oc=5"
-        },
         {
           "title": "If Your Pet Sheds A Lot, You Need At Least One Of These 15 Reviewer-Approved Products - BuzzFeed",
           "source": "Google News",
@@ -241,6 +235,12 @@
           "source": "Google News",
           "publishedAt": "2026-05-26T07:00:00.000Z",
           "url": "https://news.google.com/rss/articles/CBMivAFBVV95cUxNdDdxTXg5VTljRFBmTDlNd0VXaDV5eUJlbHp4NGxpT3RQdk1sUmVhM3RydDJ3OXJGR3dMalAxemlVYjhzT2NZZ2pLYlBSM2F0Rk1zVDNrR2x0NGJyb3FJOUNDY2x0eEVnRk90aGtvdENXX01MMUhSNTIzOEhnZHVHWHByRW1hYmpCa0tTcXc3clBKTjVNMkdkNmR4blJtYng3cVhkRTdoRHBuZEczeWNENUhST0hsY2pRcU9Udw?oc=5"
+        },
+        {
+          "title": "10 Best Lint Rollers for Dog Hair in 2026 – Reviews & Top Picks - Dogster",
+          "source": "Google News",
+          "publishedAt": "2026-07-04T07:00:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMic0FVX3lxTE4tU0E2SE93Q0pXbFBKY3RfaHNhWEhsVVBpOUVhVXV2SmNHSUkyeUtUNWdwNlYtWEVhcFlhdVJaZ2htTjRrZ21sY0txZmJEa3JMaml6ZnFrSWlVdFhwRGVzaFJnOF9VODllWDhQUEg1dmNYRlE?oc=5"
         }
       ],
       "rank": 5
