@@ -33,8 +33,23 @@ def render_frame_roi(segment,index,total,source):
     txt(d,(76,145),"AI SYSTEMS, MEASURED  /  ROI LAB",24,MUTED)
     d.line((76,222,1004,222),fill=(66,91,115),width=3)
     headline=segment.get("headline","").upper()
-    lines=textwrap.wrap(headline,23)
-    d.multiline_text((76,286),"\n".join(lines[:3]),font=font(63),fill=WHITE,spacing=16)
+    headfont=font(63)
+    words=headline.split()
+    lines=[]
+    current=""
+    for word in words:
+        candidate=(current+" "+word).strip()
+        bounds=d.textbbox((0,0),candidate,font=headfont)
+        if current and bounds[2]-bounds[0]>900:
+            lines.append(current)
+            current=word
+        else:
+            current=candidate
+    if current:
+        lines.append(current)
+    if len(lines)>3:
+        raise ValueError("Headline needs editorial shortening: "+headline)
+    d.multiline_text((76,286),"\\n".join(lines),font=headfont,fill=WHITE,spacing=16)
     scene=segment.get("scene","")
     if scene=="hook":
         center(d,"3.5 MONTHS",730,89,GREEN)
