@@ -1,0 +1,36 @@
+name: Whop real buyer evidence audit
+
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - 'scripts/whop-buyer-membership-audit.mjs'
+      - 'scripts/whop-buyer-membership-audit.test.mjs'
+      - '.github/workflows/whop-real-buyer-evidence.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/whop-buyer-membership-audit.mjs'
+      - 'scripts/whop-buyer-membership-audit.test.mjs'
+      - '.github/workflows/whop-real-buyer-evidence.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  audit-whop-real-buyers:
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Test fail-closed real buyer membership gate
+        run: node --test scripts/whop-buyer-membership-audit.test.mjs
+      - name: Read only Whop paid buyer and free member associations
+        if: github.event_name != 'pull_request'
+        env:
+          WHOP_COMPANY_API_KEY: ${{ secrets.WHOP_COMPANY_API_KEY }}
+          WHOP_COMPANY_ID: ${{ vars.WHOP_COMPANY_ID }}
+        run: node scripts/whop-buyer-membership-audit.mjs
