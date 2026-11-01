@@ -73,6 +73,8 @@ function replay(seed, bars) {
   const dateIndex = bars.findIndex(c => c.date === seed.last_date);
   if (dateIndex < 0) throw new Error('Seed date missing');
   const cfg = seed.config;
+  const initialCash = Number(seed.starting_equity ?? cfg.initial_cash ?? seed.last_equity);
+  if (!Number.isFinite(initialCash) || initialCash <= 0) throw new Error('Paper starting equity invalid');
   const maxPosition = Number(cfg.max_position_fraction), fee = cfg.fee_bps / 10000;
   const slippage = cfg.slippage_bps / 10000;
   const slowWindow = cfg.slow_window, fastWindow = cfg.fast_window;
@@ -148,12 +150,12 @@ function replay(seed, bars) {
     seedDate: seed.started_after_candle,
     cash: round(cash), equity: round(lastEquity),
     positionUnits: round(units, 8), positionValue: round(units * bars[bars.length - 1].close),
-    pnl: round(lastEquity - cfg.initial_cash),
-    pnlPct: round((lastEquity / cfg.initial_cash - 1) * 100, 3),
+    pnl: round(lastEquity - initialCash),
+    pnlPct: round((lastEquity / initialCash - 1) * 100, 3),
     fees: round(fees, 4),
     exposurePct: round((units * bars[bars.length - 1].close / Math.max(lastEquity, 0.01)) * 100, 2),
     halted, paperEvents: events,
-    equityCurve: equity, initial: cfg.initial_cash,
+    equityCurve: equity, initial: initialCash,
     maxDrawdownLimitPct: round(cfg.max_drawdown_fraction * 100, 2),
     maxPositionLimitPct: round(cfg.max_position_fraction * 100, 2)
   };
