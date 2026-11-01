@@ -1,0 +1,80 @@
+name: PrismBay ROI Sensitivity v3 Private Media QA
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'public/youtube/ai-agent-roi-straight-through-sensitivity-2026-11-01-v3.mp4'
+      - 'public/youtube/ai-agent-roi-straight-through-sensitivity-2026-11-01-v3.json'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  private-media-qa:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install FFmpeg
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg
+      - name: Validate provenance, claims, and locked release gates
+        run: |
+          set -euo pipefail
+          mkdir -p roi-v3-qa
+          python3 - <<'PY'
+          import hashlib, json, pathlib
+          slug='ai-agent-roi-straight-through-sensitivity-2026-11-01-v3'
+          spec=json.loads(pathlib.Path('content/youtube/requests',slug+'.json').read_text())
+          meta=json.loads(pathlib.Path('public/youtube',slug+'.json').read_text())
+          media=pathlib.Path('public/youtube',slug+'.mp4')
+          assert spec['slug']==meta['slug']==slug
+          assert spec['targetChannelId']==meta['channelId']=='UCw2hs85TzIpdKwJtG-BSxzQ'
+          assert spec['paidSpendUSD']==meta['paidSpend']==0
+          assert meta['published'] is False and meta['publicationApproved'] is False and meta['uploadPermitted'] is False
+          assert meta['ttsEngines']==['piper']
+          assert meta['voiceModelProvenanceVerified'] is True
+          assert meta['voiceModelSha256']==spec['expectedVoiceModelSha256']
+          assert hashlib.sha256(media.read_bytes()).hexdigest()==meta['sha256']
+          assert spec['visualStyle']=='roi_sensitivity_v1'
+          assert len(spec['segments'])==6
+          assert float(meta['playbackDurationFactor'])==1.20
+          assert max(len(s['spoken'].split()) for s in spec['segments'])<=24
+          narration=' '.join(s['spoken'] for s in spec['segments']).lower()
+          for term in ['hypothetical','sixty percent','ninety percent','not verified cash savings']:
+              assert term in narration,term
+          report={'channelId':meta['channelId'],'sha256':meta['sha256'],'voiceVerified':True,
+          'totalNarrationWords':len(narration.split()),'segmentWordCounts':[len(s['spoken'].split()) for s in spec['segments']],
+          'publicReleaseAllowed':False,'editorialGatesRemaining':['independent Descript transcript and caption timing',
+          'complete narration listening','physical mobile YouTube playback','rights and editorial approval','duplicate check']}
+          pathlib.Path('roi-v3-qa/identity-and-release.json').write_text(json.dumps(report,indent=2)+'\n')
+          print(json.dumps(report,indent=2))
+          PY
+      - name: Verify full video and audio decoding
+        run: |
+          set -euo pipefail
+          MEDIA=public/youtube/ai-agent-roi-straight-through-sensitivity-2026-11-01-v3.mp4
+          ffprobe -v error -show_entries format=duration,size:stream=codec_name,width,height -of json "$MEDIA" > roi-v3-qa/ffprobe.json
+          python3 - <<'PY'
+          import json
+          j=json.load(open('roi-v3-qa/ffprobe.json'))
+          video=[s for s in j['streams'] if s['codec_name']=='h264']
+          audio=[s for s in j['streams'] if s['codec_name']=='aac']
+          assert len(video)==len(audio)==1
+          assert (video[0]['width'],video[0]['height'])==(1080,1920)
+          assert 30<float(j['format']['duration'])<75
+          PY
+          ffmpeg -hide_banner -v error -xerror -i "$MEDIA" -map 0:v:0 -map 0:a:0 -f null -
+          ffmpeg -hide_banner -loglevel error -y -i "$MEDIA" -vf 'fps=1/9,scale=270:480,tile=3x2' -frames:v 1 roi-v3-qa/contact-sheet.jpg
+          ffmpeg -hide_banner -i "$MEDIA" -af silencedetect=noise=-42dB:d=1.5 -f null - 2> roi-v3-qa/silence.log || true
+          ffmpeg -hide_banner -i "$MEDIA" -vf blackdetect=d=1.2:pix_th=0.08 -an -f null - 2> roi-v3-qa/black.log || true
+          ffmpeg -hide_banner -i "$MEDIA" -af volumedetect -vn -f null - 2> roi-v3-qa/volume.log || true
+          if grep -q 'silence_start:' roi-v3-qa/silence.log; then echo 'Extended silence'; exit 1; fi
+          if grep -q 'black_start:' roi-v3-qa/black.log; then echo 'Extended black frames'; exit 1; fi
+          echo 'Private media passed machine checks. Human release gates remain closed.' > roi-v3-qa/summary.txt
+      - name: Retain QA evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: prismbay-roi-sensitivity-v3-private-qa
+          path: roi-v3-qa/
+          retention-days: 14
