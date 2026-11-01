@@ -33,9 +33,10 @@ test('no match and duplicate products refuse to give false confidence',()=>{
  assert.equal(assessMetadata([],[]).status,STATUSES.REVIEW);
  assert.equal(assessMetadata([p,p],[plan]).status,STATUSES.REVIEW);
 });
-test('if company ID is absent from /products/{id}, remain blocked',async()=>{
- const r=await inspectWhop({env:{WHOP_COMPANY_API_KEY:'apik_valid_fake_secret',WHOP_COMPANY_ID:'biz_12345678'},fetchImpl:f({'/products/prod_example':{...p,company:{id:null}}})});
+test('missing company ID is CONFIG_NEEDED and never makes an unscoped request',async()=>{
+ const r=await inspectWhop({env:{WHOP_COMPANY_API_KEY:'apik_valid_fake_secret'},fetchImpl:async()=>{throw Error('should not fetch')}});
  assert.equal(r.status,STATUSES.CONFIG_NEEDED);
+ assert.equal(r.releaseApproved,false);
 });
 test('explicit company ID skips account lookup and reads only expected resources',async()=>{
  const visited=[];
