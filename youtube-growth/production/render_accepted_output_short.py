@@ -144,7 +144,7 @@ def main():
  assert abs(dur-t)<0.35, f'Caption timeline drift exceeds 350 ms: {dur-t:+.3f}s'
  assert any(x.get('width')==1080 and x.get('height')==1920 for x in probe['streams'])
  assert any(x.get('codec_type')=='audio' for x in probe['streams'])
- manifest={'channelId':CHANNEL,'handle':'@PrismBayAI','brandId':'6945443','videoSha256':digest(video),
+ manifest={'channelId':CHANNEL,'handle':'@PrismBayAI','brandId':'6945443','published':False,'videoSha256':digest(video),
   'durationSeconds':round(dur,3),'sceneCount':len(CONTENT),'narrationSegments':len(PHRASES),
   'voice':VOICE if a.voice=='piper' else 'ESPEAK_LOCAL_QA_ONLY',
   'voiceRightsReview':({
