@@ -1,0 +1,204 @@
+{
+  "schema": "prismbay-pacer-measured-scene-caption-qa-v1",
+  "channel_id": "UCw2hs85TzIpdKwJtG-BSxzQ",
+  "handle": "@PrismBayAI",
+  "metricool_brand_id": "6945443",
+  "episode_id": "PB-YT-LF-2026-11-01-PACER",
+  "source_narration_sha256": "6a8bc6fc1c383f140ac437eac13454cba951309ef538aefa1df0746045fc38eb",
+  "measured_timeline": "youtube-growth/production/2026-11-02-pacer-measured-kokoro-605s-retiming.json",
+  "source_captions": "youtube-growth/production/2026-11-02-pacer-provisional-captions.srt",
+  "caption_cues": 155,
+  "scenes": 22,
+  "original_words": 1246,
+  "video_duration_s": 605,
+  "measured_speech_total_s": 561.02,
+  "caption_first_ms": 0,
+  "caption_last_ms": 603277,
+  "max_cps": 15.63,
+  "min_cue_duration_s": 1.68,
+  "scene_stats": [
+    {
+      "scene": 1,
+      "caption_cues": 4,
+      "start_ms": 0,
+      "speech_end_ms": 11073,
+      "scene_end_ms": 13000,
+      "post_speech_pause_ms": 1927
+    },
+    {
+      "scene": 2,
+      "caption_cues": 5,
+      "start_ms": 13000,
+      "speech_end_ms": 28080,
+      "scene_end_ms": 30000,
+      "post_speech_pause_ms": 1920
+    },
+    {
+      "scene": 3,
+      "caption_cues": 4,
+      "start_ms": 30000,
+      "speech_end_ms": 42913,
+      "scene_end_ms": 45000,
+      "post_speech_pause_ms": 2087
+    },
+    {
+      "scene": 4,
+      "caption_cues": 5,
+      "start_ms": 45000,
+      "speech_end_ms": 62212,
+      "scene_end_ms": 64000,
+      "post_speech_pause_ms": 1788
+    },
+    {
+      "scene": 5,
+      "caption_cues": 8,
+      "start_ms": 64000,
+      "speech_end_ms": 90571,
+      "scene_end_ms": 93000,
+      "post_speech_pause_ms": 2429
+    },
+    {
+      "scene": 6,
+      "caption_cues": 5,
+      "start_ms": 93000,
+      "speech_end_ms": 111911,
+      "scene_end_ms": 114000,
+      "post_speech_pause_ms": 2089
+    },
+    {
+      "scene": 7,
+      "caption_cues": 8,
+      "start_ms": 114000,
+      "speech_end_ms": 143244,
+      "scene_end_ms": 145000,
+      "post_speech_pause_ms": 1756
+    },
+    {
+      "scene": 8,
+      "caption_cues": 9,
+      "start_ms": 145000,
+      "speech_end_ms": 182851,
+      "scene_end_ms": 185000,
+      "post_speech_pause_ms": 2149
+    },
+    {
+      "scene": 9,
+      "caption_cues": 8,
+      "start_ms": 185000,
+      "speech_end_ms": 213877,
+      "scene_end_ms": 216000,
+      "post_speech_pause_ms": 2123
+    },
+    {
+      "scene": 10,
+      "caption_cues": 7,
+      "start_ms": 216000,
+      "speech_end_ms": 243429,
+      "scene_end_ms": 245000,
+      "post_speech_pause_ms": 1571
+    },
+    {
+      "scene": 11,
+      "caption_cues": 9,
+      "start_ms": 245000,
+      "speech_end_ms": 278059,
+      "scene_end_ms": 280000,
+      "post_speech_pause_ms": 1941
+    },
+    {
+      "scene": 12,
+      "caption_cues": 6,
+      "start_ms": 280000,
+      "speech_end_ms": 304592,
+      "scene_end_ms": 307000,
+      "post_speech_pause_ms": 2408
+    },
+    {
+      "scene": 13,
+      "caption_cues": 9,
+      "start_ms": 307000,
+      "speech_end_ms": 339579,
+      "scene_end_ms": 342000,
+      "post_speech_pause_ms": 2421
+    },
+    {
+      "scene": 14,
+      "caption_cues": 5,
+      "start_ms": 342000,
+      "speech_end_ms": 360297,
+      "scene_end_ms": 362000,
+      "post_speech_pause_ms": 1703
+    },
+    {
+      "scene": 15,
+      "caption_cues": 8,
+      "start_ms": 362000,
+      "speech_end_ms": 390993,
+      "scene_end_ms": 393000,
+      "post_speech_pause_ms": 2007
+    },
+    {
+      "scene": 16,
+      "caption_cues": 6,
+      "start_ms": 393000,
+      "speech_end_ms": 412923,
+      "scene_end_ms": 415000,
+      "post_speech_pause_ms": 2077
+    },
+    {
+      "scene": 17,
+      "caption_cues": 6,
+      "start_ms": 415000,
+      "speech_end_ms": 435392,
+      "scene_end_ms": 437000,
+      "post_speech_pause_ms": 1608
+    },
+    {
+      "scene": 18,
+      "caption_cues": 7,
+      "start_ms": 437000,
+      "speech_end_ms": 460669,
+      "scene_end_ms": 463000,
+      "post_speech_pause_ms": 2331
+    },
+    {
+      "scene": 19,
+      "caption_cues": 8,
+      "start_ms": 463000,
+      "speech_end_ms": 491177,
+      "scene_end_ms": 493000,
+      "post_speech_pause_ms": 1823
+    },
+    {
+      "scene": 20,
+      "caption_cues": 12,
+      "start_ms": 493000,
+      "speech_end_ms": 536755,
+      "scene_end_ms": 539000,
+      "post_speech_pause_ms": 2245
+    },
+    {
+      "scene": 21,
+      "caption_cues": 6,
+      "start_ms": 539000,
+      "speech_end_ms": 560146,
+      "scene_end_ms": 562000,
+      "post_speech_pause_ms": 1854
+    },
+    {
+      "scene": 22,
+      "caption_cues": 10,
+      "start_ms": 562000,
+      "speech_end_ms": 603277,
+      "scene_end_ms": 605000,
+      "post_speech_pause_ms": 1723
+    }
+  ],
+  "caption_method": "Per-scene proportional retiming to measured synthesized speech duration. Word-level phoneme timing has NOT been verified. No publication authorization.",
+  "word_level_synchronized": false,
+  "full_narration_listening": false,
+  "rights_review": false,
+  "editorial_approval": false,
+  "public_upload_permitted": false,
+  "paid_spend_usd": 0
+}
