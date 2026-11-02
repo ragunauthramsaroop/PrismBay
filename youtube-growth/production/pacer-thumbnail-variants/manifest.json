@@ -1,0 +1,47 @@
+{
+  "schema": "prismbay-original-thumbnail-pack-v1",
+  "channel_id": "UCw2hs85TzIpdKwJtG-BSxzQ",
+  "handle": "@PrismBayAI",
+  "metricool_brand_id": "6945443",
+  "episode_id": "PB-YT-LF-2026-11-01-PACER",
+  "resolution": "1280x720",
+  "source_storyboard": "youtube-growth/production/2026-11-02-pacer-longform-visual-storyboard.json",
+  "variants": [
+    {
+      "id": "A",
+      "file": "A_access_denied.svg",
+      "title": "Before You Give an AI Agent Access, Run These 5 Tests",
+      "concept": "Permission boundary: locked payment action",
+      "hook": "ACCESS DENIED?"
+    },
+    {
+      "id": "B",
+      "file": "B_five_gates.svg",
+      "title": "AI Agent Procurement: The Permission Test Most Demos Skip",
+      "concept": "Five evidence gates, PACER",
+      "hook": "5 GATES"
+    },
+    {
+      "id": "C",
+      "file": "C_who_approves.svg",
+      "title": "Your AI Agent Wants to Approve Purchases. Who Holds the Stop Button?",
+      "concept": "Independent approval between proposal and execution",
+      "hook": "WHO APPROVES?"
+    }
+  ],
+  "status": "ORIGINAL_EDITABLE_PREPRODUCTION_ONLY_NOT_PUBLISHED",
+  "native_ab_test": "NOT_RUN_STUDIO_ACCESS_UNAVAILABLE",
+  "approval": {
+    "originality_review": "PENDING",
+    "mobile_thumbnail_review": "LOCAL_PREVIEW_ONLY",
+    "rights_review": "PENDING",
+    "editorial_approval": false,
+    "public_upload_permitted": false
+  },
+  "experiment": {
+    "hypothesis": "An explicit permission boundary or approval-owner question will improve qualified clicks from business operators versus a generic AI safety message",
+    "audience": "founders, procurement leaders, CFOs and operations owners",
+    "evaluation": "Native YouTube Studio long-form A/B only after eligibility and final video approval, otherwise no A/B claim"
+  },
+  "paid_spend_usd": 0
+}
