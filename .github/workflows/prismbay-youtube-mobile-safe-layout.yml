@@ -1,0 +1,37 @@
+name: PrismBay YouTube Mobile Safe Layout QA
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'youtube-growth/production/render_accepted_output_short.py'
+      - 'youtube-growth/production/render_capacity_cash_short.py'
+      - 'youtube-growth/tools/test_mobile_safe_cards.py'
+      - '.github/workflows/prismbay-youtube-mobile-safe-layout.yml'
+  pull_request:
+    paths:
+      - 'youtube-growth/production/render_accepted_output_short.py'
+      - 'youtube-growth/production/render_capacity_cash_short.py'
+      - 'youtube-growth/tools/test_mobile_safe_cards.py'
+      - '.github/workflows/prismbay-youtube-mobile-safe-layout.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test-private-review-card-layout:
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install Pillow
+        run: python -m pip install --disable-pip-version-check pillow
+      - name: Render every original card with safe-area assertions
+        run: python -m unittest discover -s youtube-growth/tools -p test_mobile_safe_cards.py -v
+      - name: Confirm no publication or paid operations
+        run: |
+          echo 'Read-only image QA. No YouTube credentials, upload actions, TTS credits, or ad spend.'
