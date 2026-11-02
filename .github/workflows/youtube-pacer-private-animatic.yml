@@ -1,0 +1,58 @@
+name: PrismBay PACER private visual animatic
+on:
+  push:
+    paths:
+      - 'youtube-growth/tools/pacer_visual_animatic.py'
+      - 'youtube-growth/tools/render_pacer_storyboard_svg.py'
+      - 'youtube-growth/production/2026-11-02-pacer-provisional-narration-retiming.json'
+      - 'youtube-growth/production/2026-11-02-pacer-longform-visual-storyboard.json'
+      - '.github/workflows/youtube-pacer-private-animatic.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  render-private-visual-preview:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install free raster dependencies
+        run: python -m pip install --disable-pip-version-check cairosvg pillow
+      - name: Validate the proposed timing and release locks
+        run: python youtube-growth/tools/pacer_narration_timing_gate.py
+      - name: Generate 22 original source SVGs
+        run: |
+          python youtube-growth/tools/render_pacer_storyboard_svg.py \
+            youtube-growth/production/2026-11-02-pacer-longform-visual-storyboard.json \
+            --out /tmp/prismbay_pacer_scenes
+      - name: Render private silent 570-second review MP4
+        run: |
+          mkdir -p /tmp/prismbay_pacer_review
+          python youtube-growth/tools/pacer_visual_animatic.py \
+            --plan youtube-growth/production/2026-11-02-pacer-provisional-narration-retiming.json \
+            --assets /tmp/prismbay_pacer_scenes \
+            --out /tmp/prismbay_pacer_review/pacer_silent_visual_animatic_570s.mp4 \
+            --width 960 --fps 6
+      - name: Verify no audio stream and exact video length
+        run: |
+          python - <<'PY'
+          import json, subprocess
+          p='/tmp/prismbay_pacer_review/pacer_silent_visual_animatic_570s.mp4'
+          data=json.loads(subprocess.check_output(['ffprobe','-v','error','-show_streams','-show_format','-of','json',p]))
+          assert len([s for s in data['streams'] if s['codec_type']=='video'])==1
+          assert not any(s['codec_type']=='audio' for s in data['streams'])
+          assert abs(float(data['format']['duration'])-570)<0.5
+          print('PASS: private, silent, 570-second, one-video-stream visual preview')
+          PY
+      - name: Upload review-only artifact, never publish
+        uses: actions/upload-artifact@v4
+        with:
+          name: prismbay-pacer-silent-private-animatic
+          path: |
+            /tmp/prismbay_pacer_review/pacer_silent_visual_animatic_570s.mp4
+            /tmp/prismbay_pacer_review/pacer_silent_visual_animatic_570s.manifest.json
+          retention-days: 7
+          if-no-files-found: error
