@@ -13,6 +13,35 @@ function metric(id,v){
  const el=$(id);if(!el)return;
  el.textContent=format(v);el.classList.toggle('positive',v>0);el.classList.toggle('negative',v<0);
 }
+function renderSwing(d,error){
+ const node=$('swingRows');if(!node)return;node.replaceChildren();
+ if(!d||d.symbol!=='XAU/USD'||d.promotion?.status!=='NOT_APPROVED'){
+  text('swingBars','Unavailable');text('swingFolds','—');
+  text('swingStatus','Multi-year research is unavailable: '+(error||'Invalid research response')+
+    '. No model is approved. No synthetic history is substituted.');
+  const r=document.createElement('tr');cell(r,'No verified multi-year gold test results');cell(r,'—');cell(r,'—');cell(r,'—');node.append(r);
+  return;
+ }
+ text('swingBars',d.data.bars);
+ text('swingFolds',d.outOfSample.folds);
+ metric('swingReturn',d.outOfSample.meanReturnPct);
+ metric('swingBaseline',d.outOfSample.meanFixedTrendPct);
+ metric('swingStress',d.outOfSample.meanDoubleCostPct);
+ text('swingPositive',d.outOfSample.positiveFolds+' / '+d.outOfSample.folds);
+ text('swingStatus','XAU/USD · '+d.data.calendarYears+' years of reported DAILY CLOSES · '+
+  d.outOfSample.totalVirtualOrders+' hypothetical entries/exits across held-out periods · strategy not approved.');
+ const names={'TREND_20_60':'20/60-day trend','TREND_50_200':'50/200-day trend',
+   'BREAKOUT_55_20':'55-day breakout','LEARNED_LOGIT':'Trained logistic','CASH':'Cash'};
+ for(const f of d.folds){
+  const r=document.createElement('tr');
+  cell(r,'#'+f.fold+' · '+new Date(f.testStart).toISOString().slice(0,10)+' UTC');
+  cell(r,names[f.selection]||f.selection);
+  cell(r,format(f.testReturnPct),f.testReturnPct>0?'positive':f.testReturnPct<0?'negative':'');
+  cell(r,format(f.doubleCostReturnPct),f.doubleCostReturnPct>0?'positive':f.doubleCostReturnPct<0?'negative':'');
+  node.append(r);
+ }
+}
+
 let busy=false;
 async function refresh(){
  if(busy)return;busy=true;
@@ -26,6 +55,7 @@ async function refresh(){
    if(!result.ok||body.tradingMode!=='RESEARCH_ONLY'||body.liveOrders!==0||
       body.livePromotion!=='DISABLED'||body.research?.symbol!=='XAU/USD')
      throw Error(body.detail||body.error||'Invalid gold-only research response');
+   renderSwing(body.longHorizon,body.longHorizonError);
    const d=body.research,stats=d.outOfSample;
    text('researchFolds',stats.folds);
    metric('researchReturn',stats.meanFoldReturnPct);
@@ -48,13 +78,14 @@ async function refresh(){
    }
    const shadow=body.shadow;
    const p=shadow?.probabilityUpNextBar;
-   text('researchShadowProbability',Number.isFinite(p)?(100*clamp(p*100)/100).toFixed(1)+'%':'Insufficient continuous data');
+   text('researchShadowProbability',Number.isFinite(p)?clamp(p*100).toFixed(1)+'%':'Insufficient continuous data');
    text('researchShadowTrend',shadow?.marketDataFresh?
      (shadow.trend8x21==='UPTREND_RULE'?'Uptrend rule observed':'No trend entry'):'Stale · market data delayed');
    text('researchShadowTime',shadow?.asOf?new Date(shadow.asOf).toISOString().slice(0,16).replace('T',' ')+' UTC':'—');
  }catch(e){
    text('researchStatus','Research unavailable: '+String(e.message||e)+'. No strategy approved for live trading.');
    text('researchFolds','Unavailable');
+   renderSwing(null,'Short-term research endpoint unavailable');
    text('researchShadowProbability','Unavailable');
    const body=$('researchFoldRows');if(body){body.replaceChildren();const r=document.createElement('tr'),c=document.createElement('td');c.colSpan=5;c.className='no-data';c.textContent='Gold research data unavailable. Retry when the historical feed recovers.';r.append(c);body.append(r);}
  }finally{busy=false;}
