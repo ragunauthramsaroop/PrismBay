@@ -1,0 +1,95 @@
+name: PrismBay YouTube Corrected Shorts Artifact QA
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/prismbay-youtube-corrected-artifacts-qa.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  verify-existing-private-exports:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install local media verification dependencies
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y ffmpeg
+      - name: Download corrected accepted-output review export
+        uses: actions/download-artifact@v4
+        with:
+          name: prismbay-accepted-output-short-unpublished
+          run-id: 41369594770
+          github-token: ${{ github.token }}
+          path: qa/accepted
+      - name: Download corrected capacity-versus-cash review export
+        uses: actions/download-artifact@v4
+        with:
+          name: prismbay-capacity-cash-short-private-review
+          run-id: 41369562090
+          github-token: ${{ github.token }}
+          path: qa/capacity
+      - name: Verify exact MP4 hashes and continuous subtitle coverage
+        run: |
+          python3 - <<'PY'
+          import json
+          import subprocess
+          from pathlib import Path
+          channel='UCw2hs85TzIpdKwJtG-BSxzQ'
+          summaries=[]
+          for name in ('accepted','capacity'):
+              folder=Path('qa')/name
+              mp4s=list(folder.rglob('*.mp4'))
+              srts=list(folder.rglob('captions-phrase-synchronous.srt'))
+              manifests=list(folder.rglob('manifest.json'))
+              assert len(mp4s)==len(srts)==len(manifests)==1, (name,mp4s,srts,manifests)
+              manifest=json.loads(manifests[0].read_text())
+              assert manifest['channelId']==channel
+              assert str(manifest['brandId'])=='6945443'
+              assert manifest['publicationApproved'] is False
+              assert manifest['uploadPermitted'] is False
+              assert manifest['paidSpendUSD']==0
+              assert manifest['videoSha256'] and len(manifest['videoSha256'])==64
+              report=Path('qa')/(name+'-release-gate.json')
+              command=['python3','scripts/youtube_release_gate.py',
+                       '--format','shorts','--video',str(mp4s[0]),
+                       '--srt',str(srts[0]),'--manifest',str(manifests[0]),
+                       '--report',str(report)]
+              subprocess.run(command,check=True)
+              result=json.loads(report.read_text())
+              assert result['technicalChecksPass'] is True, result['technicalIssues']
+              assert result['videoSHA256']==manifest['videoSha256']
+              assert result['channelId']==channel
+              assert result['publicationApproved'] is False
+              assert result['uploadPermitted'] is False
+              summaries.append({'episode':name,'videoSHA256':result['videoSHA256'],
+                                'durationSeconds':result['durationSeconds'],
+                                'cueCount':result['cueCount'],
+                                'maxInternalCaptionGapSeconds':result['maxInternalCaptionGapSeconds'],
+                                'technicalChecksPass':True,
+                                'editorialApproval':'NOT_VERIFIED',
+                                'publicUpload':'NOT_AUTHORIZED'})
+          (Path('qa')/'summary.json').write_text(json.dumps(summaries,indent=2)+'\n')
+          print(json.dumps(summaries,indent=2))
+          PY
+      - name: Retain private verification evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: prismbay-corrected-shorts-release-gate-evidence
+          path: |
+            qa/*-release-gate.json
+            qa/summary.json
+          if-no-files-found: warn
+          retention-days: 7
+      - name: Publication remains closed
+        if: always()
+        run: |
+          echo 'Read-only technical check. No upload, scheduling, channel modification, paid spend or editorial approval.' >> "$GITHUB_STEP_SUMMARY"
+          echo 'Sole target channel: UCw2hs85TzIpdKwJtG-BSxzQ.' >> "$GITHUB_STEP_SUMMARY"
