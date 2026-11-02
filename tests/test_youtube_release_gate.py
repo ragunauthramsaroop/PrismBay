@@ -91,7 +91,7 @@ class ReleaseGateTests(unittest.TestCase):
                 return (json.dumps({"streams": [
                     {"codec_type": "video", "codec_name": "h264", "width": 1920, "height": 1080},
                     {"codec_type": "audio", "codec_name": "aac"}],
-                    "format": {"duration": "559.503"}}), "")
+                    "format": {"duration": "64.0"}}), "")
             if "silencedetect" in " ".join(args):
                 return ("", "Peak level dB: -3.0")
             return ("", "")
@@ -100,7 +100,7 @@ class ReleaseGateTests(unittest.TestCase):
             video = base / "longform.mp4"
             video.write_bytes(b"synthetic landscape test fixture")
             captions = base / "captions.srt"
-            captions.write_text("1\\n00:00:00,000 --> 00:00:04,000\\nLong form review\\n")
+            captions.write_text("1\n00:00:00,000 --> 00:00:04,000\nLong form review\n\n2\n00:01:01,000 --> 00:01:04,000\nClosing caption\n")
             manifest = base / "manifest.json"
             report = base / "report.json"
             manifest.write_text(json.dumps({**GOOD, "sha256": hashlib.sha256(video.read_bytes()).hexdigest()}))
@@ -114,6 +114,13 @@ class ReleaseGateTests(unittest.TestCase):
                 self.assertEqual(result["resolution"], [1920, 1080])
                 self.assertFalse(result["publicationApproved"])
                 self.assertFalse(result["uploadPermitted"])
+                # A long-form export with only opening subtitles must fail closed.
+                captions.write_text("1\\n00:00:00,000 --> 00:00:04,000\\nLong form review\\n")
+                with self.assertRaises(SystemExit) as missing_tail:
+                    gate.main()
+                self.assertEqual(missing_tail.exception.code, 2)
+                self.assertIn("Uncaptioned tail exceeds 30 seconds",
+                              json.loads(report.read_text())["technicalIssues"])
             args[2] = "shorts"
             with patch.object(gate, "run", fake_run), patch.object(sys, "argv", args):
                 with self.assertRaises(SystemExit) as error:
