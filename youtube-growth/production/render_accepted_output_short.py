@@ -39,23 +39,23 @@ def digest(p):
   for b in iter(lambda:f.read(1<<20),b''):h.update(b)
  return h.hexdigest()
 def font(size,bold=False):return ImageFont.truetype(BOLD if bold else FONT,size)
-def fit(d,t,maximum,start=90,minimum=38,bold=True):
+def fit(d,t,maximum,start=90,minimum=26,bold=True):
  for n in range(start,minimum-1,-2):
   f=font(n,bold)
   if d.textbbox((0,0),t,font=f)[2]<=maximum:return f
  raise ValueError('Unfittable text: '+t)
-def center(d,t,y,n,color='#f5fbff',maxwidth=945):
- # YouTube Shorts action controls occupy the right edge below the hero.
- # Keep all critical detail and footer text inside a 900px right boundary.
+def center(d,t,y,n,color='#f5fbff',maxwidth=760):
+ # Protect indispensable text against 390x844 cover crop (~97px each side)
+ # and against the right-side Shorts controls below the hero.
  protected = 800 <= y < 1600
- maxwidth = min(maxwidth,790) if protected else maxwidth
- anchor = 470 if protected else W/2
- f=fit(d,t,maxwidth,n)
- width=d.textbbox((0,0),t,font=f)[2]
+ maxwidth = min(maxwidth,700 if protected else 760)
+ anchor = 500 if protected else W/2
+ face=fit(d,t,maxwidth,n)
+ width=d.textbbox((0,0),t,font=face)[2]
  left=anchor-width/2
- if protected:
-  assert left >= 48 and left+width <= 900, f'Right UI text collision: {t}'
- d.text((left,y),t,font=f,fill=color)
+ assert left >= 125 and left+width <= (900 if protected else 955), f'Cover crop/UI text collision: {t}'
+ d.text((left,y),t,font=face,fill=color)
+
 def wrap(d,text,limit,size=56):
  f=font(size,True); lines=[];line=''
  for word in text.split():
@@ -69,9 +69,9 @@ def wrap(d,text,limit,size=56):
 def card(scene,spoken,path,number):
  im=Image.new('RGB',(W,H),'#081c30');d=ImageDraw.Draw(im)
  d.rectangle((0,0,W,14),fill='#2bd4c8')
- d.rounded_rectangle((56,66,117,127),radius=14,fill='#2bd4c8')
- d.text((77,70),'P',font=font(44,True),fill='#081c30')
- d.text((140,76),'PRISMBAY AI',font=font(37,True),fill='#e9fbff')
+ d.rounded_rectangle((140,66,201,127),radius=14,fill='#2bd4c8')
+ d.text((161,70),'P',font=font(44,True),fill='#081c30')
+ d.text((225,76),'PRISMBAY AI',font=font(37,True),fill='#e9fbff')
  d.text((875,81),f'{number+1:02d}/12',font=font(29,True),fill='#86aebc')
  title,hero,detail,foot=CONTENT[scene]
  center(d,title,270,57,'#2bd4c8')
@@ -83,16 +83,16 @@ def card(scene,spoken,path,number):
  if scene=='quality':
   d.rounded_rectangle((145,1170,860,1210),radius=18,fill='#823c4a')
   d.rounded_rectangle((145,1170,717,1210),radius=18,fill='#2bd4c8')
- d.text((62,1250),'ILLUSTRATIVE EXAMPLE  •  NOT CUSTOMER DATA',font=font(28,True),fill='#a4c1ce')
+ center(d,'ILLUSTRATIVE EXAMPLE  •  NOT CUSTOMER DATA',1250,28,'#a4c1ce',maxwidth=700)
  # Keep text above typical bottom and right-side Shorts interface controls.
- d.rounded_rectangle((48,1305,900,1580),radius=40,fill='#030d18',outline='#205365',width=3)
- lines=wrap(d,spoken,760,56)
+ d.rounded_rectangle((125,1305,880,1580),radius=40,fill='#030d18',outline='#205365',width=3)
+ lines=wrap(d,spoken,650,48)
  if len(lines)>3: raise ValueError('Caption exceeds three lines: '+spoken)
  y=1335+(3-len(lines))*37
  for line in lines:
-  f=font(56,True); width=d.textbbox((0,0),line,font=f)[2]
-  x=(940-width)/2
-  assert x >= 48 and x+width <= 900 and y+65 < 1600, f'Short caption UI collision: {spoken}'
+  f=font(48,True); width=d.textbbox((0,0),line,font=f)[2]
+  x=500-width/2
+  assert x >= 125 and x+width <= 880 and y+65 < 1600, f'Short caption UI collision: {spoken}'
   d.text((x,y),line,font=f,fill='#ffffff');y+=76
  # Footer omitted because Shorts lower UI overlays this region; branding remains in header.
  im.save(path,optimize=True)
@@ -162,7 +162,7 @@ def main():
   'captionTimelineDriftSeconds':round(dur-t,3),'maxCaptionWordsPerMinute':round(max(caption_wpm),1),
   'captionPacingMethod':'WAV-measured adaptive tempo, 150 WPM target, encoded WPM asserted',
   'fictionalExample':True,
-  'mobileSafeArea':{'rightControlsStartX':916,'bottomControlsStartY':1600,'criticalTextMaxX':900,'captionBoxBottomY':1580,'verifiedBy':'render-time text bounding box assertions; device playback still required'},
+  'mobileSafeArea':{'rightControlsStartX':916,'bottomControlsStartY':1600,'criticalTextMinX':125,'criticalTextMaxX':900,'captionBoxBottomY':1580,'coverCropStressViewport':'390x844','verifiedBy':'render-time central text bounding box assertions; independent mobile browser and physical device review still required'},
   'reviewOnly':True,'publicationApproved':False,'uploadPermitted':False,'paidSpendUSD':0,
   'outstanding':['Independent full listening','Real-device YouTube UI playback','Editorial approval'] +
                 (['Fallback voice rights review'] if a.voice!='piper' else [])}
