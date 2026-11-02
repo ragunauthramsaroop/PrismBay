@@ -68,8 +68,25 @@ function dailyPoints(data){
   if(history[history.length-1].time<today-10*86400000)throw Error('Gold daily price history too stale for research');
   return history;
 }
+function recordedDailyCloses(data){
+  if(data?.symbol!=='XAUUSD'||data.interval!=='daily'||!Array.isArray(data.points))
+    throw Error('Expected XAU/USD daily closes; got another instrument or format');
+  const map=new Map(),today=Math.floor(Date.now()/86400000)*86400000;
+  for(const row of data.points){
+    const time=Date.parse(String(row.d)+'T00:00:00.000Z');
+    const close=Number(row.c),high=Number(row.h),low=Number(row.l);
+    if(![time,close,high,low].every(Number.isFinite)||time<=0||time>=today||
+      close<=0||low<=0||high<Math.max(close,low)||low>close)continue;
+    // The upstream history DOES NOT provide an open. Do not fabricate one.
+    map.set(time,{time,close,high,low});
+  }
+  const history=[...map.values()].sort((a,b)=>a.time-b.time);
+  if(history.length<800)throw Error('Insufficient recorded XAU daily closes: '+history.length);
+  if(history.at(-1).time<today-10*86400000)throw Error('Gold daily history too old');
+  return history;
+}
 async function loadDailyChart(){
-  return dailyPoints(await get('/chart?symbol=xau&range=5y&interval=1d'));
+  return recordedDailyCloses(await get('/history'));
 }
 module.exports={BASE,SYMBOL,STEP,get,spot,candlePoints,loadSpot,loadChart,latestSession,
-  dailyPoints,loadDailyChart};
+  dailyPoints,recordedDailyCloses,loadDailyChart};
