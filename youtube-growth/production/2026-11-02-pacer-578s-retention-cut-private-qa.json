@@ -1,0 +1,189 @@
+{
+  "schema": "prismbay-pacer-578s-private-retention-cut-v1",
+  "channel_id": "UCw2hs85TzIpdKwJtG-BSxzQ",
+  "handle": "@PrismBayAI",
+  "metricool_brand_id": "6945443",
+  "source_episode_id": "PB-YT-LF-2026-11-01-PACER",
+  "original_narration_words": 1246,
+  "source_video_duration_s": 605,
+  "planned_new_duration_s": 578.07,
+  "rendered_private_preview_duration_s": 578,
+  "removed_pause_s": 26.93,
+  "original_scene_count": 22,
+  "original_caption_cues": 155,
+  "motion_fps": 15,
+  "rendered_video_size_bytes": 18024761,
+  "compact_private_preview_sha256": "fe027e55bde83deaa3a279e15bbfe4cd799cd326dd1f515b1557cea83c78f903",
+  "source_caption_path": "youtube-growth/production/2026-11-02-pacer-measured-scene-captions.srt",
+  "output_caption_path": "youtube-growth/production/2026-11-02-pacer-578s-retention-cut-private-captions.srt",
+  "caption_method": "Original 155 proportional scene-bounded cues shifted by the exact pause reduction; measured speech intervals preserved. NOT phoneme/word forced alignment.",
+  "max_caption_cps": 15.63,
+  "min_caption_duration_s": 1.68,
+  "new_last_caption_end_ms": 576770,
+  "scenes": [
+    {
+      "scene": 1,
+      "original_start_ms": 0,
+      "new_start_ms": 0,
+      "new_end_ms": 11823,
+      "retained_pause_ms": 750
+    },
+    {
+      "scene": 2,
+      "original_start_ms": 13000,
+      "new_start_ms": 11823,
+      "new_end_ms": 27653,
+      "retained_pause_ms": 750
+    },
+    {
+      "scene": 3,
+      "original_start_ms": 30000,
+      "new_start_ms": 27653,
+      "new_end_ms": 41316,
+      "retained_pause_ms": 750
+    },
+    {
+      "scene": 4,
+      "original_start_ms": 45000,
+      "new_start_ms": 41316,
+      "new_end_ms": 59278,
+      "retained_pause_ms": 750
+    },
+    {
+      "scene": 5,
+      "original_start_ms": 64000,
+      "new_start_ms": 59278,
+      "new_end_ms": 86599,
+      "retained_pause_ms": 750
+    },
+    {
+      "scene": 6,
+      "original_start_ms": 93000,
+      "new_start_ms": 86599,
+      "new_end_ms": 106260,
+      "retained_pause_ms": 750
+    },
+    {
+      "scene": 7,
+      "original_start_ms": 114000,
+      "new_start_ms": 106260,
+      "new_end_ms": 136254,
+      "retained_pause_ms": 750
+    },
+    {
+      "scene": 8,
+      "original_start_ms": 145000,
+      "new_start_ms": 136254,
+      "new_end_ms": 174855,
+      "retained_pause_ms": 750
+    },
+    {
+      "scene": 9,
+      "original_start_ms": 185000,
+      "new_start_ms": 174855,
+      "new_end_ms": 204482,
+      "retained_pause_ms": 750
+    },
+    {
+      "scene": 10,
+      "original_start_ms": 216000,
+      "new_start_ms": 204482,
+      "new_end_ms": 232661,
+      "retained_pause_ms": 750
+    },
+    {
+      "scene": 11,
+      "original_start_ms": 245000,
+      "new_start_ms": 232661,
+      "new_end_ms": 266470,
+      "retained_pause_ms": 750
+    },
+    {
+      "scene": 12,
+      "original_start_ms": 280000,
+      "new_start_ms": 266470,
+      "new_end_ms": 291812,
+      "retained_pause_ms": 750
+    },
+    {
+      "scene": 13,
+      "original_start_ms": 307000,
+      "new_start_ms": 291812,
+      "new_end_ms": 325141,
+      "retained_pause_ms": 750
+    },
+    {
+      "scene": 14,
+      "original_start_ms": 342000,
+      "new_start_ms": 325141,
+      "new_end_ms": 344188,
+      "retained_pause_ms": 750
+    },
+    {
+      "scene": 15,
+      "original_start_ms": 362000,
+      "new_start_ms": 344188,
+      "new_end_ms": 373931,
+      "retained_pause_ms": 750
+    },
+    {
+      "scene": 16,
+      "original_start_ms": 393000,
+      "new_start_ms": 373931,
+      "new_end_ms": 394604,
+      "retained_pause_ms": 750
+    },
+    {
+      "scene": 17,
+      "original_start_ms": 415000,
+      "new_start_ms": 394604,
+      "new_end_ms": 415746,
+      "retained_pause_ms": 750
+    },
+    {
+      "scene": 18,
+      "original_start_ms": 437000,
+      "new_start_ms": 415746,
+      "new_end_ms": 440165,
+      "retained_pause_ms": 750
+    },
+    {
+      "scene": 19,
+      "original_start_ms": 463000,
+      "new_start_ms": 440165,
+      "new_end_ms": 469092,
+      "retained_pause_ms": 750
+    },
+    {
+      "scene": 20,
+      "original_start_ms": 493000,
+      "new_start_ms": 469092,
+      "new_end_ms": 513597,
+      "retained_pause_ms": 750
+    },
+    {
+      "scene": 21,
+      "original_start_ms": 539000,
+      "new_start_ms": 513597,
+      "new_end_ms": 535493,
+      "retained_pause_ms": 750
+    },
+    {
+      "scene": 22,
+      "original_start_ms": 562000,
+      "new_start_ms": 535493,
+      "new_end_ms": 578070,
+      "retained_pause_ms": 1300
+    }
+  ],
+  "channel_release_gate": {
+    "public_upload_permitted": false,
+    "auto_publish": false,
+    "editorial_approval": false,
+    "full_narration_listening": false,
+    "rights_review": false,
+    "caption_word_level_synchronized": false
+  },
+  "paid_spend_usd": 0,
+  "youtube_ypp_2027_source": "https://support.google.com/youtube/answer/12843009"
+}
