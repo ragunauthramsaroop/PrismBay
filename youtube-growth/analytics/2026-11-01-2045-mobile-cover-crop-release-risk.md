@@ -29,3 +29,12 @@ Opera Browser Connector still reported `Browser not connected`. Descript's exist
 Trend/Audience/Research: hold new generic ROI scripts and focus existing high-value candidates. Hook/Title: retain distinct accepted-output versus capacity/cash hypotheses. Visual/Editing: repair source-safe width. Packaging: test both `contain` and `cover`. Publisher: retain private drafts and exact channel. Analytics: preserve null-aware observations. Portfolio: MODIFY/HOLD these two review-only candidates, no scaling until verified public performance.
 
 No user-facing alert condition was reached. No paid spending, channel change, scheduling, or publication.
+
+
+## Source remediation completed in the same cycle
+Patched both original private-review renderers rather than producing additional near-duplicate Shorts:
+- [Accepted-output renderer](../production/render_accepted_output_short.py): centered indispensable text inside a crop-aware horizontal region, moved header branding inward, centered the full disclaimer, and narrowed the caption box with readable phrase wrapping.
+- [Capacity/cash renderer](../production/render_capacity_cash_short.py): moved branding, main text and hero card inward, split the full illustrative disclaimer into two centered lines, and allowed four caption lines when required for readability.
+- [Regression tests](../tools/test_mobile_safe_cards.py) render all 24 original frames with source text bounding-box assertions. [Mobile-safe GitHub Actions run 41369635006](https://github.com/ragunauthramsaroop/PrismBay/actions/runs/41369635006) passed. [Capacity/cash render run 41369562090](https://github.com/ragunauthramsaroop/PrismBay/actions/runs/41369562090) completed successfully. The accepted-output rerender [41369594770](https://github.com/ragunauthramsaroop/PrismBay/actions/runs/41369594770) was in progress at the time of this audit amendment; its earlier attempt [41369536806](https://github.com/ragunauthramsaroop/PrismBay/actions/runs/41369536806) failed on disclaimer fitting and the font-size floor was subsequently corrected.
+
+This source-level remediation does not retrospectively change the two old ZIP review files, does not verify newly encoded cover-crop screenshots, and does not grant upload approval. [Tracking issue #576](https://github.com/ragunauthramsaroop/PrismBay/issues/576) stays open until new artifacts pass actual narrow-screen and physical playback checks.
