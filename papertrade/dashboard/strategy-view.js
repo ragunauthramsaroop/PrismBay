@@ -42,6 +42,32 @@ function renderSwing(d,error){
  }
 }
 
+async function refreshAgentStatus(){
+ try{
+  const controller=new AbortController(),timeout=setTimeout(()=>controller.abort(),13000);
+  let response;
+  try{response=await fetch('/api/agents',{cache:'no-store',signal:controller.signal});}
+  finally{clearTimeout(timeout);}
+  const data=await response.json();
+  if(!response.ok||data.symbol!=='XAU/USD'||data.liveBrokerOrders!==false||
+     !Array.isArray(data.agents)||data.agents.length!==7)
+    throw Error(data.detail||'Unexpected backend research state');
+  const last=data.latest;
+  if(!last){text('agentOverall','No completed research run yet');text('agentLastRun','First GitHub Actions run not available');return;}
+  const result=data.status==='LAST_RUN_PASSED'?'Last run passed':
+    data.status==='RUN_IN_PROGRESS'?'Research jobs in progress':'Last run needs review';
+  text('agentOverall',result);
+  text('agentLastRun','Started '+new Date(last.at).toLocaleString('en-US',
+   {timeZone:'America/Guyana',month:'short',day:'numeric',hour:'2-digit',minute:'2-digit'})+
+   ' Guyana time · '+String(last.result||last.state||'pending').toUpperCase());
+  const link=$('agentWorkflowLink');
+  if(link&&typeof last.url==='string'&&last.url.startsWith('https://github.com/ragunauthramsaroop/PrismBay/actions/runs/')){
+   link.href=last.url;link.textContent='View latest agent run ↗';
+  }
+ }catch(e){text('agentOverall','Status temporarily unavailable');
+   text('agentLastRun','GitHub run metadata unavailable. The schedule and paper-only controls remain unchanged.');}
+}
+
 let busy=false;
 async function refresh(){
  if(busy)return;busy=true;
@@ -91,8 +117,8 @@ async function refresh(){
  }finally{busy=false;}
 }
 document.addEventListener('DOMContentLoaded',()=>{
- refresh();
- document.addEventListener('visibilitychange',()=>{if(!document.hidden)refresh();});
- setInterval(()=>{if(!document.hidden)refresh();},600000);
+ refresh();refreshAgentStatus();
+ document.addEventListener('visibilitychange',()=>{if(!document.hidden){refresh();refreshAgentStatus();}});
+ setInterval(()=>{if(!document.hidden){refresh();refreshAgentStatus();}},600000);
 });
 })();
