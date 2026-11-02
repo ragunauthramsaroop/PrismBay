@@ -145,3 +145,14 @@
 .gold-equity-spark{height:105px;margin-top:8px;margin-bottom:4px;border:0;background:none}
 .gold-equity-spark svg{height:100%}
 @media(max-width:720px){.gold-action-row{padding:12px;gap:11px}.gold-action-row button{width:100%}.gold-action-row>span{font-size:11px}.gold-history-head{flex-wrap:wrap;padding:16px 15px 0;gap:13px}.gold-warmup-progress{width:100%;max-width:none}.gold-market-chart{height:220px;margin:12px 8px 0}.gold-market-note{padding:10px 14px 14px}.gold-equity-caption{padding:0 13px}.gold-equity-spark{height:76px}}
+
+
+.gold-replay-cta{display:flex;align-items:center;gap:12px;flex:1;min-width:250px}
+.gold-replay-cta>span{max-width:450px;color:#b5d6ce;font-size:11px;line-height:1.5}
+.gold-replay-summary{display:flex;flex-direction:column;gap:3px;min-width:210px;padding:6px 0 6px 16px;border-left:1px solid #467165}
+.gold-replay-summary>span{color:#9ec8b5;font-size:9px;font-weight:800;letter-spacing:1px}
+.gold-replay-summary>strong{font-family:var(--heading);font-size:17px;color:#e1f0e3}
+.gold-replay-summary>small{color:#9ebbb4;font-size:10px}
+.gold-replay-summary .negative{color:#fa9da7}.gold-replay-summary .positive{color:#7febc5}
+@media(max-width:900px){.gold-replay-cta{flex-wrap:wrap}.gold-replay-summary{width:100%;padding:12px 0 2px;border-left:0;border-top:1px solid #467165}}
+@media(max-width:720px){.gold-replay-cta{width:100%}.gold-replay-cta button{width:100%}}
