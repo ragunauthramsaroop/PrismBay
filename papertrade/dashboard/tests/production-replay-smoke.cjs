@@ -1,29 +1,28 @@
-/* Production historical replay smoke. No transaction APIs or exchange accounts. */
+/* Gold-only XAU/USD public chart replay smoke. No broker connections or trade submission. */
 'use strict';
 const assert=require('node:assert/strict');
+const {loadSpot,loadChart}=require('../gold-data.cjs');
 const Replay=require('../replay-core.js');
-const URL='https://papertrade-research-live.vercel.app/api/replay?hours=6';
 (async()=>{
-  const res=await fetch(URL,{signal:AbortSignal.timeout(20000)});
-  assert.equal(res.status,200,'Historical price endpoint must respond');
-  const data=await res.json();
-  assert.equal(data.mode,'HISTORICAL_REPLAY_ONLY');
-  assert.equal(data.noRealOrders,true);
-  assert.equal(data.symbol,'BTC-USD');
-  assert.ok(data.candleCount>=340);
-  assert.ok(data.coveragePct>=97);
-  const s=Replay.create(data.bars,{source:data.source});
-  while(!s.finished)Replay.advance(s,100);
-  const m=Replay.metrics(s);
-  assert.equal(m.steps,m.totalSteps);
-  assert.ok(Number.isFinite(m.equity));
-  assert.ok(m.equity>0);
-  assert.ok(s.fills.every(e=>e.price>0&&e.at===data.bars[e.index].time+1000));
-  console.log('VERIFIED_REAL_HISTORICAL_REPLAY='+JSON.stringify({
-    mode:m.mode,source:data.source,start:data.start,end:data.end,
-    candles:data.candleCount,coveragePct:data.coveragePct,
-    simulatedEquity:Number(m.equity.toFixed(2)),simulatedProfit:Number(m.pnl.toFixed(2)),
-    simulatedFees:Number(m.fees.toFixed(2)),buyEvents:m.buys,sellEvents:m.sells,
-    riskHalted:s.halted,finished:m.finished,virtualOrdersOnly:true
-  }));
-})().catch(e=>{console.error('HISTORICAL_REPLAY_SMOKE_FAILED',e);process.exitCode=1;});
+ const [spot,bars]=await Promise.all([loadSpot(),loadChart()]);
+ assert.equal(spot.instrument,'XAU/USD');
+ assert.equal(spot.estimatedBidAsk,true);
+ assert.ok(spot.price>100);
+ assert.ok(bars.length>=150);
+ const selected=bars.slice(-97);
+ const session=Replay.create(selected,{source:'XAUS XAU/USD chart proxy'});
+ while(!session.finished)Replay.advance(session,200);
+ const m=Replay.metrics(session);
+ assert.equal(m.mode,'HISTORICAL_REPLAY_ONLY');
+ assert.equal(session.state.instrument,'XAU/USD');
+ assert.ok(m.equity>0&&Number.isFinite(m.pnl));
+ assert.ok(session.fills.every(e=>e.price>0&&e.at===selected[e.index].time+1000));
+ console.log('VERIFIED_GOLD_ONLY_REPLAY='+JSON.stringify({
+  instrument:'XAU/USD',source:'XAUS public XAU gold chart proxy',
+  indicativeSpotUSDPerOunce:spot.price,
+  chartBars:selected.length,virtualEquity:Number(m.equity.toFixed(2)),
+  virtualProfit:Number(m.pnl.toFixed(2)),estimatedFees:Number(m.fees.toFixed(2)),
+  virtualBuys:m.buys,virtualSells:m.sells,marketBreaksPossible:true,
+  realOrders:0
+ }));
+})().catch(e=>{console.error('GOLD_REPLAY_SMOKE_FAILED',e.message);process.exitCode=1;});
