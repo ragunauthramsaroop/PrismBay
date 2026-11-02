@@ -1,0 +1,51 @@
+name: PrismBay PACER Original Scene Pack
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'youtube-growth/tools/render_pacer_storyboard_svg.py'
+      - 'youtube-growth/production/2026-11-02-pacer-longform-visual-storyboard.json'
+      - '.github/workflows/youtube-pacer-scene-pack.yml'
+permissions:
+  contents: read
+jobs:
+  generate-private-preproduction-scenes:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Generate original 22-scene SVG pack
+        run: |
+          python youtube-growth/tools/render_pacer_storyboard_svg.py \
+            youtube-growth/production/2026-11-02-pacer-longform-visual-storyboard.json \
+            --out pacer_scene_pack
+      - name: Validate scene count, XML, channel and timing
+        run: |
+          python - <<'PY'
+          import json, pathlib, xml.etree.ElementTree as ET, zipfile
+          root=pathlib.Path('pacer_scene_pack')
+          manifest=json.loads((root/'manifest.json').read_text())
+          assert manifest['channel_id']=='UCw2hs85TzIpdKwJtG-BSxzQ'
+          assert manifest['status']=='VISUAL_PREPRODUCTION_ONLY_NOT_PUBLISHED'
+          scenes=manifest['scenes']
+          assert len(scenes)==22
+          assert scenes[0]['start_s']==0 and scenes[-1]['end_s']==570
+          for i,scene in enumerate(scenes):
+              assert scene['end_s']>scene['start_s']
+              if i: assert scene['start_s']==scenes[i-1]['end_s']
+              svg=ET.parse(root/scene['file']).getroot()
+              assert svg.attrib['width']=='1920' and svg.attrib['height']=='1080'
+              assert svg.tag.endswith('svg')
+          with zipfile.ZipFile('pacer_scene_pack.zip') as z:
+              assert len(z.namelist())==23
+              assert z.testzip() is None
+          print('PASS: 22 original editable 1920x1080 SVG frames, complete timing, safe channel')
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: prismbay-pacer-original-scene-pack-review-only
+          path: pacer_scene_pack.zip
+          retention-days: 14
