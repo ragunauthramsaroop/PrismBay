@@ -1,0 +1,238 @@
+{
+  "schema": "prismbay-pacer-private-measured-retiming-v1",
+  "channel_id": "UCw2hs85TzIpdKwJtG-BSxzQ",
+  "handle": "@PrismBayAI",
+  "metricool_brand_id": "6945443",
+  "episode_id": "PB-YT-LF-2026-11-01-PACER",
+  "status": "PRIVATE_MEASURED_AUDIO_TIMELINE_NOT_EDITORIALLY_APPROVED",
+  "source_workflow_run": 41475359505,
+  "source_artifact_id": 13156983246,
+  "source_artifact_zip_sha256": "58ba7a0178c18c8e65205167cfa3f2d8d6236bfad56e59628c424d8c3f9b7cd2",
+  "narration_source_sha256": "6a8bc6fc1c383f140ac437eac13454cba951309ef538aefa1df0746045fc38eb",
+  "voice": "af_heart",
+  "speed": 0.9,
+  "original_narration_words": 1246,
+  "prior_estimated_duration_s": 570,
+  "measured_retimed_duration_s": 605,
+  "measured_speech_total_s": 561.02,
+  "added_pause_total_s": 43.98,
+  "retiming_rule": "For each scene, slot seconds = ceil(measured speech duration + 1.5). Preserve original speech samples and order, append 1.5 to 2.5 seconds silence, recompute contiguous starts and ends. No speedup or truncation.",
+  "scenes": [
+    {
+      "scene": 1,
+      "start_s": 0,
+      "end_s": 13,
+      "slot_s": 13,
+      "measured_speech_s": 11.073,
+      "post_speech_pause_s": 1.927,
+      "prior_570s_slot_s": 14
+    },
+    {
+      "scene": 2,
+      "start_s": 13,
+      "end_s": 30,
+      "slot_s": 17,
+      "measured_speech_s": 15.08,
+      "post_speech_pause_s": 1.92,
+      "prior_570s_slot_s": 16
+    },
+    {
+      "scene": 3,
+      "start_s": 30,
+      "end_s": 45,
+      "slot_s": 15,
+      "measured_speech_s": 12.913,
+      "post_speech_pause_s": 2.087,
+      "prior_570s_slot_s": 14
+    },
+    {
+      "scene": 4,
+      "start_s": 45,
+      "end_s": 64,
+      "slot_s": 19,
+      "measured_speech_s": 17.212,
+      "post_speech_pause_s": 1.788,
+      "prior_570s_slot_s": 19
+    },
+    {
+      "scene": 5,
+      "start_s": 64,
+      "end_s": 93,
+      "slot_s": 29,
+      "measured_speech_s": 26.571,
+      "post_speech_pause_s": 2.429,
+      "prior_570s_slot_s": 30
+    },
+    {
+      "scene": 6,
+      "start_s": 93,
+      "end_s": 114,
+      "slot_s": 21,
+      "measured_speech_s": 18.911,
+      "post_speech_pause_s": 2.089,
+      "prior_570s_slot_s": 21
+    },
+    {
+      "scene": 7,
+      "start_s": 114,
+      "end_s": 145,
+      "slot_s": 31,
+      "measured_speech_s": 29.244,
+      "post_speech_pause_s": 1.756,
+      "prior_570s_slot_s": 30
+    },
+    {
+      "scene": 8,
+      "start_s": 145,
+      "end_s": 185,
+      "slot_s": 40,
+      "measured_speech_s": 37.851,
+      "post_speech_pause_s": 2.149,
+      "prior_570s_slot_s": 34
+    },
+    {
+      "scene": 9,
+      "start_s": 185,
+      "end_s": 216,
+      "slot_s": 31,
+      "measured_speech_s": 28.877,
+      "post_speech_pause_s": 2.123,
+      "prior_570s_slot_s": 31
+    },
+    {
+      "scene": 10,
+      "start_s": 216,
+      "end_s": 245,
+      "slot_s": 29,
+      "measured_speech_s": 27.429,
+      "post_speech_pause_s": 1.571,
+      "prior_570s_slot_s": 27
+    },
+    {
+      "scene": 11,
+      "start_s": 245,
+      "end_s": 280,
+      "slot_s": 35,
+      "measured_speech_s": 33.059,
+      "post_speech_pause_s": 1.941,
+      "prior_570s_slot_s": 32
+    },
+    {
+      "scene": 12,
+      "start_s": 280,
+      "end_s": 307,
+      "slot_s": 27,
+      "measured_speech_s": 24.592,
+      "post_speech_pause_s": 2.408,
+      "prior_570s_slot_s": 25
+    },
+    {
+      "scene": 13,
+      "start_s": 307,
+      "end_s": 342,
+      "slot_s": 35,
+      "measured_speech_s": 32.579,
+      "post_speech_pause_s": 2.421,
+      "prior_570s_slot_s": 31
+    },
+    {
+      "scene": 14,
+      "start_s": 342,
+      "end_s": 362,
+      "slot_s": 20,
+      "measured_speech_s": 18.297,
+      "post_speech_pause_s": 1.703,
+      "prior_570s_slot_s": 20
+    },
+    {
+      "scene": 15,
+      "start_s": 362,
+      "end_s": 393,
+      "slot_s": 31,
+      "measured_speech_s": 28.993,
+      "post_speech_pause_s": 2.007,
+      "prior_570s_slot_s": 33
+    },
+    {
+      "scene": 16,
+      "start_s": 393,
+      "end_s": 415,
+      "slot_s": 22,
+      "measured_speech_s": 19.923,
+      "post_speech_pause_s": 2.077,
+      "prior_570s_slot_s": 23
+    },
+    {
+      "scene": 17,
+      "start_s": 415,
+      "end_s": 437,
+      "slot_s": 22,
+      "measured_speech_s": 20.392,
+      "post_speech_pause_s": 1.608,
+      "prior_570s_slot_s": 22
+    },
+    {
+      "scene": 18,
+      "start_s": 437,
+      "end_s": 463,
+      "slot_s": 26,
+      "measured_speech_s": 23.669,
+      "post_speech_pause_s": 2.331,
+      "prior_570s_slot_s": 22
+    },
+    {
+      "scene": 19,
+      "start_s": 463,
+      "end_s": 493,
+      "slot_s": 30,
+      "measured_speech_s": 28.177,
+      "post_speech_pause_s": 1.823,
+      "prior_570s_slot_s": 27
+    },
+    {
+      "scene": 20,
+      "start_s": 493,
+      "end_s": 539,
+      "slot_s": 46,
+      "measured_speech_s": 43.755,
+      "post_speech_pause_s": 2.245,
+      "prior_570s_slot_s": 42
+    },
+    {
+      "scene": 21,
+      "start_s": 539,
+      "end_s": 562,
+      "slot_s": 23,
+      "measured_speech_s": 21.146,
+      "post_speech_pause_s": 1.854,
+      "prior_570s_slot_s": 23
+    },
+    {
+      "scene": 22,
+      "start_s": 562,
+      "end_s": 605,
+      "slot_s": 43,
+      "measured_speech_s": 41.277,
+      "post_speech_pause_s": 1.723,
+      "prior_570s_slot_s": 34
+    }
+  ],
+  "preview": {
+    "local_private_preview_sha256": "5c7b3d096641626b40304dd6a9c97a610d2c0d5be83694c194f9105ff3601be5",
+    "format": "H264 AAC MP4",
+    "resolution": "1280x720",
+    "video_fps": 1,
+    "video_and_audio_duration_s": 605,
+    "editorial_purpose": "Static SVG + original synthesized narration QA only, not public-ready finished video"
+  },
+  "release_gates": {
+    "full_listening": false,
+    "word_level_caption_sync": false,
+    "motion_editing": false,
+    "rights_review": false,
+    "editorial_approval": false,
+    "exact_channel_upload_check": false,
+    "public_upload_permitted": false
+  },
+  "paid_spend_usd": 0
+}
