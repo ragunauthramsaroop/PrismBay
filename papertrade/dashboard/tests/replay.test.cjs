@@ -47,8 +47,8 @@ test('market breaks are represented as missing time without invented candles',()
 });
 test('reject invalid, duplicated or nonchronological gold candles',()=>{
  assert.throws(()=>Replay.create(bars(30)),/Need 60/);
- const b=bars(90);b[20].time=b[19].time;assert.throws(()=>Replay.create(b),/Invalid or gapped/);
- const q=bars(90);q[30].close=-1;assert.throws(()=>Replay.create(q),/Invalid or gapped/);
+ const b=bars(90);b[20].time=b[19].time;assert.throws(()=>Replay.create(b),/Invalid or out-of-order/);
+ const q=bars(90);q[30].close=-1;assert.throws(()=>Replay.create(q),/Invalid or out-of-order/);
 });
 test('one-step and bulk replay are deterministic',()=>{
  const a=Replay.create(bars(130)),b=Replay.create(bars(130));
