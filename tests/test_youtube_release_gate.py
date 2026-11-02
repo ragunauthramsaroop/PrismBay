@@ -115,7 +115,7 @@ class ReleaseGateTests(unittest.TestCase):
                 self.assertFalse(result["publicationApproved"])
                 self.assertFalse(result["uploadPermitted"])
                 # A long-form export with only opening subtitles must fail closed.
-                captions.write_text("1\\n00:00:00,000 --> 00:00:04,000\\nLong form review\\n")
+                captions.write_text("1\n00:00:00,000 --> 00:00:04,000\nLong form review\n")
                 with self.assertRaises(SystemExit) as missing_tail:
                     gate.main()
                 self.assertEqual(missing_tail.exception.code, 2)
