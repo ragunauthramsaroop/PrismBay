@@ -1,4 +1,4 @@
-name: Daily Paper Trading Research (Read Only)
+name: Daily Gold-Only Paper Research (Read Only)
 
 on:
   schedule:
@@ -12,140 +12,61 @@ permissions:
   contents: read
 
 concurrency:
-  group: papertrade-daily-read-only
+  group: gold-only-research-daily
   cancel-in-progress: false
 
 jobs:
-  research-only:
+  gold-research:
     if: github.repository == 'ragunauthramsaroop/PrismBay'
     runs-on: ubuntu-latest
-    timeout-minutes: 18
+    timeout-minutes: 12
     steps:
-      - name: Checkout isolated experimental source only
+      - name: Checkout isolated gold-only research branch
         uses: actions/checkout@v4
         with:
           ref: experiment/ai-paper-trading
           persist-credentials: false
 
-      - uses: actions/setup-python@v5
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
         with:
-          python-version: "3.12"
+          node-version: "22"
 
-      - name: Test research logic and paper ledger invariants
+      - name: Verify gold-only paper model and no-lookahead replay
+        run: node --test papertrade/dashboard/tests/*.test.cjs
+
+      - name: Evaluate recorded XAU/USD gold chart with hypothetical fills
         run: |
-          python -m unittest discover -s tests -p 'test_core.py' -v
-          python -m unittest discover -s tests -p 'test_paper_research.py' -v
+          mkdir -p artifacts/gold-research
+          node papertrade/dashboard/tests/production-replay-smoke.cjs | tee artifacts/gold-research/log.txt
+          node - <<'JS'
+          const fs=require('node:fs');
+          const log=fs.readFileSync('artifacts/gold-research/log.txt','utf8');
+          const match=log.match(/VERIFIED_GOLD_ONLY_REPLAY=(\{[^\r\n]+\})/);
+          if(!match)throw Error('No verified gold-only replay report');
+          const report=JSON.parse(match[1]);
+          if(report.instrument!=='XAU/USD'||report.realOrders!==0||!Number.isFinite(report.virtualEquity))
+            throw Error('Invalid paper-only gold report');
+          fs.writeFileSync('artifacts/gold-research/report.json',JSON.stringify({
+            ...report,runAt:new Date().toISOString(),
+            researchStatus:'NOT_VALIDATED_FOR_LIVE_TRADING',
+            limitations:['Indicative gold chart proxy','Hypothetical fills, fees, spread and slippage',
+              'Market closed hours have no invented candles','No broker account or real orders']
+          },null,2)+'\n');
+          fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY,
+            '## Gold-only paper research\n\nXAU/USD indicative chart proxy, not broker fills.\n\n'+
+            '| Gold paper metric | Observed simulation |\n|---|---|\n'+
+            '| Virtual ending equity | $'+report.virtualEquity+' |\n'+
+            '| Virtual P/L | $'+report.virtualProfit+' |\n'+
+            '| Estimated trading fees | $'+report.estimatedFees+' |\n'+
+            '| Simulated BUY / SELL | '+report.virtualBuys+' / '+report.virtualSells+' |\n'+
+            '\nNo BTC, crypto, broker connection, or real orders.\n');
+          JS
 
-      - name: Retrieve previous daily state from the GitHub Actions cache
-        id: cache
-        uses: actions/cache/restore@v4
-        with:
-          path: artifacts/ledger.json
-          key: papertrade-ledger-${{ github.run_id }}
-          restore-keys: |
-            papertrade-ledger-
-
-      - name: Refuse stale or malformed starting state
-        run: |
-          mkdir -p artifacts
-          if [ ! -f artifacts/ledger.json ]; then
-            cp papertrade/state/ledger.json artifacts/ledger.json
-            python - <<'PYSEED'
-          import json
-          from datetime import datetime, timedelta, timezone
-          state=json.load(open('artifacts/ledger.json'))
-          expected=(datetime.now(timezone.utc).date()-timedelta(days=1)).isoformat()
-          if state['last_date'] != expected or state['events']:
-              raise RuntimeError('Rolling ledger cache missing after initialization. Fail closed; restore verified prior artifact before resuming.')
-          PYSEED
-          fi
-          python - <<'PY'
-          import json
-          from datetime import date, datetime, timezone
-          from papertrade.ledger import verify
-          with open("artifacts/ledger.json") as f:
-              state = json.load(f)
-          verify(state)
-          age = (datetime.now(timezone.utc).date() -
-                 date.fromisoformat(state["last_date"])).days
-          if age > 4:
-              raise RuntimeError("Paper state is stale, possible cache eviction. Manual recovery required.")
-          if state["mode"] != "PAPER_ONLY":
-              raise RuntimeError("Live-mode state is prohibited.")
-          PY
-
-      - name: Advance simulated ledger from completed UTC candles
-        run: python -m papertrade.ledger --coinbase --history-days 900 --state artifacts/ledger.json
-
-      - name: Run independent historical ML walk-forward research
-        run: python -m papertrade.research_cli --coinbase --history-days 900 --out artifacts/research
-
-      - name: Fail closed on compromised state or live-mode status
-        run: |
-          python - <<'PY'
-          import json
-          from papertrade.ledger import verify
-          state = json.load(open("artifacts/ledger.json"))
-          report = json.load(open("artifacts/research/walkforward.json"))
-          verify(state)
-          assert state["mode"] == "PAPER_ONLY"
-          assert all(e["kind"] == "HISTORICAL_BAR_REPLAY" for e in state["events"])
-          assert report["NOT_APPROVED_FOR_LIVE_TRADING"] is True
-          assert report["status"] == "RESEARCH_ONLY_NOT_VALIDATED"
-          assert report["data_source"] == "COINBASE_PUBLIC_COMPLETED_BTC_USD"
-          print("PAPER_DAILY_STATUS=" + json.dumps({
-              "last_candle": state["last_date"],
-              "simulated_cash": round(state["cash"],2),
-              "simulated_equity": round(state["last_equity"],2),
-              "replayed_days": len(state["events"]),
-              "halted": state["halted"],
-              "ml_mean_fold_pct": report["summary"]["mean_ml_return_pct"],
-              "sma_mean_fold_pct": report["summary"]["mean_sma_return_pct"],
-              "live_orders": False
-          }, sort_keys=True))
-          PY
-
-
-      - name: Publish readable daily research summary
-        run: |
-          python - <<'PY'
-          import json
-          import os
-          state = json.load(open("artifacts/ledger.json"))
-          report = json.load(open("artifacts/research/walkforward.json"))
-          metrics = report["summary"]
-          lines = [
-              "## Personal paper-trading research (no live orders)",
-              "",
-              "| Metric | Verified result |",
-              "|---|---|",
-              f"| Completed UTC candle | {state['last_date']} |",
-              f"| Simulated equity | USD {state['last_equity']:.2f} |",
-              f"| Historical bar replay events | {len(state['events'])} |",
-              f"| Risk halted | {state['halted']} |",
-              f"| ML average held-out return per fold | {metrics['mean_ml_return_pct']:.4f}% |",
-              f"| SMA average held-out return per fold | {metrics['mean_sma_return_pct']:.4f}% |",
-              f"| ML positive folds | {metrics['ml_positive_folds']}/{report['fold_count']} |",
-              f"| SMA positive folds | {metrics['sma_positive_folds']}/{report['fold_count']} |",
-              "",
-              "Historical fills are approximations, not real-time orders. No live funding is authorized.",
-              "Rolling state uses a GitHub Actions cache, which is subject to eviction.",
-              "Research profitability has not been established.",
-              ""
-          ]
-          with open(os.environ["GITHUB_STEP_SUMMARY"], "a", encoding="utf-8") as output:
-              output.write("\n".join(lines))
-          PY
-
-      - name: Save paper ledger to rolling cache
-        uses: actions/cache/save@v4
-        with:
-          path: artifacts/ledger.json
-          key: papertrade-ledger-${{ github.run_id }}
-
-      - name: Publish read-only research report artifact
+      - name: Upload dated read-only gold research report
         uses: actions/upload-artifact@v4
+        if: always()
         with:
-          name: daily-paper-state
-          path: artifacts/
+          name: daily-xau-only-research
+          path: artifacts/gold-research/
           retention-days: 30
