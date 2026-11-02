@@ -29,11 +29,18 @@ jobs:
           node --check papertrade/dashboard/replay-ui.js
           node --check papertrade/dashboard/api/replay.js
           node --check papertrade/dashboard/gold-data.cjs
+          node --check papertrade/dashboard/strategy-research.cjs
+          node --check papertrade/dashboard/strategy-report.cjs
+          node --check papertrade/dashboard/strategy-view.js
+          node --check papertrade/dashboard/api/research.js
       - name: Test read-only dashboard API
         run: node --test papertrade/dashboard/tests/*.test.cjs
       - name: Verify genuine XAU spot and gold chart replay end to end
         timeout-minutes: 1
         run: node papertrade/dashboard/tests/production-replay-smoke.cjs
+      - name: Validate real gold walk-forward with historical chart proxy
+        timeout-minutes: 2
+        run: node papertrade/dashboard/strategy-report.cjs
       - name: Enforce no authenticated trading interfaces
         run: |
           node - <<'JS'
