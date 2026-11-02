@@ -39,7 +39,7 @@ def digest(p):
   for b in iter(lambda:f.read(1<<20),b''):h.update(b)
  return h.hexdigest()
 def font(size,bold=False):return ImageFont.truetype(BOLD if bold else FONT,size)
-def fit(d,t,maximum,start=90,minimum=26,bold=True):
+def fit(d,t,maximum,start=90,minimum=24,bold=True):
  for n in range(start,minimum-1,-2):
   f=font(n,bold)
   if d.textbbox((0,0),t,font=f)[2]<=maximum:return f
