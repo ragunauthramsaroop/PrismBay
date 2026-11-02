@@ -6,7 +6,7 @@ const path=require('node:path');
 const {recordedDailyCloses}=require('../gold-data.cjs');
 test('daily five-year gold history leaves missing opening prices missing',()=>{
  const dates=Array.from({length:820},(_,i)=>{
-  const d=new Date(Date.UTC(2021,0,1+i)).toISOString().slice(0,10),close=1850+i*.1;
+  const d=new Date(Math.floor(Date.now()/86400000)*86400000-(821-i)*86400000).toISOString().slice(0,10),close=1850+i*.1;
   return {d,c:close,h:close+8,l:close-8};
  });
  const bars=recordedDailyCloses({symbol:'XAUUSD',interval:'daily',points:dates});
