@@ -14,18 +14,22 @@ module.exports=async(req,res)=>{
   if(req.method!=='GET')return res.status(405).json({error:'GET only'});
   res.setHeader('Cache-Control','public, s-maxage=60, stale-while-revalidate=30');
   res.setHeader('X-Content-Type-Options','nosniff');
-  const [spot,chart,jobs]=await Promise.allSettled([
-    loadSpot(),loadChart(),json(GH+'/actions/workflows/papertrade-dashboard-ci.yml/runs?branch=experiment%2Fai-paper-trading&per_page=10')
+  const [spot,chart,jobs,checks]=await Promise.allSettled([
+    loadSpot(),loadChart(),
+    json(GH+'/actions/workflows/papertrade-daily.yml/runs?branch=main&per_page=10'),
+    json(GH+'/actions/workflows/papertrade-dashboard-ci.yml/runs?branch=experiment%2Fai-paper-trading&per_page=5')
   ]);
   const error={};
   if(spot.status!=='fulfilled')error.gold=String(spot.reason?.message||'unavailable');
   if(chart.status!=='fulfilled')error.chart=String(chart.reason?.message||'unavailable');
   if(jobs.status!=='fulfilled')error.workflow=String(jobs.reason?.message||'unavailable');
+  if(checks.status!=='fulfilled')error.tests=String(checks.reason?.message||'unavailable');
   const market=spot.status==='fulfilled'?{
     ...spot.value,source:'XAUS indicative XAU/USD spot, not executable'
   }:null;
   const chartBars=chart.status==='fulfilled'?chart.value:[];
   const runs=jobs.status==='fulfilled'?(jobs.value.workflow_runs||[]).map(run):[];
+  const tests=checks.status==='fulfilled'?(checks.value.workflow_runs||[]).map(run):[];
   const latest=runs[0]||null;
   const healthy=latest?.status==='completed'&&latest.conclusion==='success'&&
     Date.now()-Date.parse(latest.started_at)<72*3600000;
@@ -34,7 +38,7 @@ module.exports=async(req,res)=>{
     platform:'PERSONAL_GOLD_ONLY_PAPER_RESEARCH',
     tradingMode:'PAPER_ONLY',symbol:SYMBOL,realOrders:0,running24x7:false,
     operations:{
-      latest,recent:runs,testRuns:runs.slice(0,5),health:!latest?'UNAVAILABLE':
+      latest,recent:runs,testRuns:tests,health:!latest?'UNAVAILABLE':
       latest.status!=='completed'?'RUNNING':latest.conclusion!=='success'?'FAILED':healthy?'HEALTHY':'STALE'
     },
     dailySchedule:'Daily XAU/USD gold paper research at 12:17 UTC (08:17 Guyana time)',
