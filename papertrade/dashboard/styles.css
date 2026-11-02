@@ -156,3 +156,26 @@
 .gold-replay-summary .negative{color:#fa9da7}.gold-replay-summary .positive{color:#7febc5}
 @media(max-width:900px){.gold-replay-cta{flex-wrap:wrap}.gold-replay-summary{width:100%;padding:12px 0 2px;border-left:0;border-top:1px solid #467165}}
 @media(max-width:720px){.gold-replay-cta{width:100%}.gold-replay-cta button{width:100%}}
+
+
+/* Model learning and held-out research: educational, not broker automation. */
+.research-gate{margin:23px;background:#2d2630;border:1px solid #75505c;border-radius:12px;padding:20px 22px;display:flex;justify-content:space-between;align-items:center;gap:17px}
+.research-gate-eyebrow{display:block;color:#edb6bf;font-size:10px;letter-spacing:1.4px;font-weight:800}
+.research-gate strong{font-family:var(--heading);display:block;font-size:18px;margin:6px 0;color:#ffe1e2}
+.research-gate p{color:#c4a8b3;font-size:11px;line-height:1.6;max-width:670px;margin:0}
+.research-gate-icon{border:1px solid #af7283;color:#f9bec7;border-radius:7px;padding:8px 10px;font-size:10px;font-weight:800;white-space:nowrap}
+.research-metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:0 23px 18px}
+.research-metrics>div{background:#192b3c;border:1px solid #2a4154;border-radius:10px;padding:17px;display:flex;flex-direction:column;gap:8px}
+.research-metrics span{font-size:10px;color:#9db3c4}
+.research-metrics strong{font-size:21px;font-family:var(--heading);font-weight:800}
+.research-metadata{padding:15px 23px;border-top:1px solid #29394a;color:#9bb0c1;font-size:11px;line-height:1.6}
+.research-candidates{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin:18px 23px 8px}
+.research-candidates>div{padding:14px 16px;background:#182c3a;border:1px solid #2c4555;border-radius:9px;display:flex;flex-direction:column;gap:6px}
+.research-candidates strong{font-size:12px;color:#e5f4ec}
+.research-candidates span{font-size:11px;color:#93adbd}
+.research-shadow-grid{display:grid;grid-template-columns:repeat(3,1fr);padding:22px 23px;gap:12px}
+.research-shadow-grid>div{padding:18px;background:#19303d;border:1px solid #2e4b5e;border-radius:9px;display:flex;flex-direction:column;gap:10px}
+.research-shadow-grid span{font-size:11px;color:#9cbbca}
+.research-shadow-grid strong{font-size:17px;color:#dbe9ea}
+@media(max-width:1050px){.research-metrics{grid-template-columns:repeat(2,minmax(0,1fr))}.research-shadow-grid{grid-template-columns:1fr}}
+@media(max-width:720px){.research-gate{margin:16px;padding:14px;flex-direction:column;align-items:flex-start}.research-metrics{margin:0 14px 14px;gap:8px}.research-metrics>div{padding:12px}.research-metrics strong{font-size:17px}.research-candidates{grid-template-columns:1fr;margin:13px}.research-shadow-grid{padding:14px}.research-metadata{padding:13px}.research-gate-icon{display:none}}
