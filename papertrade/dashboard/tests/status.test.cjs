@@ -14,6 +14,10 @@ function mock(up=true){
         const t=Math.floor(now/300000)*300-300*(100-i);
         return {t,o:3900+i*.3,h:3901+i*.3,l:3899+i*.3,c:3900.1+i*.3,v:0};
       })};
+    }else if(address.includes('/actions/workflows/papertrade-daily.yml/runs')){
+      data={workflow_runs:[{id:3,name:'Daily Gold-Only Paper Research (Read Only)',head_branch:'main',
+        status:'completed',conclusion:'success',created_at:new Date(now).toISOString(),
+        html_url:'https://github.com/example/actions/runs/3',head_sha:'123456abc'}]};
     }else if(address.includes('/actions/workflows/papertrade-dashboard-ci.yml/runs')){
       data={workflow_runs:[{id:4,name:'Gold only dashboard tests',head_branch:'experiment/ai-paper-trading',
         status:'completed',conclusion:'success',created_at:new Date(now).toISOString(),
