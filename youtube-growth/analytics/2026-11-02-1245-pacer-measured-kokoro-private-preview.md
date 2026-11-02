@@ -19,3 +19,7 @@ Authorized channel: `UCw2hs85TzIpdKwJtG-BSxzQ`, `@PrismBayAI`. Metricool brand `
 
 ## Controls
 No public upload, no scheduled post modification, no fabricated revenue, no paid advertising. Public-release gate remains closed. Preserve sole channel `UCw2hs85TzIpdKwJtG-BSxzQ`.
+
+## Automated regression validation
+- Added [measured-retiming validator](../tools/pacer_validate_measured_retiming.py) and [dedicated GitHub Actions workflow](../../.github/workflows/prismbay-pacer-measured-retiming-checks.yml). It verifies the original narration source SHA-256, 22 scenes, 1,246 words, all measured timing boundaries, 605-second runtime, pause constraints, channel identity and closed publication gate.
+- [GitHub Actions run 41484849041](https://github.com/ragunauthramsaroop/PrismBay/actions/runs/41484849041) completed successfully. This validates the source and timing manifest, not audio quality or publication readiness.
