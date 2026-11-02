@@ -209,7 +209,61 @@
       </div>
 
       <div class="section-view" id="view-market"><div class="section-grid"><article class="panel"><div class="panel-heading"><div><div class="panel-kicker">INDICATIVE SPOT</div><h2>GOLD / USD market watch</h2><p>Indicative gold quote checked approximately every 60 seconds</p></div></div><div class="market-hero"><span class="small-muted">LATEST gold QUOTE</span><div id="marketHeroPrice" class="market-hero-price">—</div><span id="marketQuoteTime" class="small-muted">Waiting for market response</span></div><div class="facts-grid"><div><span>Best bid</span><strong id="bestBid">—</strong></div><div><span>Best ask</span><strong id="bestAsk">—</strong></div><div><span>Assumed bid / ask spread</span><strong id="spread">—</strong></div><div><span>Quote source</span><strong>XAUS indicative gold data</strong></div></div></article><article class="panel"><div class="panel-heading"><div><div class="panel-kicker">PRICE SERIES</div><h2>Daily gold price action</h2><p>Recorded five-minute gold chart closes</p></div></div><div class="chart-wrap" id="marketChart"></div></article></div></div>
-      <div class="section-view" id="view-strategies"><div class="panel"><div class="panel-heading"><div><div class="panel-kicker">RESEARCH LAB</div><h2>Model and benchmark comparison</h2><p>Walk-forward research. Historical outcomes do not predict live results.</p></div><a class="text-button" target="_blank" rel="noopener" href="https://github.com/ragunauthramsaroop/PrismBay/actions/runs/41358736461">Research evidence ↗</a></div><div class="table-wrap"><table class="strategy-table"><thead><tr><th>Strategy</th><th>Avg. return / period</th><th>Positive periods</th><th>Assessment</th></tr></thead><tbody id="strategyRows"></tbody></table></div><div class="insight-box"><strong>Why this matters</strong><p>Gold-specific strategy validation is pending. Prior gold results have been retired from this dashboard.</p></div></div><div class="panel" style="margin-top:18px"><div class="panel-heading"><div><div class="panel-kicker">RESEARCH METHODOLOGY</div><h2>Evaluation rules</h2></div></div><div class="method-grid"><div><strong>Train only on past data</strong><p>No future target-day values are fed to the model.</p></div><div><strong>Non-overlapping periods</strong><p>Each held-out period covers 45 days.</p></div><div><strong>Risk-first simulation</strong><p>Fee, slippage, stop and drawdown assumptions apply.</p></div><div><strong>Real-money gate remains shut</strong><p>No live broker, withdrawal permission or capital deployment.</p></div></div></div></div>
+      <div class="section-view" id="view-strategies">
+        <div class="panel">
+          <div class="panel-heading">
+            <div><div class="panel-kicker">GOLD RESEARCH · XAU/USD ONLY</div>
+              <h2>Strategy learning laboratory</h2>
+              <p>Historical model selection and independent, chronological held-out validation. No real orders.</p>
+            </div>
+            <a class="text-button" href="https://github.com/ragunauthramsaroop/PrismBay/actions/workflows/papertrade-daily.yml" target="_blank" rel="noopener">Daily research evidence ↗</a>
+          </div>
+          <div class="research-gate">
+            <div><span class="research-gate-eyebrow">MODEL APPROVAL STATUS</span><strong>NOT APPROVED FOR LIVE TRADING</strong>
+              <p>The system compares three gold trend/breakout strategies, a trained logistic predictor and cash. A strategy must pass independent forward testing before real money is considered.</p>
+            </div>
+            <span class="research-gate-icon">RESEARCH ONLY</span>
+          </div>
+          <div class="research-metrics">
+            <div><span>Held-out test windows</span><strong id="researchFolds">Loading…</strong></div>
+            <div><span>Mean return per held-out window</span><strong id="researchReturn">—</strong></div>
+            <div><span>Double-cost stress scenario</span><strong id="researchStress">—</strong></div>
+            <div><span>Positive held-out windows</span><strong id="researchPositive">—</strong></div>
+          </div>
+          <div class="research-metadata" id="researchStatus">Loading public historical gold prices for independent model tests…</div>
+        </div>
+        <div class="panel" style="margin-top:18px">
+          <div class="panel-heading"><div><div class="panel-kicker">THE STRATEGY RESEARCH COMPETITION</div><h2>Which model passes the next test?</h2>
+            <p>A candidate is chosen on earlier prices only. The next period is scored without changing its training settings.</p></div></div>
+          <div class="research-candidates">
+            <div><strong>8/21 moving-average trend</strong><span>Buy strength, exit when the short trend deteriorates</span></div>
+            <div><strong>12/36 moving-average trend</strong><span>Slower signal intended to reduce noise</span></div>
+            <div><strong>18-bar channel breakout</strong><span>Buy a break above prior highs, exit on weakness</span></div>
+            <div><strong>Trained logistic model</strong><span>Learn from past returns and volatility, never from future bars</span></div>
+            <div><strong>Stay in cash</strong><span>Chosen when training finds insufficient net advantage</span></div>
+          </div>
+          <div class="table-wrap"><table class="strategy-table"><thead><tr><th>Test window</th><th>Selected on prior data</th><th>Out-of-sample P/L</th><th>Double-cost result</th><th>Virtual orders</th></tr></thead><tbody id="researchFoldRows"><tr><td colspan="5" class="no-data">Loading gold walk-forward results…</td></tr></tbody></table></div>
+        </div>
+        <div class="panel" style="margin-top:18px">
+          <div class="panel-heading"><div><div class="panel-kicker">NEXT BAR · SHADOW RESEARCH</div><h2>Learning model observation</h2><p>These scores do not place simulated or real orders.</p></div></div>
+          <div class="research-shadow-grid">
+            <div><span>Trained probability of next bar closing higher</span><strong id="researchShadowProbability">—</strong></div>
+            <div><span>Current 8/21 trend rule</span><strong id="researchShadowTrend">—</strong></div>
+            <div><span>Latest complete gold candle</span><strong id="researchShadowTime">—</strong></div>
+          </div>
+          <p class="panel-note">Prediction probabilities are experimental, uncalibrated and unsuitable for trade execution. Market-closure gaps suspend fresh signals.</p>
+        </div>
+        <div class="panel" style="margin-top:18px">
+          <div class="panel-heading"><div><div class="panel-kicker">QUALITY GATES BEFORE REAL MONEY</div><h2>Training and risk requirements</h2></div></div>
+          <div class="method-grid">
+            <div><strong>Independent chronological tests</strong><p>Training uses prior completed gold candles. Future test windows are strictly excluded from fitting and candidate selection.</p></div>
+            <div><strong>Fees, spread and slippage</strong><p>25.5 basis points per simulated side and a doubled-cost scenario. Actual regulated broker quotes and financing costs remain unavailable.</p></div>
+            <div><strong>Conservative capital allocation</strong><p>10% maximum simulated notional, no leverage, price-stop checks, daily loss and equity drawdown limits.</p></div>
+            <div><strong>Longer evidence and broker validation</strong><p>At least 60 independent forward observation days, longer multi-regime history, broker market-data reconciliation and explicit fresh approval before any live trading.</p></div>
+          </div>
+        </div>
+        <table hidden aria-hidden="true"><tbody id="strategyRows"></tbody></table>
+      </div>
       <div class="section-view" id="view-operations"><div class="panel"><div class="panel-heading"><div><div class="panel-kicker">GITHUB ACTIONS</div><h2>Automated workflow history</h2><p>Read-only GitHub workflow run metadata, refreshed with each dashboard update</p></div><a class="text-button" target="_blank" rel="noopener" href="https://github.com/ragunauthramsaroop/PrismBay/actions/workflows/papertrade-daily.yml">Open GitHub ↗</a></div><div class="table-wrap"><table class="strategy-table"><thead><tr><th>Workflow</th><th>Started</th><th>Status</th><th>View</th></tr></thead><tbody id="runTable"></tbody></table></div></div><div class="panel" style="margin-top:18px"><div class="panel-heading"><div><div class="panel-kicker">PAPER TRANSACTIONS</div><h2>Gold-only simulated account events</h2><p>Independently reconstructed from completed candles. Not actual exchange orders.</p></div></div><div class="table-wrap"><table class="strategy-table"><thead><tr><th>UTC date</th><th>Simulation action</th><th>Estimated equity</th><th>Fees</th></tr></thead><tbody id="eventTable"></tbody></table></div></div></div>
       <div class="section-view" id="view-risk"><div class="section-grid"><div class="panel"><div class="panel-heading"><div><div class="panel-kicker">SAFETY ARCHITECTURE</div><h2>Paper-only controls</h2><p>Risk limits are simulated, not broker-enforced</p></div></div><div class="risk-list"><div><span>Maximum simulated new position</span><strong id="maxPosition">15%</strong></div><div><span>Maximum simulated portfolio drawdown</span><strong id="maxDrawdown">10%</strong></div><div><span>Leveraged trading</span><strong>Disabled</strong></div><div><span>Short selling</span><strong>Disabled</strong></div><div><span>Live exchange trading keys</span><strong>None</strong></div><div><span>Real-money order submission</span><strong>None</strong></div></div></div><div class="panel"><div class="panel-heading"><div><div class="panel-kicker">ACCOUNT INTEGRITY</div><h2>Research ledger status</h2><p>Independent market-data replay, not a brokerage statement</p></div></div><div class="facts-grid risk-facts"><div><span>Paper starting amount</span><strong>$10,000 USD</strong></div><div><span>Replay as of</span><strong id="ledgerAsOf">—</strong></div><div><span>Completed replay days</span><strong id="eventCount">—</strong></div><div><span>Risk engine</span><strong id="riskState">—</strong></div></div><div class="insight-box"><strong>Data integrity boundary</strong><p>The scheduled GitHub process maintains its own rolling ledger in Actions cache. This screen reconstructs a separate estimate from the public seed and market candles. Differences require investigation. GitHub cache retention is not permanent archival storage.</p></div></div></div></div>
       <footer class="footer"><span>© 2026 PaperTrade OS · Personal research environment</span><span>No gold brokerage connection · No guaranteed returns · UTC market bars</span></footer>
@@ -221,5 +275,6 @@
 <script src="/replay-core.js" defer></script>
 <script src="/replay-ui.js" defer></script>
 <script src="/app.js" defer></script>
+<script src="/strategy-view.js" defer></script>
 </body>
 </html>
