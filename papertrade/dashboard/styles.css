@@ -194,3 +194,17 @@
 .research-short-divider span{color:#94abbb;font-size:11px}
 @media(max-width:950px){.swing-metrics{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:650px){.swing-research{margin:15px}.swing-top{flex-direction:column;padding:14px}.swing-metrics{margin:0 9px 12px;gap:7px}.swing-metrics>div{padding:11px}.swing-explainer{padding:11px 14px}.research-short-divider{padding:12px 15px}}
+
+
+/* Hourly-ish scheduled gold research worker status, never brokerage execution */
+.agent-status-panel{margin-bottom:18px}
+.agent-summary-top{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:12px;padding:14px 22px 16px}
+.agent-summary-top>div{display:flex;flex-direction:column;gap:7px;min-width:0;background:#193243;border:1px solid #315263;border-radius:10px;padding:18px}
+.agent-label{color:#74dbc0;font-size:9px;font-weight:850;letter-spacing:1.2px}
+.agent-summary-top strong{font-family:var(--heading);font-size:18px;color:#e0f0f1}
+.agent-summary-top small{font-size:10px;color:#93acb9;line-height:1.5}
+.agent-list{display:flex;flex-wrap:wrap;gap:8px;padding:0 22px 16px}
+.agent-list span{border:1px solid #315369;background:#1a3342;color:#c5ddd8;border-radius:8px;padding:9px 11px;font-size:11px;font-weight:700}
+.agent-status-note{padding:14px 23px;margin:0;background:#152636;border-top:1px solid #2f4656;color:#9cb7c1;font-size:11px;line-height:1.7}
+@media(max-width:900px){.agent-summary-top{grid-template-columns:1fr 1fr}}
+@media(max-width:650px){.agent-summary-top{grid-template-columns:1fr;padding:12px}.agent-summary-top>div{padding:13px}.agent-list{padding:0 12px 12px}.agent-list span{font-size:10px;padding:7px 8px}.agent-status-note{padding:12px}}
