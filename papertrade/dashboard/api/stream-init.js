@@ -16,6 +16,11 @@ module.exports=async(req,res)=>{
       source:'XAUS indicative gold spot and chart proxy, both non-executable',
       quote,priceFresh:quote.priceFresh,
       completedMinutes:session,completedBars:session,granularitySeconds:300,
+      // Display historical gold price movement even before the live SMA is ready.
+      // Chart closes are indicative XAU proxy candles, not confirmed broker fills.
+      chartBars:bars.slice(-120),
+      requiredSignalBars:25,
+      missingSignalBars:Math.max(0,25-session.length),
       historyFresh:ready,historyAgeMinutes:age,historyCount:session.length,
       readiness:ready?'PAPER_SIGNALS_READY':quote.priceFresh?'WAITING_FOR_GOLD_5MIN_HISTORY':'GOLD_MARKET_CLOSED_OR_STALE',
       noLiveOrders:true,noAccountConnection:true
