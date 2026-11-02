@@ -1,0 +1,21 @@
+name: PrismBay PACER narration timing review
+on:
+  push:
+    paths:
+      - 'youtube-growth/production/2026-11-02-pacer-provisional-narration-retiming.json'
+      - 'youtube-growth/production/2026-11-02-pacer-longform-visual-storyboard.json'
+      - 'youtube-growth/tools/pacer_narration_timing_gate.py'
+      - '.github/workflows/youtube-pacer-narration-timing.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  timing-only:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Validate proposed narration-safe timeline
+        run: python youtube-growth/tools/pacer_narration_timing_gate.py
