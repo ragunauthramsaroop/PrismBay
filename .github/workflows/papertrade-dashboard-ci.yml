@@ -28,16 +28,12 @@ jobs:
           node --check papertrade/dashboard/replay-core.js
           node --check papertrade/dashboard/replay-ui.js
           node --check papertrade/dashboard/api/replay.js
+          node --check papertrade/dashboard/gold-data.cjs
       - name: Test read-only dashboard API
         run: node --test papertrade/dashboard/tests/*.test.cjs
-      - name: Probe public Coinbase WebSocket ticker feed
-        timeout-minutes: 1
-        run: node papertrade/dashboard/tests/live-feed-smoke.cjs
-      - name: Verify real BTC historical price replay end to end
+      - name: Verify genuine XAU spot and gold chart replay end to end
         timeout-minutes: 1
         run: node papertrade/dashboard/tests/production-replay-smoke.cjs
-      - name: Inspect XAU spot and historical feed contract
-        run: node papertrade/dashboard/tests/gold-data-probe.cjs
       - name: Enforce no authenticated trading interfaces
         run: |
           node - <<'JS'
@@ -48,5 +44,10 @@ jobs:
           if(!html.includes('PAPER') || !api.includes("realOrders: 0"))process.exit(1);
           if(/\/orders|privateKey|apiSecret|placeOrder|withdrawalKey/.test(api+live))process.exit(1);
           if(!html.includes('id="view-live"') || !html.includes('live-runtime.js'))process.exit(1);
+          if(!html.includes('XAU/USD'))process.exit(1);
+          for(const p of ['api/spot.js','api/stream-init.js','api/replay.js','api/status.js','live-runtime.js','replay-ui.js']){
+            const s=fs.readFileSync('papertrade/dashboard/'+p,'utf8');
+            if(/Coinbase|BTC-USD|ws-feed.exchange/.test(s)){console.error('Non-gold data source found',p);process.exit(1);}
+          }
           console.log('Dashboard has no live trading interface');
           JS
