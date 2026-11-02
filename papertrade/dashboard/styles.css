@@ -179,3 +179,18 @@
 .research-shadow-grid strong{font-size:17px;color:#dbe9ea}
 @media(max-width:1050px){.research-metrics{grid-template-columns:repeat(2,minmax(0,1fr))}.research-shadow-grid{grid-template-columns:1fr}}
 @media(max-width:720px){.research-gate{margin:16px;padding:14px;flex-direction:column;align-items:flex-start}.research-metrics{margin:0 14px 14px;gap:8px}.research-metrics>div{padding:12px}.research-metrics strong{font-size:17px}.research-candidates{grid-template-columns:1fr;margin:13px}.research-shadow-grid{padding:14px}.research-metadata{padding:13px}.research-gate-icon{display:none}}
+
+
+/* Distinct multi-year close-to-close swing validation panel */
+.swing-research{margin:19px 23px 17px;border:1px solid #36505d;background:linear-gradient(180deg,#182b38,#152332);border-radius:13px;overflow:hidden}
+.swing-top{padding:20px 20px 14px;display:flex;align-items:flex-start;justify-content:space-between;gap:15px}
+.swing-top h3{font-family:var(--heading);font-size:20px;letter-spacing:-.55px;font-weight:750;margin:6px 0}
+.swing-top p{max-width:680px;margin:0;font-size:11px;color:#9fb5c1;line-height:1.7}
+.swing-model-tag{font-size:9px;color:#e6d2a0;border:1px solid #65593b;background:#393528;border-radius:6px;padding:7px 9px;white-space:nowrap;font-weight:850}
+.swing-metrics{margin:0 15px 13px;grid-template-columns:repeat(3,1fr)}
+.swing-explainer{padding:11px 20px;color:#b2c8d0;border-bottom:1px solid #2b4251;font-size:11px}
+.research-short-divider{display:flex;justify-content:space-between;flex-wrap:wrap;gap:7px;align-items:center;padding:12px 23px 15px;border-top:1px solid #2d4353}
+.research-short-divider strong{font-family:var(--heading);font-size:13px}
+.research-short-divider span{color:#94abbb;font-size:11px}
+@media(max-width:950px){.swing-metrics{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:650px){.swing-research{margin:15px}.swing-top{flex-direction:column;padding:14px}.swing-metrics{margin:0 9px 12px;gap:7px}.swing-metrics>div{padding:11px}.swing-explainer{padding:11px 14px}.research-short-divider{padding:12px 15px}}
