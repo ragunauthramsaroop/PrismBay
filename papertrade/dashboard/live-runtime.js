@@ -6,8 +6,8 @@ if(!Core)throw Error('Missing XAU paper engine');
 const $=id=>document.getElementById(id);
 const usd=n=>Number.isFinite(n)?new Intl.NumberFormat('en-US',{style:'currency',currency:'USD'}).format(n):'—';
 const when=t=>Number.isFinite(t)?new Intl.DateTimeFormat('en-US',{timeZone:'America/Guyana',hour:'2-digit',minute:'2-digit',second:'2-digit'}).format(new Date(t))+' GYT':'Unavailable';
-let state=null,bars=[],quote=null,marketReady=false,sourceStatus='CONNECTING',
-  busy=false,lastSave=0,lastPaint=0,lastError='',started=false;
+let state=null,bars=[],goldChartBars=[],quote=null,marketReady=false,sourceStatus='CONNECTING',
+  warmup={count:0,required:25},busy=false,lastSave=0,lastPaint=0,lastError='',started=false;
 function read(){
   try{return Core.readState(JSON.parse(localStorage.getItem(KEY)||'null'));}catch{return null;}
 }
@@ -30,9 +30,14 @@ async function get(path){
   }finally{clearTimeout(timer);}
 }
 function setupBarData(data){
-  bars=(data.completedBars||[]).filter(x=>Number.isFinite(x?.close)&&x.close>0&&Number.isFinite(x.time))
-    .sort((a,b)=>a.time-b.time);
-  if(bars.length>150)bars=bars.slice(-150);
+  const valid=x=>x&&Number.isFinite(x.time)&&Number.isFinite(x.open)&&Number.isFinite(x.close)
+    &&Number.isFinite(x.high)&&Number.isFinite(x.low)&&x.close>0&&x.open>0&&x.low>0
+    &&x.high>=Math.max(x.open,x.close,x.low)&&x.low<=Math.min(x.open,x.close);
+  bars=(data.completedBars||[]).filter(valid).sort((a,b)=>a.time-b.time).slice(-150);
+  goldChartBars=(data.chartBars||data.completedBars||[]).filter(valid)
+    .sort((a,b)=>a.time-b.time).slice(-100);
+  warmup={count:Math.min(bars.length,Number(data.requiredSignalBars)||25),
+    required:Number(data.requiredSignalBars)||25};
 }
 async function update(){
   if(busy)return;busy=true;
@@ -62,7 +67,12 @@ async function update(){
     if(marketReady&&!state.paused&&!state.interruption){
       state=Core.process(state,quote,bars,Date.now()).state;
     }else if(quote&&Core.fresh(quote,Date.now())){
+      const previousQuoteAt=state.lastQuoteAt;
       state.lastQuoteAt=quote.at;
+      if(previousQuoteAt!==quote.at){
+        state.curve.push({at:quote.at,equity:Number(Core.mark(state,quote).equity.toFixed(4))});
+        if(state.curve.length>240)state.curve.splice(0,state.curve.length-240);
+      }
     }
     save(true);
   }catch(e){
@@ -70,10 +80,48 @@ async function update(){
     if(state){state.interruption=true;save(true);}
   }finally{busy=false;render();}
 }
+function goldChart(){
+  const node=$('goldMarketChart');if(!node)return;
+  const series=goldChartBars.filter(b=>Number.isFinite(b.time)&&Number.isFinite(b.close)&&b.close>0).slice(-96);
+  if(series.length<2){
+    node.textContent='Waiting for at least two recorded five-minute XAU/USD chart bars. Historical simulation is available below.';
+    set('goldChartPrice',quote?usd(quote.price)+'/oz':'—');
+    set('goldChartCoverage','Gold history temporarily unavailable');
+    set('goldChartTimestamp','No chart candles');
+    return;
+  }
+  const min=Math.min(...series.map(b=>b.close)),max=Math.max(...series.map(b=>b.close));
+  const span=Math.max(max-min,max*.0002,1),low=min-span*.24,high=max+span*.24;
+  const W=850,H=262,L=18,R=80,T=18,B=31;
+  const x=i=>L+(W-R-L)*i/(series.length-1);
+  const y=val=>T+(H-T-B)*(high-val)/(high-low);
+  let commands=[];
+  for(let i=0;i<series.length;i++){
+    const previous=series[i-1];
+    const gap=previous&&series[i].time-previous.time>450000;
+    commands.push((i===0||gap?'M':'L')+x(i).toFixed(2)+' '+y(series[i].close).toFixed(2));
+  }
+  const ticks=[0,.33,.67,1].map(f=>{
+    const price=low+(high-low)*f,point=y(price).toFixed(1);
+    return '<line x1="'+L+'" y1="'+point+'" x2="'+(W-R)+'" y2="'+point+'" stroke="#31455a" stroke-width="1" stroke-dasharray="4 7"/>'+
+      '<text x="'+(W-R+7)+'" y="'+(Number(point)-5)+'" font-size="11" fill="#95aac0">'+usd(price)+'</text>';
+  }).join('');
+  const stamp=i=>new Intl.DateTimeFormat('en-US',{timeZone:'America/Guyana',month:'short',day:'numeric',hour:'2-digit',minute:'2-digit',hour12:false}).format(new Date(series[i].time));
+  const labels=[0,Math.floor((series.length-1)/2),series.length-1].map(i=>
+    '<text x="'+x(i).toFixed(1)+'" y="'+(H-6)+'" font-size="10" fill="#91a8be" text-anchor="'+
+    (i===0?'start':i===series.length-1?'end':'middle')+'">'+stamp(i)+'</text>').join('');
+  const last=series[series.length-1];
+  node.innerHTML='<svg viewBox="0 0 '+W+' '+H+'" preserveAspectRatio="none" role="img" aria-label="Recorded indicative gold price history, gaps disconnected">'+
+    ticks+'<path d="'+commands.join(' ')+'" fill="none" stroke="#e5bd76" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>'+
+    '<circle cx="'+x(series.length-1).toFixed(1)+'" cy="'+y(last.close).toFixed(1)+'" r="4.5" fill="#f7ddac"/>'+labels+'</svg>';
+  set('goldChartPrice',usd(last.close)+'/oz');
+  set('goldChartCoverage',series.length+' recorded gold bars. Market closures shown as gaps. Prices are indicative.');
+  set('goldChartTimestamp','Latest chart close: '+stamp(series.length-1)+' GYT');
+}
 function curve(){
   const el=$('liveSpark');if(!el)return;
   const points=state?.curve||[];
-  if(points.length<2){el.textContent='Historical virtual equity marks appear as fresh gold prices arrive.';return;}
+  if(points.length<2){el.textContent='Virtual account holds cash. No trade yet, so no equity movement. Watch the gold price chart above or run the historical simulation.';return;}
   const seq=points.slice(-150),v=seq.map(x=>x.equity),min=Math.min(...v),max=Math.max(...v),
     spread=Math.max(2,max-min),low=min-spread*.4,high=max+spread*.4,W=780,H=175;
   const xs=i=>10+(W-20)*i/(seq.length-1),ys=n=>12+(H-24)*(high-n)/(high-low);
@@ -121,7 +169,17 @@ function render(){
   set('liveMiniPnl',pnl===null?'Gold mark unavailable':usd(pnl)+' virtual P/L');
   set('liveMiniSource',sourceStatus);
   set('liveTicks',String(state.curve.length));
-  const warning=warming?'Gold spot prices are visible. A fresh 21-bar five-minute signal history is required before virtual trading begins.':
+  set('goldWarmupCount',warmup.count+' / '+warmup.required+' bars');
+  const remaining=Math.max(0,warmup.required-warmup.count);
+  const warmUpMessage=marketReady?'Signal history ready':
+    sourceStatus==='GOLD MARKET CLOSED / STALE'?'Market closed or quote stale':
+    remaining?'Collecting five-minute data · '+remaining+' more bar'+(remaining===1?'':'s')+' needed':'Checking gold signal freshness';
+  set('goldWarmupLabel',warmUpMessage);
+  const warmFill=$('goldWarmupFill');if(warmFill)warmFill.style.width=(100*warmup.count/warmup.required).toFixed(1)+'%';
+  set('goldEquityExplanation',state.units===0?'No virtual position. Equity remains flat at '+usd(state.cash)+' until a gold paper trade.':
+    'Virtual gold holdings are marked at indicative prices');
+  goldChart();
+  const warning=warming?'Gold spot prices are visible. A fresh 25-bar five-minute history is required to initialize the gold trading signals safely.':
     state.halted?'Paper account halted by a risk limit.':
     state.paused?'Gold simulation paused. No virtual decisions.':
     state.interruption?'Indicative gold feed interruption. Review and resume when fresh, no missed trades backfilled.':
