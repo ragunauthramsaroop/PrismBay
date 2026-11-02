@@ -36,6 +36,8 @@ jobs:
       - name: Verify real BTC historical price replay end to end
         timeout-minutes: 1
         run: node papertrade/dashboard/tests/production-replay-smoke.cjs
+      - name: Inspect XAU spot and historical feed contract
+        run: node papertrade/dashboard/tests/gold-data-probe.cjs
       - name: Enforce no authenticated trading interfaces
         run: |
           node - <<'JS'
