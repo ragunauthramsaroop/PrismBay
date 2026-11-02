@@ -57,7 +57,7 @@ def render(data, args):
     all_fit = True
     for scene in data["scenes"]:
         clips = []
-        sentences = [s.strip() for s in re.split(r"(?<=[.!?])\\s+", scene["original_text"]) if s.strip()]
+        sentences = [s.strip() for s in re.split(r"(?<=[.!?])\s+", scene["original_text"]) if s.strip()]
         for sentence in sentences:
             audio, sr = tts.create(sentence, voice=args.voice, speed=args.speed, lang="en-us")
             audio = np.asarray(audio, dtype=np.float32).reshape(-1)
