@@ -44,11 +44,11 @@ def textfit(draw, text, max_width, start, minimum=27):
    return face
  raise ValueError('Text too wide: ' + text)
 
-def label(draw, text, y, start, color, max_width=790):
- face = textfit(draw, text, max_width, start)
+def label(draw, text, y, start, color, max_width=700):
+ face = textfit(draw, text, min(max_width,700), start)
  width = draw.textbbox((0, 0), text, font=face)[2]
- x = 474 - width/2
- assert x >= 50 and x + width <= 900, ('unsafe horizontal text', text)
+ x = 500 - width/2
+ assert x >= 125 and x + width <= 900, ('unsafe narrow mobile cover crop', text)
  draw.text((x, y), text, font=face, fill=color)
 
 def wrap(draw, words, width, size=48):
@@ -69,31 +69,32 @@ def card(scene, spoken, path, number):
  im = Image.new('RGB', (1080, 1920), '#071b2b')
  d = ImageDraw.Draw(im)
  d.rectangle((0, 0, 1080, 15), fill='#37d9bf')
- d.rounded_rectangle((50, 68, 116, 134), radius=16, fill='#37d9bf')
- d.text((70, 70), 'P', font=f(48, True), fill='#071b2b')
- d.text((140, 83), 'PRISMBAY AI', font=f(36, True), fill='#f3f8fa')
+ d.rounded_rectangle((140, 68, 206, 134), radius=16, fill='#37d9bf')
+ d.text((160, 70), 'P', font=f(48, True), fill='#071b2b')
+ d.text((225, 83), 'PRISMBAY AI', font=f(36, True), fill='#f3f8fa')
  d.text((842, 88), f'{number+1:02d}/12', font=f(28, True), fill='#b5d3dc')
  title, hero, detail, footer = CONTENT[scene]
  label(d, title, 250, 57, '#37d9bf')
- d.rounded_rectangle((54, 410, 900, 1190), radius=42, fill='#143349', outline='#2a6a78', width=4)
- d.rounded_rectangle((92, 465, 865, 490), radius=8, fill='#37d9bf')
+ d.rounded_rectangle((125, 410, 880, 1190), radius=42, fill='#143349', outline='#2a6a78', width=4)
+ d.rounded_rectangle((150, 465, 850, 490), radius=8, fill='#37d9bf')
  label(d, hero, 585, 157, '#ffffff', max_width=800)
  label(d, detail, 915, 48, '#f1f6fa', max_width=785)
- d.line((110, 1045, 848, 1045), fill='#3b7782', width=3)
+ d.line((155, 1045, 845, 1045), fill='#3b7782', width=3)
  label(d, footer, 1080, 40, '#a5ced6', max_width=770)
- d.text((56, 1230), 'ILLUSTRATIVE SCENARIO  •  NOT REALIZED CUSTOMER SAVINGS', font=f(24, True), fill='#b5cbd3')
- d.rounded_rectangle((50, 1310, 900, 1582), radius=34, fill='#020e1a', outline='#26616c', width=3)
- lines = wrap(d, spoken, 765, 48)
- if len(lines) > 3:
+ label(d, 'ILLUSTRATIVE SCENARIO', 1215, 30, '#b5cbd3')
+ label(d, 'NOT REALIZED CUSTOMER SAVINGS', 1255, 30, '#b5cbd3')
+ d.rounded_rectangle((125, 1310, 880, 1582), radius=34, fill='#020e1a', outline='#26616c', width=3)
+ lines = wrap(d, spoken, 650, 48)
+ if len(lines) > 4:
   raise ValueError(f'Caption exceeds three lines: {spoken}: {lines}')
- y = 1335 + (3-len(lines))*35
+ y = 1325 + (4-len(lines))*30
  for line in lines:
   face = f(48, True)
   width = d.textbbox((0, 0), line, font=face)[2]
-  x = 475 - width/2
-  assert x >= 50 and x + width <= 900 and y + 66 < 1600, ('unsafe caption', spoken)
+  x = 500 - width/2
+  assert x >= 125 and x + width <= 880 and y + 66 < 1600, ('unsafe caption', spoken)
   d.text((x, y), line, font=face, fill='#ffffff')
-  y += 76
+  y += 60
  im.save(path, optimize=True)
 
 def main():
