@@ -1,0 +1,82 @@
+name: Gold Research Agents (Paper Only)
+
+on:
+  schedule:
+    - cron: "23 */3 * * *"
+  workflow_dispatch:
+  push:
+    branches: ["main"]
+    paths: [".github/workflows/gold-agent-swarm.yml"]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: gold-research-specialists
+  cancel-in-progress: false
+
+jobs:
+  gold-specialists:
+    if: github.repository == 'ragunauthramsaroop/PrismBay'
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - name: Checkout isolated gold research source (no stored credentials)
+        uses: actions/checkout@v4
+        with:
+          ref: experiment/ai-paper-trading
+          persist-credentials: false
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Restore previous rolling gold research memory
+        id: cache-restore
+        uses: actions/cache/restore@v4
+        with:
+          path: .agent-state/memory.json
+          key: gold-research-memory-${{ github.run_id }}
+          restore-keys: |
+            gold-research-memory-
+
+      - name: Verify independent gold-only specialist research tests
+        run: |
+          node --check papertrade/dashboard/agents/research-swarm.cjs
+          node --check papertrade/dashboard/agents/run-swarm.cjs
+          node --test papertrade/dashboard/tests/gold-agent-swarm.test.cjs
+
+      - name: Train and evaluate seven gold-only specialist workers
+        timeout-minutes: 6
+        run: |
+          mkdir -p artifacts/gold-agent-swarm .agent-state
+          node papertrade/dashboard/agents/run-swarm.cjs
+          cp artifacts/gold-agent-swarm/memory.json .agent-state/memory.json
+          node - <<'JS'
+          const fs=require('node:fs');
+          const report=JSON.parse(fs.readFileSync('artifacts/gold-agent-swarm/report.json','utf8'));
+          const memory=JSON.parse(fs.readFileSync('artifacts/gold-agent-swarm/memory.json','utf8'));
+          if(report.symbol!=='XAU/USD'||report.mode!=='AUTONOMOUS_RESEARCH_ONLY'||
+             report.supervisoryDecision.noLiveOrders!==true||
+             report.supervisoryDecision.brokerConnections!==0||
+             report.supervisoryDecision.autoPromotion!==false||
+             memory.ordersPlaced!==0||
+             Object.keys(report.agents||{}).length!==7)
+            throw Error('Gold-only agent safety contract violated');
+          console.log('Gold-only research agents verified. Run #'+memory.runNumber);
+          JS
+
+      - name: Retain dated read-only agent reports and rolling memory
+        uses: actions/upload-artifact@v4
+        with:
+          name: xau-research-agents
+          path: artifacts/gold-agent-swarm/
+          if-no-files-found: error
+          retention-days: 30
+
+      - name: Save current validated agent memory for the next run
+        uses: actions/cache/save@v4
+        with:
+          path: .agent-state/memory.json
+          key: gold-research-memory-${{ github.run_id }}
