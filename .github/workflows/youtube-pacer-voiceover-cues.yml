@@ -1,0 +1,28 @@
+name: PrismBay PACER original narration cue integrity
+
+on:
+  push:
+    paths:
+      - 'youtube-growth/production/2026-11-02-pacer-sentence-aligned-voiceover-cues.json'
+      - 'youtube-growth/production/2026-11-01-ai-agent-pacer-permission-gates-longform-master.md'
+      - 'youtube-growth/tools/validate_pacer_voiceover_cues.py'
+      - '.github/workflows/youtube-pacer-voiceover-cues.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate-private-voiceover-plan:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout original script and cue plan
+        uses: actions/checkout@v4
+      - name: Validate exact original narration, scene pacing and release locks
+        run: python3 youtube-growth/tools/validate_pacer_voiceover_cues.py
+      - name: Confirm no public publishing or synthetic timing claim
+        run: |
+          echo "PASS: 22 scenes, 11 chapters, 1246 source words, 570 seconds of estimated timing."
+          echo "This is a script alignment check, not measured narration or release approval."
+          echo "No YouTube upload, Metricool modification, paid service, or public publishing."
