@@ -17,7 +17,7 @@
         x.low<=0||x.high<Math.max(x.open,x.close,x.low)||
         x.low>Math.min(x.open,x.close)||x.volume<0||
         (i&&x.time<=bars[i-1].time)||
-        (i&&x.time-bars[i-1].time<300000))throw Error('Invalid or gapped BTC candle history');
+        (i&&x.time-bars[i-1].time<300000))throw Error('Invalid or out-of-order gold chart history');
     }
     return bars;
   }
