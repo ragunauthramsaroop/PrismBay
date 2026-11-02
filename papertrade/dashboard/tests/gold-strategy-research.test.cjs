@@ -71,7 +71,7 @@ test('cash baseline generates no transactions or gains',()=>{
 test('twice-cost model always explicitly reports independent stress results',()=>{
  const result=R.analyze(sample(940));
  a.equal(result.methodology.doubledCostScenario,true);
- a.equal(result.methodology.costPerSideBps,25.5);
+ a.ok(Math.abs(result.methodology.costPerSideBps-25.5)<1e-9);
  a.ok(result.folds.every(f=>Number.isFinite(f.doubleCostOos)&&Number.isFinite(f.oos)));
 });
 test('strategy learning respects market session breaks',()=>{
