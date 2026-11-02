@@ -50,4 +50,26 @@ function latestSession(bars){
   }
   return bars.slice(start);
 }
-module.exports={BASE,SYMBOL,STEP,get,spot,candlePoints,loadSpot,loadChart,latestSession};
+function dailyPoints(data){
+  if(data?.symbol!=='xau'||!Array.isArray(data.points))throw Error('Non-gold daily chart source');
+  const map=new Map();
+  const today=Math.floor(Date.now()/86400000)*86400000;
+  for(const p of data.points){
+    const time=Math.floor(Number(p?.t)*1000/86400000)*86400000;
+    const bar={time,open:Number(p?.o),close:Number(p?.c),
+      high:Number(p?.h),low:Number(p?.l),volume:Math.max(0,Number(p?.v)||0)};
+    if(!Object.values(bar).every(Number.isFinite)||time<=0||time>=today||
+      bar.low<=0||bar.high<Math.max(bar.open,bar.close,bar.low)||
+      bar.low>Math.min(bar.open,bar.close))continue;
+    map.set(time,bar);
+  }
+  const history=[...map.values()].sort((a,b)=>a.time-b.time);
+  if(history.length<800)throw Error('Less than 800 verified daily gold candles; refuse long-history claims');
+  if(history[history.length-1].time<today-10*86400000)throw Error('Gold daily price history too stale for research');
+  return history;
+}
+async function loadDailyChart(){
+  return dailyPoints(await get('/chart?symbol=xau&range=5y&interval=1d'));
+}
+module.exports={BASE,SYMBOL,STEP,get,spot,candlePoints,loadSpot,loadChart,latestSession,
+  dailyPoints,loadDailyChart};
