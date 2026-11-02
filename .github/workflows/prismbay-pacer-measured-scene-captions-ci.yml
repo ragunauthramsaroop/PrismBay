@@ -1,0 +1,44 @@
+name: PrismBay P-A-C-E-R measured scene captions private QA
+on:
+  push:
+    paths:
+      - '.github/workflows/prismbay-pacer-measured-scene-captions-ci.yml'
+      - 'youtube-growth/tools/pacer_measured_scene_captions.js'
+      - 'youtube-growth/production/2026-11-02-pacer-measured-scene-captions.srt'
+      - 'youtube-growth/production/2026-11-02-pacer-measured-scene-caption-qa.json'
+      - 'youtube-growth/production/2026-11-02-pacer-measured-kokoro-605s-retiming.json'
+      - 'youtube-growth/production/2026-11-02-pacer-sentence-aligned-voiceover-cues.json'
+      - 'youtube-growth/production/2026-11-02-pacer-provisional-captions.srt'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  validate-private-captions:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Verify measured scene timing and original narration identity
+        run: python youtube-growth/tools/pacer_validate_measured_retiming.py
+      - name: Verify caption text, measured scene boundaries and readability
+        run: node youtube-growth/tools/pacer_measured_scene_captions.js --check
+      - name: Enforce unpublished review status
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p=json.loads(Path('youtube-growth/production/2026-11-02-pacer-measured-scene-caption-qa.json').read_text())
+          assert p['channel_id']=='UCw2hs85TzIpdKwJtG-BSxzQ'
+          assert p['caption_cues']==155 and p['scenes']==22 and p['video_duration_s']==605
+          assert p['word_level_synchronized'] is False
+          assert p['full_narration_listening'] is False
+          assert p['public_upload_permitted'] is False
+          assert p['paid_spend_usd']==0
+          print('PASS: PRIVATE review only. No publication or paid spend.')
+          PY
