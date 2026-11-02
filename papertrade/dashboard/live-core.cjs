@@ -7,6 +7,7 @@
   'use strict';
   const DEFAULTS = Object.freeze({
     initialCash: 10000,
+    instrument:'XAU/USD',barSeconds:300,
     fast: 8, slow: 21, maxAllocation: .10,
     feeRate: .0015, simulatedSlippage: .0010,
     stopFraction: .008, takeProfitFraction: .015,
@@ -17,13 +18,13 @@
     if (!quote || !finite(quote.price) || quote.price <= 0 ||
         !finite(quote.bid) || !finite(quote.ask) ||
         quote.bid <= 0 || quote.ask <= 0 || quote.ask < quote.bid ||
-        !finite(quote.at) || quote.at > now + 5000 || now - quote.at > 20000) return false;
+        !finite(quote.at) || quote.at > now + 5000 || now - quote.at > 150000) return false;
     return true;
   }
   const fix = (n, digits = 8) => Number(n.toFixed(digits));
   function create(now = Date.now()) {
     return {
-      version: 2, mode: 'PAPER_ONLY', startingCash: DEFAULTS.initialCash,
+      version: 2, mode: 'PAPER_ONLY', instrument:'XAU/USD', startingCash: DEFAULTS.initialCash,
       startedAt: now, updatedAt: now, lastQuoteAt: null, lastBar: null,
       cash: DEFAULTS.initialCash, units: 0, entryPrice: 0,
       costBasis: 0, fees: 0, realizedPnl: 0, peakEquity: DEFAULTS.initialCash,
@@ -35,7 +36,7 @@
     };
   }
   function readState(x) {
-    if (!x || x.version !== 2 || x.mode !== 'PAPER_ONLY') return null;
+    if (!x || x.version !== 2 || x.mode !== 'PAPER_ONLY' || x.instrument !== 'XAU/USD') return null;
     for(const key of ['startedAt','updatedAt','cash','units','entryPrice','costBasis','fees','realizedPnl','peakEquity','dailyAnchor']){
       if(!finite(x[key])) return null;
     }
@@ -108,7 +109,7 @@
       state.dailyAnchor = mark(state,quote).equity;
     }
     const executed = [];
-    const wasGap = state.lastQuoteAt && now - state.lastQuoteAt > 180000;
+    const wasGap = state.lastQuoteAt && now - state.lastQuoteAt > 900000;
     if(wasGap) state.interruption = true;
     state.updatedAt=now;state.lastQuoteAt=quote.at;
     let equity = mark(state,quote).equity;
@@ -129,7 +130,7 @@
     }
     if(!state.paused && !state.halted && !state.interruption && validBars(bars)){
       const latest=bars[bars.length-1];
-      if(state.lastBar !== latest.time && latest.time + 60000 <= quote.at){
+      if(state.lastBar !== latest.time && latest.time + 300000 <= quote.at){
         const closes=bars.map(b=>b.close);
         const fast=closes.slice(-DEFAULTS.fast).reduce((a,b)=>a+b,0)/DEFAULTS.fast;
         const slow=closes.slice(-DEFAULTS.slow).reduce((a,b)=>a+b,0)/DEFAULTS.slow;
@@ -137,9 +138,9 @@
         state.lastBar=latest.time;
         state.lastSignal=fix(signal*100,4);
         if(state.units===0 && signal > DEFAULTS.enterThreshold){
-          if(buy(state,quote,now,'ONE-MINUTE SMA MOMENTUM PAPER BUY'))executed.push('BUY');
+          if(buy(state,quote,now,'FIVE-MINUTE GOLD SMA PAPER BUY'))executed.push('BUY');
         }else if(state.units>0 && signal < -DEFAULTS.enterThreshold){
-          if(sell(state,quote,now,'ONE-MINUTE SMA MOMENTUM PAPER SELL'))executed.push('SELL');
+          if(sell(state,quote,now,'FIVE-MINUTE GOLD SMA PAPER SELL'))executed.push('SELL');
         }else if(!executed.length) state.lastDecision=state.units>0?'Holding simulated position':'No qualifying signal; staying in virtual cash';
       }
     }
