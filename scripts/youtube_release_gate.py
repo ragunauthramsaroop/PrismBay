@@ -96,6 +96,12 @@ def main():
     max_tail = 8.0 if a.format == "shorts" else 30.0
     check(duration - cues[-1][1] <= max_tail,
           f"Uncaptioned tail exceeds {max_tail:g} seconds")
+    # Long middle sections without captions require explicit review.
+    # Longer silent demonstrations are permitted for long-form content.
+    max_gap = 6.0 if a.format == "shorts" else 15.0
+    gaps = [max(0.0, cues[i][0] - cues[i-1][1]) for i in range(1, len(cues))]
+    for i, gap in enumerate(gaps, start=2):
+        check(gap <= max_gap, f"Uncaptioned gap before cue {i} exceeds {max_gap:g} seconds")
     max_wpm = 0
     for i, (start, end, words) in enumerate(cues):
         span = end - start
@@ -135,6 +141,7 @@ def main():
         "audioPeakDbFS": peak, "silenceIntervalsOver0p4s": silences,
         "blackIntervals": black, "cueCount": len(cues), "maxCaptionWPM": round(max_wpm,2),
         "minCueSeconds": round(min(e-s for s,e,_ in cues),3),
+        "maxInternalCaptionGapSeconds": round(max(gaps, default=0.0),3),
         "technicalChecksPass": not problems, "technicalIssues": problems,
         "fullNarrationListening": "NOT_VERIFIED", "spokenWordAlignment": "NOT_VERIFIED",
         "continuousMobilePlayback": "NOT_VERIFIED", "completeRights": "NOT_VERIFIED",
