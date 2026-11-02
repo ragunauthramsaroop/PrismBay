@@ -1,4 +1,4 @@
-/* Actual historical BTC data playback. Entirely browser-local virtual trading. */
+/* Actual historical XAU data playback. Entirely browser-local virtual trading. */
 (function(){
 'use strict';
 const Replay=window.PaperReplay;
@@ -26,7 +26,7 @@ function stop(){if(timer){clearInterval(timer);timer=null;}if(session)session.pa
 async function load(){
   stop();loading=true;session=null;lastDataset=null;eventsRendered=0;buttonState();
   const hours=Number($('simPeriod').value);
-  set('simDatasetStatus','Retrieving actual Coinbase BTC-USD 1-minute prices...');
+  set('simDatasetStatus','Retrieving actual Coinbase XAU/USD 5-five-minute prices...');
   set('simDatasetDetail','Genuine historical prices. Every virtual transaction is hypothetical and includes estimated trading costs.');
   set('simDecision','Waiting for verified price history');
   set('simProgressText','Loading '+hours+' historical hours');
@@ -35,13 +35,13 @@ async function load(){
   try{
     const r=await fetch('/api/replay?hours='+hours,{cache:'no-store',signal:controller.signal});
     const data=await r.json();
-    if(!r.ok||data.mode!=='HISTORICAL_REPLAY_ONLY'||!data.noRealOrders)
+    if(!r.ok||data.mode!=='HISTORICAL_REPLAY_ONLY'||data.symbol!=='XAU/USD'||!data.noRealOrders)
       throw Error(data.detail||data.error||'Historical price service unavailable');
     if(!Array.isArray(data.bars)||data.bars.length<60||data.coveragePct<97)
       throw Error('Insufficient source candle integrity');
     lastDataset=data;
     session=Replay.create(data.bars,{source:data.source});
-    set('simDatasetStatus','Real BTC historical candles loaded · '+data.candleCount+' minutes · '+data.coveragePct+'% coverage');
+    set('simDatasetStatus','Real XAU historical candles loaded · '+data.candleCount+' minutes · '+data.coveragePct+'% coverage');
     set('simDatasetDetail','Recorded prices: '+time(data.bars[0].time)+' to '+time(data.bars[data.bars.length-1].time)+'. All fills are estimated, not actual broker executions.');
     render();
     if(new URLSearchParams(location.search).get('tab')==='simulation')play();
@@ -91,7 +91,7 @@ function renderJournal(){
 }
 function drawChart(){
   const target=$('simPriceChart');
-  if(!session||session.history.length<2){target.replaceChildren();target.append(document.createTextNode('Run the replay to see real BTC price movements and simulated trades.'));return;}
+  if(!session||session.history.length<2){target.replaceChildren();target.append(document.createTextNode('Run the replay to see real XAU price movements and simulated trades.'));return;}
   const points=session.history;
   const vals=points.map(x=>x.price),lo=Math.min(...vals),hi=Math.max(...vals),span=Math.max(hi-lo,10),lower=lo-span*.14,upper=hi+span*.14;
   const W=890,H=300,P=22,right=56,top=24,bottom=34;
@@ -122,14 +122,14 @@ function render(){
   set('simEquity',money(x.equity));set('simPnl',money(x.pnl));set('simPnlPct',signed(x.pnlPct)+' against starting virtual cash');
   set('simPrice',money(x.lastPrice));set('simTrades',x.buys+x.sells);
   set('simWinRate',x.sells+' closed trades · '+(x.winRate===null?'No win rate yet':x.winRate.toFixed(1)+'% winning'));
-  set('simCash',money(x.cash));set('simUnits',quant(x.btcUnits,8)+' BTC');
+  set('simCash',money(x.cash));set('simUnits',quant(x.goldOunces,5)+' oz');
   set('simPosition',money(x.positionValue));set('simFees',money(x.fees));set('simRealized',money(x.realizedPnl));
   set('simUnrealized',money(x.unrealizedPnl));set('simDrawdown',x.drawdownPct.toFixed(3)+'%');
-  set('simBenchmark',money(x.btcBenchmark)+' ('+signed(x.btcBenchmarkPct)+')');
+  set('simBenchmark',money(x.goldBenchmark)+' ('+signed(x.goldBenchmarkPct)+')');
   set('simLastSignal',session.state.lastSignal==null?'No signal calculated':'Last 8/21 SMA signal '+session.state.lastSignal.toFixed(4)+'%');
   set('simDecision',x.lastAction?x.lastAction.side+' @ '+money(x.lastAction.price)+' · '+x.lastAction.reason:session.state.lastDecision);
   set('simStage',x.finished?x.stage+' · historical replay only':session.paused?'PAUSED · historical replay only':'PLAYING · historical replay only');
-  set('simTime',time(x.time));set('simProgressText',x.steps+' of '+x.totalSteps+' completed virtual minutes · '+x.buys+' BUY · '+x.sells+' SELL');
+  set('simTime',time(x.time));set('simProgressText',x.steps+' of '+x.totalSteps+' completed virtual five-minute bars · '+x.buys+' BUY · '+x.sells+' SELL');
   $('simProgressBar').style.width=(100*x.steps/x.totalSteps).toFixed(2)+'%';
   valueTone('simPnl',x.pnl);valueTone('simPnlPct',x.pnlPct);valueTone('simRealized',x.realizedPnl);valueTone('simUnrealized',x.unrealizedPnl);
   renderJournal();drawChart();buttonState();
@@ -140,7 +140,7 @@ function exportResults(){
     windowHours:Number($('simPeriod').value),retrievedAt:lastDataset?.retrievedAt,
     assumptions:lastDataset?.assumptions,completed:session.finished,
     performance:Replay.metrics(session),virtualFills:session.fills,
-    chart:session.history.map(x=>({utc:new Date(x.time).toISOString(),price:x.price,equity:x.equity,benchmark:x.btcBenchmark}))};
+    chart:session.history.map(x=>({utc:new Date(x.time).toISOString(),price:x.price,equity:x.equity,benchmark:x.goldBenchmark}))};
   const blob=new Blob([JSON.stringify(report,null,2)],{type:'application/json'});
   const a=document.createElement('a');a.href=URL.createObjectURL(blob);
   a.download='papertrade-historical-replay-'+new Date().toISOString().slice(0,10)+'.json';a.click();
