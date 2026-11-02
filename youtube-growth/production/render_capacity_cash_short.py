@@ -113,7 +113,7 @@ def main():
  old.rename(video)
  manifest = json.loads((out/'manifest.json').read_text())
  assert manifest['channelId'] == CHANNEL
- assert manifest['publicationApproved'] is False and manifest['uploadPermitted'] is False
+ assert manifest['published'] is False and manifest['publicationApproved'] is False and manifest['uploadPermitted'] is False
  manifest.update({
   'episodeId': EPISODE,
   'title': 'AI Saved 100 Hours. Why Did Cash Costs Rise?',
