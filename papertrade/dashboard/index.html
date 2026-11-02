@@ -103,8 +103,15 @@
           <article class="panel live-kpi"><div class="panel-kicker">PAPER ENGINE STATE</div><strong class="engine-state" id="liveStatus">INITIALIZING</strong><small id="liveLastDecision">Waiting for signal</small></article>
         </div>
         <div class="gold-action-row">
-          <button type="button" class="open-live-btn" data-goto="simulation" id="goldRunReplay">▶ Run a gold simulation now</button>
-          <span>Replay actual historical XAU/USD price records with virtual BUY/SELL markers. No need to wait for live signals.</span>
+          <div class="gold-replay-cta">
+            <button type="button" class="open-live-btn" data-goto="simulation" id="goldRunReplay">▶ Run a gold simulation now</button>
+            <span>See genuine recorded XAU/USD prices and virtual BUY/SELL markers without waiting for live signals.</span>
+          </div>
+          <div class="gold-replay-summary">
+            <span>HISTORICAL EXAMPLE · 6 MARKET HOURS</span>
+            <strong id="goldQuickPnl">Loading gold replay…</strong>
+            <small id="goldQuickDetail">Separate from your live virtual balance</small>
+          </div>
         </div>
         <div class="live-two-column">
           <article class="panel live-chart-panel">
