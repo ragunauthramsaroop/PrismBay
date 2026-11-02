@@ -52,6 +52,16 @@ class ReleaseGateTests(unittest.TestCase):
                 with self.subTest(bad=bad), self.assertRaises(ValueError):
                     gate.read_srt(p)
 
+    def test_caption_gap_thresholds(self):
+        with tempfile.TemporaryDirectory() as d:
+            p = Path(d) / "captions.srt"
+            p.write_text("1\n00:00:00,000 --> 00:00:02,000\nOpening\n\n2\n00:00:09,000 --> 00:00:12,000\nClosing\n")
+            cues = gate.read_srt(p)
+            gap = cues[1][0] - cues[0][1]
+            self.assertEqual(gap, 7.0)
+            self.assertGreater(gap, 6.0)
+            self.assertLess(gap, 15.0)
+
     def test_manifest_sha256_is_enforced_and_never_approves_upload(self):
         def fake_run(*args):
             if args[0] == "ffprobe":
@@ -84,6 +94,12 @@ class ReleaseGateTests(unittest.TestCase):
                 self.assertTrue(result["technicalChecksPass"])
                 self.assertFalse(result["publicationApproved"])
                 self.assertFalse(result["uploadPermitted"])
+                captions.write_text("1\n00:00:00,000 --> 00:00:02,000\nOpening\n\n2\n00:00:09,000 --> 00:00:12,000\nClosing\n")
+                with self.assertRaises(SystemExit) as missing_middle:
+                    gate.main()
+                self.assertEqual(missing_middle.exception.code, 2)
+                self.assertIn("Uncaptioned gap before cue 2 exceeds 6 seconds",
+                              json.loads(report.read_text())["technicalIssues"])
 
     def test_longform_gate_requires_landscape_and_never_approves(self):
         def fake_run(*args):
@@ -100,7 +116,7 @@ class ReleaseGateTests(unittest.TestCase):
             video = base / "longform.mp4"
             video.write_bytes(b"synthetic landscape test fixture")
             captions = base / "captions.srt"
-            captions.write_text("1\n00:00:00,000 --> 00:00:04,000\nLong form review\n\n2\n00:01:01,000 --> 00:01:04,000\nClosing caption\n")
+            captions.write_text("1\n00:00:00,000 --> 00:00:04,000\nLong form review\n\n2\n00:00:16,000 --> 00:00:20,000\nControl demo\n\n3\n00:00:32,000 --> 00:00:36,000\nAnother example\n\n4\n00:00:48,000 --> 00:00:52,000\nReview results\n\n5\n00:01:01,000 --> 00:01:04,000\nClosing caption\n")
             manifest = base / "manifest.json"
             report = base / "report.json"
             manifest.write_text(json.dumps({**GOOD, "sha256": hashlib.sha256(video.read_bytes()).hexdigest()}))
@@ -114,6 +130,13 @@ class ReleaseGateTests(unittest.TestCase):
                 self.assertEqual(result["resolution"], [1920, 1080])
                 self.assertFalse(result["publicationApproved"])
                 self.assertFalse(result["uploadPermitted"])
+                # Opening and closing captions alone are insufficient.
+                captions.write_text("1\n00:00:00,000 --> 00:00:04,000\nOpening caption\n\n2\n00:01:01,000 --> 00:01:04,000\nClosing caption\n")
+                with self.assertRaises(SystemExit) as missing_middle:
+                    gate.main()
+                self.assertEqual(missing_middle.exception.code, 2)
+                self.assertIn("Uncaptioned gap before cue 2 exceeds 15 seconds",
+                              json.loads(report.read_text())["technicalIssues"])
                 # A long-form export with only opening subtitles must fail closed.
                 captions.write_text("1\n00:00:00,000 --> 00:00:04,000\nLong form review\n")
                 with self.assertRaises(SystemExit) as missing_tail:
