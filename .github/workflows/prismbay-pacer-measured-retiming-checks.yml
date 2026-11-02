@@ -1,0 +1,23 @@
+name: PrismBay P-A-C-E-R measured private retiming checks
+on:
+  push:
+    paths:
+      - 'youtube-growth/tools/pacer_validate_measured_retiming.py'
+      - 'youtube-growth/production/2026-11-02-pacer-measured-kokoro-605s-retiming.json'
+      - 'youtube-growth/production/2026-11-02-pacer-sentence-aligned-voiceover-cues.json'
+      - '.github/workflows/prismbay-pacer-measured-retiming-checks.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  validate-private-retiming:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Validate measured narration, original text, scene continuity and publication lock
+        run: python youtube-growth/tools/pacer_validate_measured_retiming.py
+      - name: Confirm zero-cost private status
+        run: echo 'Private validation only. No upload, post mutation, paid service or publication.'
