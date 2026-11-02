@@ -21,20 +21,26 @@ jobs:
         run: |
           sudo apt-get update -qq
           sudo apt-get install -y ffmpeg
-      - name: Download corrected accepted-output review export
-        uses: actions/download-artifact@v4
-        with:
-          name: prismbay-accepted-output-short-unpublished
-          run-id: 41369594770
-          github-token: ${{ github.token }}
-          path: qa/accepted
-      - name: Download corrected capacity-versus-cash review export
-        uses: actions/download-artifact@v4
-        with:
-          name: prismbay-capacity-cash-short-private-review
-          run-id: 41369562090
-          github-token: ${{ github.token }}
-          path: qa/capacity
+      - name: Fetch latest successful corrected private exports
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          fetch_one() {
+            local workflow="$1" artifact="$2" destination="$3" runid=""
+            for attempt in $(seq 1 24); do
+              runid="$(gh api "repos/${GITHUB_REPOSITORY}/actions/workflows/${workflow}/runs?per_page=10" --jq '.workflow_runs | map(select(.conclusion=="success" and .created_at >= "2026-11-02T05:45:30Z")) | .[0].id // empty')"
+              if [[ -n "$runid" ]]; then break; fi
+              echo "Waiting for a corrected, successful private render: ${workflow} (${attempt}/24)"
+              sleep 15
+            done
+            [[ -n "$runid" ]] || { echo "No successful corrected render found: ${workflow}"; return 1; }
+            echo "Using verified successful render run ${runid} for ${artifact}"
+            mkdir -p "$destination"
+            gh run download "$runid" --repo "$GITHUB_REPOSITORY" --name "$artifact" --dir "$destination"
+          }
+          fetch_one prismbay-accepted-output-short-review.yml prismbay-accepted-output-short-unpublished qa/accepted
+          fetch_one prismbay-capacity-cash-short-review.yml prismbay-capacity-cash-short-private-review qa/capacity
       - name: Verify exact MP4 hashes and continuous subtitle coverage
         run: |
           python3 - <<'PY'
