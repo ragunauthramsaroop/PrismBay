@@ -121,3 +121,27 @@
 .sim-caveat strong{color:#e4ebf2}
 @media(max-width:1420px){.sim-panels{grid-template-columns:1fr}.sim-kpi-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.sim-button-group{margin-left:0}.sim-intro{flex-wrap:wrap}.sim-chart-panel{min-height:0}}
 @media(max-width:650px){.sim-kpi-grid{gap:10px}.sim-kpi{padding:14px}.sim-kpi strong{font-size:23px}.sim-field{flex:1;min-width:120px}.sim-button-group{width:100%;gap:7px}.sim-button-group button{flex:1;white-space:nowrap}.sim-intro h2{font-size:23px}.sim-mode{align-self:flex-start}.sim-chart-canvas{height:240px;margin:10px 7px}.sim-progress-row{flex-wrap:wrap}.sim-legend{font-size:9px;gap:7px}}
+
+
+/* Gold-only live terminal: show market history while cash-only paper engine warms up. */
+.gold-action-row{display:flex;align-items:center;flex-wrap:wrap;gap:15px;margin:0 0 17px;padding:14px 17px;background:linear-gradient(105deg,#1b3f39,#192a38);border:1px solid #376b5f;border-radius:11px}
+.gold-action-row button{flex-shrink:0}
+.gold-action-row>span{font-size:11px;color:#b5d6ce;line-height:1.6;max-width:620px}
+.gold-history-head{display:flex;justify-content:space-between;align-items:center;gap:20px;padding:20px 22px 2px}
+.gold-history-head>div:first-child{display:flex;flex-direction:column;gap:6px}
+.gold-history-head strong{font-size:clamp(17px,2.1vw,25px);font-weight:800;font-family:var(--heading);letter-spacing:-.5px;color:#f3d6a1}
+.gold-warmup-progress{min-width:180px;width:45%;max-width:270px;display:grid;grid-template-columns:1fr auto;gap:6px 12px;align-items:center}
+.gold-warmup-progress>span{font-size:10px;color:#9db5c4}
+.gold-warmup-progress>strong{font-size:10px;color:#d7e6eb;white-space:nowrap}
+.gold-progress-track{height:7px;background:#294253;grid-column:1/-1;overflow:hidden;border-radius:20px;border:1px solid #355265}
+.gold-progress-fill{height:100%;width:0%;background:linear-gradient(90deg,#a48647,#ecd79d);border-radius:20px;transition:width .35s}
+.gold-market-chart{height:250px;margin:15px 17px 0;display:flex;align-items:center;justify-content:center;background:linear-gradient(180deg,#192b36,#12202c);border-radius:10px;min-width:0;color:#8ea3b4;font-size:11px}
+.gold-market-chart svg{height:100%;width:100%;display:block}
+.gold-market-note{display:flex;justify-content:space-between;flex-wrap:wrap;gap:7px;padding:10px 22px 17px;color:#9cb0c3;font-size:10px;line-height:1.5}
+.gold-equity-subpanel{background:#0e1b28;border-top:1px solid #2a3d4e;padding-top:14px}
+.gold-equity-caption{display:flex;align-items:baseline;justify-content:space-between;gap:10px;flex-wrap:wrap;padding:0 21px}
+.gold-equity-caption strong{font-size:12px;color:#d3e2e7}
+.gold-equity-caption span{font-size:10px;color:#839eaf}
+.gold-equity-spark{height:105px;margin-top:8px;margin-bottom:4px;border:0;background:none}
+.gold-equity-spark svg{height:100%}
+@media(max-width:720px){.gold-action-row{padding:12px;gap:11px}.gold-action-row button{width:100%}.gold-action-row>span{font-size:11px}.gold-history-head{flex-wrap:wrap;padding:16px 15px 0;gap:13px}.gold-warmup-progress{width:100%;max-width:none}.gold-market-chart{height:220px;margin:12px 8px 0}.gold-market-note{padding:10px 14px 14px}.gold-equity-caption{padding:0 13px}.gold-equity-spark{height:76px}}
