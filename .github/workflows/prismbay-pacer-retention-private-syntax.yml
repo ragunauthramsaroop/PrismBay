@@ -1,0 +1,26 @@
+name: PrismBay P-A-C-E-R Private Retention Renderer Checks
+on:
+  push:
+    paths:
+      - youtube-growth/tools/pacer_retention_motion_private.py
+      - .github/workflows/prismbay-pacer-retention-private-syntax.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  syntax-and-channel-gates:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Compile private renderer without downloading models or publishing
+        run: python -m py_compile youtube-growth/tools/pacer_retention_motion_private.py
+      - name: Check channel lock and fail-closed publication controls
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          s=Path("youtube-growth/tools/pacer_retention_motion_private.py").read_text()
+          for needle in ("UCw2hs85TzIpdKwJtG-BSxzQ", "@PrismBayAI", "public_upload_permitted=False", "paid_spend_usd=0", "subtitle_word_alignment_verified=False"):
+              assert needle in s, f"Missing safeguard: {needle}"
+          assert "youtube.upload" not in s
+          print("PASS: channel identity and private-only publication safeguards")
+          PY
