@@ -1,22 +1,22 @@
 #!/usr/bin/env python3
 """Read-only mobile browser smoke test. pip install playwright; Chromium required.
-Tests decode, play, seek, and captures contain/cover viewport screenshots.
+Tests decode, play, seek, and capture contain/cover screenshots at 390x844 and 360x800.
 A technical PASS is never editorial, rights, audio, or publication approval.
 """
 import argparse, asyncio, base64, json
 from pathlib import Path
 from playwright.async_api import async_playwright
 
-async def test_video(path, chromium, out):
+async def test_video(path, chromium, out, viewport=(390,844)):
     async with async_playwright() as p:
         browser = await p.chromium.launch(executable_path=chromium, headless=True,
             args=["--no-sandbox", "--autoplay-policy=no-user-gesture-required"])
-        page = await browser.new_page(viewport={"width":390,"height":844},
+        page = await browser.new_page(viewport={"width":viewport[0],"height":viewport[1]},
             device_scale_factor=2, is_mobile=True, has_touch=True)
         errors=[]
         page.on("pageerror", lambda e: errors.append(str(e)))
         data=base64.b64encode(path.read_bytes()).decode()
-        await page.set_content('<html><body style="margin:0;background:black"><video playsinline muted preload="auto" src="data:video/mp4;base64,'+data+'"></video></body></html>')
+        await page.set_content('<html><head><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1"></head><body style="margin:0;background:black"><video playsinline muted preload="auto" src="data:video/mp4;base64,'+data+'"></video></body></html>')
         video=page.locator("video")
         await page.wait_for_function("() => document.querySelector('video').readyState>=1",timeout=20000)
         await video.evaluate("v=>{v.muted=true;v.controls=false;v.style.cssText='width:100vw;height:100vh;object-fit:contain;position:fixed;left:0;top:0;background:black'}")
@@ -26,20 +26,30 @@ async def test_video(path, chromium, out):
         await page.wait_for_timeout(1400)
         progressed=await video.evaluate("v=>v.currentTime")
         out.mkdir(parents=True,exist_ok=True)
-        await page.screenshot(path=str(out/(path.stem+"-contain.png")))
+        await page.screenshot(path=str(out/(path.stem+f"-{viewport[0]}x{viewport[1]}-contain.png")))
         await video.evaluate("v=>{v.pause();v.currentTime=v.duration*.75}")
         await page.wait_for_timeout(1000)
         seek=await video.evaluate("v=>({time:v.currentTime,error:v.error?.message||null})")
-        await page.screenshot(path=str(out/(path.stem+"-seek.png")))
+        await page.screenshot(path=str(out/(path.stem+f"-{viewport[0]}x{viewport[1]}-seek.png")))
         await video.evaluate("v=>{v.currentTime=.6;v.style.objectFit='cover'}")
         await page.wait_for_timeout(700)
-        await page.screenshot(path=str(out/(path.stem+"-cover-crop-stress.png")))
+        await page.screenshot(path=str(out/(path.stem+f"-{viewport[0]}x{viewport[1]}-cover-crop-stress.png")))
+        # Simulate right-side Shorts controls for visual inspection only.
+        # This is not the actual YouTube mobile player.
+        await page.evaluate("""() => {
+            const el=document.createElement('div');
+            el.id='simulated-shorts-controls';
+            el.innerHTML='♡<br><br>◯<br><br>↗<br><br>⋮';
+            el.style.cssText='position:fixed;right:7px;top:47%;z-index:99;color:white;font:18px Arial;text-shadow:0 0 5px black;text-align:center;pointer-events:none';
+            document.body.appendChild(el);
+        }""")
+        await page.screenshot(path=str(out/(path.stem+f"-{viewport[0]}x{viewport[1]}-cover-ui-simulation.png")))
         await browser.close()
-        crop=max(0,(info["width"]-info["height"]*390/844)/2)
+        crop=max(0,(info["width"]-info["height"]*viewport[0]/viewport[1])/2)
         ok=(info["width"]==1080 and info["height"]==1920 and info["duration"]>5
             and progressed>.2 and seek["time"]>2 and not info["error"]
             and not seek["error"] and not errors)
-        return {"file":path.name,"technical_pass":bool(ok),"metadata":info,
+        return {"file":path.name,"viewport":f"{viewport[0]}x{viewport[1]}","technical_pass":bool(ok),"metadata":info,
                 "playback_seconds":progressed,"seek":seek,"errors":errors,
                 "cover_crop_source_pixels_each_side":round(crop,1),
                 "editorial_cover_crop_review":"REQUIRED",
@@ -53,8 +63,9 @@ async def main():
     a=ap.parse_args()
     rows=[]
     for path in a.videos:
-        try:rows.append(await test_video(path,a.chromium,a.output.parent))
-        except Exception as e:rows.append({"file":path.name,"technical_pass":False,"error":str(e)})
+        for viewport in ((390,844),(360,800)):
+            try:rows.append(await test_video(path,a.chromium,a.output.parent,viewport))
+            except Exception as e:rows.append({"file":path.name,"viewport":f"{viewport[0]}x{viewport[1]}","technical_pass":False,"error":str(e)})
     report={"channel_id":"UCw2hs85TzIpdKwJtG-BSxzQ",
             "technical_all_pass":all(x["technical_pass"] for x in rows),"results":rows,
             "publication_approved":False}
