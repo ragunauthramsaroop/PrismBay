@@ -1,0 +1,320 @@
+{
+  "schema": "prismbay-pacer-provisional-narration-retiming-v1",
+  "channel_id": "UCw2hs85TzIpdKwJtG-BSxzQ",
+  "handle": "@PrismBayAI",
+  "episode_id": "PB-YT-LF-2026-11-01-PACER",
+  "source_master": "youtube-growth/production/2026-11-01-ai-agent-pacer-permission-gates-longform-master.md",
+  "source_storyboard": "youtube-growth/production/2026-11-02-pacer-longform-visual-storyboard.json",
+  "status": "PROPOSED_ONLY_NOT_APPLIED_NOT_AUDIO_MEASURED_NOT_APPROVED_NOT_PUBLISHED",
+  "calculation": "1246 narration words. Allocate 570 seconds across 11 sections by 140 spoken words/minute plus 3 seconds per section, then split each section across its original SVG scenes proportional to previous scene duration. Actual audio timing overrides this estimate.",
+  "critical_finding": "Original closing chapter starts at 08:56 with 126 words and only 34 seconds remaining, requiring 222 words per minute. Do not use original fixed timestamps as verified narration sync.",
+  "narration_sections": [
+    {
+      "script_start": "00:00",
+      "title": "The business decision",
+      "word_count": 95,
+      "original_window_s": 48,
+      "original_required_wpm": 119,
+      "proposed_start_s": 0,
+      "proposed_end_s": 44,
+      "proposed_window_s": 44,
+      "proposed_required_wpm": 130
+    },
+    {
+      "script_start": "00:48",
+      "title": "Why a fluent answer is not an authorization",
+      "word_count": 107,
+      "original_window_s": 52,
+      "original_required_wpm": 123,
+      "proposed_start_s": 44,
+      "proposed_end_s": 93,
+      "proposed_window_s": 49,
+      "proposed_required_wpm": 131
+    },
+    {
+      "script_start": "01:40",
+      "title": "Gate one: Purpose",
+      "word_count": 112,
+      "original_window_s": 53,
+      "original_required_wpm": 127,
+      "proposed_start_s": 93,
+      "proposed_end_s": 144,
+      "proposed_window_s": 51,
+      "proposed_required_wpm": 132
+    },
+    {
+      "script_start": "02:33",
+      "title": "Gate two: Authority",
+      "word_count": 143,
+      "original_window_s": 55,
+      "original_required_wpm": 156,
+      "proposed_start_s": 144,
+      "proposed_end_s": 209,
+      "proposed_window_s": 65,
+      "proposed_required_wpm": 132
+    },
+    {
+      "script_start": "03:28",
+      "title": "Gate three: Controls",
+      "word_count": 131,
+      "original_window_s": 57,
+      "original_required_wpm": 138,
+      "proposed_start_s": 209,
+      "proposed_end_s": 268,
+      "proposed_window_s": 59,
+      "proposed_required_wpm": 133
+    },
+    {
+      "script_start": "04:25",
+      "title": "Gate four: Evidence",
+      "word_count": 122,
+      "original_window_s": 57,
+      "original_required_wpm": 128,
+      "proposed_start_s": 268,
+      "proposed_end_s": 324,
+      "proposed_window_s": 56,
+      "proposed_required_wpm": 131
+    },
+    {
+      "script_start": "05:22",
+      "title": "The practical red-team test",
+      "word_count": 115,
+      "original_window_s": 56,
+      "original_required_wpm": 123,
+      "proposed_start_s": 324,
+      "proposed_end_s": 377,
+      "proposed_window_s": 53,
+      "proposed_required_wpm": 130
+    },
+    {
+      "script_start": "06:18",
+      "title": "Gate five: Reversal",
+      "word_count": 97,
+      "original_window_s": 52,
+      "original_required_wpm": 112,
+      "proposed_start_s": 377,
+      "proposed_end_s": 422,
+      "proposed_window_s": 45,
+      "proposed_required_wpm": 129
+    },
+    {
+      "script_start": "07:10",
+      "title": "Make the procurement decision measurable",
+      "word_count": 107,
+      "original_window_s": 56,
+      "original_required_wpm": 115,
+      "proposed_start_s": 422,
+      "proposed_end_s": 471,
+      "proposed_window_s": 49,
+      "proposed_required_wpm": 131
+    },
+    {
+      "script_start": "08:06",
+      "title": "A staged rollout",
+      "word_count": 91,
+      "original_window_s": 50,
+      "original_required_wpm": 109,
+      "proposed_start_s": 471,
+      "proposed_end_s": 513,
+      "proposed_window_s": 42,
+      "proposed_required_wpm": 130
+    },
+    {
+      "script_start": "08:56",
+      "title": "Closing decision",
+      "word_count": 126,
+      "original_window_s": 34,
+      "original_required_wpm": 222,
+      "proposed_start_s": 513,
+      "proposed_end_s": 570,
+      "proposed_window_s": 57,
+      "proposed_required_wpm": 133
+    }
+  ],
+  "proposed_scenes": [
+    {
+      "scene": 1,
+      "asset": "pacer_scene_01.svg",
+      "start_s": 0,
+      "end_s": 11,
+      "on_screen": "WHO CAN APPROVE?",
+      "script_section": 1
+    },
+    {
+      "scene": 2,
+      "asset": "pacer_scene_02.svg",
+      "start_s": 11,
+      "end_s": 29,
+      "on_screen": "DRAFT ≠ PAY",
+      "script_section": 1
+    },
+    {
+      "scene": 3,
+      "asset": "pacer_scene_03.svg",
+      "start_s": 29,
+      "end_s": 44,
+      "on_screen": "FIVE TESTS BEFORE ACCESS",
+      "script_section": 1
+    },
+    {
+      "scene": 4,
+      "asset": "pacer_scene_04.svg",
+      "start_s": 44,
+      "end_s": 67,
+      "on_screen": "FICTIONAL CASE: 400 REQUESTS / MONTH",
+      "script_section": 2
+    },
+    {
+      "scene": 5,
+      "asset": "pacer_scene_05.svg",
+      "start_s": 67,
+      "end_s": 93,
+      "on_screen": "A GOOD DEMO IS NOT AUTHORIZATION",
+      "script_section": 2
+    },
+    {
+      "scene": 6,
+      "asset": "pacer_scene_06.svg",
+      "start_s": 93,
+      "end_s": 117,
+      "on_screen": "P: DEFINE THE JOB",
+      "script_section": 3
+    },
+    {
+      "scene": 7,
+      "asset": "pacer_scene_07.svg",
+      "start_s": 117,
+      "end_s": 144,
+      "on_screen": "SPECIFY INPUTS, OUTPUTS, EXCLUSIONS",
+      "script_section": 3
+    },
+    {
+      "scene": 8,
+      "asset": "pacer_scene_08.svg",
+      "start_s": 144,
+      "end_s": 175,
+      "on_screen": "A: LEAST PRIVILEGE",
+      "script_section": 4
+    },
+    {
+      "scene": 9,
+      "asset": "pacer_scene_09.svg",
+      "start_s": 175,
+      "end_s": 209,
+      "on_screen": "THE MODEL DOES NOT AUTHORIZE ITSELF",
+      "script_section": 4
+    },
+    {
+      "scene": 10,
+      "asset": "pacer_scene_10.svg",
+      "start_s": 209,
+      "end_s": 234,
+      "on_screen": "C: BIND APPROVAL TO THE ACTION",
+      "script_section": 5
+    },
+    {
+      "scene": 11,
+      "asset": "pacer_scene_11.svg",
+      "start_s": 234,
+      "end_s": 268,
+      "on_screen": "CHANGED DETAILS? APPROVAL EXPIRES",
+      "script_section": 5
+    },
+    {
+      "scene": 12,
+      "asset": "pacer_scene_12.svg",
+      "start_s": 268,
+      "end_s": 293,
+      "on_screen": "E: TEST FAILURE PATHS",
+      "script_section": 6
+    },
+    {
+      "scene": 13,
+      "asset": "pacer_scene_13.svg",
+      "start_s": 293,
+      "end_s": 324,
+      "on_screen": "THE AGENT CANNOT EDIT THE LOG",
+      "script_section": 6
+    },
+    {
+      "scene": 14,
+      "asset": "pacer_scene_14.svg",
+      "start_s": 324,
+      "end_s": 347,
+      "on_screen": "INVOICE TEXT IS NOT AN ORDER",
+      "script_section": 7
+    },
+    {
+      "scene": 15,
+      "asset": "pacer_scene_15.svg",
+      "start_s": 347,
+      "end_s": 377,
+      "on_screen": "THREE TESTS. THREE BLOCKS.",
+      "script_section": 7
+    },
+    {
+      "scene": 16,
+      "asset": "pacer_scene_16.svg",
+      "start_s": 377,
+      "end_s": 400,
+      "on_screen": "R: TEST THE STOP BUTTON",
+      "script_section": 8
+    },
+    {
+      "scene": 17,
+      "asset": "pacer_scene_17.svg",
+      "start_s": 400,
+      "end_s": 422,
+      "on_screen": "STOP → RECOVER → REVIEW",
+      "script_section": 8
+    },
+    {
+      "scene": 18,
+      "asset": "pacer_scene_18.svg",
+      "start_s": 422,
+      "end_s": 445,
+      "on_screen": "FIVE GATES. ONE DECISION.",
+      "script_section": 9
+    },
+    {
+      "scene": 19,
+      "asset": "pacer_scene_19.svg",
+      "start_s": 445,
+      "end_s": 471,
+      "on_screen": "HOURS SAVED ≠ CASH SAVED",
+      "script_section": 9
+    },
+    {
+      "scene": 20,
+      "asset": "pacer_scene_20.svg",
+      "start_s": 471,
+      "end_s": 513,
+      "on_screen": "START NARROW. EXPAND ON EVIDENCE.",
+      "script_section": 10
+    },
+    {
+      "scene": 21,
+      "asset": "pacer_scene_21.svg",
+      "start_s": 513,
+      "end_s": 538,
+      "on_screen": "ASK FOR PROOF, NOT A DEMO",
+      "script_section": 11
+    },
+    {
+      "scene": 22,
+      "asset": "pacer_scene_22.svg",
+      "start_s": 538,
+      "end_s": 570,
+      "on_screen": "P-A-C-E-R | PRACTICAL AI BUSINESS SYSTEMS",
+      "script_section": 11
+    }
+  ],
+  "release_gates": {
+    "real_narration_recording": false,
+    "manual_full_listening": false,
+    "caption_sync": false,
+    "editorial_approval": false,
+    "public_upload_permitted": false
+  },
+  "paid_spend_usd": 0
+}
