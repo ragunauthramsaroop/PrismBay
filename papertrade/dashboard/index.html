@@ -210,6 +210,28 @@
 
       <div class="section-view" id="view-market"><div class="section-grid"><article class="panel"><div class="panel-heading"><div><div class="panel-kicker">INDICATIVE SPOT</div><h2>GOLD / USD market watch</h2><p>Indicative gold quote checked approximately every 60 seconds</p></div></div><div class="market-hero"><span class="small-muted">LATEST gold QUOTE</span><div id="marketHeroPrice" class="market-hero-price">—</div><span id="marketQuoteTime" class="small-muted">Waiting for market response</span></div><div class="facts-grid"><div><span>Best bid</span><strong id="bestBid">—</strong></div><div><span>Best ask</span><strong id="bestAsk">—</strong></div><div><span>Assumed bid / ask spread</span><strong id="spread">—</strong></div><div><span>Quote source</span><strong>XAUS indicative gold data</strong></div></div></article><article class="panel"><div class="panel-heading"><div><div class="panel-kicker">PRICE SERIES</div><h2>Daily gold price action</h2><p>Recorded five-minute gold chart closes</p></div></div><div class="chart-wrap" id="marketChart"></div></article></div></div>
       <div class="section-view" id="view-strategies">
+        <article class="panel agent-status-panel">
+          <div class="panel-heading">
+            <div><div class="panel-kicker">AUTOMATED BACKEND RESEARCH · XAU/USD</div><h2>Gold research agents</h2>
+              <p>Seven research workers re-evaluate recorded gold prices every three hours. The GitHub jobs stop between runs.</p></div>
+            <a class="text-button" id="agentWorkflowLink" href="https://github.com/ragunauthramsaroop/PrismBay/actions/workflows/gold-agent-swarm.yml" target="_blank" rel="noopener">Open backend runs ↗</a>
+          </div>
+          <div class="agent-summary-top">
+            <div><span class="agent-label">MOST RECENT BACKEND CHECK</span><strong id="agentOverall">Checking latest run…</strong>
+              <small id="agentLastRun">Loading public GitHub Actions results</small></div>
+            <div><span class="agent-label">RESEARCH AUTOMATION</span><strong>Every 3 hours</strong>
+              <small>Gold only, virtual research, no real orders</small></div>
+            <div><span class="agent-label">RETAINED RESEARCH</span><strong>Rolling reports</strong>
+              <small>30-day artifacts and Actions cache memory</small></div>
+          </div>
+          <div class="agent-list">
+            <span>Market Data Sentinel</span><span>Intraday Trend Analyst</span>
+            <span>Breakout Analyst</span><span>Prediction Researcher</span>
+            <span>Daily Gold Trend Analyst</span><span>Cost and Risk Auditor</span>
+            <span>Independent Evaluator</span>
+          </div>
+          <p class="agent-status-note">These agents are scheduled software research roles, not continuously running autonomous language models. They retrain statistical models on observed prices and compare held-out historical outcomes. Real capital deployment requires a separate authorization.</p>
+        </article>
         <div class="panel">
           <div class="panel-heading">
             <div><div class="panel-kicker">GOLD RESEARCH · XAU/USD ONLY</div>
