@@ -41,7 +41,7 @@ jobs:
           const api=fs.readFileSync('papertrade/dashboard/api/status.js','utf8');
           const html=fs.readFileSync('papertrade/dashboard/index.html','utf8');
           const live=fs.readFileSync('papertrade/dashboard/live-core.js','utf8');
-          if(!html.includes('PAPER') || !api.includes("realOrders: 0"))process.exit(1);
+          if(!html.includes('PAPER') || !/realOrders:\s*0/.test(api))process.exit(1);
           if(/\/orders|privateKey|apiSecret|placeOrder|withdrawalKey/.test(api+live))process.exit(1);
           if(!html.includes('id="view-live"') || !html.includes('live-runtime.js'))process.exit(1);
           if(!html.includes('XAU/USD'))process.exit(1);
