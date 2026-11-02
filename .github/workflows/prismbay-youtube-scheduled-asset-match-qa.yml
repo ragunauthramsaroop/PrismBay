@@ -1,0 +1,30 @@
+name: PrismBay YouTube Scheduled Media Identity Gate
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/prismbay-youtube-scheduled-asset-match-qa.yml'
+      - 'scripts/youtube_scheduled_asset_match.py'
+      - 'tests/test_youtube_scheduled_asset_match.py'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate-read-only-asset-identity-tool:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify syntax and all identity-gate regressions
+        run: |
+          python3 -m py_compile scripts/youtube_scheduled_asset_match.py
+          python3 -m unittest discover -s tests -p 'test_youtube_scheduled_asset_match.py' -v
+      - name: Keep all publication gates closed
+        run: |
+          echo 'No media URLs or draft media are embedded in this workflow.' >> "$GITHUB_STEP_SUMMARY"
+          echo 'Exact-byte comparison requires locally supplied private scheduled and approved files.' >> "$GITHUB_STEP_SUMMARY"
+          echo 'No upload, schedule, publication, spending or channel change is performed.' >> "$GITHUB_STEP_SUMMARY"
+          echo 'Sole target channel: UCw2hs85TzIpdKwJtG-BSxzQ.' >> "$GITHUB_STEP_SUMMARY"
