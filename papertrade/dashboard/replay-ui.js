@@ -26,7 +26,7 @@ function stop(){if(timer){clearInterval(timer);timer=null;}if(session)session.pa
 async function load(){
   stop();loading=true;session=null;lastDataset=null;eventsRendered=0;buttonState();
   const hours=Number($('simPeriod').value);
-  set('simDatasetStatus','Retrieving actual Coinbase XAU/USD 5-five-minute prices...');
+  set('simDatasetStatus','Retrieving actual XAUS XAU/USD five-minute prices...');
   set('simDatasetDetail','Genuine historical prices. Every virtual transaction is hypothetical and includes estimated trading costs.');
   set('simDecision','Waiting for verified price history');
   set('simProgressText','Loading '+hours+' historical hours');
