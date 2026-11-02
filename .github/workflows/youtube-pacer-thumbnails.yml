@@ -1,0 +1,58 @@
+name: PrismBay PACER thumbnail render and validation
+on:
+  push:
+    paths:
+      - 'youtube-growth/production/pacer-thumbnail-variants/**'
+      - '.github/workflows/youtube-pacer-thumbnails.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  original-thumbnails:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install free vector renderer
+        run: python -m pip install --disable-pip-version-check cairosvg pillow
+      - name: Validate exact channel, originality assets, dimensions and render PNG
+        run: |
+          python - <<'PY'
+          import json, pathlib, xml.etree.ElementTree as ET
+          from PIL import Image
+          import cairosvg
+          root = pathlib.Path('youtube-growth/production/pacer-thumbnail-variants')
+          manifest = json.loads((root/'manifest.json').read_text())
+          assert manifest['channel_id'] == 'UCw2hs85TzIpdKwJtG-BSxzQ'
+          assert manifest['handle'] == '@PrismBayAI'
+          assert manifest['metricool_brand_id'] == '6945443'
+          assert manifest['paid_spend_usd'] == 0
+          assert not manifest['approval']['public_upload_permitted']
+          assert len(manifest['variants']) == 3
+          names = set()
+          for v in manifest['variants']:
+              p = root/v['file']
+              assert p.suffix == '.svg' and p.name not in names
+              names.add(p.name)
+              tree = ET.parse(p)
+              svg = tree.getroot()
+              assert svg.attrib.get('width') == '1280'
+              assert svg.attrib.get('height') == '720'
+              assert svg.attrib.get('viewBox') == '0 0 1280 720'
+              assert 'PRISMBAY AI' in p.read_text()
+              out = root/(p.stem+'.png')
+              cairosvg.svg2png(url=str(p),write_to=str(out),output_width=1280,output_height=720)
+              with Image.open(out) as im:
+                  assert im.size == (1280,720)
+              print('PASS', p.name, '=>', out.name)
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: prismbay-pacer-original-thumbnail-review-only
+          path: |
+            youtube-growth/production/pacer-thumbnail-variants/*.svg
+            youtube-growth/production/pacer-thumbnail-variants/*.png
+            youtube-growth/production/pacer-thumbnail-variants/manifest.json
+          retention-days: 14
