@@ -37,6 +37,7 @@ jobs:
           node --check papertrade/dashboard/swing-report.cjs
           node --check papertrade/dashboard/agents/research-swarm.cjs
           node --check papertrade/dashboard/agents/run-swarm.cjs
+          node --check papertrade/dashboard/api/agents.js
       - name: Test read-only dashboard API
         run: node --test papertrade/dashboard/tests/*.test.cjs
       - name: Verify genuine XAU spot and gold chart replay end to end
