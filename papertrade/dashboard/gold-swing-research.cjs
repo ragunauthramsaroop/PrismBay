@@ -1,6 +1,6 @@
 /* XAU/USD multi-year daily swing research. Read-only, not a trading adapter.
- * Chronological holdouts, end-of-training model selection, close-to-next-open signals.
- * Indicative Yahoo gold chart proxy supplied through XAUS, NOT executable broker prices.
+ * Chronological holdouts, end-of-training selection, prior-close to later-close observations.
+ * Indicative XAUS daily gold closes WITHOUT daily opening prices or dealer fills.
  */
 'use strict';
 const SYMBOL='XAU/USD',DAY=86400000;
@@ -18,12 +18,12 @@ const avg=a=>a.reduce((x,y)=>x+y,0)/a.length;
 function validate(records){
  if(!Array.isArray(records)||records.length<CFG.minTrain+CFG.testBars*2)
   throw Error('Not enough multi-year XAU/USD daily candles for held-out research');
- const bars=records.map(r=>({time:Number(r.time),open:Number(r.open),close:Number(r.close),
+ const bars=records.map(r=>({time:Number(r.time),close:Number(r.close),
   high:Number(r.high),low:Number(r.low)}));
  for(let i=0;i<bars.length;i++){
   const b=bars[i],p=bars[i-1];
-  if(!Object.values(b).every(finite)||b.low<=0||b.open<=0||b.close<=0||
-    b.high<Math.max(b.open,b.close,b.low)||b.low>Math.min(b.open,b.close)||
+  if(!Object.values(b).every(finite)||b.low<=0||b.close<=0||
+    b.high<Math.max(b.close,b.low)||b.low>b.close||
     (p&&b.time<=p.time))throw Error('Invalid or unsorted daily XAU chart');
  }
  return bars;
@@ -111,19 +111,19 @@ function evaluate(bars,start,end,strategy,model,extraCost=1){
   units=0;paid=0;entry=0;
  }
  for(let i=start;i<end;i++){
-  const b=bars[i],bid=b.open*(1-spread);
+  const b=bars[i],bid=b.close*(1-spread);
   const equity=cash+units*bid;
   peak=Math.max(peak,equity);maxDD=Math.max(maxDD,(peak-equity)/peak);
   if((peak-equity)/peak>=CFG.equityHalt){
-   exit(b.open);halted=true;
+   exit(b.close);halted=true;
   }
-  if(units&&bid<entry*(1-CFG.stopPct))exit(b.open);
+  if(units&&bid<entry*(1-CFG.stopPct))exit(b.close);
   // No new order across an extended market-data gap.
   const wants=!halted&&!gap(bars,i)&&desired(strategy,bars,i-1,units>0,model);
-  if(units&&!wants&&!gap(bars,i))exit(b.open);
+  if(units&&!wants&&!gap(bars,i))exit(b.close);
   else if(!units&&wants&&!halted){
    const budget=Math.min(cash,equity*CFG.allocation);
-   const price=b.open*(1+spread+slip);
+   const price=b.close*(1+spread+slip);
    const qty=budget/(price*(1+fee));
    if(qty>0&&qty*price*(1+fee)<=cash+1e-7){
     const charge=qty*price*fee;cash-=qty*price+charge;
@@ -165,7 +165,7 @@ function walkForward(input){
  const selected=Object.fromEntries(STRATEGIES.map(c=>[c.id,folds.filter(f=>f.selection===c.id).length]));
  return {
   symbol:SYMBOL,mode:'RESEARCH_ONLY',timeframe:'1d',
-  source:'XAUS public five-year Yahoo gold chart proxy, not broker executable quotes',
+  source:'XAUS public five-year daily gold close/range history, no open or dealer quotes',
   generatedAt:new Date().toISOString(),
   data:{bars:bars.length,first:new Date(bars[0].time).toISOString(),
     last:new Date(bars[bars.length-1].time).toISOString(),
@@ -173,15 +173,16 @@ function walkForward(input){
   methods:{trainBars:CFG.minTrain,testBars:CFG.testBars,trainingDaysApprox:2*252,
     candidates:STRATEGIES.map(x=>x.id),maxAllocationPct:CFG.allocation*100,
     estimatedCostBpsPerSide:(CFG.fee+CFG.slippage+CFG.halfSpread)*10000,
+    execution:'Hypothetical next-daily-close proxy, NOT next open or executable close',
     doubleCostStress:true,noLookahead:true,leverage:0},
   outOfSample:{folds:folds.length,meanReturnPct:mean('testReturnPct'),
     meanDoubleCostPct:mean('doubleCostReturnPct'),
     meanFixedTrendPct:mean('trendBenchmarkReturnPct'),
     positiveFolds:folds.filter(f=>f.testReturnPct>0).length,
     totalVirtualOrders:testOrders,maxFoldDrawdownPct:Math.max(...folds.map(x=>x.maxDrawdownPct)),
-    note:'Each held-out 63-daily-bar test resets $10,000 virtual equity. Do not compound mean returns.'},
+    note:'Prior-close signal, hypothetical following daily-close valuation only. No actual daily open or executable closing quote. Each held-out 63-bar test resets $10,000. Do not compound mean returns.'},
   selectionCounts:selected,folds,
-  promotion:{status:'NOT_APPROVED',reason:'Historic proxy-only prices. Requires broker-specific tick/bid/ask, financing, multi-regime forward evidence, and owner authorization.',realOrders:0}
+  promotion:{status:'NOT_APPROVED',reason:'Five-year daily close-to-close proxy is not executable. Missing daily open, dealer bid/ask and financing. Needs independent forward evidence and explicit owner authorization.',realOrders:0}
  };
 }
 module.exports={CFG,STRATEGIES,validate,features,train,prob,desired,evaluate,walkForward};
