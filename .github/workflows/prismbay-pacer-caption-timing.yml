@@ -1,0 +1,23 @@
+name: PrismBay P-A-C-E-R provisional caption QA
+on:
+  push:
+    paths:
+      - 'youtube-growth/tools/pacer_provisional_captions.js'
+      - 'youtube-growth/production/2026-11-02-pacer-sentence-aligned-voiceover-cues.json'
+      - 'youtube-growth/production/2026-11-02-pacer-provisional-captions.srt'
+      - '.github/workflows/prismbay-pacer-caption-timing.yml'
+  workflow_dispatch:
+jobs:
+  validate-private-captions:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Validate exact script, timing, captions and release status
+        run: node youtube-growth/tools/pacer_provisional_captions.js --check
+      - name: Confirm no media publication
+        run: echo 'Caption timing scaffold only. No uploads, publishing, or paid services.'
