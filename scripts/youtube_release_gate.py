@@ -91,6 +91,11 @@ def main():
     check(duration > (10 if a.format == "shorts" else 60), "Video duration invalid")
     check(cues[0][0] <= 0.15, "Late first caption")
     check(cues[-1][1] <= duration + 0.12, "Captions exceed video")
+    # Prevent a short or long-form export from passing with only opening captions.
+    # End cards may be silent, so allow a limited uncaptioned tail.
+    max_tail = 8.0 if a.format == "shorts" else 30.0
+    check(duration - cues[-1][1] <= max_tail,
+          f"Uncaptioned tail exceeds {max_tail:g} seconds")
     max_wpm = 0
     for i, (start, end, words) in enumerate(cues):
         span = end - start
