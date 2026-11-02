@@ -33,6 +33,8 @@ jobs:
           node --check papertrade/dashboard/strategy-report.cjs
           node --check papertrade/dashboard/strategy-view.js
           node --check papertrade/dashboard/api/research.js
+          node --check papertrade/dashboard/gold-swing-research.cjs
+          node --check papertrade/dashboard/swing-report.cjs
       - name: Test read-only dashboard API
         run: node --test papertrade/dashboard/tests/*.test.cjs
       - name: Verify genuine XAU spot and gold chart replay end to end
@@ -41,6 +43,9 @@ jobs:
       - name: Validate real gold walk-forward with historical chart proxy
         timeout-minutes: 2
         run: node papertrade/dashboard/strategy-report.cjs
+      - name: Validate multi-year daily XAU strategy on real recorded prices
+        timeout-minutes: 2
+        run: node papertrade/dashboard/swing-report.cjs
       - name: Enforce no authenticated trading interfaces
         run: |
           node - <<'JS'
