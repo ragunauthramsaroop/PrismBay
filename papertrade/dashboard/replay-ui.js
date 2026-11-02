@@ -41,11 +41,27 @@ async function load(){
       throw Error('Insufficient source candle integrity');
     lastDataset=data;
     session=Replay.create(data.bars,{source:data.source});
+    // This preview is a separate deterministic historical test. It does not
+    // modify the live browser paper account or the playable replay session.
+    try{
+      const preview=Replay.create(data.bars,{source:data.source});
+      Replay.advance(preview,Math.min(2000,preview.bars.length));
+      const result=Replay.metrics(preview);
+      set('goldQuickPnl',(result.pnl<0?'−':'')+money(Math.abs(result.pnl))+' virtual P/L');
+      const summary=$('goldQuickPnl');
+      if(summary){summary.classList.toggle('negative',result.pnl<0);summary.classList.toggle('positive',result.pnl>0);}
+      set('goldQuickDetail',result.buys+' virtual BUY, '+result.sells+' virtual SELL · estimated fees '+money(result.fees)+' · 6 market-hour replay');
+    }catch(err){
+      set('goldQuickPnl','Historical preview unavailable');
+      set('goldQuickDetail','Open Gold Simulation to inspect a replay.');
+    }
     set('simDatasetStatus','Real XAU historical candles loaded · '+data.candleCount+' minutes · '+data.coveragePct+'% coverage');
     set('simDatasetDetail','Recorded prices: '+time(data.bars[0].time)+' to '+time(data.bars[data.bars.length-1].time)+'. All fills are estimated, not actual broker executions.');
     render();
     if(new URLSearchParams(location.search).get('tab')==='simulation')play();
   }catch(e){
+    set('goldQuickPnl','Historical preview unavailable');
+    set('goldQuickDetail','Gold source unavailable. Retry using the Gold Simulation tab.');
     set('simDatasetStatus','Historical replay unavailable');
     set('simDatasetDetail',String(e.message||e)+'. Click Restart to retry or try another period.');
     set('simProgressText','No transactions generated');
