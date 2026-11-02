@@ -49,6 +49,12 @@ async function update(){
     if(!marketReady){
       state.interruption=true;
       state.lastDecision='Gold quote or five-minute history is not ready. No virtual order generated.';
+    }else if(state.interruption&&state.events.length===0&&state.lastDecision==='Gold quote or five-minute history is not ready. No virtual order generated.'){
+      // Initial indicator warm-up is not a trading-session outage.
+      state.interruption=false;
+      state.lastBar=bars.at(-1)?.time??null;
+      state.lastQuoteAt=quote.at;
+      state.lastDecision='Gold indicator initialized. First new five-minute bar will be evaluated.';
     }else if(state.events.length&&Date.now()-state.updatedAt>900000){
       state.interruption=true;
       state.lastDecision='Session was inactive. Review missing data before resuming virtual trades.';
@@ -95,7 +101,8 @@ function render(){
   const fresh=quote&&Core.fresh(quote,Date.now());
   const mark=fresh?Core.mark(state,quote):null;
   const pnl=mark?mark.equity-state.startingCash:null;
-  const stateLabel=state.halted?'RISK HALTED':state.paused?'PAUSED':state.interruption?'SOURCE GAP':marketReady?'PAPER ACTIVE':'MARKET WAITING';
+  const warming=sourceStatus==='GOLD INDICATOR WARM-UP';
+  const stateLabel=state.halted?'RISK HALTED':state.paused?'PAUSED':warming?'INDICATOR WARM-UP':state.interruption?'SOURCE GAP':marketReady?'GOLD PAPER ACTIVE':'MARKET WAITING';
   set('liveConnection',sourceStatus);set('liveStatus',stateLabel);
   set('liveBalance',mark?usd(mark.equity):usd(state.cash)+' virtual cash (mark unavailable)');
   set('liveProfit',pnl===null?'—':usd(pnl));
@@ -114,7 +121,8 @@ function render(){
   set('liveMiniPnl',pnl===null?'Gold mark unavailable':usd(pnl)+' virtual P/L');
   set('liveMiniSource',sourceStatus);
   set('liveTicks',String(state.curve.length));
-  const warning=state.halted?'Paper account halted by a risk limit.':
+  const warning=warming?'Gold spot prices are visible. A fresh 21-bar five-minute signal history is required before virtual trading begins.':
+    state.halted?'Paper account halted by a risk limit.':
     state.paused?'Gold simulation paused. No virtual decisions.':
     state.interruption?'Indicative gold feed interruption. Review and resume when fresh, no missed trades backfilled.':
     marketReady?'Gold indicative spot and five-minute signal data available. Virtual fills use ASSUMED spread, not dealer quotes.':
