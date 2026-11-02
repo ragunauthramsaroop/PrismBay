@@ -1,0 +1,283 @@
+{
+  "schema": "prismbay-original-longform-storyboard-v1",
+  "channel_id": "UCw2hs85TzIpdKwJtG-BSxzQ",
+  "handle": "@PrismBayAI",
+  "metricool_brand_id": "6945443",
+  "episode_id": "PB-YT-LF-2026-11-01-PACER",
+  "source_master": "youtube-growth/production/2026-11-01-ai-agent-pacer-permission-gates-longform-master.md",
+  "status": "STORYBOARD_ONLY_NOT_RENDERED_NOT_APPROVED_NOT_SCHEDULED",
+  "originality": "Original vector diagrams, fictional purchasing case, original spoken narration. No stock compilations or copied screenshots.",
+  "production": {
+    "resolution": "1920x1080",
+    "fps": 30,
+    "target_duration_seconds": 570,
+    "aspect_ratio": "16:9",
+    "narration": "Use verified original master script; time-align each scene to measured narration, not synthetic timestamp claims.",
+    "captions": "Full manually reviewed SRT; no long silent gaps, captions inside safe margins; preserve technical terms.",
+    "sound": "Original or properly licensed subtle bed, -18 LUFS speech-target review, no paid assets.",
+    "visual_safe_area": "Keep essential text at least 140 px from left/right and 120 px from top/bottom, then verify actual player overlays.",
+    "asset_sources": [
+      "Programmatic SVG/Pillow vector graphics",
+      "Original animated flowcharts",
+      "Original hypothetical purchase order graphics"
+    ],
+    "disclosures": [
+      "HYPOTHETICAL case when 400 requests appear",
+      "P-A-C-E-R is an original teaching framework",
+      "NIST design tenets are proposals, not certification",
+      "No real customer savings or vendor endorsement"
+    ]
+  },
+  "title_candidates": [
+    "Before You Give an AI Agent Access, Run These 5 Tests",
+    "Your AI Agent Wants to Approve Purchases. Who Holds the Stop Button?",
+    "AI Agent Procurement: The Permission Test Most Demos Skip"
+  ],
+  "thumbnail_variants": [
+    {
+      "concept": "ACCESS DENIED?",
+      "visual": "Large lock blocks agent icon from a purchase-order payment button",
+      "dominant_idea": "Permission boundary"
+    },
+    {
+      "concept": "AGENT APPROVAL",
+      "visual": "Large check beside warning triangle and five-gate strip",
+      "dominant_idea": "Business readiness"
+    },
+    {
+      "concept": "WHO APPROVES?",
+      "visual": "PROPOSE, APPROVE, EXECUTE blocks with middle block highlighted",
+      "dominant_idea": "Independent authorization"
+    }
+  ],
+  "scenes": [
+    {
+      "start_s": 0,
+      "end_s": 12,
+      "shot": "Permission boundary",
+      "visual": "Large original agent icon approaches locked PAY button; hard cut from black; no intro logo.",
+      "on_screen": "WHO CAN APPROVE?",
+      "editorial": "No claim about a real vendor."
+    },
+    {
+      "start_s": 12,
+      "end_s": 32,
+      "shot": "Distinct permissions",
+      "visual": "Four icon cards enter sequentially: DRAFT, SEND, CHANGE BANK, PAY; last three lock.",
+      "on_screen": "DRAFT ≠ PAY",
+      "editorial": "Graphic uses generic fictional workflow."
+    },
+    {
+      "start_s": 32,
+      "end_s": 48,
+      "shot": "Five-gate promise",
+      "visual": "P-A-C-E-R letters enter one at a time around a purchase-order card.",
+      "on_screen": "FIVE TESTS BEFORE ACCESS",
+      "editorial": "P-A-C-E-R is PrismBay's original teaching framework."
+    },
+    {
+      "start_s": 48,
+      "end_s": 72,
+      "shot": "Fictional operations case",
+      "visual": "Original dashboard with 400 monthly purchase requests, sample parts and supplier cards.",
+      "on_screen": "FICTIONAL CASE: 400 REQUESTS / MONTH",
+      "editorial": "Show HYPOTHETICAL label continuously."
+    },
+    {
+      "start_s": 72,
+      "end_s": 100,
+      "shot": "Successful demo versus evidence",
+      "visual": "Split screen: green draft generated; red unknown approval fields.",
+      "on_screen": "A GOOD DEMO IS NOT AUTHORIZATION",
+      "editorial": "No real customer or vendor implied."
+    },
+    {
+      "start_s": 100,
+      "end_s": 125,
+      "shot": "Gate 1 Purpose",
+      "visual": "Animated task-scope box, one approved catalog task; crossed-out payment release.",
+      "on_screen": "P: DEFINE THE JOB",
+      "editorial": "Illustrative limits, not legal advice."
+    },
+    {
+      "start_s": 125,
+      "end_s": 153,
+      "shot": "Purpose acceptance criteria",
+      "visual": "Inputs → draft → human owner; exclusion list for bank edits and vendor creation.",
+      "on_screen": "SPECIFY INPUTS, OUTPUTS, EXCLUSIONS",
+      "editorial": "Use original icons only."
+    },
+    {
+      "start_s": 153,
+      "end_s": 179,
+      "shot": "Gate 2 Authority",
+      "visual": "Two permission columns READ/DRAFT vs EDIT/PAY; narrow green arrows only.",
+      "on_screen": "A: LEAST PRIVILEGE",
+      "editorial": "NIST 2026 design tenets are proposals, not certification."
+    },
+    {
+      "start_s": 179,
+      "end_s": 208,
+      "shot": "Independent policy decision",
+      "visual": "Agent proposes a tool call; separate policy engine denies bank change.",
+      "on_screen": "THE MODEL DOES NOT AUTHORIZE ITSELF",
+      "editorial": "Do not imply model output equals a valid approval."
+    },
+    {
+      "start_s": 208,
+      "end_s": 232,
+      "shot": "Gate 3 Controls",
+      "visual": "PROPOSE → HUMAN APPROVAL → EXECUTE with independently checked fields.",
+      "on_screen": "C: BIND APPROVAL TO THE ACTION",
+      "editorial": "Hypothetical implementation."
+    },
+    {
+      "start_s": 232,
+      "end_s": 265,
+      "shot": "Approval integrity",
+      "visual": "Amount, supplier, currency and expiry fields shown; altered supplier bank field turns red.",
+      "on_screen": "CHANGED DETAILS? APPROVAL EXPIRES",
+      "editorial": "Original example, no financial account numbers."
+    },
+    {
+      "start_s": 265,
+      "end_s": 290,
+      "shot": "Gate 4 Evidence",
+      "visual": "Seven-row acceptance matrix: normal, missing, duplicate, limit, bank edit, injected text, outage.",
+      "on_screen": "E: TEST FAILURE PATHS",
+      "editorial": "Results marked TEST CASE, not real measured results."
+    },
+    {
+      "start_s": 290,
+      "end_s": 322,
+      "shot": "Independent audit evidence",
+      "visual": "Separate immutable-style log receives proposed action, policy verdict, approver, result.",
+      "on_screen": "THE AGENT CANNOT EDIT THE LOG",
+      "editorial": "Describe tamper-evident as design goal, not proven implementation."
+    },
+    {
+      "start_s": 322,
+      "end_s": 346,
+      "shot": "Untrusted PDF injection",
+      "visual": "Fictional invoice with small malicious instruction line; large overlay says DATA, NOT AUTHORITY.",
+      "on_screen": "INVOICE TEXT IS NOT AN ORDER",
+      "editorial": "Do not copy third-party documents."
+    },
+    {
+      "start_s": 346,
+      "end_s": 378,
+      "shot": "Three abuse-case rejections",
+      "visual": "Duplicate order rejected; bank change denied; missing approval blocked, each with distinct visual.",
+      "on_screen": "THREE TESTS. THREE BLOCKS.",
+      "editorial": "Clearly label outcomes as expected acceptance criteria."
+    },
+    {
+      "start_s": 378,
+      "end_s": 405,
+      "shot": "Gate 5 Reversal",
+      "visual": "Stop button cuts agent permission path, rollback arrow for reversible order state.",
+      "on_screen": "R: TEST THE STOP BUTTON",
+      "editorial": "Some payments are not reversible."
+    },
+    {
+      "start_s": 405,
+      "end_s": 430,
+      "shot": "Recovery drill",
+      "visual": "Original timeline of revoke access, preserve evidence, restore state, review.",
+      "on_screen": "STOP → RECOVER → REVIEW",
+      "editorial": "Use hypothetical recovery steps."
+    },
+    {
+      "start_s": 430,
+      "end_s": 456,
+      "shot": "Five-gate scorecard",
+      "visual": "P/A/C/E/R matrix each gate shows pass criterion and owner; no numeric claims.",
+      "on_screen": "FIVE GATES. ONE DECISION.",
+      "editorial": "Framework is not a NIST/OWASP certification."
+    },
+    {
+      "start_s": 456,
+      "end_s": 486,
+      "shot": "Economics separate from control",
+      "visual": "Two scorecards side by side: accepted outputs, review minutes, exceptions vs actual cash change.",
+      "on_screen": "HOURS SAVED ≠ CASH SAVED",
+      "editorial": "No invented ROI or customer outcome."
+    },
+    {
+      "start_s": 486,
+      "end_s": 510,
+      "shot": "Staged rollout",
+      "visual": "Three rungs: READ-ONLY, DRAFT + APPROVE, LIMITED EXECUTION.",
+      "on_screen": "START NARROW. EXPAND ON EVIDENCE.",
+      "editorial": "Do not imply any system is live."
+    },
+    {
+      "start_s": 510,
+      "end_s": 536,
+      "shot": "Vendor meeting checklist",
+      "visual": "Five distinct questions appear one by one; deny, exact approval, duplicate, log, stop.",
+      "on_screen": "ASK FOR PROOF, NOT A DEMO",
+      "editorial": "Source guidance NIST/OWASP."
+    },
+    {
+      "start_s": 536,
+      "end_s": 570,
+      "shot": "Decision and channel promise",
+      "visual": "P-A-C-E-R recap, then calm PrismBay AI title card and one CTA after payoff.",
+      "on_screen": "P-A-C-E-R | PRACTICAL AI BUSINESS SYSTEMS",
+      "editorial": "No exaggerated safety or performance promise."
+    }
+  ],
+  "experiment": {
+    "hypothesis": "Specific procurement permission tests will attract operators and earn stronger qualified watch time than generic AI safety lists.",
+    "audience": "Founders, procurement directors, CFOs, operations owners",
+    "format": "Original long-form educational case",
+    "hook": "High-stakes authorization distinction in first 2 seconds",
+    "cta": "Follow PrismBay AI for practical measurable AI business systems after value delivered",
+    "publish_time": "Not scheduled; choose only after release checks and queue review",
+    "evaluation": [
+      "6h",
+      "24h",
+      "72h",
+      "7d"
+    ],
+    "metrics": [
+      "impressions",
+      "CTR",
+      "30-second retention",
+      "watch minutes",
+      "average view duration",
+      "subscribers gained",
+      "traffic sources"
+    ],
+    "decision_rules": "Use measured channel baselines and sample sufficiency. Do not classify SCALE without actual video-level data."
+  },
+  "sources": [
+    {
+      "url": "https://www.nist.gov/blogs/cybersecurity-insights/design-tenets-agent-identity-management-systems",
+      "claim": "Proposed tenets for independent agent authorization, least privilege and auditability",
+      "date": "2026-10-27"
+    },
+    {
+      "url": "https://www.nist.gov/itl/ai-risk-management-framework",
+      "claim": "Voluntary organizational risk framework"
+    },
+    {
+      "url": "https://cheatsheetseries.owasp.org/cheatsheets/AI_Agent_Security_Cheat_Sheet.html",
+      "claim": "Practical agent security design and test guidance"
+    }
+  ],
+  "release_gates": {
+    "exact_channel": true,
+    "originality_review": false,
+    "full_narration_listening": false,
+    "rights_review": false,
+    "mobile_desktop_playback": false,
+    "caption_sync": false,
+    "editorial_approval": false,
+    "media_hash_match": false,
+    "public_upload_permitted": false
+  },
+  "paid_spend_usd": 0,
+  "notes": "Preproduction artifact only. Existing private ROI and monitoring Shorts retain release priority. Do not create a new Metricool draft, upload media, or represent this storyboard as a completed video."
+}
