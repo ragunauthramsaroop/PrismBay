@@ -1,7 +1,8 @@
 #!/usr/bin/env node
 /* PrismBay AI private caption timing scaffold. Estimates only, never audio-synced. */
-const fs = require("node:fs");
-const path = require("node:path");
+import fs from "node:fs";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
 function wrap(t){if(t.length<=40)return t;let w=t.split(" "),best=null;for(let i=1;i<w.length;i++){let a=w.slice(0,i).join(" "),b=w.slice(i).join(" ");if(a.length>40||b.length>40)continue;let score=Math.abs(a.length-b.length);if(!best||score<best.score)best={score,a,b};}if(!best)throw Error("No 40-character wrap: "+t);return best.a+"\n"+best.b;}
 function groups(text){
  const words=text.trim().split(/\s+/), out=[];let cur=[];
@@ -30,7 +31,7 @@ function makeSrt(data){
  if(last!==570000||seen.join(" ").replace(/\s+/g," ")!==data.scenes.map(s=>s.original_text).join(" ").replace(/\s+/g," "))throw Error("Timeline or transcript mismatch");
  return {srt:out.join("\n"),stats:{channel_id:data.channel_id,cues:idx,scenes:data.scenes.length,duration_s:last/1000,source_words:data.total_narration_words,max_cps:Number(Math.max(...report.map(x=>x.cps)).toFixed(2)),min_cue_s:Math.min(...report.map(x=>x.duration_ms))/1000,max_cue_s:Math.max(...report.map(x=>x.duration_ms))/1000,caption_status:"PROVISIONAL TIMING ONLY; NOT VERIFIED AGAINST RECORDED NARRATION",publish_permitted:false,paid_spend_usd:0}};
 }
-const root = path.resolve(__dirname,"../..");
+const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)),"../..");
 const source = path.join(root,"youtube-growth/production/2026-11-02-pacer-sentence-aligned-voiceover-cues.json");
 const output = path.join(root,"youtube-growth/production/2026-11-02-pacer-provisional-captions.srt");
 const data = JSON.parse(fs.readFileSync(source,"utf8"));
