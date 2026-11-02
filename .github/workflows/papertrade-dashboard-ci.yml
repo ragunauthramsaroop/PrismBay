@@ -43,6 +43,8 @@ jobs:
       - name: Validate real gold walk-forward with historical chart proxy
         timeout-minutes: 2
         run: node papertrade/dashboard/strategy-report.cjs
+      - name: Check actual gold long-range data coverage
+        run: node papertrade/dashboard/tests/long-gold-data-probe.cjs
       - name: Validate multi-year daily XAU strategy on real recorded prices
         timeout-minutes: 2
         run: node papertrade/dashboard/swing-report.cjs
