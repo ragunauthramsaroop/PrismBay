@@ -1,4 +1,4 @@
-/* Public gold-only dashboard status. Never mixes legacy BTC research with XAU. */
+/* Public gold-only dashboard status. Displays only XAU/USD gold market research. */
 'use strict';
 const {loadSpot,loadChart,SYMBOL}=require('../gold-data.cjs');
 const REPO='ragunauthramsaroop/PrismBay';
@@ -37,7 +37,7 @@ module.exports=async(req,res)=>{
       latest,recent:runs,testRuns:runs.slice(0,5),health:!latest?'UNAVAILABLE':
       latest.status!=='completed'?'RUNNING':latest.conclusion!=='success'?'FAILED':healthy?'HEALTHY':'STALE'
     },
-    dailySchedule:'Legacy BTC workflow retired; gold cloud scheduler not configured',
+    dailySchedule:'Daily XAU/USD gold paper research at 12:17 UTC (08:17 Guyana time)',
     market,
     priceHistory:chartBars.slice(-300).map(b=>({date:new Date(b.time).toISOString(),close:b.close})),
     portfolio:null,
