@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-11-02T21:56:51.260Z",
+  "updatedAt": "2026-11-03T07:16:47.913Z",
   "market": "US",
   "methodology": "Public-news attention, freshness, and short-form demonstration fit. This is not PrismBay sales data and is not a TikTok, Amazon, Google, or Bing product ranking.",
   "refreshTargetHours": 6,
@@ -8,11 +8,11 @@
     {
       "slug": "mattress-vacuum",
       "name": "Mattress Vacuum",
-      "signalScore": 91,
+      "signalScore": 88,
       "signalLabel": "high-attention",
       "evidence": {
-        "publicMentions": 109,
-        "mentionsLast7Days": 2,
+        "publicMentions": 108,
+        "mentionsLast7Days": 1,
         "mentionsLast30Days": 11,
         "sourcesAvailable": [
           "Google News",
@@ -56,11 +56,11 @@
     {
       "slug": "scrubber",
       "name": "5-in-1 Electric Spin Scrubber",
-      "signalScore": 89.5,
+      "signalScore": 83.5,
       "signalLabel": "high-attention",
       "evidence": {
-        "publicMentions": 85,
-        "mentionsLast7Days": 3,
+        "publicMentions": 86,
+        "mentionsLast7Days": 1,
         "mentionsLast30Days": 7,
         "sourcesAvailable": [
           "Google News",
@@ -104,12 +104,12 @@
     {
       "slug": "pressure-washer",
       "name": "Cordless Pressure Washer",
-      "signalScore": 78.5,
+      "signalScore": 77,
       "signalLabel": "high-attention",
       "evidence": {
-        "publicMentions": 104,
+        "publicMentions": 54,
         "mentionsLast7Days": 1,
-        "mentionsLast30Days": 4,
+        "mentionsLast30Days": 3,
         "sourcesAvailable": [
           "Google News",
           "Bing News"
@@ -141,10 +141,10 @@
           "url": "https://news.google.com/rss/articles/CBMid0FVX3lxTE1OVkM4ZWhzQmpyUlZ5Z3Jmc3pyel9STTVDZnF1VEdHdERlM21OcUt0UFlUTlVhZG5pUWhyS2hBRTdGZHRNUjhJWGhmQ01EZGZxSXZBcXVPT0Uweno4WXdwbzluUUJYeC1ySUNQTjJXVlE3Umo1YzVN?oc=5"
         },
         {
-          "title": "EGO’s Newest Pressure Washer is Made for Your Car - Pro Tool Reviews",
+          "title": "In a Decade of Testing Pressure Washers, These Are the Smallest, Most Powerful Models Yet - The New York Times",
           "source": "Google News",
-          "publishedAt": "2026-10-22T07:00:00.000Z",
-          "url": "https://news.google.com/rss/articles/CBMihwFBVV95cUxNRjZKSi00T1NneWpZcjNHb0pkR0l4VHN2RHlyUW84cXB6TmotQk9XTkJKQmdfb1lvdVl0aGZKQ1JaNVNPSFlBbEUxRTJxZ0hWTE1nS1NVcDBiSzhaUndRd3JSVk9FTTRlcURvY09BQ2NWYnIwdkJRNTlCZ0RnSmZ2SEtXb1Boem8?oc=5"
+          "publishedAt": "2026-06-05T07:00:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMickFVX3lxTE12V2hOQ2d1Z0xiSU0ySWNYbmpaS0ZaOC1oc3QzazB3WU5oRHcxV1B1RjNhdHFmckxHc0pEdlRFUGQtN2dkUWtoTHZiQWVWSi02ZV9xTElkQ0xTNWw1MjFnakpCT0pkUTliaWh1aGVWN0RUdw?oc=5"
         }
       ],
       "rank": 3
@@ -155,7 +155,7 @@
       "signalScore": 77,
       "signalLabel": "high-attention",
       "evidence": {
-        "publicMentions": 34,
+        "publicMentions": 33,
         "mentionsLast7Days": 0,
         "mentionsLast30Days": 7,
         "sourcesAvailable": [
