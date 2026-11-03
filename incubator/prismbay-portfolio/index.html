@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex,nofollow" />
+  <title>PrismBay Portfolio Lab | Internal development prototypes</title>
+  <meta name="description" content="Internal offline incubation workspace for experimental PrismBay business software ideas." />
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+ <header class="topbar">
+  <div class="brand"><div class="logo" aria-hidden="true">P</div><div><b>PrismBay</b><span>Product Portfolio Lab</span></div></div>
+  <div class="stage">DEVELOPMENT ONLY · NO PUBLIC SALES</div>
+ </header>
+ <main>
+  <section class="hero" aria-labelledby="hero-title">
+    <p class="eyebrow">PrismBay Cloud / Product incubation</p>
+    <h1 id="hero-title">19 products. One shared launch framework.</h1>
+    <p class="lede">An offline working catalogue of early product workflows. Explore a prototype, edit fictional sample data, and run a locally computed analysis. Nothing here is connected to billing, AI APIs, customer records, or live websites.</p>
+    <div class="stats"><div><strong id="total">19</strong><span>Portfolio workspaces</span></div><div><strong>0</strong><span>Enabled checkouts</span></div><div><strong>0</strong><span>External API calls</span></div></div>
+  </section>
+  <div class="columns">
+   <section class="sidebar" aria-labelledby="products-title">
+    <div class="sectionhead"><h2 id="products-title">Products</h2><span id="visible-count"></span></div>
+    <label for="search">Search products</label>
+    <input id="search" type="search" placeholder="Search by need, buyer or name" autocomplete="off" />
+    <label for="category">Business category</label>
+    <select id="category"><option value="">All categories</option></select>
+    <div id="products" class="product-list" aria-label="Choose a product"></div>
+   </section>
+   <section class="workspace" aria-labelledby="product-title">
+    <div class="workspace-header">
+     <div><p class="eyebrow" id="selected-category">Portfolio</p><h2 id="product-title">Choose a product</h2><p id="product-value" class="muted"></p></div>
+     <span class="chip" id="product-stage">Concept</span>
+    </div>
+    <div class="detail-grid"><div><small>Target buyer</small><p id="buyer"></p></div><div><small>Illustrative starting price</small><p id="price"></p></div><div><small>Upstream learning reference</small><p><a id="upstream" href="#" target="_blank" rel="noreferrer noopener">View template</a></p></div></div>
+    <div class="editor-title"><h3>Offline prototype</h3><span>Editable JSON input</span></div>
+    <p class="muted editor-help">All input stays in this browser tab. Use fictional data only. Each workflow produces a deterministic demonstration, not a trained AI response.</p>
+    <label class="sr-only" for="input">Prototype input</label>
+    <textarea id="input" spellcheck="false" rows="15"></textarea>
+    <div class="toolbar"><button id="run" class="primary" type="button">Run local prototype</button><button id="reset" class="secondary" type="button">Restore example</button><button id="export" class="secondary" type="button" disabled>Export result JSON</button></div>
+    <div id="error" role="alert" class="error" hidden></div>
+    <section id="result" class="result" aria-live="polite" hidden>
+      <div class="sectionhead"><h3 id="result-headline"></h3><span class="pill">LOCAL DEMO</span></div>
+      <div class="metrics" id="metrics"></div>
+      <div class="output-columns">
+        <div><h4>Evidence / result</h4><ul id="findings"></ul></div>
+        <div><h4>Review before release</h4><ul id="actions"></ul></div>
+      </div>
+      <p class="disclaimer" id="disclaimer"></p>
+    </section>
+    <footer class="foot">This workspace is isolated in the <code>incubator/prismbay-portfolio</code> folder. Nothing is deployed through the main product site. Sample opportunities, vacancies, people, and financial values are fictional.</footer>
+   </section>
+  </div>
+ </main>
+ <script type="module" src="./app.mjs"></script>
+</body>
+</html>
