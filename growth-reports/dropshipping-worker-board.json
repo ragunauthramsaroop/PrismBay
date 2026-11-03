@@ -1,14 +1,14 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-11-02T21:57:30.013Z",
+  "generatedAt": "2026-11-03T02:23:23.554Z",
   "researchCandidates": 12,
   "publishedResearchSignals": 12,
   "verifiedCJStatus": {
-    "checkedAt": "2026-11-02T18:26:35.780Z",
+    "checkedAt": "2026-11-03T02:23:21.987Z",
     "validSupplierMatches": 4,
-    "variantStock": 1,
-    "freightEstimates": 1,
-    "countryFreightEstimates": 1,
+    "variantStock": 0,
+    "freightEstimates": 0,
+    "countryFreightEstimates": 0,
     "illustrativeZipFreightEstimates": 0,
     "falseMatches": 0
   },
@@ -28,6 +28,27 @@
       "candidateCount": 12,
       "blockers": [
         {
+          "slug": "scrubber",
+          "status": "supplier_search_needed",
+          "sku": null,
+          "shippingDiagnostic": null,
+          "zeroPricedMethods": 0
+        },
+        {
+          "slug": "pethair",
+          "status": "variant_stock_required",
+          "sku": "CJMY2103657",
+          "shippingDiagnostic": "variant_stock_unverified",
+          "zeroPricedMethods": 0
+        },
+        {
+          "slug": "crevice",
+          "status": "supplier_search_needed",
+          "sku": null,
+          "shippingDiagnostic": null,
+          "zeroPricedMethods": 0
+        },
+        {
           "slug": "multiport-charger",
           "status": "supplier_search_needed",
           "sku": null,
@@ -36,14 +57,14 @@
         },
         {
           "slug": "motion-sensor-cabinet-lights",
-          "status": "variant_stock_required",
+          "status": "fresh_commercial_evidence_required",
           "sku": "CJYD2030514",
           "shippingDiagnostic": "variant_stock_unverified",
           "zeroPricedMethods": 0
         },
         {
           "slug": "car-phone-mount",
-          "status": "variant_stock_required",
+          "status": "fresh_commercial_evidence_required",
           "sku": "CJSJSJSJ02737",
           "shippingDiagnostic": "variant_stock_unverified",
           "zeroPricedMethods": 0
@@ -88,27 +109,6 @@
           "status": "supplier_search_needed",
           "sku": null,
           "shippingDiagnostic": null,
-          "zeroPricedMethods": 0
-        },
-        {
-          "slug": "cordless-handheld-vacuum",
-          "status": "supplier_search_needed",
-          "sku": null,
-          "shippingDiagnostic": null,
-          "zeroPricedMethods": 0
-        },
-        {
-          "slug": "insulated-tumbler",
-          "status": "supplier_search_needed",
-          "sku": null,
-          "shippingDiagnostic": null,
-          "zeroPricedMethods": 0
-        },
-        {
-          "slug": "screen-protector",
-          "status": "fresh_commercial_evidence_required",
-          "sku": "CJPB237729905EV",
-          "shippingDiagnostic": "priced_estimate_available",
           "zeroPricedMethods": 0
         }
       ]
