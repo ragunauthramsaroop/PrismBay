@@ -1,10 +1,10 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-11-03T07:17:46.134Z",
+  "generatedAt": "2026-11-03T11:58:39.430Z",
   "researchCandidates": 12,
   "publishedResearchSignals": 12,
   "verifiedCJStatus": {
-    "checkedAt": "2026-11-03T02:23:21.987Z",
+    "checkedAt": "2026-11-03T11:58:37.467Z",
     "validSupplierMatches": 4,
     "variantStock": 0,
     "freightEstimates": 0,
@@ -28,6 +28,27 @@
       "candidateCount": 12,
       "blockers": [
         {
+          "slug": "mini-mop",
+          "status": "supplier_search_needed",
+          "sku": null,
+          "shippingDiagnostic": null,
+          "zeroPricedMethods": 0
+        },
+        {
+          "slug": "drain-catcher",
+          "status": "supplier_search_needed",
+          "sku": null,
+          "shippingDiagnostic": null,
+          "zeroPricedMethods": 0
+        },
+        {
+          "slug": "home-caddy",
+          "status": "supplier_search_needed",
+          "sku": null,
+          "shippingDiagnostic": null,
+          "zeroPricedMethods": 0
+        },
+        {
           "slug": "scrubber",
           "status": "supplier_search_needed",
           "sku": null,
@@ -36,7 +57,7 @@
         },
         {
           "slug": "pethair",
-          "status": "variant_stock_required",
+          "status": "fresh_commercial_evidence_required",
           "sku": "CJMY2103657",
           "shippingDiagnostic": "variant_stock_unverified",
           "zeroPricedMethods": 0
@@ -88,27 +109,6 @@
           "status": "fresh_commercial_evidence_required",
           "sku": "CJQX1124259",
           "shippingDiagnostic": "variant_stock_unverified",
-          "zeroPricedMethods": 0
-        },
-        {
-          "slug": "travel-packing-cubes",
-          "status": "supplier_search_needed",
-          "sku": null,
-          "shippingDiagnostic": null,
-          "zeroPricedMethods": 0
-        },
-        {
-          "slug": "dryer-vent-cleaner-kit",
-          "status": "supplier_search_needed",
-          "sku": null,
-          "shippingDiagnostic": null,
-          "zeroPricedMethods": 0
-        },
-        {
-          "slug": "roll-up-dish-rack",
-          "status": "supplier_search_needed",
-          "sku": null,
-          "shippingDiagnostic": null,
           "zeroPricedMethods": 0
         }
       ]
