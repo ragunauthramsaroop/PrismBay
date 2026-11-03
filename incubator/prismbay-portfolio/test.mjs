@@ -1,0 +1,30 @@
+import assert from "node:assert/strict";
+import { products,runProduct } from "./core.mjs";
+const ids=products.map(p=>p.id);
+assert.equal(products.length,19,"Expected 19 portfolio products");
+assert.equal(new Set(ids).size,19,"Product identifiers must be unique");
+let passes=0;
+for(const p of products){
+ const result=runProduct(p.id,p.example);
+ assert.ok(result.headline && result.mode==="local deterministic prototype",p.id+" mode and headline");
+ assert.ok(Array.isArray(result.findings)&&Array.isArray(result.actions),p.id+" output structure");
+ assert.ok(Object.keys(result.metrics).length>0,p.id+" metrics");
+ passes++;
+}
+const x=(id)=>products.find(p=>p.id===id).example;
+assert.equal(runProduct("cashflow-cloud",x("cashflow-cloud")).metrics.overdueValue,1450);passes++;
+assert.equal(runProduct("opportunity-cloud",x("opportunity-cloud")).metrics.matching,1);passes++;
+assert.equal(runProduct("global-careers",x("global-careers")).metrics.matches,1);passes++;
+assert.equal(runProduct("bid-intelligence",x("bid-intelligence")).metrics.missing,1);passes++;
+assert.equal(runProduct("recruitment-assistant",x("recruitment-assistant")).metrics.candidates,2);passes++;
+assert.equal(runProduct("dashboard-builder",x("dashboard-builder")).metrics.difference,12200);passes++;
+assert.equal(runProduct("design-review",x("design-review")).metrics.meetsWcagAaNormalText,true);passes++;
+assert.equal(runProduct("due-diligence",x("due-diligence")).metrics.unresolved,2);passes++;
+assert.equal(runProduct("meeting-secretary",x("meeting-secretary")).metrics.actions,2);passes++;
+assert.equal(runProduct("website-intelligence",x("website-intelligence")).metrics.imagesWithoutAlt,0);passes++;
+assert.throws(()=>runProduct("invalid",{}),/Unknown product/);passes++;
+assert.throws(()=>runProduct("sustainability-os",{dieselLitres:100}),/emission factor/);passes++;
+assert.throws(()=>runProduct("dashboard-builder",{csv:"a,b\n1",revenueColumn:"a",costColumn:"b"}),/row lengths/);passes++;
+assert.throws(()=>runProduct("design-review",{foreground:"wrong",background:"#ffffff"}),/six-digit/);passes++;
+assert.throws(()=>runProduct("cashflow-cloud",[]),/JSON object/);passes++;
+console.log("PASS: "+passes+" offline prototype assertions across "+products.length+" products.");
