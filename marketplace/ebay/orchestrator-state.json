@@ -1,12 +1,12 @@
 {
   "schemaVersion": 1,
-  "checkedAt": "2026-11-03T08:01:35.636Z",
+  "checkedAt": "2026-11-03T15:00:56.818Z",
   "phase": "WAITING_EBAY_CJ_AUTH",
   "readyForBrowserPublish": false,
   "blockers": [
     "ebaySellerAuthenticated"
   ],
-  "controlPlaneCheckedAt": "2026-11-03T08:01:35.593Z",
+  "controlPlaneCheckedAt": "2026-11-03T15:00:56.774Z",
   "ebayShopCount": 0,
   "ebaySellerAuthenticated": false,
   "liveStockVerified": true,
@@ -15,7 +15,7 @@
   "warehouse": {
     "id": "2991a224-737b-42a3-a1d9-8ccd2936b341",
     "city": "Dongguan",
-    "province": "GD",
+    "province": "Guangdong",
     "countryCode": "CN",
     "address1": "Elevator No. 3, F4, Building F, Fengzhimei Industrial Zone, Jinfenghuang Avenue, Fenggang Town, Dongguan City, Guangdong Province, 523689, China"
   },
