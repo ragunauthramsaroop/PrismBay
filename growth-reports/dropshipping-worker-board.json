@@ -1,11 +1,11 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-11-03T11:58:39.430Z",
+  "generatedAt": "2026-11-03T19:31:48.675Z",
   "researchCandidates": 12,
   "publishedResearchSignals": 12,
   "verifiedCJStatus": {
-    "checkedAt": "2026-11-03T11:58:37.467Z",
-    "validSupplierMatches": 4,
+    "checkedAt": "2026-11-03T19:31:19.887Z",
+    "validSupplierMatches": 2,
     "variantStock": 0,
     "freightEstimates": 0,
     "countryFreightEstimates": 0,
@@ -25,8 +25,29 @@
       "action": "Investigate specific catalog SKUs, incorrect product matches and incomplete stock evidence.",
       "state": "review_required",
       "executionMode": "scheduled_cj_and_manual_review",
-      "candidateCount": 12,
+      "candidateCount": 9,
       "blockers": [
+        {
+          "slug": "multiport-charger",
+          "status": "supplier_search_needed",
+          "sku": null,
+          "shippingDiagnostic": null,
+          "zeroPricedMethods": 0
+        },
+        {
+          "slug": "motion-sensor-cabinet-lights",
+          "status": "supplier_search_needed",
+          "sku": null,
+          "shippingDiagnostic": null,
+          "zeroPricedMethods": 0
+        },
+        {
+          "slug": "car-phone-mount",
+          "status": "variant_stock_required",
+          "sku": "CJSJ2077898",
+          "shippingDiagnostic": "variant_stock_unverified",
+          "zeroPricedMethods": 0
+        },
         {
           "slug": "mini-mop",
           "status": "supplier_search_needed",
@@ -67,48 +88,6 @@
           "status": "supplier_search_needed",
           "sku": null,
           "shippingDiagnostic": null,
-          "zeroPricedMethods": 0
-        },
-        {
-          "slug": "multiport-charger",
-          "status": "supplier_search_needed",
-          "sku": null,
-          "shippingDiagnostic": null,
-          "zeroPricedMethods": 0
-        },
-        {
-          "slug": "motion-sensor-cabinet-lights",
-          "status": "fresh_commercial_evidence_required",
-          "sku": "CJYD2030514",
-          "shippingDiagnostic": "variant_stock_unverified",
-          "zeroPricedMethods": 0
-        },
-        {
-          "slug": "car-phone-mount",
-          "status": "fresh_commercial_evidence_required",
-          "sku": "CJSJSJSJ02737",
-          "shippingDiagnostic": "variant_stock_unverified",
-          "zeroPricedMethods": 0
-        },
-        {
-          "slug": "pressure-washer",
-          "status": "supplier_search_needed",
-          "sku": null,
-          "shippingDiagnostic": null,
-          "zeroPricedMethods": 0
-        },
-        {
-          "slug": "mattress-vacuum",
-          "status": "supplier_search_needed",
-          "sku": null,
-          "shippingDiagnostic": null,
-          "zeroPricedMethods": 0
-        },
-        {
-          "slug": "garment-steamer",
-          "status": "fresh_commercial_evidence_required",
-          "sku": "CJQX1124259",
-          "shippingDiagnostic": "variant_stock_unverified",
           "zeroPricedMethods": 0
         }
       ]
