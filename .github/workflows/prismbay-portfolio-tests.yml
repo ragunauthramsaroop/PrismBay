@@ -1,0 +1,19 @@
+name: PrismBay Portfolio Lab Tests
+on:
+  pull_request:
+    paths:
+      - 'incubator/prismbay-portfolio/**'
+      - '.github/workflows/prismbay-portfolio-tests.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  offline-prototypes:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify all 19 product prototypes
+        run: node incubator/prismbay-portfolio/test.mjs
