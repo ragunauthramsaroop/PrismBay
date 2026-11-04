@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-11-03T11:23:27.234Z",
+  "updatedAt": "2026-11-04T11:37:10.320Z",
   "market": "US",
   "supplierIntegration": "awaiting-cj-auth",
   "methodology": "Public attention and recency identify candidates. Supplier promotion requires verified US inventory and product-level checks. Freight and checkout creation occur only after supplier validation.",
@@ -13,13 +13,19 @@
       "attentionLabel": "high-attention",
       "evidence": {
         "publicMentions": 101,
-        "mentionsLast7Days": 1,
-        "mentionsLast30Days": 14,
+        "mentionsLast7Days": 2,
+        "mentionsLast30Days": 15,
         "sourcesAvailable": [
           "Google News",
           "Bing News"
         ],
         "sampleSignals": [
+          {
+            "title": "Ready to Retire the Dustpan? This Handheld Vacuum That ‘Cleans Effectively’ Is Down to Just $36 at Amazon - People.com",
+            "source": "Google News",
+            "publishedAt": "2026-11-04T09:00:00.000Z",
+            "url": "https://news.google.com/rss/articles/CBMigwFBVV95cUxNdEtXSzYxa2Q0NllIcUtybjR3V3lvOW9fVnZxUTg4dTBtQWdqYkxnd0tFeFl5Y1E1aDB5Z29ZZUZiQThON0g4VzJFNi1fMm15Ym5EZGppcm9NZ1BqV20zZmhvZGJWTXRJdHhvSVpfZE5rTUR2NUYzMlhiR29PaXlPZ216Zw?oc=5"
+          },
           {
             "title": "Best Shark deal: Save $20 on the Shark UltraCyclone Pet Pro Plus - Mashable",
             "source": "Google News",
@@ -27,22 +33,16 @@
             "url": "https://news.google.com/rss/articles/CBMimgFBVV95cUxPUU9hV2VtcnFoNjdZcDBqbGhEeE5WbWpZSjJuUzc1aW5NdUZHakJtTm9YNlBPcE1KY1VqQm10UGJwZS11ejlHRndMU3Fnb1ZaNmx0cXl0RS1RbUZKUHRaUGhrX3Z1Ykg5ZUY4Z243T2YwXy1VMUNlRVZETGFYdXNwM1AzaWJIeTdHT29jcUE3RVB3XzBWUE9ta1BB?oc=5"
           },
           {
-            "title": "The best vacuum cleaners for carpet, hard floors and pet hair, out of over 360 tested models - Good Housekeeping",
+            "title": "Black + Decker's handheld vacuum with 47,400+ reviews is on sale for $38— plus more best mini vacuums to shop on Amazon - Yahoo Lifestyle Canada",
             "source": "Google News",
-            "publishedAt": "2026-10-31T08:40:15.000Z",
-            "url": "https://news.google.com/rss/articles/CBMinAFBVV95cUxOaE1xaWp4NmlaRVVVRjRFRDd4dE5WNG9zRHN5S2FLU0RSS2U1MWxXb3Q1OHdmd1dnYlVrby1OWEF0ZjJIV2xQZHd3aGtxU2JQaFFtN0tWTl9vemc5NEVtNTNWSlpEbzRzSkFYT1N3a0RhTl9PaWYwX3hjM09uYTByX0Nla1NDQVY2VzluR1RzMlk1WUxzVUdPR1Rsako?oc=5"
+            "publishedAt": "2026-07-20T07:00:00.000Z",
+            "url": "https://news.google.com/rss/articles/CBMi6wFBVV95cUxQd0diVGlZVTdZMm9BN1JwaUtxR1NuNTV0UDhyei1uSE5qdndvNmR3WS1IZnBfVk9QRHZwYW1mUnl2RHVSRThTSUV6NC1KZHZ3aGZSZ2wtV2hnbDBzbGpnQkJBZmxDQWpfUm1td1ViOFhMSmxiUkswOW5Eb0lQbXVkQndOWVpncjRDOG5JQ3UxRTZIdkNJYkF0cWFjYzd2dkhSZVJhUmxZZ0xMS1hWS2t6TDFicHV3OUtlTm9JSENsNkE0TklsZGtHeWRCbWkyREdoeXA5V1FPbUs1ODZCYUctVjhRTjYyMVl2LU5R?oc=5"
           },
           {
             "title": "Amazon's Choice Shark pet vacuum is 20% off and selling fast - USA Today",
             "source": "Google News",
             "publishedAt": "2026-10-21T07:00:00.000Z",
             "url": "https://news.google.com/rss/articles/CBMi1gFBVV95cUxQa2N3NUFFQWlpbWN3SEp3aDRJZDUwZE03Ml9JbGlZYTI5dC1WR0FzNDk0M05lenozcHhQQ25ZZ2tsWkZRRWJJUFZUeHl4bFlVcG5fQUFOand1alVuSXptYUhibjJkd1FCMEF5X0wtSzBQakd0MUdwMGZLVWNOVkJPZ1RPMUNpSThib0hpNEs5VDdobnZGaVhWMVkyRGJfMWFXRDJKdjNyQ0hhQkhUd2owRGhvVmFpd0lTQ1pUYnRFaGtNUXZKSjdLYzl1ZFl2NC1YQU45MEVn?oc=5"
-          },
-          {
-            "title": "Black + Decker's handheld vacuum with 47,400+ reviews is on sale for $38— plus more best mini vacuums to shop on Amazon - Yahoo Lifestyle Canada",
-            "source": "Google News",
-            "publishedAt": "2026-07-20T07:00:00.000Z",
-            "url": "https://news.google.com/rss/articles/CBMi6wFBVV95cUxQd0diVGlZVTdZMm9BN1JwaUtxR1NuNTV0UDhyei1uSE5qdndvNmR3WS1IZnBfVk9QRHZwYW1mUnl2RHVSRThTSUV6NC1KZHZ3aGZSZ2wtV2hnbDBzbGpnQkJBZmxDQWpfUm1td1ViOFhMSmxiUkswOW5Eb0lQbXVkQndOWVpncjRDOG5JQ3UxRTZIdkNJYkF0cWFjYzd2dkhSZVJhUmxZZ0xMS1hWS2t6TDFicHV3OUtlTm9JSENsNkE0TklsZGtHeWRCbWkyREdoeXA5V1FPbUs1ODZCYUctVjhRTjYyMVl2LU5R?oc=5"
           }
         ]
       },
@@ -58,13 +58,65 @@
       "rank": 1
     },
     {
+      "slug": "dryer-vent-cleaner-kit",
+      "name": "Dryer Vent Cleaner Kit",
+      "query": "dryer vent cleaner kit",
+      "attentionScore": 81.6,
+      "attentionLabel": "high-attention",
+      "evidence": {
+        "publicMentions": 48,
+        "mentionsLast7Days": 2,
+        "mentionsLast30Days": 3,
+        "sourcesAvailable": [
+          "Google News",
+          "Bing News"
+        ],
+        "sampleSignals": [
+          {
+            "title": "Dryer fires are a major household hazard. This 'must-have' vent cleaner helps prevent them — it's under $20 - Yahoo Lifestyle Canada",
+            "source": "Google News",
+            "publishedAt": "2026-08-11T07:00:00.000Z",
+            "url": "https://news.google.com/rss/articles/CBMi2wFBVV95cUxPNHlsSk1uanVvSjRscmNoSkxIZVVMZjlsMmFDaXc3VEpUUzBjd1d2UGlwRnRuSE9XNXhvVXhQUW9tOXdEU1BjUFFFU0Jrc19mTFZzbTcxLTV5bzFIaUx5RU1YMGZEZFVQTUlyUWR4U1NWVWZsNUZQbk9UWjhMaktnb19LNFJ5bVcyMWM2b3F5S3FnLWROQ1IwTzhHZUgydUhwb2hPRlpFQUo5ZjFTMVVLTzFsYmluWGNvNkZRSHB1bThZX0NzX0JVMnNfNWJRVUY5Y2ZCLUV0bGJqTW8?oc=5"
+          },
+          {
+            "title": "10 Clever Amazon Home and Kitchen Gadgets That Pull a Lot More Weight Than Their Under-$10 Price Tag Suggests - Real Simple",
+            "source": "Google News",
+            "publishedAt": "2026-10-29T21:30:00.000Z",
+            "url": "https://news.google.com/rss/articles/CBMiigFBVV95cUxNR0JTUXhTQzhpWWlKelBCT1ZRRWVwR0pRdy1Eb2lHanM4cDNqV2N4ek81bUNhblNqQl9QRWczdVk5OXIxMU9pQ3FXVXkzRXFQU3ZpR083RGRrWG54WDdHOHAtai1ZU2huMXJDZC1SZ0xTMlE1MWk3bzNNUFpCQmJabHBSc1hjSjhBaHc?oc=5"
+          },
+          {
+            "title": "The Best Dryer Vent Cleaning Kits of 2026, Tested By Experts - BobVila.com",
+            "source": "Google News",
+            "publishedAt": "2026-01-28T08:00:00.000Z",
+            "url": "https://news.google.com/rss/articles/CBMicEFVX3lxTE1YY1R3S1Vab08tdnA5S2FGUWV6TVVqTDhKQnpGQzVKdlhpZ19WVTM1WnVYRkZKV1VqWFBWcXVVbFJ0OFpVRW5DVVMzNGVWRWhMVEpyUEd1NzFnNVlHb3dGMTVzZVQtNU5tUlVtSm4tNVo?oc=5"
+          },
+          {
+            "title": "Sealegend Dryer Vent Cleaning Vacuum Hose Review: My Dryer Is So Much Cleaner Now - Dengarden",
+            "source": "Google News",
+            "publishedAt": "2026-01-27T08:00:00.000Z",
+            "url": "https://news.google.com/rss/articles/CBMiugFBVV95cUxOREpad2RpUUhyM2tUcEROY21oU3JNOVMxaTJXMzUtb25YY3ZJd08wdXpDRzh5RTVlT3I4YzVHQWhSQXowTF9CaEY1cWhQWC16NVdQa19hNjByeXV5OGtsazZ5aE9LeWRBSjJfTFNYREd5dHQtS2phWUo4bnlfaF92U1h0ZlQxQVdrVWdEa3F0WGFfWFZINWI3ajNONHQxV1N3M0UzY0RxXzItRnBaVWJyMVljVXdFRGZpc0E?oc=5"
+          }
+        ]
+      },
+      "supplier": null,
+      "supplierReady": false,
+      "freightReady": false,
+      "promotionReady": false,
+      "mediaRightsReady": false,
+      "liveStripePricingReady": false,
+      "listed": false,
+      "discoveryEvidence": [],
+      "nextAction": "connect-cj",
+      "rank": 2
+    },
+    {
       "slug": "roll-up-dish-rack",
       "name": "Roll-Up Dish Drying Rack",
       "query": "roll up dish drying rack",
       "attentionScore": 80.5,
       "attentionLabel": "high-attention",
       "evidence": {
-        "publicMentions": 26,
+        "publicMentions": 28,
         "mentionsLast7Days": 1,
         "mentionsLast30Days": 6,
         "sourcesAvailable": [
@@ -107,7 +159,7 @@
       "listed": false,
       "discoveryEvidence": [],
       "nextAction": "connect-cj",
-      "rank": 2
+      "rank": 3
     },
     {
       "slug": "hanging-closet-organizer",
@@ -116,7 +168,7 @@
       "attentionScore": 69.4,
       "attentionLabel": "promotion-watch",
       "evidence": {
-        "publicMentions": 29,
+        "publicMentions": 28,
         "mentionsLast7Days": 0,
         "mentionsLast30Days": 3,
         "sourcesAvailable": [
@@ -131,74 +183,22 @@
             "url": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxOYjBORVJFdTNwbm10ZjVwcGRlT05YaUhOS0lLdW9QQ2RfNmVRSWlzRldURGdMZ0pOM3lPVUdzOVFHS3MtY3ZYdndnVG5WclFnOG43NkpsdURISTNuTVJobjRGYVpkM0lpTGIwbEtEZ1FhbUpWUEt4SDhJdjEwVU5lMXhBWmdnam1T?oc=5"
           },
           {
-            "title": "Amazon's ‘Space-Saving’ Hanging Organizer Is a 'Game-Changer' for Small Closets, Now $14 During Prime Day - Yahoo",
-            "source": "Google News",
-            "publishedAt": "2026-10-08T07:00:00.000Z",
-            "url": "https://news.google.com/rss/articles/CBMiugFBVV95cUxNYTFQTE55RlFWRFdUUlp3UnpUdEN5aHhJVjhIZ1Bma2dUMlB6aU5XclNwVWVMMG12dFprRWpvVFBhbzJjLXpVOFNfM1QwODk4bHFvNl85aXBmeW5ZWjhuVm5fcTF0NURacHJDRDhJUjNlOVcyay01ZlkwbFNNQjZHQXZFYXVlZF9Ga3NfODY2Ukg5MVZ6elBEVFpqZXRQY0libkZjMkJtMGRBd3lZbDVYYWNoNTdPY1FBamc?oc=5"
-          },
-          {
             "title": "I Doubled My Closet Storage with This $25 Hanging Organizer - Apartment Therapy",
             "source": "Google News",
             "publishedAt": "2026-07-12T07:00:00.000Z",
             "url": "https://news.google.com/rss/articles/CBMiigFBVV95cUxPWFp5N1QwRWRBSlduLVVKYUtGSWFaLXZWWnB3RGVZQ1VFVGotVkdhMWhKMTBxQ3JnVHpJVGJJd0FmYW5NcWgxdlhmM0MtMDNSZkVNa1BMZVdGTjlQSW5ET1paa2p6cFRtWVFMWHpna1ZjdlIzVzI0VnJfdHhJckhvY2RzaFpvZVFSQUE?oc=5"
           },
           {
+            "title": "Amazon's 'Space-Saving' Hanging Organizer Is a 'Game-Changer' for Small Closets, Now $14 During Prime Day - Parade Magazine",
+            "source": "Google News",
+            "publishedAt": "2026-10-08T07:00:00.000Z",
+            "url": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxNZDZtOWlxaWdCX3ptWHFQOHhIdFctNlppRnJzTTh4bktBLTZmUEVIUGRwQVBlcFRHeVJESk10NGJGX0d6OGU5S21CVTVTbTRNYzhKYkprTkJ4TWtnbHBKQWhySkp1VlJ6MVB1YnVUNm1Ebm5Dcm5naV9Gdjd3Yl9kQ2xUUFhZSDJ3clozQ1BTdDVKaC1MQ19HdU8zdjIxaXNRSEs3NlpBdkNLLWM?oc=5"
+          },
+          {
             "title": "12 Organizers That Will Help Keep Your New Fall Wardrobe From Ending Up on the Floor—Starting at $8 - Real Simple",
             "source": "Google News",
             "publishedAt": "2026-09-10T07:00:00.000Z",
             "url": "https://news.google.com/rss/articles/CBMigwFBVV95cUxNTEktQnJlSWx1UGpURHMxc3VaaVRIaklobEQxSGYtejQ3NW96Qk1Ed25rTlFwRUxfNUx3Y2VsYTduLVg2aURmMDhjYklwS2l2MnhVT2NocnpUZmhmaTlwVmZoSFVYRHBxZGpDMGJOckVNckZMbERudFFRem9uVWl2bkVSUQ?oc=5"
-          }
-        ]
-      },
-      "supplier": null,
-      "supplierReady": false,
-      "freightReady": false,
-      "promotionReady": false,
-      "mediaRightsReady": false,
-      "liveStripePricingReady": false,
-      "listed": false,
-      "discoveryEvidence": [],
-      "nextAction": "connect-cj",
-      "rank": 3
-    },
-    {
-      "slug": "dryer-vent-cleaner-kit",
-      "name": "Dryer Vent Cleaner Kit",
-      "query": "dryer vent cleaner kit",
-      "attentionScore": 48.7,
-      "attentionLabel": "research",
-      "evidence": {
-        "publicMentions": 14,
-        "mentionsLast7Days": 0,
-        "mentionsLast30Days": 0,
-        "sourcesAvailable": [
-          "Google News",
-          "Bing News"
-        ],
-        "sampleSignals": [
-          {
-            "title": "Dryer fires are a major household hazard. This 'must-have' vent cleaner helps prevent them — it's under $20 - Yahoo Lifestyle Canada",
-            "source": "Google News",
-            "publishedAt": "2026-08-11T07:00:00.000Z",
-            "url": "https://news.google.com/rss/articles/CBMi2wFBVV95cUxPNHlsSk1uanVvSjRscmNoSkxIZVVMZjlsMmFDaXc3VEpUUzBjd1d2UGlwRnRuSE9XNXhvVXhQUW9tOXdEU1BjUFFFU0Jrc19mTFZzbTcxLTV5bzFIaUx5RU1YMGZEZFVQTUlyUWR4U1NWVWZsNUZQbk9UWjhMaktnb19LNFJ5bVcyMWM2b3F5S3FnLWROQ1IwTzhHZUgydUhwb2hPRlpFQUo5ZjFTMVVLTzFsYmluWGNvNkZRSHB1bThZX0NzX0JVMnNfNWJRVUY5Y2ZCLUV0bGJqTW8?oc=5"
-          },
-          {
-            "title": "The Best Dryer Vent Cleaning Kits of 2026, Tested By Experts - BobVila.com",
-            "source": "Google News",
-            "publishedAt": "2026-01-28T08:00:00.000Z",
-            "url": "https://news.google.com/rss/articles/CBMicEFVX3lxTE1YY1R3S1Vab08tdnA5S2FGUWV6TVVqTDhKQnpGQzVKdlhpZ19WVTM1WnVYRkZKV1VqWFBWcXVVbFJ0OFpVRW5DVVMzNGVWRWhMVEpyUEd1NzFnNVlHb3dGMTVzZVQtNU5tUlVtSm4tNVo?oc=5"
-          },
-          {
-            "title": "Sealegend Dryer Vent Cleaning Vacuum Hose Review: My Dryer Is So Much Cleaner Now - Dengarden",
-            "source": "Google News",
-            "publishedAt": "2026-01-27T08:00:00.000Z",
-            "url": "https://news.google.com/rss/articles/CBMiugFBVV95cUxOREpad2RpUUhyM2tUcEROY21oU3JNOVMxaTJXMzUtb25YY3ZJd08wdXpDRzh5RTVlT3I4YzVHQWhSQXowTF9CaEY1cWhQWC16NVdQa19hNjByeXV5OGtsazZ5aE9LeWRBSjJfTFNYREd5dHQtS2phWUo4bnlfaF92U1h0ZlQxQVdrVWdEa3F0WGFfWFZINWI3ajNONHQxV1N3M0UzY0RxXzItRnBaVWJyMVljVXdFRGZpc0E?oc=5"
-          },
-          {
-            "title": "This best-selling dryer vent cleaning kit can help prevent fires — and it’s a whopping 35% off - NJ.com",
-            "source": "Google News",
-            "publishedAt": "2025-11-07T08:00:00.000Z",
-            "url": "https://news.google.com/rss/articles/CBMi0wFBVV95cUxPRjlhRkdrQ0FpaWVxb2F5bC1TUTZYd3BxczJZMjRsb2hvQXltcHltNGZqdWlpdTdUeUQ2cW02SG1ZUUo5UkNFZ1AtUC1wMUx2bkhtNkpob1hXM0tMbkFNNm9ocWdoSWVER1RUTmppczJPUXE2UzlvaE44b19HeXRnUXV1eWFiY0hSc2prNjRzWVJGVWYwMi05SjJZSzFOM3FhY213eEhGQzFxWVZ6UFJvOXRqV2FBaW0zaHJnWE13ZE5mYlNrY1h6bFI0Z0JnSEtGM3pV0gHnAUFVX3lxTE1Zc3RyM3MtUXdLd0s0b0ZsMGZaTUsybmM5NTJxSk82ZlJCWG9pT0o4TmktdTBJM3Jia0Fid0I0TExOTHh3TF9nVTZrd1YtYjhjQUZWRXhldUdNV19tblhRSlM5RWVfV2tub2szMWtXX2lOdVdQdHZHN3lMS1ZoX1ZYaXNSenBwa3A1d3U4c0pUZzdyWkpZZk9NV2pRTGprcm5hMGYwQVl4Vnc4SWpEMXU4R1daamlLVlF6UVVzSmlONHhtekpmQjBYUThxVTRWTE1XVDhoNFd0cE5MRzJKNGVlTV9NT05Lcw?oc=5"
           }
         ]
       },
