@@ -20,9 +20,9 @@ function mapRows(rows) {
  let currentAgency="";
  for(const row of rows){
   const cells=row.cells.map(x=>clean(x,240)).filter(Boolean);
-  const agencyHeading=cells.find(x=>/^(?:\\d+\\s*[-–]\\s*)?(?:ministry|department|national procurement|guyana|office of|commission|authority)\\b/i.test(x));
+  const agencyHeading=cells.find(x=>/^(?:\d+\s*[-–]\s*)?(?:ministry|department|national procurement|guyana|office of|commission|authority)\b/i.test(x));
   if(cells.length<3){
-   if(agencyHeading)currentAgency=clean(agencyHeading.replace(/^\\d+\\s*[-–]\\s*/,""),120);
+   if(agencyHeading)currentAgency=clean(agencyHeading.replace(/^\d+\s*[-–]\s*/,""),120);
    continue;
   }
   const dateCells=cells.map(c=>asDate(c));
