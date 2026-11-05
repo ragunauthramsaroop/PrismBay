@@ -1,10 +1,10 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-11-04T20:04:59.156Z",
+  "generatedAt": "2026-11-05T00:55:27.469Z",
   "researchCandidates": 12,
   "publishedResearchSignals": 12,
   "verifiedCJStatus": {
-    "checkedAt": "2026-11-04T19:50:09.515Z",
+    "checkedAt": "2026-11-05T00:55:25.533Z",
     "validSupplierMatches": 4,
     "variantStock": 1,
     "freightEstimates": 1,
@@ -28,6 +28,27 @@
       "candidateCount": 9,
       "blockers": [
         {
+          "slug": "scrubber",
+          "status": "supplier_search_needed",
+          "sku": null,
+          "shippingDiagnostic": null,
+          "zeroPricedMethods": 0
+        },
+        {
+          "slug": "pethair",
+          "status": "variant_stock_required",
+          "sku": "CJMY2103657",
+          "shippingDiagnostic": "variant_stock_unverified",
+          "zeroPricedMethods": 0
+        },
+        {
+          "slug": "crevice",
+          "status": "supplier_search_needed",
+          "sku": null,
+          "shippingDiagnostic": null,
+          "zeroPricedMethods": 0
+        },
+        {
           "slug": "multiport-charger",
           "status": "supplier_search_needed",
           "sku": null,
@@ -36,14 +57,14 @@
         },
         {
           "slug": "motion-sensor-cabinet-lights",
-          "status": "variant_stock_required",
+          "status": "fresh_commercial_evidence_required",
           "sku": "CJYD2030514",
           "shippingDiagnostic": "variant_stock_unverified",
           "zeroPricedMethods": 0
         },
         {
           "slug": "car-phone-mount",
-          "status": "variant_stock_required",
+          "status": "fresh_commercial_evidence_required",
           "sku": "CJSJ2077898",
           "shippingDiagnostic": "variant_stock_unverified",
           "zeroPricedMethods": 0
@@ -67,27 +88,6 @@
           "status": "fresh_commercial_evidence_required",
           "sku": "CJPB237729905EV",
           "shippingDiagnostic": "priced_estimate_available",
-          "zeroPricedMethods": 0
-        },
-        {
-          "slug": "scrubber",
-          "status": "supplier_search_needed",
-          "sku": null,
-          "shippingDiagnostic": null,
-          "zeroPricedMethods": 0
-        },
-        {
-          "slug": "pethair",
-          "status": "fresh_commercial_evidence_required",
-          "sku": "CJYD2079690",
-          "shippingDiagnostic": "variant_stock_unverified",
-          "zeroPricedMethods": 0
-        },
-        {
-          "slug": "crevice",
-          "status": "supplier_search_needed",
-          "sku": null,
-          "shippingDiagnostic": null,
           "zeroPricedMethods": 0
         }
       ]
