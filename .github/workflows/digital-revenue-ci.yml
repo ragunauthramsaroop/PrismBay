@@ -9,6 +9,8 @@ on:
       - 'scripts/buyer-acquisition-worker.test.mjs'
       - 'scripts/owned-sales-page-worker.mjs'
       - 'scripts/first-sale-assessment.mjs'
+      - 'scripts/cashflow-diagnostic.mjs'
+      - 'scripts/cashflow-diagnostic.test.mjs'
       - 'scripts/first-sale-assessment.test.mjs'
       - 'scripts/revenue-evidence-gates.mjs'
       - 'scripts/revenue-evidence-gates.test.mjs'
@@ -41,6 +43,8 @@ on:
       - 'scripts/buyer-acquisition-worker.test.mjs'
       - 'scripts/owned-sales-page-worker.mjs'
       - 'scripts/first-sale-assessment.mjs'
+      - 'scripts/cashflow-diagnostic.mjs'
+      - 'scripts/cashflow-diagnostic.test.mjs'
       - 'scripts/first-sale-assessment.test.mjs'
       - 'scripts/revenue-evidence-gates.mjs'
       - 'scripts/revenue-evidence-gates.test.mjs'
@@ -79,7 +83,7 @@ jobs:
         with:
           node-version: '22'
       - name: Run digital revenue tests
-        run: node --test scripts/digital-conversion-campaign.test.mjs scripts/buyer-acquisition-worker.test.mjs scripts/freellm-sales-worker.test.mjs scripts/owned-sales-page-worker.test.mjs scripts/first-sale-assessment.test.mjs scripts/revenue-evidence-gates.test.mjs scripts/sales-sitemap-sync.test.mjs scripts/revenue-health-check.test.mjs scripts/whop-public-access-audit.test.mjs scripts/whop-merchant-readiness.test.mjs scripts/whop-sales-readiness.test.mjs scripts/whop-agency-forensic-audit.test.mjs scripts/whop-files-attach-bridge.test.mjs scripts/whop-files-support-crosscheck.test.mjs
+        run: node --test scripts/cashflow-diagnostic.test.mjs scripts/digital-conversion-campaign.test.mjs scripts/buyer-acquisition-worker.test.mjs scripts/freellm-sales-worker.test.mjs scripts/owned-sales-page-worker.test.mjs scripts/first-sale-assessment.test.mjs scripts/revenue-evidence-gates.test.mjs scripts/sales-sitemap-sync.test.mjs scripts/revenue-health-check.test.mjs scripts/whop-public-access-audit.test.mjs scripts/whop-merchant-readiness.test.mjs scripts/whop-sales-readiness.test.mjs scripts/whop-agency-forensic-audit.test.mjs scripts/whop-files-attach-bridge.test.mjs scripts/whop-files-support-crosscheck.test.mjs
       - name: Generate owned-search offer pages
         run: node scripts/owned-sales-page-worker.mjs "$RUNNER_TEMP/owned-sales-pages"
       - name: Verify bundle output
@@ -89,8 +93,10 @@ jobs:
           grep -q 'PrismBay Executive Intelligence Bundle' "$RUNNER_TEMP/owned-sales-pages/executive-intelligence-bundle.html"
           grep -q '\$179' "$RUNNER_TEMP/owned-sales-pages/executive-intelligence-bundle.html"
           grep -q 'eVqfZi5Lo7pV31Ea4MgnK0t' "$RUNNER_TEMP/owned-sales-pages/executive-intelligence-bundle.html"
-          test "$(find "$RUNNER_TEMP/owned-sales-pages" -maxdepth 1 -name '*.html' | wc -l)" -eq 7
+          test "$(find "$RUNNER_TEMP/owned-sales-pages" -maxdepth 1 -name '*.html' | wc -l)" -eq 8
           test -s "$RUNNER_TEMP/owned-sales-pages/board-briefing-readiness-checklist.html"
+          test -s "$RUNNER_TEMP/owned-sales-pages/free-cash-flow-runway-calculator.html"
+          grep -q 'owned_cashflow_diagnostic_v1' "$RUNNER_TEMP/owned-sales-pages/free-cash-flow-runway-calculator.html"
 
       - name: Whop anonymous file exposure probe (only after merge, read-only)
         if: github.event_name == 'push'
