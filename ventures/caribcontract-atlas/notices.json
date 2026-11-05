@@ -1,0 +1,56 @@
+{
+  "schemaVersion": 1,
+  "asOf": "2026-11-05",
+  "source": "https://eprocure.gov.gy/",
+  "status": "manual_public_snapshot_not_live",
+  "notices": [
+    {
+      "id": "GY-PW-ROADS-20261111",
+      "title": "Hinterland Roads Phase 2 - Lots 36 - 37",
+      "agency": "Ministry of Public Works",
+      "sector": "Construction",
+      "deadline": "2026-11-11",
+      "source": "https://eprocure.gov.gy/"
+    },
+    {
+      "id": "GY-MH-AMB-20261126",
+      "title": "Supply and Delivery of Road Ambulances",
+      "agency": "Ministry of Health",
+      "sector": "Vehicles",
+      "deadline": "2026-11-26",
+      "source": "https://eprocure.gov.gy/"
+    },
+    {
+      "id": "GY-MA-SEC-20261117",
+      "title": "Provision of Security Services for the Ministry of Agriculture",
+      "agency": "Ministry of Agriculture",
+      "sector": "Services",
+      "deadline": "2026-11-17",
+      "source": "https://eprocure.gov.gy/"
+    },
+    {
+      "id": "GY-MH-OVR-20270106",
+      "title": "Infrastructure Development Works at Overwinning, East Bank Berbice, Region 6 - Lots 1 to 8",
+      "agency": "Ministry of Housing",
+      "sector": "Construction",
+      "deadline": "2027-01-06",
+      "source": "https://eprocure.gov.gy/"
+    },
+    {
+      "id": "GY-MCYS-CRICKET-20261119",
+      "title": "Construction of the Cricket Academy, Good Hope, Region 4",
+      "agency": "Ministry of Culture, Youth and Sports",
+      "sector": "Construction",
+      "deadline": "2026-11-19",
+      "source": "https://eprocure.gov.gy/"
+    },
+    {
+      "id": "GY-MOH-IT-20261126",
+      "title": "Supply, Delivery and Installation of IT Equipment and Accessories, Lots 1-4",
+      "agency": "Ministry of Health",
+      "sector": "Technology",
+      "deadline": "2026-11-26",
+      "source": "https://eprocure.gov.gy/"
+    }
+  ]
+}
