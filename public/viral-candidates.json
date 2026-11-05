@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-11-04T11:37:10.320Z",
+  "updatedAt": "2026-11-05T11:37:21.125Z",
   "market": "US",
   "supplierIntegration": "awaiting-cj-auth",
   "methodology": "Public attention and recency identify candidates. Supplier promotion requires verified US inventory and product-level checks. Freight and checkout creation occur only after supplier validation.",
@@ -12,9 +12,9 @@
       "attentionScore": 99.5,
       "attentionLabel": "high-attention",
       "evidence": {
-        "publicMentions": 101,
-        "mentionsLast7Days": 2,
-        "mentionsLast30Days": 15,
+        "publicMentions": 53,
+        "mentionsLast7Days": 3,
+        "mentionsLast30Days": 10,
         "sourcesAvailable": [
           "Google News",
           "Bing News"
@@ -27,22 +27,22 @@
             "url": "https://news.google.com/rss/articles/CBMigwFBVV95cUxNdEtXSzYxa2Q0NllIcUtybjR3V3lvOW9fVnZxUTg4dTBtQWdqYkxnd0tFeFl5Y1E1aDB5Z29ZZUZiQThON0g4VzJFNi1fMm15Ym5EZGppcm9NZ1BqV20zZmhvZGJWTXRJdHhvSVpfZE5rTUR2NUYzMlhiR29PaXlPZ216Zw?oc=5"
           },
           {
-            "title": "Best Shark deal: Save $20 on the Shark UltraCyclone Pet Pro Plus - Mashable",
+            "title": "We Tested 53 Handheld Vacuums—These Are the 11 Best Ones for Every Mess - Real Simple",
             "source": "Google News",
-            "publishedAt": "2026-10-23T10:56:26.000Z",
-            "url": "https://news.google.com/rss/articles/CBMimgFBVV95cUxPUU9hV2VtcnFoNjdZcDBqbGhEeE5WbWpZSjJuUzc1aW5NdUZHakJtTm9YNlBPcE1KY1VqQm10UGJwZS11ejlHRndMU3Fnb1ZaNmx0cXl0RS1RbUZKUHRaUGhrX3Z1Ykg5ZUY4Z243T2YwXy1VMUNlRVZETGFYdXNwM1AzaWJIeTdHT29jcUE3RVB3XzBWUE9ta1BB?oc=5"
+            "publishedAt": "2026-10-28T07:00:00.000Z",
+            "url": "https://news.google.com/rss/articles/CBMiZ0FVX3lxTE1SOVA4VlF2dENBOE81cWdOQThiZ2JLNmtqTENyQUxpQWZIaGZyTlNiRlVNeHhKSGk4Z0R6Qy1zY3lYVVJSaEI0YURjNUJmck9IRjQ3b3pCTzd3UFZwcVpoRTBQX3J1alE?oc=5"
           },
           {
-            "title": "Black + Decker's handheld vacuum with 47,400+ reviews is on sale for $38— plus more best mini vacuums to shop on Amazon - Yahoo Lifestyle Canada",
+            "title": "The 4 Best Handheld Vacuums of 2026 - RTINGS.com",
             "source": "Google News",
-            "publishedAt": "2026-07-20T07:00:00.000Z",
-            "url": "https://news.google.com/rss/articles/CBMi6wFBVV95cUxQd0diVGlZVTdZMm9BN1JwaUtxR1NuNTV0UDhyei1uSE5qdndvNmR3WS1IZnBfVk9QRHZwYW1mUnl2RHVSRThTSUV6NC1KZHZ3aGZSZ2wtV2hnbDBzbGpnQkJBZmxDQWpfUm1td1ViOFhMSmxiUkswOW5Eb0lQbXVkQndOWVpncjRDOG5JQ3UxRTZIdkNJYkF0cWFjYzd2dkhSZVJhUmxZZ0xMS1hWS2t6TDFicHV3OUtlTm9JSENsNkE0TklsZGtHeWRCbWkyREdoeXA5V1FPbUs1ODZCYUctVjhRTjYyMVl2LU5R?oc=5"
+            "publishedAt": "2026-10-29T07:00:00.000Z",
+            "url": "https://news.google.com/rss/articles/CBMiYEFVX3lxTE84a0VVS2hreWhELTRiSElBQlROblJicHJnYlhJa1VHdEx0X1dHUFVtZFpjZFY3ekRpWDF6MmY3VFhCMnNwa1prWEUxM05tbC1nN2Nmd0xDSjRPQS1FdThaUQ?oc=5"
           },
           {
-            "title": "Amazon's Choice Shark pet vacuum is 20% off and selling fast - USA Today",
+            "title": "Amazon Canada has a Nespresso machine for 50% off, a cordless handheld vacuum for under $90 and 28 more mega deals to shop this week - Yahoo Lifestyle Canada",
             "source": "Google News",
-            "publishedAt": "2026-10-21T07:00:00.000Z",
-            "url": "https://news.google.com/rss/articles/CBMi1gFBVV95cUxQa2N3NUFFQWlpbWN3SEp3aDRJZDUwZE03Ml9JbGlZYTI5dC1WR0FzNDk0M05lenozcHhQQ25ZZ2tsWkZRRWJJUFZUeHl4bFlVcG5fQUFOand1alVuSXptYUhibjJkd1FCMEF5X0wtSzBQakd0MUdwMGZLVWNOVkJPZ1RPMUNpSThib0hpNEs5VDdobnZGaVhWMVkyRGJfMWFXRDJKdjNyQ0hhQkhUd2owRGhvVmFpd0lTQ1pUYnRFaGtNUXZKSjdLYzl1ZFl2NC1YQU45MEVn?oc=5"
+            "publishedAt": "2026-10-26T16:30:00.000Z",
+            "url": "https://news.google.com/rss/articles/CBMigAJBVV95cUxOaWpyOXJDUzFDSGtGaENfWG5ZTlU3TEc5ZzY5NWdLZUlmNkdGVXFyV2VCODFncUJXVmlzdXFPLVNuQ2lGdjBxYVEyQVE2R1I2eDZDb29tc3Q5Rm1VVVJET1BMYXo3amtJNlJHNkIxbllwdjE2Qi1Cdk1zZ0E1c2p5aGhDeHhBdngtUm1MemhPeXkwMXozeGs2a0gyeC1GczNlZGttMm5sNUxzd2NldE05WG42UW1sRThGUXFPTWEzcGdiMktlR0tIQ1B6ajVMWGRuUDlTejl6dG5LM080TGpXZnJFUTBRdXRhMXdxOG9naG5TeGQ3dlc5ZHl2R2toWVJF?oc=5"
           }
         ]
       },
@@ -58,43 +58,43 @@
       "rank": 1
     },
     {
-      "slug": "dryer-vent-cleaner-kit",
-      "name": "Dryer Vent Cleaner Kit",
-      "query": "dryer vent cleaner kit",
-      "attentionScore": 81.6,
+      "slug": "roll-up-dish-rack",
+      "name": "Roll-Up Dish Drying Rack",
+      "query": "roll up dish drying rack",
+      "attentionScore": 80.5,
       "attentionLabel": "high-attention",
       "evidence": {
-        "publicMentions": 48,
-        "mentionsLast7Days": 2,
-        "mentionsLast30Days": 3,
+        "publicMentions": 27,
+        "mentionsLast7Days": 1,
+        "mentionsLast30Days": 6,
         "sourcesAvailable": [
           "Google News",
           "Bing News"
         ],
         "sampleSignals": [
           {
-            "title": "Dryer fires are a major household hazard. This 'must-have' vent cleaner helps prevent them — it's under $20 - Yahoo Lifestyle Canada",
+            "title": "We Tested 39 Dish Racks and Finally Found the Answer to Icky Sink Puddles - Food & Wine",
             "source": "Google News",
-            "publishedAt": "2026-08-11T07:00:00.000Z",
-            "url": "https://news.google.com/rss/articles/CBMi2wFBVV95cUxPNHlsSk1uanVvSjRscmNoSkxIZVVMZjlsMmFDaXc3VEpUUzBjd1d2UGlwRnRuSE9XNXhvVXhQUW9tOXdEU1BjUFFFU0Jrc19mTFZzbTcxLTV5bzFIaUx5RU1YMGZEZFVQTUlyUWR4U1NWVWZsNUZQbk9UWjhMaktnb19LNFJ5bVcyMWM2b3F5S3FnLWROQ1IwTzhHZUgydUhwb2hPRlpFQUo5ZjFTMVVLTzFsYmluWGNvNkZRSHB1bThZX0NzX0JVMnNfNWJRVUY5Y2ZCLUV0bGJqTW8?oc=5"
+            "publishedAt": "2026-10-23T07:00:00.000Z",
+            "url": "https://news.google.com/rss/articles/CBMiYEFVX3lxTE5TUGNuSC1rX1FtUnpfZkRteUstbTBIalRVdzA3Q2JTX3FKSDNMcVJLUmVfU0Z3Mk1tSFhmbGpxZzMyRnRvYlNCLTRZS0FyNEJvWkdTUktsQU5MMGxKbVViOQ?oc=5"
+          },
+          {
+            "title": "I Put a Dish Rack in My Tiny Bathroom, and It Changed Everything - Apartment Therapy",
+            "source": "Google News",
+            "publishedAt": "2026-10-10T07:00:00.000Z",
+            "url": "https://news.google.com/rss/articles/CBMiggFBVV95cUxNX3hDa2V2RHM3N2FBLXg3Y181T3Y2alpkbF9zeHMxS0cwVUhaQjVwNDBiaW5rdWVaUGZaZ1NWU29iSXhxX2xfNG1uMXZLb19Yck1sRi1wUk9HSnhRVmpla3NwTHVlRHdITkJMZXp5MjBIUXZBLVd0U0wydlZPRTBtZF9R?oc=5"
+          },
+          {
+            "title": "I Put a Dish Rack in My Tiny Bathroom, and It Changed Everything - Yahoo Lifestyle Canada",
+            "source": "Google News",
+            "publishedAt": "2026-10-10T07:00:00.000Z",
+            "url": "https://news.google.com/rss/articles/CBMieEFVX3lxTE5PSDNxWDhTYlRZSUN2X0ctNlNPeGgzenE1MUdvaGRUWGt0SjNZc19BWnd4MEs3OXR0ZFBTaFlkRG1MbVJZdDN3a3RwYkZMLVBIcU9RM1ZiMmQ4ODRQbGFxYmdyMkxmdS0xa0JLbU8xWkJMaXRscHVCcA?oc=5"
           },
           {
             "title": "10 Clever Amazon Home and Kitchen Gadgets That Pull a Lot More Weight Than Their Under-$10 Price Tag Suggests - Real Simple",
             "source": "Google News",
             "publishedAt": "2026-10-29T21:30:00.000Z",
             "url": "https://news.google.com/rss/articles/CBMiigFBVV95cUxNR0JTUXhTQzhpWWlKelBCT1ZRRWVwR0pRdy1Eb2lHanM4cDNqV2N4ek81bUNhblNqQl9QRWczdVk5OXIxMU9pQ3FXVXkzRXFQU3ZpR083RGRrWG54WDdHOHAtai1ZU2huMXJDZC1SZ0xTMlE1MWk3bzNNUFpCQmJabHBSc1hjSjhBaHc?oc=5"
-          },
-          {
-            "title": "The Best Dryer Vent Cleaning Kits of 2026, Tested By Experts - BobVila.com",
-            "source": "Google News",
-            "publishedAt": "2026-01-28T08:00:00.000Z",
-            "url": "https://news.google.com/rss/articles/CBMicEFVX3lxTE1YY1R3S1Vab08tdnA5S2FGUWV6TVVqTDhKQnpGQzVKdlhpZ19WVTM1WnVYRkZKV1VqWFBWcXVVbFJ0OFpVRW5DVVMzNGVWRWhMVEpyUEd1NzFnNVlHb3dGMTVzZVQtNU5tUlVtSm4tNVo?oc=5"
-          },
-          {
-            "title": "Sealegend Dryer Vent Cleaning Vacuum Hose Review: My Dryer Is So Much Cleaner Now - Dengarden",
-            "source": "Google News",
-            "publishedAt": "2026-01-27T08:00:00.000Z",
-            "url": "https://news.google.com/rss/articles/CBMiugFBVV95cUxOREpad2RpUUhyM2tUcEROY21oU3JNOVMxaTJXMzUtb25YY3ZJd08wdXpDRzh5RTVlT3I4YzVHQWhSQXowTF9CaEY1cWhQWC16NVdQa19hNjByeXV5OGtsazZ5aE9LeWRBSjJfTFNYREd5dHQtS2phWUo4bnlfaF92U1h0ZlQxQVdrVWdEa3F0WGFfWFZINWI3ajNONHQxV1N3M0UzY0RxXzItRnBaVWJyMVljVXdFRGZpc0E?oc=5"
           }
         ]
       },
@@ -110,65 +110,13 @@
       "rank": 2
     },
     {
-      "slug": "roll-up-dish-rack",
-      "name": "Roll-Up Dish Drying Rack",
-      "query": "roll up dish drying rack",
-      "attentionScore": 80.5,
-      "attentionLabel": "high-attention",
-      "evidence": {
-        "publicMentions": 28,
-        "mentionsLast7Days": 1,
-        "mentionsLast30Days": 6,
-        "sourcesAvailable": [
-          "Google News",
-          "Bing News"
-        ],
-        "sampleSignals": [
-          {
-            "title": "I Put a Dish Rack in My Tiny Bathroom, and It Changed Everything - Apartment Therapy",
-            "source": "Google News",
-            "publishedAt": "2026-10-10T07:00:00.000Z",
-            "url": "https://news.google.com/rss/articles/CBMiggFBVV95cUxNX3hDa2V2RHM3N2FBLXg3Y181T3Y2alpkbF9zeHMxS0cwVUhaQjVwNDBiaW5rdWVaUGZaZ1NWU29iSXhxX2xfNG1uMXZLb19Yck1sRi1wUk9HSnhRVmpla3NwTHVlRHdITkJMZXp5MjBIUXZBLVd0U0wydlZPRTBtZF9R?oc=5"
-          },
-          {
-            "title": "Your Dish Rack Is Dirtier Than You Think — Here’s How to Clean It, Plus Our Top-Tested Picks - Food & Wine",
-            "source": "Google News",
-            "publishedAt": "2026-10-23T07:00:00.000Z",
-            "url": "https://news.google.com/rss/articles/CBMiYEFVX3lxTE5TUGNuSC1rX1FtUnpfZkRteUstbTBIalRVdzA3Q2JTX3FKSDNMcVJLUmVfU0Z3Mk1tSFhmbGpxZzMyRnRvYlNCLTRZS0FyNEJvWkdTUktsQU5MMGxKbVViOQ?oc=5"
-          },
-          {
-            "title": "10 Clever Amazon Home and Kitchen Gadgets That Pull a Lot More Weight Than Their Under-$10 Price Tag Suggests - Real Simple",
-            "source": "Google News",
-            "publishedAt": "2026-10-29T21:30:00.000Z",
-            "url": "https://news.google.com/rss/articles/CBMiigFBVV95cUxNR0JTUXhTQzhpWWlKelBCT1ZRRWVwR0pRdy1Eb2lHanM4cDNqV2N4ek81bUNhblNqQl9QRWczdVk5OXIxMU9pQ3FXVXkzRXFQU3ZpR083RGRrWG54WDdHOHAtai1ZU2huMXJDZC1SZ0xTMlE1MWk3bzNNUFpCQmJabHBSc1hjSjhBaHc?oc=5"
-          },
-          {
-            "title": "I Put a Dish Rack in My Tiny Bathroom, and It Changed Everything - Yahoo Lifestyle Canada",
-            "source": "Google News",
-            "publishedAt": "2026-10-10T07:00:00.000Z",
-            "url": "https://news.google.com/rss/articles/CBMieEFVX3lxTE5PSDNxWDhTYlRZSUN2X0ctNlNPeGgzenE1MUdvaGRUWGt0SjNZc19BWnd4MEs3OXR0ZFBTaFlkRG1MbVJZdDN3a3RwYkZMLVBIcU9RM1ZiMmQ4ODRQbGFxYmdyMkxmdS0xa0JLbU8xWkJMaXRscHVCcA?oc=5"
-          }
-        ]
-      },
-      "supplier": null,
-      "supplierReady": false,
-      "freightReady": false,
-      "promotionReady": false,
-      "mediaRightsReady": false,
-      "liveStripePricingReady": false,
-      "listed": false,
-      "discoveryEvidence": [],
-      "nextAction": "connect-cj",
-      "rank": 3
-    },
-    {
       "slug": "hanging-closet-organizer",
       "name": "Hanging Closet Organizer",
       "query": "hanging closet organizer",
       "attentionScore": 69.4,
       "attentionLabel": "promotion-watch",
       "evidence": {
-        "publicMentions": 28,
+        "publicMentions": 29,
         "mentionsLast7Days": 0,
         "mentionsLast30Days": 3,
         "sourcesAvailable": [
@@ -199,6 +147,58 @@
             "source": "Google News",
             "publishedAt": "2026-09-10T07:00:00.000Z",
             "url": "https://news.google.com/rss/articles/CBMigwFBVV95cUxNTEktQnJlSWx1UGpURHMxc3VaaVRIaklobEQxSGYtejQ3NW96Qk1Ed25rTlFwRUxfNUx3Y2VsYTduLVg2aURmMDhjYklwS2l2MnhVT2NocnpUZmhmaTlwVmZoSFVYRHBxZGpDMGJOckVNckZMbERudFFRem9uVWl2bkVSUQ?oc=5"
+          }
+        ]
+      },
+      "supplier": null,
+      "supplierReady": false,
+      "freightReady": false,
+      "promotionReady": false,
+      "mediaRightsReady": false,
+      "liveStripePricingReady": false,
+      "listed": false,
+      "discoveryEvidence": [],
+      "nextAction": "connect-cj",
+      "rank": 3
+    },
+    {
+      "slug": "dryer-vent-cleaner-kit",
+      "name": "Dryer Vent Cleaner Kit",
+      "query": "dryer vent cleaner kit",
+      "attentionScore": 50.5,
+      "attentionLabel": "research",
+      "evidence": {
+        "publicMentions": 15,
+        "mentionsLast7Days": 0,
+        "mentionsLast30Days": 0,
+        "sourcesAvailable": [
+          "Google News",
+          "Bing News"
+        ],
+        "sampleSignals": [
+          {
+            "title": "Dryer fires are a major household hazard. This 'must-have' vent cleaner helps prevent them — it's under $20 - Yahoo Lifestyle Canada",
+            "source": "Google News",
+            "publishedAt": "2026-08-11T07:00:00.000Z",
+            "url": "https://news.google.com/rss/articles/CBMi2wFBVV95cUxPNHlsSk1uanVvSjRscmNoSkxIZVVMZjlsMmFDaXc3VEpUUzBjd1d2UGlwRnRuSE9XNXhvVXhQUW9tOXdEU1BjUFFFU0Jrc19mTFZzbTcxLTV5bzFIaUx5RU1YMGZEZFVQTUlyUWR4U1NWVWZsNUZQbk9UWjhMaktnb19LNFJ5bVcyMWM2b3F5S3FnLWROQ1IwTzhHZUgydUhwb2hPRlpFQUo5ZjFTMVVLTzFsYmluWGNvNkZRSHB1bThZX0NzX0JVMnNfNWJRVUY5Y2ZCLUV0bGJqTW8?oc=5"
+          },
+          {
+            "title": "The Best Dryer Vent Cleaning Kits of 2026, Tested By Experts - BobVila.com",
+            "source": "Google News",
+            "publishedAt": "2026-01-28T08:00:00.000Z",
+            "url": "https://news.google.com/rss/articles/CBMicEFVX3lxTE1YY1R3S1Vab08tdnA5S2FGUWV6TVVqTDhKQnpGQzVKdlhpZ19WVTM1WnVYRkZKV1VqWFBWcXVVbFJ0OFpVRW5DVVMzNGVWRWhMVEpyUEd1NzFnNVlHb3dGMTVzZVQtNU5tUlVtSm4tNVo?oc=5"
+          },
+          {
+            "title": "Sealegend Dryer Vent Cleaning Vacuum Hose Review: My Dryer Is So Much Cleaner Now - Dengarden",
+            "source": "Google News",
+            "publishedAt": "2026-01-27T08:00:00.000Z",
+            "url": "https://news.google.com/rss/articles/CBMiugFBVV95cUxOREpad2RpUUhyM2tUcEROY21oU3JNOVMxaTJXMzUtb25YY3ZJd08wdXpDRzh5RTVlT3I4YzVHQWhSQXowTF9CaEY1cWhQWC16NVdQa19hNjByeXV5OGtsazZ5aE9LeWRBSjJfTFNYREd5dHQtS2phWUo4bnlfaF92U1h0ZlQxQVdrVWdEa3F0WGFfWFZINWI3ajNONHQxV1N3M0UzY0RxXzItRnBaVWJyMVljVXdFRGZpc0E?oc=5"
+          },
+          {
+            "title": "This dryer vent cleaner clears out a 'terrifying' amount of lint — on sale for $8 - Yahoo",
+            "source": "Google News",
+            "publishedAt": "2026-04-19T07:00:00.000Z",
+            "url": "https://news.google.com/rss/articles/CBMi4gFBVV95cUxNNVpPSFdUVnJfT21VTi00blpMTU5GaFVZS1VhNXpiQ29wc181M2VVYV93OVVnT1RtaURIVGs4b25pbXNTZUpKOUdIM3lfbFY1Sl9DYk1iTzhpcXZUeW52M1lyYnNpQkZnaF9YSEduT0hGMTBEdjhrZF9mZHRoS0NfQUxWd2xuclh4M0VMck1aa3JaejE0TlZKUnVmYjVTV19idTBSZjYtb083dFV0azIyeTB1UHAwYUF1djh2WDdjaW1yNFl5anRZVFh3aDNrVm94dUFkdGtjLVhObFJONDFMWUR3?oc=5"
           }
         ]
       },
@@ -333,16 +333,16 @@
             "url": "https://news.google.com/rss/articles/CBMieEFVX3lxTE8wVjR3S25uUmxHS180VmRZaHUzN3diM2EtZ29mYW1KTTJKX3BBSWlxOS1MZmtVSExfS1V5S2dCUFdjWDFnZW9FRjAyTTMtc0NKS1R3ZzFySGIzWVhkbll4NGhNV3lCMTg4VUN4YUh4elBKZUwwOUh2YQ?oc=5"
           },
           {
-            "title": "11 Best Baby Bottle Brushes To Remove Bacteria And Germs In 2026 - MomJunction",
-            "source": "Google News",
-            "publishedAt": "2026-02-09T08:00:00.000Z",
-            "url": "https://news.google.com/rss/articles/CBMie0FVX3lxTFBSSnZJWk02YnZ0a196a2FxNGRxV29yeFJscE4tOUxEb1czcXdQREwta0NRNy1kSmNFVklxd2VENmRRSjkzdnQzX1Bob2dScW1pLXF5YzBGSDBDYnJwalZ0bERjOWdyZEZvcmlwN0ZOYjFhRl9UQmxyQklsMA?oc=5"
-          },
-          {
             "title": "10 best bottle brushes to keep your water bottles squeaky clean - WTNH.com",
             "source": "Google News",
             "publishedAt": "2023-03-09T08:00:00.000Z",
             "url": "https://news.google.com/rss/articles/CBMi1gFBVV95cUxQelpvZzNjSEN2SmhEYUpQbVMwRGtCS0hyRUdEczd2YTZGOUN6SzZWbWt4dGZYS2tkM0tuR0RuVndfTVhfb2ZieERCbjhMLWx1VEJNZ3BueE90R2VyWkFDa0s1SHN3RXlsY3ZycWJTRFNBVVhEcklwTERIQzNLeUNQN05tcjR0bWlUdGpWMjVsY2xSTDFGcFBzMEtNTzVxd284Vi1ZRGt6a0FjSDZFVC1uNEtFQzM5MmNydVdodUQyY014Q0xPa2F1aFh1SU5kUVV1cmswajFB0gHbAUFVX3lxTE8zNndxRGlSLWV2Zm0tT1JDSDNJS3V4UHZrQXFNenltekdfMm4zaHo5emJFRGNrZW1QczhDM2NzZGtJNTZIUTd3QmVkZUpISHpXOEZwcnctNzdMbUZxMHpUenhGa001ZXZWOUVCWWhuTFBVamhoeklUdDR6SjNTWmt0Y3NRS0g5VEhPb2lqY3dvelhncjZ4c1dqbWU4V2dSejE4N0tuU01MVkRiWnBLSC1scEloTW9KMV9HcWNHb0hKNDctZXBWWUIwR2Z2N3p2ODRPa0tKLUZUTU1LRQ?oc=5"
+          },
+          {
+            "title": "Cool things with near-perfect Amazon reviews that are under-the-radar - mic.com",
+            "source": "Google News",
+            "publishedAt": "2024-05-07T07:00:00.000Z",
+            "url": "https://news.google.com/rss/articles/CBMinwFBVV95cUxQY3l0eWpVTG12TXJMQXJJc1ppYWhONkVRSUlfLVVla2FNaWowYXpUSHF0NkxjRXItZDVCck12emZtLXMwR0tmZEVzT01kVTQ3bnlMWkxOZlptM095TkppNU5wbXNaWlBYQWs5VEgteXRGTjZ4SEhGV1Q4dC10a3dXWldKdmE5V24xWGJNYmIxaXRHZE5uOXNjSzB4WmZIOUk?oc=5"
           },
           {
             "title": "These 19 Award-Winning Products Will Help Keep Your Baby Nourished and Fed - Parents",
