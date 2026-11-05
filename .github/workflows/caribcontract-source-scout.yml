@@ -1,0 +1,72 @@
+name: CaribContract Atlas Independent Source Scout
+
+on:
+  schedule:
+    - cron: '22 11 * * *'
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - 'ventures/caribcontract-atlas/**'
+      - '.github/workflows/caribcontract-source-scout.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'ventures/caribcontract-atlas/**'
+      - '.github/workflows/caribcontract-source-scout.yml'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: caribcontract-source-scout
+  cancel-in-progress: true
+
+jobs:
+  research:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    defaults:
+      run:
+        working-directory: ventures/caribcontract-atlas
+    steps:
+      - name: Checkout reviewed code
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Validate provenance, closing dates and quality rules
+        run: node --test rules.test.mjs
+
+      - name: Prepare browser only for an approved production schedule
+        if: github.event_name != 'pull_request'
+        run: |
+          npm install --no-audit --no-fund
+          npx playwright install --with-deps chromium
+
+      - name: Read only the official public tender source
+        if: github.event_name != 'pull_request'
+        run: npm run scout
+
+      - name: Retain unreviewed candidates and check diagnostics for three days
+        if: always() && github.event_name != 'pull_request'
+        uses: actions/upload-artifact@v4
+        with:
+          name: caribcontract-source-scout-${{ github.run_id }}
+          path: ventures/caribcontract-atlas/output/
+          if-no-files-found: warn
+          retention-days: 3
+
+      - name: Disclose publication boundary
+        if: always()
+        run: |
+          echo '## CaribContract Atlas public source scout' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Independent new business research, separate from PrismBay retail and the educational YouTube channel.' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Official portal accessed read-only at most once per scheduled day.' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Result is a candidate artifact for human review, not a published tender, verified deadline or buyer alert.' >> "$GITHUB_STEP_SUMMARY"
+          echo '- No Stripe, banking, outreach, bid submission, paid promotion or supplier ordering.' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Missing/blocked portal access fails closed.' >> "$GITHUB_STEP_SUMMARY"
