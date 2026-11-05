@@ -37,7 +37,7 @@ export function filterNotices(snapshot,{asOf=guyanaDate(),sector="All sectors",q
 }
 export function categoryForTitle(title) {
  const text=String(title).toLowerCase();
- if(/\b(ambulance|vehicle|motor car|pickup|truck|bus)\b/.test(text)) return "Vehicles";
+ if(/\b(ambulances?|vehicles?|motor cars?|pickups?|trucks?|buses?)\b/.test(text)) return "Vehicles";
  if(/\b(road|bridge|construction|civil works|rehabilitation|infrastructure|building)\b/.test(text)) return "Construction";
  if(/\b(software|computer|laptop|it equipment|server|network|telecom)\b/.test(text)) return "Technology";
  if(/\b(service|security|consult|insurance|cleaning|maintenance)\b/.test(text)) return "Services";
