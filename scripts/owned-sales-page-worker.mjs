@@ -4,6 +4,7 @@ import { pathToFileURL } from 'node:url';
 import { ACTIVE_DIGITAL_OFFERS } from './digital-conversion-campaign.mjs';
 import { guidedSalesPlan } from './freellm-sales-worker.mjs';
 import { writeAssessment, URL as ASSESSMENT_URL } from './first-sale-assessment.mjs';
+import { writeCashflowDiagnostic, CASHFLOW_DIAGNOSTIC_URL } from './cashflow-diagnostic.mjs';
 import { CASHFLOW_GUIDE_URL, CASHFLOW_PRODUCT_URL, CASHFLOW_PRICE_USD, buildCashflowBuyerPage } from './cashflow-owned-launch.mjs';
 
 const ROOT = 'https://clean.prismbayai.com/';
@@ -191,7 +192,7 @@ ${offer.slug === 'whitepaper' ? '<h2>Free board paper readiness assessment</h2><
 }
 
 export function buildHub() {
-  const starter = `<article class="article" style="margin-bottom:22px;border:2px solid #8fceb7"><p class="eyebrow">Affordable starter | Small businesses</p><h2>Cashflow Studio, ${CASHFLOW_PRICE_USD.toFixed(2)} USD</h2><p>A one-time Excel cash-flow template with 12-month summaries and a 300-row transaction register. Learn with a free fictional example before deciding.</p><p><a class="btn dark" href="./cash-flow-tracker-spreadsheet.html">Read the free cash flow guide</a> · <a href="${CASHFLOW_PRODUCT_URL}">See the workbook</a></p></article>`;
+  const starter = `<article class="article" style="margin-bottom:22px;border:2px solid #8fceb7"><p class="eyebrow">Affordable starter | Small businesses</p><h2>Cashflow Studio, ${CASHFLOW_PRICE_USD.toFixed(2)} USD</h2><p>A one-time Excel cash-flow template with 12-month summaries and a 300-row transaction register. Learn with a free fictional example before deciding.</p><p><a class="btn dark" href="./cash-flow-tracker-spreadsheet.html">Read the free cash flow guide</a> · <a href="${CASHFLOW_PRODUCT_URL}">See the workbook</a> · <a href="./free-cash-flow-runway-calculator.html">Use the free cash runway calculator</a></p></article>`;
   const cards = ACTIVE_DIGITAL_OFFERS.map(offer => `
 <article class="article" style="margin-bottom:22px">
 <p class="eyebrow">${esc(offer.audience)}</p>
@@ -218,6 +219,7 @@ export function ownedSalesUrls() {
   return [
     LEARN,
     CASHFLOW_GUIDE_URL,
+    CASHFLOW_DIAGNOSTIC_URL,
     ASSESSMENT_URL,
     ...ACTIVE_DIGITAL_OFFERS.map(offer => LEARN + pageSlugs[offer.slug])
   ];
@@ -229,6 +231,7 @@ export async function main(outputDir = process.argv[2] || 'growth-reports/owned-
   const strategies = {};
   await fs.writeFile(path.join(outputDir, 'index.html'), buildHub());
   await writeAssessment(outputDir);
+  await writeCashflowDiagnostic(outputDir);
   await fs.writeFile(path.join(outputDir, 'cash-flow-tracker-spreadsheet.html'), buildCashflowBuyerPage());
   for (const offer of ACTIVE_DIGITAL_OFFERS) {
     const salesPlan = salesPlanFromReport(offer, salesReport);
@@ -236,7 +239,7 @@ export async function main(outputDir = process.argv[2] || 'growth-reports/owned-
     await fs.writeFile(path.join(outputDir, pageSlugs[offer.slug]), buildOfferPage(offer, salesPlan));
   }
   await fs.writeFile(path.join(outputDir, 'urls.json'), JSON.stringify({ urls: ownedSalesUrls(), strategies }, null, 2) + '\n');
-  console.log(JSON.stringify({status:'PASS',outputDir,pageCount:ACTIVE_DIGITAL_OFFERS.length + 2,urls:ownedSalesUrls(),strategies}));
+  console.log(JSON.stringify({status:'PASS',outputDir,pageCount:ACTIVE_DIGITAL_OFFERS.length + 4,urls:ownedSalesUrls(),strategies}));
 }
 
 if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
