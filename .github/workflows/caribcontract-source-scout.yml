@@ -40,7 +40,9 @@ jobs:
           node-version: '22'
 
       - name: Validate provenance, closing dates and quality rules
-        run: node --test rules.test.mjs
+        run: |
+          node --check scout.mjs
+          node --test rules.test.mjs
 
       - name: Prepare browser only for an approved production schedule
         if: github.event_name != 'pull_request'
