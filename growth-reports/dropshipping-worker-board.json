@@ -1,10 +1,10 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-11-05T07:27:27.302Z",
+  "generatedAt": "2026-11-05T12:26:10.296Z",
   "researchCandidates": 12,
   "publishedResearchSignals": 12,
   "verifiedCJStatus": {
-    "checkedAt": "2026-11-05T00:55:25.533Z",
+    "checkedAt": "2026-11-05T12:26:08.854Z",
     "validSupplierMatches": 4,
     "variantStock": 1,
     "freightEstimates": 1,
@@ -28,6 +28,27 @@
       "candidateCount": 9,
       "blockers": [
         {
+          "slug": "cordless-handheld-vacuum",
+          "status": "supplier_search_needed",
+          "sku": null,
+          "shippingDiagnostic": null,
+          "zeroPricedMethods": 0
+        },
+        {
+          "slug": "insulated-tumbler",
+          "status": "supplier_search_needed",
+          "sku": null,
+          "shippingDiagnostic": null,
+          "zeroPricedMethods": 0
+        },
+        {
+          "slug": "screen-protector",
+          "status": "final_zip_freight_required",
+          "sku": "CJPB237729905EV",
+          "shippingDiagnostic": "priced_estimate_available",
+          "zeroPricedMethods": 0
+        },
+        {
           "slug": "scrubber",
           "status": "supplier_search_needed",
           "sku": null,
@@ -36,7 +57,7 @@
         },
         {
           "slug": "pethair",
-          "status": "variant_stock_required",
+          "status": "fresh_commercial_evidence_required",
           "sku": "CJMY2103657",
           "shippingDiagnostic": "variant_stock_unverified",
           "zeroPricedMethods": 0
@@ -67,27 +88,6 @@
           "status": "fresh_commercial_evidence_required",
           "sku": "CJSJ2077898",
           "shippingDiagnostic": "variant_stock_unverified",
-          "zeroPricedMethods": 0
-        },
-        {
-          "slug": "cordless-handheld-vacuum",
-          "status": "supplier_search_needed",
-          "sku": null,
-          "shippingDiagnostic": null,
-          "zeroPricedMethods": 0
-        },
-        {
-          "slug": "insulated-tumbler",
-          "status": "supplier_search_needed",
-          "sku": null,
-          "shippingDiagnostic": null,
-          "zeroPricedMethods": 0
-        },
-        {
-          "slug": "screen-protector",
-          "status": "fresh_commercial_evidence_required",
-          "sku": "CJPB237729905EV",
-          "shippingDiagnostic": "priced_estimate_available",
           "zeroPricedMethods": 0
         }
       ]
