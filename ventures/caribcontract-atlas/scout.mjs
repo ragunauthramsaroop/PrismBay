@@ -17,16 +17,21 @@ const asDate=(value)=>{
 };
 function mapRows(rows) {
  const found=[];
+ let currentAgency="";
  for(const row of rows){
   const cells=row.cells.map(x=>clean(x,240)).filter(Boolean);
-  if(cells.length<3)continue;
+  const agencyHeading=cells.find(x=>/^(?:\\d+\\s*[-–]\\s*)?(?:ministry|department|national procurement|guyana|office of|commission|authority)\\b/i.test(x));
+  if(cells.length<3){
+   if(agencyHeading)currentAgency=clean(agencyHeading.replace(/^\\d+\\s*[-–]\\s*/,""),120);
+   continue;
+  }
   const dateCells=cells.map(c=>asDate(c));
   const index=dateCells.findIndex(Boolean);
   if(index<0)continue;
   const deadline=dateCells[index];
   const title=cells.filter((_,i)=>i!==index).find(x=>x.length>15 && !/^(ministry|department|national procurement|closing|deadline|open|active|published)/i.test(x));
   if(!title)continue;
-  const agency=cells.filter((_,i)=>i!==index).find(x=>/\b(ministry|department|commission|authority|government|agency|office|corporation)\b/i.test(x))||"Issuing public body";
+  const agency=cells.filter((_,i)=>i!==index).find(x=>/\b(ministry|department|commission|authority|government|agency|office|corporation)\b/i.test(x))||currentAgency||"Issuing public body";
   if(agency==="Issuing public body") continue;
   const id="GY-SCOUT-"+createHash("sha256").update([title,agency,deadline].join("|").toLowerCase()).digest("hex").slice(0,20);
   found.push({id,title,agency,sector:categoryForTitle(title),deadline,source:PORTAL});
