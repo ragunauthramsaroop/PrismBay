@@ -41,18 +41,12 @@ jobs:
 
       - name: Validate provenance, closing dates and quality rules
         run: |
-          node --check scout.mjs
-          node --test rules.test.mjs
+          node --check scout_api.mjs
+          node --test rules.test.mjs scout_api.test.mjs
 
-      - name: Prepare browser only for an approved production schedule
+      - name: Read official public API without browser or paid dependencies
         if: github.event_name != 'pull_request'
-        run: |
-          npm install --no-audit --no-fund
-          npx playwright install --with-deps chromium
-
-      - name: Read only the official public tender source
-        if: github.event_name != 'pull_request'
-        run: npm run scout
+        run: node scout_api.mjs
 
       - name: Retain unreviewed candidates and check diagnostics for three days
         if: always() && github.event_name != 'pull_request'
@@ -68,7 +62,7 @@ jobs:
         run: |
           echo '## CaribContract Atlas public source scout' >> "$GITHUB_STEP_SUMMARY"
           echo '- Independent new business research, separate from PrismBay retail and the educational YouTube channel.' >> "$GITHUB_STEP_SUMMARY"
-          echo '- Official portal accessed read-only at most once per scheduled day.' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Reads only the documented public government API, with no Chromium installation or paid dependency.' >> "$GITHUB_STEP_SUMMARY"
           echo '- Result is a candidate artifact for human review, not a published tender, verified deadline or buyer alert.' >> "$GITHUB_STEP_SUMMARY"
           echo '- No Stripe, banking, outreach, bid submission, paid promotion or supplier ordering.' >> "$GITHUB_STEP_SUMMARY"
           echo '- Missing/blocked portal access fails closed.' >> "$GITHUB_STEP_SUMMARY"
