@@ -54,18 +54,18 @@ jobs:
           python -m unittest discover -p 'test_dossier_engine.py' -v
 
       - name: Create one review candidate from the official public government document
-        if: github.event_name == 'workflow_dispatch' || github.event_name == 'schedule'
+        if: github.event_name != 'pull_request'
         env:
           PUBLIC_TENDER_ID: '${{ inputs.tender_id }}'
         run: |
-          if [ "$GITHUB_EVENT_NAME" = "schedule" ]; then
+          if [ "$GITHUB_EVENT_NAME" = "schedule" ] || [ "$GITHUB_EVENT_NAME" = "push" ]; then
             python dossier_engine.py --tender-id auto --output-dir output/dossiers
           else
             python dossier_engine.py --tender-id "$PUBLIC_TENDER_ID" --output-dir output/dossiers
           fi
 
       - name: Keep source-review candidate as short-lived artifact, never sell or publish automatically
-        if: always() && (github.event_name == 'workflow_dispatch' || github.event_name == 'schedule')
+        if: always() && (github.event_name != 'pull_request')
         uses: actions/upload-artifact@v4
         with:
           name: caribcontract-public-dossier-${{ github.run_id }}
