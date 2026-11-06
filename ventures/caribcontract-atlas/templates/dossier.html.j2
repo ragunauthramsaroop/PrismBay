@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>{{ tender.id }} | Public Tender Evidence Review | CaribContract Atlas</title>
+<style>
+:root {color-scheme:light;--ink:#143828;--muted:#607668;--line:#dce6dd;--green:#25714d;--paper:#fff;--bg:#eff4f0}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);font:14px/1.55 Arial,sans-serif;color:var(--ink)}
+.page{max-width:960px;margin:40px auto;background:var(--paper);padding:64px 67px;box-shadow:0 12px 45px #123d2b13}
+.kicker{font-size:11px;letter-spacing:.19em;font-weight:800;color:var(--green)}
+header{border-bottom:2px solid var(--ink);padding-bottom:22px;display:flex;justify-content:space-between;gap:18px;align-items:start}
+.brand{font-size:21px;font-weight:850;letter-spacing:-.04em}.version{font-size:11px;color:var(--muted);text-align:right}
+h1{font-size:41px;letter-spacing:-.045em;line-height:1.12;margin:33px 0 16px}h2{font-size:21px;letter-spacing:-.025em;border-bottom:1px solid var(--line);padding-bottom:11px;margin-top:35px}
+p{margin:12px 0}.lead{font-size:16px;color:#4b6755;max-width:740px}
+.notice{background:#eaf3eb;padding:17px 20px;border-left:4px solid #267349;margin:25px 0}
+.notice strong{display:block;margin-bottom:5px}.notice span{display:block;color:#4d6d55}
+.metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:11px;margin:22px 0}
+.metric{border:1px solid var(--line);padding:12px}.metric b{display:block;font-size:18px}.metric small{color:var(--muted);font-size:11px}
+dl{display:grid;grid-template-columns:160px 1fr;gap:9px 20px;margin:22px 0}dt{font-weight:bold;font-size:12px;color:#54715c}dd{margin:0;overflow-wrap:anywhere}
+a{color:#125e43;overflow-wrap:anywhere}
+table{width:100%;border-collapse:collapse;font-size:12px;line-height:1.5}th{text-align:left;background:#173d2b;color:white;padding:11px;font-weight:700}td{padding:12px 11px;border-bottom:1px solid var(--line);vertical-align:top}tr:nth-child(even){background:#f8faf8}.status{font-size:11px;color:#5d725e}.evidence{font-size:11px;color:#336147;margin-top:7px}
+ol,ul{padding-left:23px}li{padding:6px 0}footer{margin-top:40px;border-top:2px solid var(--ink);padding-top:21px;font-size:11px;color:#6d8274}
+@media(max-width:680px){.page{padding:26px 19px;margin:0}.metrics{grid-template-columns:1fr}.brand{font-size:16px}h1{font-size:32px}dl{grid-template-columns:1fr;gap:2px}dd{margin-bottom:12px}table{font-size:11px}th,td{padding:8px}}
+@media print{@page{size:A4;margin:14mm}body{background:white}.page{max-width:none;margin:0;padding:0;box-shadow:none}.notice,table,tr,.metric{break-inside:avoid}h2{break-after:avoid}a{color:var(--ink)}}
+</style>
+</head>
+<body><main class="page">
+<header><div><div class="kicker">PUBLIC PROCUREMENT EVIDENCE</div><div class="brand">CARIBCONTRACT ATLAS</div></div><div class="version">Research only<br>{{ generated_on }}<br>{{ tender.id }}</div></header>
+<h1>One tender.<br>One evidence-led decision brief.</h1>
+<p class="lead">Original public advertisement review, prepared as an internal review candidate. Every extracted reference requires verification in the official source before buyer delivery.</p>
+<div class="notice"><strong>Quality review: {{ quality_gate | replace('_', ' ') | upper }}</strong>
+<span>Advertised bid opening is not independently confirmed as the bid submission deadline. This report does not establish eligibility or recommended bid submission.</span></div>
+<div class="metrics"><div class="metric"><b>{{ pages_examined }}</b><small>Official PDF pages inspected</small></div><div class="metric"><b>{{ text_characters_examined }}</b><small>Characters available for text review</small></div><div class="metric"><b>{{ business_days_to_advertised_opening }}</b><small>Weekdays before advertised opening</small></div></div>
+<h2>01 / Source identity</h2>
+<dl>
+<dt>Official reference</dt><dd>{{ tender.id }}</dd>
+<dt>Opportunity</dt><dd>{{ tender.title }}</dd>
+<dt>Procuring authority</dt><dd>{{ tender.agency }}</dd>
+<dt>Advertised bid opening</dt><dd>{{ tender.advertised_opening }}. Confirm exact submission cutoff separately.</dd>
+<dt>Advertisement published</dt><dd>{{ tender.published or 'Not stated in public source' }}</dd>
+<dt>Region</dt><dd>{{ tender.region or 'Not stated' }}</dd>
+<dt>Procurement type</dt><dd>{{ tender.procurement_type }}</dd>
+<dt>Method</dt><dd>{{ tender.procurement_method }}</dd>
+<dt>Official portal</dt><dd><a rel="noopener noreferrer" href="{{ tender.source_url }}">{{ tender.source_url }}</a></dd>
+<dt>Original PDF</dt><dd><a rel="noopener noreferrer" href="{{ tender.document_url }}">{{ tender.document_url }}</a></dd>
+<dt>Document checksum</dt><dd><code>{{ source_sha256 or 'Not available' }}</code></dd>
+</dl>
+<h2>02 / Evidence and missing-information matrix</h2>
+<p>Text references below point to original PDF page numbers. A detected phrase is not proof of a binding requirement. No record means the accessible advertisement did not establish the point.</p>
+<table><thead><tr><th style="width:23%">Area</th><th style="width:28%">Review status</th><th>Public PDF evidence</th></tr></thead><tbody>
+{% for row in evidence_matrix %}
+<tr><td><strong>{{ row.topic }}</strong></td><td><span class="status">{{ row.status }}</span></td><td>{% if row.evidence %}<strong>Page {{ row.evidence.page }}</strong><p class="evidence">“{{ row.evidence.excerpt }}”</p>{% else %}<span class="status">No quotable reference located in accessible text.</span>{% endif %}</td></tr>
+{% endfor %}
+</tbody></table>
+<h2>03 / Clarification questions for the issuer</h2>
+<ol>{% for question in questions_for_issuer %}<li>{{ question }}</li>{% endfor %}</ol>
+<h2>04 / Bid preparation action plan</h2>
+<ol>{% for step in next_steps %}<li>{{ step }}</li>{% endfor %}</ol>
+<h2>05 / Conditional go/no-go review</h2>
+<p><strong>Do not make a final bid decision from this preview alone.</strong> Proceed to a full decision only when the procuring authority confirms the complete current documents, submission cutoff, qualification requirements, budget, technical capability and availability of internal resources. Request clarification where evidence is absent.</p>
+<h2>06 / Boundaries and limitations</h2>
+<ul>{% for limitation in limitations %}<li>{{ limitation }}</li>{% endfor %}</ul>
+<footer>CaribContract Atlas is an independent public-source research project. Not affiliated with the Government of Guyana or any procuring authority. This candidate report includes no customer personal information and is not proof of payment, fulfillment or award probability.</footer>
+</main></body></html>
