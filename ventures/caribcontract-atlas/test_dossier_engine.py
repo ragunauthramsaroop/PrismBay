@@ -31,6 +31,16 @@ class DossierEngineTest(unittest.TestCase):
         self.assertEqual(data["document_url"], "https://eprocure.gov.gy/files/example-test.pdf")
         self.assertEqual(data["advertised_opening"], "2026-11-26")
 
+    def test_official_pdfs_with_spaces_are_percent_encoded(self):
+        row = sample()
+        row["advertisement_documents"] = [
+            {"document_file": "/files/Ad for the 10th nov- Invitation for Bids (IFB) revised.pdf"}
+        ]
+        ref = d.normalize_tender(row)
+        self.assertIn("Ad%20for%20the%2010th%20nov-", ref["document_url"])
+        self.assertNotIn(" ", ref["document_url"])
+        self.assertEqual(ref["document_url"].split("/")[2], "eprocure.gov.gy")
+
     def test_missing_official_document_fails_closed(self):
         row = sample()
         row["advertisement_documents"] = []
