@@ -1,38 +1,53 @@
-# CaribContract Atlas | independent venture pilot
+# CaribContract Atlas | user-owned, independent procurement venture
 
-CaribContract Atlas is a distinct product and brand from PrismBay. Its files are currently stored in this existing public repository to avoid creating paid infrastructure. The commercial business, if registered and approved, belongs to the human owner or an authorized legal entity. An AI assistant is not its legal owner, merchant of record or bank-account holder.
+CaribContract Atlas is a separately branded procurement research venture. It is not the PrismBay SaaS catalog, educational YouTube content, or government procurement platform. Its source code currently shares an existing PUBLIC GitHub repo and a preexisting free Floot production project to avoid new subscriptions. The owner or an authorized legal entity, not an AI assistant, is the operator and merchant of record.
 
-## Customer problem
-Caribbean suppliers and contractors spend time checking public procurement portals for relevant opportunities, new notices, closing dates and requirements. The pilot supplies original normalization and a free bid-readiness checklist, always linking to official sources.
+## What is live
+- [Current official tender explorer](https://growth-access.floot.app/caribcontract-atlas)
+- [One-time US$29 Bid Decision Dossier scope](https://growth-access.floot.app/caribcontract-dossier)
+- [Free prospective-client tender source screening](https://growth-access.floot.app/caribcontract-pilot)
+- [Practical Guyana bidder guide](https://growth-access.floot.app/guyana-tender-bid-checklist)
 
-## Initial service
-- Official source: https://eprocure.gov.gy/, publicly launched February 24, 2026.
-- Coverage: six source-linked Guyana tender examples from the November 5, 2026 public portal snapshot. This is NOT a continuously updated paid feed.
-- No exclusive tender rights, bid submissions, bidder qualification decisions, professional advice or contract-award guarantees.
-- Separate prospect database under existing free Floot account, with consent and duplicate-email protection. Lead details must never be committed to this repository.
-- Independent web pilot routes: /caribcontract-atlas and /caribcontract-pilot in existing Floot project Zero-Cost Revenue Gateway. Staged until the owner confirms publication to its existing domain; its native-mobile app must remain backward-compatible.
+The merchant's connected Stripe account currently displays PrismBay, and the checkout must disclose that fact. A Stripe payment link exists, capped at 10 paid orders, and must be provided only after source suitability screening. No payment or profit is guaranteed. Zero paid orders and zero customer enquiries were verified during initial setup.
 
-## Operating model
-1. Read-only Source Scout monitors one official public page at most daily. Saves short-lived unreviewed candidates as a GitHub Actions artifact, not directly to the customer-facing list.
-2. Quality Guardian validates record shapes, dates, source provenance, deduplication, freshness and classification.
-3. Offer Validator evaluates actual consenting business requests. No fake buyers or public PII.
-4. Revenue Guardian reports paid subscriptions only after authenticated Stripe paid events, entitlement checks, cancellations and applicable refunds.
-5. Publisher must use appropriate commercial hosting. Do not host a commercial storefront on GitHub Pages.
+## GitHub, not Floot, executes the public document workload
+The CI workers use the public repository's standard GitHub Actions Linux runners, so they do not consume the limited Floot build quota. GitHub Actions is NOT the merchant website, order database or payment processor.
 
-## Hypotheses to test
-- Initial market: small construction and equipment suppliers serving Guyana, then English-speaking Caribbean.
-- Price hypothesis: USD 29 / month for category-matched briefs and opt-in alerts. This is NOT a live paid plan.
-- First milestone target: 10 genuinely interested businesses, 3 useful feedback conversations, and one successful non-test paid subscription after approved release. These targets are not achieved results.
+1. `.github/workflows/caribcontract-source-scout.yml` (already operational): daily read-only public source extraction, reviewed JSON artifact and strict non-publication gate. Browser-based for legacy compatibility.
+2. `.github/workflows/caribcontract-dossier-worker.yml` (new): Python 3.12, pdfplumber MIT PDF text extraction, Jinja2 BSD-3-Clause HTML templating, fully offline tests, and a short-lived public-source evidence dossier artifact. On weekdays, selects one upcoming public government record for internal quality review. For on-demand use, choose Actions -> CaribContract Atlas Free Dossier Worker -> Run workflow and provide only an official public `PROC-YYYY-NNNNN` reference.
+3. The dossier worker checks the official public API at `https://eprocure.gov.gy/api/method/doctracker.api.powerbi.get_public_bid_opportunities`, and downloads up to one linked public PDF from exactly `https://eprocure.gov.gy/files/`. It rejects other hosts, redirects off the host, missing data, oversized documents and unreadable PDF content.
+4. The produced PDF evidence references are NOT a substitute for the complete bidding documents. Evidence is labeled as preliminary. The official bid-opening date is never represented as a guaranteed submission cutoff.
+5. A published customer report requires actual Stripe live payment verification, matching tender and buyer information in private records, manual evidence-quality review, then documented delivery through the authorized Gmail sender. The scheduled ChatGPT automation checks for consented business enquiries and genuine paid orders, not cold outreach.
 
-## Boundaries
-- No new paid subscriptions, paid ads, inventory, supplier purchases, unsolicited outreach or automatic bids.
-- No scraping behind login, CAPTCHA evasion, excessive crawling or unsupported rights claims. Stop if the official source prohibits extraction.
-- No customer data, account tokens, private financial records or email addresses in public GitHub.
-- Do not report profitability until all processing fees, taxes, refunds, support and hosting costs are reconciled.
-- Keep educational YouTube, PrismBay retail and personal executive identities separate.
+## Commercial boundaries
+- The sellable item is one written public-advertisement-based source review for **US$29 once**, subject to source screening. There is NO US$29/month subscription.
+- One dossier covers only one publicly accessible procurement reference. The work includes verifiable evidence-location snippets, areas needing clarification, questions for the issuer, and an internal bid/no-bid readiness plan. The customer controls all legal, commercial and bidding decisions.
+- A public advertisement may contain too little data. In that case the quality gate fails, and the team must decline or review the order and refund according to the published terms.
+- Lead data, order records and payment evidence remain in private Floot/Stripe/Gmail systems. No emails, customer identities, paid sessions, Stripe API keys, financial records, employer information or project secrets enter public GitHub Actions logs or artifacts.
+- No inventory, ads, outreach to people who did not request contact, bidder impersonation, government endorsement or automatic bid submission.
+- Do not call any work profitable without subtracting transaction costs, refunds, taxes and verified service costs.
 
-## Evidence and limitations
-Initial notice snapshot is transcribed from the official public portal and is time-limited. Source Scout intentionally produces candidates only. Nothing auto-publishes a new tender without review. A successful GitHub Action is not a sale.
+## Source research and licensing
+- [pdfplumber](https://github.com/jsvine/pdfplumber), MIT, extracts readable text and page numbers from public PDF documents.
+- [Jinja2](https://github.com/pallets/jinja), BSD-3-Clause, renders safely HTML-escaped evidence reports.
+- [Docling](https://github.com/docling-project/docling), MIT, researched as an optional expansion for complex scanned documents. It is NOT installed because the current CI worker prioritizes lightweight, zero-subscription processing.
+- [Huginn](https://github.com/huginn/huginn), MIT, considered for multi-agent monitoring. NOT deployed because running it requires a persistent server. Existing free GitHub Actions is a simpler fit.
+- GitHub Pages is NOT a suitable commercial storefront under GitHub's terms. The present storefront stays on the already-published Floot subdomain. For future independent hosting, evaluate Cloudflare Pages or Workers with direct commercial permission and a separately connected account. No paid service or new Cloudflare account has been created.
 
-## Local commands
-From this folder, npm test checks offline record validation and business gates. npm install and npx playwright install chromium prepare the optional source monitor. npm run scout performs a read-only official portal scan and writes output/latest-candidates.json.
+## Operating the new worker
+```bash
+cd ventures/caribcontract-atlas
+python -m pip install -r requirements-dossier.txt
+python -m unittest discover -p test_dossier_engine.py -v
+python dossier_engine.py --tender-id PROC-2026-00509 --output-dir output/dossiers
+```
+
+Outputs are `output/dossiers/PROC-YYYY-NNNNN.html`, `.txt` and `.json`. These are internal draft artifacts only. Never deploy this output as if the buyer report were finalized. If official materials are unreadable, the script reports a source-quality failure.
+
+## Business acceptance metrics
+Review aggregate-only interest requests, genuinely qualified purchase invitations, paid and completed checkout sessions on the correct live account, successful report deliveries, refunds and total net revenue. No synthetic buyers, inflated view counts, or traffic claims.
+
+## Known remaining constraints
+- The existing Floot free-plan build limit is independent of GitHub. The GitHub worker avoids consuming it, but changes to the Floot frontend still require a future Floot publish action.
+- This program does not connect directly to Stripe or Mercury, and does not send buyer reports from the public CI runner.
+- GitHub Actions artifact creation is technical progress, not evidence of a customer purchase.
