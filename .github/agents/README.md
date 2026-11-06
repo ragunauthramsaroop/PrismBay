@@ -47,3 +47,14 @@ Script: scripts/whop-files-experience-audit.mjs. Test: scripts/whop-files-experi
 
 Whop Files app ID: app_5UWRrs7haZZeiQ.
 Reference: https://docs.whop.com/api-reference/experiences/list-experiences
+## 2026-11-05 live release guard and identity-verification checkpoint
+
+Owner-supplied Sumsub and Whop seller screenshots show identity verification success for STUDYSMARTZ LLC. This is not confirmation of merchant payout eligibility or an authorized withdrawal destination. Preserve that distinction in all agent output.
+
+The four-role deterministic audit now runs four times daily (01:22, 07:22, 13:22, 19:22 UTC) using a GitHub-hosted runner. Its scheduled jobs perform provider-scoped GET-only checks, including paid product visibility, existing private Files association, paid-buyer membership count and payout-method presence when granted. It does not run AI inference, access buyer browser sessions, create promo codes, grant memberships or initiate charges.
+
+The paid product must not be described as Hidden unless the current Whop product API reports `visibility: hidden`. A prior sales-readiness helper incorrectly hardcoded `productHidden: true`; corrected in this checkpoint. If Whop reports Visible or omits visibility, the reviewer emits `PAID_PRODUCT_VISIBILITY_NOT_CONFIRMED_HIDDEN` and does not authorize launch. Hidden listing alone does not guarantee direct-link checkout is stopped.
+
+Only the seller can currently complete the final independent browser-session proof of signed-out denial, free-member denial and buyer-entitled ZIP download. An API GET or admin preview is not a substitute. A viewable Withdraw button and a zero USD balance do not establish completed KYB, bank approval or a successful payout. Do not copy ID documents, bank numbers, signed URLs or buyer ZIP archives into public GitHub.
+
+The source architecture continues to reference MIT-licensed Agency Agents (linked above) and the official open-source `actions/checkout` and `actions/setup-node` workflow components. No external paid AI agent runtime is provisioned.

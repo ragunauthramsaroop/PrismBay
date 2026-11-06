@@ -43,7 +43,8 @@ export async function inspectLaunch({env=process.env,fetchImpl=fetch}={}){
  const key=env.WHOP_COMPANY_API_KEY, id=env.WHOP_COMPANY_ID;
  const initial={
   launchApproved:false,privateFileAccessVerified:false,paidBuyerAccessVerified:false,
-  anonymousAccessVerified:false,merchantPayoutVerified:false
+  anonymousAccessVerified:false,merchantPayoutVerified:false,
+  productHidden:false,productVisibility:'unknown',publicSaleRisk:null
  };
  if(!key||!isId(id))return {...initial,status:'CONFIG_NEEDED',reason:'Whop company key or ID not configured'};
  if(!/^[\x21-\x7E]{10,512}$/.test(key))return {...initial,status:'CONFIG_NEEDED',reason:'Whop key invalid'};
@@ -54,8 +55,12 @@ export async function inspectLaunch({env=process.env,fetchImpl=fetch}={}){
   ]);
   const products=list(p),variants=list(v);
   const metadata=assessMetadata(products,variants);
-  if(metadata.status!==STATUSES.VERIFIED_METADATA)return {...initial,status:'REVIEW',reason:'Target product metadata not verified'};
+  if(metadata.productFound!==true||metadata.matchingOneTimeVariants!==1)return {...initial,status:'REVIEW',
+   productVisibility:metadata.productVisibility||'unknown',
+   reason:'Target product or exact one-time USD 19 pricing metadata not verified'};
   const product=products.find(x=>x.title==='PrismBay Quote, Margin & Cash Studio');
+  const productVisibility=metadata.productVisibility;
+  const productHidden=productVisibility==='hidden';
   const match=variants.filter(x=>(x?.product?.id===product.id||x?.product_id===product.id)&&
     String(x?.currency).toLowerCase()==='usd'&&Number(x.initial_price)===19&&x.billing_type==='one_time');
   const checkoutUrlVerified=match.length===1&&isCheckout(match[0]?.purchase_url);
@@ -66,11 +71,14 @@ export async function inspectLaunch({env=process.env,fetchImpl=fetch}={}){
    payout=classifyAccount(account);accountCheck='READ';
   }catch(e){accountCheck=[401,403].includes(e?.code)?'INSUFFICIENT_READ_SCOPE':'UNAVAILABLE'}
   return {...initial,status:'REVIEW',
-   productMetadataVerified:true,productHidden:true,priceUsd:19,oneTimePayment:true,
+   productMetadataVerified:true,productHidden,productVisibility,
+   publicSaleRisk:productVisibility==='visible',priceUsd:19,oneTimePayment:true,
    checkoutUrlVerified,accountCheck,payoutCapability:payout.payoutCapability,
    requiredActionCount:payout.requiredActionCount,
    merchantPayoutVerified:payout.payoutVerified,
-   reason:checkoutUrlVerified?
+   reason:!productHidden?
+    'Paid product visibility is not confirmed Hidden. Keep public sales on hold, verify seller visibility and block unauthorized checkout.':
+    checkoutUrlVerified?
     'Whop checkout metadata exists. Publication blocked until real Files access and paid-buyer delivery are independently verified.':
     'Whop checkout URL is missing or unusable. Product remains hidden.'};
  }catch(e){

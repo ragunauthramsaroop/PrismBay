@@ -71,3 +71,27 @@ test('API failure never leaks token or enables sales',async()=>{
  assert.equal(r.status,'API_ERROR');assert.equal(r.launchApproved,false);
  assert.ok(!JSON.stringify(r).includes(env.WHOP_COMPANY_API_KEY));
 });
+
+test('provider visible product is reported as visible and never hidden by audit',async()=>{
+ const visible={...product,visibility:'visible'};
+ const r=await inspectLaunch({env,fetchImpl:fetcher({'/products':{data:[visible],page_info:{has_next_page:false}}})});
+ assert.equal(r.productMetadataVerified,true);
+ assert.equal(r.productHidden,false);
+ assert.equal(r.productVisibility,'visible');
+ assert.equal(r.publicSaleRisk,true);
+ assert.equal(r.launchApproved,false);
+ assert.match(r.reason,/not confirmed Hidden/);
+});
+test('hidden product is accurately preserved in readiness output',async()=>{
+ const r=await inspectLaunch({env,fetchImpl:fetcher()});
+ assert.equal(r.productHidden,true);
+ assert.equal(r.productVisibility,'hidden');
+ assert.equal(r.publicSaleRisk,false);
+});
+test('missing product visibility remains unknown rather than assumed hidden',async()=>{
+ const r=await inspectLaunch({env,fetchImpl:fetcher({'/products':{data:[{...product,visibility:undefined}],page_info:{has_next_page:false}}})});
+ assert.equal(r.productHidden,false);
+ assert.equal(r.productVisibility,'unknown');
+ assert.equal(r.publicSaleRisk,false);
+ assert.equal(r.launchApproved,false);
+});

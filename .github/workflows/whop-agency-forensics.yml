@@ -8,9 +8,15 @@ on:
       - 'scripts/whop-agency-forensic-audit.test.mjs'
       - 'scripts/whop-files-experience-audit.mjs'
       - 'scripts/whop-files-experience-audit.test.mjs'
+      - 'scripts/whop-sales-readiness.mjs'
+      - 'scripts/whop-sales-readiness.test.mjs'
+      - 'scripts/whop-buyer-membership-audit.mjs'
+      - 'scripts/whop-buyer-membership-audit.test.mjs'
+      - 'scripts/whop-payout-destination-audit.mjs'
+      - 'scripts/whop-payout-destination-audit.test.mjs'
       - '.github/workflows/whop-agency-forensics.yml'
   schedule:
-    - cron: '22 12 * * *'
+    - cron: '22 1,7,13,19 * * *'
   push:
     branches: [main]
     paths:
@@ -34,17 +40,29 @@ jobs:
         with:
           node-version: '22'
       - name: Run agency forensic and existing Whop security regression tests
-        run: node --test scripts/whop-agency-forensic-audit.test.mjs scripts/whop-public-access-audit.test.mjs scripts/whop-merchant-readiness.test.mjs scripts/whop-sales-readiness.test.mjs scripts/whop-files-experience-audit.test.mjs
+        run: node --test scripts/whop-agency-forensic-audit.test.mjs scripts/whop-public-access-audit.test.mjs scripts/whop-merchant-readiness.test.mjs scripts/whop-sales-readiness.test.mjs scripts/whop-files-experience-audit.test.mjs scripts/whop-buyer-membership-audit.test.mjs scripts/whop-payout-destination-audit.test.mjs
       - name: Four-role live Whop read-only preflight
-        if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
+        if: github.event_name != 'pull_request'
         env:
           WHOP_COMPANY_API_KEY: ${{ secrets.WHOP_COMPANY_API_KEY }}
           WHOP_COMPANY_ID: ${{ vars.WHOP_COMPANY_ID }}
           PRISMBAY_WHOP_ANON_FILE_URL: ${{ secrets.PRISMBAY_WHOP_ANON_FILE_URL }}
         run: node scripts/whop-agency-forensic-audit.mjs
       - name: Check Whop Files association for paid and free products
-        if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
+        if: github.event_name != 'pull_request'
         env:
           WHOP_COMPANY_API_KEY: ${{ secrets.WHOP_COMPANY_API_KEY }}
           WHOP_COMPANY_ID: ${{ vars.WHOP_COMPANY_ID }}
         run: node scripts/whop-files-experience-audit.mjs
+      - name: Buyer entitlement and paid/free Files association, GET only
+        if: github.event_name != 'pull_request'
+        env:
+          WHOP_COMPANY_API_KEY: ${{ secrets.WHOP_COMPANY_API_KEY }}
+          WHOP_COMPANY_ID: ${{ vars.WHOP_COMPANY_ID }}
+        run: node scripts/whop-buyer-membership-audit.mjs
+      - name: Payout destination existence, GET only; no personal data logged
+        if: github.event_name != 'pull_request'
+        env:
+          WHOP_COMPANY_API_KEY: ${{ secrets.WHOP_COMPANY_API_KEY }}
+          WHOP_COMPANY_ID: ${{ vars.WHOP_COMPANY_ID }}
+        run: node scripts/whop-payout-destination-audit.mjs

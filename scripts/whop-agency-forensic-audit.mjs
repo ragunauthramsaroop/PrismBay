@@ -16,6 +16,8 @@ const ALLOWED=hostname=>hostname==='whop.com'||hostname.endsWith('.whop.com');
 export function assessReleaseEvidence({seller,anonymous,checkout,storefront}){
  const checkoutMetadata= seller?.productMetadataVerified===true&&seller?.checkoutUrlVerified===true;
  const payout=seller?.merchantPayoutVerified===true;
+ const productHidden=seller?.productHidden===true;
+ const productVisibility=['hidden','visible'].includes(seller?.productVisibility)?seller.productVisibility:'unknown';
  const anon=anonymous?.outcome===RESULT.ANONYMOUS_DENIED;
  // These two values MUST come from a real independently evidenced buyer/free-member session.
  // No session-checker currently exists. Do not infer from admin Preview as Public.
@@ -26,7 +28,8 @@ export function assessReleaseEvidence({seller,anonymous,checkout,storefront}){
   launchApproved:false,
   roles:{
    payments:{checkoutMetadataVerified:checkoutMetadata,payoutVerified:payout,
-    status:checkoutMetadata&&payout?'METADATA_ONLY':'BLOCKED'},
+    productHidden,productVisibility,
+    status:checkoutMetadata&&payout&&productHidden?'METADATA_ONLY':'BLOCKED'},
    security:{anonymousDownloadDenied:anon,paidBuyerDownloadVerified:buyer,freeMemberDenied,
     status:exposed?'CRITICAL':anon?'PARTIAL':'BLOCKED'},
    sre:{checkoutProbeOutcome:checkout,checkoutPageReachable:checkout==='REACHABLE',storefrontReachable:storefront==='REACHABLE',
@@ -36,6 +39,7 @@ export function assessReleaseEvidence({seller,anonymous,checkout,storefront}){
   issues:[
    ...(!checkoutMetadata?['CHECKOUT_METADATA_NOT_VERIFIED']:[]),
    ...(!payout?['WHOP_PAYOUT_ELIGIBILITY_NOT_VERIFIED']:[]),
+   ...(!productHidden?['PAID_PRODUCT_VISIBILITY_NOT_CONFIRMED_HIDDEN']:[]),
    ...(!anon?['ANONYMOUS_ZIP_DENIAL_NOT_VERIFIED']:[]),
    'PAID_BUYER_FILE_DELIVERY_NOT_VERIFIED',
    'FREE_MEMBER_FILE_DENIAL_NOT_VERIFIED',
@@ -103,6 +107,8 @@ export function summaryMarkdown(report){
   ...Object.entries(report.roles).map(([role,r])=>row(role,r)),
   '',
   'Release: **BLOCKED**. No purchase, publication, account mutation or ZIP download was performed.',
+  '',
+  'Paid product visibility from live seller API: **'+fmt(report.roles.payments.productVisibility)+'**.',
   '',
   ...report.issues.map(x=>'- '+fmt(x)),
   '',
