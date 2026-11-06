@@ -76,3 +76,20 @@ test('checkout failure is classified without exposing private purchase URL',()=>
  assert.equal(r.launchApproved,false);
  assert.ok(!JSON.stringify(r).includes('whop.com/clean/checkout'));
 });
+
+test('release reviewer raises visibility risk when provider reports visible paid product',()=>{
+ const r=assessReleaseEvidence({seller:{...seller,productHidden:false,productVisibility:'visible'},
+  anonymous:{outcome:RESULT.NOT_CONFIGURED},checkout:'REACHABLE',storefront:'REACHABLE'});
+ assert.equal(r.launchApproved,false);
+ assert.equal(r.roles.payments.productVisibility,'visible');
+ assert.equal(r.roles.payments.productHidden,false);
+ assert.ok(r.issues.includes('PAID_PRODUCT_VISIBILITY_NOT_CONFIRMED_HIDDEN'));
+ assert.match(summaryMarkdown(r),/visibility from live seller API: \*\*visible\*\*/);
+});
+test('hidden product does not raise inaccurate visible-listing issue',()=>{
+ const r=assessReleaseEvidence({seller:{...seller,productHidden:true,productVisibility:'hidden'},
+  anonymous:{outcome:RESULT.NOT_CONFIGURED},checkout:'REACHABLE',storefront:'REACHABLE'});
+ assert.equal(r.launchApproved,false);
+ assert.equal(r.roles.payments.productVisibility,'hidden');
+ assert.ok(!r.issues.includes('PAID_PRODUCT_VISIBILITY_NOT_CONFIRMED_HIDDEN'));
+});
