@@ -294,7 +294,7 @@ def write_artifacts(report: dict, output_dir: Path) -> tuple[Path, Path, Path]:
     ref = report["tender"]["id"]
     env = Environment(
         loader=FileSystemLoader(str(Path(__file__).parent / "templates")),
-        autoescape=select_autoescape(["html"]),
+        autoescape=True,  # .html.j2 is not recognized by select_autoescape(["html"])
     )
     html = env.get_template("dossier.html.j2").render(**report)
     html_path = output_dir / f"{ref}.html"
