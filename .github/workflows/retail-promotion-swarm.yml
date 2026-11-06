@@ -12,6 +12,8 @@ on:
   pull_request:
     branches: [main]
     paths:
+      - 'scripts/digital-conversion-campaign.mjs'
+      - 'scripts/digital-conversion-campaign.test.mjs'
       - '.github/workflows/retail-promotion-swarm.yml'
       - 'scripts/retail-promotion-swarm.mjs'
       - 'scripts/retail-promotion-swarm.test.mjs'
@@ -32,6 +34,8 @@ on:
   push:
     branches: [main]
     paths:
+      - 'scripts/digital-conversion-campaign.mjs'
+      - 'scripts/digital-conversion-campaign.test.mjs'
       - '.github/workflows/retail-promotion-swarm.yml'
       - 'scripts/retail-promotion-swarm.mjs'
       - 'scripts/retail-promotion-swarm.test.mjs'
@@ -129,6 +133,8 @@ jobs:
             if (offer.checkoutMode !== 'buyer_zip_guarded_preflight') throw new Error(`Unexpected checkout mode for ${offer.slug}`);
             if (offer.storefrontUrl.startsWith('https://buy.stripe.com/')) throw new Error(`Direct Stripe promotion leaked for ${offer.slug}`);
           }
+          // Verified original $5.99 Cashflow Studio joins the four exact digital
+          // allowlist paths. Unknown and physical Stripe checkout links remain blocked.
           // Existing, exact-match digital document links are permitted. Unknown Stripe links
           // still fail closed. A broad Stripe URL boolean incorrectly blocked the legitimate
           // $179 downloadable bundle on the public home page.
