@@ -1,14 +1,14 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-11-05T22:02:20.398Z",
+  "generatedAt": "2026-11-06T06:53:33.619Z",
   "researchCandidates": 12,
   "publishedResearchSignals": 12,
   "verifiedCJStatus": {
-    "checkedAt": "2026-11-05T22:02:19.236Z",
-    "validSupplierMatches": 4,
-    "variantStock": 1,
-    "freightEstimates": 1,
-    "countryFreightEstimates": 1,
+    "checkedAt": "2026-11-06T06:53:31.956Z",
+    "validSupplierMatches": 3,
+    "variantStock": 2,
+    "freightEstimates": 2,
+    "countryFreightEstimates": 2,
     "illustrativeZipFreightEstimates": 0,
     "falseMatches": 0
   },
@@ -27,6 +27,27 @@
       "executionMode": "scheduled_cj_and_manual_review",
       "candidateCount": 12,
       "blockers": [
+        {
+          "slug": "pressure-washer",
+          "status": "supplier_search_needed",
+          "sku": null,
+          "shippingDiagnostic": null,
+          "zeroPricedMethods": 0
+        },
+        {
+          "slug": "mattress-vacuum",
+          "status": "supplier_search_needed",
+          "sku": null,
+          "shippingDiagnostic": null,
+          "zeroPricedMethods": 0
+        },
+        {
+          "slug": "garment-steamer",
+          "status": "final_zip_freight_required",
+          "sku": "CJYD245844002BY",
+          "shippingDiagnostic": "priced_estimate_available",
+          "zeroPricedMethods": 0
+        },
         {
           "slug": "travel-packing-cubes",
           "status": "supplier_search_needed",
@@ -88,27 +109,6 @@
           "status": "supplier_search_needed",
           "sku": null,
           "shippingDiagnostic": null,
-          "zeroPricedMethods": 0
-        },
-        {
-          "slug": "multiport-charger",
-          "status": "supplier_search_needed",
-          "sku": null,
-          "shippingDiagnostic": null,
-          "zeroPricedMethods": 0
-        },
-        {
-          "slug": "motion-sensor-cabinet-lights",
-          "status": "fresh_commercial_evidence_required",
-          "sku": "CJYD2030514",
-          "shippingDiagnostic": "variant_stock_unverified",
-          "zeroPricedMethods": 0
-        },
-        {
-          "slug": "car-phone-mount",
-          "status": "fresh_commercial_evidence_required",
-          "sku": "CJSJ2077898",
-          "shippingDiagnostic": "variant_stock_unverified",
           "zeroPricedMethods": 0
         }
       ]
