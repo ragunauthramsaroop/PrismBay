@@ -1,0 +1,84 @@
+name: CaribContract Atlas Free Dossier Worker
+
+on:
+  pull_request:
+    paths:
+      - 'ventures/caribcontract-atlas/**'
+      - '.github/workflows/caribcontract-dossier-worker.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'ventures/caribcontract-atlas/**'
+      - '.github/workflows/caribcontract-dossier-worker.yml'
+  schedule:
+    - cron: '54 12 * * 1-5'
+  workflow_dispatch:
+    inputs:
+      tender_id:
+        description: 'PUBLIC procurement reference only, e.g. PROC-2026-00509 (no buyer details)'
+        required: true
+        type: string
+        default: 'PROC-2026-00509'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: caribcontract-dossier-worker
+  cancel-in-progress: true
+
+jobs:
+  review:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    defaults:
+      run:
+        working-directory: ventures/caribcontract-atlas
+    steps:
+      - name: Checkout code only, no write credentials
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - name: Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install MIT/BSD report tools
+        run: python -m pip install --disable-pip-version-check -r requirements-dossier.txt
+
+      - name: Verify source trust, evidence labels and HTML escaping offline
+        run: |
+          python -m compileall -q dossier_engine.py
+          python -m unittest discover -p 'test_dossier_engine.py' -v
+
+      - name: Create one review candidate from the official public government document
+        if: github.event_name == 'workflow_dispatch' || github.event_name == 'schedule'
+        env:
+          PUBLIC_TENDER_ID: '${{ inputs.tender_id }}'
+        run: |
+          if [ "$GITHUB_EVENT_NAME" = "schedule" ]; then
+            python dossier_engine.py --tender-id auto --output-dir output/dossiers
+          else
+            python dossier_engine.py --tender-id "$PUBLIC_TENDER_ID" --output-dir output/dossiers
+          fi
+
+      - name: Keep source-review candidate as short-lived artifact, never sell or publish automatically
+        if: always() && (github.event_name == 'workflow_dispatch' || github.event_name == 'schedule')
+        uses: actions/upload-artifact@v4
+        with:
+          name: caribcontract-public-dossier-${{ github.run_id }}
+          path: ventures/caribcontract-atlas/output/dossiers/
+          if-no-files-found: warn
+          retention-days: 2
+
+      - name: Clear evidence and privacy boundary
+        if: always()
+        run: |
+          echo '## CaribContract Atlas | Open-source Dossier Worker' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Reads one public official government tender and its publicly linked PDF, without credentials.' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Uses permissive open-source pdfplumber (MIT) and Jinja2 (BSD-3-Clause).' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Offline tests cover source spoofing, HTML escaping, and claims requiring verification.' >> "$GITHUB_STEP_SUMMARY"
+          echo '- Artifact is a public-source draft for manual evidence review, not an approved or fulfilled paid report.' >> "$GITHUB_STEP_SUMMARY"
+          echo '- No buyer emails, Stripe tokens, bank data, protected documents, bid submission, platform billing or external posting.' >> "$GITHUB_STEP_SUMMARY"
