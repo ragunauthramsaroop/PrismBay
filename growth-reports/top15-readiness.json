@@ -14,7 +14,7 @@
       "slug": "crevice",
       "name": "3-in-1 Crevice Cleaning Brush",
       "priority": "first-wave",
-      "supplierEvidenceFresh": true,
+      "supplierEvidenceFresh": false,
       "reviewObservedAt": "2026-11-05T00:55:25.533Z",
       "observedSupplierProduct": null,
       "observedSupplierSku": null,
@@ -84,7 +84,7 @@
       "slug": "pethair",
       "name": "Reusable Pet Hair Remover",
       "priority": "first-wave",
-      "supplierEvidenceFresh": true,
+      "supplierEvidenceFresh": false,
       "reviewObservedAt": "2026-11-05T00:55:25.533Z",
       "observedSupplierProduct": "Pet Hair Remover And Reusable Lint Roller Cat And Dog Hair Remover For Furniture, Couch, Carpet, Clothing And Bedding - Portable, Multi-Surface Fur Removal Tool",
       "observedSupplierSku": "CJMY2103657",
@@ -92,7 +92,7 @@
       "mediaRightsScope": "unverified",
       "supplierPhotoVideoRightsVerified": false,
       "verifiedChecks": {
-        "independentSupplierMatch": true,
+        "independentSupplierMatch": false,
         "variantStock": false,
         "screeningFreight": false,
         "destinationQuotePerBuyer": false,
@@ -102,6 +102,7 @@
         "commercialPromotionApproval": false
       },
       "missingChecks": [
+        "independentSupplierMatch",
         "variantStock",
         "screeningFreight",
         "destinationQuotePerBuyer",
@@ -188,7 +189,7 @@
       "slug": "scrubber",
       "name": "5-in-1 Electric Spin Scrubber",
       "priority": "subsequent",
-      "supplierEvidenceFresh": true,
+      "supplierEvidenceFresh": false,
       "reviewObservedAt": "2026-11-05T00:55:25.533Z",
       "observedSupplierProduct": null,
       "observedSupplierSku": null,
