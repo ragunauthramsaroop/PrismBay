@@ -1,164 +1,198 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-11-06T07:26:01.828Z",
+  "updatedAt": "2026-11-06T19:42:54.299Z",
   "market": "US",
   "methodology": "Public-news attention, freshness, and short-form demonstration fit. This is not PrismBay sales data and is not a TikTok, Amazon, Google, or Bing product ranking.",
   "refreshTargetHours": 6,
   "products": [
     {
-      "slug": "scrubber",
-      "name": "5-in-1 Electric Spin Scrubber",
-      "signalScore": 40,
-      "signalLabel": "watch",
+      "slug": "garment-steamer",
+      "name": "Portable Garment Steamer",
+      "signalScore": 78.5,
+      "signalLabel": "high-attention",
       "evidence": {
-        "publicMentions": 9,
+        "publicMentions": 32,
         "mentionsLast7Days": 0,
-        "mentionsLast30Days": 1,
+        "mentionsLast30Days": 8,
         "sourcesAvailable": [
+          "Google News",
           "Bing News"
         ]
       },
       "sampleSignals": [
         {
-          "title": "Shoppers call this spin brush a back saver thanks to its long, retractable handle — it’s on sale for $26",
-          "source": "Bing News",
-          "publishedAt": "2026-10-27T00:00:00.000Z",
-          "url": "http://www.bing.com/news/apiclick.aspx?ref=FexRss&aid=&tid=6aed8109c4484a0bbe38298e83921b3a&url=https%3a%2f%2fwww.msn.com%2fen-us%2fnews%2fother%2fshoppers-call-this-spin-brush-a-back-saver-thanks-to-its-long-retractable-handle-it-s-on-sale-for-26%2far-AA2g8VWd&c=16536965491557963107&mkt=en-us"
+          "title": "We Tested 18 Travel Steamers—These 9 Keep Clothes Wrinkle-free - Travel + Leisure",
+          "source": "Google News",
+          "publishedAt": "2026-10-23T07:00:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMibkFVX3lxTE9Wd0NtOV9wTS1JUl9UUG5oQzV0UnEwVG93X29YS0NvZTlqVXAxeWh1bFhyeEhZenNwY25sUEZMNWdhaHh4M1hqSXJtMWdGcVNXTUx3N29tNXliOGZqb1QzVldUSEtYZktoRnNRbWJR?oc=5"
         },
         {
-          "title": "This Spin Scrubber That Removes Up to ‘7 Years of Dirt’ On Kitchen Tile Grout Is Now on Sale",
-          "source": "Bing News",
-          "publishedAt": "2025-11-28T15:14:00.000Z",
-          "url": "http://www.bing.com/news/apiclick.aspx?ref=FexRss&aid=&tid=6aed8109c4484a0bbe38298e83921b3a&url=https%3a%2f%2fwww.foodandwine.com%2fkhelfer-electric-spin-scrubber-sale-amazon-7973465&c=10747360431046624732&mkt=en-us"
+          "title": "Five Reputable Garment Steamer OEM/ODM Manufacturers in China 2026: Advancing Appliance Manufacturing - The Des Moines Register",
+          "source": "Google News",
+          "publishedAt": "2026-10-22T07:00:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMi9AFBVV95cUxPY1A2XzVJalZNcmRBblNZWk9Jb0FkOFM1WXRYWUloMmZVN1dtSGNKd3NONUhmV0E4Y0RYUjBnMTVlTW5BLWgzTThpeDNvMzR5TFYtMUV6aExSY2x0dzFOQ0ZnVHFaaklldGoyLVUzbDM5VlRXWFM3STJKTkU1UHdiV3M2VXl3cFRvVThteWloYmdfMk9CQWZLM1NzX3JUSlR5RHY2ZWp1X0NhVHVOOU9UV0U2Q3FkeUtjd1pQVll4Njk2MDRTdFZBTU5HbWY3Rm9oYm5YTWZiYWtqWkE1dEVWSVNxUFMweHcyMlZjQnpTOFJicE1S?oc=5"
         },
         {
-          "title": "Best electric spin scrubbers",
-          "source": "Bing News",
-          "publishedAt": "2026-04-22T12:05:00.000Z",
-          "url": "http://www.bing.com/news/apiclick.aspx?ref=FexRss&aid=&tid=6aed8109c4484a0bbe38298e83921b3a&url=https%3a%2f%2fwww.msn.com%2fen-us%2ftechnology%2fconsumer-electronics%2fclean-smarter-not-harder-the-best-electric-spin-scrubbers-make-cleaning-a-breeze%2far-BB1mr5DM&c=7360658825807734254&mkt=en-us"
+          "title": "Best travel steamers 2026: tested and reviewed for wrinkle-free packing - CN Traveller",
+          "source": "Google News",
+          "publishedAt": "2026-07-30T07:00:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMiZkFVX3lxTE1ZRDlxanVrQ3JSeXhtdXBjS3JmVTdkQnV2LURHdldCN1BidHU0ZjhselZXRVZWLVhJUEpwaUMwTEgweU5mLVRmZnozS3dJUTk5TGZTZHctbHpmZHkySDktbE1hZ0Zsdw?oc=5"
         },
         {
-          "title": "The electric spin scrubber shoppers say is 'pure cleaning magic' is on sale for just $40 at Amazon",
-          "source": "Bing News",
-          "publishedAt": "2024-03-07T18:29:00.000Z",
-          "url": "http://www.bing.com/news/apiclick.aspx?ref=FexRss&aid=&tid=6aed8109c4484a0bbe38298e83921b3a&url=https%3a%2f%2fwww.thestreet.com%2fdeals%2fbomves-electric-spin-scrubber-amazon-sale&c=15405785058932071043&mkt=en-us"
+          "title": "Portable Garment Steamers Market Size, Share | Forecast [2034] - Fortune Business Insights",
+          "source": "Google News",
+          "publishedAt": "2026-10-12T07:00:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMihgFBVV95cUxQaXlNc3IwRkdxSWMwS0xGc1dQZEQyRkdjb0l6M2hvZDNual9lUHQzWm5MUS1BSHhNRzRHSGxrQm5tb3dKMXlpeS0tUlJ1TElEbWNoUkN2MGgzMnp4TjRkczE4VlQ0UmNNRy1hbWI2Y05Xa3Z3RzBkU1VpcWZ1OEdRNVgtVEl1UQ?oc=5"
         },
         {
-          "title": "Our cleaning expert tried the electric scrubber that’s all over TikTok — here’s what she thought",
-          "source": "Bing News",
-          "publishedAt": "2024-02-23T11:39:00.000Z",
-          "url": "http://www.bing.com/news/apiclick.aspx?ref=FexRss&aid=&tid=6aed8109c4484a0bbe38298e83921b3a&url=https%3a%2f%2fwww.cnn.com%2fcnn-underscored%2freviews%2fvoweek-electric-spin-scrubber&c=4278628454218011488&mkt=en-us"
+          "title": "10 of the best handheld steamers on the market - Vogue Australia",
+          "source": "Google News",
+          "publishedAt": "2026-01-08T08:00:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMirwFBVV95cUxQdkdwdjFkSnptM0JmTmpLYWRPTjUwZEhjOEI3YTlCT2VmOG1GUVJ1dklzUnV5LTROeXJKQ3QzRnEyakRLQWRrUUhPNUJvZWZ2dlhWaXFoajlpTFkwdXhDaTZjT3M4LThxM3d4bXI0X1ZMUmtSdmZXN1A0ZkM4eWF0amE3ZkxJUEVsUXVuQlM4Zk91andHSk15YVRaUHJLN1JUVGlEc2hVajBRMlRYU0h3?oc=5"
         }
       ],
       "rank": 1
     },
     {
-      "slug": "mattress-vacuum",
-      "name": "Mattress Vacuum",
-      "signalScore": 38.5,
-      "signalLabel": "watch",
+      "slug": "scrubber",
+      "name": "5-in-1 Electric Spin Scrubber",
+      "signalScore": 76,
+      "signalLabel": "high-attention",
       "evidence": {
-        "publicMentions": 8,
+        "publicMentions": 65,
         "mentionsLast7Days": 0,
-        "mentionsLast30Days": 2,
+        "mentionsLast30Days": 4,
         "sourcesAvailable": [
+          "Google News",
           "Bing News"
         ]
       },
       "sampleSignals": [
         {
-          "title": "This $55 mattress vacuum showed me just how dirty my clean mattress really was",
-          "source": "Bing News",
-          "publishedAt": "2026-10-26T08:38:51.000Z",
-          "url": "http://www.bing.com/news/apiclick.aspx?ref=FexRss&aid=&tid=6aed8130df5b4f47849b51ed9fa1dab7&url=https%3a%2f%2fwww.msn.com%2fen-us%2flifestyle%2fother%2fthis-55-mattress-vacuum-showed-me-just-how-dirty-my-clean-mattress-really-was%2far-AA2g6Tzm&c=18394200775272513450&mkt=en-us"
+          "title": "Yes, You Can Get ‘Excited to Clean’ Your Bathroom with This Back-Saving Electric Scrubber Brush — Shop It for $26 - People.com",
+          "source": "Google News",
+          "publishedAt": "2026-10-27T07:00:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMiigFBVV95cUxPZEdtZ3NuU1dxY2xBakxlZEExb1EzYnB5b2drMUdZNWNSejZBRHBXenNqbVdvc2dpTUpUM1c4eVgtbmFFMWtxZlZ1clo4T3FIRk5JSG82RWZqMG52VlRuUjZzZFhWOUV0M0dxVlRUZVhNY212SHByMGpjNG1MWFpKdE95c3BaRXNkemc?oc=5"
         },
         {
-          "title": "Amazon’s mattress vacuum uses UV light and heat to deep clean beds",
-          "source": "Bing News",
-          "publishedAt": "2026-07-31T06:05:00.000Z",
-          "url": "http://www.bing.com/news/apiclick.aspx?ref=FexRss&aid=&tid=6aed8130df5b4f47849b51ed9fa1dab7&url=https%3a%2f%2fwww.al.com%2fshopping%2f2026%2f07%2famazons-mattress-vacuum-uses-uv-light-and-heat-to-deep-clean-beds.html&c=6822723562493085313&mkt=en-us"
+          "title": "Back or knee pain? This electric scrubber 'saves your back' — it's on sale for $41, and Amazon shoppers say it makes them 'almost look forward to cleaning' - Yahoo Lifestyle Canada",
+          "source": "Google News",
+          "publishedAt": "2026-10-27T07:00:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMilwJBVV95cUxNOU9aN2ZwTmdMaHNFN0xRUjV0djd5TzVFUkRlNHJsS1pEU2RhT3ppemJwTzlGdHROMlh1VldxQ1ZnbTlld1pab2hRZ0k4VzhTNk9JSWc5bzRWbERVMThzd1dSeEZiSWdLd0VqeGxmbE5ObEItLWs5RGM1YzI1azlndGVKMGFPVUFEUm1MZVpwcF9UWmJqcElTRXNaUHRlUTFEeHZ4X3VvbVJYTkJFdVBXcUY0ekU0TGpaYVFiX2lmQy1iWHh5emtIUnJTdnpRUUszaHZaN3ZZdUk1LWZBOFZiRWZfT0p4MngybXBZSzAyLTcwakIyOE5pRkpjTE01ZGVqclNmcFNSRFlNUXNhRllmSHhXeXoyVzA?oc=5"
         },
         {
-          "title": "This Handheld Mattress Vacuum Helps Users 'Sleep Better At Night' — And It's The Lowest Price We've Seen In Months",
-          "source": "Bing News",
-          "publishedAt": "2025-04-08T08:56:00.000Z",
-          "url": "http://www.bing.com/news/apiclick.aspx?ref=FexRss&aid=&tid=6aed8130df5b4f47849b51ed9fa1dab7&url=https%3a%2f%2fwww.yahoo.com%2flifestyle%2fhandheld-mattress-vacuum-helps-users-155641707.html&c=18378426002558209055&mkt=en-us"
+          "title": "Spend Less Time Scrubbing With These Top-Tested Picks - Good Housekeeping",
+          "source": "Google News",
+          "publishedAt": "2026-06-25T07:00:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMijAFBVV95cUxPeHdhUGRKUmlMQy1qT2hYWXZISTJDcExWc1hFVkoxQXQ0cldiWUVGTFlnOWNNVDQxS0kwRjg0MTFZaUp3X3M4WDhFUjNJLVRYT201NjNKZlkxWmNIYVd3T1JfSGs3dDFTMXQyUGNEcmVFdUtmSHJwUTduM015VGNYNHl4MFd4TDlRSnJBbw?oc=5"
         },
         {
-          "title": "Is a Mattress Vacuum the Allergy Solution We’ve Been Needing? I Tested One to Find Out",
-          "source": "Bing News",
-          "publishedAt": "2026-06-27T11:01:00.000Z",
-          "url": "http://www.bing.com/news/apiclick.aspx?ref=FexRss&aid=&tid=6aed8130df5b4f47849b51ed9fa1dab7&url=https%3a%2f%2fwww.cnet.com%2fhome%2fis-a-mattress-vacuum-the-allergy-solution-weve-been-needing-i-tested-one-to-find-out%2f&c=6803861266732088106&mkt=en-us"
+          "title": "These electric spin scrubbers clean grout, tubs, and floors with ease - Business Insider",
+          "source": "Google News",
+          "publishedAt": "2026-04-22T07:00:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMie0FVX3lxTE40c3JDUmdvYnFzQW4wNUE0VUdoWVMzUk1MT1VGOTBMbDdIT0tBcU1IbzMwWmNwME5za1ozalNqUWdkVDNMV1d0WUx5YUpOSU9TRGhWR1VVTzktT3VBOXR0d0pQM0hpQVZpU2hRdFN4M3dXRlpiejRwSUlDMA?oc=5"
         },
         {
-          "title": "Why every household needs a mattress vacuum cleaner – A must-have for allergy sufferers!",
-          "source": "Bing News",
-          "publishedAt": "2024-10-18T06:55:00.000Z",
-          "url": "http://www.bing.com/news/apiclick.aspx?ref=FexRss&aid=&tid=6aed8130df5b4f47849b51ed9fa1dab7&url=https%3a%2f%2fthe-gadgeteer.com%2f2024%2f10%2f18%2fwhy-every-household-needs-a-mattress-vacuum-cleaner-a-must-have-for-allergy-sufferers%2f&c=4466811231503959570&mkt=en-us"
+          "title": "I Have a Leg Injury, and This Extendable Spin Scrubber Has Been a Lifesaver in Keeping My Bathroom Spotless - Apartment Therapy",
+          "source": "Google News",
+          "publishedAt": "2026-09-11T07:00:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMihgFBVV95cUxPOF92S3dDMlBWc1ptWEpxX0pxNWd5emtEbHdyMXg4NkxhUWxweGVsR1pGMXotcElFNGQtWldFRkNtUzdRWGE5aFdFNFl3NW5NYVdlbzhJVk9YMUpsLUF0Mkp4MGFfVlVXVll1Qmo5Yl9sRnhrdkJwMVpxRjlNc2NFc0E5NmhQZw?oc=5"
         }
       ],
       "rank": 2
     },
     {
-      "slug": "pressure-washer",
-      "name": "Cordless Pressure Washer",
-      "signalScore": 30.5,
-      "signalLabel": "watch",
+      "slug": "mattress-vacuum",
+      "name": "Mattress Vacuum",
+      "signalScore": 76,
+      "signalLabel": "high-attention",
       "evidence": {
-        "publicMentions": 4,
+        "publicMentions": 57,
         "mentionsLast7Days": 0,
-        "mentionsLast30Days": 0,
+        "mentionsLast30Days": 5,
         "sourcesAvailable": [
+          "Google News",
           "Bing News"
         ]
       },
       "sampleSignals": [
         {
-          "title": "Amazon Has a $267 Cordless Pressure Washer on Sale for 70% Off",
-          "source": "Bing News",
-          "publishedAt": "2026-03-16T11:30:00.000Z",
-          "url": "http://www.bing.com/news/apiclick.aspx?ref=FexRss&aid=&tid=6aed811292f74e9a83972ab37cbb2520&url=https%3a%2f%2fwww.autoblog.com%2fdeals%2fykyi-cordless-pressure-washer-amazon-sale&c=13429977384917139374&mkt=en-us"
+          "title": "I tested the Feppo mattress vacuum, and I was shocked by what it picked up - USA Today",
+          "source": "Google News",
+          "publishedAt": "2026-10-27T12:30:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMingFBVV95cUxPUWxtazNrNEVrQWlPVS14WENZTUFPMjhiSFhpZnhMN3BOQWE2dnNPNk1GMkh0bVJWQ2VYazhEcnl2QmZxb3d1UlB3enBlLUdUa3R4ZTNKYllwUmp3ellMa3JoZmljWE9rX1NuS09qRXV5VjZDMnl5V1ZIZEpqNnYxSkpMQlJwd1FGSGZpN1N6UmNRUE9GcERrZnRnZl91UQ?oc=5"
         },
         {
-          "title": "Walmart Is Selling an ‘Easy to Use’ $130 Cordless Pressure Washer for 58% Off",
-          "source": "Bing News",
-          "publishedAt": "2026-06-29T07:00:00.000Z",
-          "url": "http://www.bing.com/news/apiclick.aspx?ref=FexRss&aid=&tid=6aed811292f74e9a83972ab37cbb2520&url=https%3a%2f%2fwww.autoblog.com%2fdeals%2fnexpow-cordless-pressure-washer-walmart-sale-june-2026&c=16567172610890907529&mkt=en-us"
+          "title": "Is a Mattress Vacuum the Allergy Solution We’ve Been Needing? I Tested One to Find Out - CNET",
+          "source": "Google News",
+          "publishedAt": "2026-06-27T07:00:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMisAFBVV95cUxQcmFNWEdvTUxuY1RES2k4bXh1T0U2ci1nTHBJRXVud3F4ekF2NHF4NkF4LTlKR3lRWTNObHBGcjUzOGlLNUlHNXd1dGdOQXBYcEN6QllhNGZyVDFja2h1R3AzX1hIaFk4RUpsZ3JQT05Ga2pkelRscFRTaVJ0NFhyX0c3cVllQzIxTXoyeGhKcTNvLUJuRWNLd0g3Si1mYnRoUjEzZExKZGEtUXlsVlV3dQ?oc=5"
         },
         {
-          "title": "Lemolify Cordless Pressure Washer review – Great for light duty chores!",
-          "source": "Bing News",
-          "publishedAt": "2025-06-28T08:01:00.000Z",
-          "url": "http://www.bing.com/news/apiclick.aspx?ref=FexRss&aid=&tid=6aed811292f74e9a83972ab37cbb2520&url=https%3a%2f%2fthe-gadgeteer.com%2f2025%2f06%2f28%2flemolify-cordless-pressure-washer-review-great-for-light-duty-chores%2f&c=9287227149526816999&mkt=en-us"
+          "title": "I Finally Got a Bed Vacuum, and Now I’m Never Going to Be Without One Again (and It’s on Sale for Prime!) - Apartment Therapy",
+          "source": "Google News",
+          "publishedAt": "2026-10-06T07:00:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMikAFBVV95cUxNbkpkQUFEYVRYc3gzc0Q0MUdkdE1pb2VORTFxbi1XbXk5OXBDYWg0Rmk3R01ZSUt6ZzNlRzRRWGR2RzRGQ09FQVNJNlZOMHk2eU9zZ0p1c1Q1dHpLbXZLZ29RcDQyX1JDZWpPME1pSlRyOG1XUTV2TlRYcDhLUWpXbFFJQkFvS09tb2YyQi1HYnE?oc=5"
         },
         {
-          "title": "Walmart Has a 'Powerful' $69 Cordless Pressure Washer On Sale for Just $30, and Shoppers Say It's 'Comfortable to Handle'",
-          "source": "Bing News",
-          "publishedAt": "2025-06-04T12:45:00.000Z",
-          "url": "http://www.bing.com/news/apiclick.aspx?ref=FexRss&aid=&tid=6aed811292f74e9a83972ab37cbb2520&url=https%3a%2f%2fwww.yahoo.com%2flifestyle%2fwalmart-powerful-69-cordless-pressure-194500117.html&c=2994184148495747321&mkt=en-us"
+          "title": "I Was Skeptical of This Automatic, Hands-Free Mattress Vacuum, but It Cleaned My Whole Bed Without Falling Off - Better Homes & Gardens",
+          "source": "Google News",
+          "publishedAt": "2026-08-29T07:00:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMikgFBVV95cUxPVWFJRTBGeGx6dWJiRWEzdWNmYmZEeFQ1NGNTei1fQkVrcGoyS2hXVEp2dFh6TWZXMUV1ZHVOd1BzTkNKZ2U4c3Utbm1hcnlsRUROSXhoakJCeVJjMGhTX1l5Z2hEaUxsSWVNcGo3RDZnRzlLQndxaVhwb1NyNVduTHk1UVpicWhfZmVGejJJY1N2Zw?oc=5"
+        },
+        {
+          "title": "As a sinusitis sufferer, I implore you to consider Aldi's £19 UV mattress vacuum — it's not about bed bugs, it's about dust - TechRadar",
+          "source": "Google News",
+          "publishedAt": "2026-06-12T07:00:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMi9gFBVV95cUxOOTZqRGZuMWZJTVh2VUhXOHgzMUdhVUhjYTdxeXl6QWVqbkxCb2R2bU45Wl9ERHVFaklYajJWa0JSd2RtdDNpdksyR1IwVV9QeUUyTmcySXJvcnltUDcxazNHaF85ZzZTYnYwNy1yZ1ZjNlhIWGVBRzc2aUtKNDhBbk85UHFueGtRY2JVaXpTMzNxX3dOUl9OazRUVloyVkRscXhwQ2kxSmg4T01BVUZERGlLR3I0b0NhOFJYdVdMTE0xdVY1cjdWYi11MndYbFZZYUpPLVl0LTh2NlhDV3g4aWRYcDZydWtORU01eS1RVWhEZjNQU2c?oc=5"
         }
       ],
       "rank": 3
     },
     {
-      "slug": "garment-steamer",
-      "name": "Portable Garment Steamer",
-      "signalScore": 23,
-      "signalLabel": "baseline",
+      "slug": "pressure-washer",
+      "name": "Cordless Pressure Washer",
+      "signalScore": 74,
+      "signalLabel": "high-attention",
       "evidence": {
-        "publicMentions": 1,
+        "publicMentions": 53,
         "mentionsLast7Days": 0,
-        "mentionsLast30Days": 0,
+        "mentionsLast30Days": 3,
         "sourcesAvailable": [
+          "Google News",
           "Bing News"
         ]
       },
       "sampleSignals": [
         {
-          "title": "This Portable Garment Steamer Is Ready for Summer Travel",
-          "source": "Bing News",
-          "publishedAt": "2022-06-25T17:00:00.000Z",
-          "url": "http://www.bing.com/news/apiclick.aspx?ref=FexRss&aid=&tid=6aed81190eed4ed58df4af69dee840a2&url=https%3a%2f%2fwww.entrepreneur.com%2fliving%2fthis-portable-garment-steamer-is-ready-for-summer-travel%2f430042&c=3474243255062178709&mkt=en-us"
+          "title": "If You'd Rather Wash Your Car Than Strip Its Paint, These Cordless Power Washers Are The Tool You Want - Popular Mechanics",
+          "source": "Google News",
+          "publishedAt": "2026-07-24T07:00:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMiggFBVV95cUxQZzA5TzBxdm5yX1RYc3RkUHpOV0FRdmF2YnV6Vk9ma3cweHFkM0xoTzAxQXo5OThsS3BVZ2hOWTdXOWVlQUZnYTBXaHZfUkRmN1BsMVc5RlR1YngtdVNIdWZfZGJpRmd0dDBuMXNJLXlFRllZREJWYktndWYyWVJJU0Zn?oc=5"
+        },
+        {
+          "title": "Does it work? Hydro X5 cordless pressure washer - KWCH",
+          "source": "Google News",
+          "publishedAt": "2026-08-12T07:00:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMihgFBVV95cUxNTWJJdnI5YnFKNlFnNUNhY09iVVFJZ1ZvMHJmQ2FYcEQtbU0xYmRBNzQ5Y3NrRXJ6NS04Sl9uSXBSUDJoSEh2QXVBM3VlQzQtbHdIVWl5S2dDNGxQNzYxdDFuQnQtWEFmdUpLSEU3STlaSkhLSFF3d1JxMVFxZEtZXzYzbTQ1UdIBmgFBVV95cUxPZERNWEJkcWM1a0pySUFEZC12OXE2Q1F1Q3hjSEk1Ql9SUktmSjczWG13Y0doWHV0ZkpGSm9LUnA4eEIwWFg3ZU95TVlZTDQ0WkFtSUhDWDRIY29ITmlJTUljZ3lvNHdYWXNFQ2hGQVo1djZzWkZudTZPdEJtOHJGRDV0Q2pUQkE4OG00WFh6R3ZjQ1Q2NEhldGV3?oc=5"
+        },
+        {
+          "title": "Ego Power+ Cordless Pressure Washer Review: Powerful but Pricey - BobVila.com",
+          "source": "Google News",
+          "publishedAt": "2026-09-12T07:00:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMid0FVX3lxTE1OVkM4ZWhzQmpyUlZ5Z3Jmc3pyel9STTVDZnF1VEdHdERlM21OcUt0UFlUTlVhZG5pUWhyS2hBRTdGZHRNUjhJWGhmQ01EZGZxSXZBcXVPT0Uweno4WXdwbzluUUJYeC1ySUNQTjJXVlE3Umo1YzVN?oc=5"
+        },
+        {
+          "title": "In a Decade of Testing Pressure Washers, These Are the Smallest, Most Powerful Models Yet - The New York Times",
+          "source": "Google News",
+          "publishedAt": "2026-06-05T07:00:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMickFVX3lxTE12V2hOQ2d1Z0xiSU0ySWNYbmpaS0ZaOC1oc3QzazB3WU5oRHcxV1B1RjNhdHFmckxHc0pEdlRFUGQtN2dkUWtoTHZiQWVWSi02ZV9xTElkQ0xTNWw1MjFnakpCT0pkUTliaWh1aGVWN0RUdw?oc=5"
+        },
+        {
+          "title": "Walmart Sells a Cordless Pressure Washer for 54% Off, and It's 'Ideal for Car and Yard Cleaning' - Autoblog",
+          "source": "Google News",
+          "publishedAt": "2026-10-29T07:00:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMijAFBVV95cUxPcjlUdG9TRDNuSkFhREtDcFVIdXJrZUt4UThXVEZGMkFNWUNoVzRqQld1RzZWelFXSk1HTjZ3X0Nqd05vV3Vua0g0NTRQY3dIYVNpZkszLThOUlZxdVVXT0JrZUxrWk5rclJHdmVpLUZHRFZEbnZQenJHTTNUV2M5Y1lqcktMaWI1MDM0NQ?oc=5"
         }
       ],
       "rank": 4
@@ -166,34 +200,158 @@
     {
       "slug": "pethair",
       "name": "Reusable Pet Hair Remover",
-      "signalScore": 23,
-      "signalLabel": "baseline",
+      "signalScore": 41,
+      "signalLabel": "watch",
       "evidence": {
-        "publicMentions": 0,
+        "publicMentions": 10,
         "mentionsLast7Days": 0,
-        "mentionsLast30Days": 0,
+        "mentionsLast30Days": 2,
         "sourcesAvailable": [
+          "Google News",
           "Bing News"
         ]
       },
-      "sampleSignals": [],
+      "sampleSignals": [
+        {
+          "title": "If Your Pet Sheds A Lot, You Need At Least One Of These 15 Reviewer-Approved Products - BuzzFeed",
+          "source": "Google News",
+          "publishedAt": "2026-10-20T07:00:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMimAFBVV95cUxNS1JPT1c5cVFpZFV5T25hU0kzenpnaDM4STZzQWo4Qk9aQXZTc2NSZFlTSmtLS1RCNlpodEt6cWZlNVNQS0d1cVlaQmViZVJpUkpXTmcyb3o0OEh3Y3pLVUtQZnJVZ08td2g3NV9YdkRTVmkxWFJvX1lBdXdKSUVKTUNWSTNybXpQMmZEVnMyOUlYV2xIZ3d5dw?oc=5"
+        },
+        {
+          "title": "10 Best Cat Hair Remover Tools in 2026 - Reviews & Top Picks - Catster",
+          "source": "Google News",
+          "publishedAt": "2026-10-18T07:00:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMid0FVX3lxTE9TRHBxazJndGdPZkxWeW5xUGRibHc4aGJjUjBRN2tueTdCU1I1dEx2N1RXSGYteThUejc1cWlBcnNiOGhDYmNYSVVRUk0wN1djTE9Ub2VZYzV5VGJYczFLTHo2MHhWdEpXckdnX3V5U0pyOUNTVFpN?oc=5"
+        },
+        {
+          "title": "Best Prime Big Deal Days Sales on Pet Products - Consumer Reports",
+          "source": "Google News",
+          "publishedAt": "2026-10-07T07:00:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMiugFBVV95cUxPNUFvYlVIOURkSktJaEk1ZUV3STQtbmhWaU4teXdfZDBvUzR6bFNhX1RBM1h4TEFWUUNaYkgxWjU2bFZXSl9SRnZTbXRtaFJSXzdReWN2N0pzR05pdWxyOVFHTTRKcVE4R29oZlhlU3VLaVRtYXNqWWx0X2JyX091OUluaGJMSWF1YmR6UVMySGxTdk9zczFTY2dMc3ktaDViUUZfMjZMSVp5MkpCQ2VjZTVTcGlFWnBnTUE?oc=5"
+        },
+        {
+          "title": "Uproot Clean Promo Code LOUISAWARWICK10 – Get 10% Off Sitewide on Viral Pet Hair Removal Tools - Muzique Magazine",
+          "source": "Google News",
+          "publishedAt": "2026-05-26T07:00:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMivAFBVV95cUxNdDdxTXg5VTljRFBmTDlNd0VXaDV5eUJlbHp4NGxpT3RQdk1sUmVhM3RydDJ3OXJGR3dMalAxemlVYjhzT2NZZ2pLYlBSM2F0Rk1zVDNrR2x0NGJyb3FJOUNDY2x0eEVnRk90aGtvdENXX01MMUhSNTIzOEhnZHVHWHByRW1hYmpCa0tTcXc3clBKTjVNMkdkNmR4blJtYng3cVhkRTdoRHBuZEczeWNENUhST0hsY2pRcU9Udw?oc=5"
+        },
+        {
+          "title": "10 Best Lint Rollers for Dog Hair in 2026 – Reviews & Top Picks - Dogster",
+          "source": "Google News",
+          "publishedAt": "2026-07-04T07:00:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMic0FVX3lxTE4tU0E2SE93Q0pXbFBKY3RfaHNhWEhsVVBpOUVhVXV2SmNHSUkyeUtUNWdwNlYtWEVhcFlhdVJaZ2htTjRrZ21sY0txZmJEa3JMaml6ZnFrSWlVdFhwRGVzaFJnOF9VODllWDhQUEg1dmNYRlE?oc=5"
+        }
+      ],
       "rank": 5
     },
     {
       "slug": "crevice",
       "name": "3-in-1 Crevice Cleaning Brush",
-      "signalScore": 22.5,
-      "signalLabel": "baseline",
+      "signalScore": 39,
+      "signalLabel": "watch",
       "evidence": {
-        "publicMentions": 0,
+        "publicMentions": 10,
         "mentionsLast7Days": 0,
-        "mentionsLast30Days": 0,
+        "mentionsLast30Days": 1,
         "sourcesAvailable": [
+          "Google News",
           "Bing News"
         ]
       },
-      "sampleSignals": [],
+      "sampleSignals": [
+        {
+          "title": "This $7 Best-Selling Cleaning Tool Removes “Years’ Worth” of Lint From Dryer Vents—and It Can Prevent House Fires - Real Simple",
+          "source": "Google News",
+          "publishedAt": "2026-10-07T07:00:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMinwFBVV95cUxPcVR3M2tYM2NuLWFxNmxsNGVIREwySG8wQVQ3UEZ1ay0tSU5XbzhibktkWkpSMGdKRWd2M0lOZGVQZDJWcHZRWjBmRGRxX0hYVmlwczhvem5nLUp0MTlITDhZQjBSd0tsYjl6YjNJNGZTakxMY3l3a2dVVWpqSENKWEpmb1NLU01nSngyOGRheDg4YTFLa2JTbGl5Z2pOYnc?oc=5"
+        },
+        {
+          "title": "This $10 Brush Makes Cleaning Gross Corners So Much Easier, According To Reviews - HuffPost",
+          "source": "Google News",
+          "publishedAt": "2026-03-10T07:00:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMijAFBVV95cUxPWEZBUTZUMG15RkRMZC04Q3pFbkdONV9idXZmeU85Mzl3bUoyTHVkNTU1ZHNDOHNsQm5fZHJFdGZpUnpfWjVuZ0ROLW9aUUYyWGxVXzY5MnBmdGRZcEgyR1pSaXpFaDV6cG5fVXRDcWpVeWRsMlU3NFdmRjZmOHBKTDNxU1R3QkdsUFNDT9IBkgFBVV95cUxOMklBSTJwdEMtMjVMYnhWdWliWEFDbTlGaHRtcUFUcmRpRTRiWU1xUnJ3OWthdXJNRXI1RDFJNmo4MEVLYmQ1cC1DMFBxWjlJaElZZm1QWVBVQklPU3pqemVEaWZXMHVTdldUM0VRQXY5MzNsd1lMSUlVdTcyUjNRTVlQcXlwRzREQmJtRmRWY09vQQ?oc=5"
+        },
+        {
+          "title": "10 Best Tools For Deep Cleaning Your Kitchen - Tasting Table",
+          "source": "Google News",
+          "publishedAt": "2026-04-10T07:00:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMidkFVX3lxTE92V3lnSDcyVlhvSUJINnN4VU85em51bjBTNFRKU0ltYzNrd3c5YVNMVE1jTmUzMC1tYnM4S1VUQzAtTmVNa2Jha0tNNFFvMlU1ZnkzSHpZVms4MUFiQmF6b2YxRnYydlVob3RoakhnM2t5cW9zRVE?oc=5"
+        },
+        {
+          "title": "Amazon Shoppers Bought This $10 Cleaning Tool More Than 2,000 Times Last Month (You'll Use It in Every Room!) - Apartment Therapy",
+          "source": "Google News",
+          "publishedAt": "2024-06-04T07:00:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMigwFBVV95cUxNaEppZ1kxQmNqdm1LbTVfVTdmMmlkTU0zekl1c1BSdVBmSTZUMi1YUTdfRWlxUlR6ZGlRZEZ1Sk9Uc0JvLTJyUDRHc1hNRnNmRllKTjRvbmxyNlUzcmx4SzlzOWdVRXBQbWxyZ25VX2VlbDJrdmMxU3Z0b0hyXzN5SVpXOA?oc=5"
+        },
+        {
+          "title": "'Mighty little brush': This handy Amazon tool makes cleaning tight spaces a 'breeze' — and its under $20 - Yahoo Lifestyle Canada",
+          "source": "Google News",
+          "publishedAt": "2025-02-02T08:00:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMi1gFBVV95cUxNcEhyRlB4aXZhWUFQLV81OUpVOG9sU2g0eFl5eWhpd216a3UwWE5xekRIeFlqbGJjX3VBMi1UbHhITFlUQVlEM1BWYjBsSW85NWFFZEpFUjRteS16ejRpUVJpclZJZ1dHbTA4UThYX2tOY3prWE81QWktVmtTNTdMc0Z2UnNUcWRtaXU0RGpLMHc2ZGwyNkU2UmZMT3g4cFZJbGI2ZXFCdjk2MnlEaGpRQ200WGhSV0xobENKRFktZ0xuSF9ndUFLZ0ZrUFJsYWpvZ01VMVNB?oc=5"
+        }
+      ],
       "rank": 6
+    },
+    {
+      "slug": "home-caddy",
+      "name": "Portable Home Caddy",
+      "signalScore": 21.5,
+      "signalLabel": "baseline",
+      "evidence": {
+        "publicMentions": 2,
+        "mentionsLast7Days": 0,
+        "mentionsLast30Days": 0,
+        "sourcesAvailable": [
+          "Google News",
+          "Bing News"
+        ]
+      },
+      "sampleSignals": [
+        {
+          "title": "10 handy cleaning caddies you need to make life easier - Real Homes",
+          "source": "Google News",
+          "publishedAt": "2022-01-27T08:00:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMia0FVX3lxTE12eWlYN0NrZFZnUHZ6T0JWN3JsZFhmS2IwR0dsNFhnQWM3WHEtN3FjN0hQODRpa3dfUThCRTBVc0RtRU9YcFpoeXZ5ZnA3dkJFMHZYd3kxLWxQcGFCZU94UjNUQl9ZakNJaHJV?oc=5"
+        },
+        {
+          "title": "Babs Costello shares spring cleaning tips from new book 'Homemaking with Babs' - Good Morning America",
+          "source": "Google News",
+          "publishedAt": "2026-04-30T07:00:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMivwFBVV95cUxQOXNiQWdmazZNR0M4ZTdUMzNJaHhZN2NSMmZHa0tWTmNnYzE3MGltaUcyNjlrMEdfMnlSbk9RY29ycm4tdmd5Y0wtNk9IMktyTzhmN0ZKTzBLTkloRHhvNlgtM0pIcFE4N2NCSUU2WXE0d0NOUy1WS00zWDdzczlBeFk4b3lvQVhCVXNudU5mbG5nNVlNSVJ2MGctMmhPMFNWMFRDUklIZG9tVFZubTVhX3lZeDhXVjBUSTFmMXFtNNIBxAFBVV95cUxPSGJnSkU3ZHNOYURTUThBaXFWbXREOXJlaXR1NVBUMU1vSDBsZlBGRHBPc2xuU3pURkZ5ekhFcy1VaWN0NUhmdU1OdGZsdy1LZTh4X243Vm9SMERCLUJZeUU2LTlKUF81RFY1Q0wxRm03N1EtYndHZmZrczc1am9xTWttWHk5U1diWGhWd3k3VlRfV0ZHRXNHNHB3bkY5MEg5c1U2aDRmN3R3MHZHSUZNYWpLWDNqTzRqZF9qQTlpazlSRWNz?oc=5"
+        }
+      ],
+      "rank": 7
+    },
+    {
+      "slug": "drain-catcher",
+      "name": "Sink Drain Catcher 2-Pack",
+      "signalScore": 21,
+      "signalLabel": "baseline",
+      "evidence": {
+        "publicMentions": 2,
+        "mentionsLast7Days": 0,
+        "mentionsLast30Days": 0,
+        "sourcesAvailable": [
+          "Google News",
+          "Bing News"
+        ]
+      },
+      "sampleSignals": [
+        {
+          "title": "This drain catcher has the best user ratings of any hair strainer for bathroom sinks, with tens of thousands of five-star reviews. Our Wirecutter testers found that it worked as advertised. https://nyti.ms/4814mzC - Facebook",
+          "source": "Google News",
+          "publishedAt": "2026-03-28T07:00:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMi0wFBVV95cUxQaU93U01HbWpRbVROOVQ3aVhKYWxUSEdKR3Bmbk5sdXotYmZNSG4ta1o5ZWUwOEp4VXBhNnJ2Wmg2NXBnSWxRVkZMNDlrRVk1OGhsR1N1dWdZZ2ZnaHl0M29ONFFvci15Q3BXQW5jOW0tRHREdWRQUFdBbDJEakZqRklkWWx5N2V1c1RkTi14dDh5ZWh4em1YM19qamNjN2ZaQmNPWEEwT2R1SzBPQzdrNXBPQmdjS2pNTlZnY0U5bzBPLU91MnhRS3ZsWVd0bEtZMjlR?oc=5"
+        },
+        {
+          "title": "7 reasons your sink won't drain – plus expert tips to unclog a sink like a pro - Homes and Gardens",
+          "source": "Google News",
+          "publishedAt": "2025-06-25T07:00:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMigAFBVV95cUxPanpVUU5ldG5La1Ryb1hfRnhOZlFRdFpLbkhDLTNSZnlSa3NVbzdOelJPWVAzNjZ5WVZTcDFQZHNfaWg1UHUwdGZ3MWdncHkteklzMlhvODZ6cXZHNldJQ1hlblFxbks5eUEzU1E2QnNOam8td1RTQ3RRcW5xcTB0VQ?oc=5"
+        }
+      ],
+      "rank": 8
     },
     {
       "slug": "mini-mop",
@@ -205,38 +363,7 @@
         "mentionsLast7Days": 0,
         "mentionsLast30Days": 0,
         "sourcesAvailable": [
-          "Bing News"
-        ]
-      },
-      "sampleSignals": [],
-      "rank": 7
-    },
-    {
-      "slug": "home-caddy",
-      "name": "Portable Home Caddy",
-      "signalScore": 18.5,
-      "signalLabel": "baseline",
-      "evidence": {
-        "publicMentions": 0,
-        "mentionsLast7Days": 0,
-        "mentionsLast30Days": 0,
-        "sourcesAvailable": [
-          "Bing News"
-        ]
-      },
-      "sampleSignals": [],
-      "rank": 8
-    },
-    {
-      "slug": "drain-catcher",
-      "name": "Sink Drain Catcher 2-Pack",
-      "signalScore": 18,
-      "signalLabel": "baseline",
-      "evidence": {
-        "publicMentions": 0,
-        "mentionsLast7Days": 0,
-        "mentionsLast30Days": 0,
-        "sourcesAvailable": [
+          "Google News",
           "Bing News"
         ]
       },
