@@ -65,9 +65,12 @@ async def audit(strict=True):
           if path=='/garment-steamer/' and data['stripeLinks']:
             errors.append(f'{path} {name}: physical product checkout exposed before buyer-specific verification')
           if path=='/':
-            # The executive digital bundle is not a physical supplier offer.
-            # Preserve its valid checkout while blocking unapproved home links.
-            authorized_digital={'https://buy.stripe.com/eVqfZi5Lo7pV31Ea4MgnK0t'}
+            # Exactly known digital bundles and Cashflow Studio are not physical supplier offers.
+            # Preserve these verified checkout links while blocking unknown home links.
+            authorized_digital={
+                'https://buy.stripe.com/eVqfZi5Lo7pV31Ea4MgnK0t',
+                'https://buy.stripe.com/eVqaEYddQ6lRgSu1yggnK0v',  # Verified original Cashflow Studio, $5.99 once
+            }
             unapproved=[url for url in data['stripeLinks'] if url.split('?',1)[0] not in authorized_digital]
             if unapproved:
               errors.append(f'{path} {name}: unapproved home checkout link {unapproved[:3]}')
