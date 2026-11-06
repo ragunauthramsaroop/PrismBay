@@ -113,3 +113,18 @@ test('encoded physical link beside an approved digital checkout still fails clos
   assert.equal(audit.unapprovedDirectStripeLinkCount, 1);
   assert.equal(audit.hasUnapprovedDirectStripeLink, true);
 });
+
+test('the live $5.99 Cashflow Studio original digital checkout is allowlisted without enabling unknown physical products', () => {
+  const valid = 'https://buy.stripe.com/eVqaEYddQ6lRgSu1yggnK0v';
+  const safe = auditPublicStripeLinks('<a href="' + valid + '?utm_source=clean_home">Buy the original workbook</a>');
+  assert.equal(safe.directStripeLinkCount, 1);
+  assert.equal(safe.approvedDigitalStripeLinkCount, 1);
+  assert.equal(safe.unapprovedDirectStripeLinkCount, 0);
+  assert.equal(safe.hasUnapprovedDirectStripeLink, false);
+  const unsafe = auditPublicStripeLinks(valid + ' https://buy.stripe.com/UNVERIFIED_PHYSICAL_PRODUCT');
+  assert.equal(unsafe.approvedDigitalStripeLinkCount, 1);
+  assert.equal(unsafe.unapprovedDirectStripeLinkCount, 1);
+  assert.equal(unsafe.hasUnapprovedDirectStripeLink, true);
+  const spoof = auditPublicStripeLinks('https://buy.stripe.com.evil.example/eVqaEYddQ6lRgSu1yggnK0v');
+  assert.equal(spoof.approvedDigitalStripeLinkCount, 0);
+});
