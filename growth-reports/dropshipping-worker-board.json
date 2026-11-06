@@ -1,11 +1,11 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-11-06T07:27:48.140Z",
+  "generatedAt": "2026-11-06T15:57:25.012Z",
   "researchCandidates": 12,
   "publishedResearchSignals": 12,
   "verifiedCJStatus": {
-    "checkedAt": "2026-11-06T06:53:31.956Z",
-    "validSupplierMatches": 3,
+    "checkedAt": "2026-11-06T15:57:22.847Z",
+    "validSupplierMatches": 2,
     "variantStock": 2,
     "freightEstimates": 2,
     "countryFreightEstimates": 2,
@@ -25,8 +25,29 @@
       "action": "Investigate specific catalog SKUs, incorrect product matches and incomplete stock evidence.",
       "state": "review_required",
       "executionMode": "scheduled_cj_and_manual_review",
-      "candidateCount": 12,
+      "candidateCount": 9,
       "blockers": [
+        {
+          "slug": "cordless-handheld-vacuum",
+          "status": "supplier_search_needed",
+          "sku": null,
+          "shippingDiagnostic": null,
+          "zeroPricedMethods": 0
+        },
+        {
+          "slug": "insulated-tumbler",
+          "status": "supplier_search_needed",
+          "sku": null,
+          "shippingDiagnostic": null,
+          "zeroPricedMethods": 0
+        },
+        {
+          "slug": "screen-protector",
+          "status": "final_zip_freight_required",
+          "sku": "CJPB237729905EV",
+          "shippingDiagnostic": "priced_estimate_available",
+          "zeroPricedMethods": 0
+        },
         {
           "slug": "pressure-washer",
           "status": "supplier_search_needed",
@@ -43,7 +64,7 @@
         },
         {
           "slug": "garment-steamer",
-          "status": "final_zip_freight_required",
+          "status": "fresh_commercial_evidence_required",
           "sku": "CJYD245844002BY",
           "shippingDiagnostic": "priced_estimate_available",
           "zeroPricedMethods": 0
@@ -64,48 +85,6 @@
         },
         {
           "slug": "hanging-closet-organizer",
-          "status": "supplier_search_needed",
-          "sku": null,
-          "shippingDiagnostic": null,
-          "zeroPricedMethods": 0
-        },
-        {
-          "slug": "cordless-handheld-vacuum",
-          "status": "supplier_search_needed",
-          "sku": null,
-          "shippingDiagnostic": null,
-          "zeroPricedMethods": 0
-        },
-        {
-          "slug": "insulated-tumbler",
-          "status": "supplier_search_needed",
-          "sku": null,
-          "shippingDiagnostic": null,
-          "zeroPricedMethods": 0
-        },
-        {
-          "slug": "screen-protector",
-          "status": "fresh_commercial_evidence_required",
-          "sku": "CJPB237729905EV",
-          "shippingDiagnostic": "priced_estimate_available",
-          "zeroPricedMethods": 0
-        },
-        {
-          "slug": "scrubber",
-          "status": "supplier_search_needed",
-          "sku": null,
-          "shippingDiagnostic": null,
-          "zeroPricedMethods": 0
-        },
-        {
-          "slug": "pethair",
-          "status": "fresh_commercial_evidence_required",
-          "sku": "CJMY2103657",
-          "shippingDiagnostic": "variant_stock_unverified",
-          "zeroPricedMethods": 0
-        },
-        {
-          "slug": "crevice",
           "status": "supplier_search_needed",
           "sku": null,
           "shippingDiagnostic": null,
