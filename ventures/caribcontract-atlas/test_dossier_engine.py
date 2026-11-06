@@ -112,6 +112,18 @@ class DossierEngineTest(unittest.TestCase):
         self.assertNotIn("email", json.dumps(report).lower())
         self.assertNotIn("checkout_session", json.dumps(report).lower())
 
+    def test_daily_worker_selects_only_upcoming_public_tender(self):
+        past = sample()
+        past["projected_bid_opening_date"] = "2026-11-06"
+        future = sample()
+        future["project_id"] = "PROC-2026-00510"
+        future["projected_bid_opening_date"] = "2026-11-26"
+        future["current_state"] = "Bid Advertised"
+        choice = d.select_automatic_tender([past, future], current=d.date(2026, 11, 5))
+        self.assertEqual(choice["id"], "PROC-2026-00510")
+        with self.assertRaises(d.SourceError):
+            d.select_automatic_tender([past], current=d.date(2026, 11, 5))
+
     def test_guyana_calendar_has_no_past_workdays(self):
         self.assertEqual(d.business_days_until("2026-11-05", d.date(2026, 11, 5)), 0)
         self.assertEqual(d.business_days_until("2026-11-04", d.date(2026, 11, 5)), 0)
