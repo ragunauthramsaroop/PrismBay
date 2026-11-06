@@ -1,13 +1,13 @@
 {
   "schemaVersion": 1,
-  "checkedAt": "2026-11-05T21:35:44.006Z",
+  "checkedAt": "2026-11-06T01:50:07.341Z",
   "source": "GitHub Actions accountability evidence",
   "refreshPolicy": "Best-effort GitHub schedules. Static snapshot; refresh does not run agents.",
   "summary": {
-    "passing": 1,
+    "passing": 3,
     "running": 0,
-    "attention": 4,
-    "warnings": 4,
+    "attention": 2,
+    "warnings": 2,
     "total": 5
   },
   "workers": [
@@ -18,15 +18,15 @@
       "cadence": "Every 30 minutes",
       "purpose": "Produces and publishes digital product buyer pages",
       "workflow": "buyer-acquisition.yml",
-      "status": "fail",
-      "reason": "worker_stale",
-      "consequence": "replace_route",
-      "failureStreak": 6,
-      "runId": 42058203574,
-      "runUrl": "https://github.com/ragunauthramsaroop/PrismBay/actions/runs/42058203574",
-      "runAgeMinutes": 350,
-      "artifactName": null,
-      "artifactBytes": null,
+      "status": "pass",
+      "reason": "fresh_success_with_evidence",
+      "consequence": "none",
+      "failureStreak": 0,
+      "runId": 42140560831,
+      "runUrl": "https://github.com/ragunauthramsaroop/PrismBay/actions/runs/42140560831",
+      "runAgeMinutes": 52,
+      "artifactName": "buyer-acquisition-42140560831",
+      "artifactBytes": 25676,
       "remediation": null
     },
     {
@@ -42,7 +42,7 @@
       "failureStreak": 0,
       "runId": 42097865441,
       "runUrl": "https://github.com/ragunauthramsaroop/PrismBay/actions/runs/42097865441",
-      "runAgeMinutes": 104,
+      "runAgeMinutes": 359,
       "artifactName": "prismbay-external-traffic-42097865441",
       "artifactBytes": 659919,
       "remediation": null
@@ -57,13 +57,13 @@
       "status": "fail",
       "reason": "worker_stale",
       "consequence": "replace_route",
-      "failureStreak": 3,
-      "runId": 42088905094,
-      "runUrl": "https://github.com/ragunauthramsaroop/PrismBay/actions/runs/42088905094",
-      "runAgeMinutes": 160,
+      "failureStreak": 4,
+      "runId": 42133276203,
+      "runUrl": "https://github.com/ragunauthramsaroop/PrismBay/actions/runs/42133276203",
+      "runAgeMinutes": 113,
       "artifactName": null,
       "artifactBytes": null,
-      "remediation": "dispatched_safe_digital_buyer_acquisition_fallback"
+      "remediation": "requested_fresh_run_of_stale_original_workflow"
     },
     {
       "id": "paperclip-revenue",
@@ -72,16 +72,16 @@
       "cadence": "Hourly",
       "purpose": "Runs conversion, growth, and first-sale evidence checks",
       "workflow": "paperclip-revenue-ops.yml",
-      "status": "fail",
-      "reason": "worker_stale",
-      "consequence": "replace_route",
-      "failureStreak": 3,
-      "runId": 42056340953,
-      "runUrl": "https://github.com/ragunauthramsaroop/PrismBay/actions/runs/42056340953",
-      "runAgeMinutes": 361,
-      "artifactName": null,
-      "artifactBytes": null,
-      "remediation": "fallback_request_queued_for_next_watchdog_cycle"
+      "status": "pass",
+      "reason": "fresh_success_with_evidence",
+      "consequence": "none",
+      "failureStreak": 0,
+      "runId": 42118319034,
+      "runUrl": "https://github.com/ragunauthramsaroop/PrismBay/actions/runs/42118319034",
+      "runAgeMinutes": 226,
+      "artifactName": "prismbay-paperclip-revenue-42118319034",
+      "artifactBytes": 6270,
+      "remediation": null
     },
     {
       "id": "commerce-control",
@@ -93,13 +93,13 @@
       "status": "fail",
       "reason": "worker_stale",
       "consequence": "replace_route",
-      "failureStreak": 3,
-      "runId": 42089253855,
-      "runUrl": "https://github.com/ragunauthramsaroop/PrismBay/actions/runs/42089253855",
-      "runAgeMinutes": 158,
+      "failureStreak": 4,
+      "runId": 42132999057,
+      "runUrl": "https://github.com/ragunauthramsaroop/PrismBay/actions/runs/42132999057",
+      "runAgeMinutes": 115,
       "artifactName": null,
       "artifactBytes": null,
-      "remediation": "fallback_request_queued_for_next_watchdog_cycle"
+      "remediation": "reassigned_to_currently_operational_buyer_acquisition"
     }
   ],
   "commercial": {
