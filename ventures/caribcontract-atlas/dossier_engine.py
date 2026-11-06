@@ -171,6 +171,24 @@ def normalize_tender(row: dict) -> dict:
     }
 
 
+def select_automatic_tender(feed: list[dict], *, current: date | None = None) -> dict:
+    """Select a single upcoming publicly advertised source, never a customer order."""
+    today = current or datetime.now(TZ_GUYANA).date()
+    candidates = []
+    for row in feed:
+        if not isinstance(row, dict) or row.get("current_state") not in (None, "Bid Advertised"):
+            continue
+        try:
+            notice = normalize_tender(row)
+            if business_days_until(notice["advertised_opening"], today) >= 3:
+                candidates.append(notice)
+        except SourceError:
+            continue
+    if not candidates:
+        raise SourceError("No eligible future public advertisement found for scheduled sample")
+    return sorted(candidates, key=lambda x: (x["advertised_opening"], x["id"]))[0]
+
+
 def select_tender(feed: list[dict], tender_id: str) -> dict:
     if not ID_PATTERN.fullmatch(tender_id):
         raise SourceError("Only official PROC-YYYY-NNNNN identifiers are accepted")
@@ -316,7 +334,7 @@ def main() -> int:
     args = parser.parse_args()
     try:
         rows = public_feed()
-        tender = select_tender(rows, args.tender_id)
+        tender = select_automatic_tender(rows) if args.tender_id == "auto" else select_tender(rows, args.tender_id)
         pdf_bytes = read_public_bytes(tender["document_url"], MAX_PDF_BYTES, "pdf")
         pages = extract_pages(pdf_bytes)
         report = compose_report(tender, pages, pdf_hash=sha256(pdf_bytes).hexdigest())
