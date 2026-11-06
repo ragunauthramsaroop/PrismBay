@@ -16,7 +16,7 @@ from pathlib import Path
 import re
 import sys
 from urllib.error import HTTPError, URLError
-from urllib.parse import quote, urljoin, urlsplit
+from urllib.parse import quote, urljoin, urlsplit, urlunsplit
 from urllib.request import HTTPRedirectHandler, Request, build_opener
 
 from jinja2 import Environment, FileSystemLoader, select_autoescape
@@ -82,7 +82,10 @@ def official_pdf_url(value: str) -> str:
         raise SourceError("Document URL does not match the official source")
     if not parts.path.lower().endswith(".pdf"):
         raise SourceError("Only published PDF advertisements are supported")
-    return url
+    # The government API often returns literal spaces in file names.
+    # Percent-encode every path segment while preserving existing percent escapes.
+    encoded = quote(parts.path, safe="/%")
+    return urlunsplit((parts.scheme, parts.netloc, encoded, parts.query, ""))
 
 
 def read_public_bytes(url: str, limit: int, expected_type: str) -> bytes:
