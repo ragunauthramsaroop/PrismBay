@@ -1,6 +1,6 @@
 {
   "schemaVersion": 3,
-  "checkedAt": "2026-11-07T20:16:33.955Z",
+  "checkedAt": "2026-11-07T23:41:55.789Z",
   "market": "US",
   "authenticationVerified": true,
   "sourceCandidateCount": 9,
@@ -47,7 +47,7 @@
       "checkoutAllowed": false,
       "promotionPolicyAuthorized": true,
       "automaticPromotionAllowed": false,
-      "observedAt": "2026-11-07T20:16:33.955Z"
+      "observedAt": "2026-11-07T23:41:55.789Z"
     },
     {
       "slug": "roll-up-dish-rack",
@@ -75,7 +75,7 @@
       "checkoutAllowed": false,
       "promotionPolicyAuthorized": true,
       "automaticPromotionAllowed": false,
-      "observedAt": "2026-11-07T20:16:33.955Z"
+      "observedAt": "2026-11-07T23:41:55.789Z"
     },
     {
       "slug": "hanging-closet-organizer",
@@ -103,7 +103,7 @@
       "checkoutAllowed": false,
       "promotionPolicyAuthorized": true,
       "automaticPromotionAllowed": false,
-      "observedAt": "2026-11-07T20:16:33.955Z"
+      "observedAt": "2026-11-07T23:41:55.789Z"
     },
     {
       "slug": "cordless-handheld-vacuum",
