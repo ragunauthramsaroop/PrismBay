@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-11-07T13:35:58.853Z",
+  "updatedAt": "2026-11-07T22:19:42.026Z",
   "market": "US",
   "methodology": "Public-news attention, freshness, and short-form demonstration fit. This is not PrismBay sales data and is not a TikTok, Amazon, Google, or Bing product ranking.",
   "refreshTargetHours": 6,
@@ -59,7 +59,7 @@
       "signalScore": 76,
       "signalLabel": "high-attention",
       "evidence": {
-        "publicMentions": 67,
+        "publicMentions": 66,
         "mentionsLast7Days": 0,
         "mentionsLast30Days": 4,
         "sourcesAvailable": [
@@ -107,7 +107,7 @@
       "signalScore": 76,
       "signalLabel": "high-attention",
       "evidence": {
-        "publicMentions": 58,
+        "publicMentions": 57,
         "mentionsLast7Days": 0,
         "mentionsLast30Days": 5,
         "sourcesAvailable": [
