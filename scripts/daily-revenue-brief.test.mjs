@@ -82,7 +82,7 @@ test('physical commerce reports remain blocked despite technical jobs passing',(
  assert.ok(physical.reasons.includes('buyer_destination_freight_not_verified'));
  assert.ok(physical.reasons.includes('no_commercially_approved_supplier_route'));
  const text=buildPublicBrief({window:previousGuyanaDay(),stripe:{state:'NOT_CONNECTED'},pages:{},workflow:{state:'PASS'},physical});
- assert.match(text,/Physical-product commercial gate: \\*\\*BLOCKED\\*\\*/);
+ assert.match(text,/Physical-product commercial gate: \*\*BLOCKED\*\*/);
  assert.doesNotMatch(text,/ch_[a-zA-Z0-9]+|sk_live_/);
 });
 test('missing supplier evidence does not turn into a sale-ready claim',()=>{
