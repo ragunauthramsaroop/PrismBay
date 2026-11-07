@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-11-06T11:36:12.171Z",
+  "updatedAt": "2026-11-07T10:42:48.967Z",
   "market": "US",
   "supplierIntegration": "awaiting-cj-auth",
   "methodology": "Public attention and recency identify candidates. Supplier promotion requires verified US inventory and product-level checks. Freight and checkout creation occur only after supplier validation.",
@@ -9,12 +9,12 @@
       "slug": "cordless-handheld-vacuum",
       "name": "Cordless Handheld Vacuum",
       "query": "cordless handheld vacuum",
-      "attentionScore": 95.8,
+      "attentionScore": 97.6,
       "attentionLabel": "high-attention",
       "evidence": {
-        "publicMentions": 52,
+        "publicMentions": 51,
         "mentionsLast7Days": 2,
-        "mentionsLast30Days": 10,
+        "mentionsLast30Days": 11,
         "sourcesAvailable": [
           "Google News",
           "Bing News"
@@ -39,7 +39,7 @@
             "url": "https://news.google.com/rss/articles/CBMiYEFVX3lxTE84a0VVS2hreWhELTRiSElBQlROblJicHJnYlhJa1VHdEx0X1dHUFVtZFpjZFY3ekRpWDF6MmY3VFhCMnNwa1prWEUxM05tbC1nN2Nmd0xDSjRPQS1FdThaUQ?oc=5"
           },
           {
-            "title": "Shark's UltraCyclone Pet Pro Plus has never been cheaper — save $20 ahead of Black Friday - Mashable",
+            "title": "Best Shark deal: Save $20 on the Shark UltraCyclone Pet Pro Plus - Mashable",
             "source": "Google News",
             "publishedAt": "2026-10-23T10:56:26.000Z",
             "url": "https://news.google.com/rss/articles/CBMimgFBVV95cUxPUU9hV2VtcnFoNjdZcDBqbGhEeE5WbWpZSjJuUzc1aW5NdUZHakJtTm9YNlBPcE1KY1VqQm10UGJwZS11ejlHRndMU3Fnb1ZaNmx0cXl0RS1RbUZKUHRaUGhrX3Z1Ykg5ZUY4Z243T2YwXy1VMUNlRVZETGFYdXNwM1AzaWJIeTdHT29jcUE3RVB3XzBWUE9ta1BB?oc=5"
@@ -64,7 +64,7 @@
       "attentionScore": 76.8,
       "attentionLabel": "high-attention",
       "evidence": {
-        "publicMentions": 27,
+        "publicMentions": 28,
         "mentionsLast7Days": 0,
         "mentionsLast30Days": 6,
         "sourcesAvailable": [
@@ -113,12 +113,12 @@
       "slug": "hanging-closet-organizer",
       "name": "Hanging Closet Organizer",
       "query": "hanging closet organizer",
-      "attentionScore": 69.4,
+      "attentionScore": 67.5,
       "attentionLabel": "promotion-watch",
       "evidence": {
-        "publicMentions": 27,
+        "publicMentions": 26,
         "mentionsLast7Days": 0,
-        "mentionsLast30Days": 3,
+        "mentionsLast30Days": 2,
         "sourcesAvailable": [
           "Google News",
           "Bing News"
@@ -217,12 +217,12 @@
       "slug": "appliance-cord-organizer",
       "name": "Appliance Cord Organizer",
       "query": "appliance cord organizer",
-      "attentionScore": 38.1,
-      "attentionLabel": "research",
+      "attentionScore": 34.4,
+      "attentionLabel": "low-signal",
       "evidence": {
-        "publicMentions": 9,
+        "publicMentions": 8,
         "mentionsLast7Days": 0,
-        "mentionsLast30Days": 1,
+        "mentionsLast30Days": 0,
         "sourcesAvailable": [
           "Google News",
           "Bing News"
@@ -247,10 +247,10 @@
             "url": "https://news.google.com/rss/articles/CBMib0FVX3lxTFA2VHZmbDExRHlEdnRBa2RmWUI3REc1RUkyX05RWlB1QWlQVWVVVjZIbzlRMXY5Qm9UaDlOZDlHNF8tcXIzNzlWMFFxN0dDeXAyMGYwNmNVVnB5UWh0WnBEN2MxR1RWc2hnZTdpc1l5cw?oc=5"
           },
           {
-            "title": "65 Freakishly Clever New Things You Probably Haven’t Heard About - inkl",
+            "title": "The 7 Best Under‑Cabinet Lighting Options for Bright, Functional Kitchens - The Spruce",
             "source": "Google News",
-            "publishedAt": "2026-10-25T01:15:07.000Z",
-            "url": "https://news.google.com/rss/articles/CBMikwFBVV95cUxOTlJGQVBjMm9RbFlqOVlUUVR0dGw3aEJVYmpkaHU5RHJlc09FcDI0TFRzdTZsQVRYU1Y1eGI0bzktV0RmYkxWcHRQUy1EY2R1eWJXWjJuNmpQdWtNNUo5QWI1SGhvaGk2bHhsN1NXX0M0cWM2OWpJMFBxTG94Ul9nMTViMm5Zc0ZRYVhYYUNPMWRvS1k?oc=5"
+            "publishedAt": "2026-08-14T07:00:00.000Z",
+            "url": "https://news.google.com/rss/articles/CBMibkFVX3lxTE1fUDFObWNzQ29yWnJsRkw0OW01ZmxNbm1pbGVVZEh6MEZfRFZaWUlfdFgza0RFM2xSWXYwdndIZmRGcmNNZ3RSM0RkWXdsdmw1blNkUl9HTFltVXYxQ2dCaUNVYnREeUJtTU9sSDRB?oc=5"
           }
         ]
       },
@@ -367,12 +367,12 @@
       "slug": "window-washer-squeegee",
       "name": "3-in-1 Window Washer & Squeegee",
       "query": "window washer squeegee",
-      "attentionScore": 26.4,
+      "attentionScore": 28.2,
       "attentionLabel": "low-signal",
       "evidence": {
         "publicMentions": 2,
         "mentionsLast7Days": 0,
-        "mentionsLast30Days": 0,
+        "mentionsLast30Days": 1,
         "sourcesAvailable": [
           "Google News",
           "Bing News"
@@ -387,7 +387,7 @@
           {
             "title": "Top 5 Best Commercial Window Cleaning 2026 - Pixelfy.me",
             "source": "Google News",
-            "publishedAt": "2026-08-14T07:00:00.000Z",
+            "publishedAt": "2026-10-26T07:00:00.000Z",
             "url": "https://news.google.com/rss/articles/CBMic0FVX3lxTE5VVW5NRWgxR2dpcFNXM0MxRE1vVVN3ZE9hTUJQcXJEb3ZkNEd1bExPcnVQT1FDVHpPQ21PUExrS2RES0FIbmtPd2NET2FMaV9mcG9WcUNYOU1FRXdTWlVUUzg1UmlGYlhJVWN3WUpYNVkyUm8?oc=5"
           }
         ]
