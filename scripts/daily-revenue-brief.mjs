@@ -88,10 +88,41 @@ export async function latestBuyerWorkflow({token,fetchImpl=fetch}={}){
    result:relevant.conclusion||'unknown',url:relevant.html_url};
  }catch{return {state:'UNKNOWN'};}
 }
+/**
+ * Read-only physical-store health. Screening evidence is not an authorization to sell.
+ * Public summaries deliberately omit monetary, account, shopper and supplier identifiers.
+ */
+export function assessPhysicalCommercialGate({workerBoard,top15,challenger,alternate}={}){
+ const evidence=[workerBoard,top15,challenger,alternate];
+ if(evidence.every(x=>!x || typeof x!=='object'))
+  return {state:'NOT_VERIFIED',reasons:['no_current_supplier_evidence']};
+ const reasons=[];
+ if(!Number.isInteger(top15?.supplierScreeningPassedCount)||top15.supplierScreeningPassedCount<1)
+  reasons.push('supplier_screening_incomplete');
+ if(challenger?.exactDestinationFreightVerified!==true)
+  reasons.push('buyer_destination_freight_not_verified');
+ if(!Number.isInteger(challenger?.commerciallyApprovedRouteCount) || challenger.commerciallyApprovedRouteCount<1)
+  reasons.push('no_commercially_approved_supplier_route');
+ if(top15?.globalPhysicalCheckoutEnabled!==true || workerBoard?.constraints?.livePaymentsAuthorized!==true)
+  reasons.push('physical_checkout_not_authorized');
+ if(alternate?.customerCheckoutEnabled!==true)
+  reasons.push('alternate_supplier_checkout_not_authorized');
+ return {state:reasons.length?'BLOCKED':'REQUIRES_ORDER_SPECIFIC_REVIEW',reasons};
+}
+async function readPhysicalEvidence(){
+ const read=async path=>{try{return JSON.parse(await fs.readFile(path,'utf8'));}catch{return null;}};
+ const [workerBoard,top15,challenger,alternate]=await Promise.all([
+  read('growth-reports/dropshipping-worker-board.json'),
+  read('growth-reports/top15-readiness.json'),
+  read('growth-reports/supplier-challenger-board.json'),
+  read('growth-reports/alternate-supplier-readiness.json')
+ ]);
+ return assessPhysicalCommercialGate({workerBoard,top15,challenger,alternate});
+}
 function money(minor,currency){
  return (minor/100).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2})+' '+currency;
 }
-export function buildDailyBrief({window,stripe,pages,workflow}){
+export function buildDailyBrief({window,stripe,pages,workflow,physical={state:'NOT_VERIFIED',reasons:['no_current_supplier_evidence']}}){
  const status=stripe.state;
  const lines=[
   '<!-- prismbay-daily:'+window.day+' -->',
@@ -119,7 +150,7 @@ export function buildDailyBrief({window,stripe,pages,workflow}){
   lines.push('- '+label+': '+p.state+(p.httpStatus?' (HTTP '+p.httpStatus+')':'')+' | '+url);
  }
  lines.push('- GitHub buyer-acquisition job: '+workflow.state+(workflow.result?' ('+workflow.result+')':'')+(workflow.url?' | '+workflow.url:''));
- lines.push('','## Commercial controls',
+ lines.push('','## Physical retail readiness',\n  'Physical-product commercial gate: **'+physical.state+'**',\n  'Evidence blockers: '+physical.reasons.join(', '),\n  'A product search result, technical checkout URL or successful workflow never authorizes a physical sale.',\n  'Reference: https://github.com/'+REPO+'/issues/505');\n lines.push('','## Commercial controls',
   '- Unique external visitors: **UNMEASURED** unless an authorized analytics source supplies distinct human sessions.',
   '- Order-bound digital delivery: **NOT VERIFIED**; retain issue #421 as the fulfillment gate.',
   '- Failed or expired checkout sessions are not sales.',
@@ -136,7 +167,7 @@ export function buildDailyBrief({window,stripe,pages,workflow}){
  return lines.join('\n')+'\n';
 }
 /** Public repo: publish only categorical evidence, no Stripe revenue, IDs or customer information. */
-export function buildPublicBrief({window,stripe,pages,workflow}){
+export function buildPublicBrief({window,stripe,pages,workflow,physical={state:'NOT_VERIFIED',reasons:['no_current_supplier_evidence']}}){
  const paid=stripe.state==='VERIFIED'?(stripe.successfulCharges>0?'PAID_ACTIVITY_DETECTED':'NO_PAID_ACTIVITY_IN_PERIOD'):'NOT_VERIFIED';
  const links=Object.entries(pages).map(([url,p])=>'- '+url+': '+p.state+(p.httpStatus?' (HTTP '+p.httpStatus+')':''));
  return [
@@ -148,6 +179,7 @@ export function buildPublicBrief({window,stripe,pages,workflow}){
   '- Live Stripe verification: **'+stripe.state+'**',
   '- Paid activity during the reporting period: **'+paid+'**',
   '- Buyer-acquisition workflow: **'+workflow.state+'**',
+  '- Physical-product commercial gate: **'+physical.state+'**',
   '- Independent human traffic measurement: **NOT_CONNECTED**',
   '- Order-bound delivery verification: **NOT_VERIFIED**',
   '',
@@ -168,15 +200,15 @@ export async function run({now=new Date(),env=process.env,fetchImpl=fetch}={}){
  const pageEntries=await Promise.all([ASSESSMENT,BUYER_HUB,STORE].map(async url=>[url,await checkPublicPage(url,{fetchImpl})]));
  const pages=Object.fromEntries(pageEntries);
  const workflow=await latestBuyerWorkflow({token:env.GITHUB_TOKEN,fetchImpl});
- const markdown=buildDailyBrief({window,stripe,pages,workflow});
+ const physical=await readPhysicalEvidence();\n const markdown=buildDailyBrief({window,stripe,pages,workflow,physical});
  await fs.mkdir('growth-reports',{recursive:true});
  await fs.writeFile('growth-reports/daily-revenue-brief.md',markdown);
- await fs.writeFile('growth-reports/daily-revenue-public.md',buildPublicBrief({window,stripe,pages,workflow}));
+ await fs.writeFile('growth-reports/daily-revenue-public.md',buildPublicBrief({window,stripe,pages,workflow,physical}));
  await fs.writeFile('growth-reports/daily-revenue-brief.json',JSON.stringify({
-  day:window.day,period:{start:window.start,end:window.end},stripe,pages,workflow
+  day:window.day,period:{start:window.start,end:window.end},stripe,pages,workflow,physical
  },null,2)+'\n');
  console.log(JSON.stringify({status:'REPORT_CREATED',day:window.day,stripeStatus:stripe.state,acquisitionWorkflow:workflow.state,
-  assessment:pages[ASSESSMENT]?.state}));
+  assessment:pages[ASSESSMENT]?.state,physical:physical.state}));
  return {window,stripe,pages,workflow,markdown};
 }
 if(process.argv[1]&&import.meta.url===pathToFileURL(process.argv[1]).href)await run();
