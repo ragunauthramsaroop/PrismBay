@@ -150,7 +150,12 @@ export function buildDailyBrief({window,stripe,pages,workflow,physical={state:'N
   lines.push('- '+label+': '+p.state+(p.httpStatus?' (HTTP '+p.httpStatus+')':'')+' | '+url);
  }
  lines.push('- GitHub buyer-acquisition job: '+workflow.state+(workflow.result?' ('+workflow.result+')':'')+(workflow.url?' | '+workflow.url:''));
- lines.push('','## Physical retail readiness',\n  'Physical-product commercial gate: **'+physical.state+'**',\n  'Evidence blockers: '+physical.reasons.join(', '),\n  'A product search result, technical checkout URL or successful workflow never authorizes a physical sale.',\n  'Reference: https://github.com/'+REPO+'/issues/505');\n lines.push('','## Commercial controls',
+ lines.push('','## Physical retail readiness',
+  'Physical-product commercial gate: **'+physical.state+'**',
+  'Evidence blockers: '+physical.reasons.join(', '),
+  'A product search result, technical checkout URL or successful workflow never authorizes a physical sale.',
+  'Reference: https://github.com/'+REPO+'/issues/505');
+ lines.push('','## Commercial controls',
   '- Unique external visitors: **UNMEASURED** unless an authorized analytics source supplies distinct human sessions.',
   '- Order-bound digital delivery: **NOT VERIFIED**; retain issue #421 as the fulfillment gate.',
   '- Failed or expired checkout sessions are not sales.',
@@ -200,7 +205,8 @@ export async function run({now=new Date(),env=process.env,fetchImpl=fetch}={}){
  const pageEntries=await Promise.all([ASSESSMENT,BUYER_HUB,STORE].map(async url=>[url,await checkPublicPage(url,{fetchImpl})]));
  const pages=Object.fromEntries(pageEntries);
  const workflow=await latestBuyerWorkflow({token:env.GITHUB_TOKEN,fetchImpl});
- const physical=await readPhysicalEvidence();\n const markdown=buildDailyBrief({window,stripe,pages,workflow,physical});
+ const physical=await readPhysicalEvidence();
+ const markdown=buildDailyBrief({window,stripe,pages,workflow,physical});
  await fs.mkdir('growth-reports',{recursive:true});
  await fs.writeFile('growth-reports/daily-revenue-brief.md',markdown);
  await fs.writeFile('growth-reports/daily-revenue-public.md',buildPublicBrief({window,stripe,pages,workflow,physical}));
