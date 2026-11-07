@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "source": "Read-only CJ evidence. No estimated freight grants a sale.",
-  "supplierReviewCheckedAt": "2026-11-07T20:16:33.955Z",
+  "supplierReviewCheckedAt": "2026-11-07T23:41:55.789Z",
   "supplierReportAuthenticatedAndFresh": true,
   "candidateCount": 15,
   "supplierScreeningPassedCount": 1,
@@ -501,7 +501,7 @@
       "name": "Travel Packing Cubes",
       "priority": "subsequent",
       "supplierEvidenceFresh": true,
-      "reviewObservedAt": "2026-11-07T20:16:33.955Z",
+      "reviewObservedAt": "2026-11-07T23:41:55.789Z",
       "observedSupplierProduct": null,
       "observedSupplierSku": null,
       "observedVariantSku": null,
