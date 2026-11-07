@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {previousGuyanaDay,summarizeCharges,readStripe,buildDailyBrief,checkPublicPage,latestBuyerWorkflow} from './daily-revenue-brief.mjs';
+import {previousGuyanaDay,summarizeCharges,readStripe,buildDailyBrief,buildPublicBrief,assessPhysicalCommercialGate,checkPublicPage,latestBuyerWorkflow} from './daily-revenue-brief.mjs';
 const KEY='rk_live_restricted_test_12345678987654321';
 const fake=(obj,status=200)=>({ok:status>=200&&status<300,status,json:async()=>obj});
 
@@ -69,4 +69,24 @@ test('GitHub runs are labeled independent of actual revenue',async()=>{
  const txt=buildDailyBrief({window:previousGuyanaDay(),stripe:{state:'VERIFIED',...summarizeCharges([])},pages:{},workflow:result});
  assert.match(txt,/not sales|not a sale|notifies|not verified|not sales/i);
  assert.match(txt,/0/);
+});
+
+test('physical commerce reports remain blocked despite technical jobs passing',()=>{
+ const physical=assessPhysicalCommercialGate({
+  workerBoard:{constraints:{livePaymentsAuthorized:false}},
+  top15:{supplierScreeningPassedCount:1,globalPhysicalCheckoutEnabled:false},
+  challenger:{commerciallyApprovedRouteCount:0,exactDestinationFreightVerified:false},
+  alternate:{customerCheckoutEnabled:false}
+ });
+ assert.equal(physical.state,'BLOCKED');
+ assert.ok(physical.reasons.includes('buyer_destination_freight_not_verified'));
+ assert.ok(physical.reasons.includes('no_commercially_approved_supplier_route'));
+ const text=buildPublicBrief({window:previousGuyanaDay(),stripe:{state:'NOT_CONNECTED'},pages:{},workflow:{state:'PASS'},physical});
+ assert.match(text,/Physical-product commercial gate: \*\*BLOCKED\*\*/);
+ assert.doesNotMatch(text,/ch_[a-zA-Z0-9]+|sk_live_/);
+});
+test('missing supplier evidence does not turn into a sale-ready claim',()=>{
+ assert.equal(assessPhysicalCommercialGate({}).state,'NOT_VERIFIED');
+ const review=assessPhysicalCommercialGate({workerBoard:{constraints:{livePaymentsAuthorized:true}},top15:{supplierScreeningPassedCount:1,globalPhysicalCheckoutEnabled:true},challenger:{commerciallyApprovedRouteCount:1,exactDestinationFreightVerified:true},alternate:{customerCheckoutEnabled:true}});
+ assert.equal(review.state,'REQUIRES_ORDER_SPECIFIC_REVIEW');
 });
