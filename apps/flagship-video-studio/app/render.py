@@ -9,7 +9,7 @@ from pathlib import Path
 from PIL import Image, ImageDraw, ImageFont
 from . import db
 
-SIZES={'landscape':(1280,720),'portrait':(720,1280),'square':(1080,1080)}
+SIZES={'landscape':(1920,1080),'portrait':(1080,1920),'square':(1080,1080),'cinema-4k':(3840,2160)}
 FONT_PATHS=[
   '/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf',
   '/usr/share/fonts/truetype/liberation2/LiberationSans-Regular.ttf',
