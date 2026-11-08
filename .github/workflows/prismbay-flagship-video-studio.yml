@@ -1,0 +1,65 @@
+name: PrismBay Flagship Video Studio Review
+
+on:
+  pull_request:
+    paths:
+      - 'video-studio/flagship-v1/**'
+      - '.github/workflows/prismbay-flagship-video-studio.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  baseline-render:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install original graphics renderer
+        run: |
+          python -m pip install --disable-pip-version-check Pillow
+          if ! command -v ffmpeg >/dev/null 2>&1; then
+            sudo apt-get update -qq
+            sudo apt-get install -y -qq ffmpeg fonts-dejavu-core
+          fi
+      - name: Validate source
+        run: python -m py_compile video-studio/flagship-v1/render.py video-studio/flagship-v1/verify.py
+      - name: Render original 30-second film
+        run: python video-studio/flagship-v1/render.py
+      - name: Verify exact timing, six scenes and audio
+        run: python video-studio/flagship-v1/verify.py build/flagship-video/prismbay-30-second-demo.mp4
+      - name: Verify no publication or paid spending
+        run: |
+          python - <<'PY'
+          import json
+          m=json.load(open("video-studio/flagship-v1/manifest.json"))
+          assert m["publishing"]["approved"] is False
+          assert m["publishing"]["autoPublish"] is False
+          assert m["publishing"]["paidSpendUSD"] == 0
+          print("PASS: review only; no public publishing.")
+          PY
+      - name: Upload unpublished film and QA evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: prismbay-flagship-film-review
+          path: |
+            build/flagship-video/prismbay-30-second-demo.mp4
+            build/flagship-video/prismbay-30-second-demo.qa.json
+          if-no-files-found: error
+          retention-days: 7
+
+  hyperframes-source-check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Validate HyperFrames authoring contract
+        working-directory: video-studio/flagship-v1/hyperframes
+        run: npx --yes hyperframes check --json
