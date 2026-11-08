@@ -53,4 +53,4 @@ When the app starts without credentials, it is intended exclusively for loopback
 
 ## Renderer format
 
-Output is H.264 video at 24 frames per second. Landscape is 1280×720, portrait is 720×1280 and square is 1080×1080. If narration is included, audio is AAC at 160 kbps. Subtitle overlay uses libass through FFmpeg. Render a master first, then perform editorial finishing in OpenCut as needed. Higher-quality presets and true 4K are future extensions.
+Output is H.264 video at 24 frames per second. Full HD landscape is 1920×1080, portrait is 1080×1920, square is 1080×1080, and optional UHD landscape is 3840×2160. The 4K preset requires significantly more CPU, memory and disk space. If narration is included, audio is AAC at 160 kbps. Subtitle overlay uses libass through FFmpeg. Render a master first, then perform editorial finishing in OpenCut as needed. Color grading, motion graphics and hardware-accelerated encoding remain future extensions.
