@@ -1,0 +1,52 @@
+name: Report Studio offline CI
+
+on:
+  pull_request:
+    paths:
+      - "apps/report-studio/**"
+      - ".github/workflows/report-studio-ci.yml"
+  push:
+    branches: [main]
+    paths:
+      - "apps/report-studio/**"
+      - ".github/workflows/report-studio-ci.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  offline-report-quality:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    defaults:
+      run:
+        working-directory: apps/report-studio
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+          cache-dependency-path: apps/report-studio/requirements.txt
+      - name: Install offline dependencies
+        run: python -m pip install -r requirements.txt
+      - name: Run publication-gate tests
+        run: python -m unittest discover -s tests -v
+      - name: Validate fictional sample
+        run: python report_studio.py validate projects/demo.json
+      - name: Compile fictional PDF
+        run: python report_studio.py build projects/demo.json --output output/demo.pdf
+      - name: Inspect PDF geometry, content and references
+        run: |
+          python report_studio.py inspect output/demo.pdf > output/qa.json
+          python -c "import json; x=json.load(open('output/qa.json')); assert x['pages'] >= 5 and x['a4_pages'] and x['has_sources'] and not x['blank_pages']"
+
+      - name: Upload fictional demonstration proof
+        uses: actions/upload-artifact@v4
+        with:
+          name: report-studio-fictional-proof
+          path: |
+            apps/report-studio/output/demo.pdf
+            apps/report-studio/output/qa.json
+          retention-days: 7
+          if-no-files-found: error

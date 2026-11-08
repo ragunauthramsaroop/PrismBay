@@ -1,0 +1,109 @@
+{
+  "meta": {
+    "title": "The Impact Ledger",
+    "subtitle": "A sample evidence-first publication",
+    "organization": "Example Research Studio",
+    "year": "2026",
+    "classification": "DEMONSTRATION • FICTIONAL DATA",
+    "demonstration": true
+  },
+  "sources": [
+    {
+      "id": "DEMO01",
+      "title": "Fictional illustrative programme register",
+      "locator": "Synthetic example generated for software testing; not an external publication",
+      "reviewed_at": "2026-11-08",
+      "status": "synthetic"
+    },
+    {
+      "id": "DEMO02",
+      "title": "Fictional illustrative survey summary",
+      "locator": "Synthetic example generated for software testing; not an external publication",
+      "reviewed_at": "2026-11-08",
+      "status": "synthetic"
+    }
+  ],
+  "pages": [
+    {
+      "type": "narrative",
+      "eyebrow": "01 / Executive perspective",
+      "title": "Purpose and methodology",
+      "paragraphs": [
+        {
+          "text": "This demonstration is fictional and exists to test the technical report-production workflow. The programme names, outcomes and data are invented. No real-world corporate performance is represented.",
+          "source_ids": [
+            "DEMO01"
+          ]
+        },
+        {
+          "text": "The report engine tracks each passage and indicator to a declared source. Production reports require verified source records, explicit image permissions and a review of their data before publication.",
+          "source_ids": [
+            "DEMO01",
+            "DEMO02"
+          ]
+        },
+        {
+          "text": "Long content flows onto continuation pages without silently clipping. The engine uses vector text, A4 dimensions, numbered pages, and a source register for editorial review.",
+          "source_ids": [
+            "DEMO02"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "metrics",
+      "eyebrow": "02 / Illustrative indicators",
+      "title": "Example programme indicators",
+      "intro": "All figures below are invented solely for a technical demonstration.",
+      "metrics": [
+        {
+          "label": "Illustrative participant count",
+          "value": "1,250",
+          "source_ids": [
+            "DEMO01"
+          ]
+        },
+        {
+          "label": "Illustrative engagement rate",
+          "value": "82%",
+          "source_ids": [
+            "DEMO02"
+          ]
+        },
+        {
+          "label": "Illustrative events delivered",
+          "value": "24",
+          "source_ids": [
+            "DEMO01"
+          ]
+        },
+        {
+          "label": "Illustrative reporting coverage",
+          "value": "100%",
+          "source_ids": [
+            "DEMO02"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "narrative",
+      "eyebrow": "03 / Governance",
+      "title": "Verification before publication",
+      "paragraphs": [
+        {
+          "text": "A production edition requires independent review of source documents, definitions, reporting boundaries and photography permissions. The application blocks missing references and unsupported image rights during validation.",
+          "source_ids": [
+            "DEMO01"
+          ]
+        },
+        {
+          "text": "The demonstration has no commercial, organisational, environmental or social claims about AGM Inc. A later production project must remain outside a public code repository until the owner approves its publication.",
+          "source_ids": [
+            "DEMO02"
+          ]
+        }
+      ]
+    }
+  ]
+}
