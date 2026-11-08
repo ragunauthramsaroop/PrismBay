@@ -29,7 +29,7 @@ Open http://127.0.0.1:8765. The Docker service binds loopback only. Add a privat
 
 ## What works now
 
-1. Create landscape (16:9), portrait (9:16), or square (1:1) projects with custom colors.
+1. Create Full HD landscape (16:9), Full HD portrait (9:16), square (1:1) or optional 4K UHD landscape projects with custom colors.
 2. Add title frames, closing frames, source photographs, and looping/trimmed video segments.
 3. Reorder scenes, save scripts, upload audio narration, or generate a **basic draft** using local eSpeak.
 4. Upload corrected SRT subtitles. Approximate draft SRT is available but **not** synchronized with speech.
