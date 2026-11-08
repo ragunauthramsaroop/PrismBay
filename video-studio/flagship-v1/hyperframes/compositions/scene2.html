@@ -1,0 +1,32 @@
+<template>
+<style>
+#root{position:absolute;inset:0;width:100%;height:100%;overflow:hidden;background:linear-gradient(120deg,#071322,#153445);font-family:Arial,sans-serif;color:#eef6fa}
+.clip{position:absolute;inset:0}
+#scene2-mark{position:absolute;left:80px;top:55px;font-size:24px;font-weight:700;color:#4ae3d3}
+#scene2-body{position:absolute;left:80px;top:170px;width:1090px}
+#scene2-section{font-size:23px;color:#f1c688;font-weight:700;letter-spacing:.1em}
+#scene2-headline{font-size:77px;line-height:1.16;letter-spacing:-.04em;margin:35px 0 24px}
+#scene2-headline em{color:#4ae3d3;font-style:normal}
+#scene2-sub{font-size:27px;color:#a4b7c3}
+#scene2-line{width:850px;height:5px;background:#4ae3d3;margin-top:55px}
+#scene2-foot{position:absolute;bottom:45px;left:80px;font-size:16px;color:#a4b7c3}
+</style>
+<div id="root" data-composition-id="scene2" data-width="1280" data-height="720">
+<div id="scene2-contents" class="clip" data-start="0" data-duration="5">
+<div id="scene2-mark">P / PRISMBAY</div>
+<div id="scene2-body">
+<div id="scene2-section">02 / BRIEF</div>
+<h1 id="scene2-headline">CREATIVE DIRECTION<br><em>BEFORE PRODUCTION.</em></h1>
+<div id="scene2-sub">A structured story, six purposeful scenes.</div>
+<div id="scene2-line"></div>
+</div>
+<div id="scene2-foot">ORIGINAL PRODUCTION DEMONSTRATION / UNPUBLISHED REVIEW</div>
+</div>
+</div>
+<script>
+const tl=gsap.timeline({paused:true});
+tl.fromTo("#scene2-body",{opacity:0,y:35},{opacity:1,y:0,duration:0.52,ease:"power3.out"},0.12);
+tl.to("#scene2-body",{opacity:0,y:-20,duration:0.29,ease:"power2.in"},4.65);
+window.__timelines["scene2"]=tl;
+</script>
+</template>

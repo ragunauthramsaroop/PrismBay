@@ -1,0 +1,32 @@
+<template>
+<style>
+#root{position:absolute;inset:0;width:100%;height:100%;overflow:hidden;background:linear-gradient(120deg,#071322,#153445);font-family:Arial,sans-serif;color:#eef6fa}
+.clip{position:absolute;inset:0}
+#scene1-mark{position:absolute;left:80px;top:55px;font-size:24px;font-weight:700;color:#4ae3d3}
+#scene1-body{position:absolute;left:80px;top:170px;width:1090px}
+#scene1-section{font-size:23px;color:#f1c688;font-weight:700;letter-spacing:.1em}
+#scene1-headline{font-size:77px;line-height:1.16;letter-spacing:-.04em;margin:35px 0 24px}
+#scene1-headline em{color:#4ae3d3;font-style:normal}
+#scene1-sub{font-size:27px;color:#a4b7c3}
+#scene1-line{width:850px;height:5px;background:#4ae3d3;margin-top:55px}
+#scene1-foot{position:absolute;bottom:45px;left:80px;font-size:16px;color:#a4b7c3}
+</style>
+<div id="root" data-composition-id="scene1" data-width="1280" data-height="720">
+<div id="scene1-contents" class="clip" data-start="0" data-duration="5">
+<div id="scene1-mark">P / PRISMBAY</div>
+<div id="scene1-body">
+<div id="scene1-section">01 / OPEN</div>
+<h1 id="scene1-headline">FROM A THOUGHT<br><em>TO A FINISHED FILM.</em></h1>
+<div id="scene1-sub">A connected production workflow.</div>
+<div id="scene1-line"></div>
+</div>
+<div id="scene1-foot">ORIGINAL PRODUCTION DEMONSTRATION / UNPUBLISHED REVIEW</div>
+</div>
+</div>
+<script>
+const tl=gsap.timeline({paused:true});
+tl.fromTo("#scene1-body",{opacity:0,y:35},{opacity:1,y:0,duration:0.52,ease:"power3.out"},0.12);
+tl.to("#scene1-body",{opacity:0,y:-20,duration:0.29,ease:"power2.in"},4.65);
+window.__timelines["scene1"]=tl;
+</script>
+</template>

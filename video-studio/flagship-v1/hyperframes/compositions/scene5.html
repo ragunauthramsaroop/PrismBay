@@ -1,0 +1,32 @@
+<template>
+<style>
+#root{position:absolute;inset:0;width:100%;height:100%;overflow:hidden;background:linear-gradient(120deg,#071322,#153445);font-family:Arial,sans-serif;color:#eef6fa}
+.clip{position:absolute;inset:0}
+#scene5-mark{position:absolute;left:80px;top:55px;font-size:24px;font-weight:700;color:#4ae3d3}
+#scene5-body{position:absolute;left:80px;top:170px;width:1090px}
+#scene5-section{font-size:23px;color:#f1c688;font-weight:700;letter-spacing:.1em}
+#scene5-headline{font-size:77px;line-height:1.16;letter-spacing:-.04em;margin:35px 0 24px}
+#scene5-headline em{color:#4ae3d3;font-style:normal}
+#scene5-sub{font-size:27px;color:#a4b7c3}
+#scene5-line{width:850px;height:5px;background:#4ae3d3;margin-top:55px}
+#scene5-foot{position:absolute;bottom:45px;left:80px;font-size:16px;color:#a4b7c3}
+</style>
+<div id="root" data-composition-id="scene5" data-width="1280" data-height="720">
+<div id="scene5-contents" class="clip" data-start="0" data-duration="5">
+<div id="scene5-mark">P / PRISMBAY</div>
+<div id="scene5-body">
+<div id="scene5-section">05 / EDIT</div>
+<h1 id="scene5-headline">EVERY FRAME<br><em>UNDER CONTROL.</em></h1>
+<div id="scene5-sub">Precise timing, visual rhythm and review.</div>
+<div id="scene5-line"></div>
+</div>
+<div id="scene5-foot">ORIGINAL PRODUCTION DEMONSTRATION / UNPUBLISHED REVIEW</div>
+</div>
+</div>
+<script>
+const tl=gsap.timeline({paused:true});
+tl.fromTo("#scene5-body",{opacity:0,y:35},{opacity:1,y:0,duration:0.52,ease:"power3.out"},0.12);
+tl.to("#scene5-body",{opacity:0,y:-20,duration:0.29,ease:"power2.in"},4.65);
+window.__timelines["scene5"]=tl;
+</script>
+</template>

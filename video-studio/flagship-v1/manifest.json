@@ -1,0 +1,65 @@
+{
+  "name": "PrismBay Flagship Video Studio",
+  "version": "1.0",
+  "durationSeconds": 30,
+  "fps": 24,
+  "width": 1280,
+  "height": 720,
+  "publishing": {
+    "approved": false,
+    "autoPublish": false,
+    "paidSpendUSD": 0
+  },
+  "integrations": {
+    "hyperframes": {
+      "source": "hyperframes/index.html",
+      "status": "source prepared; CLI unverified"
+    },
+    "voicestudio": {
+      "input": "exports/voicestudio/narration.wav",
+      "status": "optional media import; native app unverified"
+    },
+    "artcraft": {
+      "input": "exports/artcraft/scene-XX.png",
+      "status": "optional media import; native app unverified"
+    }
+  },
+  "scenes": [
+    {
+      "start": 0,
+      "duration": 5,
+      "title": "MAKE EVERY FRAME COUNT.",
+      "subtitle": "Thoughtful stories. Cinematic presentation."
+    },
+    {
+      "start": 5,
+      "duration": 5,
+      "title": "START WITH A CLEAR STORY.",
+      "subtitle": "A strong message leads the visuals."
+    },
+    {
+      "start": 10,
+      "duration": 5,
+      "title": "DESIGN WITH INTENT.",
+      "subtitle": "Balanced type. Purposeful motion. Brand clarity."
+    },
+    {
+      "start": 15,
+      "duration": 5,
+      "title": "GIVE THE STORY A VOICE.",
+      "subtitle": "Narration, music and captions in sync."
+    },
+    {
+      "start": 20,
+      "duration": 5,
+      "title": "PREVIEW. REFINE. DELIVER.",
+      "subtitle": "Every export deserves an evidence-backed review."
+    },
+    {
+      "start": 25,
+      "duration": 5,
+      "title": "PRISMBAY VIDEO STUDIO",
+      "subtitle": "Your story deserves considered production."
+    }
+  ]
+}
