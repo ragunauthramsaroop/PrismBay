@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "source": "Read-only CJ evidence. No estimated freight grants a sale.",
-  "supplierReviewCheckedAt": "2026-11-08T15:16:54.484Z",
+  "supplierReviewCheckedAt": "2026-11-08T20:30:19.324Z",
   "supplierReportAuthenticatedAndFresh": true,
   "candidateCount": 15,
   "supplierScreeningPassedCount": 2,
@@ -366,20 +366,21 @@
       "observedSupplierProduct": "Mobile Phone Tempered Glass Screen Protector",
       "observedSupplierSku": "CJPB2377299",
       "observedVariantSku": "CJPB237729905EV",
-      "mediaRightsScope": "original_graphics_and_original_copy_only",
+      "mediaRightsScope": "unverified",
       "supplierPhotoVideoRightsVerified": false,
       "verifiedChecks": {
         "independentSupplierMatch": true,
         "variantStock": true,
         "screeningFreight": true,
         "destinationQuotePerBuyer": false,
-        "mediaRights": true,
+        "mediaRights": false,
         "checkoutInfrastructure": false,
         "fulfillmentRoute": false,
         "commercialPromotionApproval": false
       },
       "missingChecks": [
         "destinationQuotePerBuyer",
+        "mediaRights",
         "checkoutInfrastructure",
         "fulfillmentRoute",
         "commercialPromotionApproval"
@@ -498,7 +499,7 @@
       "name": "Travel Packing Cubes",
       "priority": "subsequent",
       "supplierEvidenceFresh": true,
-      "reviewObservedAt": "2026-11-07T23:41:55.789Z",
+      "reviewObservedAt": "2026-11-08T20:30:19.324Z",
       "observedSupplierProduct": null,
       "observedSupplierSku": null,
       "observedVariantSku": null,
