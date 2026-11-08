@@ -1,0 +1,23 @@
+services:
+  flagship-studio:
+    build: .
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:8765:8765"
+    env_file: .env
+    environment:
+      STUDIO_DATA_DIR: /data
+      STUDIO_REQUIRE_AUTH: "1"
+    volumes:
+      - flagship_data:/data
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    healthcheck:
+      test: ["CMD", "python", "-c", "import socket; socket.create_connection(('127.0.0.1',8765),timeout=3).close()"]
+      interval: 60s
+      timeout: 5s
+      retries: 3
+volumes:
+  flagship_data:
