@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-11-07T10:42:48.967Z",
+  "updatedAt": "2026-11-08T10:47:49.298Z",
   "market": "US",
   "supplierIntegration": "awaiting-cj-auth",
   "methodology": "Public attention and recency identify candidates. Supplier promotion requires verified US inventory and product-level checks. Freight and checkout creation occur only after supplier validation.",
@@ -9,12 +9,12 @@
       "slug": "cordless-handheld-vacuum",
       "name": "Cordless Handheld Vacuum",
       "query": "cordless handheld vacuum",
-      "attentionScore": 97.6,
+      "attentionScore": 93.9,
       "attentionLabel": "high-attention",
       "evidence": {
-        "publicMentions": 51,
+        "publicMentions": 50,
         "mentionsLast7Days": 2,
-        "mentionsLast30Days": 11,
+        "mentionsLast30Days": 9,
         "sourcesAvailable": [
           "Google News",
           "Bing News"
@@ -39,10 +39,10 @@
             "url": "https://news.google.com/rss/articles/CBMiYEFVX3lxTE84a0VVS2hreWhELTRiSElBQlROblJicHJnYlhJa1VHdEx0X1dHUFVtZFpjZFY3ekRpWDF6MmY3VFhCMnNwa1prWEUxM05tbC1nN2Nmd0xDSjRPQS1FdThaUQ?oc=5"
           },
           {
-            "title": "Best Shark deal: Save $20 on the Shark UltraCyclone Pet Pro Plus - Mashable",
+            "title": "I Skip the Upright for Crumbs. These Reliable Handheld Vacs Do the Trick. - Popular Mechanics",
             "source": "Google News",
-            "publishedAt": "2026-10-23T10:56:26.000Z",
-            "url": "https://news.google.com/rss/articles/CBMimgFBVV95cUxPUU9hV2VtcnFoNjdZcDBqbGhEeE5WbWpZSjJuUzc1aW5NdUZHakJtTm9YNlBPcE1KY1VqQm10UGJwZS11ejlHRndMU3Fnb1ZaNmx0cXl0RS1RbUZKUHRaUGhrX3Z1Ykg5ZUY4Z243T2YwXy1VMUNlRVZETGFYdXNwM1AzaWJIeTdHT29jcUE3RVB3XzBWUE9ta1BB?oc=5"
+            "publishedAt": "2026-10-30T07:00:00.000Z",
+            "url": "https://news.google.com/rss/articles/CBMiggFBVV95cUxOZTV4NVpXSGxDWHRlcUtnU1lLVnZpbWNMak5zVDVoVW5oMThGWER6cGFIQVNpZk9EdzAxODR1cjg1emZrR0R4YVBDdDFvcEprQ21pSVNkQmo3dWRhV0h4TXdJNlJ1eU1MTnFMQkZEX3h6b0xXS0lnMjlWT3Nka3lBY0F3?oc=5"
           }
         ]
       },
@@ -61,17 +61,23 @@
       "slug": "roll-up-dish-rack",
       "name": "Roll-Up Dish Drying Rack",
       "query": "roll up dish drying rack",
-      "attentionScore": 76.8,
+      "attentionScore": 78.6,
       "attentionLabel": "high-attention",
       "evidence": {
         "publicMentions": 28,
-        "mentionsLast7Days": 0,
-        "mentionsLast30Days": 6,
+        "mentionsLast7Days": 1,
+        "mentionsLast30Days": 5,
         "sourcesAvailable": [
           "Google News",
           "Bing News"
         ],
         "sampleSignals": [
+          {
+            "title": "9 Genius Amazon Home Finds Under $15 You Should’ve Bought Ages Ago - Real Simple",
+            "source": "Google News",
+            "publishedAt": "2026-11-08T00:30:00.000Z",
+            "url": "https://news.google.com/rss/articles/CBMiiwFBVV95cUxNN1R5LVhmZk4tMUJPaFZLMkdRaHRvUnlOeXlhQ1FHOFlwcVlhVFNZc29aWHRGaGM3VEY4YjdnTE9aRTI5NEZyWHV6TEhCTlRhYXo0VjVZV1NzUktWT2kwR3JEYW1ZU0pDWFRySWtpUVVfQjh6cjNsRGVRTklVVjRDRDh5NUU1LVI1MVZv?oc=5"
+          },
           {
             "title": "We Tested 39 Dish Racks and Finally Found the Answer to Icky Sink Puddles - Food & Wine",
             "source": "Google News",
@@ -89,12 +95,6 @@
             "source": "Google News",
             "publishedAt": "2026-10-10T07:00:00.000Z",
             "url": "https://news.google.com/rss/articles/CBMieEFVX3lxTE5PSDNxWDhTYlRZSUN2X0ctNlNPeGgzenE1MUdvaGRUWGt0SjNZc19BWnd4MEs3OXR0ZFBTaFlkRG1MbVJZdDN3a3RwYkZMLVBIcU9RM1ZiMmQ4ODRQbGFxYmdyMkxmdS0xa0JLbU8xWkJMaXRscHVCcA?oc=5"
-          },
-          {
-            "title": "The 11 Very Best Dish Racks - New York Magazine",
-            "source": "Google News",
-            "publishedAt": "2026-09-17T07:00:00.000Z",
-            "url": "https://news.google.com/rss/articles/CBMiaEFVX3lxTE8xNGhfekNqcklvNmFnN1NuTWVuWFJwLW5TWkxqakRXZVQxNk8yTlhWaGtubTRIT094Y09uNS16TFJoeGFJZ0VPYkVMNnpuRElpXzRjNVRQVG5JQWkzT0hBMnhfcm9FaF9M?oc=5"
           }
         ]
       },
@@ -116,7 +116,7 @@
       "attentionScore": 67.5,
       "attentionLabel": "promotion-watch",
       "evidence": {
-        "publicMentions": 26,
+        "publicMentions": 28,
         "mentionsLast7Days": 0,
         "mentionsLast30Days": 2,
         "sourcesAvailable": [

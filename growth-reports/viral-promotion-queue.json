@@ -1,12 +1,12 @@
 {
-  "updatedAt": "2026-11-07T10:42:48.967Z",
+  "updatedAt": "2026-11-08T10:47:49.298Z",
   "supplierIntegration": "awaiting-cj-auth",
   "items": [
     {
       "rank": 1,
       "slug": "cordless-handheld-vacuum",
       "product": "Cordless Handheld Vacuum",
-      "attentionScore": 97.6,
+      "attentionScore": 93.9,
       "supplierReady": false,
       "freightReady": false,
       "promotionReady": false,
@@ -17,7 +17,7 @@
       "rank": 2,
       "slug": "roll-up-dish-rack",
       "product": "Roll-Up Dish Drying Rack",
-      "attentionScore": 76.8,
+      "attentionScore": 78.6,
       "supplierReady": false,
       "freightReady": false,
       "promotionReady": false,
