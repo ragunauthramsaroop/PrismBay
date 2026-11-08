@@ -5,7 +5,7 @@ class ProjectCreate(BaseModel):
     name: str = Field(min_length=1, max_length=120)
     client: str = Field(default='', max_length=100)
     description: str = Field(default='', max_length=1500)
-    format: Literal['landscape', 'portrait', 'square'] = 'landscape'
+    format: Literal['landscape', 'portrait', 'square', 'cinema-4k'] = 'landscape'
     accent: str = '#7AE3CE'
     background: str = '#0B1424'
     script: str = Field(default='', max_length=30000)
@@ -22,7 +22,7 @@ class ProjectUpdate(BaseModel):
     name: str | None = Field(default=None, min_length=1, max_length=120)
     client: str | None = Field(default=None, max_length=100)
     description: str | None = Field(default=None, max_length=1500)
-    format: Literal['landscape', 'portrait', 'square'] | None = None
+    format: Literal['landscape', 'portrait', 'square', 'cinema-4k'] | None = None
     accent: str | None = None
     background: str | None = None
     script: str | None = Field(default=None, max_length=30000)
