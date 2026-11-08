@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <meta name="theme-color" content="#080E18"/>
+  <meta name="description" content="Flagship Studio. Local-first video production from planning to final cut."/>
+  <title>Flagship Video Studio</title>
+  <link rel="stylesheet" href="/app.css"/>
+</head>
+<body>
+<div class="shell">
+  <aside class="sidebar">
+    <div class="brand"><span class="brand-mark">◈</span><span>FLAGSHIP <small>VIDEO STUDIO</small></span></div>
+    <div class="workspace"><span class="workspace-icon">FS</span><div><strong>Production workspace</strong><small>Local-first studio</small></div><span class="workspace-chevron">⌄</span></div>
+    <div class="nav-label">WORKSPACE</div>
+    <nav id="nav-main">
+      <button class="nav-item active" data-view="overview"><span>▦</span> Overview</button>
+      <button class="nav-item" data-view="projects"><span>▤</span> Productions</button>
+      <button class="nav-item" data-view="assets"><span>▧</span> Media library</button>
+      <button class="nav-item" data-view="tasks"><span>☷</span> Production planner</button>
+      <button class="nav-item" data-view="clients"><span>♙</span> Clients & bookings</button>
+      <button class="nav-item" data-view="seo"><span>↗</span> Distribution & SEO</button>
+      <button class="nav-item" data-view="jobs"><span>◴</span> Render queue</button>
+      <button class="nav-item" data-view="integrations"><span>⌁</span> Integrations</button>
+    </nav>
+    <div class="nav-label">PRODUCTION WORKFLOW</div>
+    <div class="workflow">
+      <div><span class="workflow-number">01</span> Develop the story</div>
+      <div><span class="workflow-number">02</span> Assemble timeline</div>
+      <div><span class="workflow-number">03</span> Narrate & subtitle</div>
+      <div><span class="workflow-number">04</span> Render & deliver</div>
+    </div>
+    <div class="sidebar-bottom"><div class="status-line"><span class="status-dot"></span> <span id="server-status">Checking rendering engine</span></div><div class="sidebar-footnote">YOUR FILES. YOUR CREATIVE CONTROL.</div></div>
+  </aside>
+  <div class="main-frame">
+    <header class="topbar"><div class="breadcrumb">WORKSPACE <span>/</span> <b id="breadcrumb">Overview</b></div><div class="top-actions"><span class="top-date" id="today"></span><button id="top-new" class="button primary small">+ New production</button><span class="avatar">FS</span></div></header>
+    <main id="app" class="page"><div class="loading-shell">Loading your production workspace…</div></main>
+  </div>
+</div>
+<div id="modal" class="modal-cover hidden" role="dialog" aria-modal="true"><div class="modal-pane"><button class="modal-close" id="close-modal" aria-label="Close">×</button><div id="modal-content"></div></div></div>
+<div id="toast-area" aria-live="polite"></div>
+<script src="/app.js"></script>
+</body>
+</html>

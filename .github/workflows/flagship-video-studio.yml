@@ -1,0 +1,30 @@
+name: Flagship Video Studio
+on:
+  push:
+    paths:
+      - 'apps/flagship-video-studio/**'
+      - '.github/workflows/flagship-video-studio.yml'
+  pull_request:
+    paths:
+      - 'apps/flagship-video-studio/**'
+      - '.github/workflows/flagship-video-studio.yml'
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: apps/flagship-video-studio
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install media runtime and tests
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ffmpeg espeak-ng fonts-dejavu-core
+          python -m pip install -r requirements.txt pytest httpx
+      - name: Test frontend JavaScript
+        run: node --check web/app.js
+      - name: Run unit and render tests
+        run: python -m pytest -q
