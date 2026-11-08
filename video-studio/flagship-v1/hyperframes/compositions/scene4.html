@@ -1,0 +1,32 @@
+<template>
+<style>
+#root{position:absolute;inset:0;width:100%;height:100%;overflow:hidden;background:linear-gradient(120deg,#071322,#153445);font-family:Arial,sans-serif;color:#eef6fa}
+.clip{position:absolute;inset:0}
+#scene4-mark{position:absolute;left:80px;top:55px;font-size:24px;font-weight:700;color:#4ae3d3}
+#scene4-body{position:absolute;left:80px;top:170px;width:1090px}
+#scene4-section{font-size:23px;color:#f1c688;font-weight:700;letter-spacing:.1em}
+#scene4-headline{font-size:77px;line-height:1.16;letter-spacing:-.04em;margin:35px 0 24px}
+#scene4-headline em{color:#4ae3d3;font-style:normal}
+#scene4-sub{font-size:27px;color:#a4b7c3}
+#scene4-line{width:850px;height:5px;background:#4ae3d3;margin-top:55px}
+#scene4-foot{position:absolute;bottom:45px;left:80px;font-size:16px;color:#a4b7c3}
+</style>
+<div id="root" data-composition-id="scene4" data-width="1280" data-height="720">
+<div id="scene4-contents" class="clip" data-start="0" data-duration="5">
+<div id="scene4-mark">P / PRISMBAY</div>
+<div id="scene4-body">
+<div id="scene4-section">04 / SOUND</div>
+<h1 id="scene4-headline">A VOICE<br><em>FOR THE STORY.</em></h1>
+<div id="scene4-sub">Approved narration and original sound.</div>
+<div id="scene4-line"></div>
+</div>
+<div id="scene4-foot">ORIGINAL PRODUCTION DEMONSTRATION / UNPUBLISHED REVIEW</div>
+</div>
+</div>
+<script>
+const tl=gsap.timeline({paused:true});
+tl.fromTo("#scene4-body",{opacity:0,y:35},{opacity:1,y:0,duration:0.52,ease:"power3.out"},0.12);
+tl.to("#scene4-body",{opacity:0,y:-20,duration:0.29,ease:"power2.in"},4.65);
+window.__timelines["scene4"]=tl;
+</script>
+</template>
