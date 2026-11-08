@@ -106,3 +106,10 @@ def test_image_asset_upload_and_photo_scene():
         assert r.status_code==201,r.text
         assert c.get('/api/assets/'+aid+'/file').status_code==200
         assert c.post('/api/assets',files={'file':('bad.txt',b'invalid','text/plain')}).status_code==415
+
+
+def test_4k_format_is_available_without_running_expensive_render():
+    with TestClient(app) as c:
+        p=c.post('/api/projects',json={'name':'UHD Film','format':'cinema-4k'})
+        assert p.status_code==201
+        assert p.json()['format']=='cinema-4k'
