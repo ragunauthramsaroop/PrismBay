@@ -258,7 +258,7 @@ def narrative(c: Canvas, meta: dict, page: dict) -> None:
                     top = page_frame(c, eyebrow, heading, continued=True)
                     chunk = [last]
             if not words:
-                top = draw_para(c, candidate, LEFT, top, BODY_WIDTH) - 22
+                top = draw_para(c, " ".join(chunk) + refs, LEFT, top, BODY_WIDTH) - 22
     footer(c, meta)
     c.showPage()
 
