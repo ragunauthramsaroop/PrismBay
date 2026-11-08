@@ -93,7 +93,9 @@ async function cloudSync(){
  if(!cloudUser){showModal("account");return}
  try{
   const index=await cloudApi("list");let added=0,updated=0;
-  for(const meta of index.projects){
+  const shared=await fetch("/api/shared",{method:"POST",credentials:"same-origin",headers:{"Content-Type":"application/json"},body:"{}"});
+  const granted=shared.ok?await shared.json():{projects:[]};
+  for(const meta of [...index.projects,...(granted.projects||[])]){
    const local=state.projects.find(x=>x.id===meta.id);
    if(local&&new Date(local.updated)>=new Date(meta.updated))continue;
    const r=await cloudApi("load",{id:meta.id});
