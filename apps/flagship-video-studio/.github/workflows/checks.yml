@@ -1,0 +1,17 @@
+name: Flagship Studio tests
+on:
+  push:
+    paths: ["app/**", "tests/**", "requirements.txt", ".github/workflows/checks.yml"]
+  pull_request:
+    paths: ["app/**", "tests/**", "requirements.txt", ".github/workflows/checks.yml"]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: sudo apt-get update && sudo apt-get install -y ffmpeg espeak-ng fonts-dejavu-core
+      - run: pip install -r requirements.txt pytest httpx
+      - run: pytest -q
