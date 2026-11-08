@@ -40,3 +40,13 @@ jobs:
         run: |
           python report_studio.py inspect output/demo.pdf > output/qa.json
           python -c "import json; x=json.load(open('output/qa.json')); assert x['pages'] >= 5 and x['a4_pages'] and x['has_sources'] and not x['blank_pages']"
+
+      - name: Upload fictional demonstration proof
+        uses: actions/upload-artifact@v4
+        with:
+          name: report-studio-fictional-proof
+          path: |
+            apps/report-studio/output/demo.pdf
+            apps/report-studio/output/qa.json
+          retention-days: 7
+          if-no-files-found: error
