@@ -1,11 +1,11 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-11-09T07:15:06.417Z",
+  "generatedAt": "2026-11-09T18:52:02.642Z",
   "researchCandidates": 12,
   "publishedResearchSignals": 12,
   "verifiedCJStatus": {
-    "checkedAt": "2026-11-09T06:41:15.205Z",
-    "validSupplierMatches": 2,
+    "checkedAt": "2026-11-09T18:52:01.073Z",
+    "validSupplierMatches": 4,
     "variantStock": 2,
     "freightEstimates": 2,
     "countryFreightEstimates": 2,
@@ -25,8 +25,29 @@
       "action": "Investigate specific catalog SKUs, incorrect product matches and incomplete stock evidence.",
       "state": "review_required",
       "executionMode": "scheduled_cj_and_manual_review",
-      "candidateCount": 9,
+      "candidateCount": 12,
       "blockers": [
+        {
+          "slug": "multiport-charger",
+          "status": "supplier_search_needed",
+          "sku": null,
+          "shippingDiagnostic": null,
+          "zeroPricedMethods": 0
+        },
+        {
+          "slug": "motion-sensor-cabinet-lights",
+          "status": "variant_stock_required",
+          "sku": "CJYD2030514",
+          "shippingDiagnostic": "variant_stock_unverified",
+          "zeroPricedMethods": 0
+        },
+        {
+          "slug": "car-phone-mount",
+          "status": "variant_stock_required",
+          "sku": "CJSJSJSJ02737",
+          "shippingDiagnostic": "variant_stock_unverified",
+          "zeroPricedMethods": 0
+        },
         {
           "slug": "pressure-washer",
           "status": "supplier_search_needed",
@@ -43,7 +64,7 @@
         },
         {
           "slug": "garment-steamer",
-          "status": "final_zip_freight_required",
+          "status": "fresh_commercial_evidence_required",
           "sku": "CJYD245844002BY",
           "shippingDiagnostic": "priced_estimate_available",
           "zeroPricedMethods": 0
