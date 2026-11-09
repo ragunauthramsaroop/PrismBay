@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "updatedAt": "2026-11-09T07:14:27.190Z",
+  "updatedAt": "2026-11-09T22:43:34.123Z",
   "policy": "Research concepts only. Public attention is not supplier approval, stock, final-destination freight, media rights, checkout readiness, sales evidence, or permission to publish. Never promote or render product advertisements from this queue.",
   "items": [
     {
@@ -81,8 +81,8 @@
     },
     {
       "rank": 5,
-      "slug": "pethair",
-      "product": "Reusable Pet Hair Remover",
+      "slug": "crevice",
+      "product": "3-in-1 Crevice Cleaning Brush",
       "channel": "tiktok",
       "format": "short-video",
       "status": "RESEARCH_CANDIDATE",
@@ -93,7 +93,7 @@
       "mediaRightsVerified": false,
       "publicationAuthorized": false,
       "publishable": false,
-      "hook": "What to check when comparing Reusable Pet Hair Remover options.",
+      "hook": "What to check when comparing 3-in-1 Crevice Cleaning Brush options.",
       "cta": "Research concept only. No product offer or checkout.",
       "mediaPlan": "Original typography or abstract graphics only. No product footage or performance demonstration without separate evidence.",
       "guardrail": "No purchase CTA, unsupported product performance, before-and-after results, sales, reviews, stock, discounts, shipping promises, or unlicensed media."
