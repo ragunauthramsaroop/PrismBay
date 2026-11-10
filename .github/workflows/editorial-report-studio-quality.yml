@@ -1,0 +1,43 @@
+name: Editorial Report Studio Quality
+
+on:
+  push:
+    paths:
+      - 'tools/editorial-report-studio/**'
+      - '.github/workflows/editorial-report-studio-quality.yml'
+  pull_request:
+    paths:
+      - 'tools/editorial-report-studio/**'
+      - '.github/workflows/editorial-report-studio-quality.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  validate-toolkit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install PDF validator
+        run: python -m pip install PyMuPDF
+      - name: Compile validator
+        run: python -m py_compile tools/editorial-report-studio/preflight.py
+      - name: Smoke test with synthetic document
+        run: |
+          python - <<'PY'
+          import fitz
+          d=fitz.open()
+          p=d.new_page(width=1008, height=612)
+          p.insert_text((42, 50), "Synthetic editorial report")
+          d.save("test-report.pdf")
+          PY
+          python tools/editorial-report-studio/preflight.py test-report.pdf --out preflight.json
+          python - <<'PY'
+          import json
+          result=json.load(open("preflight.json"))
+          assert result["pages"] == 1
+          assert result["issues"] == []
+          PY
