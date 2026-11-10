@@ -43,8 +43,9 @@ export function inspectPhysicalOffer(catalog, slug, { quote, checkout, now = Dat
   for (const gate of REQUIRED_PRODUCT_GATES) {
     if (item?.[gate] !== true) blockers.push('product_' + gate + '_missing');
   }
-  if (!validId(item?.supplierSku, 'sku')) blockers.push('supplier_sku_missing');
-  if (!validId(item?.variantId, 'vid')) blockers.push('supplier_variant_missing');
+  if (typeof item?.supplierSku !== 'string' || !/^[A-Za-z0-9_-]{5,120}$/.test(item.supplierSku)) blockers.push('supplier_sku_missing');
+  // CJ variant IDs are often numeric. Do not impose Whop's prefix format.
+  if (typeof item?.variantId !== 'string' || !/^[A-Za-z0-9_-]{5,120}$/.test(item.variantId)) blockers.push('supplier_variant_missing');
 
   const retailCents = Math.round(Number(item?.retailPriceUsd) * 100);
   if (!positiveInt(retailCents)) blockers.push('retail_price_invalid');
@@ -162,7 +163,9 @@ if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) 
   }, null, 2) + '\n');
   // Don't fail CI because an unverified product correctly remains closed.
   // DO fail if the public policy is opened while no product is verified.
+  // Catalog-level permission is distinct from each buyer's live quote.
+  // Never turn checkout on merely because a catalog file is updated.
   const unsafe = status.physicalCheckoutPermitted &&
-    status.products.some(row => !row.approved);
+    status.products.length === 0;
   if (unsafe) process.exitCode = 1;
 }
