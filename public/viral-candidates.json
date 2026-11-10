@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-11-09T12:11:04.743Z",
+  "updatedAt": "2026-11-10T11:50:55.652Z",
   "market": "US",
   "supplierIntegration": "awaiting-cj-auth",
   "methodology": "Public attention and recency identify candidates. Supplier promotion requires verified US inventory and product-level checks. Freight and checkout creation occur only after supplier validation.",
@@ -9,22 +9,22 @@
       "slug": "cordless-handheld-vacuum",
       "name": "Cordless Handheld Vacuum",
       "query": "cordless handheld vacuum",
-      "attentionScore": 92,
+      "attentionScore": 90.1,
       "attentionLabel": "high-attention",
       "evidence": {
         "publicMentions": 49,
         "mentionsLast7Days": 2,
-        "mentionsLast30Days": 8,
+        "mentionsLast30Days": 7,
         "sourcesAvailable": [
           "Google News",
           "Bing News"
         ],
         "sampleSignals": [
           {
-            "title": "Ready to Retire the Dustpan? This Handheld Vacuum That ‘Cleans Effectively’ Is Down to Just $36 at Amazon - People.com",
+            "title": "Tired of Hauling Out Your Heavy Vacuum? This Handheld Model That’s ‘Surprisingly Powerful’ Is on Sale for $23 - People.com",
             "source": "Google News",
-            "publishedAt": "2026-11-04T09:00:00.000Z",
-            "url": "https://news.google.com/rss/articles/CBMigwFBVV95cUxNdEtXSzYxa2Q0NllIcUtybjR3V3lvOW9fVnZxUTg4dTBtQWdqYkxnd0tFeFl5Y1E1aDB5Z29ZZUZiQThON0g4VzJFNi1fMm15Ym5EZGppcm9NZ1BqV20zZmhvZGJWTXRJdHhvSVpfZE5rTUR2NUYzMlhiR29PaXlPZ216Zw?oc=5"
+            "publishedAt": "2026-11-10T09:00:00.000Z",
+            "url": "https://news.google.com/rss/articles/CBMikAFBVV95cUxQWERvYXZ6WVlFU0xQaHEzUmRnVVFrTWJEbVMyTk9fNm5NWEFsV2pHUEhrZ1gtV095cnh5ZDhQQWFmNFNwWURXbjFkSjlRUURDY0Z6NGtBZHZXa3hXS1lBQ1RYdTRCWHIzQXZQSXpfMDZaSmhsajd0ZmxrT0VxUndXdHJKVXJZZm4xUFZMZVctdnE?oc=5"
           },
           {
             "title": "We Tested 53 Handheld Vacuums—These Are the 11 Best Ones for Every Mess - Real Simple",
@@ -33,16 +33,16 @@
             "url": "https://news.google.com/rss/articles/CBMiZ0FVX3lxTE1SOVA4VlF2dENBOE81cWdOQThiZ2JLNmtqTENyQUxpQWZIaGZyTlNiRlVNeHhKSGk4Z0R6Qy1zY3lYVVJSaEI0YURjNUJmck9IRjQ3b3pCTzd3UFZwcVpoRTBQX3J1alE?oc=5"
           },
           {
-            "title": "The 4 Best Handheld Vacuums of 2026 - RTINGS.com",
-            "source": "Google News",
-            "publishedAt": "2026-10-29T07:00:00.000Z",
-            "url": "https://news.google.com/rss/articles/CBMiYEFVX3lxTE84a0VVS2hreWhELTRiSElBQlROblJicHJnYlhJa1VHdEx0X1dHUFVtZFpjZFY3ekRpWDF6MmY3VFhCMnNwa1prWEUxM05tbC1nN2Nmd0xDSjRPQS1FdThaUQ?oc=5"
-          },
-          {
             "title": "I Skip the Upright for Crumbs. These Reliable Handheld Vacs Do the Trick. - Popular Mechanics",
             "source": "Google News",
             "publishedAt": "2026-10-30T07:00:00.000Z",
             "url": "https://news.google.com/rss/articles/CBMiggFBVV95cUxOZTV4NVpXSGxDWHRlcUtnU1lLVnZpbWNMak5zVDVoVW5oMThGWER6cGFIQVNpZk9EdzAxODR1cjg1emZrR0R4YVBDdDFvcEprQ21pSVNkQmo3dWRhV0h4TXdJNlJ1eU1MTnFMQkZEX3h6b0xXS0lnMjlWT3Nka3lBY0F3?oc=5"
+          },
+          {
+            "title": "8 Handheld Vacuums We Use for Every Nook and Cranny, After Testing - The Spruce",
+            "source": "Google News",
+            "publishedAt": "2026-08-05T07:00:00.000Z",
+            "url": "https://news.google.com/rss/articles/CBMib0FVX3lxTE9Fa1pfUHZVbzB6M0VMbm9tR25PcnZhOFhOS3MzQVRXWk8xWXNaMjlCWEFOX0piSV9xZTFSeThlNXR6NFB2Qmpmd0VQeTB3ZjR3Mk5Wc2I3WWxTN191VXZvdGd0cjN4bnVNVG5BbGZQYw?oc=5"
           }
         ]
       },
@@ -58,13 +58,65 @@
       "rank": 1
     },
     {
+      "slug": "roll-up-dish-rack",
+      "name": "Roll-Up Dish Drying Rack",
+      "query": "roll up dish drying rack",
+      "attentionScore": 80.5,
+      "attentionLabel": "high-attention",
+      "evidence": {
+        "publicMentions": 28,
+        "mentionsLast7Days": 2,
+        "mentionsLast30Days": 4,
+        "sourcesAvailable": [
+          "Google News",
+          "Bing News"
+        ],
+        "sampleSignals": [
+          {
+            "title": "Say Goodbye to Scummy Sink Puddles — This Clever $8 Hack Makes Them ‘a Thing of the Past’ - Food & Wine",
+            "source": "Google News",
+            "publishedAt": "2026-11-10T11:15:00.000Z",
+            "url": "https://news.google.com/rss/articles/CBMihgFBVV95cUxQdnJBZk94Z3FqQmxFWU9HdGo4d2dkWlRkUFUtVF94WTRIYXFaQXZ2STFhVThtTUtWbzR3M1EzNnhYTXBFbTltS3UxOUpXOU5pRHpqQUE5RmV0al9lT3UwUF8zSXA3RElva3VrS211VU11TmJtV3JiSnh1V3VGc20tOTJLbk1KZw?oc=5"
+          },
+          {
+            "title": "9 Genius Amazon Home Finds Under $15 You Should’ve Bought Ages Ago - Real Simple",
+            "source": "Google News",
+            "publishedAt": "2026-11-08T00:30:00.000Z",
+            "url": "https://news.google.com/rss/articles/CBMiiwFBVV95cUxNN1R5LVhmZk4tMUJPaFZLMkdRaHRvUnlOeXlhQ1FHOFlwcVlhVFNZc29aWHRGaGM3VEY4YjdnTE9aRTI5NEZyWHV6TEhCTlRhYXo0VjVZV1NzUktWT2kwR3JEYW1ZU0pDWFRySWtpUVVfQjh6cjNsRGVRTklVVjRDRDh5NUU1LVI1MVZv?oc=5"
+          },
+          {
+            "title": "I Put a Dish Rack in My Tiny Bathroom, and It Changed Everything - Apartment Therapy",
+            "source": "Google News",
+            "publishedAt": "2026-10-10T07:00:00.000Z",
+            "url": "https://news.google.com/rss/articles/CBMiggFBVV95cUxNX3hDa2V2RHM3N2FBLXg3Y181T3Y2alpkbF9zeHMxS0cwVUhaQjVwNDBiaW5rdWVaUGZaZ1NWU29iSXhxX2xfNG1uMXZLb19Yck1sRi1wUk9HSnhRVmpla3NwTHVlRHdITkJMZXp5MjBIUXZBLVd0U0wydlZPRTBtZF9R?oc=5"
+          },
+          {
+            "title": "The 11 Very Best Dish Racks - New York Magazine",
+            "source": "Google News",
+            "publishedAt": "2026-09-17T07:00:00.000Z",
+            "url": "https://news.google.com/rss/articles/CBMiaEFVX3lxTE8xNGhfekNqcklvNmFnN1NuTWVuWFJwLW5TWkxqakRXZVQxNk8yTlhWaGtubTRIT094Y09uNS16TFJoeGFJZ0VPYkVMNnpuRElpXzRjNVRQVG5JQWkzT0hBMnhfcm9FaF9M?oc=5"
+          }
+        ]
+      },
+      "supplier": null,
+      "supplierReady": false,
+      "freightReady": false,
+      "promotionReady": false,
+      "mediaRightsReady": false,
+      "liveStripePricingReady": false,
+      "listed": false,
+      "discoveryEvidence": [],
+      "nextAction": "connect-cj",
+      "rank": 2
+    },
+    {
       "slug": "hanging-closet-organizer",
       "name": "Hanging Closet Organizer",
       "query": "hanging closet organizer",
       "attentionScore": 67.5,
       "attentionLabel": "promotion-watch",
       "evidence": {
-        "publicMentions": 28,
+        "publicMentions": 29,
         "mentionsLast7Days": 0,
         "mentionsLast30Days": 2,
         "sourcesAvailable": [
@@ -107,7 +159,7 @@
       "listed": false,
       "discoveryEvidence": [],
       "nextAction": "connect-cj",
-      "rank": 2
+      "rank": 3
     },
     {
       "slug": "dryer-vent-cleaner-kit",
@@ -159,7 +211,7 @@
       "listed": false,
       "discoveryEvidence": [],
       "nextAction": "connect-cj",
-      "rank": 3
+      "rank": 4
     },
     {
       "slug": "appliance-cord-organizer",
@@ -211,7 +263,7 @@
       "listed": false,
       "discoveryEvidence": [],
       "nextAction": "connect-cj",
-      "rank": 4
+      "rank": 5
     },
     {
       "slug": "bottle-brush-set",
@@ -263,7 +315,7 @@
       "listed": false,
       "discoveryEvidence": [],
       "nextAction": "connect-cj",
-      "rank": 5
+      "rank": 6
     },
     {
       "slug": "sheet-laundry-detangler",
@@ -309,22 +361,36 @@
       "listed": false,
       "discoveryEvidence": [],
       "nextAction": "connect-cj",
-      "rank": 6
+      "rank": 7
     },
     {
       "slug": "window-washer-squeegee",
       "name": "3-in-1 Window Washer & Squeegee",
       "query": "window washer squeegee",
-      "attentionScore": 22.8,
+      "attentionScore": 28.2,
       "attentionLabel": "low-signal",
       "evidence": {
-        "publicMentions": 0,
+        "publicMentions": 2,
         "mentionsLast7Days": 0,
-        "mentionsLast30Days": 0,
+        "mentionsLast30Days": 1,
         "sourcesAvailable": [
+          "Google News",
           "Bing News"
         ],
-        "sampleSignals": []
+        "sampleSignals": [
+          {
+            "title": "This window cleaning set is our top pick – and it's on sale - Real Homes",
+            "source": "Google News",
+            "publishedAt": "2020-05-02T07:00:00.000Z",
+            "url": "https://news.google.com/rss/articles/CBMikAFBVV95cUxQVE1RZEw3ZXFWNHlYcmQ3bHNKU214UVBSZU9WTVlxUVk0TjNCUkNaYWNzRHpWS0lrZVNBTUcwYVpiU3lmeWdGNDlQSGloV21senpDMW9NUnlkdFdwTFdKVmZYUE1xVC1qY0REQkZKVGQxUVpXQTBFUThicXNVN1FQTTlXVjBaT04tREdiR0ZHSWw?oc=5"
+          },
+          {
+            "title": "Top 5 Best Commercial Window Cleaning 2026 - Pixelfy.me",
+            "source": "Google News",
+            "publishedAt": "2026-10-26T07:00:00.000Z",
+            "url": "https://news.google.com/rss/articles/CBMic0FVX3lxTE5VVW5NRWgxR2dpcFNXM0MxRE1vVVN3ZE9hTUJQcXJEb3ZkNEd1bExPcnVQT1FDVHpPQ21PUExrS2RES0FIbmtPd2NET2FMaV9mcG9WcUNYOU1FRXdTWlVUUzg1UmlGYlhJVWN3WUpYNVkyUm8?oc=5"
+          }
+        ]
       },
       "supplier": null,
       "supplierReady": false,
@@ -335,7 +401,41 @@
       "listed": false,
       "discoveryEvidence": [],
       "nextAction": "connect-cj",
-      "rank": 7
+      "rank": 8
+    },
+    {
+      "slug": "self-standing-floor-mop",
+      "name": "Self-Standing Floor Mop",
+      "query": "self standing floor mop",
+      "attentionScore": 23.8,
+      "attentionLabel": "low-signal",
+      "evidence": {
+        "publicMentions": 1,
+        "mentionsLast7Days": 0,
+        "mentionsLast30Days": 0,
+        "sourcesAvailable": [
+          "Google News",
+          "Bing News"
+        ],
+        "sampleSignals": [
+          {
+            "title": "Amazon has 20% off these space-saving cleaning tools for minimalists - USA Today",
+            "source": "Google News",
+            "publishedAt": "2026-09-25T07:00:00.000Z",
+            "url": "https://news.google.com/rss/articles/CBMiwAFBVV95cUxONFZyZk9VbDdXWGYyWXIzRUFLZDdwNk9JWnh0V2dXXzR6MzNVdnRweHlNWUtIWlU2TkJtaFpfVWZWLUxNSUlkZkRLQ0pYa3MzNzFyenlSYURzRlNsNkxxS0RTVGNkN05zcUxUTDVyS0ViaVdUa2oyMEpXUVBPQXJrV2tEZHJRbndyQzd2VnZyc3RPa3JtVVdzdmZ1RjB3SG9tenBpTER2UlNJSnFyZDREYjJyc24zNEUwbGd0d2gzc3Y?oc=5"
+          }
+        ]
+      },
+      "supplier": null,
+      "supplierReady": false,
+      "freightReady": false,
+      "promotionReady": false,
+      "mediaRightsReady": false,
+      "liveStripePricingReady": false,
+      "listed": false,
+      "discoveryEvidence": [],
+      "nextAction": "connect-cj",
+      "rank": 9
     },
     {
       "slug": "extendable-high-zone-duster",
@@ -362,33 +462,7 @@
       "listed": false,
       "discoveryEvidence": [],
       "nextAction": "connect-cj",
-      "rank": 8
-    },
-    {
-      "slug": "self-standing-floor-mop",
-      "name": "Self-Standing Floor Mop",
-      "query": "self standing floor mop",
-      "attentionScore": 22,
-      "attentionLabel": "low-signal",
-      "evidence": {
-        "publicMentions": 0,
-        "mentionsLast7Days": 0,
-        "mentionsLast30Days": 0,
-        "sourcesAvailable": [
-          "Bing News"
-        ],
-        "sampleSignals": []
-      },
-      "supplier": null,
-      "supplierReady": false,
-      "freightReady": false,
-      "promotionReady": false,
-      "mediaRightsReady": false,
-      "liveStripePricingReady": false,
-      "listed": false,
-      "discoveryEvidence": [],
-      "nextAction": "connect-cj",
-      "rank": 9
+      "rank": 10
     },
     {
       "slug": "pan-scraper",
@@ -415,7 +489,7 @@
       "listed": false,
       "discoveryEvidence": [],
       "nextAction": "connect-cj",
-      "rank": 10
+      "rank": 11
     },
     {
       "slug": "rug-grippers",
@@ -439,32 +513,6 @@
             "url": "https://news.google.com/rss/articles/CBMi-AFBVV95cUxQZHhfWl84emR2bHk3dlJFbW9aMGswWnJfbTJCejU4LUw4ZEVPYldrd09WNVQ4ZkhwYkkxWTJ4UWx5QkdydEhOR3JXdkowREhqaHlNTm5oclVBUnRNNFIzUGxnNVBpblI1U2hsTjNFR0hLamxETnNZMlpvNWdHMFhXNnlEMUVTMlVMUTV6bmZ0dmtXdDI1SHlnb0dyUzczZllqUFdwbnBQSURMQVBHNnhjeXZtaGRHWmUtaTZTNlVWcXU4YVRpSndZanpHcDJzZ2s4bHBhX3hJVzRRMk5IZUpKQUhzUG01cDJYTW1KTEFtVFNOT2xVOXpQYtIB_gFBVV95cUxOcnBVVjlNZC1ZYU1xc0FtczV6ZU42T3NkQlBydnVCYTRlUGZBSzg4ZUtVU3pockpDck5Hc3B2SjZWMTBwMHB0ZWJoRC1LY3FNTm0tLTdiTHJTZkZQWUJTcXc1eHhtdlJhbGtJMmlvcHo3bDFlZEI5WnVqTmdEN181MEoxWThjcTJiS2NPYTFRemw0NTZtVmItM2JBUE1RcE1jazF5M2JhazI4R1RPZmhndFo0QVJzOFNxb3hCS1hsUHgzUi1UdUdRU05iaV92YzU1YnNtdXY4SlZaRFJGRXF6RkZ2ak1QWmVWRFhiV29vaFZUbE1HOTBkbVkzWVM5QQ?oc=5"
           }
         ]
-      },
-      "supplier": null,
-      "supplierReady": false,
-      "freightReady": false,
-      "promotionReady": false,
-      "mediaRightsReady": false,
-      "liveStripePricingReady": false,
-      "listed": false,
-      "discoveryEvidence": [],
-      "nextAction": "connect-cj",
-      "rank": 11
-    },
-    {
-      "slug": "roll-up-dish-rack",
-      "name": "Roll-Up Dish Drying Rack",
-      "query": "roll up dish drying rack",
-      "attentionScore": 20.5,
-      "attentionLabel": "low-signal",
-      "evidence": {
-        "publicMentions": 0,
-        "mentionsLast7Days": 0,
-        "mentionsLast30Days": 0,
-        "sourcesAvailable": [
-          "Bing News"
-        ],
-        "sampleSignals": []
       },
       "supplier": null,
       "supplierReady": false,
