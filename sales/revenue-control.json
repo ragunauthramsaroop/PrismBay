@@ -1,13 +1,13 @@
 {
   "schemaVersion": 1,
-  "checkedAt": "2026-11-10T02:39:31.012Z",
+  "checkedAt": "2026-11-10T07:48:20.362Z",
   "priority": "paid_sales_from_verified_existing_offers",
   "activeOffer": {
-    "slug": "stakeholder",
-    "title": "Executive Stakeholder Mapping Toolkit",
-    "priceUsd": 49,
-    "guideUrl": "https://clean.prismbayai.com/stakeholder-engagement-plan-template.html?utm_source=github_cloud&utm_medium=owned_educational_content&utm_campaign=organic_stakeholder_83068",
-    "checkoutUrl": "https://buy.stripe.com/4gM8wQ1v8dOj45Ib8QgnK0q?client_reference_id=owned_content_stakeholder"
+    "slug": "esg",
+    "title": "ESG & Social Performance Operating Pack",
+    "priceUsd": 99,
+    "guideUrl": "https://clean.prismbayai.com/esg-monthly-reporting-template.html?utm_source=github_cloud&utm_medium=owned_educational_content&utm_campaign=organic_esg_83069",
+    "checkoutUrl": "https://buy.stripe.com/4gMeVe8XA5hNfOq2CkgnK0r?client_reference_id=owned_content_esg"
   },
   "positioning": "baseline",
   "commercialEvidence": {
