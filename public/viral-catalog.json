@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-11-09T22:43:34.123Z",
+  "updatedAt": "2026-11-10T07:46:58.313Z",
   "market": "US",
   "methodology": "Public-news attention, freshness, and short-form demonstration fit. This is not PrismBay sales data and is not a TikTok, Amazon, Google, or Bing product ranking.",
   "refreshTargetHours": 6,
@@ -11,7 +11,7 @@
       "signalScore": 80,
       "signalLabel": "high-attention",
       "evidence": {
-        "publicMentions": 31,
+        "publicMentions": 30,
         "mentionsLast7Days": 0,
         "mentionsLast30Days": 9,
         "sourcesAvailable": [
@@ -45,10 +45,10 @@
           "url": "https://news.google.com/rss/articles/CBMihgFBVV95cUxQaXlNc3IwRkdxSWMwS0xGc1dQZEQyRkdjb0l6M2hvZDNual9lUHQzWm5MUS1BSHhNRzRHSGxrQm5tb3dKMXlpeS0tUlJ1TElEbWNoUkN2MGgzMnp4TjRkczE4VlQ0UmNNRy1hbWI2Y05Xa3Z3RzBkU1VpcWZ1OEdRNVgtVEl1UQ?oc=5"
         },
         {
-          "title": "7 Clothes Steamers That Can Quickly Remove Wrinkles From Your Shirt - News18",
+          "title": "10 of the best handheld steamers on the market - Vogue Australia",
           "source": "Google News",
-          "publishedAt": "2026-09-12T07:00:00.000Z",
-          "url": "https://news.google.com/rss/articles/CBMitgFBVV95cUxPd290QWhjS011aTVuZ25VOHZ2ekJRV2ZTNzI1dUVNUGpjQkIyem1Uby1sVkdiTEJXbnJ1Rmg1cHlrV2NZUkhveGVDakYyc3YtLUVkNW9iWVdxRy1Tc3pIYnNPamNhMkFzaW0xWko2a1FUNHdEbEtkdUJhMllMaERZZktRTzRrUzBHRjhXZEVqdHpGR3V0Z2RPYzZpQ3RVTjlvMVNwTW91dDdkbk9neWFRWU8wbEN2QdIBuwFBVV95cUxPeXdfVi05cnFVUG1kYjlaU2lKMjNhOUtLa0NKanR1R29GSnpkVTEyeWwwbzB2N2R5M3gxakRHWUc3M1NzOTZqc1FuSDJrb2RRRERrU3pTWTdzWVhmNHN2d2FFX0M4cWlTRERGaDc0NjN2S1NVWFYtS2dQZGFWbVUyV29uMFJBQ2xRVUI0cC1HNTJzaWFueGVtSHgtRmJCWHhIUU1UT0VkT3d4NVliOW14LVhPSEdZeDVrbG5F?oc=5"
+          "publishedAt": "2026-01-08T08:00:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMirwFBVV95cUxQdkdwdjFkSnptM0JmTmpLYWRPTjUwZEhjOEI3YTlCT2VmOG1GUVJ1dklzUnV5LTROeXJKQ3QzRnEyakRLQWRrUUhPNUJvZWZ2dlhWaXFoajlpTFkwdXhDaTZjT3M4LThxM3d4bXI0X1ZMUmtSdmZXN1A0ZkM4eWF0amE3ZkxJUEVsUXVuQlM4Zk91andHSk15YVRaUHJLN1JUVGlEc2hVajBRMlRYU0h3?oc=5"
         }
       ],
       "rank": 1
@@ -59,7 +59,7 @@
       "signalScore": 76,
       "signalLabel": "high-attention",
       "evidence": {
-        "publicMentions": 65,
+        "publicMentions": 64,
         "mentionsLast7Days": 0,
         "mentionsLast30Days": 4,
         "sourcesAvailable": [
@@ -155,7 +155,7 @@
       "signalScore": 74,
       "signalLabel": "high-attention",
       "evidence": {
-        "publicMentions": 53,
+        "publicMentions": 54,
         "mentionsLast7Days": 0,
         "mentionsLast30Days": 3,
         "sourcesAvailable": [
@@ -171,10 +171,10 @@
           "url": "https://news.google.com/rss/articles/CBMiggFBVV95cUxQZzA5TzBxdm5yX1RYc3RkUHpOV0FRdmF2YnV6Vk9ma3cweHFkM0xoTzAxQXo5OThsS3BVZ2hOWTdXOWVlQUZnYTBXaHZfUkRmN1BsMVc5RlR1YngtdVNIdWZfZGJpRmd0dDBuMXNJLXlFRllZREJWYktndWYyWVJJU0Zn?oc=5"
         },
         {
-          "title": "Does it work? Hydro X5 cordless pressure washer - KWCH",
+          "title": "Does it work? Hydro X5 cordless pressure washer - KY3",
           "source": "Google News",
           "publishedAt": "2026-08-12T07:00:00.000Z",
-          "url": "https://news.google.com/rss/articles/CBMihgFBVV95cUxNTWJJdnI5YnFKNlFnNUNhY09iVVFJZ1ZvMHJmQ2FYcEQtbU0xYmRBNzQ5Y3NrRXJ6NS04Sl9uSXBSUDJoSEh2QXVBM3VlQzQtbHdIVWl5S2dDNGxQNzYxdDFuQnQtWEFmdUpLSEU3STlaSkhLSFF3d1JxMVFxZEtZXzYzbTQ1UdIBmgFBVV95cUxPZERNWEJkcWM1a0pySUFEZC12OXE2Q1F1Q3hjSEk1Ql9SUktmSjczWG13Y0doWHV0ZkpGSm9LUnA4eEIwWFg3ZU95TVlZTDQ0WkFtSUhDWDRIY29ITmlJTUljZ3lvNHdYWXNFQ2hGQVo1djZzWkZudTZPdEJtOHJGRDV0Q2pUQkE4OG00WFh6R3ZjQ1Q2NEhldGV3?oc=5"
+          "url": "https://news.google.com/rss/articles/CBMihAFBVV95cUxPVUxYNWVJWVFYUWRES0d1Y2plUHV6b0poQ1dfOEpadkNmM3ZSbnpYZ2FiZDNQaXRRRHB1dVg4Q0ljWDJTdnM0WFJGY3dlUTRDU2x5dnptYjktcDByUnd6NDFPX3YwX3dJRDI4b1hrQ1NSU0hoLVlnVzIxTjJsVHktSUU2cHjSAZgBQVVfeXFMT1EzOF9iaGQxYzk4RUdyUGZVb0pjM0xQUGlQU3l3ZjNBSWFyS2pjQXBOOWpLY2xuS2NLSVBFdHRhWDBNdVdOdkgySHJkcHc5NXg2S3laUEdjU1A5QTdWeEJGQVExWE5DdENTaE5QbEhtWWJPdkVza2FUMjd0Qko4Mk1yR2VJeWhfaGZyTVNiUGJ2X2NEOVBYVjY?oc=5"
         },
         {
           "title": "Ego Power+ Cordless Pressure Washer Review: Powerful but Pricey - BobVila.com",
