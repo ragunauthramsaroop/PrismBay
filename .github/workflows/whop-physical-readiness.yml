@@ -1,0 +1,32 @@
+name: PrismBay Whop physical checkout safety checks
+
+on:
+  pull_request:
+    paths:
+      - 'commerce/whop/**'
+      - '.github/workflows/whop-physical-readiness.yml'
+      - 'config/top15-merchandising.json'
+  push:
+    branches: [main]
+    paths:
+      - 'commerce/whop/**'
+      - '.github/workflows/whop-physical-readiness.yml'
+      - 'config/top15-merchandising.json'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  whop-physical-gates:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Fail-closed tests for quotes, links and payment matching
+        run: node --test commerce/whop/physical-readiness.test.mjs
+      - name: Inspect public physical-product catalog without credentials
+        run: node commerce/whop/physical-readiness.mjs
