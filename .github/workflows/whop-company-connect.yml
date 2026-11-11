@@ -1,5 +1,8 @@
 name: PrismBay Whop read-only API connection
 
+# Main-branch push runs a one-time-safe read-only verification using the
+# previously supplied nonsecret company identifier. No writes or payments.
+
 on:
   pull_request:
     paths:
@@ -35,7 +38,7 @@ jobs:
         run: node --test scripts/whop-company-connection.test.mjs
 
   verify-company-key:
-    if: github.event_name == 'workflow_dispatch'
+    if: github.event_name == 'workflow_dispatch' || (github.event_name == 'push' && github.ref == 'refs/heads/main')
     needs: [unit-tests]
     runs-on: ubuntu-latest
     timeout-minutes: 5
@@ -47,5 +50,5 @@ jobs:
       - name: Verify Whop company plans read access only
         env:
           WHOP_COMPANY_API_KEY: ${{ secrets.WHOP_COMPANY_API_KEY }}
-          WHOP_COMPANY_ID: ${{ inputs.whop_company_id }}
+          WHOP_COMPANY_ID: ${{ inputs.whop_company_id || 'biz_WHz0YQ6YMckpMO' }}
         run: node scripts/whop-company-connection.mjs
