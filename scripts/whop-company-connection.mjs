@@ -1,13 +1,15 @@
 // Read-only Whop company API connectivity probe.
 // Use only from trusted GitHub Actions or a server-side environment.
 // Never print the credential, headers, response body, or buyer information.
+import { pathToFileURL } from 'node:url';
+
 const API_URL = 'https://api.whop.com/api/v1/plans';
 const API_VERSION_DATE = '2026-11-07';
 
 export async function verifyWhopReadAccess({
   key, companyId, fetchImpl = fetch, timeoutMs = 12000,
 } = {}) {
-  if (typeof key !== 'string' || !/^apik_[A-Za-z0-9_-]{8,}$/.test(key)) {
+  if (typeof key !== 'string' || key.length < 16 || key.length > 2048 || /\s/.test(key)) {
     return { ok: false, reason: 'api_key_missing_or_invalid_shape' };
   }
   if (typeof companyId !== 'string' || !/^biz_[A-Za-z0-9_-]{6,80}$/.test(companyId)) {
@@ -39,7 +41,7 @@ export async function verifyWhopReadAccess({
   }
 }
 
-if (process.argv[1] && import.meta.url === new URL('file://' + process.argv[1]).href) {
+if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
   const result = await verifyWhopReadAccess({
     key: process.env.WHOP_COMPANY_API_KEY,
     companyId: process.env.WHOP_COMPANY_ID,
