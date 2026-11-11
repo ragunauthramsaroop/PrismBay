@@ -1,0 +1,51 @@
+name: PrismBay Whop read-only API connection
+
+on:
+  pull_request:
+    paths:
+      - 'scripts/whop-company-connection.mjs'
+      - 'scripts/whop-company-connection.test.mjs'
+      - '.github/workflows/whop-company-connect.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/whop-company-connection.mjs'
+      - 'scripts/whop-company-connection.test.mjs'
+      - '.github/workflows/whop-company-connect.yml'
+  workflow_dispatch:
+    inputs:
+      whop_company_id:
+        description: 'Whop business ID from dashboard URL (biz_...)'
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  unit-tests:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verify read-only connection guard
+        run: node --test scripts/whop-company-connection.test.mjs
+
+  verify-company-key:
+    if: github.event_name == 'workflow_dispatch'
+    needs: [unit-tests]
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verify Whop company plans read access only
+        env:
+          WHOP_COMPANY_API_KEY: ${{ secrets.WHOP_COMPANY_API_KEY }}
+          WHOP_COMPANY_ID: ${{ inputs.whop_company_id }}
+        run: node scripts/whop-company-connection.mjs
