@@ -1,10 +1,10 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-11-11T07:13:04.966Z",
+  "generatedAt": "2026-11-11T16:13:50.452Z",
   "researchCandidates": 12,
   "publishedResearchSignals": 12,
   "verifiedCJStatus": {
-    "checkedAt": "2026-11-11T06:31:44.385Z",
+    "checkedAt": "2026-11-11T16:13:48.923Z",
     "validSupplierMatches": 4,
     "variantStock": 2,
     "freightEstimates": 2,
@@ -28,6 +28,27 @@
       "candidateCount": 12,
       "blockers": [
         {
+          "slug": "multiport-charger",
+          "status": "supplier_search_needed",
+          "sku": null,
+          "shippingDiagnostic": null,
+          "zeroPricedMethods": 0
+        },
+        {
+          "slug": "motion-sensor-cabinet-lights",
+          "status": "supplier_search_needed",
+          "sku": null,
+          "shippingDiagnostic": null,
+          "zeroPricedMethods": 0
+        },
+        {
+          "slug": "car-phone-mount",
+          "status": "variant_stock_required",
+          "sku": "CJSJ2077898",
+          "shippingDiagnostic": "variant_stock_unverified",
+          "zeroPricedMethods": 0
+        },
+        {
           "slug": "pressure-washer",
           "status": "supplier_search_needed",
           "sku": null,
@@ -43,7 +64,7 @@
         },
         {
           "slug": "garment-steamer",
-          "status": "final_zip_freight_required",
+          "status": "fresh_commercial_evidence_required",
           "sku": "CJYD245844002BY",
           "shippingDiagnostic": "priced_estimate_available",
           "zeroPricedMethods": 0
@@ -88,27 +109,6 @@
           "status": "fresh_commercial_evidence_required",
           "sku": "CJPB237729905EV",
           "shippingDiagnostic": "priced_estimate_available",
-          "zeroPricedMethods": 0
-        },
-        {
-          "slug": "scrubber",
-          "status": "supplier_search_needed",
-          "sku": null,
-          "shippingDiagnostic": null,
-          "zeroPricedMethods": 0
-        },
-        {
-          "slug": "pethair",
-          "status": "fresh_commercial_evidence_required",
-          "sku": "CJMY2103657",
-          "shippingDiagnostic": "variant_stock_unverified",
-          "zeroPricedMethods": 0
-        },
-        {
-          "slug": "crevice",
-          "status": "supplier_search_needed",
-          "sku": null,
-          "shippingDiagnostic": null,
           "zeroPricedMethods": 0
         }
       ]
