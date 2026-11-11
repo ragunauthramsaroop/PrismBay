@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-11-10T11:50:55.652Z",
+  "updatedAt": "2026-11-11T11:28:41.513Z",
   "market": "US",
   "supplierIntegration": "awaiting-cj-auth",
   "methodology": "Public attention and recency identify candidates. Supplier promotion requires verified US inventory and product-level checks. Freight and checkout creation occur only after supplier validation.",
@@ -9,11 +9,11 @@
       "slug": "cordless-handheld-vacuum",
       "name": "Cordless Handheld Vacuum",
       "query": "cordless handheld vacuum",
-      "attentionScore": 90.1,
+      "attentionScore": 86.4,
       "attentionLabel": "high-attention",
       "evidence": {
-        "publicMentions": 49,
-        "mentionsLast7Days": 2,
+        "publicMentions": 50,
+        "mentionsLast7Days": 1,
         "mentionsLast30Days": 7,
         "sourcesAvailable": [
           "Google News",
@@ -33,16 +33,16 @@
             "url": "https://news.google.com/rss/articles/CBMiZ0FVX3lxTE1SOVA4VlF2dENBOE81cWdOQThiZ2JLNmtqTENyQUxpQWZIaGZyTlNiRlVNeHhKSGk4Z0R6Qy1zY3lYVVJSaEI0YURjNUJmck9IRjQ3b3pCTzd3UFZwcVpoRTBQX3J1alE?oc=5"
           },
           {
+            "title": "The 4 Best Handheld Vacuums of 2026 - RTINGS.com",
+            "source": "Google News",
+            "publishedAt": "2026-10-29T07:00:00.000Z",
+            "url": "https://news.google.com/rss/articles/CBMiYEFVX3lxTE84a0VVS2hreWhELTRiSElBQlROblJicHJnYlhJa1VHdEx0X1dHUFVtZFpjZFY3ekRpWDF6MmY3VFhCMnNwa1prWEUxM05tbC1nN2Nmd0xDSjRPQS1FdThaUQ?oc=5"
+          },
+          {
             "title": "I Skip the Upright for Crumbs. These Reliable Handheld Vacs Do the Trick. - Popular Mechanics",
             "source": "Google News",
             "publishedAt": "2026-10-30T07:00:00.000Z",
             "url": "https://news.google.com/rss/articles/CBMiggFBVV95cUxOZTV4NVpXSGxDWHRlcUtnU1lLVnZpbWNMak5zVDVoVW5oMThGWER6cGFIQVNpZk9EdzAxODR1cjg1emZrR0R4YVBDdDFvcEprQ21pSVNkQmo3dWRhV0h4TXdJNlJ1eU1MTnFMQkZEX3h6b0xXS0lnMjlWT3Nka3lBY0F3?oc=5"
-          },
-          {
-            "title": "8 Handheld Vacuums We Use for Every Nook and Cranny, After Testing - The Spruce",
-            "source": "Google News",
-            "publishedAt": "2026-08-05T07:00:00.000Z",
-            "url": "https://news.google.com/rss/articles/CBMib0FVX3lxTE9Fa1pfUHZVbzB6M0VMbm9tR25PcnZhOFhOS3MzQVRXWk8xWXNaMjlCWEFOX0piSV9xZTFSeThlNXR6NFB2Qmpmd0VQeTB3ZjR3Mk5Wc2I3WWxTN191VXZvdGd0cjN4bnVNVG5BbGZQYw?oc=5"
           }
         ]
       },
