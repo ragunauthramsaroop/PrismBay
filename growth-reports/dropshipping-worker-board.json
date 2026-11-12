@@ -1,11 +1,11 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-11-12T07:46:13.333Z",
+  "generatedAt": "2026-11-12T16:51:11.322Z",
   "researchCandidates": 12,
   "publishedResearchSignals": 12,
   "verifiedCJStatus": {
-    "checkedAt": "2026-11-12T07:16:54.917Z",
-    "validSupplierMatches": 2,
+    "checkedAt": "2026-11-12T16:51:09.721Z",
+    "validSupplierMatches": 3,
     "variantStock": 0,
     "freightEstimates": 0,
     "countryFreightEstimates": 0,
@@ -28,6 +28,27 @@
       "candidateCount": 9,
       "blockers": [
         {
+          "slug": "multiport-charger",
+          "status": "supplier_search_needed",
+          "sku": null,
+          "shippingDiagnostic": null,
+          "zeroPricedMethods": 0
+        },
+        {
+          "slug": "motion-sensor-cabinet-lights",
+          "status": "variant_stock_required",
+          "sku": "CJYD2030514",
+          "shippingDiagnostic": "variant_stock_unverified",
+          "zeroPricedMethods": 0
+        },
+        {
+          "slug": "car-phone-mount",
+          "status": "variant_stock_required",
+          "sku": "CJSJ2077898",
+          "shippingDiagnostic": "variant_stock_unverified",
+          "zeroPricedMethods": 0
+        },
+        {
           "slug": "pressure-washer",
           "status": "supplier_search_needed",
           "sku": null,
@@ -43,7 +64,7 @@
         },
         {
           "slug": "garment-steamer",
-          "status": "variant_stock_required",
+          "status": "fresh_commercial_evidence_required",
           "sku": "CJQX1124259",
           "shippingDiagnostic": "variant_stock_unverified",
           "zeroPricedMethods": 0
@@ -67,27 +88,6 @@
           "status": "supplier_search_needed",
           "sku": null,
           "shippingDiagnostic": null,
-          "zeroPricedMethods": 0
-        },
-        {
-          "slug": "multiport-charger",
-          "status": "supplier_search_needed",
-          "sku": null,
-          "shippingDiagnostic": null,
-          "zeroPricedMethods": 0
-        },
-        {
-          "slug": "motion-sensor-cabinet-lights",
-          "status": "supplier_search_needed",
-          "sku": null,
-          "shippingDiagnostic": null,
-          "zeroPricedMethods": 0
-        },
-        {
-          "slug": "car-phone-mount",
-          "status": "fresh_commercial_evidence_required",
-          "sku": "CJSJ2077898",
-          "shippingDiagnostic": "variant_stock_unverified",
           "zeroPricedMethods": 0
         }
       ]
