@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-11-11T11:28:41.513Z",
+  "updatedAt": "2026-11-12T11:54:16.894Z",
   "market": "US",
   "supplierIntegration": "awaiting-cj-auth",
   "methodology": "Public attention and recency identify candidates. Supplier promotion requires verified US inventory and product-level checks. Freight and checkout creation occur only after supplier validation.",
@@ -12,7 +12,7 @@
       "attentionScore": 86.4,
       "attentionLabel": "high-attention",
       "evidence": {
-        "publicMentions": 50,
+        "publicMentions": 48,
         "mentionsLast7Days": 1,
         "mentionsLast30Days": 7,
         "sourcesAvailable": [
@@ -23,7 +23,7 @@
           {
             "title": "Tired of Hauling Out Your Heavy Vacuum? This Handheld Model That’s ‘Surprisingly Powerful’ Is on Sale for $23 - People.com",
             "source": "Google News",
-            "publishedAt": "2026-11-10T09:00:00.000Z",
+            "publishedAt": "2026-11-11T19:33:00.000Z",
             "url": "https://news.google.com/rss/articles/CBMikAFBVV95cUxQWERvYXZ6WVlFU0xQaHEzUmRnVVFrTWJEbVMyTk9fNm5NWEFsV2pHUEhrZ1gtV095cnh5ZDhQQWFmNFNwWURXbjFkSjlRUURDY0Z6NGtBZHZXa3hXS1lBQ1RYdTRCWHIzQXZQSXpfMDZaSmhsajd0ZmxrT0VxUndXdHJKVXJZZm4xUFZMZVctdnE?oc=5"
           },
           {
@@ -79,22 +79,22 @@
             "url": "https://news.google.com/rss/articles/CBMihgFBVV95cUxQdnJBZk94Z3FqQmxFWU9HdGo4d2dkWlRkUFUtVF94WTRIYXFaQXZ2STFhVThtTUtWbzR3M1EzNnhYTXBFbTltS3UxOUpXOU5pRHpqQUE5RmV0al9lT3UwUF8zSXA3RElva3VrS211VU11TmJtV3JiSnh1V3VGc20tOTJLbk1KZw?oc=5"
           },
           {
-            "title": "9 Genius Amazon Home Finds Under $15 You Should’ve Bought Ages Ago - Real Simple",
-            "source": "Google News",
-            "publishedAt": "2026-11-08T00:30:00.000Z",
-            "url": "https://news.google.com/rss/articles/CBMiiwFBVV95cUxNN1R5LVhmZk4tMUJPaFZLMkdRaHRvUnlOeXlhQ1FHOFlwcVlhVFNZc29aWHRGaGM3VEY4YjdnTE9aRTI5NEZyWHV6TEhCTlRhYXo0VjVZV1NzUktWT2kwR3JEYW1ZU0pDWFRySWtpUVVfQjh6cjNsRGVRTklVVjRDRDh5NUU1LVI1MVZv?oc=5"
-          },
-          {
             "title": "I Put a Dish Rack in My Tiny Bathroom, and It Changed Everything - Apartment Therapy",
             "source": "Google News",
             "publishedAt": "2026-10-10T07:00:00.000Z",
             "url": "https://news.google.com/rss/articles/CBMiggFBVV95cUxNX3hDa2V2RHM3N2FBLXg3Y181T3Y2alpkbF9zeHMxS0cwVUhaQjVwNDBiaW5rdWVaUGZaZ1NWU29iSXhxX2xfNG1uMXZLb19Yck1sRi1wUk9HSnhRVmpla3NwTHVlRHdITkJMZXp5MjBIUXZBLVd0U0wydlZPRTBtZF9R?oc=5"
           },
           {
-            "title": "The 11 Very Best Dish Racks - New York Magazine",
+            "title": "9 Genius Amazon Home Finds Under $15 You Should’ve Bought Ages Ago - Real Simple",
             "source": "Google News",
-            "publishedAt": "2026-09-17T07:00:00.000Z",
-            "url": "https://news.google.com/rss/articles/CBMiaEFVX3lxTE8xNGhfekNqcklvNmFnN1NuTWVuWFJwLW5TWkxqakRXZVQxNk8yTlhWaGtubTRIT094Y09uNS16TFJoeGFJZ0VPYkVMNnpuRElpXzRjNVRQVG5JQWkzT0hBMnhfcm9FaF9M?oc=5"
+            "publishedAt": "2026-11-08T00:30:00.000Z",
+            "url": "https://news.google.com/rss/articles/CBMiiwFBVV95cUxNN1R5LVhmZk4tMUJPaFZLMkdRaHRvUnlOeXlhQ1FHOFlwcVlhVFNZc29aWHRGaGM3VEY4YjdnTE9aRTI5NEZyWHV6TEhCTlRhYXo0VjVZV1NzUktWT2kwR3JEYW1ZU0pDWFRySWtpUVVfQjh6cjNsRGVRTklVVjRDRDh5NUU1LVI1MVZv?oc=5"
+          },
+          {
+            "title": "I Put a Dish Rack in My Tiny Bathroom, and It Changed Everything - Yahoo Lifestyle Canada",
+            "source": "Google News",
+            "publishedAt": "2026-10-10T07:00:00.000Z",
+            "url": "https://news.google.com/rss/articles/CBMieEFVX3lxTE5PSDNxWDhTYlRZSUN2X0ctNlNPeGgzenE1MUdvaGRUWGt0SjNZc19BWnd4MEs3OXR0ZFBTaFlkRG1MbVJZdDN3a3RwYkZMLVBIcU9RM1ZiMmQ4ODRQbGFxYmdyMkxmdS0xa0JLbU8xWkJMaXRscHVCcA?oc=5"
           }
         ]
       },
@@ -116,7 +116,7 @@
       "attentionScore": 67.5,
       "attentionLabel": "promotion-watch",
       "evidence": {
-        "publicMentions": 29,
+        "publicMentions": 30,
         "mentionsLast7Days": 0,
         "mentionsLast30Days": 2,
         "sourcesAvailable": [
@@ -137,7 +137,7 @@
             "url": "https://news.google.com/rss/articles/CBMiigFBVV95cUxPWFp5N1QwRWRBSlduLVVKYUtGSWFaLXZWWnB3RGVZQ1VFVGotVkdhMWhKMTBxQ3JnVHpJVGJJd0FmYW5NcWgxdlhmM0MtMDNSZkVNa1BMZVdGTjlQSW5ET1paa2p6cFRtWVFMWHpna1ZjdlIzVzI0VnJfdHhJckhvY2RzaFpvZVFSQUE?oc=5"
           },
           {
-            "title": "Amazon's 'Space-Saving' Hanging Organizer Is a 'Game-Changer' for Small Closets, Now $14 During Prime Day - Parade Magazine",
+            "title": "Amazon's 'Space-Saving' Hanging Organizer Is a 'Game-Changer' for Small Closets, Now $14 During Prime Day - parade.com",
             "source": "Google News",
             "publishedAt": "2026-10-08T07:00:00.000Z",
             "url": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxNZDZtOWlxaWdCX3ptWHFQOHhIdFctNlppRnJzTTh4bktBLTZmUEVIUGRwQVBlcFRHeVJESk10NGJGX0d6OGU5S21CVTVTbTRNYzhKYkprTkJ4TWtnbHBKQWhySkp1VlJ6MVB1YnVUNm1Ebm5Dcm5naV9Gdjd3Yl9kQ2xUUFhZSDJ3clozQ1BTdDVKaC1MQ19HdU8zdjIxaXNRSEs3NlpBdkNLLWM?oc=5"
@@ -217,10 +217,10 @@
       "slug": "appliance-cord-organizer",
       "name": "Appliance Cord Organizer",
       "query": "appliance cord organizer",
-      "attentionScore": 34.4,
-      "attentionLabel": "low-signal",
+      "attentionScore": 36.2,
+      "attentionLabel": "research",
       "evidence": {
-        "publicMentions": 8,
+        "publicMentions": 9,
         "mentionsLast7Days": 0,
         "mentionsLast30Days": 0,
         "sourcesAvailable": [
@@ -247,10 +247,10 @@
             "url": "https://news.google.com/rss/articles/CBMib0FVX3lxTFA2VHZmbDExRHlEdnRBa2RmWUI3REc1RUkyX05RWlB1QWlQVWVVVjZIbzlRMXY5Qm9UaDlOZDlHNF8tcXIzNzlWMFFxN0dDeXAyMGYwNmNVVnB5UWh0WnBEN2MxR1RWc2hnZTdpc1l5cw?oc=5"
           },
           {
-            "title": "The 7 Best Under‑Cabinet Lighting Options for Bright, Functional Kitchens - The Spruce",
+            "title": "I Can’t Face Cooking Breakfast in Summer – This $30-off XL Nutribullet Makes Smoothies Fast to Help Me Get Through Heatwave Mornings - Homes and Gardens",
             "source": "Google News",
-            "publishedAt": "2026-08-14T07:00:00.000Z",
-            "url": "https://news.google.com/rss/articles/CBMibkFVX3lxTE1fUDFObWNzQ29yWnJsRkw0OW01ZmxNbm1pbGVVZEh6MEZfRFZaWUlfdFgza0RFM2xSWXYwdndIZmRGcmNNZ3RSM0RkWXdsdmw1blNkUl9HTFltVXYxQ2dCaUNVYnREeUJtTU9sSDRB?oc=5"
+            "publishedAt": "2026-06-24T07:00:00.000Z",
+            "url": "https://news.google.com/rss/articles/CBMingFBVV95cUxNSm5KM0EzSkFyYlF6M0o3bGloWXFUMzZGZkxxbHZIU2FObkk0Vk9XVWp0Zk03OXpVMWFtN3VmdlktR2ZrTnRnWnhfLVR5a2hwNWEwdWsyb0EyUjlLRURQMnh1SWZDVEVoX3RnZU9qMkdnWk9BdHU1QWNweFpoWWZGcEhmb0dva1luVDFrWnNuVXlucVBwR0wtelBEa2Fzdw?oc=5"
           }
         ]
       },
@@ -269,10 +269,10 @@
       "slug": "bottle-brush-set",
       "name": "Bottle Brush Cleaning Set",
       "query": "bottle brush cleaning set",
-      "attentionScore": 31.8,
-      "attentionLabel": "low-signal",
+      "attentionScore": 35.4,
+      "attentionLabel": "research",
       "evidence": {
-        "publicMentions": 6,
+        "publicMentions": 8,
         "mentionsLast7Days": 0,
         "mentionsLast30Days": 0,
         "sourcesAvailable": [
@@ -287,10 +287,10 @@
             "url": "https://news.google.com/rss/articles/CBMieEFVX3lxTE8wVjR3S25uUmxHS180VmRZaHUzN3diM2EtZ29mYW1KTTJKX3BBSWlxOS1MZmtVSExfS1V5S2dCUFdjWDFnZW9FRjAyTTMtc0NKS1R3ZzFySGIzWVhkbll4NGhNV3lCMTg4VUN4YUh4elBKZUwwOUh2YQ?oc=5"
           },
           {
-            "title": "10 best bottle brushes to keep your water bottles squeaky clean - WTNH.com",
+            "title": "10 best bottle brushes to keep your water bottles squeaky clean - WCBD News 2",
             "source": "Google News",
             "publishedAt": "2023-03-09T08:00:00.000Z",
-            "url": "https://news.google.com/rss/articles/CBMi1gFBVV95cUxQelpvZzNjSEN2SmhEYUpQbVMwRGtCS0hyRUdEczd2YTZGOUN6SzZWbWt4dGZYS2tkM0tuR0RuVndfTVhfb2ZieERCbjhMLWx1VEJNZ3BueE90R2VyWkFDa0s1SHN3RXlsY3ZycWJTRFNBVVhEcklwTERIQzNLeUNQN05tcjR0bWlUdGpWMjVsY2xSTDFGcFBzMEtNTzVxd284Vi1ZRGt6a0FjSDZFVC1uNEtFQzM5MmNydVdodUQyY014Q0xPa2F1aFh1SU5kUVV1cmswajFB0gHbAUFVX3lxTE8zNndxRGlSLWV2Zm0tT1JDSDNJS3V4UHZrQXFNenltekdfMm4zaHo5emJFRGNrZW1QczhDM2NzZGtJNTZIUTd3QmVkZUpISHpXOEZwcnctNzdMbUZxMHpUenhGa001ZXZWOUVCWWhuTFBVamhoeklUdDR6SjNTWmt0Y3NRS0g5VEhPb2lqY3dvelhncjZ4c1dqbWU4V2dSejE4N0tuU01MVkRiWnBLSC1scEloTW9KMV9HcWNHb0hKNDctZXBWWUIwR2Z2N3p2ODRPa0tKLUZUTU1LRQ?oc=5"
+            "url": "https://news.google.com/rss/articles/CBMi2wFBVV95cUxNRUxWeVpmb1lET3lFTGY5WkRaOV9VTHF4TlVnOEVIQXlydXhBZEwtc1VTRU5MVk5zNEJ5T2sxTUE2a2RFSDVJTFRUQWFZWFN0VWoyMDlCQkltMWpPZXBpWWZjOG5sUEZaak01elRSMER1NDYtdVBhLXRVY2dmVFo2Y3ZNNjJOcGxLNVZzN0JYZ3FPZVdJZW9IRElUM1FiQkZQLTJoYzVfVlRKWi1sQmRtTWRhRnBDSnhkbmFDZ1hqaDZwVmhaaG0wakhWek15SUl4WWxjR04tRFhMaTDSAeABQVVfeXFMTUVRQ0N4LThaM3hZOEM1bENKZ0dZZWVPaW1tRlVKdG1zRmxlSHdOVnZabGdqWnlkUlFsVzRyc1pjM3h5Y1pPYW1nV1VkN3pSX2ZPeDVxUmEtTkRERmI3eHczSlIyX0lXdThLOVlnVk1vYlVxdENfT2gwYl9Fc3B1RGVLR2p3dTZQbFR3aHlmZHVHUmpUMWRSRlhhTnRZSmVKUEJzT3pIZGNfQk9PdHpHWW5xOWNhM2lfSHVnR0pMcjM3M0ZzQkdJaUpOZ2tpT2VHM2d4SjRaNFA2eHRRdGdPaWs?oc=5"
           },
           {
             "title": "Cool things with near-perfect Amazon reviews that are under-the-radar - mic.com",
@@ -318,6 +318,52 @@
       "rank": 6
     },
     {
+      "slug": "window-washer-squeegee",
+      "name": "3-in-1 Window Washer & Squeegee",
+      "query": "window washer squeegee",
+      "attentionScore": 30,
+      "attentionLabel": "low-signal",
+      "evidence": {
+        "publicMentions": 3,
+        "mentionsLast7Days": 0,
+        "mentionsLast30Days": 1,
+        "sourcesAvailable": [
+          "Google News",
+          "Bing News"
+        ],
+        "sampleSignals": [
+          {
+            "title": "This window cleaning set is our top pick – and it's on sale - Real Homes",
+            "source": "Google News",
+            "publishedAt": "2020-05-02T07:00:00.000Z",
+            "url": "https://news.google.com/rss/articles/CBMikAFBVV95cUxQVE1RZEw3ZXFWNHlYcmQ3bHNKU214UVBSZU9WTVlxUVk0TjNCUkNaYWNzRHpWS0lrZVNBTUcwYVpiU3lmeWdGNDlQSGloV21senpDMW9NUnlkdFdwTFdKVmZYUE1xVC1qY0REQkZKVGQxUVpXQTBFUThicXNVN1FQTTlXVjBaT04tREdiR0ZHSWw?oc=5"
+          },
+          {
+            "title": "From the archives | Trapped in Trade Center elevators on Sept. 11, they fought their way out - Yahoo",
+            "source": "Google News",
+            "publishedAt": "2021-09-05T07:00:00.000Z",
+            "url": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxQeVM2azB0Mk5nVzREM0pVNXNPdUJmRXkyTGZxQXliLXhqOWJBUVB3WTJSQ3ZrZi1nYVNVWUFoQ0J4eTRPNTY4MUYtamxNa0N5TFFBTnB6VDR2VVlyMW51M1NiT25xT0I0MHdlRjBnYmR1TGlDWFJXUXpTV3lLYWgyVV9SUlA1RTRk?oc=5"
+          },
+          {
+            "title": "Top 5 Best Commercial Window Cleaning 2026 - Pixelfy.me",
+            "source": "Google News",
+            "publishedAt": "2026-10-26T07:00:00.000Z",
+            "url": "https://news.google.com/rss/articles/CBMic0FVX3lxTE5VVW5NRWgxR2dpcFNXM0MxRE1vVVN3ZE9hTUJQcXJEb3ZkNEd1bExPcnVQT1FDVHpPQ21PUExrS2RES0FIbmtPd2NET2FMaV9mcG9WcUNYOU1FRXdTWlVUUzg1UmlGYlhJVWN3WUpYNVkyUm8?oc=5"
+          }
+        ]
+      },
+      "supplier": null,
+      "supplierReady": false,
+      "freightReady": false,
+      "promotionReady": false,
+      "mediaRightsReady": false,
+      "liveStripePricingReady": false,
+      "listed": false,
+      "discoveryEvidence": [],
+      "nextAction": "connect-cj",
+      "rank": 7
+    },
+    {
       "slug": "sheet-laundry-detangler",
       "name": "Bed Sheet Laundry Detangler",
       "query": "sheet laundry detangler",
@@ -335,7 +381,7 @@
           {
             "title": "These Clever Amazon Products Fix Annoying Home Problems In Minutes—Shop Our Favorite Finds From $8 - Southern Living",
             "source": "Google News",
-            "publishedAt": "2026-11-02T10:30:00.000Z",
+            "publishedAt": "2026-11-02T08:00:00.000Z",
             "url": "https://news.google.com/rss/articles/CBMihwFBVV95cUxPUVdwSkIzTnZKUHdURndhczdxcWxHN1JlR2lnOEZKYmdpdUs0NGw2WHlfTjNCUXNDVVh1OWJtTXdnWE9mQUlGSkhFOEo3MTdKcERqSm9tZVhZSmtDd0NDT19QU08yRzRpYVpXSm1ISGk2MU1fbVhtcWx3Y2dEZE9BLVhjak9CNmM?oc=5"
           },
           {
@@ -349,46 +395,6 @@
             "source": "Google News",
             "publishedAt": "2023-08-28T07:00:00.000Z",
             "url": "https://news.google.com/rss/articles/CBMiugFBVV95cUxOUzZTc29UdU9Vc0U3QmtXY2pJeWx4QlRtYnpqMVZmS1BQaC0tcGlKckFqa2FfVWxDelZUTUhwV2RPNV9YNmNiWXhKbXBmNzAtckFFQXJ5WGZXaHN2WDZVQTNvUVEzLVRDSm9KYmdmUXVReFZCcGo4U19kUHduMDQtbUlwTVpjTDh0Tkt4OXRfSmhZbko0YmgzLTk0WW40ekVad1hzNTBpRWZIcVA5VlFfUThvMURUZUd1akE?oc=5"
-          }
-        ]
-      },
-      "supplier": null,
-      "supplierReady": false,
-      "freightReady": false,
-      "promotionReady": false,
-      "mediaRightsReady": false,
-      "liveStripePricingReady": false,
-      "listed": false,
-      "discoveryEvidence": [],
-      "nextAction": "connect-cj",
-      "rank": 7
-    },
-    {
-      "slug": "window-washer-squeegee",
-      "name": "3-in-1 Window Washer & Squeegee",
-      "query": "window washer squeegee",
-      "attentionScore": 28.2,
-      "attentionLabel": "low-signal",
-      "evidence": {
-        "publicMentions": 2,
-        "mentionsLast7Days": 0,
-        "mentionsLast30Days": 1,
-        "sourcesAvailable": [
-          "Google News",
-          "Bing News"
-        ],
-        "sampleSignals": [
-          {
-            "title": "This window cleaning set is our top pick – and it's on sale - Real Homes",
-            "source": "Google News",
-            "publishedAt": "2020-05-02T07:00:00.000Z",
-            "url": "https://news.google.com/rss/articles/CBMikAFBVV95cUxQVE1RZEw3ZXFWNHlYcmQ3bHNKU214UVBSZU9WTVlxUVk0TjNCUkNaYWNzRHpWS0lrZVNBTUcwYVpiU3lmeWdGNDlQSGloV21senpDMW9NUnlkdFdwTFdKVmZYUE1xVC1qY0REQkZKVGQxUVpXQTBFUThicXNVN1FQTTlXVjBaT04tREdiR0ZHSWw?oc=5"
-          },
-          {
-            "title": "Top 5 Best Commercial Window Cleaning 2026 - Pixelfy.me",
-            "source": "Google News",
-            "publishedAt": "2026-10-26T07:00:00.000Z",
-            "url": "https://news.google.com/rss/articles/CBMic0FVX3lxTE5VVW5NRWgxR2dpcFNXM0MxRE1vVVN3ZE9hTUJQcXJEb3ZkNEd1bExPcnVQT1FDVHpPQ21PUExrS2RES0FIbmtPd2NET2FMaV9mcG9WcUNYOU1FRXdTWlVUUzg1UmlGYlhJVWN3WUpYNVkyUm8?oc=5"
           }
         ]
       },
