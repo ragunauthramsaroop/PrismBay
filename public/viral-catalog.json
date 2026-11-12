@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-11-11T19:53:16.932Z",
+  "updatedAt": "2026-11-12T07:45:34.447Z",
   "market": "US",
   "methodology": "Public-news attention, freshness, and short-form demonstration fit. This is not PrismBay sales data and is not a TikTok, Amazon, Google, or Bing product ranking.",
   "refreshTargetHours": 6,
@@ -39,16 +39,16 @@
           "url": "https://news.google.com/rss/articles/CBMijAFBVV95cUxPeHdhUGRKUmlMQy1qT2hYWXZISTJDcExWc1hFVkoxQXQ0cldiWUVGTFlnOWNNVDQxS0kwRjg0MTFZaUp3X3M4WDhFUjNJLVRYT201NjNKZlkxWmNIYVd3T1JfSGs3dDFTMXQyUGNEcmVFdUtmSHJwUTduM015VGNYNHl4MFd4TDlRSnJBbw?oc=5"
         },
         {
-          "title": "These electric spin scrubbers clean grout, tubs, and floors with ease - Business Insider",
-          "source": "Google News",
-          "publishedAt": "2026-04-22T07:00:00.000Z",
-          "url": "https://news.google.com/rss/articles/CBMie0FVX3lxTE40c3JDUmdvYnFzQW4wNUE0VUdoWVMzUk1MT1VGOTBMbDdIT0tBcU1IbzMwWmNwME5za1ozalNqUWdkVDNMV1d0WUx5YUpOSU9TRGhWR1VVTzktT3VBOXR0d0pQM0hpQVZpU2hRdFN4M3dXRlpiejRwSUlDMA?oc=5"
-        },
-        {
           "title": "I Have a Leg Injury, and This Extendable Spin Scrubber Has Been a Lifesaver in Keeping My Bathroom Spotless - Apartment Therapy",
           "source": "Google News",
           "publishedAt": "2026-09-11T07:00:00.000Z",
           "url": "https://news.google.com/rss/articles/CBMihgFBVV95cUxPOF92S3dDMlBWc1ptWEpxX0pxNWd5emtEbHdyMXg4NkxhUWxweGVsR1pGMXotcElFNGQtWldFRkNtUzdRWGE5aFdFNFl3NW5NYVdlbzhJVk9YMUpsLUF0Mkp4MGFfVlVXVll1Qmo5Yl9sRnhrdkJwMVpxRjlNc2NFc0E5NmhQZw?oc=5"
+        },
+        {
+          "title": "These electric spin scrubbers clean grout, tubs, and floors with ease - Business Insider",
+          "source": "Google News",
+          "publishedAt": "2026-04-22T07:00:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMie0FVX3lxTE40c3JDUmdvYnFzQW4wNUE0VUdoWVMzUk1MT1VGOTBMbDdIT0tBcU1IbzMwWmNwME5za1ozalNqUWdkVDNMV1d0WUx5YUpOSU9TRGhWR1VVTzktT3VBOXR0d0pQM0hpQVZpU2hRdFN4M3dXRlpiejRwSUlDMA?oc=5"
         }
       ],
       "rank": 1
@@ -59,7 +59,7 @@
       "signalScore": 78.5,
       "signalLabel": "high-attention",
       "evidence": {
-        "publicMentions": 30,
+        "publicMentions": 31,
         "mentionsLast7Days": 0,
         "mentionsLast30Days": 8,
         "sourcesAvailable": [
@@ -141,10 +141,10 @@
           "url": "https://news.google.com/rss/articles/CBMi9gFBVV95cUxOOTZqRGZuMWZJTVh2VUhXOHgzMUdhVUhjYTdxeXl6QWVqbkxCb2R2bU45Wl9ERHVFaklYajJWa0JSd2RtdDNpdksyR1IwVV9QeUUyTmcySXJvcnltUDcxazNHaF85ZzZTYnYwNy1yZ1ZjNlhIWGVBRzc2aUtKNDhBbk85UHFueGtRY2JVaXpTMzNxX3dOUl9OazRUVloyVkRscXhwQ2kxSmg4T01BVUZERGlLR3I0b0NhOFJYdVdMTE0xdVY1cjdWYi11MndYbFZZYUpPLVl0LTh2NlhDV3g4aWRYcDZydWtORU01eS1RVWhEZjNQU2c?oc=5"
         },
         {
-          "title": "Amazon’s mattress vacuum uses UV light and heat to deep clean beds - AL.com",
+          "title": "Turns out you do need a mattress vacuum — here’s why I love mine - NJ.com",
           "source": "Google News",
-          "publishedAt": "2026-07-31T07:00:00.000Z",
-          "url": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxNbzVTWEJoMDJjVjhXZDI0Y3pidGdOVVpsYmk2b2YwNnBWN21RbnJlMFEzOFFDb0luZUpsZHQ5TEJkR0NLY1I4TE5xbXJWcGVZbjN2UE41b085WmhBNnpKQmhRSGJ3Q3FjdlRjRTR3b2pNWm8taDM1Rjkza0ZqdDlfXzZaWV9TN1dEVDNNZXZqak9oY1FoSUVxaGVXTDJHRTIwYlRiTDBrS1Q5UdIBvgFBVV95cUxQSmFCYUJJckRseEt2Ql8xalZQUHV0VVg0cldzQ0MybUUzMDlES25DWGZ3cjR2cFlPUnBDdi1VMlVyQnRRaEhfeFlfYl9LZW5qX1BEczFxZE1aYV9LZl9yTFF0N2d6ZEpLRG9DODlKdDU4NGtlUUxUc0hmQmhpWnZBeUtoU2k3OFJGOURxcE1nNENjZm43RGJjeWZ6NFN0N0NCaTR0N0VKMkVOSjlFOWJnNnA1dEh1SHIwa3lCdVFn?oc=5"
+          "publishedAt": "2026-08-16T07:00:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMirAFBVV95cUxORUVHTHVGWkZtVUhlMG1CSUpQUjRzM0dwTWhNem9pM3ppNkRiZjFxZzRCNkVIc0dhd3RUVU4zTU91am9UQVVYcFZsU2k5a1d1WVFFWHBFTHBpUWJaQzc5bEpxR1hUb1AyZW4wVTRRaE94OW1BYU90cUNWZkcwVzlSWW96VzdzYkZuajBkN2JqSjJzNjBkeEtjTUx6QWtmemRvRUhVT21OWmplTkhh0gHAAUFVX3lxTE95S1VXaDg0OFdlMm85aXdBSjN0aHJUTElRWEhEdlhpaWRCMDlnXzVia2p5NFpJZTEwcUZvVGhnNGJzMDR4N0NWamlXS28yMzRiME15aHdsV3RYMWZucGpRTkFVUEZYakZLeEJJR2w4b0Y1NlNOU1ZURVVsTDRyOVN1SHZyRk5COUJNbnFLbExVMEhrNkszREZJcnp3dnVDck5oZXZYMllyRlN5S3NwMmFNU0FkZ0s1YkJ2TE1EZFpYSw?oc=5"
         }
       ],
       "rank": 3
@@ -155,7 +155,7 @@
       "signalScore": 74,
       "signalLabel": "high-attention",
       "evidence": {
-        "publicMentions": 54,
+        "publicMentions": 53,
         "mentionsLast7Days": 0,
         "mentionsLast30Days": 3,
         "sourcesAvailable": [
@@ -189,61 +189,13 @@
           "url": "https://news.google.com/rss/articles/CBMickFVX3lxTE12V2hOQ2d1Z0xiSU0ySWNYbmpaS0ZaOC1oc3QzazB3WU5oRHcxV1B1RjNhdHFmckxHc0pEdlRFUGQtN2dkUWtoTHZiQWVWSi02ZV9xTElkQ0xTNWw1MjFnakpCT0pkUTliaWh1aGVWN0RUdw?oc=5"
         },
         {
-          "title": "Walmart Sells a Cordless Pressure Washer for 54% Off, and It's 'Ideal for Car and Yard Cleaning' - Autoblog",
+          "title": "Bought a cordless pressure washer from Blinkit: Good investment overall - Team-BHP",
           "source": "Google News",
-          "publishedAt": "2026-10-29T07:00:00.000Z",
-          "url": "https://news.google.com/rss/articles/CBMijAFBVV95cUxPcjlUdG9TRDNuSkFhREtDcFVIdXJrZUt4UThXVEZGMkFNWUNoVzRqQld1RzZWelFXSk1HTjZ3X0Nqd05vV3Vua0g0NTRQY3dIYVNpZkszLThOUlZxdVVXT0JrZUxrWk5rclJHdmVpLUZHRFZEbnZQenJHTTNUV2M5Y1lqcktMaWI1MDM0NQ?oc=5"
+          "publishedAt": "2026-06-08T07:00:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMimAFBVV95cUxNbzBEcUtteUtoajdvVFFCSnduZllqWlhURUIzR3hoMFMwMWJmZTJveUNuZ0RIbG52VzJzQmhnVlQyVU5xazFhWjI2Vzdxc2ZsNHoyRUd6NXRiWHZPcmhLMjFMZTdfLUtzaGx5eTZlamJjUzgxTDRNcVlIZXBKQ2Q0aGNlaURVeEdScE1MYUQ0aVB2Sk1CZ01iZ9IBngFBVV95cUxPU0RxNW5zeUw0ZlBvM3NoX215SFFWWElmQzRuREJUUUxfWjBma09HSjBOVGVqRC02d2NKN1BxZFdCZ2QwM19vVHZxTHdmdk92bDZUOUZNVUUwYjJreEI3dTF6aWJ5a1ZjU0VTSkU1d29Lc2hKVFNiUmo3SEtHeXRHc2dFamo1THMwbGhyRmxCbmlLdmNITFJBWWs3MmltQQ?oc=5"
         }
       ],
       "rank": 4
-    },
-    {
-      "slug": "crevice",
-      "name": "3-in-1 Crevice Cleaning Brush",
-      "signalScore": 43.5,
-      "signalLabel": "watch",
-      "evidence": {
-        "publicMentions": 10,
-        "mentionsLast7Days": 1,
-        "mentionsLast30Days": 2,
-        "sourcesAvailable": [
-          "Google News",
-          "Bing News"
-        ]
-      },
-      "sampleSignals": [
-        {
-          "title": "This $10 Best-Selling Cleaning Tool Removes “Years’ Worth” of Lint From Dryer Vents—and It Can Prevent House Fires - Real Simple",
-          "source": "Google News",
-          "publishedAt": "2026-11-04T21:30:00.000Z",
-          "url": "https://news.google.com/rss/articles/CBMioAFBVV95cUxQZFYyT0RjQkJ0NHRDc2ducE9QOW1EZ2s4X0RBQUxTcXlWV3l4aFVQMlozUVpjVkl4aV8tcmUzdFF2SV85RlJIblhibVNGeW9tTGZhQWVfTDJZLUxlcGdOQUlkR1E0U242Wm1GVGdzZDg4TEZpWHJxWGJhSnRwemt5UkcwRkhtdXdDQWpuSkF2dHlQTGdsT2JjLURNSkNPN2ZB?oc=5"
-        },
-        {
-          "title": "This $10 Brush Makes Cleaning Gross Corners So Much Easier, According To Reviews - HuffPost",
-          "source": "Google News",
-          "publishedAt": "2026-03-10T07:00:00.000Z",
-          "url": "https://news.google.com/rss/articles/CBMijAFBVV95cUxPWEZBUTZUMG15RkRMZC04Q3pFbkdONV9idXZmeU85Mzl3bUoyTHVkNTU1ZHNDOHNsQm5fZHJFdGZpUnpfWjVuZ0ROLW9aUUYyWGxVXzY5MnBmdGRZcEgyR1pSaXpFaDV6cG5fVXRDcWpVeWRsMlU3NFdmRjZmOHBKTDNxU1R3QkdsUFNDT9IBkgFBVV95cUxOMklBSTJwdEMtMjVMYnhWdWliWEFDbTlGaHRtcUFUcmRpRTRiWU1xUnJ3OWthdXJNRXI1RDFJNmo4MEVLYmQ1cC1DMFBxWjlJaElZZm1QWVBVQklPU3pqemVEaWZXMHVTdldUM0VRQXY5MzNsd1lMSUlVdTcyUjNRTVlQcXlwRzREQmJtRmRWY09vQQ?oc=5"
-        },
-        {
-          "title": "10 Best Tools For Deep Cleaning Your Kitchen - Tasting Table",
-          "source": "Google News",
-          "publishedAt": "2026-04-10T07:00:00.000Z",
-          "url": "https://news.google.com/rss/articles/CBMidkFVX3lxTE92V3lnSDcyVlhvSUJINnN4VU85em51bjBTNFRKU0ltYzNrd3c5YVNMVE1jTmUzMC1tYnM4S1VUQzAtTmVNa2Jha0tNNFFvMlU1ZnkzSHpZVms4MUFiQmF6b2YxRnYydlVob3RoakhnM2t5cW9zRVE?oc=5"
-        },
-        {
-          "title": "Amazon Shoppers Bought This $10 Cleaning Tool More Than 2,000 Times Last Month (You'll Use It in Every Room!) - Apartment Therapy",
-          "source": "Google News",
-          "publishedAt": "2024-06-04T07:00:00.000Z",
-          "url": "https://news.google.com/rss/articles/CBMigwFBVV95cUxNaEppZ1kxQmNqdm1LbTVfVTdmMmlkTU0zekl1c1BSdVBmSTZUMi1YUTdfRWlxUlR6ZGlRZEZ1Sk9Uc0JvLTJyUDRHc1hNRnNmRllKTjRvbmxyNlUzcmx4SzlzOWdVRXBQbWxyZ25VX2VlbDJrdmMxU3Z0b0hyXzN5SVpXOA?oc=5"
-        },
-        {
-          "title": "'Mighty little brush': This handy Amazon tool makes cleaning tight spaces a 'breeze' — and its under $20 - Yahoo Lifestyle Canada",
-          "source": "Google News",
-          "publishedAt": "2025-02-02T08:00:00.000Z",
-          "url": "https://news.google.com/rss/articles/CBMi1gFBVV95cUxNcEhyRlB4aXZhWUFQLV81OUpVOG9sU2g0eFl5eWhpd216a3UwWE5xekRIeFlqbGJjX3VBMi1UbHhITFlUQVlEM1BWYjBsSW85NWFFZEpFUjRteS16ejRpUVJpclZJZ1dHbTA4UThYX2tOY3prWE81QWktVmtTNTdMc0Z2UnNUcWRtaXU0RGpLMHc2ZGwyNkU2UmZMT3g4cFZJbGI2ZXFCdjk2MnlEaGpRQ200WGhSV0xobENKRFktZ0xuSF9ndUFLZ0ZrUFJsYWpvZ01VMVNB?oc=5"
-        }
-      ],
-      "rank": 5
     },
     {
       "slug": "pethair",
@@ -289,6 +241,54 @@
           "source": "Google News",
           "publishedAt": "2026-07-04T07:00:00.000Z",
           "url": "https://news.google.com/rss/articles/CBMic0FVX3lxTE4tU0E2SE93Q0pXbFBKY3RfaHNhWEhsVVBpOUVhVXV2SmNHSUkyeUtUNWdwNlYtWEVhcFlhdVJaZ2htTjRrZ21sY0txZmJEa3JMaml6ZnFrSWlVdFhwRGVzaFJnOF9VODllWDhQUEg1dmNYRlE?oc=5"
+        }
+      ],
+      "rank": 5
+    },
+    {
+      "slug": "crevice",
+      "name": "3-in-1 Crevice Cleaning Brush",
+      "signalScore": 40.5,
+      "signalLabel": "watch",
+      "evidence": {
+        "publicMentions": 10,
+        "mentionsLast7Days": 0,
+        "mentionsLast30Days": 2,
+        "sourcesAvailable": [
+          "Google News",
+          "Bing News"
+        ]
+      },
+      "sampleSignals": [
+        {
+          "title": "This $10 Best-Selling Cleaning Tool Removes “Years’ Worth” of Lint From Dryer Vents—and It Can Prevent House Fires - Real Simple",
+          "source": "Google News",
+          "publishedAt": "2026-11-04T21:30:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMioAFBVV95cUxQZFYyT0RjQkJ0NHRDc2ducE9QOW1EZ2s4X0RBQUxTcXlWV3l4aFVQMlozUVpjVkl4aV8tcmUzdFF2SV85RlJIblhibVNGeW9tTGZhQWVfTDJZLUxlcGdOQUlkR1E0U242Wm1GVGdzZDg4TEZpWHJxWGJhSnRwemt5UkcwRkhtdXdDQWpuSkF2dHlQTGdsT2JjLURNSkNPN2ZB?oc=5"
+        },
+        {
+          "title": "This $10 Brush Makes Cleaning Gross Corners So Much Easier, According To Reviews - HuffPost",
+          "source": "Google News",
+          "publishedAt": "2026-03-10T07:00:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMijAFBVV95cUxPWEZBUTZUMG15RkRMZC04Q3pFbkdONV9idXZmeU85Mzl3bUoyTHVkNTU1ZHNDOHNsQm5fZHJFdGZpUnpfWjVuZ0ROLW9aUUYyWGxVXzY5MnBmdGRZcEgyR1pSaXpFaDV6cG5fVXRDcWpVeWRsMlU3NFdmRjZmOHBKTDNxU1R3QkdsUFNDT9IBkgFBVV95cUxOMklBSTJwdEMtMjVMYnhWdWliWEFDbTlGaHRtcUFUcmRpRTRiWU1xUnJ3OWthdXJNRXI1RDFJNmo4MEVLYmQ1cC1DMFBxWjlJaElZZm1QWVBVQklPU3pqemVEaWZXMHVTdldUM0VRQXY5MzNsd1lMSUlVdTcyUjNRTVlQcXlwRzREQmJtRmRWY09vQQ?oc=5"
+        },
+        {
+          "title": "10 Best Tools For Deep Cleaning Your Kitchen - Tasting Table",
+          "source": "Google News",
+          "publishedAt": "2026-04-10T07:00:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMidkFVX3lxTE92V3lnSDcyVlhvSUJINnN4VU85em51bjBTNFRKU0ltYzNrd3c5YVNMVE1jTmUzMC1tYnM4S1VUQzAtTmVNa2Jha0tNNFFvMlU1ZnkzSHpZVms4MUFiQmF6b2YxRnYydlVob3RoakhnM2t5cW9zRVE?oc=5"
+        },
+        {
+          "title": "Amazon Shoppers Bought This $10 Cleaning Tool More Than 2,000 Times Last Month (You'll Use It in Every Room!) - Apartment Therapy",
+          "source": "Google News",
+          "publishedAt": "2024-06-04T07:00:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMigwFBVV95cUxNaEppZ1kxQmNqdm1LbTVfVTdmMmlkTU0zekl1c1BSdVBmSTZUMi1YUTdfRWlxUlR6ZGlRZEZ1Sk9Uc0JvLTJyUDRHc1hNRnNmRllKTjRvbmxyNlUzcmx4SzlzOWdVRXBQbWxyZ25VX2VlbDJrdmMxU3Z0b0hyXzN5SVpXOA?oc=5"
+        },
+        {
+          "title": "'Mighty little brush': This handy Amazon tool makes cleaning tight spaces a 'breeze' — and its under $20 - Yahoo Lifestyle Canada",
+          "source": "Google News",
+          "publishedAt": "2025-02-02T08:00:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMi1gFBVV95cUxNcEhyRlB4aXZhWUFQLV81OUpVOG9sU2g0eFl5eWhpd216a3UwWE5xekRIeFlqbGJjX3VBMi1UbHhITFlUQVlEM1BWYjBsSW85NWFFZEpFUjRteS16ejRpUVJpclZJZ1dHbTA4UThYX2tOY3prWE81QWktVmtTNTdMc0Z2UnNUcWRtaXU0RGpLMHc2ZGwyNkU2UmZMT3g4cFZJbGI2ZXFCdjk2MnlEaGpRQ200WGhSV0xobENKRFktZ0xuSF9ndUFLZ0ZrUFJsYWpvZ01VMVNB?oc=5"
         }
       ],
       "rank": 6
