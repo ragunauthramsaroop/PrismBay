@@ -1,14 +1,14 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-11-11T22:44:47.978Z",
+  "generatedAt": "2026-11-12T07:16:56.625Z",
   "researchCandidates": 12,
   "publishedResearchSignals": 12,
   "verifiedCJStatus": {
-    "checkedAt": "2026-11-11T22:44:46.380Z",
+    "checkedAt": "2026-11-12T07:16:54.917Z",
     "validSupplierMatches": 2,
-    "variantStock": 1,
-    "freightEstimates": 1,
-    "countryFreightEstimates": 1,
+    "variantStock": 0,
+    "freightEstimates": 0,
+    "countryFreightEstimates": 0,
     "illustrativeZipFreightEstimates": 0,
     "falseMatches": 0
   },
@@ -27,6 +27,27 @@
       "executionMode": "scheduled_cj_and_manual_review",
       "candidateCount": 9,
       "blockers": [
+        {
+          "slug": "pressure-washer",
+          "status": "supplier_search_needed",
+          "sku": null,
+          "shippingDiagnostic": null,
+          "zeroPricedMethods": 0
+        },
+        {
+          "slug": "mattress-vacuum",
+          "status": "supplier_search_needed",
+          "sku": null,
+          "shippingDiagnostic": null,
+          "zeroPricedMethods": 0
+        },
+        {
+          "slug": "garment-steamer",
+          "status": "variant_stock_required",
+          "sku": "CJQX1124259",
+          "shippingDiagnostic": "variant_stock_unverified",
+          "zeroPricedMethods": 0
+        },
         {
           "slug": "travel-packing-cubes",
           "status": "supplier_search_needed",
@@ -67,27 +88,6 @@
           "status": "fresh_commercial_evidence_required",
           "sku": "CJSJ2077898",
           "shippingDiagnostic": "variant_stock_unverified",
-          "zeroPricedMethods": 0
-        },
-        {
-          "slug": "pressure-washer",
-          "status": "supplier_search_needed",
-          "sku": null,
-          "shippingDiagnostic": null,
-          "zeroPricedMethods": 0
-        },
-        {
-          "slug": "mattress-vacuum",
-          "status": "supplier_search_needed",
-          "sku": null,
-          "shippingDiagnostic": null,
-          "zeroPricedMethods": 0
-        },
-        {
-          "slug": "garment-steamer",
-          "status": "fresh_commercial_evidence_required",
-          "sku": "CJYD245844002BY",
-          "shippingDiagnostic": "priced_estimate_available",
           "zeroPricedMethods": 0
         }
       ]
