@@ -1,14 +1,14 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-11-13T07:23:03.826Z",
+  "generatedAt": "2026-11-13T12:17:02.330Z",
   "researchCandidates": 12,
   "publishedResearchSignals": 12,
   "verifiedCJStatus": {
-    "checkedAt": "2026-11-13T01:08:20.018Z",
-    "validSupplierMatches": 4,
-    "variantStock": 0,
-    "freightEstimates": 0,
-    "countryFreightEstimates": 0,
+    "checkedAt": "2026-11-13T12:17:00.370Z",
+    "validSupplierMatches": 6,
+    "variantStock": 1,
+    "freightEstimates": 1,
+    "countryFreightEstimates": 1,
     "illustrativeZipFreightEstimates": 0,
     "falseMatches": 0
   },
@@ -28,6 +28,27 @@
       "candidateCount": 12,
       "blockers": [
         {
+          "slug": "cordless-handheld-vacuum",
+          "status": "variant_stock_required",
+          "sku": "CJYD3150294",
+          "shippingDiagnostic": "variant_stock_unverified",
+          "zeroPricedMethods": 0
+        },
+        {
+          "slug": "insulated-tumbler",
+          "status": "supplier_search_needed",
+          "sku": null,
+          "shippingDiagnostic": null,
+          "zeroPricedMethods": 0
+        },
+        {
+          "slug": "screen-protector",
+          "status": "final_zip_freight_required",
+          "sku": "CJPB237729905EV",
+          "shippingDiagnostic": "priced_estimate_available",
+          "zeroPricedMethods": 0
+        },
+        {
           "slug": "scrubber",
           "status": "supplier_search_needed",
           "sku": null,
@@ -36,7 +57,7 @@
         },
         {
           "slug": "pethair",
-          "status": "variant_stock_required",
+          "status": "fresh_commercial_evidence_required",
           "sku": "CJYD2079690",
           "shippingDiagnostic": "variant_stock_unverified",
           "zeroPricedMethods": 0
@@ -88,27 +109,6 @@
           "status": "fresh_commercial_evidence_required",
           "sku": "CJQX1124259",
           "shippingDiagnostic": "variant_stock_unverified",
-          "zeroPricedMethods": 0
-        },
-        {
-          "slug": "travel-packing-cubes",
-          "status": "supplier_search_needed",
-          "sku": null,
-          "shippingDiagnostic": null,
-          "zeroPricedMethods": 0
-        },
-        {
-          "slug": "roll-up-dish-rack",
-          "status": "supplier_search_needed",
-          "sku": null,
-          "shippingDiagnostic": null,
-          "zeroPricedMethods": 0
-        },
-        {
-          "slug": "hanging-closet-organizer",
-          "status": "supplier_search_needed",
-          "sku": null,
-          "shippingDiagnostic": null,
           "zeroPricedMethods": 0
         }
       ]
