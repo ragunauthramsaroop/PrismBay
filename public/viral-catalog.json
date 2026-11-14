@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-11-13T20:04:55.526Z",
+  "updatedAt": "2026-11-14T07:03:51.192Z",
   "market": "US",
   "methodology": "Public-news attention, freshness, and short-form demonstration fit. This is not PrismBay sales data and is not a TikTok, Amazon, Google, or Bing product ranking.",
   "refreshTargetHours": 6,
@@ -11,7 +11,7 @@
       "signalScore": 83.5,
       "signalLabel": "high-attention",
       "evidence": {
-        "publicMentions": 62,
+        "publicMentions": 65,
         "mentionsLast7Days": 2,
         "mentionsLast30Days": 5,
         "sourcesAvailable": [
@@ -39,16 +39,16 @@
           "url": "https://news.google.com/rss/articles/CBMijAFBVV95cUxPeHdhUGRKUmlMQy1qT2hYWXZISTJDcExWc1hFVkoxQXQ0cldiWUVGTFlnOWNNVDQxS0kwRjg0MTFZaUp3X3M4WDhFUjNJLVRYT201NjNKZlkxWmNIYVd3T1JfSGs3dDFTMXQyUGNEcmVFdUtmSHJwUTduM015VGNYNHl4MFd4TDlRSnJBbw?oc=5"
         },
         {
-          "title": "These electric spin scrubbers clean grout, tubs, and floors with ease - Business Insider",
-          "source": "Google News",
-          "publishedAt": "2026-04-22T07:00:00.000Z",
-          "url": "https://news.google.com/rss/articles/CBMie0FVX3lxTE40c3JDUmdvYnFzQW4wNUE0VUdoWVMzUk1MT1VGOTBMbDdIT0tBcU1IbzMwWmNwME5za1ozalNqUWdkVDNMV1d0WUx5YUpOSU9TRGhWR1VVTzktT3VBOXR0d0pQM0hpQVZpU2hRdFN4M3dXRlpiejRwSUlDMA?oc=5"
-        },
-        {
           "title": "I Have a Leg Injury, and This Extendable Spin Scrubber Has Been a Lifesaver in Keeping My Bathroom Spotless - Apartment Therapy",
           "source": "Google News",
           "publishedAt": "2026-09-11T07:00:00.000Z",
           "url": "https://news.google.com/rss/articles/CBMihgFBVV95cUxPOF92S3dDMlBWc1ptWEpxX0pxNWd5emtEbHdyMXg4NkxhUWxweGVsR1pGMXotcElFNGQtWldFRkNtUzdRWGE5aFdFNFl3NW5NYVdlbzhJVk9YMUpsLUF0Mkp4MGFfVlVXVll1Qmo5Yl9sRnhrdkJwMVpxRjlNc2NFc0E5NmhQZw?oc=5"
+        },
+        {
+          "title": "These electric spin scrubbers clean grout, tubs, and floors with ease - Business Insider",
+          "source": "Google News",
+          "publishedAt": "2026-04-22T07:00:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMie0FVX3lxTE40c3JDUmdvYnFzQW4wNUE0VUdoWVMzUk1MT1VGOTBMbDdIT0tBcU1IbzMwWmNwME5za1ozalNqUWdkVDNMV1d0WUx5YUpOSU9TRGhWR1VVTzktT3VBOXR0d0pQM0hpQVZpU2hRdFN4M3dXRlpiejRwSUlDMA?oc=5"
         }
       ],
       "rank": 1
@@ -56,12 +56,12 @@
     {
       "slug": "garment-steamer",
       "name": "Portable Garment Steamer",
-      "signalScore": 78.5,
+      "signalScore": 75.5,
       "signalLabel": "high-attention",
       "evidence": {
         "publicMentions": 30,
         "mentionsLast7Days": 1,
-        "mentionsLast30Days": 6,
+        "mentionsLast30Days": 4,
         "sourcesAvailable": [
           "Google News",
           "Bing News"
@@ -104,12 +104,12 @@
     {
       "slug": "mattress-vacuum",
       "name": "Mattress Vacuum",
-      "signalScore": 76,
+      "signalScore": 73,
       "signalLabel": "high-attention",
       "evidence": {
-        "publicMentions": 58,
+        "publicMentions": 50,
         "mentionsLast7Days": 0,
-        "mentionsLast30Days": 5,
+        "mentionsLast30Days": 3,
         "sourcesAvailable": [
           "Google News",
           "Bing News"
@@ -152,12 +152,12 @@
     {
       "slug": "pressure-washer",
       "name": "Cordless Pressure Washer",
-      "signalScore": 74,
+      "signalScore": 72.5,
       "signalLabel": "high-attention",
       "evidence": {
         "publicMentions": 54,
         "mentionsLast7Days": 0,
-        "mentionsLast30Days": 3,
+        "mentionsLast30Days": 2,
         "sourcesAvailable": [
           "Google News",
           "Bing News"
