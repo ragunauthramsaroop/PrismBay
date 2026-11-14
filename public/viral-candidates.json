@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-11-13T11:37:55.180Z",
+  "updatedAt": "2026-11-14T10:59:00.211Z",
   "market": "US",
   "supplierIntegration": "awaiting-cj-auth",
   "methodology": "Public attention and recency identify candidates. Supplier promotion requires verified US inventory and product-level checks. Freight and checkout creation occur only after supplier validation.",
@@ -21,16 +21,16 @@
         ],
         "sampleSignals": [
           {
-            "title": "Amazon is selling a 'game changer' $570 vacuum for $140, plus 20 more early Black Friday deals from Dyson, Shark, Miele & more - Yahoo Lifestyle Canada",
-            "source": "Google News",
-            "publishedAt": "2026-11-12T17:30:04.000Z",
-            "url": "https://news.google.com/rss/articles/CBMi8gFBVV95cUxPalJEdFVxQm91cWFfU21jOUQ3MTd0aDdJUHYxQm8yZFVwLW50UEQ4WjJIN3pkcjI0RHp1dFlWYkFxVEZZaFhGdjNfd0NiMTZYQ0hxc3ppUTQ0M1RlS01wbE4weDMxMGJEc0EtYlprcTI2aHRnUHBVT3ktaUNlNWgyaFhzWXR4a2FmZ1Yxa2tQYjhvOFFWYjJSNVF4WVU0N19pNjJ2VG5sWlBHckRCSnE0d2k3QmoxMzB0RDAwNTBRSUV2akNqNDg3ckFYX3F3cVNPVEhuaDA4R0poZm9oMXFQTk1LVHFPZzVlemdCejk3cHZLZw?oc=5"
-          },
-          {
             "title": "Tired of Hauling Out Your Heavy Vacuum? This Handheld Model That’s ‘Surprisingly Powerful’ Is on Sale for $23 - People.com",
             "source": "Google News",
             "publishedAt": "2026-11-11T19:33:00.000Z",
             "url": "https://news.google.com/rss/articles/CBMikAFBVV95cUxQWERvYXZ6WVlFU0xQaHEzUmRnVVFrTWJEbVMyTk9fNm5NWEFsV2pHUEhrZ1gtV095cnh5ZDhQQWFmNFNwWURXbjFkSjlRUURDY0Z6NGtBZHZXa3hXS1lBQ1RYdTRCWHIzQXZQSXpfMDZaSmhsajd0ZmxrT0VxUndXdHJKVXJZZm4xUFZMZVctdnE?oc=5"
+          },
+          {
+            "title": "Amazon is selling a 'game changer' $570 vacuum for $140, plus 20 more early Black Friday deals from Dyson, Shark, Miele & more - Yahoo Lifestyle Canada",
+            "source": "Google News",
+            "publishedAt": "2026-11-12T17:30:04.000Z",
+            "url": "https://news.google.com/rss/articles/CBMi8gFBVV95cUxPalJEdFVxQm91cWFfU21jOUQ3MTd0aDdJUHYxQm8yZFVwLW50UEQ4WjJIN3pkcjI0RHp1dFlWYkFxVEZZaFhGdjNfd0NiMTZYQ0hxc3ppUTQ0M1RlS01wbE4weDMxMGJEc0EtYlprcTI2aHRnUHBVT3ktaUNlNWgyaFhzWXR4a2FmZ1Yxa2tQYjhvOFFWYjJSNVF4WVU0N19pNjJ2VG5sWlBHckRCSnE0d2k3QmoxMzB0RDAwNTBRSUV2akNqNDg3ckFYX3F3cVNPVEhuaDA4R0poZm9oMXFQTk1LVHFPZzVlemdCejk3cHZLZw?oc=5"
           },
           {
             "title": "We Tested 53 Handheld Vacuums—These Are the 11 Best Ones for Every Mess - Real Simple",
@@ -73,12 +73,6 @@
         ],
         "sampleSignals": [
           {
-            "title": "Say Goodbye to Scummy Sink Puddles — This Clever $8 Hack Makes Them ‘a Thing of the Past’ - Food & Wine",
-            "source": "Google News",
-            "publishedAt": "2026-11-10T11:15:00.000Z",
-            "url": "https://news.google.com/rss/articles/CBMihgFBVV95cUxQdnJBZk94Z3FqQmxFWU9HdGo4d2dkWlRkUFUtVF94WTRIYXFaQXZ2STFhVThtTUtWbzR3M1EzNnhYTXBFbTltS3UxOUpXOU5pRHpqQUE5RmV0al9lT3UwUF8zSXA3RElva3VrS211VU11TmJtV3JiSnh1V3VGc20tOTJLbk1KZw?oc=5"
-          },
-          {
             "title": "I Put a Dish Rack in My Tiny Bathroom, and It Changed Everything - Apartment Therapy",
             "source": "Google News",
             "publishedAt": "2026-10-10T07:00:00.000Z",
@@ -89,6 +83,12 @@
             "source": "Google News",
             "publishedAt": "2026-10-10T07:00:00.000Z",
             "url": "https://news.google.com/rss/articles/CBMieEFVX3lxTE5PSDNxWDhTYlRZSUN2X0ctNlNPeGgzenE1MUdvaGRUWGt0SjNZc19BWnd4MEs3OXR0ZFBTaFlkRG1MbVJZdDN3a3RwYkZMLVBIcU9RM1ZiMmQ4ODRQbGFxYmdyMkxmdS0xa0JLbU8xWkJMaXRscHVCcA?oc=5"
+          },
+          {
+            "title": "We Tested 39 Dish Racks and Finally Found the Answer to Icky Sink Puddles - Food & Wine",
+            "source": "Google News",
+            "publishedAt": "2026-10-23T07:00:00.000Z",
+            "url": "https://news.google.com/rss/articles/CBMiYEFVX3lxTE5TUGNuSC1rX1FtUnpfZkRteUstbTBIalRVdzA3Q2JTX3FKSDNMcVJLUmVfU0Z3Mk1tSFhmbGpxZzMyRnRvYlNCLTRZS0FyNEJvWkdTUktsQU5MMGxKbVViOQ?oc=5"
           },
           {
             "title": "The 11 Very Best Dish Racks - New York Magazine",
@@ -113,11 +113,11 @@
       "slug": "hanging-closet-organizer",
       "name": "Hanging Closet Organizer",
       "query": "hanging closet organizer",
-      "attentionScore": 67.5,
-      "attentionLabel": "promotion-watch",
+      "attentionScore": 71.3,
+      "attentionLabel": "high-attention",
       "evidence": {
         "publicMentions": 30,
-        "mentionsLast7Days": 0,
+        "mentionsLast7Days": 1,
         "mentionsLast30Days": 2,
         "sourcesAvailable": [
           "Google News",
@@ -125,10 +125,10 @@
         ],
         "sampleSignals": [
           {
-            "title": "There’s No Such Thing as ‘Too Many Purses’ — You Just Need This $10 Hanging Closet Organizer to Corral Them - People.com",
+            "title": "I’m Overhauling My Storage with This Hack That Keeps Shoppers’ Closets ‘Neat and Organized’ for $7 Apiece - People.com",
             "source": "Google News",
-            "publishedAt": "2026-10-19T07:00:00.000Z",
-            "url": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxOYjBORVJFdTNwbm10ZjVwcGRlT05YaUhOS0lLdW9QQ2RfNmVRSWlzRldURGdMZ0pOM3lPVUdzOVFHS3MtY3ZYdndnVG5WclFnOG43NkpsdURISTNuTVJobjRGYVpkM0lpTGIwbEtEZ1FhbUpWUEt4SDhJdjEwVU5lMXhBWmdnam1T?oc=5"
+            "publishedAt": "2026-11-13T12:15:00.000Z",
+            "url": "https://news.google.com/rss/articles/CBMiekFVX3lxTE9uelFOQnplWGhuT1RVTzB2QXZkTFZ6ekh5bF9Ma0RZMVZSQjRGOWZzazhSOVExblg5SnhWM2RWWkhrbmMxeE9mLTFyQXZFTVZSYWwyUTBYZDNSY1VQVHUzWlZrZi1ySDFSTVpHMnRvV19MdVJZNklRa0Fn?oc=5"
           },
           {
             "title": "I Doubled My Closet Storage with This $25 Hanging Organizer - Apartment Therapy",
@@ -165,10 +165,10 @@
       "slug": "dryer-vent-cleaner-kit",
       "name": "Dryer Vent Cleaner Kit",
       "query": "dryer vent cleaner kit",
-      "attentionScore": 54.3,
-      "attentionLabel": "research",
+      "attentionScore": 56.1,
+      "attentionLabel": "promotion-watch",
       "evidence": {
-        "publicMentions": 14,
+        "publicMentions": 15,
         "mentionsLast7Days": 1,
         "mentionsLast30Days": 1,
         "sourcesAvailable": [
@@ -189,16 +189,16 @@
             "url": "https://news.google.com/rss/articles/CBMicEFVX3lxTE1YY1R3S1Vab08tdnA5S2FGUWV6TVVqTDhKQnpGQzVKdlhpZ19WVTM1WnVYRkZKV1VqWFBWcXVVbFJ0OFpVRW5DVVMzNGVWRWhMVEpyUEd1NzFnNVlHb3dGMTVzZVQtNU5tUlVtSm4tNVo?oc=5"
           },
           {
-            "title": "Dryer fires are a major household hazard. This 'must-have' vent cleaner helps prevent them — it's under $20 - Yahoo Lifestyle Canada",
-            "source": "Google News",
-            "publishedAt": "2026-08-11T07:00:00.000Z",
-            "url": "https://news.google.com/rss/articles/CBMi2wFBVV95cUxPNHlsSk1uanVvSjRscmNoSkxIZVVMZjlsMmFDaXc3VEpUUzBjd1d2UGlwRnRuSE9XNXhvVXhQUW9tOXdEU1BjUFFFU0Jrc19mTFZzbTcxLTV5bzFIaUx5RU1YMGZEZFVQTUlyUWR4U1NWVWZsNUZQbk9UWjhMaktnb19LNFJ5bVcyMWM2b3F5S3FnLWROQ1IwTzhHZUgydUhwb2hPRlpFQUo5ZjFTMVVLTzFsYmluWGNvNkZRSHB1bThZX0NzX0JVMnNfNWJRVUY5Y2ZCLUV0bGJqTW8?oc=5"
-          },
-          {
             "title": "Sealegend Dryer Vent Cleaning Vacuum Hose Review: My Dryer Is So Much Cleaner Now - Dengarden",
             "source": "Google News",
             "publishedAt": "2026-01-27T08:00:00.000Z",
             "url": "https://news.google.com/rss/articles/CBMiugFBVV95cUxOREpad2RpUUhyM2tUcEROY21oU3JNOVMxaTJXMzUtb25YY3ZJd08wdXpDRzh5RTVlT3I4YzVHQWhSQXowTF9CaEY1cWhQWC16NVdQa19hNjByeXV5OGtsazZ5aE9LeWRBSjJfTFNYREd5dHQtS2phWUo4bnlfaF92U1h0ZlQxQVdrVWdEa3F0WGFfWFZINWI3ajNONHQxV1N3M0UzY0RxXzItRnBaVWJyMVljVXdFRGZpc0E?oc=5"
+          },
+          {
+            "title": "Dryer fires are a major household hazard. This 'must-have' vent cleaner helps prevent them — it's under $20 - Yahoo Lifestyle Canada",
+            "source": "Google News",
+            "publishedAt": "2026-08-11T07:00:00.000Z",
+            "url": "https://news.google.com/rss/articles/CBMi2wFBVV95cUxPNHlsSk1uanVvSjRscmNoSkxIZVVMZjlsMmFDaXc3VEpUUzBjd1d2UGlwRnRuSE9XNXhvVXhQUW9tOXdEU1BjUFFFU0Jrc19mTFZzbTcxLTV5bzFIaUx5RU1YMGZEZFVQTUlyUWR4U1NWVWZsNUZQbk9UWjhMaktnb19LNFJ5bVcyMWM2b3F5S3FnLWROQ1IwTzhHZUgydUhwb2hPRlpFQUo5ZjFTMVVLTzFsYmluWGNvNkZRSHB1bThZX0NzX0JVMnNfNWJRVUY5Y2ZCLUV0bGJqTW8?oc=5"
           }
         ]
       },

@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-13T11:37:55.180Z",
+  "updatedAt": "2026-11-14T10:59:00.211Z",
   "supplierIntegration": "awaiting-cj-auth",
   "items": [
     {
@@ -28,7 +28,18 @@
       "rank": 3,
       "slug": "hanging-closet-organizer",
       "product": "Hanging Closet Organizer",
-      "attentionScore": 67.5,
+      "attentionScore": 71.3,
+      "supplierReady": false,
+      "freightReady": false,
+      "promotionReady": false,
+      "nextAction": "connect-cj",
+      "supplier": null
+    },
+    {
+      "rank": 4,
+      "slug": "dryer-vent-cleaner-kit",
+      "product": "Dryer Vent Cleaner Kit",
+      "attentionScore": 56.1,
       "supplierReady": false,
       "freightReady": false,
       "promotionReady": false,
