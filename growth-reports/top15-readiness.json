@@ -4,7 +4,7 @@
   "supplierReviewCheckedAt": "2026-11-14T18:09:54.244Z",
   "supplierReportAuthenticatedAndFresh": true,
   "candidateCount": 15,
-  "supplierScreeningPassedCount": 1,
+  "supplierScreeningPassedCount": 0,
   "globalPhysicalCheckoutEnabled": false,
   "anyClaimOfCheapestAuthorized": false,
   "revenueProofRequired": "Verified live non-test Stripe paid transaction. Fulfillment is a separate evidence gate.",
@@ -258,7 +258,7 @@
       "slug": "cordless-handheld-vacuum",
       "name": "Cordless Handheld Vacuum",
       "priority": "subsequent",
-      "supplierEvidenceFresh": true,
+      "supplierEvidenceFresh": false,
       "reviewObservedAt": "2026-11-13T12:17:00.370Z",
       "observedSupplierProduct": "High Power Automobile Vacuum Cleaner Mini Handheld",
       "observedSupplierSku": "CJYD3150294",
@@ -266,7 +266,7 @@
       "mediaRightsScope": "unverified",
       "supplierPhotoVideoRightsVerified": false,
       "verifiedChecks": {
-        "independentSupplierMatch": true,
+        "independentSupplierMatch": false,
         "variantStock": false,
         "screeningFreight": false,
         "destinationQuotePerBuyer": false,
@@ -276,6 +276,7 @@
         "commercialPromotionApproval": false
       },
       "missingChecks": [
+        "independentSupplierMatch",
         "variantStock",
         "screeningFreight",
         "destinationQuotePerBuyer",
@@ -327,7 +328,7 @@
       "slug": "insulated-tumbler",
       "name": "Insulated Tumbler",
       "priority": "subsequent",
-      "supplierEvidenceFresh": true,
+      "supplierEvidenceFresh": false,
       "reviewObservedAt": "2026-11-13T12:17:00.370Z",
       "observedSupplierProduct": null,
       "observedSupplierSku": null,
@@ -362,7 +363,7 @@
       "slug": "screen-protector",
       "name": "Smartphone Screen Protector",
       "priority": "subsequent",
-      "supplierEvidenceFresh": true,
+      "supplierEvidenceFresh": false,
       "reviewObservedAt": "2026-11-13T12:17:00.370Z",
       "observedSupplierProduct": "Mobile Phone Tempered Glass Screen Protector",
       "observedSupplierSku": "CJPB2377299",
@@ -370,9 +371,9 @@
       "mediaRightsScope": "unverified",
       "supplierPhotoVideoRightsVerified": false,
       "verifiedChecks": {
-        "independentSupplierMatch": true,
-        "variantStock": true,
-        "screeningFreight": true,
+        "independentSupplierMatch": false,
+        "variantStock": false,
+        "screeningFreight": false,
         "destinationQuotePerBuyer": false,
         "mediaRights": false,
         "checkoutInfrastructure": false,
@@ -380,13 +381,16 @@
         "commercialPromotionApproval": false
       },
       "missingChecks": [
+        "independentSupplierMatch",
+        "variantStock",
+        "screeningFreight",
         "destinationQuotePerBuyer",
         "mediaRights",
         "checkoutInfrastructure",
         "fulfillmentRoute",
         "commercialPromotionApproval"
       ],
-      "supplierScreeningPassed": true,
+      "supplierScreeningPassed": false,
       "checkoutAction": "price_request_only",
       "globallySaleReady": false
     },
