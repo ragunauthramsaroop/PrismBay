@@ -1,10 +1,10 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-11-14T11:32:36.178Z",
+  "generatedAt": "2026-11-14T18:09:55.281Z",
   "researchCandidates": 12,
   "publishedResearchSignals": 12,
   "verifiedCJStatus": {
-    "checkedAt": "2026-11-14T11:32:34.809Z",
+    "checkedAt": "2026-11-14T18:09:54.244Z",
     "validSupplierMatches": 5,
     "variantStock": 1,
     "freightEstimates": 1,
@@ -27,6 +27,27 @@
       "executionMode": "scheduled_cj_and_manual_review",
       "candidateCount": 12,
       "blockers": [
+        {
+          "slug": "multiport-charger",
+          "status": "supplier_search_needed",
+          "sku": null,
+          "shippingDiagnostic": null,
+          "zeroPricedMethods": 0
+        },
+        {
+          "slug": "motion-sensor-cabinet-lights",
+          "status": "variant_stock_required",
+          "sku": "CJYD2030514",
+          "shippingDiagnostic": "variant_stock_unverified",
+          "zeroPricedMethods": 0
+        },
+        {
+          "slug": "car-phone-mount",
+          "status": "variant_stock_required",
+          "sku": "CJSJSJSJ02737",
+          "shippingDiagnostic": "variant_stock_unverified",
+          "zeroPricedMethods": 0
+        },
         {
           "slug": "mini-mop",
           "status": "supplier_search_needed",
@@ -67,27 +88,6 @@
           "status": "supplier_search_needed",
           "sku": null,
           "shippingDiagnostic": null,
-          "zeroPricedMethods": 0
-        },
-        {
-          "slug": "multiport-charger",
-          "status": "supplier_search_needed",
-          "sku": null,
-          "shippingDiagnostic": null,
-          "zeroPricedMethods": 0
-        },
-        {
-          "slug": "motion-sensor-cabinet-lights",
-          "status": "fresh_commercial_evidence_required",
-          "sku": "CJYD2030514",
-          "shippingDiagnostic": "variant_stock_unverified",
-          "zeroPricedMethods": 0
-        },
-        {
-          "slug": "car-phone-mount",
-          "status": "fresh_commercial_evidence_required",
-          "sku": "CJSJSJSJ02737",
-          "shippingDiagnostic": "variant_stock_unverified",
           "zeroPricedMethods": 0
         },
         {
