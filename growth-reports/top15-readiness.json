@@ -14,7 +14,7 @@
       "slug": "crevice",
       "name": "3-in-1 Crevice Cleaning Brush",
       "priority": "first-wave",
-      "supplierEvidenceFresh": true,
+      "supplierEvidenceFresh": false,
       "reviewObservedAt": "2026-11-14T00:54:15.515Z",
       "observedSupplierProduct": null,
       "observedSupplierSku": null,
@@ -84,7 +84,7 @@
       "slug": "pethair",
       "name": "Reusable Pet Hair Remover",
       "priority": "first-wave",
-      "supplierEvidenceFresh": true,
+      "supplierEvidenceFresh": false,
       "reviewObservedAt": "2026-11-14T00:54:15.515Z",
       "observedSupplierProduct": "Reusable Hair Remover Ball Pet Hair Lint Roller Clothes Dust Cleaning Ball Washable Sticky Gel Lint Rollers Tool For Cat Dog",
       "observedSupplierSku": "CJYD2079690",
@@ -92,7 +92,7 @@
       "mediaRightsScope": "unverified",
       "supplierPhotoVideoRightsVerified": false,
       "verifiedChecks": {
-        "independentSupplierMatch": true,
+        "independentSupplierMatch": false,
         "variantStock": false,
         "screeningFreight": false,
         "destinationQuotePerBuyer": false,
@@ -102,6 +102,7 @@
         "commercialPromotionApproval": false
       },
       "missingChecks": [
+        "independentSupplierMatch",
         "variantStock",
         "screeningFreight",
         "destinationQuotePerBuyer",
@@ -188,7 +189,7 @@
       "slug": "scrubber",
       "name": "5-in-1 Electric Spin Scrubber",
       "priority": "subsequent",
-      "supplierEvidenceFresh": true,
+      "supplierEvidenceFresh": false,
       "reviewObservedAt": "2026-11-14T00:54:15.515Z",
       "observedSupplierProduct": null,
       "observedSupplierSku": null,
