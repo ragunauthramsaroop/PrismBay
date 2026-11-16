@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-11-15T19:08:17.558Z",
+  "updatedAt": "2026-11-16T07:20:09.447Z",
   "market": "US",
   "methodology": "Public-news attention, freshness, and short-form demonstration fit. This is not PrismBay sales data and is not a TikTok, Amazon, Google, or Bing product ranking.",
   "refreshTargetHours": 6,
@@ -11,7 +11,7 @@
       "signalScore": 83.5,
       "signalLabel": "high-attention",
       "evidence": {
-        "publicMentions": 63,
+        "publicMentions": 65,
         "mentionsLast7Days": 2,
         "mentionsLast30Days": 5,
         "sourcesAvailable": [
@@ -141,10 +141,10 @@
           "url": "https://news.google.com/rss/articles/CBMi9gFBVV95cUxOOTZqRGZuMWZJTVh2VUhXOHgzMUdhVUhjYTdxeXl6QWVqbkxCb2R2bU45Wl9ERHVFaklYajJWa0JSd2RtdDNpdksyR1IwVV9QeUUyTmcySXJvcnltUDcxazNHaF85ZzZTYnYwNy1yZ1ZjNlhIWGVBRzc2aUtKNDhBbk85UHFueGtRY2JVaXpTMzNxX3dOUl9OazRUVloyVkRscXhwQ2kxSmg4T01BVUZERGlLR3I0b0NhOFJYdVdMTE0xdVY1cjdWYi11MndYbFZZYUpPLVl0LTh2NlhDV3g4aWRYcDZydWtORU01eS1RVWhEZjNQU2c?oc=5"
         },
         {
-          "title": "Amazon’s mattress vacuum uses UV light and heat to deep clean beds - AL.com",
+          "title": "Turns out you do need a mattress vacuum — here’s why I love mine - NJ.com",
           "source": "Google News",
-          "publishedAt": "2026-07-31T07:00:00.000Z",
-          "url": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxNbzVTWEJoMDJjVjhXZDI0Y3pidGdOVVpsYmk2b2YwNnBWN21RbnJlMFEzOFFDb0luZUpsZHQ5TEJkR0NLY1I4TE5xbXJWcGVZbjN2UE41b085WmhBNnpKQmhRSGJ3Q3FjdlRjRTR3b2pNWm8taDM1Rjkza0ZqdDlfXzZaWV9TN1dEVDNNZXZqak9oY1FoSUVxaGVXTDJHRTIwYlRiTDBrS1Q5UdIBvgFBVV95cUxQSmFCYUJJckRseEt2Ql8xalZQUHV0VVg0cldzQ0MybUUzMDlES25DWGZ3cjR2cFlPUnBDdi1VMlVyQnRRaEhfeFlfYl9LZW5qX1BEczFxZE1aYV9LZl9yTFF0N2d6ZEpLRG9DODlKdDU4NGtlUUxUc0hmQmhpWnZBeUtoU2k3OFJGOURxcE1nNENjZm43RGJjeWZ6NFN0N0NCaTR0N0VKMkVOSjlFOWJnNnA1dEh1SHIwa3lCdVFn?oc=5"
+          "publishedAt": "2026-08-16T07:00:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMirAFBVV95cUxORUVHTHVGWkZtVUhlMG1CSUpQUjRzM0dwTWhNem9pM3ppNkRiZjFxZzRCNkVIc0dhd3RUVU4zTU91am9UQVVYcFZsU2k5a1d1WVFFWHBFTHBpUWJaQzc5bEpxR1hUb1AyZW4wVTRRaE94OW1BYU90cUNWZkcwVzlSWW96VzdzYkZuajBkN2JqSjJzNjBkeEtjTUx6QWtmemRvRUhVT21OWmplTkhh0gHAAUFVX3lxTE95S1VXaDg0OFdlMm85aXdBSjN0aHJUTElRWEhEdlhpaWRCMDlnXzVia2p5NFpJZTEwcUZvVGhnNGJzMDR4N0NWamlXS28yMzRiME15aHdsV3RYMWZucGpRTkFVUEZYakZLeEJJR2w4b0Y1NlNOU1ZURVVsTDRyOVN1SHZyRk5COUJNbnFLbExVMEhrNkszREZJcnp3dnVDck5oZXZYMllyRlN5S3NwMmFNU0FkZ0s1YkJ2TE1EZFpYSw?oc=5"
         }
       ],
       "rank": 3
