@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-11-15T11:33:07.380Z",
+  "updatedAt": "2026-11-16T12:06:03.512Z",
   "market": "US",
   "supplierIntegration": "awaiting-cj-auth",
   "methodology": "Public attention and recency identify candidates. Supplier promotion requires verified US inventory and product-level checks. Freight and checkout creation occur only after supplier validation.",
@@ -12,7 +12,7 @@
       "attentionScore": 93.9,
       "attentionLabel": "high-attention",
       "evidence": {
-        "publicMentions": 50,
+        "publicMentions": 49,
         "mentionsLast7Days": 3,
         "mentionsLast30Days": 7,
         "sourcesAvailable": [
@@ -20,6 +20,12 @@
           "Bing News"
         ],
         "sampleSignals": [
+          {
+            "title": "Amazon is selling a 'game changer' $570 vacuum for $140, plus 20 more early Black Friday deals from Dyson, Shark, Miele & more - Yahoo Lifestyle Canada",
+            "source": "Google News",
+            "publishedAt": "2026-11-12T17:30:04.000Z",
+            "url": "https://news.google.com/rss/articles/CBMi8gFBVV95cUxPalJEdFVxQm91cWFfU21jOUQ3MTd0aDdJUHYxQm8yZFVwLW50UEQ4WjJIN3pkcjI0RHp1dFlWYkFxVEZZaFhGdjNfd0NiMTZYQ0hxc3ppUTQ0M1RlS01wbE4weDMxMGJEc0EtYlprcTI2aHRnUHBVT3ktaUNlNWgyaFhzWXR4a2FmZ1Yxa2tQYjhvOFFWYjJSNVF4WVU0N19pNjJ2VG5sWlBHckRCSnE0d2k3QmoxMzB0RDAwNTBRSUV2akNqNDg3ckFYX3F3cVNPVEhuaDA4R0poZm9oMXFQTk1LVHFPZzVlemdCejk3cHZLZw?oc=5"
+          },
           {
             "title": "I Skip the Upright for Crumbs. These Reliable Handheld Vacs Do the Trick. - Popular Mechanics",
             "source": "Google News",
@@ -31,12 +37,6 @@
             "source": "Google News",
             "publishedAt": "2026-11-11T19:33:00.000Z",
             "url": "https://news.google.com/rss/articles/CBMikAFBVV95cUxQWERvYXZ6WVlFU0xQaHEzUmRnVVFrTWJEbVMyTk9fNm5NWEFsV2pHUEhrZ1gtV095cnh5ZDhQQWFmNFNwWURXbjFkSjlRUURDY0Z6NGtBZHZXa3hXS1lBQ1RYdTRCWHIzQXZQSXpfMDZaSmhsajd0ZmxrT0VxUndXdHJKVXJZZm4xUFZMZVctdnE?oc=5"
-          },
-          {
-            "title": "Amazon is selling a 'game changer' $570 vacuum for $140, plus 20 more early Black Friday deals from Dyson, Shark, Miele & more - Yahoo Lifestyle Canada",
-            "source": "Google News",
-            "publishedAt": "2026-11-12T17:30:04.000Z",
-            "url": "https://news.google.com/rss/articles/CBMi8gFBVV95cUxPalJEdFVxQm91cWFfU21jOUQ3MTd0aDdJUHYxQm8yZFVwLW50UEQ4WjJIN3pkcjI0RHp1dFlWYkFxVEZZaFhGdjNfd0NiMTZYQ0hxc3ppUTQ0M1RlS01wbE4weDMxMGJEc0EtYlprcTI2aHRnUHBVT3ktaUNlNWgyaFhzWXR4a2FmZ1Yxa2tQYjhvOFFWYjJSNVF4WVU0N19pNjJ2VG5sWlBHckRCSnE0d2k3QmoxMzB0RDAwNTBRSUV2akNqNDg3ckFYX3F3cVNPVEhuaDA4R0poZm9oMXFQTk1LVHFPZzVlemdCejk3cHZLZw?oc=5"
           },
           {
             "title": "We Tested 53 Handheld Vacuums—These Are the 11 Best Ones for Every Mess - Real Simple",
@@ -64,7 +64,7 @@
       "attentionScore": 76.8,
       "attentionLabel": "high-attention",
       "evidence": {
-        "publicMentions": 29,
+        "publicMentions": 30,
         "mentionsLast7Days": 1,
         "mentionsLast30Days": 4,
         "sourcesAvailable": [
@@ -116,7 +116,7 @@
       "attentionScore": 71.3,
       "attentionLabel": "high-attention",
       "evidence": {
-        "publicMentions": 29,
+        "publicMentions": 30,
         "mentionsLast7Days": 1,
         "mentionsLast30Days": 2,
         "sourcesAvailable": [
@@ -137,7 +137,7 @@
             "url": "https://news.google.com/rss/articles/CBMiigFBVV95cUxPWFp5N1QwRWRBSlduLVVKYUtGSWFaLXZWWnB3RGVZQ1VFVGotVkdhMWhKMTBxQ3JnVHpJVGJJd0FmYW5NcWgxdlhmM0MtMDNSZkVNa1BMZVdGTjlQSW5ET1paa2p6cFRtWVFMWHpna1ZjdlIzVzI0VnJfdHhJckhvY2RzaFpvZVFSQUE?oc=5"
           },
           {
-            "title": "Amazon's 'Space-Saving' Hanging Organizer Is a 'Game-Changer' for Small Closets, Now $14 During Prime Day - parade.com",
+            "title": "Amazon's 'Space-Saving' Hanging Organizer Is a 'Game-Changer' for Small Closets, Now $14 During Prime Day - Parade Magazine",
             "source": "Google News",
             "publishedAt": "2026-10-08T07:00:00.000Z",
             "url": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxNZDZtOWlxaWdCX3ptWHFQOHhIdFctNlppRnJzTTh4bktBLTZmUEVIUGRwQVBlcFRHeVJESk10NGJGX0d6OGU5S21CVTVTbTRNYzhKYkprTkJ4TWtnbHBKQWhySkp1VlJ6MVB1YnVUNm1Ebm5Dcm5naV9Gdjd3Yl9kQ2xUUFhZSDJ3clozQ1BTdDVKaC1MQ19HdU8zdjIxaXNRSEs3NlpBdkNLLWM?oc=5"
@@ -247,10 +247,10 @@
             "url": "https://news.google.com/rss/articles/CBMib0FVX3lxTFA2VHZmbDExRHlEdnRBa2RmWUI3REc1RUkyX05RWlB1QWlQVWVVVjZIbzlRMXY5Qm9UaDlOZDlHNF8tcXIzNzlWMFFxN0dDeXAyMGYwNmNVVnB5UWh0WnBEN2MxR1RWc2hnZTdpc1l5cw?oc=5"
           },
           {
-            "title": "I Can’t Face Cooking Breakfast in Summer – This $30-off XL Nutribullet Makes Smoothies Fast to Help Me Get Through Heatwave Mornings - Homes and Gardens",
+            "title": "The 7 Best Under‑Cabinet Lighting Options for Bright, Functional Kitchens - The Spruce",
             "source": "Google News",
-            "publishedAt": "2026-06-24T07:00:00.000Z",
-            "url": "https://news.google.com/rss/articles/CBMingFBVV95cUxNSm5KM0EzSkFyYlF6M0o3bGloWXFUMzZGZkxxbHZIU2FObkk0Vk9XVWp0Zk03OXpVMWFtN3VmdlktR2ZrTnRnWnhfLVR5a2hwNWEwdWsyb0EyUjlLRURQMnh1SWZDVEVoX3RnZU9qMkdnWk9BdHU1QWNweFpoWWZGcEhmb0dva1luVDFrWnNuVXlucVBwR0wtelBEa2Fzdw?oc=5"
+            "publishedAt": "2026-08-14T07:00:00.000Z",
+            "url": "https://news.google.com/rss/articles/CBMibkFVX3lxTE1fUDFObWNzQ29yWnJsRkw0OW01ZmxNbm1pbGVVZEh6MEZfRFZaWUlfdFgza0RFM2xSWXYwdndIZmRGcmNNZ3RSM0RkWXdsdmw1blNkUl9HTFltVXYxQ2dCaUNVYnREeUJtTU9sSDRB?oc=5"
           }
         ]
       },
@@ -269,10 +269,10 @@
       "slug": "bottle-brush-set",
       "name": "Bottle Brush Cleaning Set",
       "query": "bottle brush cleaning set",
-      "attentionScore": 35.4,
-      "attentionLabel": "research",
+      "attentionScore": 33.6,
+      "attentionLabel": "low-signal",
       "evidence": {
-        "publicMentions": 8,
+        "publicMentions": 7,
         "mentionsLast7Days": 0,
         "mentionsLast30Days": 0,
         "sourcesAvailable": [
@@ -287,10 +287,10 @@
             "url": "https://news.google.com/rss/articles/CBMieEFVX3lxTE8wVjR3S25uUmxHS180VmRZaHUzN3diM2EtZ29mYW1KTTJKX3BBSWlxOS1MZmtVSExfS1V5S2dCUFdjWDFnZW9FRjAyTTMtc0NKS1R3ZzFySGIzWVhkbll4NGhNV3lCMTg4VUN4YUh4elBKZUwwOUh2YQ?oc=5"
           },
           {
-            "title": "10 best bottle brushes to keep your water bottles squeaky clean - WCBD News 2",
+            "title": "10 best bottle brushes to keep your water bottles squeaky clean - WTNH.com",
             "source": "Google News",
             "publishedAt": "2023-03-09T08:00:00.000Z",
-            "url": "https://news.google.com/rss/articles/CBMi2wFBVV95cUxNRUxWeVpmb1lET3lFTGY5WkRaOV9VTHF4TlVnOEVIQXlydXhBZEwtc1VTRU5MVk5zNEJ5T2sxTUE2a2RFSDVJTFRUQWFZWFN0VWoyMDlCQkltMWpPZXBpWWZjOG5sUEZaak01elRSMER1NDYtdVBhLXRVY2dmVFo2Y3ZNNjJOcGxLNVZzN0JYZ3FPZVdJZW9IRElUM1FiQkZQLTJoYzVfVlRKWi1sQmRtTWRhRnBDSnhkbmFDZ1hqaDZwVmhaaG0wakhWek15SUl4WWxjR04tRFhMaTDSAeABQVVfeXFMTUVRQ0N4LThaM3hZOEM1bENKZ0dZZWVPaW1tRlVKdG1zRmxlSHdOVnZabGdqWnlkUlFsVzRyc1pjM3h5Y1pPYW1nV1VkN3pSX2ZPeDVxUmEtTkRERmI3eHczSlIyX0lXdThLOVlnVk1vYlVxdENfT2gwYl9Fc3B1RGVLR2p3dTZQbFR3aHlmZHVHUmpUMWRSRlhhTnRZSmVKUEJzT3pIZGNfQk9PdHpHWW5xOWNhM2lfSHVnR0pMcjM3M0ZzQkdJaUpOZ2tpT2VHM2d4SjRaNFA2eHRRdGdPaWs?oc=5"
+            "url": "https://news.google.com/rss/articles/CBMi1gFBVV95cUxQelpvZzNjSEN2SmhEYUpQbVMwRGtCS0hyRUdEczd2YTZGOUN6SzZWbWt4dGZYS2tkM0tuR0RuVndfTVhfb2ZieERCbjhMLWx1VEJNZ3BueE90R2VyWkFDa0s1SHN3RXlsY3ZycWJTRFNBVVhEcklwTERIQzNLeUNQN05tcjR0bWlUdGpWMjVsY2xSTDFGcFBzMEtNTzVxd284Vi1ZRGt6a0FjSDZFVC1uNEtFQzM5MmNydVdodUQyY014Q0xPa2F1aFh1SU5kUVV1cmswajFB0gHbAUFVX3lxTE8zNndxRGlSLWV2Zm0tT1JDSDNJS3V4UHZrQXFNenltekdfMm4zaHo5emJFRGNrZW1QczhDM2NzZGtJNTZIUTd3QmVkZUpISHpXOEZwcnctNzdMbUZxMHpUenhGa001ZXZWOUVCWWhuTFBVamhoeklUdDR6SjNTWmt0Y3NRS0g5VEhPb2lqY3dvelhncjZ4c1dqbWU4V2dSejE4N0tuU01MVkRiWnBLSC1scEloTW9KMV9HcWNHb0hKNDctZXBWWUIwR2Z2N3p2ODRPa0tKLUZUTU1LRQ?oc=5"
           },
           {
             "title": "Cool things with near-perfect Amazon reviews that are under-the-radar - mic.com",
