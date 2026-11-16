@@ -1,6 +1,6 @@
 {
   "schemaVersion": 6,
-  "checkedAt": "2026-11-16T01:47:21.464Z",
+  "checkedAt": "2026-11-16T02:59:25.824Z",
   "product": {
     "slug": "garment-steamer",
     "variantId": "2508160953561608700",
@@ -56,49 +56,15 @@
     "ebayShopCount": 0,
     "ebaySellerAuthenticated": false,
     "authorizedEbayShop": null,
-    "liveStockVerified": true,
-    "routeSummary": {
-      "countryCode": "CN",
-      "inventory": 1,
-      "nestedStockIds": [
-        "2991a224-737b-42a3-a1d9-8ccd2936b341",
-        "6709CCD7-0DC7-43B1-B310-17AB499E9B0A"
-      ],
-      "warehouseCandidateIds": [
-        "2991a224-737b-42a3-a1d9-8ccd2936b341",
-        "6709CCD7-0DC7-43B1-B310-17AB499E9B0A"
-      ]
-    },
-    "warehouse": {
-      "id": "2991a224-737b-42a3-a1d9-8ccd2936b341",
-      "name": "CN Dong Guan Ⅱ Warehouse",
-      "countryCode": "CN",
-      "city": "Dongguan",
-      "province": "Guangdong",
-      "postalCode": "523690",
-      "address1": "Elevator No. 3, F4, Building F"
-    },
+    "liveStockVerified": false,
+    "routeSummary": null,
+    "warehouse": null,
     "warehouseDiscovery": {
-      "attempted": true,
+      "attempted": false,
       "source": "queryByVid",
-      "candidateIds": [
-        "2991a224-737b-42a3-a1d9-8ccd2936b341",
-        "6709CCD7-0DC7-43B1-B310-17AB499E9B0A"
-      ],
+      "candidateIds": [],
       "pidInventoryFallbackAttempted": false,
-      "candidatesChecked": [
-        {
-          "id": "2991a224-737b-42a3-a1d9-8ccd2936b341",
-          "name": "CN Dong Guan Ⅱ Warehouse",
-          "countryCode": "CN",
-          "city": "Dongguan",
-          "province": "Guangdong",
-          "postalCode": "523690",
-          "address1": "Elevator No. 3, F4, Building F",
-          "evidenceVerified": true,
-          "evidenceMode": "postal_country"
-        }
-      ],
+      "candidatesChecked": [],
       "errors": []
     },
     "confirmationDiscovery": {
@@ -110,8 +76,8 @@
       "exactStockMatches": [],
       "error": null
     },
-    "dispatchLocationVerified": true,
-    "dispatchEvidenceMode": "postal_country"
+    "dispatchLocationVerified": false,
+    "dispatchEvidenceMode": null
   },
   "gates": {
     "economicsPass": true,
@@ -121,8 +87,8 @@
     "marketplacePolicyReviewed": true,
     "wholesaleSupplierConfigured": true,
     "ebaySellerAuthenticated": false,
-    "liveStockVerified": true,
-    "dispatchLocationVerified": true,
+    "liveStockVerified": false,
+    "dispatchLocationVerified": false,
     "directStripeAbsent": true,
     "automaticSupplierOrderingDisabled": true
   },
