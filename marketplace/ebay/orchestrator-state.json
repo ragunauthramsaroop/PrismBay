@@ -1,24 +1,20 @@
 {
   "schemaVersion": 1,
-  "checkedAt": "2026-11-16T01:55:05.241Z",
-  "phase": "WAITING_EBAY_CJ_AUTH",
+  "checkedAt": "2026-11-16T03:03:54.100Z",
+  "phase": "BLOCKED",
   "readyForBrowserPublish": false,
   "blockers": [
-    "ebaySellerAuthenticated"
+    "ebaySellerAuthenticated",
+    "liveStockVerified",
+    "dispatchLocationVerified"
   ],
-  "controlPlaneCheckedAt": "2026-11-16T01:55:05.190Z",
+  "controlPlaneCheckedAt": "2026-11-16T03:03:54.049Z",
   "ebayShopCount": 0,
   "ebaySellerAuthenticated": false,
-  "liveStockVerified": true,
-  "dispatchLocationVerified": true,
+  "liveStockVerified": false,
+  "dispatchLocationVerified": false,
   "economicsPass": true,
-  "warehouse": {
-    "id": "2991a224-737b-42a3-a1d9-8ccd2936b341",
-    "city": "Dongguan",
-    "province": "Guangdong",
-    "countryCode": "CN",
-    "address1": "Elevator No. 3, F4, Building F"
-  },
+  "warehouse": null,
   "ebayApi": {
     "connectorImplemented": true,
     "connectorReady": false,
@@ -35,5 +31,5 @@
     ],
     "publishEnabled": false
   },
-  "nextAction": "Keep CJ/eBay authorization watcher active and keep the zero-cost local authorization runner published. No listing publish until CJ reports the eBay shop authorized."
+  "nextAction": "Resolve blockers: ebaySellerAuthenticated, liveStockVerified, dispatchLocationVerified"
 }
