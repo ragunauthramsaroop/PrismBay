@@ -1,20 +1,22 @@
 {
-  "checkedAt": "2026-11-16T03:03:40.027Z",
-  "phase": "WAITING_EBAY_CJ_AUTH",
+  "checkedAt": "2026-11-16T11:01:25.457Z",
+  "phase": "BLOCKED",
   "blockers": [
-    "ebaySellerAuthenticated"
+    "ebaySellerAuthenticated",
+    "liveStockVerified",
+    "dispatchLocationVerified"
   ],
   "cjEbayAuthorized": false,
   "readyForFinalEbayReview": false,
-  "liveStockVerified": true,
-  "dispatchLocationVerified": true,
+  "liveStockVerified": false,
+  "dispatchLocationVerified": false,
   "economicsPass": true,
-  "orchestratorCheckedAt": "2026-11-16T01:55:05.241Z",
-  "orchestratorAgeMinutes": 68,
+  "orchestratorCheckedAt": "2026-11-16T03:03:54.100Z",
+  "orchestratorAgeMinutes": 477,
   "orchestratorStale": true,
-  "orchestratorNextAction": "Keep CJ/eBay authorization watcher active and keep the zero-cost local authorization runner published. No listing publish until CJ reports the eBay shop authorized.",
+  "orchestratorNextAction": "Resolve blockers: ebaySellerAuthenticated, liveStockVerified, dispatchLocationVerified",
   "ticketStatus": "EXPIRED",
   "ticketReplyDetected": true,
   "ticketNextAction": "CJ response detected: review ticket detail before changing any listing location or authorization state.",
-  "fingerprint": "312e7e490f49067186e7ff199bd7f8437c806a9bf804251810791675599cbe58"
+  "fingerprint": "8f5b9c8193c6a1045dcf22c69d7a8c62fae29042d69442a860f3627206ba8ed7"
 }
