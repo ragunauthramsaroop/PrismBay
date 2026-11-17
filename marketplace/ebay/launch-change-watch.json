@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-11-16T20:57:35.185Z",
+  "checkedAt": "2026-11-17T03:45:03.698Z",
   "phase": "BLOCKED",
   "blockers": [
     "ebaySellerAuthenticated",
@@ -11,12 +11,12 @@
   "liveStockVerified": false,
   "dispatchLocationVerified": false,
   "economicsPass": true,
-  "orchestratorCheckedAt": "2026-11-16T20:20:56.155Z",
-  "orchestratorAgeMinutes": 36,
-  "orchestratorStale": true,
+  "orchestratorCheckedAt": "2026-11-17T03:43:46.154Z",
+  "orchestratorAgeMinutes": 1,
+  "orchestratorStale": false,
   "orchestratorNextAction": "Resolve blockers: ebaySellerAuthenticated, liveStockVerified, dispatchLocationVerified",
   "ticketStatus": "EXPIRED",
   "ticketReplyDetected": true,
   "ticketNextAction": "CJ response detected: review ticket detail before changing any listing location or authorization state.",
-  "fingerprint": "8f5b9c8193c6a1045dcf22c69d7a8c62fae29042d69442a860f3627206ba8ed7"
+  "fingerprint": "52bc27e6d5ca155e00038d79f4f803a38df98fb4f3a249de78df75e804b3f2d2"
 }
