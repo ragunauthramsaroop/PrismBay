@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "checkedAt": "2026-11-19T09:28:13.482Z",
+  "checkedAt": "2026-11-19T12:52:50.536Z",
   "phase": "BLOCKED",
   "readyForBrowserPublish": false,
   "blockers": [
@@ -8,7 +8,7 @@
     "liveStockVerified",
     "dispatchLocationVerified"
   ],
-  "controlPlaneCheckedAt": "2026-11-19T09:28:13.434Z",
+  "controlPlaneCheckedAt": "2026-11-19T12:52:50.488Z",
   "ebayShopCount": 0,
   "ebaySellerAuthenticated": false,
   "liveStockVerified": false,
