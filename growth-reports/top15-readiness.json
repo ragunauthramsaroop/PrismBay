@@ -223,7 +223,7 @@
       "slug": "garment-steamer",
       "name": "Portable Garment Steamer",
       "priority": "subsequent",
-      "supplierEvidenceFresh": true,
+      "supplierEvidenceFresh": false,
       "reviewObservedAt": "2026-11-18T07:35:26.446Z",
       "observedSupplierProduct": "USB Handheld Garment Steamer Household Portable Electric Iron Small Fabulous Clothes Ironing Equipment",
       "observedSupplierSku": "CJYD2458440",
@@ -231,7 +231,7 @@
       "mediaRightsScope": "unverified",
       "supplierPhotoVideoRightsVerified": false,
       "verifiedChecks": {
-        "independentSupplierMatch": true,
+        "independentSupplierMatch": false,
         "variantStock": false,
         "screeningFreight": false,
         "destinationQuotePerBuyer": false,
@@ -241,6 +241,7 @@
         "commercialPromotionApproval": false
       },
       "missingChecks": [
+        "independentSupplierMatch",
         "variantStock",
         "screeningFreight",
         "destinationQuotePerBuyer",
@@ -291,7 +292,7 @@
       "slug": "mattress-vacuum",
       "name": "Mattress Vacuum",
       "priority": "subsequent",
-      "supplierEvidenceFresh": true,
+      "supplierEvidenceFresh": false,
       "reviewObservedAt": "2026-11-18T07:35:26.446Z",
       "observedSupplierProduct": null,
       "observedSupplierSku": null,
