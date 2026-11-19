@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-11-18T20:54:59.826Z",
+  "updatedAt": "2026-11-19T07:58:25.071Z",
   "market": "US",
   "methodology": "Public-news attention, freshness, and short-form demonstration fit. This is not PrismBay sales data and is not a TikTok, Amazon, Google, or Bing product ranking.",
   "refreshTargetHours": 6,
@@ -39,16 +39,16 @@
           "url": "https://news.google.com/rss/articles/CBMijAFBVV95cUxPeHdhUGRKUmlMQy1qT2hYWXZISTJDcExWc1hFVkoxQXQ0cldiWUVGTFlnOWNNVDQxS0kwRjg0MTFZaUp3X3M4WDhFUjNJLVRYT201NjNKZlkxWmNIYVd3T1JfSGs3dDFTMXQyUGNEcmVFdUtmSHJwUTduM015VGNYNHl4MFd4TDlRSnJBbw?oc=5"
         },
         {
-          "title": "I Have a Leg Injury, and This Extendable Spin Scrubber Has Been a Lifesaver in Keeping My Bathroom Spotless - Apartment Therapy",
-          "source": "Google News",
-          "publishedAt": "2026-09-11T07:00:00.000Z",
-          "url": "https://news.google.com/rss/articles/CBMihgFBVV95cUxPOF92S3dDMlBWc1ptWEpxX0pxNWd5emtEbHdyMXg4NkxhUWxweGVsR1pGMXotcElFNGQtWldFRkNtUzdRWGE5aFdFNFl3NW5NYVdlbzhJVk9YMUpsLUF0Mkp4MGFfVlVXVll1Qmo5Yl9sRnhrdkJwMVpxRjlNc2NFc0E5NmhQZw?oc=5"
-        },
-        {
           "title": "These electric spin scrubbers clean grout, tubs, and floors with ease - Business Insider",
           "source": "Google News",
           "publishedAt": "2026-04-22T07:00:00.000Z",
           "url": "https://news.google.com/rss/articles/CBMie0FVX3lxTE40c3JDUmdvYnFzQW4wNUE0VUdoWVMzUk1MT1VGOTBMbDdIT0tBcU1IbzMwWmNwME5za1ozalNqUWdkVDNMV1d0WUx5YUpOSU9TRGhWR1VVTzktT3VBOXR0d0pQM0hpQVZpU2hRdFN4M3dXRlpiejRwSUlDMA?oc=5"
+        },
+        {
+          "title": "I Have a Leg Injury, and This Extendable Spin Scrubber Has Been a Lifesaver in Keeping My Bathroom Spotless - Apartment Therapy",
+          "source": "Google News",
+          "publishedAt": "2026-09-11T07:00:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMihgFBVV95cUxPOF92S3dDMlBWc1ptWEpxX0pxNWd5emtEbHdyMXg4NkxhUWxweGVsR1pGMXotcElFNGQtWldFRkNtUzdRWGE5aFdFNFl3NW5NYVdlbzhJVk9YMUpsLUF0Mkp4MGFfVlVXVll1Qmo5Yl9sRnhrdkJwMVpxRjlNc2NFc0E5NmhQZw?oc=5"
         }
       ],
       "rank": 1
@@ -59,7 +59,7 @@
       "signalScore": 77.5,
       "signalLabel": "high-attention",
       "evidence": {
-        "publicMentions": 57,
+        "publicMentions": 56,
         "mentionsLast7Days": 1,
         "mentionsLast30Days": 4,
         "sourcesAvailable": [
@@ -75,16 +75,16 @@
           "url": "https://news.google.com/rss/articles/CBMiYkFVX3lxTE1taEp3eWFCamxScW1kTFpqRXVrUDN1QmRsekJuSVViM19Gb0o1b3hJUXVFc2pQaEtORUhqTllaWUhLX0syd0dzNlVaMkY1WGdBSTFwRW9fejhfN0k4Q0k0Qk5n?oc=5"
         },
         {
-          "title": "I Finally Got a Bed Vacuum, and Now I’m Never Going to Be Without One Again (and It’s on Sale for Prime!) - Apartment Therapy",
-          "source": "Google News",
-          "publishedAt": "2026-10-06T07:00:00.000Z",
-          "url": "https://news.google.com/rss/articles/CBMikAFBVV95cUxNbkpkQUFEYVRYc3gzc0Q0MUdkdE1pb2VORTFxbi1XbXk5OXBDYWg0Rmk3R01ZSUt6ZzNlRzRRWGR2RzRGQ09FQVNJNlZOMHk2eU9zZ0p1c1Q1dHpLbXZLZ29RcDQyX1JDZWpPME1pSlRyOG1XUTV2TlRYcDhLUWpXbFFJQkFvS09tb2YyQi1HYnE?oc=5"
-        },
-        {
           "title": "I tested the Feppo mattress vacuum, and I was shocked by what it picked up - USA Today",
           "source": "Google News",
           "publishedAt": "2026-10-27T07:00:00.000Z",
           "url": "https://news.google.com/rss/articles/CBMingFBVV95cUxPUWxtazNrNEVrQWlPVS14WENZTUFPMjhiSFhpZnhMN3BOQWE2dnNPNk1GMkh0bVJWQ2VYazhEcnl2QmZxb3d1UlB3enBlLUdUa3R4ZTNKYllwUmp3ellMa3JoZmljWE9rX1NuS09qRXV5VjZDMnl5V1ZIZEpqNnYxSkpMQlJwd1FGSGZpN1N6UmNRUE9GcERrZnRnZl91UQ?oc=5"
+        },
+        {
+          "title": "I Finally Got a Bed Vacuum, and Now I’m Never Going to Be Without One Again (and It’s on Sale for Prime!) - Apartment Therapy",
+          "source": "Google News",
+          "publishedAt": "2026-10-06T07:00:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMikAFBVV95cUxNbkpkQUFEYVRYc3gzc0Q0MUdkdE1pb2VORTFxbi1XbXk5OXBDYWg0Rmk3R01ZSUt6ZzNlRzRRWGR2RzRGQ09FQVNJNlZOMHk2eU9zZ0p1c1Q1dHpLbXZLZ29RcDQyX1JDZWpPME1pSlRyOG1XUTV2TlRYcDhLUWpXbFFJQkFvS09tb2YyQi1HYnE?oc=5"
         },
         {
           "title": "Is a Mattress Vacuum the Allergy Solution We’ve Been Needing? I Tested One to Find Out - CNET",
@@ -107,7 +107,7 @@
       "signalScore": 77,
       "signalLabel": "high-attention",
       "evidence": {
-        "publicMentions": 55,
+        "publicMentions": 56,
         "mentionsLast7Days": 1,
         "mentionsLast30Days": 3,
         "sourcesAvailable": [
@@ -152,24 +152,18 @@
     {
       "slug": "garment-steamer",
       "name": "Portable Garment Steamer",
-      "signalScore": 75.5,
+      "signalScore": 74,
       "signalLabel": "high-attention",
       "evidence": {
-        "publicMentions": 31,
+        "publicMentions": 30,
         "mentionsLast7Days": 1,
-        "mentionsLast30Days": 4,
+        "mentionsLast30Days": 3,
         "sourcesAvailable": [
           "Google News",
           "Bing News"
         ]
       },
       "sampleSignals": [
-        {
-          "title": "We Tested 18 Travel Steamers—These 9 Keep Clothes Wrinkle-free - Travel + Leisure",
-          "source": "Google News",
-          "publishedAt": "2026-10-23T07:00:00.000Z",
-          "url": "https://news.google.com/rss/articles/CBMibkFVX3lxTE9Wd0NtOV9wTS1JUl9UUG5oQzV0UnEwVG93X29YS0NvZTlqVXAxeWh1bFhyeEhZenNwY25sUEZMNWdhaHh4M1hqSXJtMWdGcVNXTUx3N29tNXliOGZqb1QzVldUSEtYZktoRnNRbWJR?oc=5"
-        },
         {
           "title": "Best travel steamers 2026: tested and reviewed for wrinkle-free packing - CN Traveller",
           "source": "Google News",
@@ -193,6 +187,12 @@
           "source": "Google News",
           "publishedAt": "2024-09-13T07:00:00.000Z",
           "url": "https://news.google.com/rss/articles/CBMiigFBVV95cUxPOEltbERZMDMtemlzdFRPSUdTZGFXLVJDTUJpWWZrMGtSLVVFMDlSWWxHS3YzSXpydFhpWUlyTmd5dTYyMTBaMEtuT1VMazI2SUxzQkhSSVZEV0tqTTdzRGhlYlZxWEw5RVhxSkpsS0xsQjA4cFNkX2Jjb1NYem04OTR0TzNnQlZ1WlE?oc=5"
+        },
+        {
+          "title": "We Tested 19 Travel Steamers—These 10 Keep Clothes Wrinkle-free - Travel + Leisure",
+          "source": "Google News",
+          "publishedAt": "2022-11-16T17:08:14.000Z",
+          "url": "https://news.google.com/rss/articles/CBMibkFVX3lxTE9Wd0NtOV9wTS1JUl9UUG5oQzV0UnEwVG93X29YS0NvZTlqVXAxeWh1bFhyeEhZenNwY25sUEZMNWdhaHh4M1hqSXJtMWdGcVNXTUx3N29tNXliOGZqb1QzVldUSEtYZktoRnNRbWJR?oc=5"
         }
       ],
       "rank": 4
@@ -200,10 +200,10 @@
     {
       "slug": "crevice",
       "name": "3-in-1 Crevice Cleaning Brush",
-      "signalScore": 40.5,
+      "signalScore": 39,
       "signalLabel": "watch",
       "evidence": {
-        "publicMentions": 10,
+        "publicMentions": 9,
         "mentionsLast7Days": 0,
         "mentionsLast30Days": 2,
         "sourcesAvailable": [
@@ -231,16 +231,16 @@
           "url": "https://news.google.com/rss/articles/CBMidkFVX3lxTE92V3lnSDcyVlhvSUJINnN4VU85em51bjBTNFRKU0ltYzNrd3c5YVNMVE1jTmUzMC1tYnM4S1VUQzAtTmVNa2Jha0tNNFFvMlU1ZnkzSHpZVms4MUFiQmF6b2YxRnYydlVob3RoakhnM2t5cW9zRVE?oc=5"
         },
         {
-          "title": "Amazon Shoppers Bought This $10 Cleaning Tool More Than 2,000 Times Last Month (You'll Use It in Every Room!) - Apartment Therapy",
-          "source": "Google News",
-          "publishedAt": "2024-06-04T07:00:00.000Z",
-          "url": "https://news.google.com/rss/articles/CBMigwFBVV95cUxNaEppZ1kxQmNqdm1LbTVfVTdmMmlkTU0zekl1c1BSdVBmSTZUMi1YUTdfRWlxUlR6ZGlRZEZ1Sk9Uc0JvLTJyUDRHc1hNRnNmRllKTjRvbmxyNlUzcmx4SzlzOWdVRXBQbWxyZ25VX2VlbDJrdmMxU3Z0b0hyXzN5SVpXOA?oc=5"
-        },
-        {
           "title": "These No. 1 bestselling crevice brushes 'get into all the hard to reach places!' — and they're less than $3 a pop - Yahoo",
           "source": "Google News",
           "publishedAt": "2024-02-03T08:00:00.000Z",
           "url": "https://news.google.com/rss/articles/CBMi7wFBVV95cUxQMllzbFMyWUc4SVdwd1E1QmJFbXpmc1VnYjFzZnh4SkhxbDVhRldvYjAzZDJKVUZLYVBwSEFOeEMxcl92cGMwMENVRkVKTU9Xbnp5YmkyUk1UTnNETGVNeXo2RWRJZ2ViUnZ3WjRadUtaeUN5SXFlY3I5aHJfYm1qazFKQWQ4Q1FTVUQteHgxX3FNNUJrT2FSc0J6SnFkOHdGeHJVQm5RWWg5dm83OXh0QWFRSlJVdjRPeF9NcEpaMU5CRGhtdGxyY0ZyeDRDVmdBX21xQmtQb0xqTzJXLVdTNlpJQzFsNGtTOGpQdDdfOA?oc=5"
+        },
+        {
+          "title": "Amazon Shoppers Bought This $10 Cleaning Tool More Than 2,000 Times Last Month (You'll Use It in Every Room!) - Apartment Therapy",
+          "source": "Google News",
+          "publishedAt": "2024-06-04T07:00:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMigwFBVV95cUxNaEppZ1kxQmNqdm1LbTVfVTdmMmlkTU0zekl1c1BSdVBmSTZUMi1YUTdfRWlxUlR6ZGlRZEZ1Sk9Uc0JvLTJyUDRHc1hNRnNmRllKTjRvbmxyNlUzcmx4SzlzOWdVRXBQbWxyZ25VX2VlbDJrdmMxU3Z0b0hyXzN5SVpXOA?oc=5"
         }
       ],
       "rank": 5
@@ -248,12 +248,12 @@
     {
       "slug": "pethair",
       "name": "Reusable Pet Hair Remover",
-      "signalScore": 39.5,
+      "signalScore": 38,
       "signalLabel": "watch",
       "evidence": {
         "publicMentions": 10,
         "mentionsLast7Days": 0,
-        "mentionsLast30Days": 1,
+        "mentionsLast30Days": 0,
         "sourcesAvailable": [
           "Google News",
           "Bing News"
