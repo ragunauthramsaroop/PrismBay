@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-11-19T07:58:25.071Z",
+  "updatedAt": "2026-11-19T20:59:50.535Z",
   "market": "US",
   "methodology": "Public-news attention, freshness, and short-form demonstration fit. This is not PrismBay sales data and is not a TikTok, Amazon, Google, or Bing product ranking.",
   "refreshTargetHours": 6,
@@ -8,12 +8,12 @@
     {
       "slug": "scrubber",
       "name": "5-in-1 Electric Spin Scrubber",
-      "signalScore": 79,
+      "signalScore": 83.5,
       "signalLabel": "high-attention",
       "evidence": {
-        "publicMentions": 65,
-        "mentionsLast7Days": 0,
-        "mentionsLast30Days": 6,
+        "publicMentions": 68,
+        "mentionsLast7Days": 1,
+        "mentionsLast30Days": 7,
         "sourcesAvailable": [
           "Google News",
           "Bing News"
@@ -23,7 +23,7 @@
         {
           "title": "We tested 8 spin scrubbers, and only 3 made our shower shine - Yahoo",
           "source": "Google News",
-          "publishedAt": "2026-11-10T21:57:34.000Z",
+          "publishedAt": "2026-11-10T08:00:00.000Z",
           "url": "https://news.google.com/rss/articles/CBMilAFBVV95cUxPRzZ1NFRxWkFEcVQzWWd5aVJQUlVXa25zMDc1d0NLaDRwZUVDYjBrU2otX0t1c3hzWUszQnZibjJZSk1vOUhrTGJQZUdNSDJLd1dFTGhnQy1lUXFkOFBfNnBGZ3FtSXEzaUJZUWw5ZVZTT0pCODBERUN0eUFqNVZCSG1fN09maWRmMHBqX2ZlZi0wNmFT?oc=5"
         },
         {
@@ -39,10 +39,10 @@
           "url": "https://news.google.com/rss/articles/CBMijAFBVV95cUxPeHdhUGRKUmlMQy1qT2hYWXZISTJDcExWc1hFVkoxQXQ0cldiWUVGTFlnOWNNVDQxS0kwRjg0MTFZaUp3X3M4WDhFUjNJLVRYT201NjNKZlkxWmNIYVd3T1JfSGs3dDFTMXQyUGNEcmVFdUtmSHJwUTduM015VGNYNHl4MFd4TDlRSnJBbw?oc=5"
         },
         {
-          "title": "These electric spin scrubbers clean grout, tubs, and floors with ease - Business Insider",
+          "title": "Get a Deeper Clean on Any Surface with the Best Floor Scrubbers We Recommend - Popular Mechanics",
           "source": "Google News",
-          "publishedAt": "2026-04-22T07:00:00.000Z",
-          "url": "https://news.google.com/rss/articles/CBMie0FVX3lxTE40c3JDUmdvYnFzQW4wNUE0VUdoWVMzUk1MT1VGOTBMbDdIT0tBcU1IbzMwWmNwME5za1ozalNqUWdkVDNMV1d0WUx5YUpOSU9TRGhWR1VVTzktT3VBOXR0d0pQM0hpQVZpU2hRdFN4M3dXRlpiejRwSUlDMA?oc=5"
+          "publishedAt": "2026-11-17T15:51:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMikAFBVV95cUxONmR0aEJDWS0xOFNqQzBwU01XZmlRVHgzNTJWWnJoNWExR2IxdmZCeF9xU0ozOXFlT2JscmhhSXdackpFcHg0TEs5UHNxeVVrejhveUQ4blJ3cUxtRkx4TG5mMklLTFFfRTZFbVhxQ2RJdm85WlhsUWRjbmd6WElRMjlIT2FhQ3dvV3FhNHlfUXI?oc=5"
         },
         {
           "title": "I Have a Leg Injury, and This Extendable Spin Scrubber Has Been a Lifesaver in Keeping My Bathroom Spotless - Apartment Therapy",
@@ -56,12 +56,12 @@
     {
       "slug": "mattress-vacuum",
       "name": "Mattress Vacuum",
-      "signalScore": 77.5,
+      "signalScore": 79,
       "signalLabel": "high-attention",
       "evidence": {
-        "publicMentions": 56,
+        "publicMentions": 108,
         "mentionsLast7Days": 1,
-        "mentionsLast30Days": 4,
+        "mentionsLast30Days": 5,
         "sourcesAvailable": [
           "Google News",
           "Bing News"
@@ -107,7 +107,7 @@
       "signalScore": 77,
       "signalLabel": "high-attention",
       "evidence": {
-        "publicMentions": 56,
+        "publicMentions": 55,
         "mentionsLast7Days": 1,
         "mentionsLast30Days": 3,
         "sourcesAvailable": [
@@ -152,12 +152,12 @@
     {
       "slug": "garment-steamer",
       "name": "Portable Garment Steamer",
-      "signalScore": 74,
+      "signalScore": 72.5,
       "signalLabel": "high-attention",
       "evidence": {
-        "publicMentions": 30,
+        "publicMentions": 28,
         "mentionsLast7Days": 1,
-        "mentionsLast30Days": 3,
+        "mentionsLast30Days": 4,
         "sourcesAvailable": [
           "Google News",
           "Bing News"
@@ -169,12 +169,6 @@
           "source": "Google News",
           "publishedAt": "2026-07-30T07:00:00.000Z",
           "url": "https://news.google.com/rss/articles/CBMiZkFVX3lxTE1ZRDlxanVrQ3JSeXhtdXBjS3JmVTdkQnV2LURHdldCN1BidHU0ZjhselZXRVZWLVhJUEpwaUMwTEgweU5mLVRmZnozS3dJUTk5TGZTZHctbHpmZHkySDktbE1hZ0Zsdw?oc=5"
-        },
-        {
-          "title": "Portable Garment Steamers Market Size, Share | Forecast [2034] - Fortune Business Insights",
-          "source": "Google News",
-          "publishedAt": "2026-10-12T07:00:00.000Z",
-          "url": "https://news.google.com/rss/articles/CBMihgFBVV95cUxQaXlNc3IwRkdxSWMwS0xGc1dQZEQyRkdjb0l6M2hvZDNual9lUHQzWm5MUS1BSHhNRzRHSGxrQm5tb3dKMXlpeS0tUlJ1TElEbWNoUkN2MGgzMnp4TjRkczE4VlQ0UmNNRy1hbWI2Y05Xa3Z3RzBkU1VpcWZ1OEdRNVgtVEl1UQ?oc=5"
         },
         {
           "title": "10 of the best handheld steamers on the market - Vogue Australia",
@@ -193,6 +187,12 @@
           "source": "Google News",
           "publishedAt": "2022-11-16T17:08:14.000Z",
           "url": "https://news.google.com/rss/articles/CBMibkFVX3lxTE9Wd0NtOV9wTS1JUl9UUG5oQzV0UnEwVG93X29YS0NvZTlqVXAxeWh1bFhyeEhZenNwY25sUEZMNWdhaHh4M1hqSXJtMWdGcVNXTUx3N29tNXliOGZqb1QzVldUSEtYZktoRnNRbWJR?oc=5"
+        },
+        {
+          "title": "Amazon Prime Day 2023: Get a Portable Garment Steamer With 65,000+ 5-Star Amazon Reviews for Just $28 - E! News",
+          "source": "Google News",
+          "publishedAt": "2023-07-12T07:00:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMi0gFBVV95cUxOdDk2RDdCUE1xN09MdVBTQ1VhbTY3X1BFZkhYT090cWF1Y0s0b0Z0S2hPODlUb0dYUFBaeHRxRVduMHh0STVtSXNZOVRINTNhd0d6VE9HTHduY29xTHRYbVpaN0p1RTNEOEU4eHFERksybmpyUmRMNUd6ZnZYaEtZSUZzN04zd2JJd3ZfRk9YYm82ZUFBS0NOcGZmVzFxeEg1bjFYYTBxaGdoN0RZd3lwYW5OSTk2ZkdOUlhkSkJfbDh5aHVETDktMEYtOFJ6R3pTWmc?oc=5"
         }
       ],
       "rank": 4
@@ -200,10 +200,10 @@
     {
       "slug": "crevice",
       "name": "3-in-1 Crevice Cleaning Brush",
-      "signalScore": 39,
+      "signalScore": 40.5,
       "signalLabel": "watch",
       "evidence": {
-        "publicMentions": 9,
+        "publicMentions": 10,
         "mentionsLast7Days": 0,
         "mentionsLast30Days": 2,
         "sourcesAvailable": [
