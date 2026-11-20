@@ -1,10 +1,10 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-11-19T23:04:59.495Z",
+  "generatedAt": "2026-11-20T07:22:42.991Z",
   "researchCandidates": 12,
   "publishedResearchSignals": 12,
   "verifiedCJStatus": {
-    "checkedAt": "2026-11-19T23:04:58.132Z",
+    "checkedAt": "2026-11-20T07:22:41.213Z",
     "validSupplierMatches": 5,
     "variantStock": 1,
     "freightEstimates": 1,
@@ -28,6 +28,27 @@
       "candidateCount": 12,
       "blockers": [
         {
+          "slug": "pressure-washer",
+          "status": "supplier_search_needed",
+          "sku": null,
+          "shippingDiagnostic": null,
+          "zeroPricedMethods": 0
+        },
+        {
+          "slug": "mattress-vacuum",
+          "status": "supplier_search_needed",
+          "sku": null,
+          "shippingDiagnostic": null,
+          "zeroPricedMethods": 0
+        },
+        {
+          "slug": "garment-steamer",
+          "status": "variant_stock_required",
+          "sku": "CJQX1124259",
+          "shippingDiagnostic": "variant_stock_unverified",
+          "zeroPricedMethods": 0
+        },
+        {
           "slug": "travel-packing-cubes",
           "status": "supplier_search_needed",
           "sku": null,
@@ -36,7 +57,7 @@
         },
         {
           "slug": "roll-up-dish-rack",
-          "status": "variant_stock_required",
+          "status": "fresh_commercial_evidence_required",
           "sku": "CJYD2092759",
           "shippingDiagnostic": "variant_stock_unverified",
           "zeroPricedMethods": 0
@@ -88,27 +109,6 @@
           "status": "supplier_search_needed",
           "sku": null,
           "shippingDiagnostic": null,
-          "zeroPricedMethods": 0
-        },
-        {
-          "slug": "multiport-charger",
-          "status": "supplier_search_needed",
-          "sku": null,
-          "shippingDiagnostic": null,
-          "zeroPricedMethods": 0
-        },
-        {
-          "slug": "motion-sensor-cabinet-lights",
-          "status": "supplier_search_needed",
-          "sku": null,
-          "shippingDiagnostic": null,
-          "zeroPricedMethods": 0
-        },
-        {
-          "slug": "car-phone-mount",
-          "status": "fresh_commercial_evidence_required",
-          "sku": "CJSJSJSJ02737",
-          "shippingDiagnostic": "variant_stock_unverified",
           "zeroPricedMethods": 0
         }
       ]
