@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-11-19T20:59:50.535Z",
+  "updatedAt": "2026-11-20T07:48:20.413Z",
   "market": "US",
   "methodology": "Public-news attention, freshness, and short-form demonstration fit. This is not PrismBay sales data and is not a TikTok, Amazon, Google, or Bing product ranking.",
   "refreshTargetHours": 6,
@@ -11,7 +11,7 @@
       "signalScore": 83.5,
       "signalLabel": "high-attention",
       "evidence": {
-        "publicMentions": 68,
+        "publicMentions": 69,
         "mentionsLast7Days": 1,
         "mentionsLast30Days": 7,
         "sourcesAvailable": [
@@ -39,16 +39,16 @@
           "url": "https://news.google.com/rss/articles/CBMijAFBVV95cUxPeHdhUGRKUmlMQy1qT2hYWXZISTJDcExWc1hFVkoxQXQ0cldiWUVGTFlnOWNNVDQxS0kwRjg0MTFZaUp3X3M4WDhFUjNJLVRYT201NjNKZlkxWmNIYVd3T1JfSGs3dDFTMXQyUGNEcmVFdUtmSHJwUTduM015VGNYNHl4MFd4TDlRSnJBbw?oc=5"
         },
         {
-          "title": "Get a Deeper Clean on Any Surface with the Best Floor Scrubbers We Recommend - Popular Mechanics",
-          "source": "Google News",
-          "publishedAt": "2026-11-17T15:51:00.000Z",
-          "url": "https://news.google.com/rss/articles/CBMikAFBVV95cUxONmR0aEJDWS0xOFNqQzBwU01XZmlRVHgzNTJWWnJoNWExR2IxdmZCeF9xU0ozOXFlT2JscmhhSXdackpFcHg0TEs5UHNxeVVrejhveUQ4blJ3cUxtRkx4TG5mMklLTFFfRTZFbVhxQ2RJdm85WlhsUWRjbmd6WElRMjlIT2FhQ3dvV3FhNHlfUXI?oc=5"
-        },
-        {
           "title": "I Have a Leg Injury, and This Extendable Spin Scrubber Has Been a Lifesaver in Keeping My Bathroom Spotless - Apartment Therapy",
           "source": "Google News",
           "publishedAt": "2026-09-11T07:00:00.000Z",
           "url": "https://news.google.com/rss/articles/CBMihgFBVV95cUxPOF92S3dDMlBWc1ptWEpxX0pxNWd5emtEbHdyMXg4NkxhUWxweGVsR1pGMXotcElFNGQtWldFRkNtUzdRWGE5aFdFNFl3NW5NYVdlbzhJVk9YMUpsLUF0Mkp4MGFfVlVXVll1Qmo5Yl9sRnhrdkJwMVpxRjlNc2NFc0E5NmhQZw?oc=5"
+        },
+        {
+          "title": "Get a Deeper Clean on Any Surface with the Best Floor Scrubbers We Recommend - Popular Mechanics",
+          "source": "Google News",
+          "publishedAt": "2026-11-17T15:51:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMikAFBVV95cUxONmR0aEJDWS0xOFNqQzBwU01XZmlRVHgzNTJWWnJoNWExR2IxdmZCeF9xU0ozOXFlT2JscmhhSXdackpFcHg0TEs5UHNxeVVrejhveUQ4blJ3cUxtRkx4TG5mMklLTFFfRTZFbVhxQ2RJdm85WlhsUWRjbmd6WElRMjlIT2FhQ3dvV3FhNHlfUXI?oc=5"
         }
       ],
       "rank": 1
@@ -56,11 +56,11 @@
     {
       "slug": "mattress-vacuum",
       "name": "Mattress Vacuum",
-      "signalScore": 79,
+      "signalScore": 82,
       "signalLabel": "high-attention",
       "evidence": {
-        "publicMentions": 108,
-        "mentionsLast7Days": 1,
+        "publicMentions": 57,
+        "mentionsLast7Days": 2,
         "mentionsLast30Days": 5,
         "sourcesAvailable": [
           "Google News",
@@ -152,10 +152,10 @@
     {
       "slug": "garment-steamer",
       "name": "Portable Garment Steamer",
-      "signalScore": 72.5,
+      "signalScore": 74,
       "signalLabel": "high-attention",
       "evidence": {
-        "publicMentions": 28,
+        "publicMentions": 29,
         "mentionsLast7Days": 1,
         "mentionsLast30Days": 4,
         "sourcesAvailable": [
@@ -200,12 +200,12 @@
     {
       "slug": "crevice",
       "name": "3-in-1 Crevice Cleaning Brush",
-      "signalScore": 40.5,
+      "signalScore": 39,
       "signalLabel": "watch",
       "evidence": {
         "publicMentions": 10,
         "mentionsLast7Days": 0,
-        "mentionsLast30Days": 2,
+        "mentionsLast30Days": 1,
         "sourcesAvailable": [
           "Google News",
           "Bing News"
