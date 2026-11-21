@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-11-20T20:45:52.466Z",
+  "updatedAt": "2026-11-21T07:43:54.012Z",
   "market": "US",
   "methodology": "Public-news attention, freshness, and short-form demonstration fit. This is not PrismBay sales data and is not a TikTok, Amazon, Google, or Bing product ranking.",
   "refreshTargetHours": 6,
@@ -11,7 +11,7 @@
       "signalScore": 86.5,
       "signalLabel": "high-attention",
       "evidence": {
-        "publicMentions": 58,
+        "publicMentions": 59,
         "mentionsLast7Days": 3,
         "mentionsLast30Days": 6,
         "sourcesAvailable": [
@@ -54,62 +54,14 @@
       "rank": 1
     },
     {
-      "slug": "scrubber",
-      "name": "5-in-1 Electric Spin Scrubber",
-      "signalScore": 83.5,
-      "signalLabel": "high-attention",
-      "evidence": {
-        "publicMentions": 68,
-        "mentionsLast7Days": 1,
-        "mentionsLast30Days": 7,
-        "sourcesAvailable": [
-          "Google News",
-          "Bing News"
-        ]
-      },
-      "sampleSignals": [
-        {
-          "title": "We tested 8 spin scrubbers, and only 3 made our shower shine - Yahoo",
-          "source": "Google News",
-          "publishedAt": "2026-11-10T08:00:00.000Z",
-          "url": "https://news.google.com/rss/articles/CBMilAFBVV95cUxPRzZ1NFRxWkFEcVQzWWd5aVJQUlVXa25zMDc1d0NLaDRwZUVDYjBrU2otX0t1c3hzWUszQnZibjJZSk1vOUhrTGJQZUdNSDJLd1dFTGhnQy1lUXFkOFBfNnBGZ3FtSXEzaUJZUWw5ZVZTT0pCODBERUN0eUFqNVZCSG1fN09maWRmMHBqX2ZlZi0wNmFT?oc=5"
-        },
-        {
-          "title": "Yes, You Can Get ‘Excited to Clean’ Your Bathroom with This Back-Saving Electric Scrubber Brush — Shop It for $26 - People.com",
-          "source": "Google News",
-          "publishedAt": "2026-10-27T07:00:00.000Z",
-          "url": "https://news.google.com/rss/articles/CBMiigFBVV95cUxPZEdtZ3NuU1dxY2xBakxlZEExb1EzYnB5b2drMUdZNWNSejZBRHBXenNqbVdvc2dpTUpUM1c4eVgtbmFFMWtxZlZ1clo4T3FIRk5JSG82RWZqMG52VlRuUjZzZFhWOUV0M0dxVlRUZVhNY212SHByMGpjNG1MWFpKdE95c3BaRXNkemc?oc=5"
-        },
-        {
-          "title": "Spend Less Time Scrubbing With These Top-Tested Picks - Good Housekeeping",
-          "source": "Google News",
-          "publishedAt": "2026-06-25T07:00:00.000Z",
-          "url": "https://news.google.com/rss/articles/CBMijAFBVV95cUxPeHdhUGRKUmlMQy1qT2hYWXZISTJDcExWc1hFVkoxQXQ0cldiWUVGTFlnOWNNVDQxS0kwRjg0MTFZaUp3X3M4WDhFUjNJLVRYT201NjNKZlkxWmNIYVd3T1JfSGs3dDFTMXQyUGNEcmVFdUtmSHJwUTduM015VGNYNHl4MFd4TDlRSnJBbw?oc=5"
-        },
-        {
-          "title": "I Have a Leg Injury, and This Extendable Spin Scrubber Has Been a Lifesaver in Keeping My Bathroom Spotless - Apartment Therapy",
-          "source": "Google News",
-          "publishedAt": "2026-09-11T07:00:00.000Z",
-          "url": "https://news.google.com/rss/articles/CBMihgFBVV95cUxPOF92S3dDMlBWc1ptWEpxX0pxNWd5emtEbHdyMXg4NkxhUWxweGVsR1pGMXotcElFNGQtWldFRkNtUzdRWGE5aFdFNFl3NW5NYVdlbzhJVk9YMUpsLUF0Mkp4MGFfVlVXVll1Qmo5Yl9sRnhrdkJwMVpxRjlNc2NFc0E5NmhQZw?oc=5"
-        },
-        {
-          "title": "These electric spin scrubbers clean grout, tubs, and floors with ease - Business Insider",
-          "source": "Google News",
-          "publishedAt": "2026-04-22T07:00:00.000Z",
-          "url": "https://news.google.com/rss/articles/CBMie0FVX3lxTE40c3JDUmdvYnFzQW4wNUE0VUdoWVMzUk1MT1VGOTBMbDdIT0tBcU1IbzMwWmNwME5za1ozalNqUWdkVDNMV1d0WUx5YUpOSU9TRGhWR1VVTzktT3VBOXR0d0pQM0hpQVZpU2hRdFN4M3dXRlpiejRwSUlDMA?oc=5"
-        }
-      ],
-      "rank": 2
-    },
-    {
       "slug": "garment-steamer",
       "name": "Portable Garment Steamer",
-      "signalScore": 80,
+      "signalScore": 78.5,
       "signalLabel": "high-attention",
       "evidence": {
-        "publicMentions": 30,
+        "publicMentions": 31,
         "mentionsLast7Days": 2,
-        "mentionsLast30Days": 5,
+        "mentionsLast30Days": 4,
         "sourcesAvailable": [
           "Google News",
           "Bing News"
@@ -145,6 +97,54 @@
           "source": "Google News",
           "publishedAt": "2023-07-12T07:00:00.000Z",
           "url": "https://news.google.com/rss/articles/CBMi0gFBVV95cUxOdDk2RDdCUE1xN09MdVBTQ1VhbTY3X1BFZkhYT090cWF1Y0s0b0Z0S2hPODlUb0dYUFBaeHRxRVduMHh0STVtSXNZOVRINTNhd0d6VE9HTHduY29xTHRYbVpaN0p1RTNEOEU4eHFERksybmpyUmRMNUd6ZnZYaEtZSUZzN04zd2JJd3ZfRk9YYm82ZUFBS0NOcGZmVzFxeEg1bjFYYTBxaGdoN0RZd3lwYW5OSTk2ZkdOUlhkSkJfbDh5aHVETDktMEYtOFJ6R3pTWmc?oc=5"
+        }
+      ],
+      "rank": 2
+    },
+    {
+      "slug": "scrubber",
+      "name": "5-in-1 Electric Spin Scrubber",
+      "signalScore": 77.5,
+      "signalLabel": "high-attention",
+      "evidence": {
+        "publicMentions": 67,
+        "mentionsLast7Days": 0,
+        "mentionsLast30Days": 5,
+        "sourcesAvailable": [
+          "Google News",
+          "Bing News"
+        ]
+      },
+      "sampleSignals": [
+        {
+          "title": "Yes, You Can Get ‘Excited to Clean’ Your Bathroom with This Back-Saving Electric Scrubber Brush — Shop It for $26 - People.com",
+          "source": "Google News",
+          "publishedAt": "2026-10-27T07:00:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMiigFBVV95cUxPZEdtZ3NuU1dxY2xBakxlZEExb1EzYnB5b2drMUdZNWNSejZBRHBXenNqbVdvc2dpTUpUM1c4eVgtbmFFMWtxZlZ1clo4T3FIRk5JSG82RWZqMG52VlRuUjZzZFhWOUV0M0dxVlRUZVhNY212SHByMGpjNG1MWFpKdE95c3BaRXNkemc?oc=5"
+        },
+        {
+          "title": "Spend Less Time Scrubbing With These Top-Tested Picks - Good Housekeeping",
+          "source": "Google News",
+          "publishedAt": "2026-06-25T07:00:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMijAFBVV95cUxPeHdhUGRKUmlMQy1qT2hYWXZISTJDcExWc1hFVkoxQXQ0cldiWUVGTFlnOWNNVDQxS0kwRjg0MTFZaUp3X3M4WDhFUjNJLVRYT201NjNKZlkxWmNIYVd3T1JfSGs3dDFTMXQyUGNEcmVFdUtmSHJwUTduM015VGNYNHl4MFd4TDlRSnJBbw?oc=5"
+        },
+        {
+          "title": "I Have a Leg Injury, and This Extendable Spin Scrubber Has Been a Lifesaver in Keeping My Bathroom Spotless - Apartment Therapy",
+          "source": "Google News",
+          "publishedAt": "2026-09-11T07:00:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMihgFBVV95cUxPOF92S3dDMlBWc1ptWEpxX0pxNWd5emtEbHdyMXg4NkxhUWxweGVsR1pGMXotcElFNGQtWldFRkNtUzdRWGE5aFdFNFl3NW5NYVdlbzhJVk9YMUpsLUF0Mkp4MGFfVlVXVll1Qmo5Yl9sRnhrdkJwMVpxRjlNc2NFc0E5NmhQZw?oc=5"
+        },
+        {
+          "title": "These electric spin scrubbers clean grout, tubs, and floors with ease - Business Insider",
+          "source": "Google News",
+          "publishedAt": "2026-04-22T07:00:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMie0FVX3lxTE40c3JDUmdvYnFzQW4wNUE0VUdoWVMzUk1MT1VGOTBMbDdIT0tBcU1IbzMwWmNwME5za1ozalNqUWdkVDNMV1d0WUx5YUpOSU9TRGhWR1VVTzktT3VBOXR0d0pQM0hpQVZpU2hRdFN4M3dXRlpiejRwSUlDMA?oc=5"
+        },
+        {
+          "title": "Back or knee pain? This electric scrubber 'saves your back' — it's on sale for $41, and Amazon shoppers say it makes them 'almost look forward to cleaning' - Yahoo Lifestyle Canada",
+          "source": "Google News",
+          "publishedAt": "2026-10-27T07:00:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMilwJBVV95cUxNOU9aN2ZwTmdMaHNFN0xRUjV0djd5TzVFUkRlNHJsS1pEU2RhT3ppemJwTzlGdHROMlh1VldxQ1ZnbTlld1pab2hRZ0k4VzhTNk9JSWc5bzRWbERVMThzd1dSeEZiSWdLd0VqeGxmbE5ObEItLWs5RGM1YzI1azlndGVKMGFPVUFEUm1MZVpwcF9UWmJqcElTRXNaUHRlUTFEeHZ4X3VvbVJYTkJFdVBXcUY0ekU0TGpaYVFiX2lmQy1iWHh5emtIUnJTdnpRUUszaHZaN3ZZdUk1LWZBOFZiRWZfT0p4MngybXBZSzAyLTcwakIyOE5pRkpjTE01ZGVqclNmcFNSRFlNUXNhRllmSHhXeXoyVzA?oc=5"
         }
       ],
       "rank": 3
@@ -237,10 +237,10 @@
           "url": "https://news.google.com/rss/articles/CBMi7wFBVV95cUxQMllzbFMyWUc4SVdwd1E1QmJFbXpmc1VnYjFzZnh4SkhxbDVhRldvYjAzZDJKVUZLYVBwSEFOeEMxcl92cGMwMENVRkVKTU9Xbnp5YmkyUk1UTnNETGVNeXo2RWRJZ2ViUnZ3WjRadUtaeUN5SXFlY3I5aHJfYm1qazFKQWQ4Q1FTVUQteHgxX3FNNUJrT2FSc0J6SnFkOHdGeHJVQm5RWWg5dm83OXh0QWFRSlJVdjRPeF9NcEpaMU5CRGhtdGxyY0ZyeDRDVmdBX21xQmtQb0xqTzJXLVdTNlpJQzFsNGtTOGpQdDdfOA?oc=5"
         },
         {
-          "title": "Amazon Shoppers Bought This $10 Cleaning Tool More Than 2,000 Times Last Month (You'll Use It in Every Room!) - Apartment Therapy",
+          "title": "The $3 Tool That Gets Rid of All the Grime and Leaves Surfaces Spotless - Apartment Therapy",
           "source": "Google News",
-          "publishedAt": "2024-06-04T07:00:00.000Z",
-          "url": "https://news.google.com/rss/articles/CBMigwFBVV95cUxNaEppZ1kxQmNqdm1LbTVfVTdmMmlkTU0zekl1c1BSdVBmSTZUMi1YUTdfRWlxUlR6ZGlRZEZ1Sk9Uc0JvLTJyUDRHc1hNRnNmRllKTjRvbmxyNlUzcmx4SzlzOWdVRXBQbWxyZ25VX2VlbDJrdmMxU3Z0b0hyXzN5SVpXOA?oc=5"
+          "publishedAt": "2023-08-24T07:00:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMijwFBVV95cUxQMEt5emphY3dTem5yN3NXMmN3QWJSU1lSZzExN2oyeVZjUUJ1NjZKaFpXMlNFbEROd21PR3l2VkZMLVdSYmpoWTVlcmZsRldVcDcwSlA4VE1JSmZTWFVxbEJicXQ0NmY4aXdLWF9oSUs0eUhIazdITk0yU1lweTFfTmZLbDd3bTRjdWVxdlQzaw?oc=5"
         }
       ],
       "rank": 5
