@@ -1,14 +1,14 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-11-20T20:46:34.038Z",
+  "generatedAt": "2026-11-21T01:34:00.484Z",
   "researchCandidates": 12,
   "publishedResearchSignals": 12,
   "verifiedCJStatus": {
-    "checkedAt": "2026-11-20T16:59:31.761Z",
-    "validSupplierMatches": 5,
-    "variantStock": 1,
-    "freightEstimates": 1,
-    "countryFreightEstimates": 1,
+    "checkedAt": "2026-11-21T01:33:58.598Z",
+    "validSupplierMatches": 4,
+    "variantStock": 0,
+    "freightEstimates": 0,
+    "countryFreightEstimates": 0,
     "illustrativeZipFreightEstimates": 0,
     "falseMatches": 0
   },
@@ -28,6 +28,27 @@
       "candidateCount": 12,
       "blockers": [
         {
+          "slug": "scrubber",
+          "status": "supplier_search_needed",
+          "sku": null,
+          "shippingDiagnostic": null,
+          "zeroPricedMethods": 0
+        },
+        {
+          "slug": "pethair",
+          "status": "variant_stock_required",
+          "sku": "CJYD2079690",
+          "shippingDiagnostic": "variant_stock_unverified",
+          "zeroPricedMethods": 0
+        },
+        {
+          "slug": "crevice",
+          "status": "supplier_search_needed",
+          "sku": null,
+          "shippingDiagnostic": null,
+          "zeroPricedMethods": 0
+        },
+        {
           "slug": "multiport-charger",
           "status": "supplier_search_needed",
           "sku": null,
@@ -43,7 +64,7 @@
         },
         {
           "slug": "car-phone-mount",
-          "status": "variant_stock_required",
+          "status": "fresh_commercial_evidence_required",
           "sku": "CJSJ2077898",
           "shippingDiagnostic": "variant_stock_unverified",
           "zeroPricedMethods": 0
@@ -88,27 +109,6 @@
           "status": "supplier_search_needed",
           "sku": null,
           "shippingDiagnostic": null,
-          "zeroPricedMethods": 0
-        },
-        {
-          "slug": "cordless-handheld-vacuum",
-          "status": "fresh_commercial_evidence_required",
-          "sku": "CJYD3150294",
-          "shippingDiagnostic": "variant_stock_unverified",
-          "zeroPricedMethods": 0
-        },
-        {
-          "slug": "insulated-tumbler",
-          "status": "supplier_search_needed",
-          "sku": null,
-          "shippingDiagnostic": null,
-          "zeroPricedMethods": 0
-        },
-        {
-          "slug": "screen-protector",
-          "status": "fresh_commercial_evidence_required",
-          "sku": "CJPB237729905EV",
-          "shippingDiagnostic": "priced_estimate_available",
           "zeroPricedMethods": 0
         }
       ]
