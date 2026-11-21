@@ -223,7 +223,7 @@
       "slug": "garment-steamer",
       "name": "Portable Garment Steamer",
       "priority": "subsequent",
-      "supplierEvidenceFresh": true,
+      "supplierEvidenceFresh": false,
       "reviewObservedAt": "2026-11-20T07:22:41.213Z",
       "observedSupplierProduct": "Household Electric Iron, Steam Iron, Handheld Garment Ironing Machine, Mini Electric Iron, Steam Brush, Portable Ironing Machine",
       "observedSupplierSku": "CJQX1124259",
@@ -231,7 +231,7 @@
       "mediaRightsScope": "unverified",
       "supplierPhotoVideoRightsVerified": false,
       "verifiedChecks": {
-        "independentSupplierMatch": true,
+        "independentSupplierMatch": false,
         "variantStock": false,
         "screeningFreight": false,
         "destinationQuotePerBuyer": false,
@@ -241,6 +241,7 @@
         "commercialPromotionApproval": false
       },
       "missingChecks": [
+        "independentSupplierMatch",
         "variantStock",
         "screeningFreight",
         "destinationQuotePerBuyer",
@@ -291,7 +292,7 @@
       "slug": "mattress-vacuum",
       "name": "Mattress Vacuum",
       "priority": "subsequent",
-      "supplierEvidenceFresh": true,
+      "supplierEvidenceFresh": false,
       "reviewObservedAt": "2026-11-20T07:22:41.213Z",
       "observedSupplierProduct": null,
       "observedSupplierSku": null,
