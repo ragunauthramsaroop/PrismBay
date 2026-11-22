@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-11-22T07:29:53.722Z",
+  "updatedAt": "2026-11-22T19:59:02.085Z",
   "market": "US",
   "methodology": "Public-news attention, freshness, and short-form demonstration fit. This is not PrismBay sales data and is not a TikTok, Amazon, Google, or Bing product ranking.",
   "refreshTargetHours": 6,
@@ -11,7 +11,7 @@
       "signalScore": 86.5,
       "signalLabel": "high-attention",
       "evidence": {
-        "publicMentions": 58,
+        "publicMentions": 59,
         "mentionsLast7Days": 3,
         "mentionsLast30Days": 6,
         "sourcesAvailable": [
@@ -33,12 +33,6 @@
           "url": "https://news.google.com/rss/articles/CBMingFBVV95cUxPUWxtazNrNEVrQWlPVS14WENZTUFPMjhiSFhpZnhMN3BOQWE2dnNPNk1GMkh0bVJWQ2VYazhEcnl2QmZxb3d1UlB3enBlLUdUa3R4ZTNKYllwUmp3ellMa3JoZmljWE9rX1NuS09qRXV5VjZDMnl5V1ZIZEpqNnYxSkpMQlJwd1FGSGZpN1N6UmNRUE9GcERrZnRnZl91UQ?oc=5"
         },
         {
-          "title": "JIMMY BX8 Pro review: A mattress vacuum that earns its spot in the closet - Gadget Flow",
-          "source": "Google News",
-          "publishedAt": "2026-11-18T15:22:43.000Z",
-          "url": "https://news.google.com/rss/articles/CBMiYkFVX3lxTE1taEp3eWFCamxScW1kTFpqRXVrUDN1QmRsekJuSVViM19Gb0o1b3hJUXVFc2pQaEtORUhqTllaWUhLX0syd0dzNlVaMkY1WGdBSTFwRW9fejhfN0k4Q0k0Qk5n?oc=5"
-        },
-        {
           "title": "I Finally Got a Bed Vacuum, and Now I’m Never Going to Be Without One Again (and It’s on Sale for Prime!) - Apartment Therapy",
           "source": "Google News",
           "publishedAt": "2026-10-06T07:00:00.000Z",
@@ -49,6 +43,12 @@
           "source": "Google News",
           "publishedAt": "2026-06-27T07:00:00.000Z",
           "url": "https://news.google.com/rss/articles/CBMisAFBVV95cUxQcmFNWEdvTUxuY1RES2k4bXh1T0U2ci1nTHBJRXVud3F4ekF2NHF4NkF4LTlKR3lRWTNObHBGcjUzOGlLNUlHNXd1dGdOQXBYcEN6QllhNGZyVDFja2h1R3AzX1hIaFk4RUpsZ3JQT05Ga2pkelRscFRTaVJ0NFhyX0c3cVllQzIxTXoyeGhKcTNvLUJuRWNLd0g3Si1mYnRoUjEzZExKZGEtUXlsVlV3dQ?oc=5"
+        },
+        {
+          "title": "JIMMY BX8 Pro review: A mattress vacuum that earns its spot in the closet - Gadget Flow",
+          "source": "Google News",
+          "publishedAt": "2026-11-18T15:22:43.000Z",
+          "url": "https://news.google.com/rss/articles/CBMiYkFVX3lxTE1taEp3eWFCamxScW1kTFpqRXVrUDN1QmRsekJuSVViM19Gb0o1b3hJUXVFc2pQaEtORUhqTllaWUhLX0syd0dzNlVaMkY1WGdBSTFwRW9fejhfN0k4Q0k0Qk5n?oc=5"
         }
       ],
       "rank": 1
@@ -56,12 +56,12 @@
     {
       "slug": "garment-steamer",
       "name": "Portable Garment Steamer",
-      "signalScore": 78.5,
+      "signalScore": 83,
       "signalLabel": "high-attention",
       "evidence": {
-        "publicMentions": 34,
-        "mentionsLast7Days": 2,
-        "mentionsLast30Days": 4,
+        "publicMentions": 36,
+        "mentionsLast7Days": 3,
+        "mentionsLast30Days": 5,
         "sourcesAvailable": [
           "Google News",
           "Bing News"
@@ -104,12 +104,12 @@
     {
       "slug": "scrubber",
       "name": "5-in-1 Electric Spin Scrubber",
-      "signalScore": 76,
+      "signalScore": 80.5,
       "signalLabel": "high-attention",
       "evidence": {
         "publicMentions": 65,
-        "mentionsLast7Days": 0,
-        "mentionsLast30Days": 4,
+        "mentionsLast7Days": 1,
+        "mentionsLast30Days": 5,
         "sourcesAvailable": [
           "Google News",
           "Bing News"
