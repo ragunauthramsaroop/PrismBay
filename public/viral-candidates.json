@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-11-21T11:49:42.960Z",
+  "updatedAt": "2026-11-22T12:01:20.984Z",
   "market": "US",
   "supplierIntegration": "awaiting-cj-auth",
   "methodology": "Public attention and recency identify candidates. Supplier promotion requires verified US inventory and product-level checks. Freight and checkout creation occur only after supplier validation.",
@@ -9,12 +9,12 @@
       "slug": "cordless-handheld-vacuum",
       "name": "Cordless Handheld Vacuum",
       "query": "cordless handheld vacuum",
-      "attentionScore": 84.5,
+      "attentionScore": 86.4,
       "attentionLabel": "high-attention",
       "evidence": {
-        "publicMentions": 53,
+        "publicMentions": 50,
         "mentionsLast7Days": 1,
-        "mentionsLast30Days": 6,
+        "mentionsLast30Days": 7,
         "sourcesAvailable": [
           "Google News",
           "Bing News"
@@ -27,16 +27,16 @@
             "url": "https://news.google.com/rss/articles/CBMi-wFBVV95cUxQb0lkZ3BQQWYyWVVJTVhVcmZqSnp1QWZXeU9iLVNyTDU4TkR4UXJxTnNLd1FneDZTRDVTTVpPNjZqMG9lU2NSXzN3a1A4dzVBWUpUWVdwU2h2Wjc5YUFvQTZUWkFKN2FJSnJGd0tzZXZfWmx1MUM5QmVISENQbllHRGZRMWptY3I1bkdyN3I1eXVKVWtmbWdhNE9wR0hTbndfdlhtX2E3SGpUcUZTZEcwbVBOMVdSNU9YanFZQVNNc3NrczlTUFZjbzNqdkFuUEdxN2NfZVUwYUU3ZkNnck1UVEV3QU1ETzZtVnBieW5YQzFyUVdhZHFvUGJjUQ?oc=5"
           },
           {
+            "title": "I Skip the Upright for Crumbs. These Reliable Handheld Vacs Do the Trick. - Popular Mechanics",
+            "source": "Google News",
+            "publishedAt": "2026-11-13T08:00:00.000Z",
+            "url": "https://news.google.com/rss/articles/CBMiggFBVV95cUxOZTV4NVpXSGxDWHRlcUtnU1lLVnZpbWNMak5zVDVoVW5oMThGWER6cGFIQVNpZk9EdzAxODR1cjg1emZrR0R4YVBDdDFvcEprQ21pSVNkQmo3dWRhV0h4TXdJNlJ1eU1MTnFMQkZEX3h6b0xXS0lnMjlWT3Nka3lBY0F3?oc=5"
+          },
+          {
             "title": "Tired of Hauling Out Your Heavy Vacuum? This Handheld Model That’s ‘Surprisingly Powerful’ Is on Sale for $23 - People.com",
             "source": "Google News",
             "publishedAt": "2026-11-11T08:00:00.000Z",
             "url": "https://news.google.com/rss/articles/CBMikAFBVV95cUxQWERvYXZ6WVlFU0xQaHEzUmRnVVFrTWJEbVMyTk9fNm5NWEFsV2pHUEhrZ1gtV095cnh5ZDhQQWFmNFNwWURXbjFkSjlRUURDY0Z6NGtBZHZXa3hXS1lBQ1RYdTRCWHIzQXZQSXpfMDZaSmhsajd0ZmxrT0VxUndXdHJKVXJZZm4xUFZMZVctdnE?oc=5"
-          },
-          {
-            "title": "I Skip the Upright for Crumbs. These Reliable Handheld Vacs Do the Trick. - Popular Mechanics",
-            "source": "Google News",
-            "publishedAt": "2026-11-13T18:38:00.000Z",
-            "url": "https://news.google.com/rss/articles/CBMiggFBVV95cUxOZTV4NVpXSGxDWHRlcUtnU1lLVnZpbWNMak5zVDVoVW5oMThGWER6cGFIQVNpZk9EdzAxODR1cjg1emZrR0R4YVBDdDFvcEprQ21pSVNkQmo3dWRhV0h4TXdJNlJ1eU1MTnFMQkZEX3h6b0xXS0lnMjlWT3Nka3lBY0F3?oc=5"
           },
           {
             "title": "We Tested 53 Handheld Vacuums—These Are the 11 Best Ones for Every Mess - Real Simple",
@@ -58,67 +58,15 @@
       "rank": 1
     },
     {
-      "slug": "hanging-closet-organizer",
-      "name": "Hanging Closet Organizer",
-      "query": "hanging closet organizer",
-      "attentionScore": 71.3,
-      "attentionLabel": "high-attention",
-      "evidence": {
-        "publicMentions": 26,
-        "mentionsLast7Days": 1,
-        "mentionsLast30Days": 2,
-        "sourcesAvailable": [
-          "Google News",
-          "Bing News"
-        ],
-        "sampleSignals": [
-          {
-            "title": "I’m Overhauling My Storage with This Hack That Keeps Shoppers’ Closets ‘Neat and Organized’ for $7 Apiece - People.com",
-            "source": "Google News",
-            "publishedAt": "2026-11-13T12:15:00.000Z",
-            "url": "https://news.google.com/rss/articles/CBMiekFVX3lxTE9uelFOQnplWGhuT1RVTzB2QXZkTFZ6ekh5bF9Ma0RZMVZSQjRGOWZzazhSOVExblg5SnhWM2RWWkhrbmMxeE9mLTFyQXZFTVZSYWwyUTBYZDNSY1VQVHUzWlZrZi1ySDFSTVpHMnRvV19MdVJZNklRa0Fn?oc=5"
-          },
-          {
-            "title": "Under-$20 Hacks That Solve Tiny Everyday Home Annoyances—Shop 10 Clever Gadgets, Starting at $5 - Real Simple",
-            "source": "Google News",
-            "publishedAt": "2026-11-17T19:30:00.000Z",
-            "url": "https://news.google.com/rss/articles/CBMiggFBVV95cUxPQUszMWNpTWptUEdGemlFV3BndHhQaFBDaG1BU3NYbDh1TUFVZTFmd0dLQXhFVElSV1BVZmJCT3VUZ214MThEY1U4Q3cybFM5NzgtRXZKV2Z5aGVkSV9DWjFNbGRQdEllbVVUbENIWWNZQVF2bXhjM3M1SVBvcnNoeGhR?oc=5"
-          },
-          {
-            "title": "I Doubled My Closet Storage with This $25 Hanging Organizer - Apartment Therapy",
-            "source": "Google News",
-            "publishedAt": "2026-07-12T07:00:00.000Z",
-            "url": "https://news.google.com/rss/articles/CBMiigFBVV95cUxPWFp5N1QwRWRBSlduLVVKYUtGSWFaLXZWWnB3RGVZQ1VFVGotVkdhMWhKMTBxQ3JnVHpJVGJJd0FmYW5NcWgxdlhmM0MtMDNSZkVNa1BMZVdGTjlQSW5ET1paa2p6cFRtWVFMWHpna1ZjdlIzVzI0VnJfdHhJckhvY2RzaFpvZVFSQUE?oc=5"
-          },
-          {
-            "title": "Amazon's 'Space-Saving' Hanging Organizer Is a 'Game-Changer' for Small Closets, Now $14 During Prime Day - Parade Magazine",
-            "source": "Google News",
-            "publishedAt": "2026-10-08T07:00:00.000Z",
-            "url": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxNZDZtOWlxaWdCX3ptWHFQOHhIdFctNlppRnJzTTh4bktBLTZmUEVIUGRwQVBlcFRHeVJESk10NGJGX0d6OGU5S21CVTVTbTRNYzhKYkprTkJ4TWtnbHBKQWhySkp1VlJ6MVB1YnVUNm1Ebm5Dcm5naV9Gdjd3Yl9kQ2xUUFhZSDJ3clozQ1BTdDVKaC1MQ19HdU8zdjIxaXNRSEs3NlpBdkNLLWM?oc=5"
-          }
-        ]
-      },
-      "supplier": null,
-      "supplierReady": false,
-      "freightReady": false,
-      "promotionReady": false,
-      "mediaRightsReady": false,
-      "liveStripePricingReady": false,
-      "listed": false,
-      "discoveryEvidence": [],
-      "nextAction": "connect-cj",
-      "rank": 2
-    },
-    {
       "slug": "roll-up-dish-rack",
       "name": "Roll-Up Dish Drying Rack",
       "query": "roll up dish drying rack",
-      "attentionScore": 71.1,
-      "attentionLabel": "high-attention",
+      "attentionScore": 69.3,
+      "attentionLabel": "promotion-watch",
       "evidence": {
         "publicMentions": 27,
         "mentionsLast7Days": 0,
-        "mentionsLast30Days": 3,
+        "mentionsLast30Days": 2,
         "sourcesAvailable": [
           "Google News",
           "Bing News"
@@ -159,7 +107,7 @@
       "listed": false,
       "discoveryEvidence": [],
       "nextAction": "connect-cj",
-      "rank": 3
+      "rank": 2
     },
     {
       "slug": "dryer-vent-cleaner-kit",
@@ -211,7 +159,7 @@
       "listed": false,
       "discoveryEvidence": [],
       "nextAction": "connect-cj",
-      "rank": 4
+      "rank": 3
     },
     {
       "slug": "appliance-cord-organizer",
@@ -263,7 +211,7 @@
       "listed": false,
       "discoveryEvidence": [],
       "nextAction": "connect-cj",
-      "rank": 5
+      "rank": 4
     },
     {
       "slug": "bottle-brush-set",
@@ -287,10 +235,10 @@
             "url": "https://news.google.com/rss/articles/CBMieEFVX3lxTE8wVjR3S25uUmxHS180VmRZaHUzN3diM2EtZ29mYW1KTTJKX3BBSWlxOS1MZmtVSExfS1V5S2dCUFdjWDFnZW9FRjAyTTMtc0NKS1R3ZzFySGIzWVhkbll4NGhNV3lCMTg4VUN4YUh4elBKZUwwOUh2YQ?oc=5"
           },
           {
-            "title": "10 best bottle brushes to keep your water bottles squeaky clean - WCBD News 2",
+            "title": "10 best bottle brushes to keep your water bottles squeaky clean - WATE 6 On Your Side",
             "source": "Google News",
             "publishedAt": "2023-03-09T08:00:00.000Z",
-            "url": "https://news.google.com/rss/articles/CBMi2wFBVV95cUxNRUxWeVpmb1lET3lFTGY5WkRaOV9VTHF4TlVnOEVIQXlydXhBZEwtc1VTRU5MVk5zNEJ5T2sxTUE2a2RFSDVJTFRUQWFZWFN0VWoyMDlCQkltMWpPZXBpWWZjOG5sUEZaak01elRSMER1NDYtdVBhLXRVY2dmVFo2Y3ZNNjJOcGxLNVZzN0JYZ3FPZVdJZW9IRElUM1FiQkZQLTJoYzVfVlRKWi1sQmRtTWRhRnBDSnhkbmFDZ1hqaDZwVmhaaG0wakhWek15SUl4WWxjR04tRFhMaTDSAeABQVVfeXFMTUVRQ0N4LThaM3hZOEM1bENKZ0dZZWVPaW1tRlVKdG1zRmxlSHdOVnZabGdqWnlkUlFsVzRyc1pjM3h5Y1pPYW1nV1VkN3pSX2ZPeDVxUmEtTkRERmI3eHczSlIyX0lXdThLOVlnVk1vYlVxdENfT2gwYl9Fc3B1RGVLR2p3dTZQbFR3aHlmZHVHUmpUMWRSRlhhTnRZSmVKUEJzT3pIZGNfQk9PdHpHWW5xOWNhM2lfSHVnR0pMcjM3M0ZzQkdJaUpOZ2tpT2VHM2d4SjRaNFA2eHRRdGdPaWs?oc=5"
+            "url": "https://news.google.com/rss/articles/CBMi1gFBVV95cUxQeTV3NXN0UlNISkdpQU5VUWhSMVZlREpfZTBvTDkyWnJUUnJUTFhMOVQ0VzN5MkZxY2Jsek1RYWRJc0Z6RVZ3Z0gxd1BTRUIyZ0VEdHJqOEtiaUdCTWYxTGVDdXppRUNBRkJzQmlONFFPZnJtLTNHLWZSV2l2VXczV3ZsTDIyMmlzaG5YVHdwRGdtMlAxZGpCcXBHcTlvbExmNjlvZGxEc1RwS1JBSzFfaERnajJGR3RWLVQ3NkhrNkd0Z2FMRTBEMDdMMkpPTmNpMmNDblhB0gHbAUFVX3lxTE5IOGszVVRZWFBLbm1kbEJlUFktRmJzcVVvRGp1OUNkNkFyUnBsc1RkN0JFQ0JvQ0VfcEZraXlWLVJNbWl2QkxNRWpyaERheXJzQk5IVkN6Z29XaHN2RzBiZlVvMy1sYkp3YndXaEcwZmhFak9xb0hqMUxTTmhUbGZ6V0F4bkNXdFBSYVJERndmUlF0bEkxLVl3emo4bXRsWEl1Wm85U0NCS0VaRllrbVdhT1kzLWZsTnE2NHl1bWhkY19DRXR5bUZEQjZlWGpROTBaM3hDRHJoOUNKbw?oc=5"
           },
           {
             "title": "These 19 Award-Winning Products Will Help Keep Your Baby Nourished and Fed - Parents",
@@ -315,7 +263,7 @@
       "listed": false,
       "discoveryEvidence": [],
       "nextAction": "connect-cj",
-      "rank": 6
+      "rank": 5
     },
     {
       "slug": "sheet-laundry-detangler",
@@ -361,7 +309,7 @@
       "listed": false,
       "discoveryEvidence": [],
       "nextAction": "connect-cj",
-      "rank": 7
+      "rank": 6
     },
     {
       "slug": "window-washer-squeegee",
@@ -401,41 +349,7 @@
       "listed": false,
       "discoveryEvidence": [],
       "nextAction": "connect-cj",
-      "rank": 8
-    },
-    {
-      "slug": "self-standing-floor-mop",
-      "name": "Self-Standing Floor Mop",
-      "query": "self standing floor mop",
-      "attentionScore": 23.8,
-      "attentionLabel": "low-signal",
-      "evidence": {
-        "publicMentions": 1,
-        "mentionsLast7Days": 0,
-        "mentionsLast30Days": 0,
-        "sourcesAvailable": [
-          "Google News",
-          "Bing News"
-        ],
-        "sampleSignals": [
-          {
-            "title": "Amazon has 20% off these space-saving cleaning tools for minimalists - USA Today",
-            "source": "Google News",
-            "publishedAt": "2026-09-25T07:00:00.000Z",
-            "url": "https://news.google.com/rss/articles/CBMiwAFBVV95cUxONFZyZk9VbDdXWGYyWXIzRUFLZDdwNk9JWnh0V2dXXzR6MzNVdnRweHlNWUtIWlU2TkJtaFpfVWZWLUxNSUlkZkRLQ0pYa3MzNzFyenlSYURzRlNsNkxxS0RTVGNkN05zcUxUTDVyS0ViaVdUa2oyMEpXUVBPQXJrV2tEZHJRbndyQzd2VnZyc3RPa3JtVVdzdmZ1RjB3SG9tenBpTER2UlNJSnFyZDREYjJyc24zNEUwbGd0d2gzc3Y?oc=5"
-          }
-        ]
-      },
-      "supplier": null,
-      "supplierReady": false,
-      "freightReady": false,
-      "promotionReady": false,
-      "mediaRightsReady": false,
-      "liveStripePricingReady": false,
-      "listed": false,
-      "discoveryEvidence": [],
-      "nextAction": "connect-cj",
-      "rank": 9
+      "rank": 7
     },
     {
       "slug": "extendable-high-zone-duster",
@@ -462,7 +376,33 @@
       "listed": false,
       "discoveryEvidence": [],
       "nextAction": "connect-cj",
-      "rank": 10
+      "rank": 8
+    },
+    {
+      "slug": "self-standing-floor-mop",
+      "name": "Self-Standing Floor Mop",
+      "query": "self standing floor mop",
+      "attentionScore": 22,
+      "attentionLabel": "low-signal",
+      "evidence": {
+        "publicMentions": 0,
+        "mentionsLast7Days": 0,
+        "mentionsLast30Days": 0,
+        "sourcesAvailable": [
+          "Bing News"
+        ],
+        "sampleSignals": []
+      },
+      "supplier": null,
+      "supplierReady": false,
+      "freightReady": false,
+      "promotionReady": false,
+      "mediaRightsReady": false,
+      "liveStripePricingReady": false,
+      "listed": false,
+      "discoveryEvidence": [],
+      "nextAction": "connect-cj",
+      "rank": 9
     },
     {
       "slug": "pan-scraper",
@@ -489,7 +429,7 @@
       "listed": false,
       "discoveryEvidence": [],
       "nextAction": "connect-cj",
-      "rank": 11
+      "rank": 10
     },
     {
       "slug": "rug-grippers",
@@ -513,6 +453,32 @@
             "url": "https://news.google.com/rss/articles/CBMi-AFBVV95cUxQZHhfWl84emR2bHk3dlJFbW9aMGswWnJfbTJCejU4LUw4ZEVPYldrd09WNVQ4ZkhwYkkxWTJ4UWx5QkdydEhOR3JXdkowREhqaHlNTm5oclVBUnRNNFIzUGxnNVBpblI1U2hsTjNFR0hLamxETnNZMlpvNWdHMFhXNnlEMUVTMlVMUTV6bmZ0dmtXdDI1SHlnb0dyUzczZllqUFdwbnBQSURMQVBHNnhjeXZtaGRHWmUtaTZTNlVWcXU4YVRpSndZanpHcDJzZ2s4bHBhX3hJVzRRMk5IZUpKQUhzUG01cDJYTW1KTEFtVFNOT2xVOXpQYtIB_gFBVV95cUxOcnBVVjlNZC1ZYU1xc0FtczV6ZU42T3NkQlBydnVCYTRlUGZBSzg4ZUtVU3pockpDck5Hc3B2SjZWMTBwMHB0ZWJoRC1LY3FNTm0tLTdiTHJTZkZQWUJTcXc1eHhtdlJhbGtJMmlvcHo3bDFlZEI5WnVqTmdEN181MEoxWThjcTJiS2NPYTFRemw0NTZtVmItM2JBUE1RcE1jazF5M2JhazI4R1RPZmhndFo0QVJzOFNxb3hCS1hsUHgzUi1UdUdRU05iaV92YzU1YnNtdXY4SlZaRFJGRXF6RkZ2ak1QWmVWRFhiV29vaFZUbE1HOTBkbVkzWVM5QQ?oc=5"
           }
         ]
+      },
+      "supplier": null,
+      "supplierReady": false,
+      "freightReady": false,
+      "promotionReady": false,
+      "mediaRightsReady": false,
+      "liveStripePricingReady": false,
+      "listed": false,
+      "discoveryEvidence": [],
+      "nextAction": "connect-cj",
+      "rank": 11
+    },
+    {
+      "slug": "hanging-closet-organizer",
+      "name": "Hanging Closet Organizer",
+      "query": "hanging closet organizer",
+      "attentionScore": 18.8,
+      "attentionLabel": "low-signal",
+      "evidence": {
+        "publicMentions": 0,
+        "mentionsLast7Days": 0,
+        "mentionsLast30Days": 0,
+        "sourcesAvailable": [
+          "Bing News"
+        ],
+        "sampleSignals": []
       },
       "supplier": null,
       "supplierReady": false,
