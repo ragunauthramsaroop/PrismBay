@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "updatedAt": "2026-11-21T19:49:10.636Z",
+  "updatedAt": "2026-11-22T07:29:53.722Z",
   "policy": "Research concepts only. Public attention is not supplier approval, stock, final-destination freight, media rights, checkout readiness, sales evidence, or permission to publish. Never promote or render product advertisements from this queue.",
   "items": [
     {
@@ -24,25 +24,6 @@
     },
     {
       "rank": 2,
-      "slug": "scrubber",
-      "product": "5-in-1 Electric Spin Scrubber",
-      "channel": "tiktok",
-      "format": "short-video",
-      "status": "RESEARCH_CANDIDATE",
-      "approved": false,
-      "saleReady": false,
-      "finalZipFreightVerified": false,
-      "checkoutAllowed": false,
-      "mediaRightsVerified": false,
-      "publicationAuthorized": false,
-      "publishable": false,
-      "hook": "What to check when comparing 5-in-1 Electric Spin Scrubber options.",
-      "cta": "Research concept only. No product offer or checkout.",
-      "mediaPlan": "Original typography or abstract graphics only. No product footage or performance demonstration without separate evidence.",
-      "guardrail": "No purchase CTA, unsupported product performance, before-and-after results, sales, reviews, stock, discounts, shipping promises, or unlicensed media."
-    },
-    {
-      "rank": 3,
       "slug": "garment-steamer",
       "product": "Portable Garment Steamer",
       "channel": "tiktok",
@@ -55,7 +36,26 @@
       "mediaRightsVerified": false,
       "publicationAuthorized": false,
       "publishable": false,
-      "hook": "A practical checklist for evaluating a Portable Garment Steamer.",
+      "hook": "What to check when comparing Portable Garment Steamer options.",
+      "cta": "Research concept only. No product offer or checkout.",
+      "mediaPlan": "Original typography or abstract graphics only. No product footage or performance demonstration without separate evidence.",
+      "guardrail": "No purchase CTA, unsupported product performance, before-and-after results, sales, reviews, stock, discounts, shipping promises, or unlicensed media."
+    },
+    {
+      "rank": 3,
+      "slug": "scrubber",
+      "product": "5-in-1 Electric Spin Scrubber",
+      "channel": "tiktok",
+      "format": "short-video",
+      "status": "RESEARCH_CANDIDATE",
+      "approved": false,
+      "saleReady": false,
+      "finalZipFreightVerified": false,
+      "checkoutAllowed": false,
+      "mediaRightsVerified": false,
+      "publicationAuthorized": false,
+      "publishable": false,
+      "hook": "A practical checklist for evaluating a 5-in-1 Electric Spin Scrubber.",
       "cta": "Research concept only. No product offer or checkout.",
       "mediaPlan": "Original typography or abstract graphics only. No product footage or performance demonstration without separate evidence.",
       "guardrail": "No purchase CTA, unsupported product performance, before-and-after results, sales, reviews, stock, discounts, shipping promises, or unlicensed media."
