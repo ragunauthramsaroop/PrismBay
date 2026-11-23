@@ -501,7 +501,7 @@
       "slug": "travel-packing-cubes",
       "name": "Travel Packing Cubes",
       "priority": "subsequent",
-      "supplierEvidenceFresh": true,
+      "supplierEvidenceFresh": false,
       "reviewObservedAt": "2026-11-21T21:40:42.702Z",
       "observedSupplierProduct": null,
       "observedSupplierSku": null,
