@@ -1,0 +1,23 @@
+name: Cashflow Cloud receivables queue tests
+
+on:
+  pull_request:
+    paths:
+      - "services/cashflow-cloud/receivables-queue*"
+      - ".github/workflows/cashflow-cloud-queue-ci.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test-queue:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Test receivables prioritization
+        run: node --test services/cashflow-cloud/receivables-queue.test.mjs
