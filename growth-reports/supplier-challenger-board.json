@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "checkedAt": "2026-11-24T02:33:20.945Z",
+  "checkedAt": "2026-11-24T12:55:08.940Z",
   "mode": "read_only_supplier_diversification_swarm",
   "candidateCount": 4,
   "targetVerifiedRoutesPerSku": 3,
@@ -18,36 +18,13 @@
   "results": [
     {
       "slug": "crevice",
-      "mapped": {
-        "productId": "1645694697026887680",
-        "productSku": "CJJT1731477",
-        "productName": "4 In 1 Bottle Gap Cleaner Brush Multifunctional Cup Cleaning Brushes Water Bottles Clean Tool Mini Silicone U-shaped Brush Kitchen Gadgets",
-        "stockVerified": false,
-        "freightVerified": false,
-        "freightScreeningVerified": false,
-        "exactDestinationFreightVerified": false,
-        "commercialPromotionAllowed": false,
-        "maxAffordableFreightUsd": null,
-        "screeningFreightHeadroomUsd": null,
-        "screeningEconomicsPass": null
-      },
-      "challengers": [],
-      "verifiedRoutes": [],
+      "status": "mapped_supplier_lookup_failed",
       "verifiedRouteCount": 0,
-      "screeningQualifiedRouteCount": 0,
-      "commerciallyApprovedRouteCount": 0,
-      "commercialPromotionAllowed": false,
-      "routePromotionCandidatesResearchOnly": true,
       "targetVerifiedRoutes": 3,
       "routeDeficit": 3,
       "supplierConcentrationRisk": "critical",
-      "routePromotionCandidates": [],
-      "recommendedRemapCandidate": null,
-      "screenedLandedImprovementUsd": null,
       "replacementSourcingRequired": true,
-      "automaticRemapAllowed": false,
-      "exactBuyerZipStillRequired": true,
-      "status": "challenger_review_complete"
+      "automaticRemapAllowed": false
     },
     {
       "slug": "pethair",
