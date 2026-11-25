@@ -1,12 +1,12 @@
 {
-  "updatedAt": "2026-11-24T14:19:28.817Z",
+  "updatedAt": "2026-11-25T13:35:40.237Z",
   "supplierIntegration": "awaiting-cj-auth",
   "items": [
     {
       "rank": 1,
       "slug": "cordless-handheld-vacuum",
       "product": "Cordless Handheld Vacuum",
-      "attentionScore": 84.5,
+      "attentionScore": 88.3,
       "supplierReady": false,
       "freightReady": false,
       "promotionReady": false,
@@ -15,9 +15,9 @@
     },
     {
       "rank": 2,
-      "slug": "hanging-closet-organizer",
-      "product": "Hanging Closet Organizer",
-      "attentionScore": 76.9,
+      "slug": "dryer-vent-cleaner-kit",
+      "product": "Dryer Vent Cleaner Kit",
+      "attentionScore": 76,
       "supplierReady": false,
       "freightReady": false,
       "promotionReady": false,
@@ -26,9 +26,9 @@
     },
     {
       "rank": 3,
-      "slug": "dryer-vent-cleaner-kit",
-      "product": "Dryer Vent Cleaner Kit",
-      "attentionScore": 74.1,
+      "slug": "roll-up-dish-rack",
+      "product": "Roll-Up Dish Drying Rack",
+      "attentionScore": 74.9,
       "supplierReady": false,
       "freightReady": false,
       "promotionReady": false,
@@ -37,9 +37,9 @@
     },
     {
       "rank": 4,
-      "slug": "roll-up-dish-rack",
-      "product": "Roll-Up Dish Drying Rack",
-      "attentionScore": 69.3,
+      "slug": "hanging-closet-organizer",
+      "product": "Hanging Closet Organizer",
+      "attentionScore": 73.1,
       "supplierReady": false,
       "freightReady": false,
       "promotionReady": false,
