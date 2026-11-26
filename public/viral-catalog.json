@@ -1,65 +1,17 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-11-25T21:59:26.961Z",
+  "updatedAt": "2026-11-26T08:55:50.976Z",
   "market": "US",
   "methodology": "Public-news attention, freshness, and short-form demonstration fit. This is not PrismBay sales data and is not a TikTok, Amazon, Google, or Bing product ranking.",
   "refreshTargetHours": 6,
   "products": [
-    {
-      "slug": "scrubber",
-      "name": "5-in-1 Electric Spin Scrubber",
-      "signalScore": 86.5,
-      "signalLabel": "high-attention",
-      "evidence": {
-        "publicMentions": 93,
-        "mentionsLast7Days": 1,
-        "mentionsLast30Days": 9,
-        "sourcesAvailable": [
-          "Google News",
-          "Bing News"
-        ]
-      },
-      "sampleSignals": [
-        {
-          "title": "We tested 8 spin scrubbers, and only 3 made our shower shine - Yahoo",
-          "source": "Google News",
-          "publishedAt": "2026-11-10T08:00:00.000Z",
-          "url": "https://news.google.com/rss/articles/CBMilAFBVV95cUxPRzZ1NFRxWkFEcVQzWWd5aVJQUlVXa25zMDc1d0NLaDRwZUVDYjBrU2otX0t1c3hzWUszQnZibjJZSk1vOUhrTGJQZUdNSDJLd1dFTGhnQy1lUXFkOFBfNnBGZ3FtSXEzaUJZUWw5ZVZTT0pCODBERUN0eUFqNVZCSG1fN09maWRmMHBqX2ZlZi0wNmFT?oc=5"
-        },
-        {
-          "title": "Spend Less Time Scrubbing With These Top-Tested Picks - Good Housekeeping",
-          "source": "Google News",
-          "publishedAt": "2026-06-25T07:00:00.000Z",
-          "url": "https://news.google.com/rss/articles/CBMijAFBVV95cUxPeHdhUGRKUmlMQy1qT2hYWXZISTJDcExWc1hFVkoxQXQ0cldiWUVGTFlnOWNNVDQxS0kwRjg0MTFZaUp3X3M4WDhFUjNJLVRYT201NjNKZlkxWmNIYVd3T1JfSGs3dDFTMXQyUGNEcmVFdUtmSHJwUTduM015VGNYNHl4MFd4TDlRSnJBbw?oc=5"
-        },
-        {
-          "title": "I Have a Leg Injury, and This Extendable Spin Scrubber Has Been a Lifesaver in Keeping My Bathroom Spotless - Apartment Therapy",
-          "source": "Google News",
-          "publishedAt": "2026-09-11T07:00:00.000Z",
-          "url": "https://news.google.com/rss/articles/CBMihgFBVV95cUxPOF92S3dDMlBWc1ptWEpxX0pxNWd5emtEbHdyMXg4NkxhUWxweGVsR1pGMXotcElFNGQtWldFRkNtUzdRWGE5aFdFNFl3NW5NYVdlbzhJVk9YMUpsLUF0Mkp4MGFfVlVXVll1Qmo5Yl9sRnhrdkJwMVpxRjlNc2NFc0E5NmhQZw?oc=5"
-        },
-        {
-          "title": "These electric spin scrubbers clean grout, tubs, and floors with ease - Business Insider",
-          "source": "Google News",
-          "publishedAt": "2026-04-22T07:00:00.000Z",
-          "url": "https://news.google.com/rss/articles/CBMie0FVX3lxTE40c3JDUmdvYnFzQW4wNUE0VUdoWVMzUk1MT1VGOTBMbDdIT0tBcU1IbzMwWmNwME5za1ozalNqUWdkVDNMV1d0WUx5YUpOSU9TRGhWR1VVTzktT3VBOXR0d0pQM0hpQVZpU2hRdFN4M3dXRlpiejRwSUlDMA?oc=5"
-        },
-        {
-          "title": "Yes, You Can Get ‘Excited to Clean’ Your Bathroom with This Back-Saving Electric Scrubber Brush — Shop It for $26 - People.com",
-          "source": "Google News",
-          "publishedAt": "2026-10-27T07:00:00.000Z",
-          "url": "https://news.google.com/rss/articles/CBMiigFBVV95cUxPZEdtZ3NuU1dxY2xBakxlZEExb1EzYnB5b2drMUdZNWNSejZBRHBXenNqbVdvc2dpTUpUM1c4eVgtbmFFMWtxZlZ1clo4T3FIRk5JSG82RWZqMG52VlRuUjZzZFhWOUV0M0dxVlRUZVhNY212SHByMGpjNG1MWFpKdE95c3BaRXNkemc?oc=5"
-        }
-      ],
-      "rank": 1
-    },
     {
       "slug": "garment-steamer",
       "name": "Portable Garment Steamer",
       "signalScore": 83,
       "signalLabel": "high-attention",
       "evidence": {
-        "publicMentions": 38,
+        "publicMentions": 36,
         "mentionsLast7Days": 2,
         "mentionsLast30Days": 7,
         "sourcesAvailable": [
@@ -99,16 +51,16 @@
           "url": "https://news.google.com/rss/articles/CBMiigFBVV95cUxPOEltbERZMDMtemlzdFRPSUdTZGFXLVJDTUJpWWZrMGtSLVVFMDlSWWxHS3YzSXpydFhpWUlyTmd5dTYyMTBaMEtuT1VMazI2SUxzQkhSSVZEV0tqTTdzRGhlYlZxWEw5RVhxSkpsS0xsQjA4cFNkX2Jjb1NYem04OTR0TzNnQlZ1WlE?oc=5"
         }
       ],
-      "rank": 2
+      "rank": 1
     },
     {
-      "slug": "mattress-vacuum",
-      "name": "Mattress Vacuum",
-      "signalScore": 73,
+      "slug": "scrubber",
+      "name": "5-in-1 Electric Spin Scrubber",
+      "signalScore": 77.5,
       "signalLabel": "high-attention",
       "evidence": {
-        "publicMentions": 99,
-        "mentionsLast7Days": 0,
+        "publicMentions": 63,
+        "mentionsLast7Days": 1,
         "mentionsLast30Days": 3,
         "sourcesAvailable": [
           "Google News",
@@ -117,37 +69,37 @@
       },
       "sampleSignals": [
         {
-          "title": "JIMMY BX8 Pro review: A mattress vacuum that earns its spot in the closet - Gadget Flow",
+          "title": "We tested 8 spin scrubbers, and only 3 made our shower shine - Yahoo",
           "source": "Google News",
-          "publishedAt": "2026-11-18T15:22:43.000Z",
-          "url": "https://news.google.com/rss/articles/CBMiYkFVX3lxTE1taEp3eWFCamxScW1kTFpqRXVrUDN1QmRsekJuSVViM19Gb0o1b3hJUXVFc2pQaEtORUhqTllaWUhLX0syd0dzNlVaMkY1WGdBSTFwRW9fejhfN0k4Q0k0Qk5n?oc=5"
+          "publishedAt": "2026-11-10T08:00:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMilAFBVV95cUxPRzZ1NFRxWkFEcVQzWWd5aVJQUlVXa25zMDc1d0NLaDRwZUVDYjBrU2otX0t1c3hzWUszQnZibjJZSk1vOUhrTGJQZUdNSDJLd1dFTGhnQy1lUXFkOFBfNnBGZ3FtSXEzaUJZUWw5ZVZTT0pCODBERUN0eUFqNVZCSG1fN09maWRmMHBqX2ZlZi0wNmFT?oc=5"
         },
         {
-          "title": "I tested the Feppo mattress vacuum, and I was shocked by what it picked up - USA Today",
+          "title": "Spend Less Time Scrubbing With These Top-Tested Picks - Good Housekeeping",
           "source": "Google News",
-          "publishedAt": "2026-10-27T07:00:00.000Z",
-          "url": "https://news.google.com/rss/articles/CBMingFBVV95cUxPUWxtazNrNEVrQWlPVS14WENZTUFPMjhiSFhpZnhMN3BOQWE2dnNPNk1GMkh0bVJWQ2VYazhEcnl2QmZxb3d1UlB3enBlLUdUa3R4ZTNKYllwUmp3ellMa3JoZmljWE9rX1NuS09qRXV5VjZDMnl5V1ZIZEpqNnYxSkpMQlJwd1FGSGZpN1N6UmNRUE9GcERrZnRnZl91UQ?oc=5"
+          "publishedAt": "2026-06-25T07:00:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMijAFBVV95cUxPeHdhUGRKUmlMQy1qT2hYWXZISTJDcExWc1hFVkoxQXQ0cldiWUVGTFlnOWNNVDQxS0kwRjg0MTFZaUp3X3M4WDhFUjNJLVRYT201NjNKZlkxWmNIYVd3T1JfSGs3dDFTMXQyUGNEcmVFdUtmSHJwUTduM015VGNYNHl4MFd4TDlRSnJBbw?oc=5"
         },
         {
-          "title": "I Finally Got a Bed Vacuum, and Now I’m Never Going to Be Without One Again (and It’s on Sale for Prime!) - Apartment Therapy",
+          "title": "I Have a Leg Injury, and This Extendable Spin Scrubber Has Been a Lifesaver in Keeping My Bathroom Spotless - Apartment Therapy",
           "source": "Google News",
-          "publishedAt": "2026-10-06T07:00:00.000Z",
-          "url": "https://news.google.com/rss/articles/CBMikAFBVV95cUxNbkpkQUFEYVRYc3gzc0Q0MUdkdE1pb2VORTFxbi1XbXk5OXBDYWg0Rmk3R01ZSUt6ZzNlRzRRWGR2RzRGQ09FQVNJNlZOMHk2eU9zZ0p1c1Q1dHpLbXZLZ29RcDQyX1JDZWpPME1pSlRyOG1XUTV2TlRYcDhLUWpXbFFJQkFvS09tb2YyQi1HYnE?oc=5"
+          "publishedAt": "2026-09-11T07:00:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMihgFBVV95cUxPOF92S3dDMlBWc1ptWEpxX0pxNWd5emtEbHdyMXg4NkxhUWxweGVsR1pGMXotcElFNGQtWldFRkNtUzdRWGE5aFdFNFl3NW5NYVdlbzhJVk9YMUpsLUF0Mkp4MGFfVlVXVll1Qmo5Yl9sRnhrdkJwMVpxRjlNc2NFc0E5NmhQZw?oc=5"
         },
         {
-          "title": "Is a Mattress Vacuum the Allergy Solution We’ve Been Needing? I Tested One to Find Out - CNET",
+          "title": "These electric spin scrubbers clean grout, tubs, and floors with ease - Business Insider",
           "source": "Google News",
-          "publishedAt": "2026-06-27T07:00:00.000Z",
-          "url": "https://news.google.com/rss/articles/CBMisAFBVV95cUxQcmFNWEdvTUxuY1RES2k4bXh1T0U2ci1nTHBJRXVud3F4ekF2NHF4NkF4LTlKR3lRWTNObHBGcjUzOGlLNUlHNXd1dGdOQXBYcEN6QllhNGZyVDFja2h1R3AzX1hIaFk4RUpsZ3JQT05Ga2pkelRscFRTaVJ0NFhyX0c3cVllQzIxTXoyeGhKcTNvLUJuRWNLd0g3Si1mYnRoUjEzZExKZGEtUXlsVlV3dQ?oc=5"
+          "publishedAt": "2026-04-22T07:00:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMie0FVX3lxTE40c3JDUmdvYnFzQW4wNUE0VUdoWVMzUk1MT1VGOTBMbDdIT0tBcU1IbzMwWmNwME5za1ozalNqUWdkVDNMV1d0WUx5YUpOSU9TRGhWR1VVTzktT3VBOXR0d0pQM0hpQVZpU2hRdFN4M3dXRlpiejRwSUlDMA?oc=5"
         },
         {
-          "title": "As a sinusitis sufferer, I implore you to consider Aldi's £19 UV mattress vacuum — it's not about bed bugs, it's about dust - TechRadar",
+          "title": "I used to get backaches while cleaning my bathtub. Then I got this versatile electric scrubber - CNN",
           "source": "Google News",
-          "publishedAt": "2026-06-12T07:00:00.000Z",
-          "url": "https://news.google.com/rss/articles/CBMi9gFBVV95cUxOOTZqRGZuMWZJTVh2VUhXOHgzMUdhVUhjYTdxeXl6QWVqbkxCb2R2bU45Wl9ERHVFaklYajJWa0JSd2RtdDNpdksyR1IwVV9QeUUyTmcySXJvcnltUDcxazNHaF85ZzZTYnYwNy1yZ1ZjNlhIWGVBRzc2aUtKNDhBbk85UHFueGtRY2JVaXpTMzNxX3dOUl9OazRUVloyVkRscXhwQ2kxSmg4T01BVUZERGlLR3I0b0NhOFJYdVdMTE0xdVY1cjdWYi11MndYbFZZYUpPLVl0LTh2NlhDV3g4aWRYcDZydWtORU01eS1RVWhEZjNQU2c?oc=5"
+          "publishedAt": "2026-01-13T08:00:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMigwFBVV95cUxOdkVNM18weHNXUGJGRHk4bGs4dWhhWmFPRFdURHNLTmNnaUgxT2NWUUtjTnNDbjdQQ0Y2dUEtVkNJdkxxQ1JtbmprYXA0My16MnlPejhVZU1KWG8zNUVzVVFoakZqMXROcnpoNlRrdXV5dThIQ3hFNUZYelVBdWl2Z3REOA?oc=5"
         }
       ],
-      "rank": 3
+      "rank": 2
     },
     {
       "slug": "pressure-washer",
@@ -155,7 +107,7 @@
       "signalScore": 72.5,
       "signalLabel": "high-attention",
       "evidence": {
-        "publicMentions": 104,
+        "publicMentions": 103,
         "mentionsLast7Days": 0,
         "mentionsLast30Days": 2,
         "sourcesAvailable": [
@@ -193,6 +145,54 @@
           "source": "Google News",
           "publishedAt": "2026-06-08T07:00:00.000Z",
           "url": "https://news.google.com/rss/articles/CBMimAFBVV95cUxNbzBEcUtteUtoajdvVFFCSnduZllqWlhURUIzR3hoMFMwMWJmZTJveUNuZ0RIbG52VzJzQmhnVlQyVU5xazFhWjI2Vzdxc2ZsNHoyRUd6NXRiWHZPcmhLMjFMZTdfLUtzaGx5eTZlamJjUzgxTDRNcVlIZXBKQ2Q0aGNlaURVeEdScE1MYUQ0aVB2Sk1CZ01iZ9IBngFBVV95cUxPU0RxNW5zeUw0ZlBvM3NoX215SFFWWElmQzRuREJUUUxfWjBma09HSjBOVGVqRC02d2NKN1BxZFdCZ2QwM19vVHZxTHdmdk92bDZUOUZNVUUwYjJreEI3dTF6aWJ5a1ZjU0VTSkU1d29Lc2hKVFNiUmo3SEtHeXRHc2dFamo1THMwbGhyRmxCbmlLdmNITFJBWWs3MmltQQ?oc=5"
+        }
+      ],
+      "rank": 3
+    },
+    {
+      "slug": "mattress-vacuum",
+      "name": "Mattress Vacuum",
+      "signalScore": 71.5,
+      "signalLabel": "high-attention",
+      "evidence": {
+        "publicMentions": 109,
+        "mentionsLast7Days": 0,
+        "mentionsLast30Days": 2,
+        "sourcesAvailable": [
+          "Google News",
+          "Bing News"
+        ]
+      },
+      "sampleSignals": [
+        {
+          "title": "JIMMY BX8 Pro review: A mattress vacuum that earns its spot in the closet - Gadget Flow",
+          "source": "Google News",
+          "publishedAt": "2026-11-18T15:22:43.000Z",
+          "url": "https://news.google.com/rss/articles/CBMiYkFVX3lxTE1taEp3eWFCamxScW1kTFpqRXVrUDN1QmRsekJuSVViM19Gb0o1b3hJUXVFc2pQaEtORUhqTllaWUhLX0syd0dzNlVaMkY1WGdBSTFwRW9fejhfN0k4Q0k0Qk5n?oc=5"
+        },
+        {
+          "title": "I Finally Got a Bed Vacuum, and Now I’m Never Going to Be Without One Again (and It’s on Sale for Prime!) - Apartment Therapy",
+          "source": "Google News",
+          "publishedAt": "2026-10-06T07:00:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMikAFBVV95cUxNbkpkQUFEYVRYc3gzc0Q0MUdkdE1pb2VORTFxbi1XbXk5OXBDYWg0Rmk3R01ZSUt6ZzNlRzRRWGR2RzRGQ09FQVNJNlZOMHk2eU9zZ0p1c1Q1dHpLbXZLZ29RcDQyX1JDZWpPME1pSlRyOG1XUTV2TlRYcDhLUWpXbFFJQkFvS09tb2YyQi1HYnE?oc=5"
+        },
+        {
+          "title": "I tested the Feppo mattress vacuum, and I was shocked by what it picked up - USA Today",
+          "source": "Google News",
+          "publishedAt": "2026-10-27T07:00:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMingFBVV95cUxPUWxtazNrNEVrQWlPVS14WENZTUFPMjhiSFhpZnhMN3BOQWE2dnNPNk1GMkh0bVJWQ2VYazhEcnl2QmZxb3d1UlB3enBlLUdUa3R4ZTNKYllwUmp3ellMa3JoZmljWE9rX1NuS09qRXV5VjZDMnl5V1ZIZEpqNnYxSkpMQlJwd1FGSGZpN1N6UmNRUE9GcERrZnRnZl91UQ?oc=5"
+        },
+        {
+          "title": "Is a Mattress Vacuum the Allergy Solution We’ve Been Needing? I Tested One to Find Out - CNET",
+          "source": "Google News",
+          "publishedAt": "2026-06-27T07:00:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMisAFBVV95cUxQcmFNWEdvTUxuY1RES2k4bXh1T0U2ci1nTHBJRXVud3F4ekF2NHF4NkF4LTlKR3lRWTNObHBGcjUzOGlLNUlHNXd1dGdOQXBYcEN6QllhNGZyVDFja2h1R3AzX1hIaFk4RUpsZ3JQT05Ga2pkelRscFRTaVJ0NFhyX0c3cVllQzIxTXoyeGhKcTNvLUJuRWNLd0g3Si1mYnRoUjEzZExKZGEtUXlsVlV3dQ?oc=5"
+        },
+        {
+          "title": "As a sinusitis sufferer, I implore you to consider Aldi's £19 UV mattress vacuum — it's not about bed bugs, it's about dust - TechRadar",
+          "source": "Google News",
+          "publishedAt": "2026-06-12T07:00:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMi9gFBVV95cUxOOTZqRGZuMWZJTVh2VUhXOHgzMUdhVUhjYTdxeXl6QWVqbkxCb2R2bU45Wl9ERHVFaklYajJWa0JSd2RtdDNpdksyR1IwVV9QeUUyTmcySXJvcnltUDcxazNHaF85ZzZTYnYwNy1yZ1ZjNlhIWGVBRzc2aUtKNDhBbk85UHFueGtRY2JVaXpTMzNxX3dOUl9OazRUVloyVkRscXhwQ2kxSmg4T01BVUZERGlLR3I0b0NhOFJYdVdMTE0xdVY1cjdWYi11MndYbFZZYUpPLVl0LTh2NlhDV3g4aWRYcDZydWtORU01eS1RVWhEZjNQU2c?oc=5"
         }
       ],
       "rank": 4
@@ -296,12 +296,12 @@
     {
       "slug": "drain-catcher",
       "name": "Sink Drain Catcher 2-Pack",
-      "signalScore": 25.5,
+      "signalScore": 24,
       "signalLabel": "baseline",
       "evidence": {
         "publicMentions": 4,
         "mentionsLast7Days": 0,
-        "mentionsLast30Days": 1,
+        "mentionsLast30Days": 0,
         "sourcesAvailable": [
           "Google News",
           "Bing News"
