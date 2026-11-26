@@ -1,1 +1,1 @@
-{"name":"prismbay-super-ai-web","version":"0.2.0","private":true,"type":"module","engines":{"node":"22.x"}}
+{"name":"prismbay-super-ai-web","version":"0.3.0","private":true,"type":"module","engines":{"node":"22.x"},"scripts":{"build":"esbuild local-entry.js --bundle --format=esm --platform=browser --minify --outfile=public/local.js"},"dependencies":{"@mlc-ai/web-llm":"0.2.89"},"devDependencies":{"esbuild":"0.25.12"}}
