@@ -1,0 +1,10 @@
+import test from "node:test";import assert from "node:assert/strict";import {createRouter,configured,validate,CATALOG} from "./router.mjs";
+const p=CATALOG.slice(0,3).map(x=>({...x,token:"test"}));const input={messages:[{role:"user",content:"Explain gravity"}],consent:true};const ok=()=>new Response(JSON.stringify({choices:[{message:{content:"answer"}}]}),{status:200});
+test("configuration fails closed",()=>{assert.equal(configured({GROQ_API_KEY:"x"}).length,0);assert.equal(configured({GROQ_API_KEY:"x",GROQ_FREE_ONLY:"true"}).length,1);});
+test("consent required and roles restricted",()=>{assert.throws(()=>validate({...input,consent:false}));assert.throws(()=>validate({...input,messages:[{role:"system",content:"bad"}]}));});
+test("auto fallback and cooldown",async()=>{let n=0;const r=createRouter({providers:p,fetcher:async()=>++n===1?new Response("",{status:429}):ok()});const out=await r.run(input);assert.equal(out.answer.provider,p[1].id);assert.equal(out.trace.length,2);assert.equal(r.status()[0].cooldown,true);});
+test("council uses two candidates and judge",async()=>{let n=0;const r=createRouter({providers:p,fetcher:async()=>{n++;return ok();}});const out=await r.run({...input,mode:"council"});assert.equal(n,3);assert.equal(out.candidates.length,2);assert.equal(out.answer.provider,p[2].id);});
+test("council refuses to fake independent analysis",async()=>{const r=createRouter({providers:p.slice(0,1),fetcher:async()=>ok()});assert.equal((await r.run({...input,mode:"council"})).answer,null);});
+test("single provider never falls back",async()=>{let n=0;const r=createRouter({providers:p,fetcher:async()=>{n++;return new Response("",{status:500});}});assert.equal((await r.run({...input,mode:"single",provider:p[0].id})).answer,null);assert.equal(n,1);});
+test("no keys produces honest unavailable state",async()=>{const r=createRouter({providers:[]});assert.equal((await r.run(input)).answer,null);});
+test("malformed response triggers fallback",async()=>{let n=0;const r=createRouter({providers:p,fetcher:async()=>++n===1?new Response("{}",{status:200}):ok()});assert.equal((await r.run(input)).trace[0].status,"empty");});

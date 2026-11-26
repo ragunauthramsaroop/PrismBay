@@ -1,0 +1,15 @@
+import test from "node:test";
+import assert from "node:assert/strict";
+import {research} from "./research.mjs";
+import {seal,unseal,find} from "../public/vault.js";
+import {workforce} from "../public/agents.js";
+import {makeExport,normalize} from "./exports.mjs";
+const json=d=>new Response(JSON.stringify(d),{status:200});
+test("research collects real source identifiers, strips tags, isolates failed indexes",async()=>{const r=await research("mining",{fetcher:async url=>{if(url.startsWith("https://en.wikipedia.org/"))return json({query:{search:[{pageid:42,title:"Mining",snippet:"<span>Evidence</span>"}]}});if(url.startsWith("https://api.crossref.org/"))return json({message:{items:[{title:["Study"],DOI:"10.1234/test",URL:"https://doi.org/10.1234/test"}]}});return new Response("",{status:429});}});assert.equal(r.sources.length,2);assert.equal(r.sources[0].id,"S1");assert.equal(r.sources[0].excerpt,"Evidence");assert.equal(r.coverage[2].status,"unavailable");assert.match(r.sources[1].url,/doi.org/);});
+test("research rejects excessive query",async()=>assert.rejects(research("x".repeat(401))));
+test("vault roundtrip encrypts and wrong passphrase fails",async()=>{const notes=[{id:"1",title:"Strategy",body:"private text"}],pass="a long passphrase";const raw=await seal(notes,pass);assert.ok(!raw.includes("private text"));assert.deepEqual(await unseal(raw,pass),notes);await assert.rejects(unseal(raw,"different passphrase"));assert.equal(find(notes,"strategy private").length,1);});
+test("agents complete only three approved stages",async()=>{let calls=0;const d=await workforce("Review",{invoke:async()=>({text:"result "+(++calls)})});assert.equal(calls,3);assert.equal(d.status,"complete");assert.equal(d.final,"result 3");});
+test("agents stop on provider failure",async()=>{let calls=0;const d=await workforce("Review",{invoke:async()=>{calls++;if(calls===2)throw Error("rate limit");return {text:"one"};}});assert.equal(calls,2);assert.equal(d.results.length,1);assert.equal(d.status,"interrupted");});
+test("cancelled agent workflow makes no model call",async()=>{const c=new AbortController();c.abort();const d=await workforce("Review",{signal:c.signal,invoke:()=>{throw Error("unexpected call");}});assert.equal(d.status,"cancelled");});
+test("Word and PowerPoint are native ZIP-based Office packages",async()=>{for(const format of ["docx","pptx"]){const d=await makeExport({format,title:"Executive report",body:"# Findings\nEvidence and recommendations."});assert.equal(Buffer.from(d.bytes.subarray(0,4)).toString("hex"),"504b0304");assert.ok(d.bytes.length>1000);assert.match(d.mime,/openxmlformats/);}});
+test("unsupported export rejected",()=>assert.throws(()=>normalize({format:"exe",title:"x",body:"y"})));

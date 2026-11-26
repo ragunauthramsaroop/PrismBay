@@ -1,0 +1,22 @@
+{
+  "name": "prismbay-super-ai-web",
+  "version": "0.4.1",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": "22.x"
+  },
+  "scripts": {
+    "build": "esbuild local-entry.js --bundle --format=esm --platform=browser --minify --outfile=public/local.js && esbuild lib/exports.mjs --bundle --format=esm --platform=browser --minify --outfile=public/office.js",
+    "test": "node --test lib/*.test.mjs"
+  },
+  "dependencies": {
+    "@mlc-ai/web-llm": "0.2.89",
+    "docx": "9.5.1",
+    "pptxgenjs": "4.0.1",
+    "buffer": "6.0.3"
+  },
+  "devDependencies": {
+    "esbuild": "0.25.12"
+  }
+}

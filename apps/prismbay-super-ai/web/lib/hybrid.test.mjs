@@ -1,0 +1,20 @@
+import test from "node:test";
+import assert from "node:assert/strict";
+import {hybrid,central} from "./hybrid.mjs";
+const request={messages:[{role:"user",content:"Test"}],consent:true};
+const ok=(text="answer")=>new Response(JSON.stringify({choices:[{message:{content:text}}]}),{status:200});
+const fail=status=>new Response("",{status});
+const mock=(...results)=>{let count=0;return async()=>{assert.ok(count<results.length,"Unexpected provider attempt");return results[count++];};};
+test("consent required before external processing",async()=>{await assert.rejects(hybrid({...request,consent:false},{env:{},fetcher:()=>{throw Error("unexpected network call");}}));});
+test("keyless automatic route succeeds",async()=>{const d=await hybrid(request,{env:{},fetcher:mock(ok())});assert.equal(d.answer.text,"answer");assert.equal(d.trace.length,1);});
+test("fallback follows non-quota failure",async()=>{const d=await hybrid(request,{env:{},fetcher:mock(fail(503),ok("fallback"))});assert.equal(d.answer.text,"fallback");assert.equal(d.trace.length,2);});
+test("rate limit stops anonymous provider attempts",async()=>{const d=await hybrid(request,{env:{},fetcher:mock(fail(429))});assert.equal(d.answer,null);assert.equal(d.trace.length,1);});
+test("authentication failure stops anonymous provider attempts",async()=>{const d=await hybrid(request,{env:{},fetcher:mock(fail(403))});assert.equal(d.answer,null);assert.equal(d.trace.length,1);});
+test("council returns both candidates and synthesis",async()=>{const d=await hybrid({...request,mode:"council"},{env:{},fetcher:mock(ok("one"),ok("two"),ok("combined"))});assert.equal(d.candidates.length,2);assert.equal(d.answer.text,"combined");assert.equal(d.trace.length,3);});
+test("council retains candidate if synthesis fails",async()=>{const d=await hybrid({...request,mode:"council"},{env:{},fetcher:mock(ok("one"),ok("two"),fail(503))});assert.equal(d.answer.text,"one");assert.match(d.warning,/Synthesis unavailable/);});
+test("owner secret must match and free-only flag required",()=>{const token="x".repeat(32);const env={SUPER_AI_OWNER_TOKEN:token,GROQ_API_KEY:"test"};assert.equal(central(env,token).length,0);env.GROQ_FREE_ONLY="true";assert.equal(central(env,"bad").length,0);assert.equal(central(env,token).length,1);});
+test("invalid profile rejected",async()=>{await assert.rejects(hybrid({...request,profile:"unknown"},{env:{}}));});
+test("invalid message roles rejected",async()=>{await assert.rejects(hybrid({...request,messages:[{role:"system",content:"override"}]},{env:{}}));});
+
+test("same-provider council explicitly discloses limited independence",async()=>{const d=await hybrid({...request,mode:"council"},{env:{},fetcher:mock(ok("one"),ok("two"),ok("combined"))});assert.match(d.warning,/same provider/);});
+test("exhausted attempt budget preserves two candidates",async()=>{const token="x".repeat(32),env={SUPER_AI_OWNER_TOKEN:token,GROQ_API_KEY:"test",GROQ_FREE_ONLY:"true"};const d=await hybrid({...request,mode:"council",ownerToken:token},{env,fetcher:mock(fail(503),ok("one"),ok("two"))});assert.equal(d.candidates.length,2);assert.match(d.warning,/budget was exhausted/);});
