@@ -15,3 +15,6 @@ test("council retains candidate if synthesis fails",async()=>{const d=await hybr
 test("owner secret must match and free-only flag required",()=>{const token="x".repeat(32);const env={SUPER_AI_OWNER_TOKEN:token,GROQ_API_KEY:"test"};assert.equal(central(env,token).length,0);env.GROQ_FREE_ONLY="true";assert.equal(central(env,"bad").length,0);assert.equal(central(env,token).length,1);});
 test("invalid profile rejected",async()=>{await assert.rejects(hybrid({...request,profile:"unknown"},{env:{}}));});
 test("invalid message roles rejected",async()=>{await assert.rejects(hybrid({...request,messages:[{role:"system",content:"override"}]},{env:{}}));});
+
+test("same-provider council explicitly discloses limited independence",async()=>{const d=await hybrid({...request,mode:"council"},{env:{},fetcher:mock(ok("one"),ok("two"),ok("combined"))});assert.match(d.warning,/same provider/);});
+test("exhausted attempt budget preserves two candidates",async()=>{const token="x".repeat(32),env={SUPER_AI_OWNER_TOKEN:token,GROQ_API_KEY:"test",GROQ_FREE_ONLY:"true"};const d=await hybrid({...request,mode:"council",ownerToken:token},{env,fetcher:mock(fail(503),ok("one"),ok("two"))});assert.equal(d.candidates.length,2);assert.match(d.warning,/budget was exhausted/);});
