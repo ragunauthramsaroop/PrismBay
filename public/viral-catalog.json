@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-11-27T09:07:44.666Z",
+  "updatedAt": "2026-11-27T21:39:42.766Z",
   "market": "US",
   "methodology": "Public-news attention, freshness, and short-form demonstration fit. This is not PrismBay sales data and is not a TikTok, Amazon, Google, or Bing product ranking.",
   "refreshTargetHours": 6,
@@ -59,7 +59,7 @@
       "signalScore": 82,
       "signalLabel": "high-attention",
       "evidence": {
-        "publicMentions": 91,
+        "publicMentions": 89,
         "mentionsLast7Days": 1,
         "mentionsLast30Days": 6,
         "sourcesAvailable": [
@@ -107,7 +107,7 @@
       "signalScore": 72.5,
       "signalLabel": "high-attention",
       "evidence": {
-        "publicMentions": 48,
+        "publicMentions": 104,
         "mentionsLast7Days": 0,
         "mentionsLast30Days": 2,
         "sourcesAvailable": [
@@ -155,7 +155,7 @@
       "signalScore": 71.5,
       "signalLabel": "high-attention",
       "evidence": {
-        "publicMentions": 60,
+        "publicMentions": 99,
         "mentionsLast7Days": 0,
         "mentionsLast30Days": 2,
         "sourcesAvailable": [
@@ -196,54 +196,6 @@
         }
       ],
       "rank": 4
-    },
-    {
-      "slug": "crevice",
-      "name": "3-in-1 Crevice Cleaning Brush",
-      "signalScore": 45,
-      "signalLabel": "watch",
-      "evidence": {
-        "publicMentions": 14,
-        "mentionsLast7Days": 0,
-        "mentionsLast30Days": 1,
-        "sourcesAvailable": [
-          "Google News",
-          "Bing News"
-        ]
-      },
-      "sampleSignals": [
-        {
-          "title": "This $10 Best-Selling Cleaning Tool Removes “Years’ Worth” of Lint From Dryer Vents—and It Can Prevent House Fires - Real Simple",
-          "source": "Google News",
-          "publishedAt": "2026-11-04T08:00:00.000Z",
-          "url": "https://news.google.com/rss/articles/CBMioAFBVV95cUxQZFYyT0RjQkJ0NHRDc2ducE9QOW1EZ2s4X0RBQUxTcXlWV3l4aFVQMlozUVpjVkl4aV8tcmUzdFF2SV85RlJIblhibVNGeW9tTGZhQWVfTDJZLUxlcGdOQUlkR1E0U242Wm1GVGdzZDg4TEZpWHJxWGJhSnRwemt5UkcwRkhtdXdDQWpuSkF2dHlQTGdsT2JjLURNSkNPN2ZB?oc=5"
-        },
-        {
-          "title": "This $10 Brush Makes Cleaning Gross Corners So Much Easier, According To Reviews - HuffPost",
-          "source": "Google News",
-          "publishedAt": "2026-03-10T07:00:00.000Z",
-          "url": "https://news.google.com/rss/articles/CBMijAFBVV95cUxPWEZBUTZUMG15RkRMZC04Q3pFbkdONV9idXZmeU85Mzl3bUoyTHVkNTU1ZHNDOHNsQm5fZHJFdGZpUnpfWjVuZ0ROLW9aUUYyWGxVXzY5MnBmdGRZcEgyR1pSaXpFaDV6cG5fVXRDcWpVeWRsMlU3NFdmRjZmOHBKTDNxU1R3QkdsUFNDT9IBkgFBVV95cUxOMklBSTJwdEMtMjVMYnhWdWliWEFDbTlGaHRtcUFUcmRpRTRiWU1xUnJ3OWthdXJNRXI1RDFJNmo4MEVLYmQ1cC1DMFBxWjlJaElZZm1QWVBVQklPU3pqemVEaWZXMHVTdldUM0VRQXY5MzNsd1lMSUlVdTcyUjNRTVlQcXlwRzREQmJtRmRWY09vQQ?oc=5"
-        },
-        {
-          "title": "Best Kitchen Crevice Cleaning Tool That Will Blow Your Mind - pacificstreetpizza.com",
-          "source": "Google News",
-          "publishedAt": "2026-09-19T07:00:00.000Z",
-          "url": "https://news.google.com/rss/articles/CBMidEFVX3lxTE9DM29pRVZUOHlXaWUyVHc3c29mR0c0QmNGYUtzZWlqSFdqLXRiOHkwcnN4ZUU4WFNuM0JuYXA3WkFlbWFucHJrLUhQLWtIWG10WmdKQnZ1N2xhQ2NwSE5UcFRiblNjQkpRU1VTeHpUSTNZLTlf?oc=5"
-        },
-        {
-          "title": "Amazon Shoppers Bought This $10 Cleaning Tool More Than 2,000 Times Last Month (You'll Use It in Every Room!) - Apartment Therapy",
-          "source": "Google News",
-          "publishedAt": "2024-06-04T07:00:00.000Z",
-          "url": "https://news.google.com/rss/articles/CBMigwFBVV95cUxNaEppZ1kxQmNqdm1LbTVfVTdmMmlkTU0zekl1c1BSdVBmSTZUMi1YUTdfRWlxUlR6ZGlRZEZ1Sk9Uc0JvLTJyUDRHc1hNRnNmRllKTjRvbmxyNlUzcmx4SzlzOWdVRXBQbWxyZ25VX2VlbDJrdmMxU3Z0b0hyXzN5SVpXOA?oc=5"
-        },
-        {
-          "title": "10 Best Tools For Deep Cleaning Your Kitchen - Tasting Table",
-          "source": "Google News",
-          "publishedAt": "2026-04-10T07:00:00.000Z",
-          "url": "https://news.google.com/rss/articles/CBMidkFVX3lxTE92V3lnSDcyVlhvSUJINnN4VU85em51bjBTNFRKU0ltYzNrd3c5YVNMVE1jTmUzMC1tYnM4S1VUQzAtTmVNa2Jha0tNNFFvMlU1ZnkzSHpZVms4MUFiQmF6b2YxRnYydlVob3RoakhnM2t5cW9zRVE?oc=5"
-        }
-      ],
-      "rank": 5
     },
     {
       "slug": "pethair",
@@ -291,15 +243,63 @@
           "url": "https://news.google.com/rss/articles/CBMic0FVX3lxTE4tU0E2SE93Q0pXbFBKY3RfaHNhWEhsVVBpOUVhVXV2SmNHSUkyeUtUNWdwNlYtWEVhcFlhdVJaZ2htTjRrZ21sY0txZmJEa3JMaml6ZnFrSWlVdFhwRGVzaFJnOF9VODllWDhQUEg1dmNYRlE?oc=5"
         }
       ],
+      "rank": 5
+    },
+    {
+      "slug": "crevice",
+      "name": "3-in-1 Crevice Cleaning Brush",
+      "signalScore": 42,
+      "signalLabel": "watch",
+      "evidence": {
+        "publicMentions": 12,
+        "mentionsLast7Days": 0,
+        "mentionsLast30Days": 1,
+        "sourcesAvailable": [
+          "Google News",
+          "Bing News"
+        ]
+      },
+      "sampleSignals": [
+        {
+          "title": "This $10 Best-Selling Cleaning Tool Removes “Years’ Worth” of Lint From Dryer Vents—and It Can Prevent House Fires - Real Simple",
+          "source": "Google News",
+          "publishedAt": "2026-11-04T08:00:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMioAFBVV95cUxQZFYyT0RjQkJ0NHRDc2ducE9QOW1EZ2s4X0RBQUxTcXlWV3l4aFVQMlozUVpjVkl4aV8tcmUzdFF2SV85RlJIblhibVNGeW9tTGZhQWVfTDJZLUxlcGdOQUlkR1E0U242Wm1GVGdzZDg4TEZpWHJxWGJhSnRwemt5UkcwRkhtdXdDQWpuSkF2dHlQTGdsT2JjLURNSkNPN2ZB?oc=5"
+        },
+        {
+          "title": "This $10 Brush Makes Cleaning Gross Corners So Much Easier, According To Reviews - HuffPost",
+          "source": "Google News",
+          "publishedAt": "2026-03-10T07:00:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMijAFBVV95cUxPWEZBUTZUMG15RkRMZC04Q3pFbkdONV9idXZmeU85Mzl3bUoyTHVkNTU1ZHNDOHNsQm5fZHJFdGZpUnpfWjVuZ0ROLW9aUUYyWGxVXzY5MnBmdGRZcEgyR1pSaXpFaDV6cG5fVXRDcWpVeWRsMlU3NFdmRjZmOHBKTDNxU1R3QkdsUFNDT9IBkgFBVV95cUxOMklBSTJwdEMtMjVMYnhWdWliWEFDbTlGaHRtcUFUcmRpRTRiWU1xUnJ3OWthdXJNRXI1RDFJNmo4MEVLYmQ1cC1DMFBxWjlJaElZZm1QWVBVQklPU3pqemVEaWZXMHVTdldUM0VRQXY5MzNsd1lMSUlVdTcyUjNRTVlQcXlwRzREQmJtRmRWY09vQQ?oc=5"
+        },
+        {
+          "title": "Best Kitchen Crevice Cleaning Tool That Will Blow Your Mind - pacificstreetpizza.com",
+          "source": "Google News",
+          "publishedAt": "2026-09-19T07:00:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMidEFVX3lxTE9DM29pRVZUOHlXaWUyVHc3c29mR0c0QmNGYUtzZWlqSFdqLXRiOHkwcnN4ZUU4WFNuM0JuYXA3WkFlbWFucHJrLUhQLWtIWG10WmdKQnZ1N2xhQ2NwSE5UcFRiblNjQkpRU1VTeHpUSTNZLTlf?oc=5"
+        },
+        {
+          "title": "10 Best Tools For Deep Cleaning Your Kitchen - Tasting Table",
+          "source": "Google News",
+          "publishedAt": "2026-04-10T07:00:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMidkFVX3lxTE92V3lnSDcyVlhvSUJINnN4VU85em51bjBTNFRKU0ltYzNrd3c5YVNMVE1jTmUzMC1tYnM4S1VUQzAtTmVNa2Jha0tNNFFvMlU1ZnkzSHpZVms4MUFiQmF6b2YxRnYydlVob3RoakhnM2t5cW9zRVE?oc=5"
+        },
+        {
+          "title": "Amazon Shoppers Bought This $10 Cleaning Tool More Than 2,000 Times Last Month (You'll Use It in Every Room!) - Apartment Therapy",
+          "source": "Google News",
+          "publishedAt": "2024-06-04T07:00:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMigwFBVV95cUxNaEppZ1kxQmNqdm1LbTVfVTdmMmlkTU0zekl1c1BSdVBmSTZUMi1YUTdfRWlxUlR6ZGlRZEZ1Sk9Uc0JvLTJyUDRHc1hNRnNmRllKTjRvbmxyNlUzcmx4SzlzOWdVRXBQbWxyZ25VX2VlbDJrdmMxU3Z0b0hyXzN5SVpXOA?oc=5"
+        }
+      ],
       "rank": 6
     },
     {
       "slug": "drain-catcher",
       "name": "Sink Drain Catcher 2-Pack",
-      "signalScore": 24,
+      "signalScore": 22.5,
       "signalLabel": "baseline",
       "evidence": {
-        "publicMentions": 4,
+        "publicMentions": 3,
         "mentionsLast7Days": 0,
         "mentionsLast30Days": 0,
         "sourcesAvailable": [
@@ -308,12 +308,6 @@
         ]
       },
       "sampleSignals": [
-        {
-          "title": "Best Kitchen Sink Drain Catcher That Saves Your Pipes! - pacificstreetpizza.com",
-          "source": "Google News",
-          "publishedAt": "2026-10-26T07:00:00.000Z",
-          "url": "https://news.google.com/rss/articles/CBMicEFVX3lxTE1pMWlMV3FZRklXTEVtVWl2WWN1ZjAxZVJpclA1NlRDMkttaEs3RTZMajJ3ZEhsR01odkpYYS1sWGRxSWRrVnRLamRnMjdfSlBuRFZ4cUhYNkt2Wi1HMnFvbW04VUcwU3I3dnhvb2NnWTA?oc=5"
-        },
         {
           "title": "Best Kitchen Sink Food Catcher That Saves Your Drain! - pacificstreetpizza.com",
           "source": "Google News",
