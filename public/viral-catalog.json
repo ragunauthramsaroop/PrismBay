@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-11-26T21:57:40.947Z",
+  "updatedAt": "2026-11-27T09:07:44.666Z",
   "market": "US",
   "methodology": "Public-news attention, freshness, and short-form demonstration fit. This is not PrismBay sales data and is not a TikTok, Amazon, Google, or Bing product ranking.",
   "refreshTargetHours": 6,
@@ -11,7 +11,7 @@
       "signalScore": 87.5,
       "signalLabel": "high-attention",
       "evidence": {
-        "publicMentions": 37,
+        "publicMentions": 36,
         "mentionsLast7Days": 3,
         "mentionsLast30Days": 8,
         "sourcesAvailable": [
@@ -107,7 +107,7 @@
       "signalScore": 72.5,
       "signalLabel": "high-attention",
       "evidence": {
-        "publicMentions": 53,
+        "publicMentions": 48,
         "mentionsLast7Days": 0,
         "mentionsLast30Days": 2,
         "sourcesAvailable": [
@@ -155,7 +155,7 @@
       "signalScore": 71.5,
       "signalLabel": "high-attention",
       "evidence": {
-        "publicMentions": 61,
+        "publicMentions": 60,
         "mentionsLast7Days": 0,
         "mentionsLast30Days": 2,
         "sourcesAvailable": [
@@ -200,10 +200,10 @@
     {
       "slug": "crevice",
       "name": "3-in-1 Crevice Cleaning Brush",
-      "signalScore": 48,
+      "signalScore": 45,
       "signalLabel": "watch",
       "evidence": {
-        "publicMentions": 16,
+        "publicMentions": 14,
         "mentionsLast7Days": 0,
         "mentionsLast30Days": 1,
         "sourcesAvailable": [
@@ -231,16 +231,16 @@
           "url": "https://news.google.com/rss/articles/CBMidEFVX3lxTE9DM29pRVZUOHlXaWUyVHc3c29mR0c0QmNGYUtzZWlqSFdqLXRiOHkwcnN4ZUU4WFNuM0JuYXA3WkFlbWFucHJrLUhQLWtIWG10WmdKQnZ1N2xhQ2NwSE5UcFRiblNjQkpRU1VTeHpUSTNZLTlf?oc=5"
         },
         {
-          "title": "10 Best Tools For Deep Cleaning Your Kitchen - Tasting Table",
-          "source": "Google News",
-          "publishedAt": "2026-04-10T07:00:00.000Z",
-          "url": "https://news.google.com/rss/articles/CBMidkFVX3lxTE92V3lnSDcyVlhvSUJINnN4VU85em51bjBTNFRKU0ltYzNrd3c5YVNMVE1jTmUzMC1tYnM4S1VUQzAtTmVNa2Jha0tNNFFvMlU1ZnkzSHpZVms4MUFiQmF6b2YxRnYydlVob3RoakhnM2t5cW9zRVE?oc=5"
-        },
-        {
           "title": "Amazon Shoppers Bought This $10 Cleaning Tool More Than 2,000 Times Last Month (You'll Use It in Every Room!) - Apartment Therapy",
           "source": "Google News",
           "publishedAt": "2024-06-04T07:00:00.000Z",
           "url": "https://news.google.com/rss/articles/CBMigwFBVV95cUxNaEppZ1kxQmNqdm1LbTVfVTdmMmlkTU0zekl1c1BSdVBmSTZUMi1YUTdfRWlxUlR6ZGlRZEZ1Sk9Uc0JvLTJyUDRHc1hNRnNmRllKTjRvbmxyNlUzcmx4SzlzOWdVRXBQbWxyZ25VX2VlbDJrdmMxU3Z0b0hyXzN5SVpXOA?oc=5"
+        },
+        {
+          "title": "10 Best Tools For Deep Cleaning Your Kitchen - Tasting Table",
+          "source": "Google News",
+          "publishedAt": "2026-04-10T07:00:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMidkFVX3lxTE92V3lnSDcyVlhvSUJINnN4VU85em51bjBTNFRKU0ltYzNrd3c5YVNMVE1jTmUzMC1tYnM4S1VUQzAtTmVNa2Jha0tNNFFvMlU1ZnkzSHpZVms4MUFiQmF6b2YxRnYydlVob3RoakhnM2t5cW9zRVE?oc=5"
         }
       ],
       "rank": 5
@@ -296,10 +296,10 @@
     {
       "slug": "drain-catcher",
       "name": "Sink Drain Catcher 2-Pack",
-      "signalScore": 25.5,
+      "signalScore": 24,
       "signalLabel": "baseline",
       "evidence": {
-        "publicMentions": 5,
+        "publicMentions": 4,
         "mentionsLast7Days": 0,
         "mentionsLast30Days": 0,
         "sourcesAvailable": [
@@ -331,12 +331,6 @@
           "source": "Google News",
           "publishedAt": "2026-10-26T07:00:00.000Z",
           "url": "https://news.google.com/rss/articles/CBMiXEFVX3lxTE5UZGdYVXdhWXlLTkswM1lhZDZtMWJxeXpMZ1RXNmxURzVrMUdieU5FTGwtbW9nUnVVbFdyRklJNUIyS0pvUnU2UmNIZUZTSkktU3lTN2ZERG84N0Rs?oc=5"
-        },
-        {
-          "title": "Best Sink Strainer for Coffee Grounds That Won’t Clog! - pacificstreetpizza.com",
-          "source": "Google News",
-          "publishedAt": "2026-10-27T07:00:00.000Z",
-          "url": "https://news.google.com/rss/articles/CBMieEFVX3lxTE8tTmlIc09qY3JZdUJ0ZGFlU2RQRnJiakV5aHhnRVdMZ0s4Y3dRMDNfN1VFNjkyNkJTRWljQzNsN0NvanRKNmZWc1ROUjhCNmwwTzEtRzRCaTNKUl9ON1k4Rzl4MmNqY0tYamNJX3V0TC1hbmItMmt3LQ?oc=5"
         }
       ],
       "rank": 7
