@@ -1,13 +1,13 @@
 {
   "schemaVersion": 1,
-  "checkedAt": "2026-11-27T04:05:56.683Z",
+  "checkedAt": "2026-11-27T13:45:03.181Z",
   "priority": "paid_sales_from_verified_existing_offers",
   "activeOffer": {
-    "slug": "stakeholder",
-    "title": "Executive Stakeholder Mapping Toolkit",
-    "priceUsd": 49,
-    "guideUrl": "https://clean.prismbayai.com/stakeholder-engagement-plan-template.html?utm_source=github_cloud&utm_medium=owned_educational_content&utm_campaign=organic_stakeholder_83136",
-    "checkoutUrl": "https://buy.stripe.com/4gM8wQ1v8dOj45Ib8QgnK0q?client_reference_id=owned_content_stakeholder"
+    "slug": "whitepaper",
+    "title": "Executive White Paper & Board Briefing System",
+    "priceUsd": 79,
+    "guideUrl": "https://clean.prismbayai.com/board-briefing-white-paper-template.html?utm_source=github_cloud&utm_medium=owned_educational_content&utm_campaign=organic_whitepaper_83138",
+    "checkoutUrl": "https://buy.stripe.com/bJe7sMgq25hNcCe6SAgnK0s?client_reference_id=owned_content_whitepaper"
   },
   "positioning": "baseline",
   "commercialEvidence": {
