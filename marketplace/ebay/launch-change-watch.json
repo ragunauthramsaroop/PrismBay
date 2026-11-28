@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-11-28T02:08:31.043Z",
+  "checkedAt": "2026-11-28T10:17:11.646Z",
   "phase": "BLOCKED",
   "blockers": [
     "ebaySellerAuthenticated",
@@ -11,8 +11,8 @@
   "liveStockVerified": false,
   "dispatchLocationVerified": false,
   "economicsPass": true,
-  "orchestratorCheckedAt": "2026-11-28T01:54:32.456Z",
-  "orchestratorAgeMinutes": 13,
+  "orchestratorCheckedAt": "2026-11-28T10:14:51.526Z",
+  "orchestratorAgeMinutes": 2,
   "orchestratorStale": false,
   "orchestratorNextAction": "Resolve blockers: ebaySellerAuthenticated, liveStockVerified, dispatchLocationVerified",
   "ticketStatus": "EXPIRED",
