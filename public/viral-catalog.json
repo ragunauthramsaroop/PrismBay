@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-11-27T21:39:42.766Z",
+  "updatedAt": "2026-11-28T08:28:48.391Z",
   "market": "US",
   "methodology": "Public-news attention, freshness, and short-form demonstration fit. This is not PrismBay sales data and is not a TikTok, Amazon, Google, or Bing product ranking.",
   "refreshTargetHours": 6,
@@ -8,11 +8,11 @@
     {
       "slug": "garment-steamer",
       "name": "Portable Garment Steamer",
-      "signalScore": 87.5,
+      "signalScore": 81.5,
       "signalLabel": "high-attention",
       "evidence": {
-        "publicMentions": 36,
-        "mentionsLast7Days": 3,
+        "publicMentions": 33,
+        "mentionsLast7Days": 1,
         "mentionsLast30Days": 8,
         "sourcesAvailable": [
           "Google News",
@@ -56,12 +56,12 @@
     {
       "slug": "scrubber",
       "name": "5-in-1 Electric Spin Scrubber",
-      "signalScore": 82,
+      "signalScore": 77.5,
       "signalLabel": "high-attention",
       "evidence": {
-        "publicMentions": 89,
+        "publicMentions": 66,
         "mentionsLast7Days": 1,
-        "mentionsLast30Days": 6,
+        "mentionsLast30Days": 3,
         "sourcesAvailable": [
           "Google News",
           "Bing News"
@@ -102,14 +102,62 @@
       "rank": 2
     },
     {
+      "slug": "mattress-vacuum",
+      "name": "Mattress Vacuum",
+      "signalScore": 71.5,
+      "signalLabel": "high-attention",
+      "evidence": {
+        "publicMentions": 61,
+        "mentionsLast7Days": 0,
+        "mentionsLast30Days": 2,
+        "sourcesAvailable": [
+          "Google News",
+          "Bing News"
+        ]
+      },
+      "sampleSignals": [
+        {
+          "title": "JIMMY BX8 Pro review: A mattress vacuum that earns its spot in the closet - Gadget Flow",
+          "source": "Google News",
+          "publishedAt": "2026-11-18T15:22:43.000Z",
+          "url": "https://news.google.com/rss/articles/CBMiYkFVX3lxTE1taEp3eWFCamxScW1kTFpqRXVrUDN1QmRsekJuSVViM19Gb0o1b3hJUXVFc2pQaEtORUhqTllaWUhLX0syd0dzNlVaMkY1WGdBSTFwRW9fejhfN0k4Q0k0Qk5n?oc=5"
+        },
+        {
+          "title": "I tested the Feppo mattress vacuum, and I was shocked by what it picked up - USA Today",
+          "source": "Google News",
+          "publishedAt": "2026-10-27T07:00:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMingFBVV95cUxPUWxtazNrNEVrQWlPVS14WENZTUFPMjhiSFhpZnhMN3BOQWE2dnNPNk1GMkh0bVJWQ2VYazhEcnl2QmZxb3d1UlB3enBlLUdUa3R4ZTNKYllwUmp3ellMa3JoZmljWE9rX1NuS09qRXV5VjZDMnl5V1ZIZEpqNnYxSkpMQlJwd1FGSGZpN1N6UmNRUE9GcERrZnRnZl91UQ?oc=5"
+        },
+        {
+          "title": "I Finally Got a Bed Vacuum, and Now I’m Never Going to Be Without One Again (and It’s on Sale for Prime!) - Apartment Therapy",
+          "source": "Google News",
+          "publishedAt": "2026-10-06T07:00:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMikAFBVV95cUxNbkpkQUFEYVRYc3gzc0Q0MUdkdE1pb2VORTFxbi1XbXk5OXBDYWg0Rmk3R01ZSUt6ZzNlRzRRWGR2RzRGQ09FQVNJNlZOMHk2eU9zZ0p1c1Q1dHpLbXZLZ29RcDQyX1JDZWpPME1pSlRyOG1XUTV2TlRYcDhLUWpXbFFJQkFvS09tb2YyQi1HYnE?oc=5"
+        },
+        {
+          "title": "Is a Mattress Vacuum the Allergy Solution We’ve Been Needing? I Tested One to Find Out - CNET",
+          "source": "Google News",
+          "publishedAt": "2026-06-27T07:00:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMisAFBVV95cUxQcmFNWEdvTUxuY1RES2k4bXh1T0U2ci1nTHBJRXVud3F4ekF2NHF4NkF4LTlKR3lRWTNObHBGcjUzOGlLNUlHNXd1dGdOQXBYcEN6QllhNGZyVDFja2h1R3AzX1hIaFk4RUpsZ3JQT05Ga2pkelRscFRTaVJ0NFhyX0c3cVllQzIxTXoyeGhKcTNvLUJuRWNLd0g3Si1mYnRoUjEzZExKZGEtUXlsVlV3dQ?oc=5"
+        },
+        {
+          "title": "As a sinusitis sufferer, I implore you to consider Aldi's £19 UV mattress vacuum — it's not about bed bugs, it's about dust - TechRadar",
+          "source": "Google News",
+          "publishedAt": "2026-06-12T07:00:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMi9gFBVV95cUxOOTZqRGZuMWZJTVh2VUhXOHgzMUdhVUhjYTdxeXl6QWVqbkxCb2R2bU45Wl9ERHVFaklYajJWa0JSd2RtdDNpdksyR1IwVV9QeUUyTmcySXJvcnltUDcxazNHaF85ZzZTYnYwNy1yZ1ZjNlhIWGVBRzc2aUtKNDhBbk85UHFueGtRY2JVaXpTMzNxX3dOUl9OazRUVloyVkRscXhwQ2kxSmg4T01BVUZERGlLR3I0b0NhOFJYdVdMTE0xdVY1cjdWYi11MndYbFZZYUpPLVl0LTh2NlhDV3g4aWRYcDZydWtORU01eS1RVWhEZjNQU2c?oc=5"
+        }
+      ],
+      "rank": 3
+    },
+    {
       "slug": "pressure-washer",
       "name": "Cordless Pressure Washer",
-      "signalScore": 72.5,
+      "signalScore": 71,
       "signalLabel": "high-attention",
       "evidence": {
         "publicMentions": 104,
         "mentionsLast7Days": 0,
-        "mentionsLast30Days": 2,
+        "mentionsLast30Days": 1,
         "sourcesAvailable": [
           "Google News",
           "Bing News"
@@ -147,111 +195,15 @@
           "url": "https://news.google.com/rss/articles/CBMimAFBVV95cUxNbzBEcUtteUtoajdvVFFCSnduZllqWlhURUIzR3hoMFMwMWJmZTJveUNuZ0RIbG52VzJzQmhnVlQyVU5xazFhWjI2Vzdxc2ZsNHoyRUd6NXRiWHZPcmhLMjFMZTdfLUtzaGx5eTZlamJjUzgxTDRNcVlIZXBKQ2Q0aGNlaURVeEdScE1MYUQ0aVB2Sk1CZ01iZ9IBngFBVV95cUxPU0RxNW5zeUw0ZlBvM3NoX215SFFWWElmQzRuREJUUUxfWjBma09HSjBOVGVqRC02d2NKN1BxZFdCZ2QwM19vVHZxTHdmdk92bDZUOUZNVUUwYjJreEI3dTF6aWJ5a1ZjU0VTSkU1d29Lc2hKVFNiUmo3SEtHeXRHc2dFamo1THMwbGhyRmxCbmlLdmNITFJBWWs3MmltQQ?oc=5"
         }
       ],
-      "rank": 3
-    },
-    {
-      "slug": "mattress-vacuum",
-      "name": "Mattress Vacuum",
-      "signalScore": 71.5,
-      "signalLabel": "high-attention",
-      "evidence": {
-        "publicMentions": 99,
-        "mentionsLast7Days": 0,
-        "mentionsLast30Days": 2,
-        "sourcesAvailable": [
-          "Google News",
-          "Bing News"
-        ]
-      },
-      "sampleSignals": [
-        {
-          "title": "JIMMY BX8 Pro review: A mattress vacuum that earns its spot in the closet - Gadget Flow",
-          "source": "Google News",
-          "publishedAt": "2026-11-18T15:22:43.000Z",
-          "url": "https://news.google.com/rss/articles/CBMiYkFVX3lxTE1taEp3eWFCamxScW1kTFpqRXVrUDN1QmRsekJuSVViM19Gb0o1b3hJUXVFc2pQaEtORUhqTllaWUhLX0syd0dzNlVaMkY1WGdBSTFwRW9fejhfN0k4Q0k0Qk5n?oc=5"
-        },
-        {
-          "title": "I Finally Got a Bed Vacuum, and Now I’m Never Going to Be Without One Again (and It’s on Sale for Prime!) - Apartment Therapy",
-          "source": "Google News",
-          "publishedAt": "2026-10-06T07:00:00.000Z",
-          "url": "https://news.google.com/rss/articles/CBMikAFBVV95cUxNbkpkQUFEYVRYc3gzc0Q0MUdkdE1pb2VORTFxbi1XbXk5OXBDYWg0Rmk3R01ZSUt6ZzNlRzRRWGR2RzRGQ09FQVNJNlZOMHk2eU9zZ0p1c1Q1dHpLbXZLZ29RcDQyX1JDZWpPME1pSlRyOG1XUTV2TlRYcDhLUWpXbFFJQkFvS09tb2YyQi1HYnE?oc=5"
-        },
-        {
-          "title": "Is a Mattress Vacuum the Allergy Solution We’ve Been Needing? I Tested One to Find Out - CNET",
-          "source": "Google News",
-          "publishedAt": "2026-06-27T07:00:00.000Z",
-          "url": "https://news.google.com/rss/articles/CBMisAFBVV95cUxQcmFNWEdvTUxuY1RES2k4bXh1T0U2ci1nTHBJRXVud3F4ekF2NHF4NkF4LTlKR3lRWTNObHBGcjUzOGlLNUlHNXd1dGdOQXBYcEN6QllhNGZyVDFja2h1R3AzX1hIaFk4RUpsZ3JQT05Ga2pkelRscFRTaVJ0NFhyX0c3cVllQzIxTXoyeGhKcTNvLUJuRWNLd0g3Si1mYnRoUjEzZExKZGEtUXlsVlV3dQ?oc=5"
-        },
-        {
-          "title": "I tested the Feppo mattress vacuum, and I was shocked by what it picked up - USA Today",
-          "source": "Google News",
-          "publishedAt": "2026-10-27T07:00:00.000Z",
-          "url": "https://news.google.com/rss/articles/CBMingFBVV95cUxPUWxtazNrNEVrQWlPVS14WENZTUFPMjhiSFhpZnhMN3BOQWE2dnNPNk1GMkh0bVJWQ2VYazhEcnl2QmZxb3d1UlB3enBlLUdUa3R4ZTNKYllwUmp3ellMa3JoZmljWE9rX1NuS09qRXV5VjZDMnl5V1ZIZEpqNnYxSkpMQlJwd1FGSGZpN1N6UmNRUE9GcERrZnRnZl91UQ?oc=5"
-        },
-        {
-          "title": "As a sinusitis sufferer, I implore you to consider Aldi's £19 UV mattress vacuum — it's not about bed bugs, it's about dust - TechRadar",
-          "source": "Google News",
-          "publishedAt": "2026-06-12T07:00:00.000Z",
-          "url": "https://news.google.com/rss/articles/CBMi9gFBVV95cUxOOTZqRGZuMWZJTVh2VUhXOHgzMUdhVUhjYTdxeXl6QWVqbkxCb2R2bU45Wl9ERHVFaklYajJWa0JSd2RtdDNpdksyR1IwVV9QeUUyTmcySXJvcnltUDcxazNHaF85ZzZTYnYwNy1yZ1ZjNlhIWGVBRzc2aUtKNDhBbk85UHFueGtRY2JVaXpTMzNxX3dOUl9OazRUVloyVkRscXhwQ2kxSmg4T01BVUZERGlLR3I0b0NhOFJYdVdMTE0xdVY1cjdWYi11MndYbFZZYUpPLVl0LTh2NlhDV3g4aWRYcDZydWtORU01eS1RVWhEZjNQU2c?oc=5"
-        }
-      ],
       "rank": 4
-    },
-    {
-      "slug": "pethair",
-      "name": "Reusable Pet Hair Remover",
-      "signalScore": 42.5,
-      "signalLabel": "watch",
-      "evidence": {
-        "publicMentions": 10,
-        "mentionsLast7Days": 1,
-        "mentionsLast30Days": 1,
-        "sourcesAvailable": [
-          "Google News",
-          "Bing News"
-        ]
-      },
-      "sampleSignals": [
-        {
-          "title": "10 Best Cat Hair Remover Tools in 2026 - Reviews & Top Picks - Catster",
-          "source": "Google News",
-          "publishedAt": "2026-11-21T08:24:43.000Z",
-          "url": "https://news.google.com/rss/articles/CBMid0FVX3lxTE9TRHBxazJndGdPZkxWeW5xUGRibHc4aGJjUjBRN2tueTdCU1I1dEx2N1RXSGYteThUejc1cWlBcnNiOGhDYmNYSVVRUk0wN1djTE9Ub2VZYzV5VGJYczFLTHo2MHhWdEpXckdnX3V5U0pyOUNTVFpN?oc=5"
-        },
-        {
-          "title": "If Your Pet Sheds A Lot, You Need At Least One Of These 15 Reviewer-Approved Products - BuzzFeed",
-          "source": "Google News",
-          "publishedAt": "2026-10-20T07:00:00.000Z",
-          "url": "https://news.google.com/rss/articles/CBMimAFBVV95cUxNS1JPT1c5cVFpZFV5T25hU0kzenpnaDM4STZzQWo4Qk9aQXZTc2NSZFlTSmtLS1RCNlpodEt6cWZlNVNQS0d1cVlaQmViZVJpUkpXTmcyb3o0OEh3Y3pLVUtQZnJVZ08td2g3NV9YdkRTVmkxWFJvX1lBdXdKSUVKTUNWSTNybXpQMmZEVnMyOUlYV2xIZ3d5dw?oc=5"
-        },
-        {
-          "title": "Best Prime Big Deal Days Sales on Pet Products - Consumer Reports",
-          "source": "Google News",
-          "publishedAt": "2026-10-07T07:00:00.000Z",
-          "url": "https://news.google.com/rss/articles/CBMiugFBVV95cUxPNUFvYlVIOURkSktJaEk1ZUV3STQtbmhWaU4teXdfZDBvUzR6bFNhX1RBM1h4TEFWUUNaYkgxWjU2bFZXSl9SRnZTbXRtaFJSXzdReWN2N0pzR05pdWxyOVFHTTRKcVE4R29oZlhlU3VLaVRtYXNqWWx0X2JyX091OUluaGJMSWF1YmR6UVMySGxTdk9zczFTY2dMc3ktaDViUUZfMjZMSVp5MkpCQ2VjZTVTcGlFWnBnTUE?oc=5"
-        },
-        {
-          "title": "Uproot Clean Promo Code LOUISAWARWICK10 – Get 10% Off Sitewide on Viral Pet Hair Removal Tools - Muzique Magazine",
-          "source": "Google News",
-          "publishedAt": "2026-05-26T07:00:00.000Z",
-          "url": "https://news.google.com/rss/articles/CBMivAFBVV95cUxNdDdxTXg5VTljRFBmTDlNd0VXaDV5eUJlbHp4NGxpT3RQdk1sUmVhM3RydDJ3OXJGR3dMalAxemlVYjhzT2NZZ2pLYlBSM2F0Rk1zVDNrR2x0NGJyb3FJOUNDY2x0eEVnRk90aGtvdENXX01MMUhSNTIzOEhnZHVHWHByRW1hYmpCa0tTcXc3clBKTjVNMkdkNmR4blJtYng3cVhkRTdoRHBuZEczeWNENUhST0hsY2pRcU9Udw?oc=5"
-        },
-        {
-          "title": "10 Best Lint Rollers for Dog Hair in 2026 – Reviews & Top Picks - Dogster",
-          "source": "Google News",
-          "publishedAt": "2026-07-04T07:00:00.000Z",
-          "url": "https://news.google.com/rss/articles/CBMic0FVX3lxTE4tU0E2SE93Q0pXbFBKY3RfaHNhWEhsVVBpOUVhVXV2SmNHSUkyeUtUNWdwNlYtWEVhcFlhdVJaZ2htTjRrZ21sY0txZmJEa3JMaml6ZnFrSWlVdFhwRGVzaFJnOF9VODllWDhQUEg1dmNYRlE?oc=5"
-        }
-      ],
-      "rank": 5
     },
     {
       "slug": "crevice",
       "name": "3-in-1 Crevice Cleaning Brush",
-      "signalScore": 42,
+      "signalScore": 40.5,
       "signalLabel": "watch",
       "evidence": {
-        "publicMentions": 12,
+        "publicMentions": 11,
         "mentionsLast7Days": 0,
         "mentionsLast30Days": 1,
         "sourcesAvailable": [
@@ -291,17 +243,17 @@
           "url": "https://news.google.com/rss/articles/CBMigwFBVV95cUxNaEppZ1kxQmNqdm1LbTVfVTdmMmlkTU0zekl1c1BSdVBmSTZUMi1YUTdfRWlxUlR6ZGlRZEZ1Sk9Uc0JvLTJyUDRHc1hNRnNmRllKTjRvbmxyNlUzcmx4SzlzOWdVRXBQbWxyZ25VX2VlbDJrdmMxU3Z0b0hyXzN5SVpXOA?oc=5"
         }
       ],
-      "rank": 6
+      "rank": 5
     },
     {
-      "slug": "drain-catcher",
-      "name": "Sink Drain Catcher 2-Pack",
-      "signalScore": 22.5,
-      "signalLabel": "baseline",
+      "slug": "pethair",
+      "name": "Reusable Pet Hair Remover",
+      "signalScore": 39.5,
+      "signalLabel": "watch",
       "evidence": {
-        "publicMentions": 3,
+        "publicMentions": 10,
         "mentionsLast7Days": 0,
-        "mentionsLast30Days": 0,
+        "mentionsLast30Days": 1,
         "sourcesAvailable": [
           "Google News",
           "Bing News"
@@ -309,25 +261,37 @@
       },
       "sampleSignals": [
         {
-          "title": "Best Kitchen Sink Food Catcher That Saves Your Drain! - pacificstreetpizza.com",
+          "title": "10 Best Cat Hair Remover Tools in 2026 - Reviews & Top Picks - Catster",
           "source": "Google News",
-          "publishedAt": "2026-10-26T07:00:00.000Z",
-          "url": "https://news.google.com/rss/articles/CBMib0FVX3lxTFBjYWVKZWd3cTdVSDd0ZWpGMjRNZjZGbkxvSkU3Y3I3VU5RLXpUaVdkcmVmMF8yemFUb3UzeFlfMmVHYUhkek9BMm4zZDlwSGtROWdlSk9Sb3NTcWJhMVpxUHZWOXY4QXIxQ3F1WVVjdw?oc=5"
+          "publishedAt": "2026-11-21T08:24:43.000Z",
+          "url": "https://news.google.com/rss/articles/CBMid0FVX3lxTE9TRHBxazJndGdPZkxWeW5xUGRibHc4aGJjUjBRN2tueTdCU1I1dEx2N1RXSGYteThUejc1cWlBcnNiOGhDYmNYSVVRUk0wN1djTE9Ub2VZYzV5VGJYczFLTHo2MHhWdEpXckdnX3V5U0pyOUNTVFpN?oc=5"
         },
         {
-          "title": "7 reasons your sink won't drain – plus expert tips to unclog a sink like a pro - Homes and Gardens",
+          "title": "If Your Pet Sheds A Lot, You Need At Least One Of These 15 Reviewer-Approved Products - BuzzFeed",
           "source": "Google News",
-          "publishedAt": "2025-06-25T07:00:00.000Z",
-          "url": "https://news.google.com/rss/articles/CBMigAFBVV95cUxPanpVUU5ldG5La1Ryb1hfRnhOZlFRdFpLbkhDLTNSZnlSa3NVbzdOelJPWVAzNjZ5WVZTcDFQZHNfaWg1UHUwdGZ3MWdncHkteklzMlhvODZ6cXZHNldJQ1hlblFxbks5eUEzU1E2QnNOam8td1RTQ3RRcW5xcTB0VQ?oc=5"
+          "publishedAt": "2026-10-20T07:00:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMimAFBVV95cUxNS1JPT1c5cVFpZFV5T25hU0kzenpnaDM4STZzQWo4Qk9aQXZTc2NSZFlTSmtLS1RCNlpodEt6cWZlNVNQS0d1cVlaQmViZVJpUkpXTmcyb3o0OEh3Y3pLVUtQZnJVZ08td2g3NV9YdkRTVmkxWFJvX1lBdXdKSUVKTUNWSTNybXpQMmZEVnMyOUlYV2xIZ3d5dw?oc=5"
         },
         {
-          "title": "Discover the Best Sink Drains for a Clog-Free Kitchen! - pacificstreetpizza.com",
+          "title": "Best Prime Big Deal Days Sales on Pet Products - Consumer Reports",
           "source": "Google News",
-          "publishedAt": "2026-10-26T07:00:00.000Z",
-          "url": "https://news.google.com/rss/articles/CBMiXEFVX3lxTE5UZGdYVXdhWXlLTkswM1lhZDZtMWJxeXpMZ1RXNmxURzVrMUdieU5FTGwtbW9nUnVVbFdyRklJNUIyS0pvUnU2UmNIZUZTSkktU3lTN2ZERG84N0Rs?oc=5"
+          "publishedAt": "2026-10-07T07:00:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMiugFBVV95cUxPNUFvYlVIOURkSktJaEk1ZUV3STQtbmhWaU4teXdfZDBvUzR6bFNhX1RBM1h4TEFWUUNaYkgxWjU2bFZXSl9SRnZTbXRtaFJSXzdReWN2N0pzR05pdWxyOVFHTTRKcVE4R29oZlhlU3VLaVRtYXNqWWx0X2JyX091OUluaGJMSWF1YmR6UVMySGxTdk9zczFTY2dMc3ktaDViUUZfMjZMSVp5MkpCQ2VjZTVTcGlFWnBnTUE?oc=5"
+        },
+        {
+          "title": "Uproot Clean Promo Code LOUISAWARWICK10 – Get 10% Off Sitewide on Viral Pet Hair Removal Tools - Muzique Magazine",
+          "source": "Google News",
+          "publishedAt": "2026-05-26T07:00:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMivAFBVV95cUxNdDdxTXg5VTljRFBmTDlNd0VXaDV5eUJlbHp4NGxpT3RQdk1sUmVhM3RydDJ3OXJGR3dMalAxemlVYjhzT2NZZ2pLYlBSM2F0Rk1zVDNrR2x0NGJyb3FJOUNDY2x0eEVnRk90aGtvdENXX01MMUhSNTIzOEhnZHVHWHByRW1hYmpCa0tTcXc3clBKTjVNMkdkNmR4blJtYng3cVhkRTdoRHBuZEczeWNENUhST0hsY2pRcU9Udw?oc=5"
+        },
+        {
+          "title": "10 Best Lint Rollers for Dog Hair in 2026 – Reviews & Top Picks - Dogster",
+          "source": "Google News",
+          "publishedAt": "2026-07-04T07:00:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMic0FVX3lxTE4tU0E2SE93Q0pXbFBKY3RfaHNhWEhsVVBpOUVhVXV2SmNHSUkyeUtUNWdwNlYtWEVhcFlhdVJaZ2htTjRrZ21sY0txZmJEa3JMaml6ZnFrSWlVdFhwRGVzaFJnOF9VODllWDhQUEg1dmNYRlE?oc=5"
         }
       ],
-      "rank": 7
+      "rank": 6
     },
     {
       "slug": "home-caddy",
@@ -355,6 +319,36 @@
           "source": "Google News",
           "publishedAt": "2026-04-30T07:00:00.000Z",
           "url": "https://news.google.com/rss/articles/CBMivwFBVV95cUxQOXNiQWdmazZNR0M4ZTdUMzNJaHhZN2NSMmZHa0tWTmNnYzE3MGltaUcyNjlrMEdfMnlSbk9RY29ycm4tdmd5Y0wtNk9IMktyTzhmN0ZKTzBLTkloRHhvNlgtM0pIcFE4N2NCSUU2WXE0d0NOUy1WS00zWDdzczlBeFk4b3lvQVhCVXNudU5mbG5nNVlNSVJ2MGctMmhPMFNWMFRDUklIZG9tVFZubTVhX3lZeDhXVjBUSTFmMXFtNNIBxAFBVV95cUxPSGJnSkU3ZHNOYURTUThBaXFWbXREOXJlaXR1NVBUMU1vSDBsZlBGRHBPc2xuU3pURkZ5ekhFcy1VaWN0NUhmdU1OdGZsdy1LZTh4X243Vm9SMERCLUJZeUU2LTlKUF81RFY1Q0wxRm03N1EtYndHZmZrczc1am9xTWttWHk5U1diWGhWd3k3VlRfV0ZHRXNHNHB3bkY5MEg5c1U2aDRmN3R3MHZHSUZNYWpLWDNqTzRqZF9qQTlpazlSRWNz?oc=5"
+        }
+      ],
+      "rank": 7
+    },
+    {
+      "slug": "drain-catcher",
+      "name": "Sink Drain Catcher 2-Pack",
+      "signalScore": 21,
+      "signalLabel": "baseline",
+      "evidence": {
+        "publicMentions": 2,
+        "mentionsLast7Days": 0,
+        "mentionsLast30Days": 0,
+        "sourcesAvailable": [
+          "Google News",
+          "Bing News"
+        ]
+      },
+      "sampleSignals": [
+        {
+          "title": "Best Kitchen Sink Drain Catcher That Saves Your Pipes! - pacificstreetpizza.com",
+          "source": "Google News",
+          "publishedAt": "2026-10-26T07:00:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMicEFVX3lxTE1pMWlMV3FZRklXTEVtVWl2WWN1ZjAxZVJpclA1NlRDMkttaEs3RTZMajJ3ZEhsR01odkpYYS1sWGRxSWRrVnRLamRnMjdfSlBuRFZ4cUhYNkt2Wi1HMnFvbW04VUcwU3I3dnhvb2NnWTA?oc=5"
+        },
+        {
+          "title": "7 reasons your sink won't drain – plus expert tips to unclog a sink like a pro - Homes and Gardens",
+          "source": "Google News",
+          "publishedAt": "2025-06-25T07:00:00.000Z",
+          "url": "https://news.google.com/rss/articles/CBMigAFBVV95cUxPanpVUU5ldG5La1Ryb1hfRnhOZlFRdFpLbkhDLTNSZnlSa3NVbzdOelJPWVAzNjZ5WVZTcDFQZHNfaWg1UHUwdGZ3MWdncHkteklzMlhvODZ6cXZHNldJQ1hlblFxbks5eUEzU1E2QnNOam8td1RTQ3RRcW5xcTB0VQ?oc=5"
         }
       ],
       "rank": 8
