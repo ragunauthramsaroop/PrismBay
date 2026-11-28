@@ -1,14 +1,14 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-11-27T21:40:18.902Z",
+  "generatedAt": "2026-11-28T00:04:28.459Z",
   "researchCandidates": 12,
   "publishedResearchSignals": 12,
   "verifiedCJStatus": {
-    "checkedAt": "2026-11-27T13:55:26.863Z",
+    "checkedAt": "2026-11-28T00:04:27.248Z",
     "validSupplierMatches": 3,
-    "variantStock": 0,
-    "freightEstimates": 0,
-    "countryFreightEstimates": 0,
+    "variantStock": 1,
+    "freightEstimates": 1,
+    "countryFreightEstimates": 1,
     "illustrativeZipFreightEstimates": 0,
     "falseMatches": 0
   },
@@ -28,8 +28,29 @@
       "candidateCount": 6,
       "blockers": [
         {
+          "slug": "scrubber",
+          "status": "supplier_search_needed",
+          "sku": null,
+          "shippingDiagnostic": null,
+          "zeroPricedMethods": 0
+        },
+        {
+          "slug": "pethair",
+          "status": "final_zip_freight_required",
+          "sku": "CJYD207969001AZ",
+          "shippingDiagnostic": "priced_estimate_available",
+          "zeroPricedMethods": 0
+        },
+        {
+          "slug": "crevice",
+          "status": "supplier_search_needed",
+          "sku": null,
+          "shippingDiagnostic": null,
+          "zeroPricedMethods": 0
+        },
+        {
           "slug": "cordless-handheld-vacuum",
-          "status": "variant_stock_required",
+          "status": "fresh_commercial_evidence_required",
           "sku": "CJYD3150294",
           "shippingDiagnostic": "variant_stock_unverified",
           "zeroPricedMethods": 0
@@ -43,30 +64,9 @@
         },
         {
           "slug": "screen-protector",
-          "status": "variant_stock_required",
+          "status": "fresh_commercial_evidence_required",
           "sku": "CJPB2377299",
           "shippingDiagnostic": "variant_stock_unverified",
-          "zeroPricedMethods": 0
-        },
-        {
-          "slug": "scrubber",
-          "status": "supplier_search_needed",
-          "sku": null,
-          "shippingDiagnostic": null,
-          "zeroPricedMethods": 0
-        },
-        {
-          "slug": "pethair",
-          "status": "fresh_commercial_evidence_required",
-          "sku": "CJMY2103657",
-          "shippingDiagnostic": "variant_stock_unverified",
-          "zeroPricedMethods": 0
-        },
-        {
-          "slug": "crevice",
-          "status": "supplier_search_needed",
-          "sku": null,
-          "shippingDiagnostic": null,
           "zeroPricedMethods": 0
         }
       ]
